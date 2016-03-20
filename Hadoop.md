@@ -1,5 +1,5 @@
 # Hadoop 
-A framework for storing and processing big data. Written in java. The logo is a baby elephant. 
+A framework for storing and processing big data. Useful for creating and managing distributed systems, over a network of computers. Written in java. The logo is a baby elephant. 
 
 ![Cute Baby Elephant](https://hadoop.apache.org/docs/r1.0.4/images/hadoop-logo-2.gif "Hadoop Logo") 
 
@@ -24,3 +24,15 @@ These provide the main components of Hadoop: **MapReduce** (Distributed Computat
 A MapReduce program is composed of a Map() method, that reformats data  into a key-value pairs (tuples), and a Reduce() method that combines tuples into smaller sets of tuples. MapReduce framework has a single master **JobTracker** and slave **TaskTracker** per cluster-node.
 
 #### Hadoop Distributed File System
+Provides a system for file management over a distributed system of hundreds of computers.
+
+#### How Hadoop Works
+**Stage 1**: Specify a job, with the location of input and output files, the map reduce functions, and the configurations.
+
+**Stage 2:** The Hadoop job client submits the job (.exe) and configurations to JobTracker which distributes the job to the slaves, while monitoring their status.
+
+**Stage 3:** The TaskTracker on different nodes executes the MapReduce function and stores the output data.
+
+#### Advantages of Hadoop
+* Hadoop framework provides quick writing and testing of distributed systems. 
+* Servers can be added/removed from clusters dynamically without interupting the system.
