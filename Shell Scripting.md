@@ -1,9 +1,11 @@
-```
+
 Shell scripts are sequences of shell commands
-Write script
-Execute `chmod permission script-name` setting execution permissions
-Execute using `sh`, `bash`, `./`
-Shell Scripting
+1. Write script
+2. Execute `chmod permission script-name` setting execution permissions
+3. Execute using `sh`, `bash`, `./`
+
+#Shell Scripting
+```
 myvar=5
 echo $myvar
 echo “hello \c”; whoami    # prints the output of cmd
@@ -12,13 +14,15 @@ expr 1 + 3     # evaluates arithmetic
 read varname     # takes user input, stores in varname
 ls a*.c     # all c files start with letter a
 ls fo?     # all 3 letter files starting with fo
-
-Special variables
+```
+##Special variables
+```
 $?     # special character for error message after cmd, called Exit Status
 $0 is the file name, $1 is first argument, $2 2nd … (all are const vars)
 $# is number of arguments
-
-Redirection of std I/O + Pipes
+```
+## Redirection of std I/O + Pipes
+```
 ls > filename     # outputs to filename
 date >> myfile     # outputs to the end of myfile
 cat < myfile     # cat displays myfile
@@ -26,13 +30,16 @@ sort < sname > sorted_names # first sorts sname, then outputs to sorted_names
 ls | less         # output of ls displays in less
 order of operations: reads left to right, cmd take < input before running
 Filter: If cmd accepts input from standard input and produces standard output
-
-Commands
+```
+## Commands
+```
 tail        displays end of file, -20, -25 display -x number of lines
 head        displays start of file
 ps        show processes, `ps aux` shows all
+```
 
-Structuring Logic
+## Structuring Logic
+```
 `bc` opens bash cmd line
 if condition
 then
@@ -56,8 +63,9 @@ echo "Syntax : $0 number"
 echo "Use to print multiplication table for given number"
 exit 1
 fi
-
-Cron (using crontab)
+```
+## Cron (using crontab)
+```
 min hour day-of-month month d-o-week cmd
 59 12 * * *     # at 12:59 in afternoon, run cmd
 ```
