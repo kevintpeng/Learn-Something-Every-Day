@@ -1,5 +1,6 @@
 
 Shell scripts are sequences of shell commands
+
 1. Write script
 2. Execute `chmod permission script-name` setting execution permissions
 3. Execute using `sh`, `bash`, `./`
