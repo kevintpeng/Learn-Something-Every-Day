@@ -14,7 +14,7 @@ $ vagrant up
 Vagrant uses base images, called "boxes", to clone instead of building virtual machines from scratch everytime. [Hashicorp's Box Catelog](https://atlas.hashicorp.com/boxes/search) has many boxes.
 
 ## Up and SSH
-After `vagrant up`, virtual machine will be running. Run `vagrant ssh` to SSH into the machine. `vagrant destroy` closes the machine.
+After `vagrant up`, virtual machine will be running. Run `vagrant ssh` to SSH into the machine. `vagrant suspend` closes the machine. `vagrant destroy` delete the vm.
 
 ## Synced Folders
 The synced folder on the virtual machine is found in `/vagrant` in root. This is synced to the hosting machine's folder where the `Vagrantfile` is.
