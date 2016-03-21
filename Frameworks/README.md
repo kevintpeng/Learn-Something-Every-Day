@@ -1,2 +1,2 @@
 # Frameworks
-Notes on frameworks for web development.
+Notes on frameworks and tools for web development.
