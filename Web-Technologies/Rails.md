@@ -22,30 +22,37 @@ ORM frameworks follow conventions over configuration, standardization.
 - subclass the ActiveRecord::Base 
 - allows users to map attributes of the subclass directly to columns of the database in object oriented fashion.
 
-5 CRUD: Database Operations
-Create:
-user = User.create(name: “kevin”, job: “programmer”)
-.new creates a new unsaved instance
-Read:
-.all returns collection
-.first returns first
-.find_by(attribute: value) // returns first instance
-.where(attribute: value, attribute: value) // returns all 
-.order(created_at: :desc) //sorts collection by date
-Update:
-.save saves to database
-.update 
-Delete
-.destroy
-6 Validation: 
-in class, validates :name, presence: true
-.valid? checks validity of instance of data
+### 5 CRUD: Database Operations
+#### Create:
+`user = User.create(name: “kevin”, job: “programmer”)`
+
+`#new` creates a new unsaved instance
+
+#### Read:
+- `#all` returns collection
+- `#first` returns first
+- `#find_by(attribute: value) // returns first instance`
+- `#where(attribute: value, attribute: value) // returns all` 
+- `#order(created_at: :desc) //sorts collection by date`
+
+#### Update:
+- `#save` saves to database
+- `update` 
+
+#### Delete
+- `#destroy`
+
+### 6 Validation: 
+in the class file, `validates :name, presence: true`
+
+`#valid?` checks validity of instance of data
 only validates when using create, save, update
-.valid?
+```ruby
 class Person < ActiveRecord::Base
   validates :name, presence: true
 end
- 
+```
+```ruby
 >> p = Person.new
 # => #<Person id: nil, name: nil>
 >> p.errors.messages
@@ -55,27 +62,35 @@ end
 # => false
 >> p.errors.messages
 # => {name:["can't be blank"]}
+```
+#### Helpers 
+`validates :terms_of_service, acceptance: true`
 
-Helpers 
-validates :terms_of_service, acceptance: true
-validates_associated :subclass calls valid? on associated objects
-presence: true
-uniqueness: true //searches model table for existed record
-format: { with: /regex/, message: “custom error message, optional” }
+`validates_associated :subclass calls valid?` on associated objects
 
-7 Callbacks
+`presence: true`
+
+`uniqueness: true //searches model table for existed record`
+
+`format: { with: /regex/, message: “custom error message, optional” }`
+
+### 7 Callbacks
 Active Record callbacks attach code to a certain event in the life cycle.
-7.1 Object Life Cycle
+#### 7.1 Object Life Cycle
 Objects are created, updated and destroyed.
+
 Callbacks allow logic to be executed before or after alterations to an object’s state.
-7.2 Callback Overview
+#### 7.2 Callback Overview
 in model class, 
+```ruby
 before_validation :function // def function within class
 protected
 def function
         self.name = self.name.downcase
 end
-7.3.1 Creating an Object
+```
+#### 7.3.1 Creating an Object
+```
 before_validation
 after_validation
 before_save
@@ -85,7 +100,9 @@ around_create
 after_create
 after_save
 after_commit/after_rollback
-7.3.2 Updating an Object
+```
+#### 7.3.2 Updating an Object
+```
 before_validation
 after_validation
 before_save
@@ -95,13 +112,16 @@ around_update
 after_update
 after_save
 after_commit/after_rollback
-7.3.3 Destroying an Object
+```
+#### 7.3.3 Destroying an Object
+```
 before_destroy
 around_destroy
 after_destroy
 after_commit/after_rollback
-
-Conditional Callbacks
+```
+#### Conditional Callbacks
+```ruby
 class Order < ActiveRecord::Base
   before_save :normalize_card_number, if: :paid_with_card?
 end
@@ -113,24 +133,28 @@ class PictureFileCallbacks
     end
   end
 end
-The called by the model:
+```
+Then called by the model:
+```ruby
 class PictureFile < ActiveRecord::Base
   after_destroy PictureFileCallbacks.new
 end
-
-8 Migrations
+```
+### 8 Migrations
 Domain-specific language for maintaining the database schema called migrations. Migrations are executed against an Active Record database using rake.
+
 Allows alteration of database schema over time
-$ bin/rails generate migration migration_name
-http://edgeguides.rubyonrails.org/active_record_migrations.html
-For specifics in writing migrations
-Changing Existing Migrations
-rake db:rollback will revert changes so you can edit. Preferably create new migrations to fix changes.
-Schema Dumping
+
+`$ bin/rails generate migration migration_name`
+
+[For specifics in writing migrations](http://edgeguides.rubyonrails.org/active_record_migrations.html)
+#### Changing Existing Migrations
+`rake db:rollback` will revert changes so you can edit. Preferably create new migrations to fix changes.
+#### Schema Dumping
 Schema represents the current state of the database and should not be edited.
 
-Layouts And Views
-2 Creating Responses
+## Layouts And Views
+### 2 Creating Responses
 Controller handles requests in rails.
 Three ways to create HTTP response:
     Call render to create a full response for the browser
