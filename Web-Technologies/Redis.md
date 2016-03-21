@@ -4,7 +4,8 @@ Redis is a data store, useful for simplifying a system, increasing responsivenes
 Redis is a data structures server, using key-value storage format (like hashes) with support for different types of values. Redis can hold more complex data structures than regular key-value stores.
 
 ## Advantages of Redis 
-It doesn't have to replace elements of the current tech stack, it can be **added to the current stack**. 
- 
+- It doesn't have to replace elements of the current tech stack, it can be **added to the current stack**. 
+- Disk persistent memory makes data retrieval much faster than SQL and NoSQL data stores.
 
 [source](http://oldblog.antirez.com/post/take-advantage-of-redis-adding-it-to-your-stack.html)
+ 
