@@ -1,6 +1,10 @@
-
 # Vagrant 
 Command line utility for building and managing virtual machines. Used in conjunction with shell scripts to automatically build consistent and iscol development environments.
+
+## Benefits of Vagrant
+- Can launch many things, VirtualBox, VMware, AWS, OpenStack ...
+- Vagrant is consistent across platforms because it is entirely iscolated.
+
 
 ## Setup
 ```
