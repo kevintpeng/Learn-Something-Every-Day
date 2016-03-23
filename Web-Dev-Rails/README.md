@@ -18,8 +18,8 @@ ORM frameworks follow conventions over configuration, standardization.
 #### Naming
 - pluralize class name to get database table name 
 - class: Article, table: articles
-- Foreign keys: singularizedname_id // relating object to others, points to primary key in other table
-- Primary keys: integer column named id //auto generated identification for an object
+- Foreign keys: `singularizedname_id` relating object to others, points to primary key in other table
+- Primary keys: `integer column named id` auto generated identification for an object
 
 ### 3 Creating Active Record Models
 - subclass the ActiveRecord::Base 
@@ -86,11 +86,11 @@ Callbacks allow logic to be executed before or after alterations to an object’
 #### 7.2 Callback Overview
 in model class, 
 ```ruby
-before_validation :function // def function within class
+before_validation :function # def function within class
 protected
-def function
-        self.name = self.name.downcase
-end
+  def function
+    self.name = self.name.downcase
+  end
 ```
 #### 7.3.1 Creating an Object
 ```
