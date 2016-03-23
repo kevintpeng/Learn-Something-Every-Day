@@ -14,6 +14,7 @@ The following steps can be followed as an example for contributing to Rails:
 - `git checkout -b my_new_branch` create new branch for local changes
 - `bundle install` install dependencies and gems
 - `bundle exec rails new ~/my-test-app --dev` creates dummy application to test changes. `--dev` uses your branch
+- `bundle exec rake test` in a specific file will run tests for a component
 
 ## Pull Requests
 After making changes to a repository, a **pull request** is made, requesting that code changes are merged to the central repository. After your changes are in a forked repository. It is good practice to **squash commits** into one commit, using `git rebase`.
