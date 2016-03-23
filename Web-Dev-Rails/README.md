@@ -1,4 +1,5 @@
 # Rails
+Below is the basics of rails. Contained in the folder is in-depth notes on components or dependencies of rails.
 ## Model and ActiveRecord
 ### 1 ActiveRecord
 - Active Record is the model layer in MVC, represents data and logic.
