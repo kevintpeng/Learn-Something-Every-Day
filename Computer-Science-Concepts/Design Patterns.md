@@ -33,7 +33,10 @@ Iterator pattern is trivial: it allows you to to go through a list of objects.
 Command pattern is a logic structure of code, where the code progresses based on commands recieved.
 
 ## Observer
-Very popular, the observer pattern
+Very popular, the observer pattern has an *observable* which is some data, and *observers* whose state is dependent on an observable. An array of data is the observable, a table and histogram are the observers.
+
+## Composite
+A list that may contain objects or more lists. Example is a file system.
 
 ## Object Oriented Design Patterns
 Structural patterns that shows relationships and interactions between classes or objects, without specifying the final application/classes. See [object oriented principles](Object Oriented Principles.md).
