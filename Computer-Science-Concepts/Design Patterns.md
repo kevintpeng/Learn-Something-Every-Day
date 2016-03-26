@@ -37,3 +37,5 @@ Very popular, the observer pattern
 
 ## Object Oriented Design Patterns
 Structural patterns that shows relationships and interactions between classes or objects, without specifying the final application/classes. See [object oriented principles](Object Oriented Principles.md).
+
+[source](https://en.wikibooks.org/wiki/Introduction_to_Software_Engineering/Architecture/Design_Patterns)
