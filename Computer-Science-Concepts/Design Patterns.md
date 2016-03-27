@@ -43,6 +43,6 @@ Structural patterns that shows relationships and interactions between classes or
 
 ### Template method design pattern
 - Parent class has high-level recipe that is the same for children
-<-- recipe has sub -->
+<!-- recipe has sub -->
 
 [source](https://en.wikibooks.org/wiki/Introduction_to_Software_Engineering/Architecture/Design_Patterns)
