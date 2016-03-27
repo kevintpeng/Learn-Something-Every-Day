@@ -41,4 +41,8 @@ A list that may contain objects or more lists. Example is a file system.
 ## Object Oriented Design Patterns
 Structural patterns that shows relationships and interactions between classes or objects, without specifying the final application/classes. See [object oriented principles](Object Oriented Principles.md).
 
+### Template method design pattern
+- Parent class has high-level recipe that is the same for children
+<-- recipe has sub -->
+
 [source](https://en.wikibooks.org/wiki/Introduction_to_Software_Engineering/Architecture/Design_Patterns)
