@@ -6,6 +6,24 @@ SSH keys are a way to identify trusted machines without involving passwords. SSH
 
 `ssh-keygen -t rsa -b 4096 -C "ktpeng@uwaterloo.ca"` Creates a new ssh key using email as a label. Follow prompts.
 
+### Adding 
+- `eval "$(ssh-agent -s)"` ensures ssh-agent is enabled.
+- `ssh-add ~/.ssh/filename`
+
+### Add to GitHub
+- Navigate to Settings/ssh keys
+- open ~/.ssh/id_rsa, copy 
+
+To copy to clipboard:
+```
+$ sudo apt-get install xclip
+# Downloads and installs xclip. If you don't have `apt-get`, you might need to use another installer (like `yum`)
+
+$ xclip -sel clip < ~/.ssh/id_rsa.pub
+# Copies the contents of the id_rsa.pub file to your clipboard
+```
+
+
 ### Checking existing SSH keys
 `ls -al ~/.ssh` checks for existing SSH keys.
 
