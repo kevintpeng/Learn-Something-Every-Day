@@ -9,3 +9,6 @@ Specifies sets of filenames using wildcard characters. Used in unix terminal for
 `[a-z]`         | matches one char in range | 
 `[!abc]`        | matches one char not in given |
 [!a-z]`         |                               |
+
+- in some cases (gitignore) you can start patterns with a foward slash `/` to avoid recursivity
+- end a pattern with `/` to match directories
