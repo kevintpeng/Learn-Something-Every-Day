@@ -72,5 +72,13 @@ DROP TABLE "tablename"
 ```
 deletes all records AND the table.
 
+# Advanced Selecting
+SQL is powerful for selecting groups of records quickly. `DISTINCT` selects unique records:
+```SQL
+SELECT DISTINCT column1 FROM tablename
+```
+### Aggregate Functions
+For numeric columns, `MIN`, `MAX`, `SUM`, `AVG`, `COUNT` (returns # of values in column)
+
 [source1](http://www.sqlcourse.com/)
 [source2](http://www.sqlcourse2.com/)
