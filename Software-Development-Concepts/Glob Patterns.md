@@ -1,5 +1,5 @@
 # glob
-Specifies sets of filenames using wildcard characters.
+Specifies sets of filenames using wildcard characters. Used in unix terminal for specifying groups of files. Notably used in `.gitignore`.
 
 **Wildcard**    | **Description**   | **Example**
 ----------------|-------------------|-------------
