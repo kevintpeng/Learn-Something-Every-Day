@@ -7,7 +7,7 @@ Various open source projects use different tools for managing distributed develo
 - Continuous Integration 
 
 ## Version Control
-Is an integral part of open source projects. Includes *git, svn, and mercurial*. I use git. Github and Bitbucket host central repositories for developers to contribute to.
+Is an integral part of open source projects. Includes *git, svn, and mercurial*. I use git. Github and Bitbucket host central repositories for developers to contribute to. See [git](Git.md)
 
 The following steps can be followed as an example for contributing to Rails:
 - `git clone https://github.com/rails/rails.git` clone repo
