@@ -31,7 +31,7 @@ Data types take a size argument.
 `char()` (max 255 bytes), `varchar()` (no max), `number()` (size specifies # of digits), `date`, `number(size,d)` (d specifies # of decimal points.
 
 #### Constraints
-A rule associated with a column that the data entered must follow. A `UNIQUE` constraint specifies that no two records can share a value. `NOT NULL`, `PRIMARY KEY` defines unique identifier.
+A rule associated with a column that the data entered must follow. A `UNIQUE` constraint specifies that no two records can share a value. `NOT NULL`, `PRIMARY KEY` defines unique identifier (like `id` fields).
 
 ### Inserting into Table
 ```SQL
@@ -42,6 +42,7 @@ INSERT INTO employee
 ```
 
 ### Updating Records
+Update all records that match a condition.
 ```SQL
 UPDATE "tablename"
 SET "columnname" = 
@@ -53,5 +54,23 @@ WHERE "columnname"
  [AND|OR "column" 
   OPERATOR "value"];
 ```
+[] = optional
 
-[source](http://www.sqlcourse.com/)
+### Deleting Records
+```SQL
+DELETE FROM "tablename"
+
+WHERE "columnname" 
+  OPERATOR "value" 
+[and|or "column" 
+  OPERATOR "value"];
+```
+[] = optional
+
+```SQL
+DROP TABLE "tablename"
+```
+deletes all records AND the table.
+
+[source1](http://www.sqlcourse.com/)
+[source2](http://www.sqlcourse2.com/)
