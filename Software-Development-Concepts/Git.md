@@ -39,6 +39,12 @@ $ git log --pretty=format:"%h %s" --graph
 * d6016bc require time for xmlschema
 *  11d191e Merge branch 'defunkt' into local
 ```
+
+## Undoing Changes
+`git commit --amend` will add changes to the previous commit (second, new commit overwrites first). 
+
+`git reset HEAD <filename>` unstages a file.
+
 ## Git Remote
 Manages remote connections, for pushing and pulling code changes between your local repository and a central repository hosted on sites like GitHub and BitBucket.
 ```
@@ -57,5 +63,8 @@ $ git remote show origin
 - `git fetch origin` fetches any changes in the server since you last fetched. It does not automatically merge.
 - `git pull origin` fetches and merges from the remote branch to current branch.
 - `git push origin master` pushes your changes to the origin repo from the `master` branch
+
+## Git Branching
+`git branch testing` creates a new "testing" branch.
 
 [source](https://git-scm.com/doc)
