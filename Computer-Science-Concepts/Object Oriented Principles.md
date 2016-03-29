@@ -71,3 +71,15 @@ Handles freeing memory, and is *implicitly* called when an objects scope is exit
 1. Objects to be shared should be declared on the heap using a ptr.
 2. Need clear "owner", who is responsible for deletion in dtor.
 3. "owner" needs protocol for transferring ownership.
+ 
+### Generics and Templates
+C++ *templates* are the C++ language mechanism that can be used to implement *generic* functions and classes. Type generic swap function:
+
+```C++
+template <typename T>
+void mySwap(T &x, T &y){
+    const T temp = x;
+    x=y;
+    y=temp;
+}
+```
