@@ -25,3 +25,5 @@ Some app servers directly have access to the internet via port 80 while most oth
 - **Puma** also forked from Mongrel, Puma is designed to be purely multi-threaded, no builtin cluster support.
 
 More reading at [I/O Concurrency Models](IO Concurrency Models.md)
+
+[Capistrano](Dev-Ops/Capistrano.md) is used for automating the "deployment" process.
