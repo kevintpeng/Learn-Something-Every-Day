@@ -47,7 +47,7 @@ $ git log --pretty=format:"%h %s" --graph
 
 ## Git Remote
 Manages remote connections, for pushing and pulling code changes between your local repository and a central repository hosted on sites like GitHub and BitBucket.
-```
+```shell
 $ git remote add origin https://github.com/user/repo.git
 # Set a new remote named origin (origin is also the default name for remote connection after being cloned)
 
@@ -86,7 +86,7 @@ Checking out a local branch from a remote-tracking branch automatically creates 
 
 ### Rebasing
 `merge` and `rebase` integrate changes from one branch to another. Rebasing is "rewinding" a branch, and "replaying" each commit one by one in the master branch, starting with their common ancestor:
-```sh
+```
 $ git checkout experiment
 $ git rebase master
 First, rewinding head to replay your work on top of it...
