@@ -1,4 +1,4 @@
-# SQL
+# Structured Query Language (SQL)
 A language for communicating with databases. SQL databases organize information in tables, where the rows are the data. SQL is case-insensitive, when displayed in many consoles like the `rails console`, keywords will be capitalized.
 
 ### Selecting Data
@@ -54,7 +54,7 @@ WHERE "columnname"
  [AND|OR "column" 
   OPERATOR "value"];
 ```
-[] = optional
+[ ] = optional
 
 ### Deleting Records
 ```SQL
@@ -65,7 +65,7 @@ WHERE "columnname"
 [and|or "column" 
   OPERATOR "value"];
 ```
-[] = optional
+[ ] = optional
 
 ```SQL
 DROP TABLE "tablename"
@@ -80,5 +80,16 @@ SELECT DISTINCT column1 FROM tablename
 ### Aggregate Functions
 For numeric columns, `MIN`, `MAX`, `SUM`, `AVG`, `COUNT` (returns # of values in column)
 
+Example: Find highest paid employees in each department:
+```SQL
+SELECT max(salary), dept
+FROM employee 
+GROUP BY dept;
+```
+
+### HAVING clause
+`HAVING` follows a `GROUP BY` clause that specifies a condition to filter out rows after *aggregations* (not to be confused with `WHERE` which introduces a condition on *individual rows*).
+
 [source1](http://www.sqlcourse.com/)
+
 [source2](http://www.sqlcourse2.com/)
