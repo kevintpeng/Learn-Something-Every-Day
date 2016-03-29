@@ -90,6 +90,27 @@ GROUP BY dept;
 ### HAVING clause
 `HAVING` follows a `GROUP BY` clause that specifies a condition to filter out rows after *aggregations* (not to be confused with `WHERE` which introduces a condition on *individual rows*).
 
+### ORDER BY clause
+`ORDER BY` is optional clause which allows displayed results of query to be sorted.
+```SQL
+SELECT column1, SUM(column2) 
+FROM "list-of-tables" 
+ORDER BY "column-list" [ASC | DESC];
+```
+
+### In & Between
+```SQL
+SELECT employeeid, lastname, salary
+FROM employee_info
+WHERE lastname IN ('Hernandez', 'Jones', 'Roberts', 'Ruiz');
+```
+```SQL
+SELECT employeeid, lastname, salary
+FROM employee_info
+WHERE lastname = 'Hernandez' OR lastname = 'Jones' OR lastname = 'Roberts'
+OR lastname = 'Ruiz';
+```
+
 [source1](http://www.sqlcourse.com/)
 
 [source2](http://www.sqlcourse2.com/)
