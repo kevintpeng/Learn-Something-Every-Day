@@ -99,16 +99,33 @@ ORDER BY "column-list" [ASC | DESC];
 ```
 
 ### In & Between
+`IN` is a conditional operator that is a set membership. 
 ```SQL
 SELECT employeeid, lastname, salary
 FROM employee_info
 WHERE lastname IN ('Hernandez', 'Jones', 'Roberts', 'Ruiz');
 ```
+`BETWEEN` is a conditional operator for a range.
 ```SQL
-SELECT employeeid, lastname, salary
+SELECT employeeid, age, lastname, salary
 FROM employee_info
-WHERE lastname = 'Hernandez' OR lastname = 'Jones' OR lastname = 'Roberts'
-OR lastname = 'Ruiz';
+WHERE age BETWEEN 30 AND 40;
+```
+
+### Table Joins
+A join is selecting from multiple tables: `FROM table1, table2`. Table joins are an integral part of relational databases. If you have customers making purchases, one table would be wasteful, since customer information would be copied for each purchase.
+
+For tables `customers` and `purchases`, an *inner join* would look like:
+```SQL
+SELECT customers.first, customers.last, purchases.item
+FROM customers, purchases
+WHERE customers.customer_id = purchases.customer_id;
+```
+Or the proper/equivalent syntax (add `INNER JOIN` and replace `WHERE` with `ON`:
+```SQL
+SELECT customers.first, customers.last, purchases.item
+FROM customers INNER JOIN purchases
+ON customers.customer_id = purchases.customer_id;
 ```
 
 [source1](http://www.sqlcourse.com/)
