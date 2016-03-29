@@ -128,6 +128,9 @@ FROM customers INNER JOIN purchases
 ON customers.customer_id = purchases.customer_id;
 ```
 
+### Table Union
+`UNION` puts rows from 2 queries after each other. `UNION` requires both queries to share columns.
+
 [source1](http://www.sqlcourse.com/)
 
 [source2](http://www.sqlcourse2.com/)
