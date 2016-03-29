@@ -23,3 +23,5 @@ Some app servers directly have access to the internet via port 80 while most oth
 - **Unicorn** is a fork of Mongrel, supports limited process monitoring, automatic restart, single threaded. Allows all processes to listen on a shared socket.
 - **Thin** uses the event I/O concurrency model, each process uses its own socket.
 - **Puma** also forked from Mongrel, Puma is designed to be purely multi-threaded, no builtin cluster support.
+
+More reading at [I/O Concurrency Models](IO Concurrency Models.md)
