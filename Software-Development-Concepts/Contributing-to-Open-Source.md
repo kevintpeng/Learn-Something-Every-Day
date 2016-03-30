@@ -19,7 +19,7 @@ The following steps can be followed as an example for contributing to Rails:
 ## Pull Requests
 After making changes to a repository, a **pull request** is made, requesting that code changes are merged to the central repository. After your changes are in a forked repository. It is good practice to **squash commits** into one commit, using `git rebase`.
 
-More on [Pull Requests](Software-Development-Concepts/Pull Requests.md)
+More on [Pull Requests](Pull Requests.md)
 
 ## Isolated Dev/Test environments
 Projects often have a standardized developer environment for core development, using a DevOps tool like Docker or Vagrant, for various cases.
