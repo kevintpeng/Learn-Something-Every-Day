@@ -1,5 +1,5 @@
 # Web Servers
-Serve static files, but with the right modules, can also serve dynamic web apps. [Apache](Web-Technologies/Apache.md) is more popular with more features, [NGINX](Web-Technologies/NGINX.md) is faster with less features. Neither can serve Ruby web apps out-of-the-box and need additional modules.
+Serve static files, but with the right modules, can also serve dynamic web apps. [Apache](../Web-Technologies/Apache.md) is more popular with more features, [NGINX](../Web-Technologies/NGINX.md) is faster with less features. Neither can serve Ruby web apps out-of-the-box and need additional modules.
 
 Apache and NGINX can also act as reverse proxies meaning they can take incoming HTTP requests and forward it to another server, which also speaks HTTP. 
 
@@ -12,7 +12,7 @@ Mongrel is a Ruby "application server":
 3. Ruby web app returns an object which describes what the HTTP response should look like, Mongrel converts it to an actual HTTP response and sends it back over the socket.
 
 Mongrel is dated, and newer comparable application servers are:
-- [Unicorn](Web-Technologies/Unicorn.md)
+- [Unicorn](../Web-Technologies/Unicorn.md)
 - Puma
 - Thin
 - Phusion Passenger
@@ -28,4 +28,4 @@ Some app servers directly have access to the internet via port 80 while most oth
 
 More reading at [I/O Concurrency Models](IO Concurrency Models.md)
 
-[Capistrano](Dev-Ops/Capistrano.md) is used for automating the "deployment" process.
+[Capistrano](../Dev-Ops/Capistrano.md) is used for automating the "deployment" process.
