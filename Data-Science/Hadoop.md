@@ -1,5 +1,5 @@
 # Hadoop 
-A framework for storing and processing big data. Useful for creating and managing distributed systems, over a network of computers. Written in java. The logo is a baby elephant. 
+A framework for storing and processing big data. Mainly for batch processing. Useful for creating and managing distributed systems, over a network of computers. Provides many useful layers, like a file system (HDFS) and the MapReduce algorithm. Written in java. The logo is a baby elephant. 
 
 ![Cute Baby Elephant](https://hadoop.apache.org/docs/r1.0.4/images/hadoop-logo-2.gif "Hadoop Logo") 
 
