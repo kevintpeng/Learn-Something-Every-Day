@@ -21,4 +21,4 @@ Vagrant uses base images, called "boxes", to clone instead of building virtual m
 After `vagrant up`, virtual machine will be running. Run `vagrant ssh` to SSH into the machine. `vagrant suspend` closes the machine. `vagrant destroy` delete the vm.
 
 ## Synced Folders
-The synced folder on the virtual machine is found in `/vagrant` in root. This is synced to the hosting machine's folder where the `Vagrantfile` is on the host machine.
+The synced folder on the virtual machine is found in `/vagrant` in root. This is synced to the hosting machine's folder where the `Vagrantfile` is on the host machine. Clone the project to the folder with `Vagrantfile` on host.
