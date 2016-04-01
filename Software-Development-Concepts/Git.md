@@ -97,4 +97,16 @@ $ git merge experiment
 ```
 Makes a cleaner history, especially for open source projects which you don't maintain. 
 
+## GitHub Config
+On a somewhat unrelated note, here is GitHub configurations:
+```bash
+git config --global color.ui true
+git config --global user.name "YOUR NAME"
+git config --global user.email "YOUR@EMAIL.com"
+ssh-keygen -t rsa -C "YOUR@EMAIL.com"
+```
+Input your account values. Then go [to github ssh](https://github.com/settings/ssh) and click new SSH key.
+
+Copy the output of `cat ~/.ssh/id_rsa.pub` and paste on GitHub.
+
 [source](https://git-scm.com/doc)
