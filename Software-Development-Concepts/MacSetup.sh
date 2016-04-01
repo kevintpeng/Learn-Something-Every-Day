@@ -23,6 +23,18 @@ echo SCRIPT: Starting HomeBrew install
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
 
+echo SCRIPT: Downloading rvm and rails
+brew install rbenv ruby-build
+
+# Add rbenv to bash so that it loads every time you open a terminal
+echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+source ~/.bash_profile
+
+# Install Ruby
+rbenv install 2.2.3
+rbenv global 2.2.3
+ruby -v
+
 echo SCRIPT: Downloading Node and npm
 export PATH="/usr/local/bin:$PATH"  # temporarily adds path var
 brew install node
