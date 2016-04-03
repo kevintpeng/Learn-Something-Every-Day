@@ -59,3 +59,10 @@ Each slot has a bucket of elements. Hash Table is a list-of-lists, called **open
 With K buckets and N records:
 - Best case: no collisions, O(1) lookup
 - Worst case: all inputs hash to same index, O(N) lookup
+
+### Hashing Algorithms
+Perfect hashing is an injective function that maps every input to a distinct output. It is a *minimal* perfect hashing function if it can map n keys to n distinct hash values. 
+
+With information about the data or its distribution, one can design a huristic function that performs better for the special case of data. For example if the data is mostly sequential, then taking an integer representation of the data and modding it will yield a very good distribution.
+
+With a **universal hashing** algorithm, the collision chance should be exactly 1/n for n buckets, regardless of key similarity. Will perform worse than a perfect hashing algorithm catered for a specific set of data.
