@@ -55,3 +55,6 @@ Brief
  - Manipulation of power series (integrate, differentiate, divide by x)
  - Multiplying power series is messy without Big O
 
+## Post Midterm
+- Graphing scalar fields
+- 
