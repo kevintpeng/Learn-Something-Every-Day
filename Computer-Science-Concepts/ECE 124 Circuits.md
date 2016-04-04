@@ -37,3 +37,21 @@ Start with informal specification of desired system
 
 ### Asynchronous Sequential Circuits
 Brief
+
+
+# MATH 119
+## Pre midterm
+- Taylor Series
+ - Taylor polynomials and Taylor's Inequality
+ - Big O suste,
+- Basic Series
+ - sinx = sum((-1)^k * x^(2k+1)) / (2k+1)!
+ - cosx = sum((-1)^k * x^(2k)) / (2k)!
+ - e^x = sum (x^k/k!)
+ - 1/(1-x)
+- Convergence of infinite series 
+- Power series
+ - Radius and Interval of Convergence (when the power series converges to the exact value of the function)
+ - Manipulation of power series (integrate, differentiate, divide by x)
+ - Multiplying power series is messy without Big O
+
