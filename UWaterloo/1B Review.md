@@ -1,9 +1,10 @@
-# Combinational Circuits (Part 1)
+# ECE 124
+## Pre Midterm: Combinational Circuits (Part 1)
 - boolean algebra
 - switching algebra
 - k-maps
 
-# Sequential Systems (Part 2)
+## Post Midterm: Sequential Systems (Part 2)
 - edge-triggered vs latch-triggered
 - flip-flops can store data by feeding their outputs into its input
  
@@ -56,5 +57,8 @@ Brief
  - Multiplying power series is messy without Big O
 
 ## Post Midterm
-- Graphing scalar fields
-- 
+- Graphing scalar fields (don't worry about level curves and cross sections)
+- Partial derivatives (fx, fy, fxx, fxy, fyy)
+- Two-variable Taylor Series with linear approximation (tangent plane)
+- Differentials
+- Parametric Equations (vector fields, vector functions)
