@@ -11,3 +11,9 @@ To understand Markov Chain, need some probability theroy background:
 ## A Famous Example
 Drunkard's Walk is a Markov Chain, where you randomly walk +1 or -1 on a number line with equal (0.5) probability. It does not depend on how you got to the current number, the probability of +1 or -1 is always equal.
 
+## Formal Definition
+A Markov chain is a sequence of random variables X1, X2, X3 ... with the Markov property (the porbability of moving to the next state depends only on the present state and not previous states):
+```
+Pr(Xn+1 = x | X1 = x1, X2 = x2, ..., Xn = xn) = Pr(Xn+1 = x | Xn = xn)
+In other words, state n+1 is only dependent on state n
+```
