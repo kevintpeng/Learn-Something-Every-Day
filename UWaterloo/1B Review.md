@@ -62,3 +62,14 @@ Brief
 - Two-variable Taylor Series with linear approximation (tangent plane)
 - Differentials
 - Parametric Equations (vector fields, vector functions)
+- vector function r(t) = (x(t), y(t))
+- velocity vector r'(t) = (x'(t), y'(t)), acceleration vector r"(t) = (x"(t), y"(t))
+- Chain Rule with trees
+- Gradiant vector ∇f = (fx, fy) ( think of it as the derrivative of a field )
+ - can find greatest slope is in the direction of ∇f(a,b)
+ - greatest slope is ||∇f(a,b)||
+ - can be used to find critical points
+- Unconstrained optimization (critical points and **classification**, know the formula)
+- Constrained optimization ( optimization in a closed region ) ∇f = λ∇g
+- Double/Triple integration
+ - Change of variable, coordinate systems
