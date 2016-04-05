@@ -68,9 +68,11 @@ With information about the data or its distribution, one can design a huristic f
 With a **universal hashing** algorithm, the collision chance should be exactly 1/n for n buckets, regardless of key similarity. Will perform worse than a perfect hashing algorithm catered for a specific set of data.
 
 #### Multiplicative Hashing
-The hash index is computed as the hash value multiplied by some large value. Works well for the same reason linear congruences generate seemingly random numbers.
-```C++
+The hash index is computed as the hash value multiplied by some large value. Works well for the same reason linear congruences generate seemingly random numbers. 
+```ruby
+hash = some_prime
 K = 33; // or 31 or 27
-hash = some_prime;
-hash = (hash * K) + character;
+word.each do |character|
+    hash = (hash * K) + character
+end
 ```
