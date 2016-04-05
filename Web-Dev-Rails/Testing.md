@@ -56,7 +56,18 @@ test "should create article" do
 end
 ```
 
-Views can be tested using `assert_select`.
+Views can be tested using `assert_select` to verify HTML content on page:
+```ruby 
+assert_select 'title', "Welcome to Rails Testing Guide"
+```
+`assert_select(selector, [equality], [message])` ensures that the equality condition is met on the selected elements through the selector. The selector may be a CSS selector expression (String) or an expression with substitution values.
 
-[source: Comparing MiniTest to other frameworks](https://speakerdeck.com/ahawkins/bow-before-minitest)
-[source: Rails testing guide](http://guides.rubyonrails.org/testing.html)
+`assert_select(element, selector, [equality], [message])` ensures that the equality condition is met on all the selected elements through the selector starting from the element (instance of Nokogiri::XML::Node or Nokogiri::XML::NodeSet) and its descendants.
+
+### Integration Testing
+Tests interaction among controllers. Test work flow for the application. In `test/integration` folder. 
+
+From `ActionDispatch::IntegrationTest`.
+
+- [source: Comparing MiniTest to other frameworks](https://speakerdeck.com/ahawkins/bow-before-minitest)
+- [source: Rails testing guide](http://guides.rubyonrails.org/testing.html)
