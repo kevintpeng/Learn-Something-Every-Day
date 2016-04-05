@@ -1,7 +1,8 @@
 # Testing
-Rails testing has serveral options: MiniTest, RSpec, Test::Unit, Cucumber. Test Frameworks make it easier to write and maintain tests.
+Rails testing has serveral options: MiniTest, RSpec, Test::Unit, Cucumber. Test Frameworks make it easier to write and maintain tests. [Rake](Rake.md) provides `rake test` and other variations for automated testing.
+
 ### MiniTest
-Testing Framework. Faster than RSpec by running tests in parallel. Written more like Ruby code.
+Testing Framework in Ruby's vast Standard Library. Faster than RSpec by running tests in parallel. Written more like Ruby code.
 
 Used for unit testing in rails. ActiveRecord::TestCase inherits MiniTest::Test. Automatically generated in Rails for each model.
 ```ruby
@@ -43,7 +44,7 @@ Built-in to ActiveRecord, Fixtures let you test the ActiveRecords themselves (te
 - Test any third party Gems that your models rely on. You never know when a new version of a Gem will do things differently or break your application.
 
 ### Testing Controller and Views (Functional Testing)
-Uses ActionController::TestCase < ActiveSupport::TestCase < MiniTest::Test. Also MiniTest! Introduces more `assert`s like `assert_response` for http responses.
+Uses `ActionController::TestCase < ActiveSupport::TestCase < MiniTest::Test`. Also MiniTest! Introduces more `assert`s like `assert_response` for http responses.
 
 Can be used to directly test http requests using the http VERBS:
 ```ruby
@@ -67,7 +68,7 @@ assert_select 'title', "Welcome to Rails Testing Guide"
 ### Integration Testing
 Tests interaction among controllers. Test work flow for the application. In `test/integration` folder. 
 
-From `ActionDispatch::IntegrationTest`.
+From `ActionDispatch::IntegrationTest < ActiveSupport::TestCase`.
 
 - [source: Comparing MiniTest to other frameworks](https://speakerdeck.com/ahawkins/bow-before-minitest)
 - [source: Rails testing guide](http://guides.rubyonrails.org/testing.html)
