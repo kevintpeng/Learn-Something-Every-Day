@@ -33,7 +33,7 @@ Rakefile describes a set of rake tasks that are available.
 ```ruby
 task :name
 task :name => [:prereq1]
-task :name dp |t|
+task :name do |t|
     # actions
 end
 ```
