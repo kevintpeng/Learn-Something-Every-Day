@@ -27,3 +27,14 @@ Creates a rake task called by `$ bin/rake task_name[1, 'x']` which passes 1 and 
 - `rake routes` lists all defined routes.
 - `rake test` runs tests
 - `rake db:migrate`, `rake db:version`, reset, up, down, redo are tasks that automate migration management.
+
+### Rakefile
+Rakefile describes a set of rake tasks that are available. 
+```ruby
+task :name
+task :name => [:prereq1]
+task :name dp |t|
+    # actions
+end
+```
+[Read More](http://ruby-doc.org/core-1.9.3/doc/rake/rakefile_rdoc.html)
