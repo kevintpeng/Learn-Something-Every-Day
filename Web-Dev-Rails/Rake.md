@@ -1,5 +1,5 @@
 # Rake 
-Rake is a utility for build automation, based on unix utility make. It is a part of the rails command line.
+Rake is a utility for build automation, based on unix utility make. It is a part of the rails command line. `Rakefile` can be used to set up a suite of automation commands (as in Rails).
 
 `Rakefile` and `.rake` files to build lists of tasks. 
 
