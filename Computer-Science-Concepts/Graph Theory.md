@@ -1,3 +1,7 @@
+## Depth First Traversals
+- **in-order** follows the recursive strategy (left, node, right).
+- **post-order** follows (left subtree, right subtree, then node).
+
 ## Self Balancing Binary Search Trees
 Node based BST that automatically keeps its height small, on insert/delete. Desirable since trees take operation time proportional to their height (optimally log(n)).
 
@@ -15,3 +19,8 @@ Self-balancing binary search tree. Balance is preserved by "painting" each node 
 
 These imply an important property: **The path from the root to the farthest leaf is no more than twice as long as the path from the root to the nearest leaf.**
   
+## Binary Expression Tree
+Learned this in an interview at startup Drop Loyalty! Specific application of a binary tree used to represent mathematical expressions. The nodes are all binary or unary operations except for the leaves which are values that are operated on. The whole tree represents and expression, or a result if there are no variable values in the expression tree.
+![binary expression tree](https://upload.wikimedia.org/wikipedia/commons/9/98/Exp-tree-ex-11.svg)
+
+Scheme like representation of the expression tree: (+ (* (+ a b) c) 7) using in-order traversal.
