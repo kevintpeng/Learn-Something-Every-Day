@@ -1,3 +1,13 @@
+# Graph Theory
+The study of mathematic structures called graphs. Part of discrete mathematics (study of fundamentally discrete structures, non continuous). Graphs represent a set of objects, where some objects are connected by links. Objects are verticies and links are edges.
+
+Edges may be directed or undirected (graph of people who met vs. graph of people who know of other people).
+
+Definition: graph G = (V,E), a set of V vertices or nodes, with a set of E edges, where any given edge is an unordered 2-element subset of V (or a pair of verticies).
+
+## Properties of Graphs
+**Adjancency**: Two eges of a graph are adjacent if they share a common vertex.
+
 ## Depth First Traversals
 - **in-order** follows the recursive strategy (left, node, right).
 - **post-order** follows (left subtree, right subtree, then node).
