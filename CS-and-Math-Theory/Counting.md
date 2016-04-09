@@ -13,4 +13,10 @@ For example, there are n ways to pick an object from the first pile and m ways t
 #### Product Principle
 For n tasks performed in a sequence, with c1 ways to do task 1, c2 ways to do task 2 and so on, then the number of possible courses of action is ∏ ci for i = 1 to n.
 
-**Applies to things like choose from a set without replacement.**
+*Applies to things like choose from a set without replacement.*
+
+#### Bijection Principle
+There exists bijection from A to B iff the size of A equals the size of B. 
+
+*Then A can be counted by showing there is a bijection between A and B, and then counting B.*
+
