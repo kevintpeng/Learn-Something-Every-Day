@@ -20,3 +20,6 @@ There exists bijection from A to B iff the size of A equals the size of B.
 
 *Then A can be counted by showing there is a bijection between A and B, and then counting B.*
 
+#### Theorem 9.2.1
+Given set A and B, such that |A| = k and |B| = nm the number of functions ƒ : A -> B is n^k. 
+
