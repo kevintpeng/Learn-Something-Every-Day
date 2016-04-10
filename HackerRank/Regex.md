@@ -1,4 +1,5 @@
-
+- Start with ^ and end with $ to match the whole string to the regex.
+- *regex*{3,} will match three or more times
 
 ## Introduction
 
@@ -77,3 +78,25 @@ Your task is to write a regex that will match SS using the following conditions:
 ```
 ^[a-z][1-9][^a-z][^A-Z][A-Z]
 ```
+
+## Repetition
+You have a test string SS.
+Your task is to write a regex that will match SS using the following conditions:
+
+    SS must be of length equal to 45.
+    The first 4040 characters should consist of letters(both lowercase and uppercase), or of even digits.
+    The last 55 characters should consist of odd digits or whitespace characters.
+```
+^[A-Za-z24680]{40}[13579\s]{5}$
+```
+
+You have a test string SS.
+Your task is to write a regex that will match SS using the following conditions:
+
+    SS should begin with 1 or 2 digits.
+    After that, SS should have 3 or more letters (both lowercase and uppercase).
+    Then SS should end with up to 3 . symbol(s). You can end with 0 to 3 . symbol(s), inclusively.
+```
+^\d{1,2}[A-Za-z]{3,}\.{0,3}$
+```
+
