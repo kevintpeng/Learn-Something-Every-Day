@@ -4,6 +4,11 @@
 - `\b` is a word boundary (before first \w in matched string, between a \w and \W, after last \w)
 - `?` after any quantifier (`*?`, `{1,5}?` etc...) is *Lazy* quantifier (no ? is called greedy). Lazy matches as few as possible
 - `()` capturing and `(?: )` non-capturing used to group part of the regex and apply quantifiers.
+- `\1`, `\2` match the first and second capturing groups again (references). `(\w)(\w)\w\2\1` will match any 5 letter palindrome
+- backreferencing to a capturing group that matches nothing is different from backreferencing to a capturing group that did not participate in the match.
+    - Matches nothing: `(b?)o\1` matches "o" where b? matches nothing so \1 doesn't either
+    - Doesn't participate: `(b)?o\1` fails to match "o" for most flavors (except JavaScript). (b) is optional, o matches, \1 references a group that did not participate so backreference fails (\1 has nothing to reference).
+
 
 ## Introduction
 
@@ -150,3 +155,31 @@ Your task is to write a regex which will match SS with the following condition:
 (ok){3,}
 ```
 
+You have a test String SS.
+Your task is to write a regex which will match SS with following conditions:
+
+    SS must start with Mr., Mrs., Ms., Dr. or Er..
+    And after that it must be followed by one or more letters (lowercase and uppercase both) only.
+```
+^(Mr\.|Mrs\.|Ms\.|Dr\.|Er\.)[A-Za-z]+$
+```
+
+## Backreferences
+You have a test string SS.
+Your task is to write a regex that will match SS with the following conditions:
+
+    SS must be of length: 20
+    
+```
+^([a-z])(\w)(\s)(\W)(\d)(\D)([A-Z])([A-Za-z])([aeiouAEIOU])(\S)\1\2\3\4\5\6\7\8\9\10$
+```
+
+You have a test string SS.
+Your task is to write a regex which will match SS, with following condition(s):
+
+    SS consists of 8 digits.
+    SS may have "−−" separator such that string SS gets divided in 44 parts, with each part having exactly two digits. (Eg. 12-34-56-78)
+
+```
+^\d\d(-?)\d\d\1\d\d\1\d\d$
+```
