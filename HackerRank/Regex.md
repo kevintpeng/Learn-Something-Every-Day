@@ -1,5 +1,9 @@
 - Start with ^ and end with $ to match the whole string to the regex.
+- Since usually trying to match for a string S, not find substring R in S, we use the /^*regex*$/ method to apply it to the *whole* string
 - *regex*{3,} will match three or more times
+- `\b` is a word boundary (before first \w in matched string, between a \w and \W, after last \w)
+- `?` after any quantifier (`*?`, `{1,5}?` etc...) is *Lazy* quantifier (no ? is called greedy). Lazy matches as few as possible
+- `()` capturing and `(?: )` non-capturing used to group part of the regex and apply quantifiers.
 
 ## Introduction
 
@@ -128,3 +132,19 @@ Write a RegEx to match a test string, SS, under the following conditions:
 ```
 ^[A-Za-z]*s$
 ```
+
+## Grouping and Capturing
+You have a test String SS.
+Your task is to write a regex which will match word starting with vowel (a,e,i,o, u, A, E, I , O or U).
+The matched word can be of any length. The matched word should consist of letters (lowercase and uppercase both) only.
+The matched word must start and end with a word boundary.
+```
+\b[aeiouAEIUO][A-Za-z]*\b
+```
+
+You have a test String SS.
+Your task is to write a regex which will match SS with the following condition:
+
+    SS should have 33 or more consecutive repetitions of ok.
+```
+^(ok){3,}$
