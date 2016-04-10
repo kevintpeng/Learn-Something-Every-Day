@@ -147,4 +147,6 @@ Your task is to write a regex which will match SS with the following condition:
 
     SS should have 33 or more consecutive repetitions of ok.
 ```
-^(ok){3,}$
+(ok){3,}
+```
+
