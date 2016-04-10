@@ -100,3 +100,31 @@ Your task is to write a regex that will match SS using the following conditions:
 ^\d{1,2}[A-Za-z]{3,}\.{0,3}$
 ```
 
+You have a test string SS.
+Your task is to write a regex that will match SS using the following conditions:
+
+    SS should begin with 22 or more digits.
+    After that, SS should have 00 or more lowercase letters.
+    SS should end with 00 or more uppercase letters
+
+```
+^\d{2,}[a-z]*[A-Z]*$
+```
+
+You have a test string SS.
+Your task is to write a regex that will match SS using the following conditions:
+
+    SS should begin with 11 or more digits.
+    After that, SS should have 11 or more uppercase letters.
+    SS should end with 11 or more lowercase letters.
+
+```
+^\d+[A-Z]+[a-z]+$
+```
+Write a RegEx to match a test string, SS, under the following conditions:
+
+    SS should consist of only lowercase and uppercase letters (no numbers or symbols).
+    SS should end in s.
+```
+^[A-Za-z]*s$
+```
