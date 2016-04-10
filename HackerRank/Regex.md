@@ -8,7 +8,7 @@
 - backreferencing to a capturing group that matches nothing is different from backreferencing to a capturing group that did not participate in the match.
     - Matches nothing: `(b?)o\1` matches "o" where b? matches nothing so \1 doesn't either
     - Doesn't participate: `(b)?o\1` fails to match "o" for most flavors (except JavaScript). (b) is optional, o matches, \1 references a group that did not participate so backreference fails (\1 has nothing to reference).
-
+- Fowardreferencing is using backreferences before grouping, and it is evaluated after the group is matched.
 
 ## Introduction
 
@@ -182,4 +182,17 @@ Your task is to write a regex which will match SS, with following condition(s):
 
 ```
 ^\d\d(-?)\d\d\1\d\d\1\d\d$
+```
+
+You have a test string SS.
+Your task is to write a regex which will match SS, with following condition(s):
+
+    SS consists of tic or tac.
+    tic should not be immediate neighbour of itself.
+    The first tic must occur only when tac has appeared atleast twice before.
+
+```
+^tac(tac|tactic)+$
+or
+^(\2tic|(tac))+$
 ```
