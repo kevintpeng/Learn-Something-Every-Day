@@ -16,3 +16,15 @@ R^2 and R^n are examples of cartesian planes.
 
 #### Relations 
 For set A, *a relation on A* is some property that is either true or false for any ordered pair (x,y) in A^2. Greater than `>` is a relation on Integers. For example, `>` is true for (3,2) but false for (2,2).
+
+For relation `>` on the set `{1,2,3}`:
+```
+> = {(3,2),(3,1),(2,1)}
+```
+
+#### Kinds of relations
+A relation R on set A is called
+- reflexive if for all a in A, aRa
+- symmetric if for all a,b in A, aRb implies bRa
+- antisymmetric if for all a,b in A, aRb and bRa implies a = b
+- transitive if for all a,b,c in A, aRb and bRc implies aRc
