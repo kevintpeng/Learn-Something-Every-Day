@@ -31,7 +31,7 @@ A relation R on set A is called
 - transitive if for all a,b,c in A, aRb and bRc implies aRc
 - **Equivalence relations**. A relation that is reflexive, symmetric and transitive.
 
-**Partion of a set A is a set X ⊆ 2^A \ {ø} s.t.
+**Partion** of a set A is a set X ⊆ 2^A \ {ø} s.t.
 - Each a in A belongs to some S in X
 - If S,T in X, either S = T or S ∩ T = ∅
 Basically, the partion of set A is a grouping of the set's elements into non-empty subsets, such that every element is included in one and only one of the subsets.
