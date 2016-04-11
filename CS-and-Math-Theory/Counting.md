@@ -1,5 +1,3 @@
-∪⊆∩
-
 ## Counting
 Counting is **enumerative combinatorics**. For some set A, we wish to calculate the cardinality (size) |A| of A. Sample questions:
 - How many ways are there to seat n couples at a round table?
