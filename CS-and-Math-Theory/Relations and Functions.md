@@ -21,10 +21,13 @@ For relation `>` on the set `{1,2,3}`:
 ```
 > = {(3,2),(3,1),(2,1)}
 ```
+weird notation, but `>` can be thought of as the set of possible ordered pairs.
 
 #### Kinds of relations
 A relation R on set A is called
-- reflexive if for all a in A, aRa
+- reflexive if for all a in A, aRa (true for itself)
 - symmetric if for all a,b in A, aRb implies bRa
-- antisymmetric if for all a,b in A, aRb and bRa implies a = b
+- antisymmetric if for all a,b in A, aRb and bRa implies a = b (not symmetric unless equal)
 - transitive if for all a,b,c in A, aRb and bRc implies aRc
+- **Equivalence relations**. A relation that is reflexive, symmetric and transitive.
+
