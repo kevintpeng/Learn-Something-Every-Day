@@ -1,7 +1,7 @@
 ∪⊆∩
 
 ## Counting
-Counting is **enumerative combinatorics**. For some set A, we wish to calculate the size |A| of A. Sample questions:
+Counting is **enumerative combinatorics**. For some set A, we wish to calculate the cardinality (size) |A| of A. Sample questions:
 - How many ways are there to seat n couples at a round table?
 - How many ways are there to express a positive integer n as a sum of positive integers?
 
