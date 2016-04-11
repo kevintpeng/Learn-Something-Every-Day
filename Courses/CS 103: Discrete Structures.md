@@ -1,4 +1,5 @@
 ## [Sets and Notation](../CS-and-Math-Theory/Sets.md)
 ## [Modular Arithmetic](../CS-and-Math-Theory/Modular Arithmetic.md)
+## [Relations and Functions](../CS-and-Math-Theory/Relations and Functions.md)
 ## [Counting](../CS-and-Math-Theory/Counting.md)
 [source](http://www.stanford.edu/class/cs103x/cs103x-notes.pdf)
