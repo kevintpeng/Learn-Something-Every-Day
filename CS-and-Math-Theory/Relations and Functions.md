@@ -34,6 +34,15 @@ A relation R on set A is called
 **Partion** of a set A is a set X ⊆ 2^A \ {ø} s.t.
 - Each a in A belongs to some S in X
 - If S,T in X, either S = T or S ∩ T = ∅
-Where [2^A represents the set of all subsets](https://github.com/kevintpeng/Learn-Something-Everyday/blob/master/CS-and-Math-Theory/Sets.md#set-of-all-subsets).
 
-Basically, the partion of set A is a grouping of the set's elements into non-empty subsets, such that every element is included in one and only one of the subsets.
+Where [2^A represents the set of all subsets](Sets.md#set-of-all-subsets).
+
+Basically, the partion of set A is a grouping of the set's elements into non-empty subsets, such that every element is included in one and only one of the subsets. Or, A is the union of all members of X, and these members are disjoint.
+
+Now given an equivalence relations R on A, the *equivalence class* of `a` in A is defined as `R[a] = {b in A : aRb}`
+
+**Theorem 7.3.2.** *Let R be an equivalence relation on a set A. Then `{R[a] : a in A}` is a partition of A.*
+
+  *Proof*. Consider an equivalence relation R on A. Due to reflexivity, every element `a` in A belongs to R[a], which implies the first property of a partition. Now consider two equivalence classes R[a] and R[b]. If aRb, then for any c in R[a], by transitivity and symmetry, bRc and c in R[b]. This shows that R[a] is a subset of R[b]. We can symmetrically argue that R[b] is a subset of R[a], implying that R[a] = R[b].
+  Otherwise, if a(¬R)b, then consider some c in R[a]. If c in R[b], then aRc and bRc, which implies aRb, leading to contradiction. So if R[a] ≠ R[b] then R[a] ∩ R[b] = ø. This shows second property of partition and proves the theorem.
+  
