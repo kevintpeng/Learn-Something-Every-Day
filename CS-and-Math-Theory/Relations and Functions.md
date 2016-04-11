@@ -34,4 +34,6 @@ A relation R on set A is called
 **Partion** of a set A is a set X ⊆ 2^A \ {ø} s.t.
 - Each a in A belongs to some S in X
 - If S,T in X, either S = T or S ∩ T = ∅
+Where [2^A represents the set of all subsets](https://github.com/kevintpeng/Learn-Something-Everyday/blob/master/CS-and-Math-Theory/Sets.md#set-of-all-subsets).
+
 Basically, the partion of set A is a grouping of the set's elements into non-empty subsets, such that every element is included in one and only one of the subsets.
