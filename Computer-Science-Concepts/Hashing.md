@@ -76,3 +76,12 @@ word.each do |character|
     hash = (hash * K) + character
 end
 ```
+
+### Cryptographic Hash Function
+Properties of cryptographic hashing functions:
+- easy to compute the hash value for any message
+- infeasible to generate a message that has a given hash
+- infeasible to modify message without changing hash
+- infeasible to find two different messages with the same hash
+
+MD5, SHA0 and SHA1 examples of "broken" algorithms.
