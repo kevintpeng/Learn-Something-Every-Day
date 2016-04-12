@@ -1,3 +1,3 @@
 ### Useful Methods
-`Array#Permutation`
-`Array#Combination`
+- `Array#Permutation`
+- `Array#Combination`
