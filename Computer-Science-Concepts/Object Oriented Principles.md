@@ -22,8 +22,8 @@ Cannot be instantiated, contains many virtual methods, so that children (inherit
 
 `Protected` describes private elements, available to children. ABCs should have constructors in protected, ABCs need ctors for children to be instantiated
 
-### Polymorphism
-A benefit of inheritance, the ability to treat all subclasses in similar ways (a unified API), e.g. all `Shapes` can use `.area()`.
+### [Polymorphism](Polymorphism and Dispatch.md)
+A benefit of inheritance, the ability to treat all subclasses in similar ways (a unified API), e.g. all `Shapes` can use `.area()`. This is an example of subtype polymorphism (see link).
 
 ## Some C++ Object Oriented Programming
 
