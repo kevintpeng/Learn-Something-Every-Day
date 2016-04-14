@@ -30,3 +30,5 @@ There exists bijection from A to B iff the size of A equals the size of B.
 **Seating a round table.** For n people, there are (n)k possible ways. But n possible orientations around that table that are all equivalent. So (n-1)!.
 
 **Choosing an *unordered* collection of distinct objects *without* repetition.** Also known as *combinations*. For a set of k objects from n objects, every set can be arranged in k! ways. Each set corresponds to k! distinct ordered tuples. Let X be the number of sets of cardinality k. Then `X • k!` describes all permutations of sets with cardinality k, which is the smae as permutations of cardinality k, `n!/(n-k)!`. So, `X = n!/k!(n-k!)` and X is nCk (n choose k, also denoted as (n k)).
+
+**Choosing an *unordered* collection of distinct object *with* repetition**. (n+k-1)C(k).
