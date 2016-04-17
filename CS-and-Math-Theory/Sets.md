@@ -11,6 +11,8 @@ Fields like the Natural numbers, Integers or Real numbers are all sets defined l
 - Cardinality |A| is the *size* of A, number of elements.
 - Subset. A ⊆ B = { for all x in A, x in B}
 
+Two sets are disjoint if they share no elements, or whose intersection is the empty set ø. A family of sets is pairwise disjoint if for any two sets A and B are disjoint.
+
 #### Notation
 For sets A and B, A x B is a cartesian product, with the identity |A x B| = |A||B| (actually like a product of sets). Can be extended to say B^A to mean the set of all functions that map from A->B: { f: A -> B }
 
