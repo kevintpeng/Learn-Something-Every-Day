@@ -122,11 +122,15 @@ States can be reduced by merging states with the same outputs (based on input) o
 
 **Shift Registers** shift information to neighbouring cells. With two (first takes input from itself, second also takes input from first), **serial transfer** can be done to copy information from one register to another.
 
-**Universal Shift Register** can shift both ways, implemented using 4 4x1 MUX for state selection and a 4 bit register.
+**Universal Shift Register** can shift both ways, implemented using 4 4x1 MUX for state selection and a 4 bit register. (states 3: parallel inputs, 2: shift left, 1: shift right, 0: read/hold)
 
 **Ripple Counters** use negative edge triggered T flip-flops whose outputs feed into the next flip-flop's clock input. All T inputs are set by input `LOGIC`. They are non synchronous and use the clock input to ripple instead.
 
-**Synchronous Counters** use T flip flops, clock driven, AND all previous flip-flop values as the input for a give flip flop. Counter can also be implemented with parallel load, allowing counter to be set to a value.
+**Synchronous Counters** use T flip flops, clock driven. A given flip flop will toggle if all previous values are 1. Counter can also be implemented with parallel load, allowing counter to be set to a value.
+
+**Bi-directional counters** use T flip-flops. Flip flop will toggle if all previous flip flops are 1 and going up, or if all previous flip flops are 0 and going down.
+
+**Counters with parallel load** can be implemented with JK flip flops.
 
 ## 7 Memory and Programmable Logic
 - **Memory** stores information in groups of bits called **words**
