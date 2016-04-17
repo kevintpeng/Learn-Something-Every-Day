@@ -2,4 +2,6 @@
 ## [Modular Arithmetic](../CS-and-Math-Theory/Modular Arithmetic.md)
 ## [Relations and Functions](../CS-and-Math-Theory/Relations and Functions.md)
 ## [Counting](../CS-and-Math-Theory/Counting.md)
+## [Binomial Coefficients](../CS-and-Math-Theory/Binomial Coefficients.md)
+## [The Inclusion-Exclusion Principle](../CS-and-Math-Theory/Inclusion-Exclusion Principle.md)
 [source](http://www.stanford.edu/class/cs103x/cs103x-notes.pdf)
