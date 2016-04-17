@@ -41,6 +41,8 @@ Clock driven circuits with memory elements. Analysis:
   - output equations, with functions of present state and inputs
 - state table (tabular form of equations, with Present State, Inputs, Next State)
 - state diagram (graphical representation of table)
+  - mealy diagrams have states (with just identifier), whose path's have inputs and outputs (in/out)
+  - moore machine diagrams have outputs dependent on the state (state identifier/output) and change state based on input (paths just have input)
 
 **State Assignment** is identifying each state as a binary string:
 
