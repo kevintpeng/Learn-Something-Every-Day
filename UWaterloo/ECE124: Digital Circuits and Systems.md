@@ -1,6 +1,6 @@
 # Digital Circuits and Systems
 Notes are for post midterm material.
-## Combinational Logic
+## 4 Combinational Logic
 A circuit whose outputs are Boolean functions of its inputs is a **combinational circuit**. 
 - to analyze, label all gate outputs
 - write down truth table
@@ -19,8 +19,8 @@ For speed, use 2-level implementations, for minimization, use simplified express
 
 **Multiplexers** are switches that connect selected inputs to their outputs. Can be used to implement any function of n variables with a 2^(n-1)-to-one-line multiplexer.
 
-## Synchronous Sequential Circuits
-**Sequential Circuits** contain memory elements (**Mealy** machines). Mealy machine output depends on inputs AND the state of memory elements. Uses circuit feedback. A circuit that is a loop with two NOT gates (using feedback) holds two steady states Q and Q'. 
+## 5 Synchronous Sequential Circuits
+**Sequential Circuits** contain memory elements. Mealy machine output depends on inputs AND the state of memory elements. Moore machines' outputs depend only on the current state. Uses circuit feedback. A circuit that is a loop with two NOT gates (using feedback) holds two steady states Q and Q'. 
 - SR latch is implemented with two NOR gates, S=1 sets, R=1 resets (Set Reset Latch).
 - D latch (Data latch) stores the value of D
 
@@ -33,7 +33,7 @@ For speed, use 2-level implementations, for minimization, use simplified express
 
 Characteristic tables are truth tables where outputs can be written as state prior to triggering as Q(t) and after triggering as Q(t+1). Same with characteristic equations.
 
-## Analysis of Synchronous Sequential Circuits
+## 5.5 Analysis of Synchronous Sequential Circuits
 Clock driven circuits with memory elements. Analysis:
 - state equations
   - input equations (for flip flop inputs), with current state of flip flops
@@ -73,7 +73,7 @@ Present State, Inputs | Next state, Flip flop inputs
 States can be reduced by merging states with the same outputs (based on input) or if they are equivalent by the property of state equivalence: 
 - **Property of state equivalence** says that two states are equivalent if for every possible input combination, they give the same output and next states that are equivalent.
 
-## Register & Counters
+## 6 Register & Counters
 **Registers** are a collection of flip-flops that store a collection of bits.
 
 **Counters** a class of registers that cycle through predetermined state sequences. 
@@ -88,7 +88,7 @@ States can be reduced by merging states with the same outputs (based on input) o
 
 **Synchronous Counters** use T flip flops, clock driven, AND all previous flip-flop values as the input for a give flip flop. Counter can also be implemented with parallel load, allowing counter to be set to a value.
 
-## Memory and Programmable Logic
+## 7 Memory and Programmable Logic
 - **Memory** stores information in groups of bits called **words**
 - **Processing Unit** tranfers words into registers
 - **Read only memory (ROM)** are programmable logic devices (PLD)
