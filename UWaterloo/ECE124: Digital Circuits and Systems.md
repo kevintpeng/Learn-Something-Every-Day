@@ -87,3 +87,19 @@ States can be reduced by merging states with the same outputs (based on input) o
 **Ripple Counters** use negative edge triggered T flip-flops whose outputs feed into the next flip-flop's clock input. All T inputs are set by input `LOGIC`. They are non synchronous and use the clock input to ripple instead.
 
 **Synchronous Counters** use T flip flops, clock driven, AND all previous flip-flop values as the input for a give flip flop. Counter can also be implemented with parallel load, allowing counter to be set to a value.
+
+## Memory and Programmable Logic
+- **Memory** stores information in groups of bits called **words**
+- **Processing Unit** tranfers words into registers
+- **Read only memory (ROM)** are programmable logic devices (PLD)
+- **Random Access Memory (RAM)** directly access any part of memory
+- **Static RAM** latches store bits -> faster, requires more space
+- **Dynamic RAM** stores electronically
+
+**Memory decoding** is converting address lines to appropriate select inputs for an array of binary cells. For a **binary cell**, SR latch with input, select, read/write mode and output. For a selected cell:
+- if r/w=1 (then read), S=0 R=0 so latch holds, then read Binary Cell's output.
+- if r/w=0 (then write), S=input, R=input', writes to Binary Cell and output value isn't used.
+
+**Error detection and correction** is used to increase reliability of memory.
+
+**Hamming Code** defines parity conditions. When checking parity, set an associated "check bit" to 0 if parity is correct, 1 otherwise.
