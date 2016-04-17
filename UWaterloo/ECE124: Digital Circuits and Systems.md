@@ -104,4 +104,5 @@ States can be reduced by merging states with the same outputs (based on input) o
 
 **Hamming Code** defines parity conditions. When checking parity, set an associated "check bit" to 0 if parity is correct, 1 otherwise.
 
-**ROM** has k inputs (address) for 2^k • n bits of ROM and n outputs.
+**ROM** element has k inputs (address) for 2^k • n bits of ROM and n outputs.
+
