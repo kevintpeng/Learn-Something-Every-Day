@@ -94,7 +94,7 @@ One design procedure could be as follows:
   - mealy diagrams have states (with just identifier), whose path's have inputs and outputs (in/out)
   - moore machine diagrams have outputs dependent on the state (state identifier/output) and change state based on input (paths just have input)
 
-**State Assignment** is identifying each state as a binary string:
+**State Assignment** is identifying each state as a binary string. These binary strings represent each flip flop that stores a bit:
 
 State | Binary  | Gray Code | One-Hot
 ----- | ------- | --------- | --------
