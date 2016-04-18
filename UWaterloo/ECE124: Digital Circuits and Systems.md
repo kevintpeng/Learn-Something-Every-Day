@@ -75,13 +75,19 @@ Characteristic tables are truth tables where outputs can be written as state pri
 ## 5.5 Analysis of Synchronous Sequential Circuits
 Clock driven circuits with memory elements. 
 
-One design procedure could be as follows: 
+One design procedure, given state diagram or state specifications: 
 
 1. Write/Find Table for output and next state based on input and current state. 
 2. Assigning binary codes to states (important for determining # of flip flops) 
 3. excitation table for flip flops (can extend the state table) 
 4. Using k-maps, find equations for the flip flop gate inputs and equations for function outputs
 5. draw circuit from equations
+
+If given circuit:
+
+1. write equations
+2. Assign states based on flip flops
+2. Derrive a state table
 
 - state equations
   - input equations (for flip flop inputs), with current state of flip flops
