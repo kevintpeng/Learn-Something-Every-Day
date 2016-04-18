@@ -77,6 +77,7 @@ Clock driven circuits with memory elements. Analysis:
   - input equations (for flip flop inputs), with current state of flip flops
   - characteristic equations of flip-flops (for A(t+1))
   - output equations, with functions of present state and inputs
+  - use K-maps if difficult to get equations
 - state table (tabular form of equations, with Present State, Inputs, Next State)
 - state diagram (graphical representation of table)
   - mealy diagrams have states (with just identifier), whose path's have inputs and outputs (in/out)
@@ -113,8 +114,16 @@ JK flip-flop implementation:
 Present State, Inputs | Next state, Flip flop inputs
 --------------------- | ----------------------------
 
+Or inputs can be moved into the header to make the table shorter:
+
+Present state | Next State | based on X | Output Z |  based on X
+---- | ---- | ----- | ----- | ------
+ | X=0 | X=1 | X=0 | X=1
+
 **States can be reduced by merging states with the same outputs (based on input) or if they are equivalent by the property of state equivalence:**
 - **Property of state equivalence** says that two states are equivalent if for every possible input combination, they give the same output and next states that are equivalent.
+ - if two rows are the same in a state table, then they are *equivalent*
+ - if two state point to each other for some input and are the same otherwise, then they can be *merged*
 
 ## 6 Register & Counters
 **Registers** are a collection of flip-flops that store a collection of bits.
