@@ -110,7 +110,7 @@ In more complex excitation tables, header might look like:
 Present State, Inputs | Next state, Flip flop inputs
 --------------------- | ----------------------------
 
-States can be reduced by merging states with the same outputs (based on input) or if they are equivalent by the property of state equivalence: 
+**States can be reduced by merging states with the same outputs (based on input) or if they are equivalent by the property of state equivalence:**
 - **Property of state equivalence** says that two states are equivalent if for every possible input combination, they give the same output and next states that are equivalent.
 
 ## 6 Register & Counters
