@@ -72,6 +72,11 @@ For speed, use 2-level implementations, for minimization, use simplified express
 
 Characteristic tables are truth tables where outputs can be written as state prior to triggering as Q(t) and after triggering as Q(t+1). Same with characteristic equations.
 
+Flip flops having timings:
+- **Setup** time is before the clock edge change, where the inputs to the FF must not change
+- **Hold** time is right after the clock edge where the inputs must not change
+- **Clock to output time** is the total time after the clock edge needed for flip flop to produce a stable output
+
 ## 5.5 Analysis of Synchronous Sequential Circuits
 Clock driven circuits with memory elements. 
 
