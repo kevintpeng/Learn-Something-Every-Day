@@ -72,13 +72,23 @@ For speed, use 2-level implementations, for minimization, use simplified express
 Characteristic tables are truth tables where outputs can be written as state prior to triggering as Q(t) and after triggering as Q(t+1). Same with characteristic equations.
 
 ## 5.5 Analysis of Synchronous Sequential Circuits
-Clock driven circuits with memory elements. Analysis:
+Clock driven circuits with memory elements. 
+
+One design procedure could be as follows: 
+
+1. Write/Find Table 
+2. Assigning binary codes to states (important for determining # of flip flops) 
+3. excitation table for flip flops 
+4. find equations for the flip flop gate inputs and equations for function outputs
+5. draw circuit
+
 - state equations
   - input equations (for flip flop inputs), with current state of flip flops
   - characteristic equations of flip-flops (for A(t+1))
   - output equations, with functions of present state and inputs
   - use K-maps if difficult to get equations
 - state table (tabular form of equations, with Present State, Inputs, Next State)
+ - see below 
 - state diagram (graphical representation of table)
   - mealy diagrams have states (with just identifier), whose path's have inputs and outputs (in/out)
   - moore machine diagrams have outputs dependent on the state (state identifier/output) and change state based on input (paths just have input)
