@@ -79,9 +79,9 @@ One design procedure could be as follows:
 
 1. Write/Find Table for output and next state based on input and current state. 
 2. Assigning binary codes to states (important for determining # of flip flops) 
-3. excitation table for flip flops 
-4. find equations for the flip flop gate inputs and equations for function outputs
-5. draw circuit
+3. excitation table for flip flops (can extend the state table) 
+4. Using k-maps, find equations for the flip flop gate inputs and equations for function outputs
+5. draw circuit from equations
 
 - state equations
   - input equations (for flip flop inputs), with current state of flip flops
