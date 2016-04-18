@@ -6,8 +6,8 @@
 - k-maps
 
 #### Post Midterm: Sequential Systems (Part 2)
-- edge-triggered vs latch-triggered
-- flip-flops can store data by feeding their outputs into its input
+- edge-triggered vs latch-triggered (gated)
+- flip-flops store data since outputs feed into inputs
  
 ##### Simplification
 - # of gates
@@ -38,6 +38,7 @@ Start with informal specification of desired system
 - Programmable Logic Arrays (PLA) both arrays programmable
 
 Notes are for post midterm material.
+
 ## 4 Combinational Logic
 A circuit whose outputs are Boolean functions of its inputs is a **combinational circuit**. 
 - to analyze, label all gate outputs
