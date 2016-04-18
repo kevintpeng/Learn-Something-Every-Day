@@ -77,7 +77,7 @@ Clock driven circuits with memory elements.
 
 One design procedure could be as follows: 
 
-1. Write/Find Table 
+1. Write/Find Table for output and next state based on input and current state. 
 2. Assigning binary codes to states (important for determining # of flip flops) 
 3. excitation table for flip flops 
 4. find equations for the flip flop gate inputs and equations for function outputs
