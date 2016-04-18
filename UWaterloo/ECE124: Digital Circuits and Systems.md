@@ -104,9 +104,11 @@ Q(t) | Q(t+1)  | J | K
 1     | 0     | X       | 1
 1     | 1     | X       | 0
 
-JK flip-flop implementation: ![JK Flip Flop](http://sub.allaboutcircuits.com/images/04196.png)
+JK flip-flop implementation: 
 
-In more complex excitation tables, header might look like: 
+![JK Flip Flop](http://sub.allaboutcircuits.com/images/04196.png)
+
+**Excitation Tables are very important for circuit analysis. They are the core tool for reasoning out a circuit's state diagram.** In more complex excitation tables, header might look like: 
 
 Present State, Inputs | Next state, Flip flop inputs
 --------------------- | ----------------------------
