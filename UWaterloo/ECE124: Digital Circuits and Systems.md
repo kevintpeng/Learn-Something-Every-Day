@@ -66,7 +66,7 @@ For speed, use 2-level implementations, for minimization, use simplified express
 **Flip-Flops** use "edge-triggered" enabler inputs to allow time for the combinational logic outputs to reach their correct values, simultaneously. These are *sequential* using the *clock* signal.
 
 **Positive edge triggering** enables when the signal goes from 0 to 1. **Negative edge triggering** enables when the signal goes from 1 to 0.
-- JK flip-flop are SR latches that are edge triggered with the ability to toggle when J=K=1. The characteristic equation is A(t+1) = J•A'(t) + K'•A(t). Sets for J, resets for K.
+- JK flip-flop are SR latches that are edge triggered with the ability to toggle when J=K=1. The characteristic equation is `A(t+1) = J•A'(t) + K'•A(t)`. Sets for J, resets for K.
 - T flip-flop toggles current memory value.
   - both implemented with D latches
 
