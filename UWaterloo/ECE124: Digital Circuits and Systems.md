@@ -150,3 +150,11 @@ States can be reduced by merging states with the same outputs (based on input) o
 
 **ROM** element has k inputs (address) for 2^k • n bits of ROM and n outputs.
 
+AND arrays and OR arrays operate on rows of inputs depending on the address line. **Programmable Logic Device (PLD)** have 3 types:
+- Programmable read-only memory (PROM), inputs -> fixed AND array (decoder) -> programmable OR array -> Outputs
+ - for sum of minterms
+- Programmable array logic (PAL), inputs -> programmable AND array -> fixed OR array -> Outputs
+ - AND gates are programmed to provide the product terms for boolean functions
+- Programmable logic arrays (PLA), inputs -> programmable AND array -> programmable OR array -> Outputs
+
+For a PLA, the AND array has 2n columns for n inputs, and k rows (the AND gates) for k product terms. The intersections marked with X's are used for a product term. Each OR gate going vertically in the second array sums the product terms marked with X's to define a function. 
