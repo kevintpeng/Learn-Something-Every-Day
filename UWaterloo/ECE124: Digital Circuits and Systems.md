@@ -77,7 +77,7 @@ Flip flops having timings:
 - **Hold** time is right after the clock edge where the inputs must not change
 - **Clock to output time** is the total time after the clock edge needed for flip flop to produce a stable output
 
-## 5.5 Analysis of Synchronous Sequential Circuits
+## 5.5 Design & Analysis of Synchronous Sequential Circuits
 Clock driven circuits with memory elements. 
 
 One design procedure, given state diagram or state specifications: 
