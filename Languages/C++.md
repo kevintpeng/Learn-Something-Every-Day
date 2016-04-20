@@ -38,6 +38,23 @@ void GiveRaise7 (Employee *const e) {} // pointer can't point to new obj, Employ
 void GiveRaise8 (const Employee *const e) {} // const pointer to const obj
 ```
 
+### Dynamic Arrays
+Statically
+
+```C++
+const int N = 5;
+int A[N]; // legal
+int m; cin >> m;
+int B[m]; // illegal, size is not known at compile time
+```
+    
+Dynamically (C++ Only) using `new`
+
+```C++
+cin >> N;
+int * A = new int[N];
+```
+
 ### Object-Oriented Programming
 ```C++
 Balloon b;
