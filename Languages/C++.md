@@ -67,6 +67,25 @@ m.erase("the"); // deletes a key
 C++11 added unsorted versions, `unordered_map, unordered_multimap`...
 
 ### Iterators
+A fundamental design pattern, for iterating through a data structure. 
+
+If `c` is a `vector, deque, list, set, etc...` then 
+- `c.begin` returns ptr to first
+- `c.end` returns ptr to *one beyond the last element*
+    - so that you can say `while(i != c.end)`
+- `++` is defined to iterate to next element, given a ptr
+- `c.rbegin` returns ptr to last
+- `c.rend` returns ptr to *one before the first element*
+
+```C++
+vector<string>::const_iterator   vi = v.begin;
+map<int, string>::iterator       mi = mymap.begin();
+list<Figure*>::reverse_iterator  li = scene.rbegin();
+\  This is the type, iterator /
+```
+
+Application using for loop:
+
 ```C++
 for(map<string, int>::const_iterator i = m.begin(); i != m.end(); i++) {
     cout << i->first << i->second << endl; // first is key, second is val
