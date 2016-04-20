@@ -20,6 +20,15 @@ A hierarchy of classes that share functionality and API.
 ### Abstract Base Class
 Cannot be instantiated, contains many virtual methods, so that children (inheritance) have consistent API for polymorphism
 
+A Polymorphic container:
+```C++
+vector<Humanoid*> humanoidList;
+// pointers of a parent class can point to an instance
+Humanoid *p = new Elf ("Elrond"); 
+Dwarf *d = new Dwarf("Gimli"); // static pointer, pointing to its type
+Monster *m = NULL; // dynamic pointer, currently pointing to nullptr
+```
+
 `Protected` describes private elements, available to children. ABCs should have constructors in protected, ABCs need ctors for children to be instantiated
 
 ### [Polymorphism](Polymorphism and Dispatch.md)
