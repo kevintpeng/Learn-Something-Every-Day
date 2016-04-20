@@ -21,6 +21,6 @@ A set of problems of related resource-based complexity. A class is the set of pr
 P (Polynomial) is the class of problems with polynomial algorithms. The complexity class NP (Non-deterministic Polynomial) is the set of problems with no known efficient algorithm. P is a subset of, and possibly equal to NP. 
 - NP can be defined as problems solvable in polynomial time with a non-deterministic turing machine. 
 - NP can also be defined as any problem where the solution can be verfied as true in polynomial time.
-  - *non-deterministic turing machines can evaluate all paths at the same time. If the machine halts on a given path, then if the path was found in polynomial time, then a regular turing machine can verify the solution in polynomial time too.*
+  - *non-deterministic turing machines can evaluate all paths at the same time. If the machine can find a solution in polynomial time, then the path was found in polynomial time, so a regular turing machine can verify the solution in polynomial time too.*
 
 [source](https://en.wikipedia.org/wiki/Computational_complexity_theory#P_versus_NP_problem)
