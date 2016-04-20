@@ -19,7 +19,9 @@ m.erase("some_key"); // removes key "some_key" from the map
 
 ### Hash Functions
 Converts some data to an index in the range [0..K-1], K is number of slots.
+
 Important Characteristics of Hash Functions:
+
 1. Deterministic based on key (always get same answer from same input)
 2. Uniform spread over buckets/slots.
 3. Cheap to compute.
