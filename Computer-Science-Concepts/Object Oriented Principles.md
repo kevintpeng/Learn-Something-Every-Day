@@ -64,6 +64,10 @@ Balloon::Balloon(string colour) : ParentClass(), colour(colour) {}     // shorth
 Balloon::~Balloon (){}     // destructor
 ```
 
+**Static dispatch** is used for non virtual methods, which is faster and hard-coded at compile time.
+
+**Dynamic dispatch** looks up at run time the implementation of a virtual method.
+
 ### Copy Constrcutor
 Takes a `const` ref to existing object, creates a new copy of it as a new object:
 ```C++
