@@ -26,10 +26,16 @@ void swap(int& x, int& y);
 Reference Parameters vs. Pointers
 ```C++
 // Common usage
-void GiveRaise1 (Employee e, int raise) {} //
-
+void GiveRaise1 (Employee e, int raise) {} // created on stack
+void GiveRaise3 (Employee &e, int &raise) {} // references to objects, changes propagate back
+void GiveRaise4 (const Employee &e) {} // e references a constant object
 
 // Uncommon
+void GiveRaise2 (const Employee e, const int raise) {} // created on stack, may not be changed
+void GiveRaise5 (Employee *e) {} // pointer to employee obj, copy of a pointer on the stack
+void GiveRaise6 (const Employee *e) {} // pointer to const Employee
+void GiveRaise7 (Employee *const e) {} // pointer can't point to new obj, Employee can be changed
+void GiveRaise8 (const Employee *const e) {} // const pointer to const obj
 ```
 ### Object-Oriented Programming
 ```C++
