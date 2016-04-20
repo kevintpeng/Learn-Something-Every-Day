@@ -92,6 +92,13 @@ for(map<string, int>::const_iterator i = m.begin(); i != m.end(); i++) {
 }
 ```
 
+### Algorithms
+`f(iter1, iter2, arg1, arg2)`
+- `find`
+- `count`
+- `for_each`
+- `next_permutation`
+
 ### Reference parameters
 Regular parameter passing is call-by-value. C++ can pass a reference without passing a pointer itself:
 ```C++
