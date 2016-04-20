@@ -33,7 +33,8 @@ void mySwap(T &x, T &y){
 
 #### Class Template
 ```C++
-template<class type> class class-name {
+template<typename type> 
+class class-name {
     // class content
 };
 ```
