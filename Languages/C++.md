@@ -61,6 +61,7 @@ string token;
 while(cin >> token){
     m[token]++;
 }
+m.erase("the"); // deletes a key
 ```
 
 C++11 added unsorted versions, `unordered_map, unordered_multimap`...
