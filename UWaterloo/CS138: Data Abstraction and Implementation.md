@@ -70,3 +70,16 @@ deleting, only complex if 2 children: replace node with largest in left or small
 ###[Hashing](../Computer-Science-Concepts/Hashing.md)
 ### [Object Oriented Programming](../Computer-Science-Concepts/Object Oriented Principles.md)
 ### [C++](../Languages/C++.md)
+
+### Review
+- sequence containers: `vector, deque, list`
+- container adapters: `stack, queue, priority queue`
+- order associative containers: `sets, maps`
+- unordered associative containers: `unordered_set, unordered_map`
+
+- vector<T>: [], at, back, push_back, pop_back
+- deque<T>: [], at, back, push_back, pop_back, front, push_front, pop_front
+- list<T>: back, push_back, pop_back, front, push_front, pop_front, sort, merge, reverse, splice
+- set<T>: find, count
+- map<T, T>: [], at, find, count
+- Other ADTS: stack, queue, priority queue, bitset
