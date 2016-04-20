@@ -18,7 +18,7 @@ Object based programming forces the programmer to think about designing clean AP
 A hierarchy of classes that share functionality and API.
 
 ### Abstract Base Class
-Cannot be instantiated, contains many virtual methods, so that children (inheritance) have consistent API for polymorphism
+Cannot be instantiated, contains many virtual methods, so that children (inheritance) have consistent API for polymorphism. An ABC constructor is a recipe to be invoked by children's constructors.
 
 A Polymorphic container:
 ```C++
@@ -33,6 +33,8 @@ Monster *m = NULL; // dynamic pointer, currently pointing to nullptr
 
 ### [Polymorphism](Polymorphism and Dispatch.md)
 A benefit of inheritance, the ability to treat all subclasses in similar ways (a unified API), e.g. all `Shapes` can use `.area()`. This is an example of subtype polymorphism (see link).
+
+A rule of thumb: polymorphic methods should have different *behaviours*, not just different return values. An area function will compute area differently. A get type funciton is a bad polymorphic function, since it can be dealt with using a variable.
 
 ## Some C++ Object Oriented Programming
 
@@ -81,14 +83,5 @@ Handles freeing memory, and is *implicitly* called when an objects scope is exit
 2. Need clear "owner", who is responsible for deletion in dtor.
 3. "owner" needs protocol for transferring ownership.
  
-### Generics and Templates
-C++ *templates* are the C++ language mechanism that can be used to implement *generic* functions and classes. Type generic swap function:
-
-```C++
-template <typename T>
-void mySwap(T &x, T &y){
-    const T temp = x;
-    x=y;
-    y=temp;
-}
-```
+### Template Design Pattern 
+Design a high-level recipee that is the same for all children, with different details depending on child. Typically, public parent method and private sub-pieces in children.
