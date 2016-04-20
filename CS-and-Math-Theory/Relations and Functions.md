@@ -26,6 +26,7 @@ weird notation, but a relation can be thought of as the set of possible ordered 
 #### Kinds of relations
 A relation R on set A is called
 - reflexive if for all a in A, aRa (true for itself) 
+- anti-reflexive if for all a in A, a/Ra (aRa is false)
 - symmetric if for all a,b in A, aRb implies bRa (`=`)
 - antisymmetric if for all a,b in A, aRb and bRa implies a = b (not symmetric unless equal, ≤)
 - transitive if for all a,b,c in A, aRb and bRc implies aRc
