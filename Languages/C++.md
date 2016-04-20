@@ -1,3 +1,4 @@
+# C++
 ### Structs and Classes
 ```C++
 struct Coord {
@@ -9,6 +10,34 @@ Coord* p; // dynamic instantiation of struct through pointer, on the HEAP.
 p->x = 4; // pointer attribute
 delete p; // will persist until explicitly deleted
 ```
+### Templates
+C++ *templates* are the C++ language mechanism that can be used to implement *generic* functions and classes. Templates are expanded at compile-time. Vector<int> is an example where vector the defined container for any generic type. 
+
+#### Function Template
+```C++
+template<class type> ret-type func-name(parameter list){
+    //body
+}
+```
+
+Type generic swap function:
+
+```C++
+template <typename T>
+void mySwap(T &x, T &y){
+    const T temp = x;
+    x=y;
+    y=temp;
+}
+```
+
+#### Class Template
+```C++
+template<class type> class class-name {
+    // class content
+};
+```
+
 ### Vectors
 ```C++
 string v;
@@ -16,6 +45,31 @@ vector<string> s1;
 s1.push_back("alpha"); // puts element at the end
 s1.pop_back(v); // deletes last element, assigns to string v (optional)
 s1.insert("beta"); // inserts element
+```
+
+### C++ map
+`map` data type implements the idea of a dictionary. `map`, `multipmap`, `set`, `multiset` are ordered containers. 
+
+`map<T1, T2> m;`, 
+- where T1 is the *key field* which must support the `<` operator (therefore it must be a *strict weak ordering*, anti-reflexive, anti-symmetric, transitive) 
+- T2 is the *value field*, can be anything
+
+```C++
+//records number of times each word appears
+map<string, int> m;
+string token;
+while(cin >> token){
+    m[token]++;
+}
+```
+
+C++11 added unsorted versions, `unordered_map, unordered_multimap`...
+
+### Iterators
+```C++
+for(map<string, int>::const_iterator i = m.begin(); i != m.end(); i++) {
+    cout << i->first << i->second << endl; // first is key, second is val
+}
 ```
 
 ### Reference parameters
@@ -82,29 +136,3 @@ Balloon::Balloon(string colour) : ParentClass(), colour(colour) {}
 Balloon::~Balloon (){}     // destructor
 ```
 
-### Templates
-C++ *templates* are the C++ language mechanism that can be used to implement *generic* functions and classes. Templates are expanded at compile-time. Vector<int> is an example where vector the defined container for any generic type. 
-
-#### Function Template
-```C++
-template<class type> ret-type func-name(parameter list){
-    //body
-}
-```
-
-Type generic swap function:
-
-```C++
-template <typename T>
-void mySwap(T &x, T &y){
-    const T temp = x;
-    x=y;
-    y=temp;
-}
-```
-
-#### Class Template
-```C++
-template<class type> class class-name {
-    // class content
-};
