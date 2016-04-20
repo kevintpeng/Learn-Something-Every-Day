@@ -87,3 +87,8 @@ Properties of cryptographic hashing functions:
 - infeasible to find two different messages with the same hash
 
 MD5, SHA0 and SHA1 examples of "broken" algorithms.
+
+### Evaluating hash functions
+- for open hashing, good space efficient hash function will minimize unused buckets
+- **load factor** of a hash table to be N/K (number/buckets)
+- **average chain length** is avg height of each linked list
