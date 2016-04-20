@@ -6,7 +6,6 @@ An infinite collection of instances together with a solution for every instance.
 ### Decision Problems as Formal Languages
 
 ## Machine models and complexity measures
-### Turing Machine
 A Turing machine is a mathematical model of a general computing machine. It is a theoretical device that manipulates symbols contained on a strip of tape. 
 
 All programming languages can be computed with a Turing machine. Any computer is **Turing complete** if it can compute anything a Turing machine can. 
