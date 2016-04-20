@@ -117,10 +117,11 @@ class Balloon : public ParentClass{     // class declaration, with parent, in .h
     public:
         Balloon(); // constructor
         Balloon(string colour); // constructor with parameter
-        Balloon(const Balloon & b); // Copy constructor
+        Balloon(const Balloon & b); // Copy constructor, overrides how obj is copied
         virtual ~Balloon();     // allows for redefinition in derived classes
         virtual speak() const = 0;
-        getColour() const ; // constant method, cannot change object
+        string getColour() const ; // constant method, cannot change object
+        void setColour(string c);
         static balloon_counter; // class variable
     private:
         string colour;
