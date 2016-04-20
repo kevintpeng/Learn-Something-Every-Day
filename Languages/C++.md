@@ -37,6 +37,7 @@ void GiveRaise6 (const Employee *e) {} // pointer to const Employee
 void GiveRaise7 (Employee *const e) {} // pointer can't point to new obj, Employee can be changed
 void GiveRaise8 (const Employee *const e) {} // const pointer to const obj
 ```
+
 ### Object-Oriented Programming
 ```C++
 Balloon b;
