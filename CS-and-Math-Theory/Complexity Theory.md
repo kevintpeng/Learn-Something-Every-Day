@@ -18,10 +18,9 @@ A **non-deterministic Turing machine** is a deterministic Turing machine with **
 ## Complexity Class
 A set of problems of related resource-based complexity. A class is the set of problems solved by abstract machine M using O(f(n)) of resource R, where n is the size of the input.
 
-## P versus NP problem
 P (Polynomial) is the class of problems with polynomial algorithms. The complexity class NP (Non-deterministic Polynomial) is the set of problems with no known efficient algorithm. P is a subset of, and possibly equal to NP. 
 - NP can be defined as problems solvable in polynomial time with a non-deterministic turing machine. 
 - NP can also be defined as any problem where the solution can be verfied as true in polynomial time.
   - *non-deterministic turing machines can evaluate all paths at the same time. If the machine halts on a given path, then if the path was found in polynomial time, then a regular turing machine can verify the solution in polynomial time too.*
-  - 
-  [source](https://en.wikipedia.org/wiki/Computational_complexity_theory#P_versus_NP_problem)
+
+[source](https://en.wikipedia.org/wiki/Computational_complexity_theory#P_versus_NP_problem)
