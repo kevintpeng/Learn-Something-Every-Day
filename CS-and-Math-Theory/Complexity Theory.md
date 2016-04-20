@@ -23,4 +23,11 @@ P (Polynomial) is the class of problems with polynomial algorithms. The complexi
 - NP can also be defined as any problem where the solution can be verfied as true in polynomial time.
   - *non-deterministic turing machines can evaluate all paths at the same time. If the machine can find a solution in polynomial time, then the path was found in polynomial time, so a regular turing machine can verify the solution in polynomial time too.*
 
+### Reduction
+A reduction is a transformation of one problem into another problem. Captures the informal notion of a problem being at least as difficult as another problem. 
+
+**Hardness** for a complexity class says that form a hard problem X in complexity class C, all problems in C can be reduced to X. The set of problems for NP is called **NP-hard**.
+
+If a problem X in C is hard for C, then X is said to be **complete** for C. **NP-complete** contains the hardest problems in NP, that are least likely to be in P.
+
 [source](https://en.wikipedia.org/wiki/Computational_complexity_theory#P_versus_NP_problem)
