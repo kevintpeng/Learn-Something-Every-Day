@@ -92,7 +92,7 @@ void GiveRaise7 (Employee *const e) {} // pointer can't point to new obj, Employ
 void GiveRaise8 (const Employee *const e) {} // const pointer to const obj
 ```
 
-### Dynamic Arrays
+### Dynamic Arrays, `new`
 Statically
 
 ```C++
@@ -117,7 +117,9 @@ class Balloon : public ParentClass{     // class declaration, with parent, in .h
     public:
         Balloon(); // constructor
         Balloon(string colour); // constructor with parameter
+        Balloon(const Balloon & b); // Copy constructor
         virtual ~Balloon();     // allows for redefinition in derived classes
+        virtual speak() const = 0;
         getColour() const ; // constant method, cannot change object
         static balloon_counter; // class variable
     private:
@@ -133,6 +135,10 @@ Balloon::Balloon (string colour){
 Balloon::Balloon(string colour) : ParentClass(), colour(colour) {}     
 // shorthand syntax, stops double instantiation of object parameters, calls parent constructor
 
-Balloon::~Balloon (){}     // destructor
+Balloon::~Balloon (){
+    cerr << "Deleted!";
+}     // destructor
 ```
+
+**Rule of 3** states that for the copy ctor, dtor, or `=` operator, if any need to be manually implemented, then all 3 should be overridden.
 
