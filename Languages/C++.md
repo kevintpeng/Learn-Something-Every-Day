@@ -11,7 +11,7 @@ p->x = 4; // pointer attribute
 delete p; // will persist until explicitly deleted
 ```
 ### Templates
-C++ *templates* are the C++ language mechanism that can be used to implement *generic* functions and classes. Templates are expanded at compile-time. Vector<int> is an example where vector the defined container for any generic type. 
+C++ *templates* are the C++ language mechanism that can be used to implement *generic* functions and classes. Templates are expanded at compile-time. Vector<int> is an example where vector the defined container for any generic type. The Standard Template Library (STL) provides containers, algorithms, iterators and enables functional programming.
 
 #### Function Template
 ```C++
@@ -64,6 +64,9 @@ while(cin >> token){
 ```
 
 C++11 added unsorted versions, `unordered_map, unordered_multimap`...
+
+### Sets
+
 
 ### Iterators
 ```C++
