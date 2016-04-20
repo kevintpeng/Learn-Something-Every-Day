@@ -40,7 +40,11 @@ struct instances: `strctName s;` direct instantiation on run-time stack (doesnâ€
 
 **Deque**: double ended queue (combination of stack and queue)
 
-**Priority Queue:** a queue of objects with an integer priority attribute. usually implemented as a list-of-lists (good for lots of elements, few priorities) or a heap, its a binary tree, s.t. for each node, its children have lesser value than itself (better for lots of priorities)
+**Priority Queue:** a queue of objects with an integer priority attribute. usually implemented as a list-of-lists (good for lots of elements, few priorities) or a **heap**, its a binary tree, s.t. for each node, its children have lesser value than itself (better for lots of priorities)
+  - for N elements, and K distinct priorities
+    - heaps have insert of O(log n)
+    - heaps delete of O(log n)
+    - LOL insert of O(K)
 
 **Binary Tree:** each node has two children
 
