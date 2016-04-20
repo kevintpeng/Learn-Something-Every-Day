@@ -65,9 +65,6 @@ while(cin >> token){
 
 C++11 added unsorted versions, `unordered_map, unordered_multimap`...
 
-### Sets
-
-
 ### Iterators
 ```C++
 for(map<string, int>::const_iterator i = m.begin(); i != m.end(); i++) {
