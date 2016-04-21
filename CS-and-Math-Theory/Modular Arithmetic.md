@@ -47,4 +47,25 @@ If x0 is a solution, the complete solution is x ≡ x0 (mod m/d)
 
 Reversing, we know that if (EEA) `gcd(a,b)=d`, then there is a solution to `ax + by = d` that can be computed with EEA. `ax + by = d` is a linear diophantine equation. Extending this, `ax + by = c` has a solution iff `d|c`. This can be expanded to describe a class of solutions: `x0 + (b/d)n, y0 - (a/d)n`.
 
-*gcd is a restricting factor in solutions to LDE.* This extends to linear congruences, since linear congruences are another way to express LDEs. 
+*gcd is a restricting factor in solutions to LDE.* This extends to linear congruences, since linear congruences are another way to express LDEs. LCT1 and 2 show the number of possible solutions to any linear congruence equation.
+
+#### Fermat's Little Theorem
+If p is prime, p doesn't divide a, then `a^(p-1) ≡ 1 (mod p)`
+
+*Integral for reducing complex exponential expressions in a prime modulus*
+
+For remainder of 3141^2001 divided by 17, 3141 ≡ 13 (mod 17). By FlT, `a^16 ≡ 1 (mod 17)`. 
+- 3141^2001 ≡ 13^2001 (mod 17)
+- 13^2001 = (13^125)^16 • 13
+- 13^2001 ≡ (1)^16•13 (mod 17)
+
+#### Chinese Remainder Theorem
+*For solving simultaneous congruences.*
+
+If gcd(m1,m2) = 1, then for any a1, a2, there exists a solution to the simultaneous congruences
+- n ≡ a1 (mod m1)
+- n ≡ a2 (mod m2)
+
+If n = n0 is one solution, the complete solution is n ≡ n0 (mod m1•m2)
+
+To solve, show hypothesis first. Then expand one congruence using definition. Sub into the other congruence equation to get a linear congruence. 
