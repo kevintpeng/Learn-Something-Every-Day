@@ -4,7 +4,7 @@ Integer d > 0 is the **Greatest common divisor** of a and b, d = gcd(a,b), iff
 1. `d|a and d|b` (divisor)
 2. `for c|a and c|b, then c ≤ d` (greatest)
 
-#### GCD With Remainder
+### GCD With Remainder
 For a = bq + r, then gcd(a,b) = gcd(b,r)
 
 *Very useful for calculating GCDs, and proving values of GCDs. Repeated use becomes Euclidean Algorithm.* 
@@ -15,11 +15,11 @@ For a = bq + r, then gcd(a,b) = gcd(b,r)
   - by DIC, c | b(q) + r(1), a = bq+r so c|a
   - now c|a and c|b, since gcd(a,b)=d, by definition, c ≤ d
 
-#### GCD Characterization Theorem (GCD CT)
+### GCD Characterization Theorem (GCD CT)
 If d is a common divisor of a and b and ax + by = d has an integer solution, then d=gcd(a,b)
 
 *This shows that any combination of a and b can only be equal to multiples of the gcd.*
-#### Extended Euclidean Algorithm (EEA)
+### Extended Euclidean Algorithm (EEA)
 If d = gcd(a,b), then d can be computed and there exist x,y s.t. ax + by = d
 
 #### Coprimeness and Divisibility (CAD)
