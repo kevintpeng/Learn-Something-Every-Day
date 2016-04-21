@@ -69,3 +69,10 @@ If gcd(m1,m2) = 1, then for any a1, a2, there exists a solution to the simultane
 If n = n0 is one solution, the complete solution is n ≡ n0 (mod m1•m2)
 
 To solve, show hypothesis first. Then expand one congruence using definition. Sub into the other congruence equation to get a linear congruence. 
+
+#### Splitting Modulus
+*Special case of simultaneous congruences where n is congruent to the same thing in different moduluses.*
+
+*Can also be used to simplify polynomial congruences, by splitting the mod and applying FlT.* 
+
+If p and q are coprime, then (`x ≡ a (mod p)` and `x ≡ a (mod q)` ) iff `x ≡ a (mod pq)`
