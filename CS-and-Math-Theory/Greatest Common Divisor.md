@@ -20,7 +20,9 @@ If d is a common divisor of a and b and ax + by = d has an integer solution, the
 
 *This shows that any combination of a and b can only be equal to multiples of the gcd.*
 ### Extended Euclidean Algorithm (EEA)
-If d = gcd(a,b), then d can be computed and there exist x,y s.t. ax + by = d
+If d = gcd(a,b), then there exist x,y s.t. ax + by = d
+
+*Useful for rewriting gcds in equations*
 
 #### Coprimeness and Divisibility (CAD)
 a and b are coprime if gcd(a,b)=1. If c|(a•b), then c|a or c|b
@@ -38,3 +40,13 @@ if d = gcd(a,b) then gcd(a/d, b/d) = 1
 
 *If this wasn't the case, then there would be a larger common divisor than d*
 
+### Primes
+An integer p > 1 is *prime* iff its only divisors are 1 and p.
+
+#### Infinitely Many Primes
+By induction, there are infinitely many primes.
+
+#### Fundamental Theorem of Arithmetic (UFT)
+Every integer can be uniquely expressed as a product of primes.
+
+#### 
