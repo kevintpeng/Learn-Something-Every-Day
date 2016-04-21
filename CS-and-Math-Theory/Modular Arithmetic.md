@@ -41,3 +41,10 @@ If x0 is a solution, the complete solution is x ≡ x0 (mod m/d)
 *If the coefficient of x divides m, then x is multiplied by 0 and has no solution when c is not congruent to 0.*
 
 *There are d solutions modulo m. When gcd(a,m)≠1, then the range (set of possible values of ax) is restricted (less than m).*
+
+## Relating Everything
+(GCD CT) If `ax + by = d` has a soltuion, and d is a positive common divisor of a and b, then `gcd(a,b)=d`. 
+
+Reversing, we know that if (EEA) `gcd(a,b)=d`, then there is a solution to `ax + by = d` that can be computed with EEA. `ax + by = d` is a linear diophantine equation. Extending this, `ax + by = c` has a solution iff `d|c`. This can be expanded to describe a class of solutions: `x0 + (b/d)n, y0 - (a/d)n`.
+
+*gcd is a restricting factor in solutions to LDE.* This extends to linear congruences, since linear congruences are another way to express LDEs. 
