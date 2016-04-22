@@ -13,7 +13,7 @@ There exists q and r s.t. b = aq + r, where 0 ≤ r < a
 ### [Modular Arithmetic](../CS-and-Math-Theory/Modular Arithmetic.md)
 ### [RSA](../CS-and-Math-Theory/RSA.md)
 
-For proofs, try contradictions, contra-positives or direct proofs. Induction states 
+For proofs, try contradictions, contra-positives or direct proofs. For induction, find a statement P(n) that is true or false. Show that P(1) is true. Assume P(k) is true. Show that P(k+1) is true. 
 
 > GCD, LDE, Congruences, linear congruences, Simultaneous Congruences, FlT, CRT, SM, RSA, Complex Numbers, Fields
 
