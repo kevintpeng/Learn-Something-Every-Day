@@ -13,6 +13,10 @@ There exists q and r s.t. b = aq + r, where 0 ≤ r < a
 ### [Modular Arithmetic](../CS-and-Math-Theory/Modular Arithmetic.md)
 ### [RSA](../CS-and-Math-Theory/RSA.md)
 
+For proofs, try contradictions, contra-positives or direct proofs. Induction states 
+
+> GCD, LDE, Congruences, linear congruences, Simultaneous Congruences, FlT, CRT, SM, RSA, Complex Numbers, Fields
+
 Congruences can add, subtract, multiply. To divide, apply CD. To simplify exponents, apply FlT.
 
 For simultaneous congruences, use chinese remainder theorem.
