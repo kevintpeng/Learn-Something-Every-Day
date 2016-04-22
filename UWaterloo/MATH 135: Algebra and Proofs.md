@@ -12,3 +12,9 @@ There exists q and r s.t. b = aq + r, where 0 ≤ r < a
 [Bezout's Lemma (Extended Euclidean Algorithm)](https://github.com/kevintpeng/Extended-Euclidean-Algorithm/blob/master/EEA.rb)
 ### [Modular Arithmetic](../CS-and-Math-Theory/Modular Arithmetic.md)
 ### [RSA](../CS-and-Math-Theory/RSA.md)
+
+Congruences can add, subtract, multiply. To divide, apply CD. To simplify exponents, apply FlT.
+
+For simultaneous congruences, use chinese remainder theorem.
+
+For Linear congruences, apply knowledge of Linear Diophantine Equations. 
