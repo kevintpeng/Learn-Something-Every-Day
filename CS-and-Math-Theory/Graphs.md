@@ -21,4 +21,18 @@ A path with connected endpoints. A cycle on n ≥ 3 vertices the graph Cn = (V, 
 
 ### Important Concepts
 ##### Graph isomorphism
-Formal concept for classifying graph types.
+Formal concept for classifying graph types. Two graphs G = (V, E) and G' = (V', E') are said to be isomorphic if there exists a bijection f: V -> V' s.t.
+  ```
+  {x,y} in E iff {f(x), f(y)} in E'
+  ```
+##### Size
+The number of edges in a graph. The size of an n-vertex graph is bounded by nC2 (the n-clique).
+
+##### Degree
+The degeree or valency of a vertex v in a graph G = (V, E) denoted by dG(v) is the number of neighbors of v in G:
+  ```
+  dG(v) = |{u in V: {v,u} in E}|
+  ```
+A graph where every vertex has degree k is a **k-regular** and a graph is **regular** if it is k-regular for some k.
+
+**The handshake lemma** says the number of people at a cocktail party who shake hands with an odd number of others is even. Formally, *the number of odd-degeree verticies in a graph is even.*
