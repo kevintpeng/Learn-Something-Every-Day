@@ -36,3 +36,9 @@ The degeree or valency of a vertex v in a graph G = (V, E) denoted by dG(v) is t
 A graph where every vertex has degree k is a **k-regular** and a graph is **regular** if it is k-regular for some k.
 
 **The handshake lemma** says the number of people at a cocktail party who shake hands with an odd number of others is even. Formally, *the number of odd-degeree verticies in a graph is even.*
+
+##### Geodesic distance
+A **distance** between two vertices in a graph is the number of edges in the shortest path (also called the graph geodesic).
+
+##### Eccentricity 
+epsilon(v) of vertex v is the greatest geodesic distance
