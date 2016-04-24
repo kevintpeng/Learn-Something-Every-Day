@@ -41,4 +41,16 @@ A graph where every vertex has degree k is a **k-regular** and a graph is **regu
 A **distance** between two vertices in a graph is the number of edges in the shortest path (also called the graph geodesic).
 
 ##### Eccentricity 
-epsilon(v) of vertex v is the greatest geodesic distance
+epsilon(v) of vertex v is the greatest geodesic distance between v and any other vertex. 
+
+##### Radius
+A radius r of a graph is the minimum eccentricity of any vertex.
+
+##### Diameter
+A diameter d of a graph is the maximum eccentricity of any vertex. Algorithm to compute: find shortest path for all vertices, take the max.
+
+### Subgraphs and Connectivity
+- A graph G' = (V', E') is a subgraph of G iff V' is a subset of V and E' is a subset of E.
+- A graph G' = (V', E') is an induced subgraph of G iff V' is a subset of V and E' = {{u,v} in E: u,v in V'} 
+  - subset of vertices, different edges
+
