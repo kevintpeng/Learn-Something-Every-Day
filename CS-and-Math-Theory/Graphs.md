@@ -54,3 +54,18 @@ A diameter d of a graph is the maximum eccentricity of any vertex. Algorithm to 
 - A graph G' = (V', E') is an induced subgraph of G iff V' is a subset of V and E' = {{u,v} in E: u,v in V'} 
   - subset of vertices, different edges
 
+## Kinds of Graphs
+#### Directed Graph
+A simple, unweighted directed graph G is an ordered pair (V,E) where V is a set and E is a set of **ordered pairs** from V.
+```
+  E is a subset of {(x,y):x,y in V, x ≠ y} 
+```
+A Directed graph does not have the notion of *degree*. Instead, *indegree* and *outdegree* of a vertex v in G, defined as |{u in V: (u,v) in E}| and |{u in V: (v,u) in E}| respectively.
+
+#### Multi-edges and Self-loops (non simple)
+Multiple edges between the same pair of vertices (this makes the collection of edges a **multiset**). A **self-loop(( is an edge to and from a single vertex.
+
+#### Weighted
+Numerical weights are associated to edges. Good for modelling physical networks.
+
+## Eulerian Graphs
