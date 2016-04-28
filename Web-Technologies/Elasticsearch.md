@@ -5,7 +5,6 @@
 - automatic error detection with rebalancing
 - stores data in json
 - schema free, index a JSON document and it will detect the data structure and types, create index, and make data searchable
-- 
 
 ### Installation
 Requires at least java 7. In console, 
