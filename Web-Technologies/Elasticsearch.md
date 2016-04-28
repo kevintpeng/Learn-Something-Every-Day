@@ -22,4 +22,8 @@ cd elasticsearch-2.3.2/bin
 
 This will pull up an elasticsearch node as the *master* in a single cluster on port `9200`.
 
+```
+# Shutdown local node
+curl -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
+```
 ### Elasticsearch Query DSL
