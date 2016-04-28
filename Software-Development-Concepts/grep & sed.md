@@ -33,5 +33,8 @@ Slash is convention. Say you need to search with slashes for file directories. I
 ### & as matched string
 Say you want to put brackets around a word. `&` is a special character for the string that you matched. `sed s/[a-z]*/(&)/ <old >new`
 
+### `-r` for extended Regular Expression
+For more advanced regex, like `+` meta-character. `sed -r 's/../../'`
+
 
 [source](http://www.grymoire.com/Unix/Sed.html)
