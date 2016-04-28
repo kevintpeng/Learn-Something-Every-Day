@@ -1,1 +1,2 @@
-
+# Kibana
+Works along with elasticsearch. Provides an interface for data (system logs, time stamped data). Creates graphs, pie charts, etc...
