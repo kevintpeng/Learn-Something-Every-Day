@@ -1,4 +1,11 @@
 # Elasticsearch
+- Allows real-time searching on data on large scale and analyze data. 
+- Provides a RESTful API for programs to interface on it. 
+- Elasticsearch is scalable horizontally, with the addition of multiple nodes and let's the cluster automatically take advantage of extra hardware. 
+- automatic error detection with rebalancing
+- stores data in json
+- schema free, index a JSON document and it will detect the data structure and types, create index, and make data searchable
+- 
 
 ### Installation
 Requires at least java 7. In console, 
@@ -27,3 +34,4 @@ This will pull up an elasticsearch node as the *master* in a single cluster on p
 curl -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
 ```
 ### Elasticsearch Query DSL
+[webinar](https://www.elastic.co/webinars/elasticsearch-query-dsl)
