@@ -1,6 +1,14 @@
 # Testing
 Rails testing has serveral options: MiniTest, RSpec, Test::Unit, Cucumber. Test Frameworks make it easier to write and maintain tests. [Rake](Rake.md) provides `rake test` and other variations for automated testing.
 
+Example Gemfile for test environment:
+```ruby
+group :test do
+  gem 'minitest-reporters', '1.0.5'
+  gem 'mini_backtrace',     '0.1.3'
+  gem 'guard-minitest',     '2.3.1'
+end
+```
 ### MiniTest
 Testing Framework in Ruby's vast Standard Library. Faster than RSpec by running tests in parallel. Written more like Ruby code.
 
