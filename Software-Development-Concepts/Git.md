@@ -41,9 +41,15 @@ $ git log --pretty=format:"%h %s" --graph
 ```
 
 ## Undoing Changes
+[Interesting link for help](http://sethrobertson.github.io/GitFixUm/fixup.html).
+
 `git commit --amend` will add changes to the previous commit (second, new commit overwrites first). 
 
 `git reset HEAD <filename>` unstages a file.
+
+`git reset HEAD~1` unstages last commit.
+
+`git reset --hard HEAD~1` removes commit along with all changes, removes it from history too.
 
 ## Git Remote
 Manages remote connections, for pushing and pulling code changes between your local repository and a central repository hosted on sites like GitHub and BitBucket.
