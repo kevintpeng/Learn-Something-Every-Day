@@ -35,3 +35,15 @@ matches path `photos/12` to show action of PhotosController, and set params[:for
 creates `logout_path` and `logout_url` as named helpers.
 
 `logout_path` will return `/exit` path
+
+### HTTP Verb Constraints
+`match 'photos', to: 'photos#show', via: [:get, :post]` constrains a rote to particular verbs. `via :all` will match all verbs.
+
+### Segment Constraints
+`:constraints` option enforces format for a dynamic segment.
+```
+get 'photos/:id', to: 'photos#show', constraints: { id: /[A-Z]\d{5}/ }
+```
+Matches `/photos/A12345` but not `/photos/893`.
+
+
