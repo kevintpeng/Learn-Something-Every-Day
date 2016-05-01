@@ -12,9 +12,9 @@ A x B = {(x,y) : x in A, y in B}
 A^2 = A x A = {(x,y) : x,y in A}
 A^n = {(x1,x2,...,xn) : x1,x2,...,xn in A}
 ```
-R^2 and R^n are examples of cartesian planes. 
+R^2 and R^n are examples of cartesian planes.
 
-#### Relations 
+#### Relations
 For set A, *a relation on A* is some property that is either true or false for any ordered pair (x,y) in A^2. Greater than `>` is a relation on Integers. For example, `>` is true for (3,2) but false for (2,2).
 
 For relation `>` on the set `{1,2,3}`:
@@ -25,7 +25,7 @@ weird notation, but a relation can be thought of as the set of possible ordered 
 
 #### Kinds of relations
 A relation R on set A is called
-- reflexive if for all a in A, aRa (true for itself) 
+- reflexive if for all a in A, aRa (true for itself)
 - anti-reflexive if for all a in A, a/Ra (aRa is false)
 - symmetric if for all a,b in A, aRb implies bRa (`=`)
 - antisymmetric if for all a,b in A, aRb and bRa implies a = b (not symmetric unless equal, ≤)
@@ -46,14 +46,14 @@ Now given an equivalence relations R on A, the *equivalence class* of `a` in A i
 
 **The Fundamental Theorem: Equivalence relations and partitions.** *Let R be an equivalence relation on a set A. Then `{R[a] : a in A}` is a partition of A.*
 
-The set of distinct equivalence classes forms a partition of S. 
+The set of distinct equivalence classes forms a partition of S.
 
 Given a partition of S into sets A1, A2, ... An, the relation defined by `xRy iff x and y belong to the same set A from the partitions` is an equivalence relation on S.
 
   *Proof*. Consider an equivalence relation R on A. Due to reflexivity, every element `a` in A belongs to R[a], which implies the first property of a partition. Now consider two equivalence classes R[a] and R[b]. If aRb, then for any c in R[a], by transitivity and symmetry, bRc and c in R[b]. This shows that R[a] is a subset of R[b]. We can symmetrically argue that R[b] is a subset of R[a], implying that R[a] = R[b].
   Otherwise, if a(¬R)b, then consider some c in R[a]. If c in R[b], then aRc and bRc, which implies aRb, leading to contradiction. So if R[a] ≠ R[b] then R[a] ∩ R[b] = ø. This shows second property of partition and proves the theorem.
-  
-**Order Relations:** A relation that is reflexive, antisymmetric and transitive called a **partial order**. `≤`, `≥` on Integers, and subset relation on the powerset 2^A, are familiar partial orders. 
+
+**Order Relations:** A relation that is reflexive, antisymmetric and transitive called a **partial order**. `≤`, `≥` on Integers, and subset relation on the powerset 2^A, are familiar partial orders.
 
 A pair of elements can be *incomparable* with respect to a partial order. Divisibility `|` is a partial order on Integers, but 2 doesn't divide 3 and 3 doesn't divide 2.
 
@@ -72,10 +72,13 @@ A special kind of relation.
  - If x in A, there exists y in B s.t. (x,y) in ƒ. (everything in A should map to something in B)
  - If (x,y) in ƒ and (x,z) in ƒ, then y = z. (think back to vertical line test, uniqueness)
 
-A function is a *map or mapping*. The set A is the domain and B is the codomain of ƒ. This defines functions as the set of all pairs (x, f(x)). 
+A function is a *map or mapping*. The set A is the domain and B is the codomain of ƒ. This defines functions as the set of all pairs (x, f(x)).
 
 Set of f(A) = {f(x) : x in A} is the **range** of ƒ. Range is a subset of the codomain. If f(A) = B (function maps to exactly the codomain) then ƒ is *surjective* or *onto* if each element of B is of the form f(x) for at least one x in A.
 
-A function is *injective* if for all x,y in A, f(x) = f(y) implies x = y. 
+A function is *injective* if for all x,y in A, f(x) = f(y) implies x = y.
 
 A function is *bijective* if each element of B is of the form f(x) for exactly one x in A.
+
+##### First-class and higher-order functions
+Higher-order functions take other functions as arguments or return them as results. 
