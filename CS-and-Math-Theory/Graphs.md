@@ -4,7 +4,7 @@ A graph G is an ordered pair (V,E) where V is a set and E is a set of two elemen
 E ⊆ { {x,y}: x,y in V, x≠y }
 
 Example, in ruby: { {A, B, C, D}, { {A,B}, {B,C}, {A,D} } }
-                     |Verticies|  |Edges connecting nodes|
+                     |Vertices|  |Edges connecting nodes|
 ```
 
 A graph can be **directed** or **undirected**. In a **directed** graph, an edge (v1, v2) is not the same as (v2, v1) since the edge is directed from 1->2.
@@ -29,19 +29,19 @@ Formal concept for classifying graph types. Two graphs G = (V, E) and G' = (V', 
 The number of edges in a graph. The size of an n-vertex graph is bounded by nC2 (the n-clique).
 
 ##### Degree
-The degeree or valency of a vertex v in a graph G = (V, E) denoted by dG(v) is the number of neighbors of v in G:
+The degree or valency of a vertex v in a graph G = (V, E) denoted by dG(v) is the number of neighbors of v in G:
   ```
   dG(v) = |{u in V: {v,u} in E}|
   ```
 A graph where every vertex has degree k is a **k-regular** and a graph is **regular** if it is k-regular for some k.
 
-**The handshake lemma** says the number of people at a cocktail party who shake hands with an odd number of others is even. Formally, *the number of odd-degeree verticies in a graph is even.*
+**The handshake lemma** says the number of people at a cocktail party who shake hands with an odd number of others is even. Formally, *the number of odd-degree vertices in a graph is even.*
 
 ##### Geodesic distance
 A **distance** between two vertices in a graph is the number of edges in the shortest path (also called the graph geodesic).
 
-##### Eccentricity 
-epsilon(v) of vertex v is the greatest geodesic distance between v and any other vertex. 
+##### Eccentricity
+epsilon(v) of vertex v is the greatest geodesic distance between v and any other vertex.
 
 ##### Radius
 A radius r of a graph is the minimum eccentricity of any vertex.
@@ -51,21 +51,28 @@ A diameter d of a graph is the maximum eccentricity of any vertex. Algorithm to 
 
 ### Subgraphs and Connectivity
 - A graph G' = (V', E') is a subgraph of G iff V' is a subset of V and E' is a subset of E.
-- A graph G' = (V', E') is an induced subgraph of G iff V' is a subset of V and E' = {{u,v} in E: u,v in V'} 
+- A graph G' = (V', E') is an induced subgraph of G iff V' is a subset of V and E' = {{u,v} in E: u,v in V'}
   - subset of vertices, different edges
 
 ## Kinds of Graphs
 #### Directed Graph
 A simple, unweighted directed graph G is an ordered pair (V,E) where V is a set and E is a set of **ordered pairs** from V.
 ```
-  E is a subset of {(x,y):x,y in V, x ≠ y} 
+  E is a subset of {(x,y):x,y in V, x ≠ y}
 ```
 A Directed graph does not have the notion of *degree*. Instead, *indegree* and *outdegree* of a vertex v in G, defined as |{u in V: (u,v) in E}| and |{u in V: (v,u) in E}| respectively.
 
 #### Multi-edges and Self-loops (non simple)
-Multiple edges between the same pair of vertices (this makes the collection of edges a **multiset**). A **self-loop(( is an edge to and from a single vertex.
+Multiple edges between the same pair of vertices (this makes the collection of edges a **multiset**). A **self-loop** is an edge to and from a single vertex.
 
 #### Weighted
-Numerical weights are associated to edges. Good for modelling physical networks.
+Numerical weights are associated to edges. Good for modeling physical networks.
 
 ## Eulerian Graphs
+A *tour* of G traces every edge exactly once: walk T = (v1,e1,v2,e2,...,vn,en,vn+1) s.t. ei ≠ ej for all e in T.
+
+A tour is **Eulerian** if vn+1 = v1, V(T)=V and E(T)=E. An Eulerian tour traverses all edges and ends where it started.
+
+A graph is **Eulerian** iff it has a Eulerian tour.
+
+Theorem: A graph is Eulerian iff it is connected and each vertex has an even degree. (Every vertex must have an exiting edge for every entering edge)
