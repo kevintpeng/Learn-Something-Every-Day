@@ -93,7 +93,7 @@ Proposition: If the degree of every vertex in a graph G is at most k, then the c
 Proof by induction on number of vertices. For one vertex, one colour is needed. Assume hypothesis. For a graph with n vertices, with chromatic number k. Add one vertex and you get chromatic number of at most k+1.
 
 ### Bipartite graphs and matchings
-A bipartite graph can be partitioned into two parts s.t. edges of the graph only go between the two parts, but not inside a part (think domain to codomain).
+A bipartite graph can be partitioned into two parts s.t. edges of the graph only go between the two parts, but not inside a part (think domain to codomain or red-black tree).
 
 A graph G is said to be **bipartite** iff there exists U ⊆ V s.t. `E ⊆ {{u,u'}:u in U and u' in V \ U}`
 
