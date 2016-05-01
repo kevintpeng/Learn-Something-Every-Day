@@ -81,4 +81,14 @@ A function is *injective* if for all x,y in A, f(x) = f(y) implies x = y.
 A function is *bijective* if each element of B is of the form f(x) for exactly one x in A.
 
 ##### First-class and higher-order functions
-Higher-order functions take other functions as arguments or return them as results. 
+Higher-order functions take other functions as arguments or return them as results. In calc, the differential operator `d/dx` is an example since it takes a function.
+
+Highly related, a first-class function also take and output functions. Distinction : "higher order" describes a math concept of functions that operate on other functions, "first-class" is a CS term for entities in a programming language that have no restriction on their use.
+
+**One application is currying (partial application)**, a technique where a function is applied to its arguments one at a time and each argument returns a new function that accepts the next argument.
+
+##### Pure functions (expressions)
+No side effects from state (memory or I/O).
+- If the result of a pure function is not used, it can be removed
+- A pure function will always return the same value given same inputs (leads to memoization)
+- if there is no data dependency, expressions can be reversed or performed in parallel (thread-safe)
