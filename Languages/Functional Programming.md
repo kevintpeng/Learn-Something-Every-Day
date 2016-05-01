@@ -11,3 +11,9 @@ See [first-class functions](../CS-and-Math-Theory/Relations and Functions.md#Fir
 
 ### Strict vs. Non-Strict Evaluation
 A Categorization (aka eager vs. lazy) based on how function arguments are processed when an expression is evaluated. For strict evaluation, a function fails if sub-functions fail. For Lazy, an argument of a function is not evaluated unless the function is dependent on the argument value.
+
+## Comparison to Imperative programming
+Imperative languages often:
+- do not use higher-order functions
+- they use I/O and states, inducing potential side effects.
+- are more efficient in general.
