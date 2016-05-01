@@ -76,3 +76,20 @@ A tour is **Eulerian** if vn+1 = v1, V(T)=V and E(T)=E. An Eulerian tour travers
 A graph is **Eulerian** iff it has a Eulerian tour.
 
 Theorem: A graph is Eulerian iff it is connected and each vertex has an even degree. (Every vertex must have an exiting edge for every entering edge)
+
+Psudo-proof: if graph is eulerian, then every vertex must be entered and exited, therefore even number of edges. if even edges, then prove v1=vn+1 (ends where it starts) and n = |E|
+
+### Graph Colouring
+Example: A network requires users that are close to have different wavelengths to prevent interference. Users can be modeled as vertices, connected by an edge if close. A *colouring* of this graph G is an assignment of colours to vertices s.t. no two adjacent vertices have the same colour.
+
+The example is restated as, *what is the minimum number of colours needed for a colouring of G.*
+
+A **k-colouring** of G is a function c:V->{1,2,...,k}, s.t. if {v,u} in E, then c(v) ≠ c(u). The smallest k in Naturals for which a k-colouring of G exists is called the **chromatic number** of G.
+
+If k-colouring of G exists, the graph is **k-colourable**.
+
+Proposition: If the degree of every vertex in a graph G is at most k, then the chromatic number of G is at most k+1.
+
+Proof by induction on number of vertices. For one vertex, one colour is needed. Assume hypothesis. For a graph with n vertices, with chromatic number k. Add one vertex and you get chromatic number of at most k+1.
+
+### Bipartite graphs and matchings
