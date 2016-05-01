@@ -40,8 +40,8 @@ A graph where every vertex has degree k is a **k-regular** and a graph is **regu
 ##### Geodesic distance
 A **distance** between two vertices in a graph is the number of edges in the shortest path (also called the graph geodesic).
 
-##### Eccentricity
-epsilon(v) of vertex v is the greatest geodesic distance between v and any other vertex.
+##### Eccentricity of a vertex
+epsilon(v) of vertex v is the greatest geodesic distance between v and its furthest vertex in G.
 
 ##### Radius
 A radius r of a graph is the minimum eccentricity of any vertex.
