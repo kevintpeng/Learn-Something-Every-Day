@@ -1,11 +1,11 @@
-# Hadoop 
-A framework for storing and processing big data. Mainly for batch processing. Useful for creating and managing distributed systems, over a network of computers. Provides many useful layers, like a file system (HDFS) and the MapReduce algorithm. Written in java. The logo is a baby elephant. 
+# Hadoop
+A framework for storing and processing big data. Mainly for batch processing. Useful for creating and managing distributed systems, over a network of computers. Provides many useful layers, like a file system (HDFS) and the MapReduce algorithm. Written in java. The logo is a baby elephant.
 
-![Cute Baby Elephant](https://hadoop.apache.org/docs/r1.0.4/images/hadoop-logo-2.gif "Hadoop Logo") 
+![Cute Baby Elephant](https://hadoop.apache.org/docs/r1.0.4/images/hadoop-logo-2.gif "Hadoop Logo")
 
 ## Big Data Analysis Approaches
 
-#### Simple 
+#### Simple
 A single computer stores all data, in some sort of relational database for example, and users connect to the server to access the information. This is limits the volume of data, or increases costs.
 
 #### Distributed System
@@ -23,6 +23,8 @@ These provide the main components of Hadoop: **MapReduce** (Distributed Computat
 #### More on the MapReduce Algorithm
 A MapReduce program is composed of a Map() method, that reformats data  into a key-value pairs (tuples), and a Reduce() method that combines tuples into smaller sets of tuples. MapReduce framework has a single master **JobTracker** and slave **TaskTracker** per cluster-node.
 
+Map applies a function onto each element in a list. Reduce applies a fold on the list, applying a binary function onto all elements.
+
 #### Hadoop Distributed File System
 Provides a system for file management over a distributed system of hundreds of computers.
 
@@ -34,5 +36,5 @@ Provides a system for file management over a distributed system of hundreds of c
 **Stage 3:** The TaskTracker on different nodes executes the MapReduce function and stores the output data.
 
 #### Advantages of Hadoop
-* Hadoop framework provides quick writing and testing of distributed systems. 
+* Hadoop framework provides quick writing and testing of distributed systems.
 * Servers can be added/removed from clusters dynamically without interupting the system.
