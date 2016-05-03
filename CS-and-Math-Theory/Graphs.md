@@ -104,3 +104,7 @@ A **complete bipartite** graph Km,n is a graph with ALL possible edges between t
 Another way to state the definition is a bipartite graph is 2-colourable.
 
 Proposition: A graph is bipartite iff it contains no cycle of odd length. (cycle must end on same side)
+
+Given a bipartite graph G=(V,E), a **matching** B in G is a set of disjoint edges.
+
+Theorem: A bipartite graph W=(V,E) wtih classes B and G has a **perfect matching** iff |B|=|G| and
