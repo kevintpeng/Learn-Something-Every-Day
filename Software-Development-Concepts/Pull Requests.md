@@ -7,6 +7,7 @@ A feature of GitHub and BitBucket for requesting that code is merged to the cent
 4. Navigate to your remote repo that you want your changes to be pulled from. Press `Pull Request`.
 
 ### Tips
+- **Keep PRs small**
 - descriptive title
 - answer what the PR accomplishes
 - how does it accomplish this
