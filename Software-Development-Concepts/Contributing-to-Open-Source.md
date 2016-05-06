@@ -13,6 +13,8 @@ Various open source projects use different tools for managing distributed develo
 4. Commit changes to local branch
 5. Push commits to a remote version of your feature branch
 6. Make Pull Request for your branch
+7. Make changes and repackage changes into new set of commits. Don't push to the remote feature branch, keep the history. 
+8. Ship it, undeployed commits should not sit in the master branch on GitHub. Critical code is run through a CI anyways. 
 
 ## Version Control
 Is an integral part of open source projects. Includes *git, svn, and mercurial*. I use git. Github and Bitbucket host central repositories for developers to contribute to. More on [Git](Git.md).
