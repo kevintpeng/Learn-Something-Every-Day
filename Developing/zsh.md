@@ -1,5 +1,19 @@
 ## oh-my-zsh
+`$ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
+#### Auto Suggestions
+1. Clone this repository into `$ZSH_CUSTOM/plugins` (by default `~/.oh-my-zsh/custom/plugins`)
 
+    ```sh
+    git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+    ```
+
+2. Add the plugin to the list of plugins for Oh My Zsh to load:
+
+    ```sh
+    plugins=(zsh-autosuggestions)
+    ```
+
+3. Start a new terminal session.
 #### Syntax Highlighting
 Oh-my-zsh is a zsh configuration framework.  It lives at
 <http://github.com/robbyrussell/oh-my-zsh>.
