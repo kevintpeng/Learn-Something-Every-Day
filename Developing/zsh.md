@@ -34,3 +34,6 @@ To install zsh-syntax-highlighting under oh-my-zsh:
 
 Note that `zsh-syntax-highlighting` must be the last plugin sourced,
 so make it the last element of the `$plugins` array.
+
+#### Colour & Theme
+https://github.com/oskarkrawczyk/honukai-iterm-zsh
