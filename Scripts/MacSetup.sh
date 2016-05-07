@@ -37,6 +37,9 @@ ruby -v
 brew install gpg
 brew install postgresql
 
+# for tree file structure
+brew install tree
+
 echo SCRIPT: Downloading Node and npm
 export PATH="/usr/local/bin:$PATH"  # temporarily adds path var
 brew install node
