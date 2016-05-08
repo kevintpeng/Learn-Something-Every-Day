@@ -5,7 +5,15 @@ Almost everything in bash is a **string**. Command names, variable names, conten
 
 ### Types of Commands
 #### Aliases
-Shortened command (only in interactive shells, not in scripts). An alias is a *word* mapped to a *string*.
+Shortened command (only in interactive shells, not in scripts). An alias is a *word* mapped to a *string*. `alias nmapp="nmap -Pn -A --osscan-limit"` then allows you to write:
+```bash
+$ nmap -Pn -A --osscan-limit 192.168.0.1
+$ nmapp 192.168.0.1 # is entirely equivalent
+```
+
+#### Functions
+
+### Case Statements
 
 
 # Shell Scripting
@@ -15,7 +23,6 @@ Shell scripts are sequences of shell commands
 1. Write script
 2. Execute `chmod permission script-name` setting execution permissions, (permission is 3-digit octal value)
 3. Execute using `sh`, `bash`, `./`
-
 
 ```
 myvar=5
