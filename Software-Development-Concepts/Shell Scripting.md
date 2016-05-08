@@ -1,8 +1,7 @@
-
-Shell scripts are sequences of shell commands
+Shells are command interpreters. They are applications that provide users with the ability to give commands or execute batches of commands quickly. Shell scripts are sequences of shell commands
 
 1. Write script
-2. Execute `chmod permission script-name` setting execution permissions
+2. Execute `chmod permission script-name` setting execution permissions, (permission is 3-digit octal value)
 3. Execute using `sh`, `bash`, `./`
 
 #Shell Scripting
@@ -65,8 +64,14 @@ echo "Use to print multiplication table for given number"
 exit 1
 fi
 ```
+
+
 ## Cron (using crontab)
 ```
 min hour day-of-month month d-o-week cmd
 59 12 * * *     # at 12:59 in afternoon, run cmd
 ```
+
+
+- [new source](http://guide.bash.academy/)
+- [source](http://mywiki.wooledge.org/)
