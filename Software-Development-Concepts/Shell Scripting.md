@@ -1,11 +1,22 @@
 # Bash
-Shells are command interpreters. They are applications that provide users with the ability to give commands or execute batches of commands quickly. Shell scripts are sequences of shell commands
+Shells are command interpreters. They are applications that provide users with the ability to give commands or execute batches of commands quickly. 
+
+Almost everything in bash is a **string**. Command names, variable names, contents of variables, filename ...
+
+### Types of Commands
+#### Aliases
+Shortened command (only in interactive shells, not in scripts). An alias is a *word* mapped to a *string*.
+
+
+# Shell Scripting
+
+Shell scripts are sequences of shell commands
 
 1. Write script
 2. Execute `chmod permission script-name` setting execution permissions, (permission is 3-digit octal value)
 3. Execute using `sh`, `bash`, `./`
 
-#Shell Scripting
+
 ```
 myvar=5
 echo $myvar
