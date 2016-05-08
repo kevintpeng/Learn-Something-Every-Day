@@ -1,4 +1,4 @@
-# sed
+# `sed`
 Sed is a stream editor. It is it's own Domain Specific Language.
 
 ### `s` for substitution
