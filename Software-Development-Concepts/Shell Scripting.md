@@ -12,15 +12,24 @@ $ nmapp 192.168.0.1 # is entirely equivalent
 ```
 
 #### Functions
+More powerful aliases. Unlike aliases, they can be used in scripts. Function contains shell commands and can take arguments and create local variables. 
 
-### Case Statements
+#### Builtins
+Bash's basic commands like `cd`, `echo` ...
+
+#### Keywords
+Like builtins, with special parsing rules. For example, `[` is a bash builtin, while `[[` is a bash keyword. They both test expressions. `[ a < b ]` evaluates as a redirect of `b` into `[ a ]`. `[[ a < b ]]` tests `a < b` as a boolean function, `<` doesn't have its typical meaning when it's used with the extended test `[[` keyword.
+
+#### Executables
+aka *External commands* or *applications*. Often invoked by typing its file path or its name if its location is in the `PATH` variable (write file paths as `/opt/somedir/myprog` or `./myprog` for relative path). `PATH` is a list of directories. Bash searches through `PATH` if the name isn't used as a keyword, builtin, or function. 
 
 
-# Shell Scripting
+### Shell Scripting
 
-Shell scripts are sequences of shell commands
+Shell scripts are sequences of shell commands.
 
-1. Write script
+1. Write script, begin with `#!/bin/bash`
+    - this header is called an **interpreter directive**, specifying which shell to use as the interpreter.
 2. Execute `chmod permission script-name` setting execution permissions, (permission is 3-digit octal value)
 3. Execute using `sh`, `bash`, `./`
 
@@ -34,12 +43,38 @@ read varname     # takes user input, stores in varname
 ls a*.c     # all c files start with letter a
 ls fo?     # all 3 letter files starting with fo
 ```
-##Special variables
-```
-$?     # special character for error message after cmd, called Exit Status
-$0 is the file name, $1 is first argument, $2 2nd … (all are const vars)
-$# is number of arguments
-```
+### Special Characters
+- `" "` whitespace delimits arguments
+- `$` expansion, introduces various types of expansion (it substitutes an expression with its return value)
+- `''` single quotes, literal strings with no special characters, no split strings by spaces 
+- `""` double quotes, preserves spaces, keeps as one string, **allows special characters**.
+- `[[ ]]` Test, an evaluation of a conditional expression
+- `!` Negate
+- `><` Redirection
+- `|` Pipe, output of initial cmd as input to second cmd
+- `;` newline, command separator
+- `{}` inline group, commands inside braces are treated as if they were one command. (convenient oneline functions)
+- `()` subshell group, acts like inline group, but creates a sandbox (executes in a subshell), cannot mutate any data in current shell
+- `(( ))` arithmetic epxression, characters such as `+`,`-`,`*`,`/` are treated as math operators for calculations.
+- `$(( ))` arithmetic expansion, similar to arithmetic expression, but the epxression is replaced with the result of the evaluation.
+- `~` home directory
+
+### Parameters
+A short named space in memory for data retrieval and storage. 
+- **special parameters** are read-only pre-set by BASH. All special parameters need to be **expanded** with `$`:
+    - `0`, contains the name or path of script
+    - `1` is a **Positional Parameter**, contains first argument passed to script (continues 2,3...)
+    - `*`, expands to all words of all positional parameters. In double quotes, expands to a single string.
+    - `@`, expands to all words of all positional parameters. In double quotes, expands to a list of them as individual words.
+    - `#`, expands to number of parameters
+    - `?`, expands to exit code of most recently completed command
+    - `$` expands to the PID (process ID) of the current shell.
+    - `!` expands to most recent command executed in background
+    - `_` expands to the last argument of the last command executed
+- **variables** can be assigned a value with `varname=value`. Some given variables:
+    - `BASH_VERSION`, `HOSTNAME`, `PPID` (parent process of this shell), `PWD`, `RANDOM` (between 0 and 32767 for every expansion), `UID`, `HOME`, `PATH` (colon separated list of paths for finding commands)
+
+
 ## Redirection of std I/O + Pipes
 ```
 ls > filename     # outputs to filename
