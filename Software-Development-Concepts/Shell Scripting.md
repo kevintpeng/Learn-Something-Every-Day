@@ -1,3 +1,4 @@
+# Bash
 Shells are command interpreters. They are applications that provide users with the ability to give commands or execute batches of commands quickly. Shell scripts are sequences of shell commands
 
 1. Write script
