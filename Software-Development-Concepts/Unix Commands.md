@@ -13,6 +13,12 @@ $ echo "Some      Test"
 Some      Test
 ```
 
+### source
+Evaluates the file (could be a shell script for example) following the command, as a list of commands, executed in current context.
+
+### builtin
+builtin commands are contained within the shell itself. Does not invoke another program.
+
 ### Find
 For finding files. Allows user to execute other commands on them. In the following cmd, `pattern` describes a glob pattern for finding files:
 ```sh
