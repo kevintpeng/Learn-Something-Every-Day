@@ -1,3 +1,6 @@
+### File
+- `File.join(args)` joins the arguements to make a file path based on File::SEPARATOR
+
 ### Modules
 Modules group together methods, classes, constants.
 - Provide a namespace to prevent name clashes
