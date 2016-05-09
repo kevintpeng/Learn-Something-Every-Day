@@ -102,14 +102,14 @@ else
     cmd
 fi
 conditions: [ bool expression ]
-expressions [ $i -le 10 ] less, [ $i -eq 5] equal
+# expressions [ $i -le 10 ] less, [ $i -eq 5] equal
 -eq equal, -ne not equal, -lt less than, le less-equal, -gt, -ge
 
 for i in 1 2 3 4 5 6 7     # loop from 1-7
 for((i=1;i<=7;i++)) 
 do    # equivalent syntax
 
-Exit if no args
+# Exit if no args
 if [ $# -eq 0 ]
 then
 echo "Error - Number missing form command line argument"
@@ -118,8 +118,20 @@ echo "Use to print multiplication table for given number"
 exit 1
 fi
 ```
-
-
+#### Case
+```bash
+case word in
+  pattern1)
+     Statement(s) to be executed if pattern1 matches
+     ;;
+  pattern2)
+     Statement(s) to be executed if pattern2 matches
+     ;;
+  pattern3)
+     Statement(s) to be executed if pattern3 matches
+     ;;
+esac
+```
 ## Cron (using crontab)
 ```
 min hour day-of-month month d-o-week cmd
