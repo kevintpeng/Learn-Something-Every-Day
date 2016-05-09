@@ -28,8 +28,8 @@ aka *External commands* or *applications*. Often invoked by typing its file path
 
 Shell scripts are sequences of shell commands.
 
-1. Write script, begin with `#!/bin/bash`
-    - this header is called an **interpreter directive**, specifying which shell to use as the interpreter.
+1. Write script, begin with `#!/bin/bash` 
+    - this header is called an **interpreter directive** (the `#!` is a shebang), specifying which shell to use as the interpreter.
 2. Execute `chmod permission script-name` setting execution permissions, (permission is 3-digit octal value)
 3. Execute using `sh`, `bash`, `./`
 
