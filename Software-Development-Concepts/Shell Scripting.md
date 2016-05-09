@@ -73,7 +73,7 @@ A short named space in memory for data retrieval and storage.
     - `_` expands to the last argument of the last command executed
 - **variables** can be assigned a value with `varname=value`. Some given variables:
     - `BASH_VERSION`, `HOSTNAME`, `PPID` (parent process of this shell), `PWD`, `RANDOM` (between 0 and 32767 for every expansion), `UID`, `HOME`, `PATH` (colon separated list of paths for finding commands)
-
+    - `local` defines a variable only accesible in the scope of definition (within a function)
 
 ## Redirection of std I/O + Pipes
 ```
