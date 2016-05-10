@@ -5,3 +5,12 @@ Buildkite enables the ability to run a high volume of jobs in parallel (very fas
 The buildkite agent is a build runner that runs automated builds on your own infrastructure. Its responsible for running build jobs and reporting the status back to output logs.
 
 Each agent has a configuration file with meta data (key value pairs), jobs connect to agents based on meta-data. Meta-data can help each agent talk to buildkite.
+
+### Buildkite Pipeline
+Build pipelines take your build, split them into smaller steps and parallelizes them over multiple build agents (huge speed improvements for builds).
+
+### Buildkite Webhooks
+Allow you to monitor and respond to events within your buildkite organization. Provides real time view of activity.
+
+### Buildkite API
+API gives programmatic access to extend, integrate and automate anything. 
