@@ -1,3 +1,15 @@
+### Object
+#### `inspect`
+displays an object in some defined, human-readable form, showing instance variables.
+
+### Kernel Module
+#### `exec`
+Replaces the current process by running a given external command. 
+
+??? Behind the scenes, process tree: some ruby process with `PID=3` will call `exec`, branches into two ruby processes (PID 3 and 4). In process 3, returns 4, in process 4 returns 0. Process 4 will turn into a bash process and process 3, still ruby, will wait for the output of process 4.
+
+#### `system`
+
 ### File
 - `File.join(args)` joins the arguements to make a file path based on File::SEPARATOR
 
