@@ -1,5 +1,5 @@
 # Chef
-Chef is a DSL built on top of Ruby. Chef is an automation platform, tranforms complex infrastructure to code.
+Chef is used to manage servers, with its DSL. Chef is a DSL built on top of Ruby. Chef is an automation platform, tranforms complex infrastructure to code. This lets you build a stack with other services like Buildkite as a CI, where Chef manages each of the nodes.
 - provides abstraction to make reasoning about infrastructure easier
 - automates how applications are configured, deployed, managed
 
