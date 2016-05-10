@@ -9,6 +9,9 @@ Each agent has a configuration file with meta data (key value pairs), jobs conne
 ### Buildkite Pipeline
 Build pipelines take your build, split them into smaller steps and parallelizes them over multiple build agents (huge speed improvements for builds).
 
+### Builds
+Can be scripts or specific processes to be run on agents throught hte buildkite pipeline.
+
 ### Buildkite Webhooks
 Allow you to monitor and respond to events within your buildkite organization. Provides real time view of activity.
 
