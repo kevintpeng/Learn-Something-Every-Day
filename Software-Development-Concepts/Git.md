@@ -103,6 +103,8 @@ $ git merge experiment
 ```
 Makes a cleaner history, especially for open source projects which you don't maintain. 
 
+[rebase a PR](https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request)
+
 ## GitHub Config
 On a somewhat unrelated note, here is GitHub configurations:
 ```bash
