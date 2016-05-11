@@ -60,7 +60,7 @@ ls fo?     # all 3 letter files starting with fo
 - `~` home directory
 
 ### Parameters
-A short named space in memory for data retrieval and storage. 
+A short named space in memory for data retrieval and storage.  There three types of parameters, Strings, Integers and Arrays.
 - **special parameters** are read-only pre-set by BASH. All special parameters need to be **expanded** with `$`:
     - `0`, contains the name or path of script
     - `1` is a **Positional Parameter**, contains first argument passed to script (continues 2,3...)
@@ -74,6 +74,10 @@ A short named space in memory for data retrieval and storage.
 - **variables** can be assigned a value with `varname=value`. Some given variables:
     - `BASH_VERSION`, `HOSTNAME`, `PPID` (parent process of this shell), `PWD`, `RANDOM` (between 0 and 32767 for every expansion), `UID`, `HOME`, `PATH` (colon separated list of paths for finding commands)
     - `local` defines a variable only accesible in the scope of definition (within a function)
+
+#### Variable Types
+- Arrays are indexed list of strings 
+    - `names=([0]="Bob" [1]="Paul")` defines array. Notice it maps integers to strings 
 
 ## Redirection of std I/O + Pipes
 ```
