@@ -76,8 +76,20 @@ A short named space in memory for data retrieval and storage.  There three types
     - `local` defines a variable only accesible in the scope of definition (within a function)
 
 #### Variable Types
+Strings are most common, default type for most things
+- Integers can be assigned
 - Arrays are indexed list of strings 
     - `names=([0]="Bob" [1]="Paul")` defines array. Notice it maps integers to strings 
+    - array expansion: `cp "${myfiles[@]}" /backups/` as list of elements
+    - An IFS (Internal Field Separator) can be used to specify character delimeter 
+        - `( IFS=,; echo "Today's contestants are: ${names[*]}" )`
+        - in subshell so default IFS isn't overwritten
+
+### Patterns
+Patterns are important for selecting filenames. Three kinds of pattern matching.
+
+### Input Output
+
 
 ## Redirection of std I/O + Pipes
 ```
