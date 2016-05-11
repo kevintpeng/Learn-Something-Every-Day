@@ -108,6 +108,7 @@ Makes a cleaner history, especially for open source projects which you don't mai
 ## GitHub Config
 On a somewhat unrelated note, here is GitHub configurations:
 ```bash
+git config --global core.editor "your editor"
 git config --global color.ui true
 git config --global user.name "YOUR NAME"
 git config --global user.email "YOUR@EMAIL.com"
