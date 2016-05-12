@@ -1,6 +1,8 @@
 # glob
 Specifies sets of filenames using wildcard characters. Used in unix terminal for specifying groups of files. Notably used in `.gitignore`.
 
+Glob patterns are anchored at either end, `a*` would match `at` but not `cat` since the pattern is anchored on the left by the `a`.
+
 **Wildcard**    | **Description**   | **Example**
 ----------------|-------------------|-------------
 `*`             | matches anything  | *.txt => [README.txt, anytextfile.txt ...]
