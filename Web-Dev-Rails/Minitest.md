@@ -17,3 +17,6 @@ def setup
 ```
 
 to run, `ruby -Ilib:test test/minitest/test_minitest_test.rb`
+
+### Mocha
+A ruby library for mocking and stubbing with builtin support for Minitest.
