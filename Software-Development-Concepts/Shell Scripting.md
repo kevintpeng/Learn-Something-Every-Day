@@ -86,7 +86,19 @@ Strings are most common, default type for most things
         - in subshell so default IFS isn't overwritten
 
 ### Patterns
-Patterns are important for selecting filenames. Three kinds of pattern matching.
+Patterns are important for selecting filenames. Three kinds of pattern matching. [Glob Patterns](../Glob Patterns.md) is good for file matching. Regex are used for specific pattern matching, not file matching. `=~` operator inside `[[` keyword lets you compare `[[ string =~ regex ]]` that returns `0` if true, `1` if false, `2` if pattern is invalid. 
+
+## Tests and Conditionals
+### Exit Status
+Every command has an exit code whenever it terminates. Exit code is used by whatever application started it to evaluate whether everything is OK. It's like a return value for every function (int between 0-255). **0 is success** and anything else is some sort of failure (hints at what went wrong). Should always return an exit code using `exit` builtin.
+
+### Control Operators && and ||
+easiest way of performing actions depending on success is using cointroler operators `&&` and `||`. **Conditional execution** is using the `AND` and `OR` operators to determine whether the second command should be run. Works as you'd expect, second cmd runs if 
+- `&&`, first is successful
+- `||`, first is not successful
+
+### Grouping Statements
+
 
 ### Input Output
 
