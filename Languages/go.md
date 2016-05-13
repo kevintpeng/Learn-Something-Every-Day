@@ -187,12 +187,18 @@ A method is just a function. Notice the difference between calling `v.Abs()` and
 - [left off here](https://tour.golang.org/methods/3)
 
 ## Concurrency
+[talk on concurrency](https://www.youtube.com/watch?v=cN_DpYBzKso). Concurrency and parallelism are not the same! Concurrency is a way to build things, a composition of independently executing things like functions (interacting processes). Parallelism is about execution, doing a lot of things at once. Concurrency is about structure, dealing with lots at once.
+
+Analogy: Gophers are move books from one pile to another. Two Gophers with the right tools should be able to move books faster, only if they work at the same time, this is called the concurrent composition of processes. It is only parallel if they work simultaneously.
+
+Alternatively, the whole process can be redesigned, to have gophers do different tasks. This is improving performance by adding a concurrent procedure to the existing design. Each task does not necessarily have to run in parallel, but the parallelism of the whole process becomes a free variable to manipulate. 
+
 #### Goroutines
 A *goroutine* is a thread managed by the Go runtime. `go f(x, y, z)` starts a gorountine that runs `f`.
 - evaluation of `f` happens in the current goroutine and execution of `f` happens in the new goroutine
 
 #### Channels
-Channels are typed conduit through which you send and recieve values with the channel operator `<-`
+Channels are typed conduit through which you send and recieve values with the channel operator `<-`. Allows communication between goroutines.
 ```go
 ch <- v    // sends v to channel ch
 v := <-ch  // recieves ch and assign value to v
@@ -200,7 +206,7 @@ v := <-ch  // recieves ch and assign value to v
 
 To create a channel, `ch := make(chan int)`
 
-Channels by default send and recieve block until the other side is ready, allowing goroutines to synchronize without explicit locks or condition variables.
+Channels by default, send and recieve, block until the other side is ready, allowing goroutines to synchronize without explicit locks or condition variables.
 ```go
 c := make(chan int)
 go sum(s[:len(s)/2], c) // 17
@@ -210,4 +216,10 @@ x, y := <-c, <-c // receive from c
 fmt.Println(x, y, x+y) // -5 17 12
 ```
 
-Channels can be *buffered*, with buffer length as the second argument to `make` to initialize a buffered channel: `ch := make(chan int, 100)`
+Channels can be *buffered*, with buffer length as the second argument to `make` to initialize a buffered channel: `ch := make(chan int, 100)` 
+
+##### Range and Close
+A sender can `close` a channel to indicate no more 
+
+#### Select 
+Like a switch, but decision is based on ability to communicate rather than equal values. Chooses which channel to recieve from. 
