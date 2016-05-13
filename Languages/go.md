@@ -185,3 +185,20 @@ v.Abs() // 5
 A method is just a function. Notice the difference between calling `v.Abs()` and `Abs(v)`.
 - methods can be declared on non-struct types too
 - [left off here](https://tour.golang.org/methods/3)
+
+## Concurrency
+#### Goroutines
+A *goroutine* is a thread managed by the Go runtime. `go f(x, y, z)` starts a gorountine that runs `f`.
+- evaluation of `f` happens in the current goroutine and execution of `f` happens in the new goroutine
+
+#### Channels
+Channels are typed conduit through which you send and recieve values with the channel operator `<-`
+```go
+ch <- v    // sends v to channel ch
+v := <-ch  // recieves ch and assign value to v
+```
+
+To create a channel, `ch := make(chan int)`
+
+Channels by default send and recieve block until the other side is ready, allowing goroutines to synchronize without explicit locks or condition variables.
+
