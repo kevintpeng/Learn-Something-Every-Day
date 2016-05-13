@@ -6,6 +6,7 @@ displays an object in some defined, human-readable form, showing instance variab
 - `/asdf/`
 - `%r{asdf}`
 - `=~` for finding index of matches
+- To interpolate a string into a regex, `foo = "asdf"`, `if "asdfsdf" =~ /#{Regexp.quote(foo)}/`
 
 ### Running bash from ruby
 #### `exec`
