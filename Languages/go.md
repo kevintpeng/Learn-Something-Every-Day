@@ -122,6 +122,34 @@ var (
 - `range` in `for` loop iterates over a slice or a map
 	- `for i, v := range pow {}` where `i` is the index, `v` is a copy of each element
 
+##### Map
+maps keys to values. Zero value of a map is `nil`. A `nil` map has no keys, keys cannot be added.
+- `m = make(map[string]Vertex)` maps "strings" => a Vertex struct, if Vertex is defined somewhere
+```
+m["Bell Labs"] = Vertex{
+	40.68433, -74.39967,
+}
+```
+
+A map literal can be defined like `var m = map[string]string { "hello": "world", "other": "string" }`
+- If the top-level type is just a type name (like a Vertex struct), it can be omitted from elements of the literal:
+```go
+var m = map[string]Vertex{
+	"Bell Labs": {40.68433, -74.39967},
+	"Google":    {37.42202, -122.08408},
+}
+```
+
+- `m[key] = elem` updates/inserts
+- `elem = m[key]` retrieves
+- `delete(m, key)`
+- `elem, ok = m[key]`, if `key` is in `m`, then the variable `ok` is assigned `true`
+	- if `elem` or `ok` are not yet defined, use short declaration form: `elem, ok := m[key]`
+
+##### Function Values
+Functions are values too, and are able to be passed around like other values. `func compute(fn func(int, int) int) int {}`
+- functions may be closures. A closure is a function value that references variables outside of its body.
+
 ## Flow Control
 #### For
 `for` is the only looping construct. `for i := 0; i < 10; i++ {}`. This also works: `for ; i < 10 ; {}` (some optional fields). Also `for i < 10 {}`. `for {}` is infinite loop.
