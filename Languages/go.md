@@ -76,3 +76,61 @@ When declaring a variable without specifying type, type is inferred based on rig
 
 A **constant** is decared like variables, but with `const` keyword instead of `var`. Cannot use `:=` for constant declaration.
 
+##### Pointers
+- Pointers hold the memory address of the variable. `var p *int`.
+- The type `*T` is a pointer to a `T` value. 
+- The zero value is `nil`.  
+- The operator `&` generates a pointer to its operand.
+- No C-like pointer arithmetic
+
+##### Structs
+collection of fields. 
+```go
+type Vertex struct {
+  X int
+  Y int
+}
+```
+
+- `.` is used to access struct fields. `v := Vertex{1, 2}` `v.X = 4`
+  - When accessing a field, we could have struct pointer `p` and dereference `(*p).X` but syntactic sugar allows `p.X`
+- A struct literal denotes a newly allocated struct value by listing the values of its fields. 
+```go
+var (
+	v1 = Vertex{1, 2}  // has type Vertex
+	v2 = Vertex{X: 1}  // Y:0 is implicit
+	v3 = Vertex{}      // X:0 and Y:0
+	p  = &Vertex{1, 2} // has type *Vertex
+)
+```
+
+##### Arrays
+`[n]T` is an array of `n` values of type `T`
+- `var a [10]int`
+- accessed using `a[1]`
+- arrays are not resizable 
+- Slicing an array with `[]T` creates a slice, dynamically sized view into the elements of an array. 
+  - `var s []int = primes[1:4]` => [3 5 7]
+- slices do not store memory, they reference an array
+
+## Flow Control
+#### For
+`for` is the only looping construct. `for i := 0; i < 10; i++ {}`. This also works: `for ; i < 10 ; {}` (some optional fields). Also `for i < 10 {}`. `for {}` is infinite loop.
+
+#### If
+`if i < 0 {}` braces around condition are optional. `if {} else {}`. You can use the short assignment statement in the if condition to assign a test value to a variable: `if v := math.Pow(x,n); v < lim { ... }` where v is now accessible within the if block.
+
+#### Switch
+```go
+switch os := runtime.GOOS; os {
+  case "darwin":
+    fmt.Println("OS X")
+  default:
+    fmt.Printf("%s.", os)
+}
+```
+
+Switch statement breaks after a case succeeds, read top to bottom. 
+
+#### Defer
+`defer fmt.Println("world")` prints "world" when the func returns. Deferred function calls are pushed onto a stack. 
