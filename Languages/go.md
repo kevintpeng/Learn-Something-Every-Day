@@ -23,6 +23,9 @@ func main() {
 }
 ```
 
+- `fmt.Printf()` prints without line break
+- `fmt.Println()` prints, followed by a line break
+
 #### Exported names
 A name is exported if it **begins wiht a capital letter**. `Pi` is exported from the `math` package.
 
@@ -112,6 +115,12 @@ var (
 - Slicing an array with `[]T` creates a slice, dynamically sized view into the elements of an array. 
   - `var s []int = primes[1:4]` => [3 5 7]
 - slices do not store memory, they reference an array
+- a slice literal is like an array literal without the length
+	- `[]bool{true, false, true}`
+	- slice bounds can be omitted: `s = a[3:]` excludes the first 3 elements
+	- `len(s)` returns current number of elements in slice, `cap(s)` returns length of array that the slice is referencing
+- `range` in `for` loop iterates over a slice or a map
+	- `for i, v := range pow {}` where `i` is the index, `v` is a copy of each element
 
 ## Flow Control
 #### For
