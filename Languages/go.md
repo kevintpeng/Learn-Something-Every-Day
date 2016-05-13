@@ -52,3 +52,27 @@ func div10(sum int) (x, y int) {
 }
 // div10(52) => 5 2
 ```
+
+#### Variables
+`var` statement declares a list of variables, type is last. 
+```go
+var c, python, java bool
+
+func main() {
+	var i int
+	fmt.Println(i, c, python, java) // prints 0 false false false
+}
+```
+
+An initializer assigns values: `var i, j = 1, 2` (notice type can be omitted). `=:` is the short assignment statement, used in place of `var` with implicit type declaration (only available within the scope of a func).
+
+##### Variable Types
+`bool`, `string`, `int`, `int8`, `int16`, `int32`, `int64`, `float32`, `float64` (only specify size of ints in specific uses). Zero values are assigned when there is no explicit value given:
+- `0` for numerics
+- `false` for bool
+- `""` empty string for strings
+
+When declaring a variable without specifying type, type is inferred based on right side value.
+
+A **constant** is decared like variables, but with `const` keyword instead of `var`. Cannot use `:=` for constant declaration.
+
