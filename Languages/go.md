@@ -201,4 +201,13 @@ v := <-ch  // recieves ch and assign value to v
 To create a channel, `ch := make(chan int)`
 
 Channels by default send and recieve block until the other side is ready, allowing goroutines to synchronize without explicit locks or condition variables.
+```go
+c := make(chan int)
+go sum(s[:len(s)/2], c) // 17
+go sum(s[len(s)/2:], c) // -5
+x, y := <-c, <-c // receive from c
 
+fmt.Println(x, y, x+y) // -5 17 12
+```
+
+Channels can be *buffered*, with buffer length as the second argument to `make` to initialize a buffered channel: `ch := make(chan int, 100)`
