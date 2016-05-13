@@ -2,6 +2,11 @@
 #### `inspect`
 displays an object in some defined, human-readable form, showing instance variables.
 
+### Regex
+- `/asdf/`
+- `%r{asdf}`
+- `=~` for finding index of matches
+
 ### Running bash from ruby
 #### `exec`
 Replaces the current process by running a given external command, ending the current ruby instance.
