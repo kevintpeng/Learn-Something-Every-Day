@@ -171,3 +171,17 @@ Switch statement breaks after a case succeeds, read top to bottom.
 
 #### Defer
 `defer fmt.Println("world")` prints "world" when the func returns. Deferred function calls are pushed onto a stack. 
+
+## Methods
+Go has no classes. You can define methods on types. A method is a function with a special **reciever** argument. 
+```go
+func (v Vertex) Abs() float64 { // the method Abs has a reciever type Vertex
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+v := Vertex{3, 4}
+v.Abs() // 5
+```
+
+A method is just a function. Notice the difference between calling `v.Abs()` and `Abs(v)`.
+- methods can be declared on non-struct types too
+- [left off here](https://tour.golang.org/methods/3)
