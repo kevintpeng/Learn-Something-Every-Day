@@ -2,6 +2,7 @@
 - Since usually trying to match for a string S, not find substring R in S, we use the /^*regex*$/ method to apply it to the *whole* string
 - *regex*{3,} will match three or more times
 - `\b` is a word boundary (before first \w in matched string, between a \w and \W, after last \w)
+    - `/\bis\b/` would match "This **is** cool", not "Th**is** is cool" because it needs to start at a word boundary
 - `?` after any quantifier (`*?`, `{1,5}?` etc...) is *Lazy* quantifier (no ? is called greedy). Lazy matches as few as possible
 - `()` capturing and `(?: )` non-capturing used to group part of the regex and apply quantifiers.
 - `\1`, `\2` match the first and second capturing groups again (references). `(\w)(\w)\w\2\1` will match any 5 letter palindrome
