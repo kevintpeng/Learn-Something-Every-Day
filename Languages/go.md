@@ -219,7 +219,19 @@ fmt.Println(x, y, x+y) // -5 17 12
 Channels can be *buffered*, with buffer length as the second argument to `make` to initialize a buffered channel: `ch := make(chan int, 100)`. Sends to a buffered channel become blocked with the buffer is full. Recieves become blocked when the buffer is empty.
 
 ##### Range and Close
-A sender can `close` a channel to indicate no more values will be sent. Recievers can test whether a channel has been cloesd by assigning a second parameter to the recieve expression. `v, ok := <-ch`, `ok` will be false if there are no more values to recieve.
+A sender can `close(ch)` a channel to indicate no more values will be sent. Recievers can test whether a channel has been cloesd by assigning a second parameter to the recieve expression. `v, ok := <-ch`, `ok` will be false if there are no more values to recieve.
+
+`for i := range c` recieves values from channel until it's closed. Closing is only necessary when the reciever must be told there are no more values coming, as in a `range` loop.
 
 #### Select 
 Like a switch, but decision is based on ability to communicate rather than equal values. Chooses which channel to recieve from. 
+```go
+select {
+case c <- x:
+  // ...
+case <- quit:
+  // ... where quit is some goroutine
+default:
+  // recieve from c would block
+}
+```
