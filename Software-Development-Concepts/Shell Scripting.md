@@ -96,9 +96,14 @@ Every command has an exit code whenever it terminates. Exit code is used by what
 easiest way of performing actions depending on success is using cointroler operators `&&` and `||`. **Conditional execution** is using the `AND` and `OR` operators to determine whether the second command should be run. Works as you'd expect, second cmd runs if 
 - `&&`, first is successful
 - `||`, first is not successful
+- 
+*cleaner and more idomatic running code with simple control flow*.
 
 ### Grouping Statements
+Important for complex condition execution statements. `{}` are used to group statements. `grep && grep && {rm || {echo error 2>&1; exit 1}}` will only print error for rm errors and not grep errors, groups the whole error handling together too.
 
+### Conditional Blocks `if` `test` and `[[`
+`if; then; fi` structure for if statements. `test` or `[` is used to test things and return exit statuses. More advanced version is `[[`  
 
 ### Input Output
 
