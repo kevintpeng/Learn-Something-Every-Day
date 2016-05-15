@@ -189,9 +189,9 @@ A method is just a function. Notice the difference between calling `v.Abs()` and
 ## Concurrency
 [talk on concurrency](https://www.youtube.com/watch?v=cN_DpYBzKso). Concurrency and parallelism are not the same! Concurrency is a way to build things, a composition of independently executing things like functions (interacting processes). Parallelism is about execution, doing a lot of things at once. Concurrency is about structure, dealing with lots at once.
 
-Analogy: Gophers are move books from one pile to another. Two Gophers with the right tools should be able to move books faster, only if they work at the same time, this is called the concurrent composition of processes. It is only parallel if they work simultaneously.
+Analogy: Gophers are move books from one pile to another. Two Gophers can complete different tasks (one loads books, one moves them), this is called the concurrent composition of processes. It is only parallel if they work simultaneously.
 
-Alternatively, the whole process can be redesigned, to have gophers do different tasks. This is improving performance by adding a concurrent procedure to the existing design. Each task does not necessarily have to run in parallel, but the parallelism of the whole process becomes a free variable to manipulate. 
+The whole process can be redesigned, to have gophers do different tasks. This is improving performance by adding a concurrent procedure to the existing design. Each task does not necessarily have to run in parallel, but the parallelism of the whole process becomes a free variable to manipulate. 
 
 #### Goroutines
 A *goroutine* is a thread managed by the Go runtime. `go f(x, y, z)` starts a gorountine that runs `f`.
@@ -216,10 +216,10 @@ x, y := <-c, <-c // receive from c
 fmt.Println(x, y, x+y) // -5 17 12
 ```
 
-Channels can be *buffered*, with buffer length as the second argument to `make` to initialize a buffered channel: `ch := make(chan int, 100)` 
+Channels can be *buffered*, with buffer length as the second argument to `make` to initialize a buffered channel: `ch := make(chan int, 100)`. Sends to a buffered channel become blocked with the buffer is full. Recieves become blocked when the buffer is empty.
 
 ##### Range and Close
-A sender can `close` a channel to indicate no more 
+A sender can `close` a channel to indicate no more values will be sent. Recievers can test whether a channel has been cloesd by assigning a second parameter to the recieve expression. `v, ok := <-ch`, `ok` will be false if there are no more values to recieve.
 
 #### Select 
 Like a switch, but decision is based on ability to communicate rather than equal values. Chooses which channel to recieve from. 
