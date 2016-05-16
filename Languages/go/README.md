@@ -223,6 +223,13 @@ A type implements an interface by implementing its methods in the signature.
 - you don't need to explicitly declare that some type `T` will implement interface `I` for method `M`
 - interface values can be thought of as a tuple of a value and a type
 	- interface holds a value of a specific type
+	- If the concrete type in the interface itself is nil, method will be called with a nil reciever
+
+#### Deal with Interface Types
+**Type assertions** provide access to an interface value's underlying concrete value. `t, ok := i.(T)` asserts the interface value `i` holds concrete type `T`, assigns it to `t` and returns a boolean to `ok`.
+- omitting the `ok` return causes it to panic if not type `T`
+
+**Type Switches** permit several type assertions with a switch-case statement.
 
 ## Concurrency
 [talk on concurrency](https://www.youtube.com/watch?v=cN_DpYBzKso). Concurrency and parallelism are not the same! Concurrency is a way to build things, a composition of independently executing things like functions (interacting processes). Parallelism is about execution, doing a lot of things at once. Concurrency is about structure, dealing with lots at once.
