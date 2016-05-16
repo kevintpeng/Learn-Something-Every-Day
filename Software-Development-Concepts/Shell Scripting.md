@@ -96,17 +96,42 @@ Every command has an exit code whenever it terminates. Exit code is used by what
 easiest way of performing actions depending on success is using cointroler operators `&&` and `||`. **Conditional execution** is using the `AND` and `OR` operators to determine whether the second command should be run. Works as you'd expect, second cmd runs if 
 - `&&`, first is successful
 - `||`, first is not successful
-- 
+
 *cleaner and more idomatic running code with simple control flow*.
 
 ### Grouping Statements
 Important for complex condition execution statements. `{}` are used to group statements. `grep && grep && {rm || {echo error 2>&1; exit 1}}` will only print error for rm errors and not grep errors, groups the whole error handling together too.
 
 ### Conditional Blocks `if` `test` and `[[`
-`if; then; fi` structure for if statements. `test` or `[` is used to test things and return exit statuses. More advanced version is `[[`  
+`if; then; fi` structure for if statements. `test` or `[` is used to test things and return exit statuses. `[` is the same as `test`, which is a normal command that reads its arguments and evaluates it as a boolean expression. `[` expands variables like `n="my name"` to multiple arguments, `[ $n = "my name" ]` has too many arguemnts since it expands to `[ my name = "my name" ]`. Correct way is `[ "$n" = "my name" ]`.
 
-### Input Output
+More advanced version is `[[`, which includes pattern patching: `[[ $filename = *.png ]] && echo "$filename looks like a PNG file"`. `[[` is not a normal command, it's a **shell keyword** with magical powers. 
 
+Subtlety with `=` operator; right hand is always evaluated as a pattern unless quoted:
+```
+$ foo=[a-z]* name=lhunath
+$ [[ $name = $foo   ]] && echo "Name $name matches pattern $foo"
+Name lhunath matches pattern [a-z]*
+$ [[ $name = "$foo" ]] || echo "Name $name is not equal to the string $foo"
+Name lhunath is not equal to the string [a-z]*
+```
+
+### Looping
+```
+for file in $(ls *.jpg)
+do echo $file
+done
+```
+This parses the results of the command space delimited, so files with spaces will be parsed as separate arguments. 
+
+To fix, use quotations around the subshell to properly delimit arguments:
+```
+for file in "$(ls *.jpg)"
+do echo $file
+done
+```
+
+## [Arrays](http://mywiki.wooledge.org/BashGuide/Arrays)
 
 ## Redirection of std I/O + Pipes
 ```
