@@ -219,6 +219,11 @@ a = f  // a MyFloat implements Abser
 a.Abs() // runs f.Abs()
 ```
 
+A type implements an interface by implementing its methods in the signature. 
+- you don't need to explicitly declare that some type `T` will implement interface `I` for method `M`
+- interface values can be thought of as a tuple of a value and a type
+	- interface holds a value of a specific type
+
 ## Concurrency
 [talk on concurrency](https://www.youtube.com/watch?v=cN_DpYBzKso). Concurrency and parallelism are not the same! Concurrency is a way to build things, a composition of independently executing things like functions (interacting processes). Parallelism is about execution, doing a lot of things at once. Concurrency is about structure, dealing with lots at once.
 
