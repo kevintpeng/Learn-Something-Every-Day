@@ -184,7 +184,40 @@ v.Abs() // 5
 
 A method is just a function. Notice the difference between calling `v.Abs()` and `Abs(v)`.
 - methods can be declared on non-struct types too
-- [left off here](https://tour.golang.org/methods/3)
+- methods can be declared with *pointer recievers* allowing a method to mutate the value
+	- methods with pointer recievers can take either a value or a pointer (syntactic sugar, recieving `v.Scale(5)` as `(&v).Scale(5)`)
+	- note that methods with value recievers can also take pointers
+```go
+func (v *Vertex) Scale(f float64) {
+	v.X = v.X * f
+	v.Y = v.Y * f
+}
+// ...
+v := Vertex{3, 4}
+v.Scale(2)
+p := &Vertex{4, 3}
+p.Scale(3)
+```
+
+- Using pointer recievers is more efficient, does not copy large structs for example.
+- Allows methods to mutate values passed
+
+### Interfaces
+*Interface type* is a set of method signatures
+- A value of interface type can hold any value that implements those methods. 
+- interface restricts the methods available for any value passed, defines an API for their use
+```go
+type Abser interface {
+	Abs() float64
+}
+type MyFloat float64
+func (f MyFloat) Abs() float64 { //...
+
+var a Abser
+f := MyFloat(-math.Sqrt2)
+a = f  // a MyFloat implements Abser
+a.Abs() // runs f.Abs()
+```
 
 ## Concurrency
 [talk on concurrency](https://www.youtube.com/watch?v=cN_DpYBzKso). Concurrency and parallelism are not the same! Concurrency is a way to build things, a composition of independently executing things like functions (interacting processes). Parallelism is about execution, doing a lot of things at once. Concurrency is about structure, dealing with lots at once.
