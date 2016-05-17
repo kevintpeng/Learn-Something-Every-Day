@@ -20,6 +20,9 @@ An interface value is constructed of two words of data
 - one points to a method table for the value's underlying type
 - one points to the actual data being held by that value
 
+The method table or interface table, is some metadata about the types involved and a list of function pointers. 
+- the interface table corresponds to the interface type, not the dynamic type
+
 [source](http://jordanorelli.com/post/32665860244/how-to-use-interfaces-in-go)
 
 [source](http://research.swtch.com/interfaces)
