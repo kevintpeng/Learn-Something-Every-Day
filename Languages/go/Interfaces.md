@@ -16,6 +16,7 @@ A core concept of Go's type system is that instead of designing our abstractions
 - if you write a function that takes an `interface{}` value as a parameter, it can take any value, assigning not its original type but an `interface{}` type
   - `func DoSomething(v interface{}) {...}` (performs a type conversion, `DoSomething(5)` converts `int` to `interface{}`
 
+### The interface value & method table
 An interface value is constructed of two words of data
 - one points to a method table for the value's underlying type
 - one points to the actual data being held by that value ( a copy of it )
