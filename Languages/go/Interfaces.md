@@ -18,10 +18,17 @@ A core concept of Go's type system is that instead of designing our abstractions
 
 An interface value is constructed of two words of data
 - one points to a method table for the value's underlying type
-- one points to the actual data being held by that value
+- one points to the actual data being held by that value ( a copy of it )
 
 The method table or interface table, is some metadata about the types involved and a list of function pointers. 
 - the interface table corresponds to the interface type, not the dynamic type
+  - table is not the implementor, it is the method signatures for the interface type itself
+- the interface table **must be computed at runtime** because of dynamic type conversions
+  - isn't reasonable to precompute all possible method tables
+    - too many (interface type, concrete type) pairs
+- compiler generates a type description for each concrete type, which contains a list of methods implemented
+  - at runtime, interface type's method table is compared to concrete type's method table to compute the interface's method table 
+  
 
 [source](http://jordanorelli.com/post/32665860244/how-to-use-interfaces-in-go)
 
