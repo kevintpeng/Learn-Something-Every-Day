@@ -231,7 +231,7 @@ A type implements an interface by implementing its methods in the signature.
 
 **Type Switches** permit several type assertions with a switch-case statement.
 
-## Concurrency
+## [Concurrency](./Concurrency.md)
 [talk on concurrency](https://www.youtube.com/watch?v=cN_DpYBzKso). Concurrency and parallelism are not the same! Concurrency is a way to build things, a composition of independently executing things like functions (interacting processes). Parallelism is about execution, doing a lot of things at once. Concurrency is about structure, dealing with lots at once.
 
 Analogy: Gophers are move books from one pile to another. Two Gophers can complete different tasks (one loads books, one moves them), this is called the concurrent composition of processes. It is only parallel if they work simultaneously.
