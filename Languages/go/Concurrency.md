@@ -48,6 +48,7 @@ func main() {
     }
 }
 ```
+![visualization of code](http://divan.github.io/demos/gifs/fanin.gif)
 
 ### Workers (fan-out design pattern)
 Opposite of fan-in, multiple goroutines read from a single channel, distributing work between CPU cores. The following is an animation of 36 workers, where `GOMAXPROCS=4` (effectively only 4 goroutines in parallel):
