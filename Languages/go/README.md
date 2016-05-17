@@ -280,3 +280,10 @@ default:
   // recieve from c would block
 }
 ```
+
+## Assorted Go Functions 
+`func make(Type, size IntegerType) Type`
+- allocates and initializes an object of type `slice`, `map` or `chan`.
+	- size of slice is capacity
+	- size of map is initial memory allocation
+	- size of channel is buffer capacity
