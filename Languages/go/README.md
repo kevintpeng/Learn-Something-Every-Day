@@ -202,7 +202,7 @@ p.Scale(3)
 - Using pointer recievers is more efficient, does not copy large structs for example.
 - Allows methods to mutate values passed
 
-### Interfaces
+### [Interfaces](./Interfaces.md)
 *Interface type* is a set of method signatures
 - A value of interface type can hold any value that implements those methods. 
 - interface restricts the methods available for any value passed, defines an API for their use
