@@ -1,10 +1,12 @@
 # Go Concurrency
-Basic info in [README](./README.md). [Cool Visualization of Go Concurrency](http://divan.github.io/posts/go_concurrency_visualize/).
+Basic info in [README](./README.md#concurrency). Sourced from this [cool Visualization of Go Concurrency](http://divan.github.io/posts/go_concurrency_visualize/).
 
 ### Goroutine blocking
 - goroutines block, and wait for a value, when `myChannel <- someValue` a channel is waiting to receive.
 - A FIFO queue is formed when multiple goroutines are waiting to recieve from a single channel
 - if all goroutines are currently blocked, go will throw an error message `fatal error: all goroutines are asleep`
+
+- goroutines also block after sending a value, and unblock once it is recieved by a channel receiver
 
 ### Fan-in Design Pattern
 Fan-in is a function reading from multiple inputs and multiplexing all into a single channel 
@@ -46,3 +48,6 @@ func main() {
     }
 }
 ```
+
+### Workers (fan-out design pattern)
+Opposite of fan-in, multiple goroutines read from a single channel, distributing work between CPU cores. 
