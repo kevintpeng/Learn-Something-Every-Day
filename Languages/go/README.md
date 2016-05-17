@@ -253,7 +253,7 @@ To create a channel, `ch := make(chan int)`
 
 Channels by default, send and recieve, block until the other side is ready, allowing goroutines to synchronize without explicit locks or condition variables.
 ```go
-c := make(chan int)
+c := make(chan int) // makes a channel for integers
 go sum(s[:len(s)/2], c) // 17
 go sum(s[len(s)/2:], c) // -5
 x, y := <-c, <-c // receive from c
@@ -261,7 +261,7 @@ x, y := <-c, <-c // receive from c
 fmt.Println(x, y, x+y) // -5 17 12
 ```
 
-Channels can be *buffered*, with buffer length as the second argument to `make` to initialize a buffered channel: `ch := make(chan int, 100)`. Sends to a buffered channel become blocked with the buffer is full. Recieves become blocked when the buffer is empty.
+Channels can be *buffered*, with buffer length as the second argument to `make` to initialize a buffered channel: `ch := make(chan string, 100)`. Sends to a buffered channel become blocked with the buffer is full. Recieves become blocked when the buffer is empty.
 
 ##### Range and Close
 A sender can `close(ch)` a channel to indicate no more values will be sent. Recievers can test whether a channel has been cloesd by assigning a second parameter to the recieve expression. `v, ok := <-ch`, `ok` will be false if there are no more values to recieve.
