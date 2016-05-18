@@ -24,3 +24,4 @@ func (e *errorString) Error() string {
 }
 ```
 
+[source](https://blog.golang.org/error-handling-and-go)
