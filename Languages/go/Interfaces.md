@@ -32,10 +32,10 @@ The method table or interface table, is some metadata about the types involved a
   
 ### Pointers and Interfaces
 An interface definition does not explicitly state whether an implementor should implement the interface using a pointer reciever or value reciever
-- for an interface value, its underlying (concrete) type could be a pointer
-  - A method signature for an implementor could change from `func (c Cat) Speak() string` to a Cat pointer: `func (c *Cat) Speak() string ` and would still be a valid implementor 
+- for an interface value, its underlying (concrete) type could be a pointer (and go won't complain)
+  - A method signature for an implementor could change from `func (c Cat) Speak() string` to a Cat pointer: `func (c *Cat) Speak() string ` and would still be a valid implementor (potentially leading to bugs)
     - this would then only work if called by `&Cat.Speak()`
-- interestingly, `&Dog.Speak()` works the same as `Dog.Speak()` if the reciever of the `Speak` is not a pointer
+- interestingly, `&Dog.Speak()` works the same as `Dog.Speak()` if `Speak` had a value receiver
   - doesn't work the other way around, so when calling methods on an interface value, a pointer to a concrete type is more flexible
     - this is true since a pointer that is passed to a method with a non pointer parameter can dereference the pointer that is passed to get the right type to work with
     - note  a function `func (t T)MyMethod(s string)` is of type `func(T, string)`: method recievers (`T`) are passed into the function by value like any other pass by value call
