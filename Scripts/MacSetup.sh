@@ -149,3 +149,7 @@ brew install zopfli
 
 # Remove outdated versions from the cellar.
 brew cleanup
+
+
+# vim + tmux
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
