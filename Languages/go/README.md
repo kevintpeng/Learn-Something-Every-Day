@@ -182,7 +182,7 @@ v := Vertex{3, 4}
 v.Abs() // 5
 ```
 
-A method is just a function. Notice the difference between calling `v.Abs()` and `Abs(v)`.
+A method is just a function that implicitly passes some reciever argument as the first parameter. Notice the difference between calling `v.Abs()` and `Abs(v)`.
 - methods can be declared on non-struct types too
 - methods can be declared with *pointer recievers* allowing a method to mutate the value
 	- methods with pointer recievers can take either a value or a pointer (syntactic sugar, recieving `v.Scale(5)` as `(&v).Scale(5)`)
