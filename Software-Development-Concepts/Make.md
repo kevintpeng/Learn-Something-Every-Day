@@ -10,3 +10,18 @@ hellomake: hellomake.c hellofunc.c
 Finds the respective dependencies and runs a command.
 
 [source](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/)
+
+### Macros
+```
+MACROS  = -me
+PSROFF  = groff -Tps
+```
+- `$@`: name of file to be made
+- `$?`: names of the changed dependents
+
+### Defining Rules
+```
+target [target ...] : [dependent...]
+   [command ...]
+```
+defines `make mytarget` command.
