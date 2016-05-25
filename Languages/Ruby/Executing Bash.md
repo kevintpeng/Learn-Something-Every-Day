@@ -13,3 +13,5 @@ exec {"myvar"=>"value"}, "echo $myvar" # passes myvar as an environment variable
 
 #### backticks
 call a system program and **return its output**. 
+
+![graphic](http://i.stack.imgur.com/1Vuvp.png)
