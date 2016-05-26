@@ -91,13 +91,6 @@ Quoting removes special meaning of characters and words.
 - `''` single quotes preserve literal value of each char enclosed
 - `""` double quotes preserve literal values except `$`, `\` and \`\` backticks
 
-### Shell Expansion
-A command is first tokenized, then one of 8 expansions is performed on each token, followed by quote removal.
-- **brace expansion** generates a set of strings (first expansion)
-    - `sp{el, il, al}l` => `spell spill spall` (prefixes and postfixes to each option)
-- **tilde expansion** is
-- **parameter expansion** with `$`
-
 ### Patterns
 Patterns are important for selecting filenames. Three kinds of pattern matching. [Glob Patterns](../Glob Patterns.md) is good for file matching. Regex are used for specific pattern matching, not file matching. `=~` operator inside `[[` keyword lets you compare `[[ string =~ regex ]]` that returns `0` if true, `1` if false, `2` if pattern is invalid. 
 
