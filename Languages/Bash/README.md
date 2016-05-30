@@ -85,6 +85,9 @@ Strings are most common, default type for most things
         - `( IFS=,; echo "Today's contestants are: ${names[*]}" )`
         - in subshell so default IFS isn't overwritten
 
+`declare` builtin can be used to limit type of variables being assigned
+- `declare -i VARIABLE=12` will declare as a numeric
+
 ### Quoting
 Quoting removes special meaning of characters and words. 
 - `\` escapes a single character
@@ -139,6 +142,7 @@ done
 
 ## [Arrays](http://mywiki.wooledge.org/BashGuide/Arrays)
 
+
 ## Redirection of std I/O + Pipes
 ```
 ls > filename     # outputs to filename
@@ -149,6 +153,13 @@ ls | less         # output of ls displays in less
 order of operations: reads left to right, cmd take < input before running
 Filter: If cmd accepts input from standard input and produces standard output
 ```
+
+## Shift
+`shift` is a bash builtin, common in scripting
+- positional parameters of an argument are repositioned by some number (default 1)
+- `shift` will set `$1` to the value of `$2` and discard the original value of `$1`
+
+
 ## Commands
 ```
 tail        displays end of file, -20, -25 display -x number of lines
