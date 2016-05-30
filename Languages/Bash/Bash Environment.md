@@ -6,10 +6,11 @@
 - `~/bashrc` read after system wide bashrc, aliases and stuff
 
 ### Variables
-- Global varaibles are available in all shells, display with `env` command. 
-- Local variables are available in the current shell, display with `set` command.
+- Global/Environment varaibles are available in all shells, display with `env` command. 
+- Local/Shell variables are available in the current shell, display with `set` command.
+    - `set -e` sets a bash [option](/"Strict"%20mode.md)
 - `MYVAR="Hello"` defines a local variable in the current shell
-- `export MYVAR` adds it to *environment* variables which allows child processes to have access 
+- `export MYVAR` adds it to *environment* variables which allows child processes to have access, using the bash `export` builtin
 
 ### Shell Expansion
 A command is first tokenized, then one of 8 expansions is performed on each token, followed by quote removal.
