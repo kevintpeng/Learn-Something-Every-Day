@@ -13,6 +13,8 @@ $ nmapp 192.168.0.1 # is entirely equivalent
 
 #### Functions
 More powerful aliases. Unlike aliases, they can be used in scripts. Function contains shell commands and can take arguments and create local variables. 
+- `function` is a builtin that defines functions, can be omitted in definitions.
+- `FUNCTION () { COMMANDS; }` 
 
 #### Builtins
 Bash's basic commands like `cd`, `echo` ...
@@ -85,9 +87,6 @@ Strings are most common, default type for most things
         - `( IFS=,; echo "Today's contestants are: ${names[*]}" )`
         - in subshell so default IFS isn't overwritten
 
-`declare` builtin can be used to limit type of variables being assigned
-- `declare -i VARIABLE=12` will declare as a numeric
-
 ### Quoting
 Quoting removes special meaning of characters and words. 
 - `\` escapes a single character
@@ -142,7 +141,6 @@ done
 
 ## [Arrays](http://mywiki.wooledge.org/BashGuide/Arrays)
 
-
 ## Redirection of std I/O + Pipes
 ```
 ls > filename     # outputs to filename
@@ -154,11 +152,16 @@ order of operations: reads left to right, cmd take < input before running
 Filter: If cmd accepts input from standard input and produces standard output
 ```
 
-## Shift
-`shift` is a bash builtin, common in scripting
-- positional parameters of an argument are repositioned by some number (default 1)
-- `shift` will set `$1` to the value of `$2` and discard the original value of `$1`
+## Signals
+Signals can end processes, and other things
+- `SIGHUP` exits a shell, interactive shells will send this to all child processes (Hangup)
+- `Ctrl+C` is an interupt signal, sends `SIGINT` to the foreground job
+- `SIGKILL` kills ps, cannot be caught, blocked, or ignored
+- `SIGTERM` terminates
+- `SIGSTOP` stops
 
+`trap` command catches signals, and executes commands
+- `trap [COMMANDS] [SIGNALS]`
 
 ## Commands
 ```
@@ -214,5 +217,7 @@ min hour day-of-month month d-o-week cmd
 ```
 
 
-- [new source](http://guide.bash.academy/)
+- [main source](http://www.tldp.org/LDP/Bash-Beginners-Guide/html/index.html)
 - [source](http://mywiki.wooledge.org/)
+- [Style Guide](https://google.github.io/styleguide/shell.xml)
+
