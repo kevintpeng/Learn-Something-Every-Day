@@ -2,7 +2,7 @@ tl;dr, a safe way to program, for script, by adding these lines of code at the t
 ```
 #!/bin/bash
 set -euo pipefail
-IFS=$'\n\t`
+IFS=$'\n\t'
 ```
 
 ### `set`
