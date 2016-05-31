@@ -17,3 +17,5 @@ func (c *currency) Add(i float64) {
 }
 ```
 - `defer c.Unlock()` is useful if a function contains multiple return statements
+- Read Write Mutexes allow multiple readers to hold the lock, still only one writer
+  - `snyc.RWMutex`, with `m.RLock()` and `m.RUnlock()`
