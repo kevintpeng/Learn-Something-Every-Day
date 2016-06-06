@@ -23,3 +23,7 @@ Chef is used to manage servers, with its DSL. Chef is a DSL built on top of Ruby
 - chef-client accesses server from the node it's installed on
   - gets config data
   - uploads run data
+
+#### Knife
+A command-line tool for interfacing between a local chef-repo and the chef server
+- manages nodes, cookbooks, recipes, roles, environments, cloud resources including provisioning
