@@ -9,8 +9,11 @@ System for automating deployment, scaling and container management + clustering.
 
 ### Pod
 A group of one or more contianers (Docker containers for example) 
+- shared storage
 - shared namespace
 - share IP address and localhost
+
+The shared context of a pod is set by linux namespaces, cgroups; same things that isolate Docker containers. 
 
 ### Google Cloud
 Cloud native computing; contianer packaged, micro-services oriented.
