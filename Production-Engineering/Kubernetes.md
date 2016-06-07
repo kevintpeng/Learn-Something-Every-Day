@@ -1,5 +1,9 @@
 # Kubernetes
-System for automating deployment, scaling and container management + clustering. Manages applications, **not machines**. (still need chef to provision machines). Google container engine is built on Kubernetes, manages clusters of Docker containers. 
+System for automating deployment, scaling and container management + clustering. Manages applications, **not machines**, (still need chef to provision machines) allows distributed components across varied infrastructure (cloud providers). 
+
+Kubernetes addresses the disconnect between how clustered infrastructure is designed and some of the assumptions that applications have about their environment (surrounding infrastructure). 
+
+Google container engine is built on Kubernetes, manages clusters of Docker containers. 
 - Users interact with *master* through apis, clis
 - master manages nodes 
 
