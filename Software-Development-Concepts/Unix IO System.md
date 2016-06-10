@@ -1,4 +1,9 @@
-### Processes
+# Processes
+Processes have ids, PIDs. Processes can spawn other decendents, who inherit the environment variables of their parent process.
+- sub processes can change variables, but do not effect their parent
+
+[source](http://blog.honeybadger.io/ruby-guide-environment-variables/)
+
 - when program is executed, a special environment is created for it, containing everything it needs to run
 - when a command is issued, a new process is started
 - OS tracks rpocesses with five digit ID (pid)
