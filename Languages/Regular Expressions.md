@@ -22,3 +22,5 @@ A regular expression is a series of characters that define a search pattern.
 - Fowardreferencing is using backreferences before grouping, and it is evaluated after the group is matched.
 - Branch reset groups `(?|regex)` is used to choose on from multiple possible capturing groups and assigns it to one given group number
   - `(x)(?|(a)|(bc)|(def))\2` matches `xaa`, `xbcbc`, or `xdefdef`, each assigned to number `2`
+
+[source](http://www.regular-expressions.info/refadv.html)
