@@ -2,8 +2,18 @@
 Classifying computational problems according to their inherent difficulty, and relating those classes to each other. A problem is inherently difficult if its solution requires significant resources.
 
 ## Computational problems
-An infinite collection of instances together with a solution for every instance.
+An infinite collection of instances together with a solution for every instance. 
+- a *problem* is the abstract question being solved
+- input string is the *problem instance*, describes a specific example of the problem
+
 ### Decision Problems as Formal Languages
+A special type of computational problem whose answer is typically yes or no
+- decision problems can be viewed as formal languages
+  - members of the language are instances whose output is yes
+  - non-members have output no
+- objective is to decide whether a given input string is a member of the formal language
+
+Example: The input is an arbitrary graph. The problem consists in deciding whether the graph is connected or not. The formal language associated with the problem is the set of all connected graphs. In this case, graphs must be encoded in some form of a string.
 
 ## Machine models and complexity measures
 A Turing machine is a mathematical model of a general computing machine. It is a theoretical device that manipulates symbols contained on a strip of tape.
