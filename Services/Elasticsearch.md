@@ -33,4 +33,13 @@ This will pull up an elasticsearch node as the *master* in a single cluster on p
 curl -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
 ```
 ### Elasticsearch Query DSL
-[webinar](https://www.elastic.co/webinars/elasticsearch-query-dsl)
+- Leaf query clauses look for a particular value in a field 
+- Compound query clauses wrap other leaf or compound queries 
+- behaviour of a query clause depends on if it used in *query context* or *filter context*
+
+- **Query context** describes "How well does this document match this query clause"
+  - bool decides whether or not it should match
+  - then assigns a `_score` representing how well the document matches, relatively
+- in **Filter context**, a query clause describes "does this document match this query clause?"
+
+[source](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
