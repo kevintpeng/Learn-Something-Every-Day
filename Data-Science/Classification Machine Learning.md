@@ -25,4 +25,6 @@ Uses the TC model, and two assumptions, to calculate the category that maximizes
   - for each `P(xi | c)`, where `xi` is some word in `d`, add 1 to the numerator and `V` to denominator, `V` is the total number of words in the vocabulary
 - Apply Bayes Rule to original expression, `c = argmax( P(d | ci) * P(ci) / P(d) )`, since `P(d)` is constant for all ci, it can be ignored
 - `c = argmax( Π( P(xj|ci) ) * P(ci) )`, where `P(ci)` is the percentage of total documents that are in the category `ci`
+
+
 [source](http://nmis.isti.cnr.it/sebastiani/Publications/ACMCS02.pdf)
