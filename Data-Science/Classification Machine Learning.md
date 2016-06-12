@@ -13,3 +13,5 @@ More formally, the task is to approximate the unknown *target function* `fi: D x
 Different constraints may be enforced on the TC task. 
 - Perhaps it should map to exactly one category (**single-label** categories)
 - if mapped to 0 to |C| categories, it is **multi-label**
+
+[source](http://nmis.isti.cnr.it/sebastiani/Publications/ACMCS02.pdf)
