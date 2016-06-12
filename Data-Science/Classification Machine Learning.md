@@ -26,5 +26,11 @@ Uses the TC model, and two assumptions, to calculate the category that maximizes
 - Apply Bayes Rule to original expression, `c = argmax( P(d | ci) * P(ci) / P(d) )`, since `P(d)` is constant for all ci, it can be ignored
 - `c = argmax( Π( P(xj|ci) ) * P(ci) )`, where `P(ci)` is the percentage of total documents that are in the category `ci`
 
+### Persistant Data
+- total number of docs per class
+- total number of docs
+- hashmap of word occurrances per class
+- total number of word occurances per class
+- total number of distinct words per class
 
 [source](http://nmis.isti.cnr.it/sebastiani/Publications/ACMCS02.pdf)
