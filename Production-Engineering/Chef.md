@@ -15,6 +15,7 @@ A configuration management tool in Ruby and Erlang.
 
 #### Provisioning != Configuration
 - Provisioning is a set of actions to prepare a server with appropriate systems and software (OS, image)
+  - is the creation of machines 
 - Configuration is setting up application specific dependencies and structure
   - example: a load balancer needs to know which pool of servers to select from, what IP address to use so clients can connect
  
@@ -50,13 +51,11 @@ Sub-directories:
 - Ohai is a tool that detects attributes on a node (platform details, network usage, memory, CPU, kernel, host names...)
 
 #### chef-client Run
-A series of steps taken by the chef-client when it is configuring a node.
+A series of steps taken by the chef-client when it is **configuring** a node.
 
-### Components
-![component infographic](https://docs.chef.io/_images/chef_overview.svg)
+![chef run diagram](https://docs.chef.io/_images/chef_run.png)
 
-
-
+- chef client gets process configuration data
 
 #### Chef Server
 - Server acts as a hub of information
@@ -65,3 +64,11 @@ A series of steps taken by the chef-client when it is configuring a node.
   - gets config data
   - uploads run data
 
+### Chef for Containers
+Containers allow a single machine to host many working configurations.
+- **base containers** 
+
+### Cookbooks
+A fundamental unit of configuration and policy distribution. Defines a scenario (specific application for example) and contains everything required to support it. Cookbooks are combined in the configuration process
+
+- recipes that specify the resources to use 
