@@ -12,3 +12,6 @@ Package management framework for Ruby, `gem` is the cli.
 - `gem build mygem.gemspec` builds a gem that you create or modify into a `.gem` file, which can be installed locally 
 - `gem install mygem` installs a gem from rubygems server or locally
 - `gem push mygem-1.0.0.gem` pushes to rubygems.org
+
+RubyGems modifies Ruby load path, controlling how Ruby code is found by the `require` statement.
+- adds lib's directory to Ruby `$LOAD_PATH`
