@@ -1,15 +1,19 @@
 # Chef
-Chef is used to manage servers, with its DSL. Chef is a DSL built on top of Ruby. Chef is an automation platform, tranforms complex infrastructure to code. This lets you build a stack with other services like Buildkite as a CI, where Chef manages each of the nodes.
-- provides abstraction to make reasoning about infrastructure easier
+A configuration management tool in Ruby and Erlang. 
+- uses a ruby-based DSL for writing system configuration "recipes"
+- streamlines the task of configuring and maintaining a company's servers 
 - automates how applications are configured, deployed, managed
+- integrates with cloud-based platforms (Amazon EC2, Google Cloud, OpenStack, Microsoft Azure)
+  - used to automatically provision new machines 
+- provides abstraction to make reasoning about infrastructure easier
+
+### Setup
+[source](https://docs.chef.io/quick_start.html)
+- 
 
 ### Components
 ![component infographic](https://docs.chef.io/_images/chef_overview.svg)
-#### Workstations and Cookbooks
-- One or more workstations are configured to allow users to create and test *cookbooks*.
-  - cookbooks are uploaded to the *Chef server* from the workstation
-  - cookbooks are custom to the organization
-- Cookbooks are written in Ruby.
+
 
 #### Nodes and Chef Clients
 - A node is any machine --physical or virtual --that is under management by Chef
@@ -27,3 +31,6 @@ Chef is used to manage servers, with its DSL. Chef is a DSL built on top of Ruby
 #### Knife
 A command-line tool for interfacing between a local chef-repo and the chef server
 - manages nodes, cookbooks, recipes, roles, environments, cloud resources including provisioning
+
+
+
