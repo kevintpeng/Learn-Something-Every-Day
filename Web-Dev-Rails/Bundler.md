@@ -12,7 +12,7 @@ Then inside app, `require 'rubygems'` and `require 'bundler/setup'`
 `bundle exec` runs an executable that comes with a gem in your bundle
 
 ### Gemstash
-a cache for remote servers (including rubygems.org) and a private gem source
+a cache for remote servers (including rubygems.org) and a private gem source. By default, it is a local cache.
 - if bundler is being run across multiple servers, could it could improve speed
 - especially if same set of gems are used across multiple machines
 
@@ -27,7 +27,7 @@ bundle config mirror.https://rubygems.org.fallback_timeout 3
 
 Gemstash live is `~/.gemstash`, stores cached & private gems
 - by default, uses SQLite to store details 
-- 
+
 
 ### Gem in a box
-Another gem caching solution, older than gemstash
+Another gem caching solution, older than gemstash, more of a gem server than a cache. Uses [gemirro](https://github.com/PierreRambaud/gemirro), as a dependency for creating a RubyGems mirror.
