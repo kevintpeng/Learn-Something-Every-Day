@@ -85,4 +85,11 @@ For the chef-client, two important aspects of nodes are groups of attributes and
 ### Cookbooks
 A fundamental unit of configuration and policy distribution. Defines a scenario (specific application for example) and contains everything required to support it. Cookbooks are combined in the configuration process
 - attributes can be defined in a cookbook, used to override default settings on a node
-- recipes that specify the resources to use 
+  - when cookbooks are loaded during a chef-client run, these attributes are compared to the attributes present in the node
+- recipes are the most fundamental configuration element within the organization
+  - a collection of resources
+    - **resources** are statements of configuration policy, describing state, declaring steps to reach said state, specifies a resource type (package, template, service), lists additional details
+    - grouped into recipes, which describe working configurations
+  - must be stored in a cookbook
+  - may depend on other recipes 
+  - must be added to the run-list before it can be used by the chef-client
