@@ -7,9 +7,26 @@ A configuration management tool in Ruby and Erlang.
   - used to automatically provision new machines 
 - provides abstraction to make reasoning about infrastructure easier
 
-### Setup
-[source](https://docs.chef.io/quick_start.html)
-- 
+### Workstations (developer tools)
+Chef Development kit bundles all tools together, for setting up a developer environment.
+- Knife is a cli that provides an interface between a local chef-repo and the chef server
+  - manages nodes, cookbooks, roles, stores of JSON data, environments, cloud resources
+- the chef-repo is the repository structure in which cookbooks are created and stored
+- `knife.rb` file is used to tspecify the chef-repo-specific (company specific?) configuration details for knife
+- `metadata.rb` is in every cookbook, specifies info to the chef server
+  - cookbook name, maintainer, semver, description
+
+### chef-repo
+Master repo of all cookbooks, roles, data bags, environments, config files for clients, workstations, and servers. `knife` loads data to the chef server from the chef-repo. 
+
+`Cooker` runs on the Chef Server, and modifies this structure, by handling interaction with the chef server (automatic uploading cookbooks, roles and data bags). It creates separate chef environments for each branch.
+
+Sub-directories:
+- `.chef/`, hidden directory stores validation key files and `knife.rb`
+- `cookbooks/`, contains cookbooks (custom or upstream)
+  - upstream cookbooks can be managed with [librarian](https://github.com/applicationsonline/librarian-chef)
+  - `Cheffile` contains all upstream cookbooks to be vendored 
+- `data_bags/`, stores json data, keys, iv, ciphers
 
 ### Components
 ![component infographic](https://docs.chef.io/_images/chef_overview.svg)
@@ -27,10 +44,4 @@ A configuration management tool in Ruby and Erlang.
 - chef-client accesses server from the node it's installed on
   - gets config data
   - uploads run data
-
-#### Knife
-A command-line tool for interfacing between a local chef-repo and the chef server
-- manages nodes, cookbooks, recipes, roles, environments, cloud resources including provisioning
-
-
 
