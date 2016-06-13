@@ -4,3 +4,5 @@ Transport Layer Security (TLS), preceded by SSL, are cryptographic protocols, th
 
 ### Web Sockets
 Sockets are endpoints of two way communicaiton. Unix domain sockets use TCP or UDP. SSL (secure socket layer) is the standard security protocol.
+
+[source](https://en.wikipedia.org/wiki/Transport_Layer_Security)
