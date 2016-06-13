@@ -9,13 +9,14 @@ A configuration management tool in Ruby and Erlang.
 
 ### Background
 - virtualization and containers are two technologies that have changed how infrastructure is deployed and managed
+  - Containers allow a single machine to host many working configurations.
 - both improve scale and ease of deployment (in theory)
 - both provide encapsulation as a service, which creates consistent environments across many machines
 - with cloud computing and NFV, both enable rapid deployment of services and applications to match demand
 
 #### Provisioning != Configuration
 - Provisioning is a set of actions to prepare a server with appropriate systems and software (OS, image)
-  - is the creation of machines 
+  - is the creation of machines, or building docker images for containers (Packer builds any infrastructure image type with chef-client as the provisioner)  
 - Configuration is setting up application specific dependencies and structure
   - example: a load balancer needs to know which pool of servers to select from, what IP address to use so clients can connect
  
@@ -55,20 +56,33 @@ A series of steps taken by the chef-client when it is **configuring** a node.
 
 ![chef run diagram](https://docs.chef.io/_images/chef_run.png)
 
-- chef client gets process configuration data
+- chef client gets process configuration data from `client.rb` on the node, then gets node config data from Ohai
+  - `node_name` attribute is important in client.rb
+- Authenticate to the Chef Server using an RSA private key and the chef server api
+  - name of node is required for authentication
+- Get and rebuild the node object; gets node object from the chef server, if first chef-client run for the node, there will not be a node to pull down from the chef server 
+- Expand the run-list; 
 
-#### Chef Server
+#### Run-list 
+The run-list defines all of the info necessary for Chef to configure a node into the desired state
+- it is an ordered list of roles and/or recipes that need to be run
+- always specific to the node which it runs
+- stored as a part of the node object on the chef server
+
+#### Node Object
+For the chef-client, two important aspects of nodes are groups of attributes and run-lists. 
+- the node object consists of the run-list and node attributes
+- JSON file stored on the Chef server 
+- chef-client gets a copy of the node object from the chef server, on each chef-client run, then places an updated copy back on the server after the run
+
+### Chef Server
 - Server acts as a hub of information
 - cookbooks and policy settings are uploaded by workstations
 - chef-client accesses server from the node it's installed on
   - gets config data
   - uploads run data
 
-### Chef for Containers
-Containers allow a single machine to host many working configurations.
-- **base containers** 
-
 ### Cookbooks
 A fundamental unit of configuration and policy distribution. Defines a scenario (specific application for example) and contains everything required to support it. Cookbooks are combined in the configuration process
-
+- attributes can be defined in a cookbook, used to override default settings on a node
 - recipes that specify the resources to use 
