@@ -7,6 +7,17 @@ A configuration management tool in Ruby and Erlang.
   - used to automatically provision new machines 
 - provides abstraction to make reasoning about infrastructure easier
 
+### Background
+- virtualization and containers are two technologies that have changed how infrastructure is deployed and managed
+- both improve scale and ease of deployment (in theory)
+- both provide encapsulation as a service, which creates consistent environments across many machines
+- with cloud computing and NFV, both enable rapid deployment of services and applications to match demand
+
+#### Provisioning != Configuration
+- Provisioning is a set of actions to prepare a server with appropriate systems and software (OS, image)
+- Configuration is setting up application specific dependencies and structure
+  - example: a load balancer needs to know which pool of servers to select from, what IP address to use so clients can connect
+ 
 ### Workstations (developer tools)
 Chef Development kit bundles all tools together, for setting up a developer environment.
 - Knife is a cli that provides an interface between a local chef-repo and the chef server
@@ -27,16 +38,25 @@ Sub-directories:
   - upstream cookbooks can be managed with [librarian](https://github.com/applicationsonline/librarian-chef)
   - `Cheffile` contains all upstream cookbooks to be vendored 
 - `data_bags/`, stores json data, keys, iv, ciphers
+- `roles/`, stores files that define the roles that are available to the chef server
+  - defines a pattern or process that exists across nodes
+
+### Nodes and Chef Clients
+- A node is any machine --physical or virtual --that is under management by Chef
+- chef-client is installed on every node
+  - chef-client performs configuration tasks specified by run-list, to bring the node to an expected state
+  - chef-client will pull configuration data from Chef server while running
+- types of nodes include physical servers, cloud-based nodes, virtual machines, containers (virtualization, allowing a single OS to host many working configurations)
+- Ohai is a tool that detects attributes on a node (platform details, network usage, memory, CPU, kernel, host names...)
+
+#### chef-client Run
+A series of steps taken by the chef-client when it is configuring a node.
 
 ### Components
 ![component infographic](https://docs.chef.io/_images/chef_overview.svg)
 
 
-#### Nodes and Chef Clients
-- A node is any machine --physical or virtual --that is under management by Chef
-- chef-client is installed on every node
-  - chef-client performs configuration tasks specified by run-list
-  - chef-client will pull configuration data from Chef server while running
+
 
 #### Chef Server
 - Server acts as a hub of information
