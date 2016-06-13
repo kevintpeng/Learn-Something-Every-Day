@@ -93,3 +93,10 @@ A fundamental unit of configuration and policy distribution. Defines a scenario 
   - must be stored in a cookbook
   - may depend on other recipes 
   - must be added to the run-list before it can be used by the chef-client
+
+### Policy
+Policy maps operational requirements, process, and workflow to settings and objects stored on the Chef server:
+- **Roles** define server types (web server, database server)
+- **Environments** define process (dev, staging, production)
+- **Data Bags** can hold passwords, user account data, sensitive items (nodes must authenticate with the correct SSL certificate)
+- Cookbooks
