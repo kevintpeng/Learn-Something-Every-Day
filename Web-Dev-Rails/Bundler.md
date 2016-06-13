@@ -16,7 +16,18 @@ a cache for remote servers (including rubygems.org) and a private gem source
 - if bundler is being run across multiple servers, could it could improve speed
 - especially if same set of gems are used across multiple machines
 
-Tell Bundler that you want Gemstash to find gems:
+```bash 
+# Tell Bundler that you want Gemstash to find gems:
+bundle config mirror.https://rubygems.org http://localhost:9292
+
+# set Bundler to fallback to rubygems.org
+bundle config mirror.https://rubygems.org.fallback_timeout true
+bundle config mirror.https://rubygems.org.fallback_timeout 3
 ```
-$ bundle config mirror.https://rubygems.org http://localhost:9292
-```
+
+Gemstash live is `~/.gemstash`, stores cached & private gems
+- by default, uses SQLite to store details 
+- 
+
+### Gem in a box
+Another gem caching solution, older than gemstash
