@@ -64,9 +64,10 @@ A series of steps taken by the chef-client when it is **configuring** a node.
 - Expand the run-list; compiles a full list of roles and recipes that will be applied to the node (run-list is stored in each node object's JSON file, grouped under `run_list`
 - Sync cookbooks; chef-client asks chef server for list of all cookbook files needed, compares to cached cookbook files currently on the node and updates as necessary
 - chef-client identifies each resource (smallest unit of configuration) in the node object
+
 #### Run-list 
 The run-list defines all of the info necessary for Chef to configure a node into the desired state
-- it is an ordered list of roles and/or recipes that need to be run
+- it is an ordered list of **roles and/or recipes** that need to be run
 - always specific to the node which it runs
 - stored as a part of the node object on the chef server
 
@@ -102,3 +103,23 @@ Policy maps operational requirements, process, and workflow to settings and obje
 - **Data Bags** can hold passwords, user account data, sensitive items (nodes must authenticate with the correct SSL certificate)
 - Cookbooks
 
+### Roles
+A role is some set of basic configurations that may be applied to similar servers, playing a similar "role".
+- describes what a machine is supposed to do, what responsibilities and settings it has
+- roles can be combined on one machine
+
+Roles use the ruby DSL (a bunch of methods with parameters):
+```
+name "web_server"
+description "A role to configure our front-line web servers"
+run_list "recipe[apt]", "recipe[nginx]"
+```
+
+- base recipes and cookbooks are often used to configure the bare minimum on all nodes
+- reference recipes `'recipe[<cookbook>::<recipe>]'`
+- references base roles as `'role[base]'` or if nested `/roles/base/packages.rb`, use `'role[base--packages]'`
+
+### Environment
+Taken care of by Cooker, but in regular setup, found in `/environments`
+- also in ruby DSL, defines name, desc, cookbook versions, override attributes ...
+- environments are set for a node
