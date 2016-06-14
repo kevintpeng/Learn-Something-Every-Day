@@ -2,7 +2,7 @@
 ### Development Process
 1. Choose where the app should live (physical or cloud)
 2. Chef to provision and configure node
-  - select app role, which boots sub roles and recipes
+  - chef-client run carries out roles and recipes, in ordered run-list
 3. knife ssh into the app for access.
 
 ### Production Setup
