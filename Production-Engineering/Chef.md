@@ -61,8 +61,9 @@ A series of steps taken by the chef-client when it is **configuring** a node.
 - Authenticate to the Chef Server using an RSA private key and the chef server api
   - name of node is required for authentication
 - Get and rebuild the node object; gets node object from the chef server, if first chef-client run for the node, there will not be a node to pull down from the chef server 
-- Expand the run-list; 
-
+- Expand the run-list; compiles a full list of roles and recipes that will be applied to the node (run-list is stored in each node object's JSON file, grouped under `run_list`
+- Sync cookbooks; chef-client asks chef server for list of all cookbook files needed, compares to cached cookbook files currently on the node and updates as necessary
+- chef-client identifies each resource (smallest unit of configuration) in the node object
 #### Run-list 
 The run-list defines all of the info necessary for Chef to configure a node into the desired state
 - it is an ordered list of roles and/or recipes that need to be run
@@ -100,3 +101,4 @@ Policy maps operational requirements, process, and workflow to settings and obje
 - **Environments** define process (dev, staging, production)
 - **Data Bags** can hold passwords, user account data, sensitive items (nodes must authenticate with the correct SSL certificate)
 - Cookbooks
+
