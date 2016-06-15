@@ -1,5 +1,6 @@
 # Swift
 - `println("Hello World")`
+- `print("Hello")`
 - `let myConst = 42`, `var myVar = 50`
 - Type can be explicit or inferred: `let implicitD = 70.0`, `let explicitD: Double = 70`
 - arrays as expected (with `var`)
@@ -86,4 +87,19 @@ Optionals communicate success through having a value, or `nil`. Functions commun
 
 ### Collection Types
 Arrays, Sets, Dictionaries. Collections are mutable; able to add, remove, change items in a collection.
-- `Array<Element>` can be shortened as `[Element]`
+- `Array<Element>` can be shortened as `[Element]`. 
+  - empty initializer: `[Element]()`
+  - `.enumerate()` method iterates over an array, returning a tuple composed of the `(index, value)`
+- Sets store unordered, distinct values of the same type: `Set<String>`
+  - sets must be explicitly declared, otherwise they default to arrays
+  - sets can be sorted, intersected, XORed, unioned, subtracted and determine equality, subset/superset relationships
+- `Dictionary<Key, Value>` can be shorthanded as `[Key: Value]`
+  - `var namesOfInts = [String: Int]()`
+
+### Function Definition
+`func sayHello(personName: String) -> String {}` (return val is optional, can return tuples)
+```swift
+let bounds = minMax([8, -6, 2, 109, 3, 71])
+print("min is \(bounds.min) and max is \(bounds.max)")
+// Prints "min is -6 and max is 109"
+```
