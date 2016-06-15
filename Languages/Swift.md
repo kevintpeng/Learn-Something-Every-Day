@@ -69,5 +69,10 @@ if let actualNumber = Int(possibleNumber) {
 
 ### Implicitly Unwrapped Optionals
 If after some logic, an optional may be guaranteed to have a value. At this point, it is useful to remove the need to check and unwrap the optional's value every time.
-- An optional is implicitly unwrapped by declaring `String!`
-- during class initialization, 
+- An optional is implicitly unwrapped by declaring `String!`. Gives the permission to unwrap optionals automatically
+
+### Error Handling
+Optionals communicate success through having a value, or `nil`. Functions communicate through erros.
+- `func canThrowAnError() throws {}`
+- if a func can throw an error, you prepend `try` before calling a function, followed by `catch`
+- `catch Error.MyTypeOfError {}` for specific cases
