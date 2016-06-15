@@ -20,10 +20,11 @@ A configuration management tool in Ruby and Erlang.
 - Configuration is setting up application specific dependencies and structure
   - example: a load balancer needs to know which pool of servers to select from, what IP address to use so clients can connect
  
-### Workstations (developer tools)
+### Workstations (developer tools, `knife`)
 Chef Development kit bundles all tools together, for setting up a developer environment.
 - Knife is a cli that provides an interface between a local chef-repo and the chef server
   - manages nodes, cookbooks, roles, stores of JSON data, environments, cloud resources
+  - interacts with the chef server uning the same REST API as the chef-client
 - the chef-repo is the repository structure in which cookbooks are created and stored
 - `knife.rb` file is used to tspecify the chef-repo-specific (company specific?) configuration details for knife
 - `metadata.rb` is in every cookbook, specifies info to the chef server
