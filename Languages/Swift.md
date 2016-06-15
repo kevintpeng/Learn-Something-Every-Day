@@ -18,6 +18,7 @@ for score in myArray {
 - an optional value either contains a value or `nil`. Write a question mark after the type to mark as optional
 - `var optionalString: String? = "Hello"`
 - `for (key, val) in myDict {}`
+- ranges can be defined as: `for i in 1..5`
 
 ### Type Safety and Inference
 Swift is a type-safe language. Encourages you to be clear about hte type of values your code can work with.
@@ -76,3 +77,13 @@ Optionals communicate success through having a value, or `nil`. Functions commun
 - `func canThrowAnError() throws {}`
 - if a func can throw an error, you prepend `try` before calling a function, followed by `catch`
 - `catch Error.MyTypeOfError {}` for specific cases
+
+### Strings
+- strings are mutable if `var`s
+- strings are value types, value is copied when passed to a function
+- string interpolation: `"\(muliplier) times 2.5 is \(Double(multiplier)*2.5)"`
+- strings are unicode
+
+### Collection Types
+Arrays, Sets, Dictionaries. Collections are mutable; able to add, remove, change items in a collection.
+- `Array<Element>` can be shortened as `[Element]`
