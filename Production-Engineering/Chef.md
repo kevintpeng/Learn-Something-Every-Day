@@ -7,6 +7,8 @@ A configuration management tool in Ruby and Erlang.
   - used to automatically provision new machines 
 - provides abstraction to make reasoning about infrastructure easier
 
+TL;DR, chef configures and provisions nodes (a network of machines known to the chef server) on a chef-client run, by building a run-list (from roles and recipes, to bring the node to the desired state) and a set of attributes to check the node's state (defined by the node, cookbooks and roles). 
+
 ### Background
 - virtualization and containers are two technologies that have changed how infrastructure is deployed and managed
   - Containers allow a single machine to host many working configurations.
@@ -119,6 +121,20 @@ run_list "recipe[apt]", "recipe[nginx]"
 - base recipes and cookbooks are often used to configure the bare minimum on all nodes
 - reference recipes `'recipe[<cookbook>::<recipe>]'`
 - references base roles as `'role[base]'` or if nested `/roles/base/packages.rb`, use `'role[base--packages]'`
+
+### Attributes
+Used by the chef-client to understand
+- the current state of the node
+- what state the node was at the end of the previous chef-client run
+- what the state of the node should be at the end of the current chef-client run
+
+during every chef-client run, the chef client builds attribute list, defined by:
+- the state of the node itself
+- cookbooks can define attributes in attribute files or through recipes
+- roles and environments define attributes
+- data about the node from Ohai
+- the node object that was saved to the chef server, on the previous chef-client run
+- the rebuilt node object on the current chef-client run
 
 ### Environment
 Taken care of by Cooker, but in regular setup, found in `/environments`
