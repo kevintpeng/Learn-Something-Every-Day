@@ -15,3 +15,6 @@ for score in myArray {
   }
 }
 ```
+- an optional value either contains a value or `nil`. Write a question mark after the type to mark as optional
+- `var optionalString: String? = "Hello"`
+- `for (key, val) in myDict {}`
