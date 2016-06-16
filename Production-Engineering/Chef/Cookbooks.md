@@ -1,5 +1,5 @@
 # Cookbooks
-
+Basic info in [README](./README.md). 
 ### Debugging
 If debugging `node['stenographer']['user']`:
 ```ruby
