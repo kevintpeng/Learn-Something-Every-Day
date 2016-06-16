@@ -66,7 +66,7 @@ Used to find out whether an optional contains a value, and if so, make it availa
 ```swift
 if let actualNumber = Int(possibleNumber) {
     print("\"\(possibleNumber)\" has an integer value of \(actualNumber)")
-}
+} else { // ...
 ```
 
 ### Implicitly Unwrapped Optionals
@@ -97,9 +97,24 @@ Arrays, Sets, Dictionaries. Collections are mutable; able to add, remove, change
   - `var namesOfInts = [String: Int]()`
 
 ### Function Definition
-`func sayHello(personName: String) -> String {}` (return val is optional, can return tuples)
+`func sayHello(personName: String) -> String {}` (return val is optional, can return tuples). Example:
 ```swift
 let bounds = minMax([8, -6, 2, 109, 3, 71])
 print("min is \(bounds.min) and max is \(bounds.max)")
 // Prints "min is -6 and max is 109"
 ```
+- external parameter names let you specify names of parameters when they're called, much like an options hash in ruby
+```swift
+
+func sayHello(to person: String, and anotherPerson: String) -> String {
+    return "Hello \(person) and \(anotherPerson)!"
+}
+print(sayHello(to: "Bill", and: "Ted"))
+```
+- you can assign default parameter values: `func someFunction(parameterWithDefault: Int = 12)`
+- a function can take an arbitrary number of parameters: `func arithmeticMean(numbers: Double...) -> Double {`, where `numbers` is a list of doubles
+- every function has a *function type*, like `(Int, Int) -> Int`
+  - `var mathFunc: (Int, Int) -> Int = addTwoInts`; then call `mathFunc(2, 3)` >>> `5`
+  
+### Classes and Structures
+Flexible constructs that are the building blocks for code. Swift does not require you to create separate interface
