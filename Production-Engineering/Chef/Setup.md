@@ -1,2 +1,3 @@
 # Setup Walkthrough
-After chef dk, tools, and chef-repo are all setup, can start writing a recipe:
+- `knife node edit mynode` 
+  - modify `chef_environment`, `roles`, `run_list`
