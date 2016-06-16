@@ -140,3 +140,5 @@ during every chef-client run, the chef client builds attribute list, defined by:
 Taken care of by Cooker, but in regular setup, found in `/environments`
 - also in ruby DSL, defines name, desc, cookbook versions, override attributes ...
 - environments are set for a node
+
+[Read setup next](./Setup.md)
