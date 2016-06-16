@@ -115,6 +115,56 @@ print(sayHello(to: "Bill", and: "Ted"))
 - a function can take an arbitrary number of parameters: `func arithmeticMean(numbers: Double...) -> Double {`, where `numbers` is a list of doubles
 - every function has a *function type*, like `(Int, Int) -> Int`
   - `var mathFunc: (Int, Int) -> Int = addTwoInts`; then call `mathFunc(2, 3)` >>> `5`
+  - you can pass functions as parameters
+- functions can be return types:
+```swift
+func chooseStepFunction(backwards: Bool) -> (Int) -> Int {
+    return backwards ? stepBackward : stepForward
+}
+```
   
+### Closures
+a self contained block of functionality that can be passed around in your code.
+- closures are similar to lambdas in other languages
+- capture and store references to any costants and variables from the context in which they are defined
+- known as **closing over** those constants and variables
+- global functions are closures that have a name and do not capture any values
+- nested functions are closures that have a name and capture values from their enclosing function
+- closure expressions are unnamed closures that can capture values from their surrounding context
+```swift
+reversed = names.sort({ (s1: String, s2: String) -> Bool in
+    return s1 > s2
+})
+```
+
+### Capturing Values
+A closure captures values around it. It can be referenced outside of the original scope to modify those values, even if the scope doesn't exist anymore.
+```swift
+func makeIncrementer(forIncrement amount: Int) -> () -> Int {
+    var runningTotal = 0
+    func incrementer() -> Int {
+        runningTotal += amount
+        return runningTotal
+    }
+    return incrementer
+}
+```
+
+### Autoclosures
+a closure that is automatically created to wrap an expression being passes as an argument.
+
+### Enumerations
+An enumerator defines a common type for a group of related values, and gives type safety.
+- assigns a related name to a set of integer values
+```swift
+enum CompassPoint {
+    case North
+    case South
+    case East
+    case West
+}
+```
+- defines `CompassPoint.West`, then use switch statements with `case .North:` as conditionals
+
 ### Classes and Structures
 Flexible constructs that are the building blocks for code. Swift does not require you to create separate interface
