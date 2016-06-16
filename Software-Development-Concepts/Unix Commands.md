@@ -1,3 +1,7 @@
+### ssh
+For logging into remote machines. `ssh hostname`
+- connects and logs into the specified *hostname* 
+
 ### man
 Manual pages for any command line tool. `man some-command` pulls up help info about a command.
 
