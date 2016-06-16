@@ -17,3 +17,5 @@ service 'apache2' do
   action [:enable, :start]
 end
 ```
+
+[Cookbooks help organize recipes.](./Cookbooks.md)
