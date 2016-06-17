@@ -8,8 +8,11 @@ gem 'rspec', :require => 'spec'
 ```
 
 Then inside app, `require 'rubygems'` and `require 'bundler/setup'`
+- `bundle exec` runs an executable that comes with a gem in your bundle
+- bundler stores gems (in development) in the default location of the machine
+- in `--deployment`, it installs unique to the app (defaults to `vender/cache`)
+  - `bundle show <gemname>`
 
-`bundle exec` runs an executable that comes with a gem in your bundle
 
 ### Gemstash
 a cache for remote servers (including rubygems.org) and a private gem source. By default, it is a local cache.
