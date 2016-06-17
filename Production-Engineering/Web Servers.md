@@ -1,4 +1,12 @@
-# Apache vs Nginx
+# Web Servers
+Web servers are the front-most layer of traffic handling. Setup:
+- make you HTTP available from the internet, by configuring your router to send all incoming traffic on port 80 to your server
+  - on most cloud platforms, this is handled already
+  - locally, it would require going to http://192.168.1.1/, and allowing traffic to pass through firewall
+  - choose computer, forward external TCP traffic on port 80 to port 80 (this is port forwarding)
+  - people can then connect to your local server via your public IP address
+  
+## Apache vs Nginx
 Both solutions are capable of handling diverse workloads. They are different in what they excel at. One big difference is how they handle connections and traffic.
 
 ### Apache
