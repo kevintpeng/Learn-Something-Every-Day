@@ -18,3 +18,9 @@ Half server, half client logic
 - clients choose which server to read and write from 
 - servers manage storage and implement LRU
 - servers are unaware of each other 
+
+### Memcached vs Redis
+Both in memory key/val lookup tables, for high speed/availability.
+- both cluster, add in memory objects without needing to reference a data store
+- comparable access speeds
+- past a single instance, they have different deployed and scaled architectures
