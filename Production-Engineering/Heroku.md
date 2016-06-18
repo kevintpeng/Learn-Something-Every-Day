@@ -3,6 +3,11 @@
 - `heroku pg:backups`
 - `heroku pg:backups schedule --at '02:00 America/Los_Angeles'`
 
+### Architecture
+`rails server` is run on the machine, as the runnable.
+- `Procfile` defines a list of process
+
+
 ### Dynos
 
 ### Procfile
