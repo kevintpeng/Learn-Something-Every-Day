@@ -38,3 +38,19 @@ task :name do |t|
 end
 ```
 [Read More](http://ruby-doc.org/core-1.9.3/doc/rake/rakefile_rdoc.html)
+
+### Rake Task Design
+- namespace related tasks
+- write descriptions
+- avoid `puts` statements
+- use `ActiveSupport::Logger.new('log/myRakeTaskName.log')`, with `log.info` as print statement, `log.close`
+```ruby
+# lib/tasks/migrate/topics.rake
+  # should have namespaced tasks in their own rake file, folder per namespace
+namespace :migrate do
+  desc 'Migrate topics from legacy database to new database'
+  task topics: :environment do
+     ...
+  end
+end
+```
