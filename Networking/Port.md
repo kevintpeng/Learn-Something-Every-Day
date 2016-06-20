@@ -10,3 +10,9 @@ Always associated with an IP address of the host and the protocol type of the co
 - 80: HTTP
 - 110: Post Office Protocol (POP3, email)
 - 443: HTTP Secure
+- `$ less /etc/services/` shows a list of well-known TCP and UDP port numbers
+
+### Opening TCP ports
+- `nc` is netcat utility, used for anything TCP/UDP
+- opens TCP connections, send UDP packets, listen on arbitrary TCP or UDP ports, port scanning, deal with IPv4 and IPv6
+- `nc -l 5000` opens port 5000
