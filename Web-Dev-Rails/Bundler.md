@@ -12,7 +12,8 @@ Then inside app, `require 'rubygems'` and `require 'bundler/setup'`
 - bundler stores gems (in development) in the default location of the machine
 - in `--deployment`, it installs unique to the app (defaults to `vender/cache`)
   - `bundle show <gemname>`
-
+- `Gemfile.lock` makes your application a single package of both your own and third-party code
+  - snapshot of last time everything worked
 
 ### Gemstash
 a cache for remote servers (including rubygems.org) and a private gem source. By default, it is a local cache.
