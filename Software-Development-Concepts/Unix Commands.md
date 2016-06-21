@@ -1,6 +1,8 @@
 ### nc
 Netcat is a computer networking utility for reading and writing to network connections using TCP or UDP
 - used as a dependable backend 
+- nc -l 9292
+
 ### ssh
 For logging into remote machines. `ssh hostname`
 - connects and logs into the specified *hostname* 
