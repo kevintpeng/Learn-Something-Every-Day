@@ -4,5 +4,6 @@ Recieves lots of metrics and events from applications and services, providing da
 - Has two types of data: **events*** and **metrics**
   - events are infrequent significant events (deploys, restarts)
   - metrics are frequent, interested in aggregating over time
-  - events are
+  - events are sent to Datadog using HTTP-based API
+  
 [source](http://docs.datadoghq.com/)
