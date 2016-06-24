@@ -1,5 +1,8 @@
 ![debugging](https://qph.ec.quoracdn.net/main-qimg-b09edd5890452b228cd0e36f6f552268)
 
+### curl
+Tool for transfering data from or onto a server, can use almost all protocols
+
 ### nc
 Netcat is a computer networking utility for reading and writing to network connections using TCP or UDP
 - used as a dependable backend 
