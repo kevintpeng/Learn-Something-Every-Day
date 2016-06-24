@@ -46,5 +46,4 @@ NAT loopback is a feature in many consumer routers: permits the access of a serv
 ### IP Modification
 Firewalls perform IP blocking, based on IP addresses of client computers. 
 - proxy servers act as an intermediary agent on behalf of the customer
-- or NATs can pass this
-- 
+- or NATs on IPv4 can act for multiple computers
