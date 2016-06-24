@@ -14,7 +14,18 @@ Numeric label assigned to each device participating in a network
 - revised as classful network architecture
   - broken into classes A, B, C, A has few networks, with many addresses per network
 
-#### NAT
-Network Address Translation, is a method of remapping one IP address space into another by modifying network address information
+### NAT
+Network Address Translation, is a method of remapping one IP address space into another by modifying network address information.
+- used for ease of rerouting traffic in IP networks without renumbering every host
+- essential also for conserving global address space allocation
+- sharing one internet-routable IP address of a NAT gateway for an entire private network
+- Basic NAT provides one-to-one translation of IP addresses
+- Most NATs map one publicly exposed IP address to many private hosts
+  - a router on a network has a private address in that address space
+  - many-to-one NAT is so common, it is synonymous to NAT
+- web browsers in the masqueraded network can access websites outside the network
+- browsers outside the network cannot access websites inside the network
+- NAT devices today allow network admins to configure static translation table entries for connections from an external network
+  - achieved through port forwarding; forwards traffic from a specific external port to an internal host on a specified port
 
-
+### NAT loopback
