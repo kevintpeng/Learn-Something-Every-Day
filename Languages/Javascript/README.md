@@ -5,6 +5,7 @@
 
 ### Basics, Variables and Scoping
 - case sensitive, unicode, semicolon delimited statements, java-like comments
+- `console.log()` for print
 - `var x = 42` (local or global), `let` declared a block scope local variable, `const` read only
 - variables are by default global
 - variable hoisting is when you reference a variable that is defined later, yields `undefined` instead of error (wtf, why is this a thing)
