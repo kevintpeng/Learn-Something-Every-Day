@@ -51,7 +51,7 @@ http{
 
 ### NGINX Caching
 - to enable caching, `proxy_cache_path` directive at the top level of `http` context
-- 
+
 
 ### Basic HTTP Proxy Pass
 Involves handing off a request to a single server with http, known as a generic "proxy pass" handled by the `proxy_pass` directive.
