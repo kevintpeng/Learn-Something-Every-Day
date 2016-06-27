@@ -1,3 +1,4 @@
+# [Most of my ruby notes live under my Rails notes](../../Web-Dev-Rails)
 ### Object
 #### `inspect`
 displays an object in some defined, human-readable form, showing instance variables.
