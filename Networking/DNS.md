@@ -14,3 +14,10 @@ The domain name space of the Internet is a hierarchy of subdomains below the DNS
 An Internet performance management company, offering products to monitor, control, and optimize online infrastructure. 
 
 [source](https://en.wikipedia.org/wiki/Domain_Name_System)
+
+### `resolv.conf`
+File used in various operating systems to configure the system's DNS resolver
+- resolving is the process of determining the IP address from a domain name
+- a DNS resolver is responsible for initiating and sequencing queries that lead to the right resource (translation of domain name into IP address)
+- an individual DNS query may be non-recursive, recursive, iterative, combinations of these
+- when DHCP is used, it is usually updated with `resolvconf` utility
