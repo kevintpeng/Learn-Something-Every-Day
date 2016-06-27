@@ -14,7 +14,38 @@ Proxying is accomplished by passing requests to other servers for actual process
 - the servers that recieve proxied requests are called upstream servers
 - can proxy requests to servers using http(s), FastCGI, memcached protocols through separate sets of directives for each type of proxy
 
+### Basics
+- has one master process, several worker processes
+- master reads and evaluated configuration (from conf file), maintains worker processes
+- workers process requests
+- start nginx from the binary, `nginx -s signal` where signals are
+  - `stop` fast shutdown, `quit` graceful shutdown, `reload` conf, `reopen` log files
+- nginx **conf file structure** consists of modules which are controlled by directives, specified in the configuration file
+  - simple directives or directive blocks 
+  - simple directives consist of name and parameters, space delimited, end with `;`
+  - block directives nest other directives called contexts
+- nginx can server static content, through request processing
+  - `/data/www` contains html files and other assets
+  - requires setting up a `server` block inside the `http` block
+  - the conf file may include several `server` blocks, distinguished by ports (`listen`, default 80) and `server_name` (domain name) 
+
+**Example:**
+```
+http{
+  server {
+    location / {
+        root /data/www;
+    }
+
+    location /images/ {
+        root /data;
+    }
+  }
+}
+```
 ### Basic HTTP Proxy Pass
 Involves handing off a request to a single server with http, known as a generic "proxy pass" handled by the `proxy_pass` directive.
+- the `ngx_http_proxy_module` allows passing requests to another server
+
 
 [source](https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching)
