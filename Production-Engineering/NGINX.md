@@ -21,9 +21,14 @@ Proxying is accomplished by passing requests to other servers for actual process
 - start nginx from the binary, `nginx -s signal` where signals are
   - `stop` fast shutdown, `quit` graceful shutdown, `reload` conf, `reopen` log files
 - nginx **conf file structure** consists of modules which are controlled by directives, specified in the configuration file
-  - simple directives or directive blocks 
-  - simple directives consist of name and parameters, space delimited, end with `;`
-  - block directives nest other directives called contexts
+  - the top of the tree structure defines "contexts", containing configuration separated by their area of concern
+  - each context contains simple directives or directive blocks 
+    - any directive existing outside of a context block is said to be in the main context, inherited by all contexts
+    - simple directives consist of name and parameters, space delimited, end with `;`
+  - `event` context sets global options that affect how Nginx handles connections 
+  - `http` context holds all configuration regarding http connections (as a web server/reverse proxy)
+  - `server` context is declared within the `http` context
+  - `location` contexts are nested in `server`, catch subsets of traffic and directs it to the proper files to be served
 - nginx can server static content, through request processing
   - `/data/www` contains html files and other assets
   - requires setting up a `server` block inside the `http` block
@@ -43,6 +48,11 @@ http{
   }
 }
 ```
+
+### NGINX Caching
+- to enable caching, `proxy_cache_path` directive at the top level of `http` context
+- 
+
 ### Basic HTTP Proxy Pass
 Involves handing off a request to a single server with http, known as a generic "proxy pass" handled by the `proxy_pass` directive.
 - the `ngx_http_proxy_module` allows passing requests to another server
