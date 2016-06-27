@@ -49,9 +49,4 @@ http{
 }
 ```
 
-### Basic HTTP Proxy Pass
-Involves handing off a request to a single server with http, known as a generic "proxy pass" handled by the `proxy_pass` directive.
-- the `ngx_http_proxy_module` allows passing requests to another server
-
-
 [source](https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching)
