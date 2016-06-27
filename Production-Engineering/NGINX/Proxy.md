@@ -16,4 +16,7 @@ Proxying involves handing off a request to a single server with http, known as a
 - having no buffering is desirable for fast clients that need to recieve response as soon as possible
 
 ### Outgoing IP Address
-Useful if the proxy server has several network interfaces
+Useful if the proxy server has several network interfaces and proxied servers accept connections from particular IP networks or address ranges
+- `proxy_bind` directive specifies IP address of the necessary network interface
+- can use IP address of the network interface that accepted the request: `proxy_bind $server_addr`
+- `transparent` parameter allows outgoing connections to originate from a non-local IP address, like the real client IP: `proxy_bind $remote_addr transparent;` (run nginx worker processes with superuser)
