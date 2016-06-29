@@ -4,7 +4,7 @@
 
 *What important truth do very few people agree with you on?* A delusional popular belief hides a contrarian truth.
 - 1990s, most industries were in recession, except for the tech industry
-- Dot-com mania was from sept 1998 to march 2000; a Silicon Valley gold rush
+- Dot-com mania was from sept 1998 to march 2000; a Silicon Valley gold rush, a delusional popular belief
 - the burst happened in March 2000; it scared most tech companies into the following dogma:
 
 1. Make incremental advances
