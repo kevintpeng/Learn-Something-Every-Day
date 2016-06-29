@@ -6,12 +6,14 @@
 - 1990s, most industries were in recession, except for the tech industry
 - Dot-com mania was from sept 1998 to march 2000; a Silicon Valley gold rush
 - the burst happened in March 2000; it scared most tech companies into the following dogma:
+
 1. Make incremental advances
 2. Stay lean and flexible
 3. Improve on the competition
 4. Focus on product, not sales. The only sustainable growth is viral
 
 While this is the safe thing, the opposite principles are also valid:
+
 1. It's better to risk boldness 
 2. A bad plan is better than no plan
 3. Competitive markets destroy profits
