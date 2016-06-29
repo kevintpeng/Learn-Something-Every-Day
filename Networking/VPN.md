@@ -1,5 +1,5 @@
 # VPN setup
-```
+```bash
 sudo nano /etc/network/interface*
 # change dns-nameservers 8.8.8.8 8.8.4.4, these are Google's Nameservers 
 # this will perminently change your resolv.conf file, for DNS resolution
