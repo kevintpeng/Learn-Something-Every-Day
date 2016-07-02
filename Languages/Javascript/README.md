@@ -11,7 +11,8 @@
 - variable hoisting is when you reference a variable that is defined later, yields `undefined` instead of error (wtf, why is this a thing)
 - global vars are properties of the global object
   - in a web page, `window` is the global object
-- java-like `if`, 
+- java-like `if` 
+
 ### Data structures and types
 - Boolean, null, undefined, Number, String, Symbol, Object
 - dynamically typed, variable can hold any type
