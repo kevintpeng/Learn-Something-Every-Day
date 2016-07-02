@@ -11,3 +11,5 @@ example:
       (>= (book-sales book) threshold))
     book-list))
 ```
+
+[source](http://programmers.stackexchange.com/questions/285941/why-would-a-program-use-a-closure)
