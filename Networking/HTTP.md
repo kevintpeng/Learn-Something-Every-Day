@@ -5,6 +5,9 @@ Part of requests and responses, contains fields defining the operating parameter
 - `Accept-Charset: utf-8`
 - `Host: en.wikipedia.org` domain name 
 - `User-Agent:` string
+- `Cache-Control:`  comma delimited list of response directives:
+  - `private || public`, whether or not it should be cached
+  - `no-cache`, cache should revalidate this resource every time
 
 ### Statuses
 - 200 OK
