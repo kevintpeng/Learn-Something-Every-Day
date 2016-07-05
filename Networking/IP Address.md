@@ -14,6 +14,7 @@ Numeric label assigned to each device participating in a network
 - revised as classful network architecture
   - broken into classes A, B, C, A has few networks, with many addresses per network
   - on most systems, localhost resolves to `127.0.0.1` which is the IPv4 loopback address 
+
 ### NAT
 Network Address Translation, is a method of remapping one IP address space into another by modifying network address information.
 - used for ease of rerouting traffic in IP networks without renumbering every host
