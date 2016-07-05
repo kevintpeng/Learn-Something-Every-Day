@@ -32,6 +32,7 @@ Part of requests and responses, contains fields defining the operating parameter
 - `etag`
 - `vary`
 - `pragma: no-cache`
+- `Location` header is returned to ask a web browser to load a different web page (URL redirection) or sent with HTTP status codes `3xx`
 
 ### Statuses
 - 200 OK
