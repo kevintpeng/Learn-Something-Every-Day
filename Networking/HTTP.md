@@ -8,6 +8,10 @@ Part of requests and responses, contains fields defining the operating parameter
 - `Cache-Control:`  comma delimited list of response directives:
   - `private || public`, whether or not it should be cached
   - `no-cache`, cache should revalidate this resource every time
+- `expires`
+- `etag`
+- `vary`
+- `pragma: no-cache`
 
 ### Statuses
 - 200 OK
