@@ -47,3 +47,9 @@ NAT loopback is a feature in many consumer routers: permits the access of a serv
 Firewalls perform IP blocking, based on IP addresses of client computers. 
 - proxy servers act as an intermediary agent on behalf of the customer
 - or NATs on IPv4 can act for multiple computers
+
+### localhost
+hostname that means *this computer*
+- used to access the network services that are running on the host via its loopback network interface
+- IPv4 network standards reserve the entire 127.0.0.0/8 address block for loopback purposes
+- the resolution of the name `localhost` into one or more IP addresses is configured by /etc/hosts line `127.0.0.1   localhost`
