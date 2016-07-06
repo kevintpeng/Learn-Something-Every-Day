@@ -13,4 +13,14 @@ Transport Layer Security (TLS), preceded by SSL, are cryptographic protocols, th
 ### Web Sockets
 Sockets are endpoints of two way communicaiton. Unix domain sockets use TCP or UDP. SSL (secure socket layer) is the standard security protocol.
 
+### Let's Encrypt
+Certbot is an automatic client that fetches and deploys SSL/TLS certs for webservers. Client for Let's Encrypt
+```
+wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+./certbot-auto
+# kill server
+./certbot-auto certonly
+```
+
 [source](https://en.wikipedia.org/wiki/Transport_Layer_Security)
