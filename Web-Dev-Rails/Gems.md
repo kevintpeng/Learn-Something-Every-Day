@@ -15,3 +15,6 @@ Package management framework for Ruby, `gem` is the cli.
 
 RubyGems modifies Ruby load path, controlling how Ruby code is found by the `require` statement.
 - adds lib's directory to Ruby `$LOAD_PATH`
+
+### Under the Hood
+- `gem install`
