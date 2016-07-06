@@ -15,7 +15,7 @@ Sockets are endpoints of two way communicaiton. Unix domain sockets use TCP or U
 
 ### Let's Encrypt
 Certbot is an automatic client that fetches and deploys SSL/TLS certs for webservers. Client for Let's Encrypt
-```
+```sh
 wget https://dl.eff.org/certbot-auto
 chmod a+x certbot-auto
 ./certbot-auto
