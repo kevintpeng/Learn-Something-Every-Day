@@ -54,9 +54,23 @@ Nginx uses blocks to build hierarchical configuration structure.
 - server blocks define virtual servers used to handle requests
 - location blocks live in server blocks, and define how Nginx handles requests for different resources and URIs
 
+##### server blocks
 Nginx determines which server block to use with `listen` and `server_name`
 - `listen` directive can be set to an IP address/port combo, lone IP address with default port 80, lone port listening to every interface on that port, or the path to a unix socket
 - `server_name` directive is only evaluated if it needs to distinguish between server blocks that match the same level of specificity in the `listen` directive
+  - checks the host header for the server name
+
+##### location blocks
+location directives look like: `location <optional_modifier> <location_match> {}`
+- location match above defines what Nginx should check the request URI against
+- the modifiers cause the associated block to be interpreted differently
+  - **(none)** the location is interpreted as a *prefix* match, matched against the beginning of the request URI
+  - `=`, the location match will be considered if matching exactly
+  - `~`, the location will be interpreted as a regex
+  - `~*`, case-insensitive regex
+  - `^~`, if selected as the best non-regular expression match, regex matching will not take place
+
+[source](https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms)
 
 ### General (Common Mistakes)
 - never use `Chmod 777`. On web-servers, this give anyone rwx permissions on all files 
