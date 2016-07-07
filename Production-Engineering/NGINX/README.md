@@ -68,6 +68,8 @@ http{
   - BAD: `rewrite ^/(.*)$ http://example.com/$1 permanent;`
   - GOOD: `rewrite ^ http://example.com$request_uri? permanent;`
   - BETTER: `return 301 http://example.com$request_uri;`
+- do not use hostname in the `listen` directive, use known IP addresses if possible instead
+
 [source](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/)
 
 ### defaults
