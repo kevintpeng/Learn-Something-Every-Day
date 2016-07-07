@@ -62,7 +62,12 @@ http{
 ```
 - don't do `if($host ... )`, inefficient, checks host header for every request
   - user `server_name` directive to differentiate responses based on the Host header
-
+- don't use `if` to check files, use `try_file` directive
+  - `try_files $uri $uri/ /index.html;` check `$uri`, then `$uri/`, otherwise use `/index.html`
+- regex can be taxing computationally in `rewrites`
+  - BAD: `rewrite ^/(.*)$ http://example.com/$1 permanent;`
+  - GOOD: `rewrite ^ http://example.com$request_uri? permanent;`
+  - BETTER: `return 301 http://example.com$request_uri;`
 [source](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/)
 
 ### defaults
@@ -72,5 +77,5 @@ http{
   - `user` directive defines user and group credentials used by worker processes
   - `debug_connection` directive enables debugging log for a given client
   - `error_log` defines path and severity
-
+  - `sendfile`
 [source](https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching)
