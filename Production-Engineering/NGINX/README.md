@@ -49,4 +49,28 @@ http{
 }
 ```
 
+### General (Common Mistakes)
+- never use `Chmod 777`. On web-servers, this give anyone rwx permissions on all files 
+- don't use `root` directive inside a location block
+- avoid multiple index directives (put `index` under `http` block)
+- avoid the `if` directive inside a location context
+  - the only safe things inside if in location context are `return` and `rewrite` 
+```
+    if ($something) {
+        return 418;
+    }
+```
+- don't do `if($host ... )`, inefficient, checks host header for every request
+  - user `server_name` directive to differentiate responses based on the Host header
+
+[source](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/)
+
+### defaults
+- `/etc/nginx/mime.types` holds media types (derrived from Multipurpose internet mail extensions)
+- `default_type` directive defines what to send when you have no file extensions
+- [core module](http://nginx.org/en/docs/ngx_core_module.html)
+  - `user` directive defines user and group credentials used by worker processes
+  - `debug_connection` directive enables debugging log for a given client
+  - `error_log` defines path and severity
+  - 
 [source](https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching)
