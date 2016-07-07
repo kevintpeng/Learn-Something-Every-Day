@@ -36,6 +36,8 @@ Part of requests and responses, contains fields defining the operating parameter
 
 ### Statuses
 - 200 OK
+- `301` is a permanent redirect, when content is moved forever, browser should always request the new URL instead
+- `302` is a temporary redirect, tell the browser that the content is temporarily located at a different location, but they should continue to attempt the original URL on later requests
 - `304 not modified`, the conditional GET request would have recieved `200 OK`, but the condition was false.
   - minimize the amount of information transfer to the client
 
