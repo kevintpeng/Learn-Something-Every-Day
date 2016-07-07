@@ -72,5 +72,5 @@ http{
   - `user` directive defines user and group credentials used by worker processes
   - `debug_connection` directive enables debugging log for a given client
   - `error_log` defines path and severity
-  - 
+
 [source](https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching)
