@@ -50,4 +50,15 @@ server {
 }
 ```
 
+### HTTP Headers
+`add_header X-Cache-Status $upstream_cache_status;` adds the cache status in the response:
+- `MISS` not cached
+- `BYPASS` response was fetched from origin instead of cache
+- `EXPIRED` the entry in the cache has expired, responds with the origin server content
+- `STALE` origin was not responding, so content was served based on `proxy_cache_use_stale` configurations
+- `UPDATING` stale because proxy is updating `proxy_cache_use_stale updating`
+- `REVALIDATED` the `proxy_cache_revalidate` directive was enabled and verified that content was valid
+- `HIT`
+
+
 [source](https://www.nginx.com/blog/nginx-caching-guide/)
