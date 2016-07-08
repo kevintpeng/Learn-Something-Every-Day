@@ -60,5 +60,8 @@ server {
 - `REVALIDATED` the `proxy_cache_revalidate` directive was enabled and verified that content was valid
 - `HIT`
 
+- Nginx respects `Cache-Control` headers from the origin server by default
+- does not cache Private, No-Cache, No-Store, or responses with a `Set-Cookie` header
+- also only caches `GET` and `HEAD` requests from clients
 
 [source](https://www.nginx.com/blog/nginx-caching-guide/)
