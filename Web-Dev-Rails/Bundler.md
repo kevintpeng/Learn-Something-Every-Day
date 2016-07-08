@@ -12,6 +12,9 @@ Then inside app, `require 'rubygems'` and `require 'bundler/setup'`
 - bundler stores gems (in development) in the default location of the machine
 - in `--deployment`, it installs unique to the app (defaults to `vender/cache`)
   - `bundle show <gemname>`
+
+### Gemfile + Gemfile.lock
+`source 'https://rubygems.org'` defines which upstream to pull gems from. 
 - `Gemfile.lock` makes your application a single package of both your own and third-party code
   - snapshot of last time everything worked
 
@@ -31,7 +34,6 @@ bundle config mirror.https://rubygems.org.fallback_timeout 3
 
 Gemstash live is `~/.gemstash`, stores cached & private gems
 - by default, uses SQLite to store details 
-
 
 ### Gem in a box
 Another gem caching solution, older than gemstash, more of a gem server than a cache. Uses [gemirro](https://github.com/PierreRambaud/gemirro), as a dependency for creating a RubyGems mirror.
