@@ -16,3 +16,8 @@ Always associated with an IP address of the host and the protocol type of the co
 - `nc` is netcat utility, used for anything TCP/UDP
 - opens TCP connections, send UDP packets, listen on arbitrary TCP or UDP ports, port scanning, deal with IPv4 and IPv6
 - `nc -l 5000` opens port 5000
+
+### Port Forwarding
+An application of NAT (essentially IP remapping), that redirects a communication request from one address and port number combination to another, as packets pass through a router.
+- most commonly used to make a service on a host that resides on a private network (behind a router) available to hosts on the opposite side of the gateway
+- done by remapping the destination IP address and port num to an internal host
