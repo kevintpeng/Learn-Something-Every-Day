@@ -16,12 +16,11 @@ Numeric label assigned to each device participating in a network
   - on most systems, localhost resolves to `127.0.0.1` which is the IPv4 loopback address 
 
 ### NAT
-Network Address Translation, is a method of remapping one IP address space into another by modifying network address information.
+Network Address Translation, is a method of remapping one IP address space into another by modifying network address information. IPv4 doesn't support enough addresses for the world. IPv6 was years away from implementation when IPv4 address exhaustion was coming. NAT helped slow this problem, by allowing a single router to act as an agent between the public network (internet) and a local private network for entire groups of computers.
 - used for ease of rerouting traffic in IP networks without renumbering every host
-- essential also for conserving global address space allocation
-- sharing one internet-routable IP address of a NAT gateway for an entire private network
+- essential also for conserving global address space allocation, by sharing one internet-routable IP address of a NAT gateway for an entire private network
 - Basic NAT provides one-to-one translation of IP addresses
-- Most NATs map one publicly exposed IP address to many private hosts
+- Most NATs map one publicly exposed IP address to many private hosts (as is the case for routers)
   - a router on a network has a private address in that address space
   - many-to-one NAT is so common, it is synonymous to NAT
 - web browsers in the masqueraded network can access websites outside the network
