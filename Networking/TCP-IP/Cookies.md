@@ -7,4 +7,4 @@ HTTP is entirely stateless. Eac htime a server receives a request from a client,
 ### Issues
 - Sensitive information: messages for cookies that store passwords could be intercepted 
 - Misuse: any server can set cookies, can be misused for tracking purposes 
-- Third-Party Unintentional cookies:
+- Third-Party Unintentional cookies: site `A` can retreive content from `B` (like an image) and `B` can put a cookie on your computer
