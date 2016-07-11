@@ -29,10 +29,13 @@ Part of requests and responses, contains fields defining the operating parameter
   - `private || public`, whether or not it should be cached
   - `no-cache`, cache should revalidate this resource every time
 - `expires`
-- `etag`
+- `etag`, response header, critical for caching and used for conditional requests (invoking 304s)
 - `vary`
 - `pragma: no-cache`
 - `Location` header is returned to ask a web browser to load a different web page (URL redirection) or sent with HTTP status codes `3xx`
+
+### ETags (Entity tag)
+
 
 ### Statuses
 - 200 OK
@@ -40,5 +43,6 @@ Part of requests and responses, contains fields defining the operating parameter
 - `302` is a temporary redirect, tell the browser that the content is temporarily located at a different location, but they should continue to attempt the original URL on later requests
 - `304 not modified`, the conditional GET request would have recieved `200 OK`, but the condition was false.
   - minimize the amount of information transfer to the client
+- `416` request range not satisfiable
 
 [really good source](https://www.w3.org/Protocols/rfc2616/rfc2616.html)
