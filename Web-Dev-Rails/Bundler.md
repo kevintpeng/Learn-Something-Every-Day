@@ -47,8 +47,10 @@ As safety, bundler will not automatically update a gem whose dependency versions
   - [batch installs with process_specs](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L103), by dequeuing from worker_pool
 6. Builds a [pool of Workers](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb)
   - defines [threads](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb#L28) as workers, constantly [proccessing the request queue](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb#L56)
-  - requests are processed by [lambda func](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb#L60)
-  
+  - requests are processed by [lambda func](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb#L60), to be exact, [this lambda func](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L89) defined earlier. We pass it a spec object and worker ID
+  - this calls [`install_from_spec`](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L92)
+7. [Gem installer is called](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer/gem_installer.rb)
+  - calls [`install` or `install_with_settings`](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer/gem_installer.rb#L57)
 
 ### Gemstash
 a cache for remote servers (including rubygems.org) and a private gem source. By default, it is a local cache.
