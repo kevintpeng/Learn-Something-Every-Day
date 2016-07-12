@@ -18,7 +18,7 @@ Then inside app, `require 'rubygems'` and `require 'bundler/setup'`
 - `Gemfile.lock` makes your application a single package of both your own and third-party code
   - snapshot of last time everything worked, important to commit to repos for consistency across multiple machines
 
-### `bundle install`
+### `bundle install` -- [source](http://bundler.io/v1.12/man/bundle-install.1.html)
 Installs gems specified in the Gemfile.
 - if `Gemfile.lock` does not exist, Bundler will fetch all remotes sources and resolve dependencies, installing needed gems
 - if it does exist, and `Gemfile` is unchanged, Bundler fetches all remote sources and uses dependencies specified in `Gemfile.lock`
