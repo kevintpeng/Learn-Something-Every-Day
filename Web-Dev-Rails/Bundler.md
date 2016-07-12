@@ -33,7 +33,22 @@ As safety, bundler will not automatically update a gem whose dependency versions
 ### Tracing a `bundle install`
 1. [executable `bundle`](https://github.com/bundler/bundler/blob/master/exe/bundle)
 2. [requires bundler](https://github.com/bundler/bundler/blob/master/lib/bundler.rb)
-
+3. [requires cli, passed to install command](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/cli/install.rb)
+  - [sets options, then calls `#install`](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/cli/install.rb#L102)
+4. [Installer.install](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer.rb)
+  - inherits [environment](https://github.com/bundler/bundler/blob/be5e3b3c9b5c85700c01026843a77bef75fbed6a/lib/bundler/environment.rb)
+  - [resolve_if_need](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer.rb#L183) decides what dependencies are needed, all calculated locally
+  - calls [install](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer.rb#L152)
+  - [install in parallel](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer.rb#L171)
+5. [ParallelInstaller.call](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb)
+  - creates a [new ParallelInstaller object](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L9)
+  - [`call` on object](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L81)
+  - [enqueue specs](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L119) selects all gems that don't have dependencies, enqueues each spec
+  - [batch installs with process_specs](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L103), by dequeuing from worker_pool
+6. Builds a [pool of Workers](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb)
+  - defines [threads](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb#L28) as workers, constantly [proccessing the request queue](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb#L56)
+  - requests are processed by [lambda func](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb#L60)
+  
 
 ### Gemstash
 a cache for remote servers (including rubygems.org) and a private gem source. By default, it is a local cache.
