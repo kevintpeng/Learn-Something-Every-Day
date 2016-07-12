@@ -12,3 +12,4 @@ My steps for setting up a local traffic capture:
 - click it on the welcome window, will bring up a table of packets
   - `go` menu lets you navigate packets
   - `capture` menu controls the current capture
+  - `analyze` 
