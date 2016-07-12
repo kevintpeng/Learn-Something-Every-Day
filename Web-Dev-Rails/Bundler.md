@@ -41,7 +41,7 @@ As safety, bundler will not automatically update a gem whose dependency versions
   - calls [install](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer.rb#L152)
   - [install in parallel](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer.rb#L171)
 5. [ParallelInstaller.call](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb)
-  - creates a [new ParallelInstaller object](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L9)
+  - creates a [new ParallelInstaller object](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L73)
   - [`call` on object](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L81)
   - [enqueue specs](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L119) selects all gems that don't have dependencies, enqueues each spec
   - [batch installs with process_specs](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L103), by dequeuing from worker_pool
