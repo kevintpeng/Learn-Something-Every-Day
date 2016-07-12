@@ -26,7 +26,9 @@ Installs gems specified in the Gemfile.
 - never `sudo bundle install`, several steps are user dependent
 
 ### Conservative Updating
-
+As safety, bundler will not automatically update a gem whose dependency versions conflict with the `Gemfile.lock`. This means if gem A and B depend of C, when A is updated, requiring a new version of C, B will never break from this, at worst failing loudly.
+- first `bundle install`, which guarantees unchanged gems will remain untouched by the system
+- then `bundle update <gemname>` if `bundle install` cannot update it
 
 ### Gemstash
 a cache for remote servers (including rubygems.org) and a private gem source. By default, it is a local cache.
