@@ -13,10 +13,20 @@ Then inside app, `require 'rubygems'` and `require 'bundler/setup'`
 - in `--deployment`, it installs unique to the app (defaults to `vender/cache`)
   - `bundle show <gemname>`
 
-### Gemfile + Gemfile.lock
+### Gemfile + Gemfile.lock -- [source](http://bundler.io/gemfile.html)
 `source 'https://rubygems.org'` defines which upstream to pull gems from. 
 - `Gemfile.lock` makes your application a single package of both your own and third-party code
-  - snapshot of last time everything worked
+  - snapshot of last time everything worked, important to commit to repos for consistency across multiple machines
+
+### `bundle install`
+Installs gems specified in the Gemfile.
+- if `Gemfile.lock` does not exist, Bundler will fetch all remotes sources and resolve dependencies, installing needed gems
+- if it does exist, and `Gemfile` is unchanged, Bundler fetches all remote sources and uses dependencies specified in `Gemfile.lock`
+- If `Gemfile.lock` exists, and `Gemfile` is changed, `Gemfile.lock` is used for all unchanged gems, and will re-resolve the dependencies of gems that you did update
+- never `sudo bundle install`, several steps are user dependent
+
+### Conservative Updating
+
 
 ### Gemstash
 a cache for remote servers (including rubygems.org) and a private gem source. By default, it is a local cache.
@@ -32,7 +42,7 @@ bundle config mirror.https://rubygems.org.fallback_timeout true
 bundle config mirror.https://rubygems.org.fallback_timeout 3
 ```
 
-Gemstash live is `~/.gemstash`, stores cached & private gems
+Gemstash lives is `~/.gemstash`, stores cached & private gems
 - by default, uses SQLite to store details 
 
 ### Gem in a box
