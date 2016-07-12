@@ -3,6 +3,5 @@
 Wireshark is a network packet analyzer, capturing packets and displays in detail. Basically a measurement device (think voltmeter)
 - offers live capture from several network media, capturing traffic from many media types
 - does not manipulate things on the network, only measures things
-
 - disable transport name resolution
 - columns, add delta time, cumulativebytes
