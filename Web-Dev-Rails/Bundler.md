@@ -30,6 +30,11 @@ As safety, bundler will not automatically update a gem whose dependency versions
 - first `bundle install`, which guarantees unchanged gems will remain untouched by the system
 - then `bundle update <gemname>` if `bundle install` cannot update it
 
+### Tracing a `bundle install`
+1. [executable `bundle`](https://github.com/bundler/bundler/blob/master/exe/bundle)
+2. [requires bundler](https://github.com/bundler/bundler/blob/master/lib/bundler.rb)
+
+
 ### Gemstash
 a cache for remote servers (including rubygems.org) and a private gem source. By default, it is a local cache.
 - if bundler is being run across multiple servers, could it could improve speed
