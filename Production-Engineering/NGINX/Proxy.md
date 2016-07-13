@@ -7,6 +7,8 @@ Proxying involves handing off a request to a single server with http, known as a
 - the `ngx_http_proxy_module` allows passing requests to another server
 - `proxy_pass` sets the protocol and address of a proxied server, directive in `location` context
 - `proxy_set_header <Attribute> <value>;` sets values for [header fields](../../Networking/HTTP.md) as seen by the proxied server (you can set to empty string to hide them)
+- `proxy_redirect` will modify the "Location" response header based on specified prefixed string matching
+  - `proxy_redirect http://localhost:8000/two/ http://frontend/one/` will rewrite the string “Location: http://localhost:8000/two/some/uri/” to  “Location: http://frontend/one/some/uri/”.
 
 ### Buffers
 - NGINX buffers responses from proxied servers 
