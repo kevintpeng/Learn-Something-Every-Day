@@ -10,3 +10,6 @@ Designed for content heavy dynamic web sites, focused exclusively on HTTP. Unlik
 - VCL is compiled to C
 - supports Gzip compression
 - **If the server malfunctions and returns 50x errors, `Grace mode` will ignore expiry headers and continue to return cached versions**
+
+### Squid
+Can be used as a reverse proxy, however the technology is slightly older than Varnish, and it was originally built as a forward proxy. It has builtin ssl which Varnish does not.
