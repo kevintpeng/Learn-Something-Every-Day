@@ -22,7 +22,7 @@ server {
 In location context:
 - `proxy_cache_revalidate on;` instructs nginx to use conditional GET requests when refreshing content from origin if client requests a resource that is cached but expired by the cache control headers, then nginx uses the If-Modified-Since field in the header of the GET
 - `proxy_cache_min_uses 3;` number of requests before nginx caches the request
-- `proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;` determines when stale content should be served
+- `proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;` determines when stale content should be served ([see SO question](http://serverfault.com/questions/752838/nginx-use-proxy-cache-if-backend-is-down))
   - the `updating` parameter instructs nginx to deliver stale content while an update is being downloaded from the upstream server (avoids multiple requests to the upstream server)
   - `error` permits using stale cached responses if the proxied server cannot be selected
 - `proxy_cache_lock on/off;` only allows one request at a time to populate a new cache element (according to `proxy_cache_key`). All cache 'MISS' will wait for the first request to be satisfied, then pull from the cache
