@@ -10,7 +10,7 @@ Wireshark is a network packet analyzer (aka packet sniffer, protocol analyzer), 
 - show decoded packets while capturing
 - filter packets, reducing the amount of data captured
 
-### Set Up a Capture
+### Set Up a Capture on HTTP requests
 My steps for setting up a local traffic capture:
 - requires root, os that supports packet capturing (OSX does), computer time zones should be correct
 - `sudo wireshark` to start
@@ -31,3 +31,4 @@ My steps for setting up a local traffic capture:
 #### Analyze TCP Connection Traffic
 - First three TCP packets should be labelled `[SYN]`, `[SYN, ACK]`, `[ACK]`. This is the TCP handshake sequence.
 - Select the first packet. Observe the packet details in the middle Wireshark packet details pane. Notice that it is an Ethernet II / Internet Protocol Version 4 / Transmission Control Protocol frame.
+- Expand Ethernet II to view Ethernet details. Observe the Destination and Source fields. The destination should be your default gateway's MAC address and the source should be your MAC address. You can use ipconfig /all and arp -a to confirm.
