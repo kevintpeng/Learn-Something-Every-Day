@@ -43,4 +43,6 @@ My steps for setting up a local traffic capture:
 #### Analyze HTTP Request Traffic
 - select the first packet with `HTTP` as the protocol
 - Observe the packet details in the middle Wireshark packet details pane. Notice that it is an Ethernet II / Internet Protocol Version 4 / Transmission Control Protocol / Hypertext Transfer Protocol frame. Also notice that the Ethernet II, Internet Protocol Version 4, and Transmission Control Protocol values are consistent with the TCP connection analyzed
-- 
+- Expand Hypertext Transfer Protocol to view HTTP details.
+- Observe the traffic captured in the top Wireshark packet list pane. Select the fifth packet, labeled TCP ACK. This is the server TCP acknowledgement of receiving the GET request.
+
