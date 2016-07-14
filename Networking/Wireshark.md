@@ -20,6 +20,9 @@ My steps for setting up a local traffic capture:
   - `go` menu lets you navigate packets
   - `capture` menu controls the current capture
   - `analyze`
+- start the capture.
+- open [http://kevintpeng.github.io](http://kevintpeng.github.io) or some non-https site
+- stop the capture.
 
 #### To select destination traffic: -- [source](https://en.wikiversity.org/wiki/Wireshark/HTTP)
 
@@ -32,3 +35,12 @@ My steps for setting up a local traffic capture:
 - First three TCP packets should be labelled `[SYN]`, `[SYN, ACK]`, `[ACK]`. This is the TCP handshake sequence.
 - Select the first packet. Observe the packet details in the middle Wireshark packet details pane. Notice that it is an Ethernet II / Internet Protocol Version 4 / Transmission Control Protocol frame.
 - Expand Ethernet II to view Ethernet details. Observe the Destination and Source fields. The destination should be your default gateway's MAC address and the source should be your MAC address. You can use ipconfig /all and arp -a to confirm.
+- Expand Internet Protocol Version 4 to view IP details. Observe the Source address. Notice that the source address is your IP address.
+- Observe the Destination address. Notice that the destination address is the IP address of the HTTP server.
+- Expand Transmission Control Protocol to view TCP details. Observe the Source port. Notice that it is a dynamic port selected for this HTTP connection. This is to receive the response packets on your machine.
+- *Note that all of the packets for this connection will have matching MAC addresses, IP addresses, and port numbers.*
+
+#### Analyze HTTP Request Traffic
+- select the first packet with `HTTP` as the protocol
+- Observe the packet details in the middle Wireshark packet details pane. Notice that it is an Ethernet II / Internet Protocol Version 4 / Transmission Control Protocol / Hypertext Transfer Protocol frame. Also notice that the Ethernet II, Internet Protocol Version 4, and Transmission Control Protocol values are consistent with the TCP connection analyzed
+- 
