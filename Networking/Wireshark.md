@@ -21,9 +21,13 @@ My steps for setting up a local traffic capture:
   - `capture` menu controls the current capture
   - `analyze`
 
-#### To select destination traffic:
+#### To select destination traffic: -- [source](https://en.wikiversity.org/wiki/Wireshark/HTTP)
 
 - Observe the traffic captured in the top Wireshark packet list pane. To view only HTTP traffic, type http (lower case) in the Filter box and press Enter.
 - Select the first HTTP packet labeled `GET /`.
 - Observe the destination IP address.
 - To view all related traffic for this connection, change the filter to `ip.addr == <destination>`, where <destination> is the destination address of the HTTP packet.
+
+#### Analyze TCP Connection Traffic
+- First three TCP packets should be labelled `[SYN]`, `[SYN, ACK]`, `[ACK]`. This is the TCP handshake sequence.
+- Select the first packet. Observe the packet details in the middle Wireshark packet details pane. Notice that it is an Ethernet II / Internet Protocol Version 4 / Transmission Control Protocol frame.
