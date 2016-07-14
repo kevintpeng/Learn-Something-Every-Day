@@ -4,7 +4,7 @@ In DNS hierarchy a subdomain is a domain that is part of the main domain
 - subdomains are defined by editing the [DNS zone file](https://github.com/kevintpeng/Learn-Something-Everyday/blob/master/Networking/DNS%20Resource%20Records.md) pertaining to the parent domain
 
 # DNS Zones
-A DNS zone is a portion of hte DNS namespace that is delegating control of portions of the namespace. A zone can contain multiple domains. A server can contain multiple zones. It is important for resolving the ip address of subdomains. 
+A DNS zone is a portion of the DNS namespace that is delegating control of portions of the namespace. A zone can contain multiple domains. A server can contain multiple zones. It is important for resolving the ip address of subdomains. 
 
 The zone itself is analogous to a database of subdomain resolutions, which can point to other more specific databases for more specific subdomains. 
 - Server A can host the zone for a domain kevintpeng.me, and could for example resolve all subdomains except for testing.kevintpeng.me which can be delegated as a separate DNS zone on a new server, Server B
