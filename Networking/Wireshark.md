@@ -1,6 +1,6 @@
 # Wireshark 
 ### [download for Mac](https://1.na.dl.wireshark.org/osx/Wireshark%202.0.4%20Intel%2064.dmg) -- [docs source](https://www.wireshark.org/docs/wsug_html_chunked/index.html)
-[Note: this has a great list of step by step walkthroughs for doing things with wireshark; highly recommend this](https://en.wikiversity.org/wiki/Wireshark)
+[Note: this has a great list of step by step walkthroughs for doing things with wireshark; highly recommend this](https://en.wikiversity.org/wiki/Wireshark). Also Wireshark is the coolest but complex piece of software, very useful for learning about TCP/IP.
 
 Wireshark is a network packet analyzer (aka packet sniffer, protocol analyzer), capturing packets and displays in detail. Basically a measurement device (think voltmeter)
 - offers live capture from several network media, capturing traffic from many media types
@@ -58,3 +58,12 @@ My steps for setting up a local traffic capture:
 - select packet with TLS protocol labelled *Client Hello*, with Secure Sockets Layer information in the packet (Cipher suites like RSA, compression, extentions).
 - Select the next packet, labeled TCP ACK. This is the server TCP acknowledgement of receiving the Client Hello request.
 - Another TLS packet labelled *Server Hello* should follow, also with SSL information in the packet
+- the next TLS packet receives the ssl cert to verfiy the server is who we think it is
+- then we send it our public key to encrypt the information
+- now Application Data TLS packets are recieved with the encrypted data for our private key to decrypt
+
+### Further Processing of Captures
+`ip.addr == 74.125.22.156 and ssl` can be used as the filter to ignore underlying TCP communication packets, and for the IP of rubygems.org.
+
+- [Comparing two capture files](https://www.wireshark.org/docs/wsug_html_chunked/ChStatCompareCaptureFiles.html)
+- [decrypting ssl traffic](http://support.citrix.com/article/CTX116557)
