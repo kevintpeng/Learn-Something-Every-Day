@@ -38,11 +38,24 @@ Part of requests and responses, contains fields defining the operating parameter
 
 
 ### Statuses
+#### 1xx Informational
+
+#### 2xx Success
 - 200 OK
+
+#### 3xx Redirection
 - `301` is a permanent redirect, when content is moved forever, browser should always request the new URL instead
 - `302` is a temporary redirect, tell the browser that the content is temporarily located at a different location, but they should continue to attempt the original URL on later requests
 - `304 not modified`, the conditional GET request would have recieved `200 OK`, but the condition was false.
   - minimize the amount of information transfer to the client
+#### 4xx Client error
 - `416` request range not satisfiable
+
+#### 5xx Server Error
+- 500, internal server error
+- 501, not implemented
+- 502, bad gateway
+- 503, Service Unavailable
+- 504, Gateway Timeout
 
 [really good source](https://www.w3.org/Protocols/rfc2616/rfc2616.html)
