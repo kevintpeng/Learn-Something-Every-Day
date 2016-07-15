@@ -67,4 +67,11 @@ My steps for setting up a local traffic capture:
 
 #### [Comparing two capture files](https://www.wireshark.org/docs/wsug_html_chunked/ChStatCompareCaptureFiles.html)
 
-#### [decrypting ssl traffic](http://support.citrix.com/article/CTX116557)
+#### [decrypting ssl traffic](https://jimshaver.net/2015/02/11/decrypting-tls-browser-traffic-with-wireshark-the-easy-way/)
+add this to `.bashrc`:
+`alias wireshark="SSLKEYLOGFILE=/Users/kevintpeng/sslkeylogs/output.log open -a firefox;
+sudo wireshark"`
+
+This logs your browser's SSL keys, as it generates random pub/priv key pairings on the fly for each request. This alias opens a browser that logs these keys to a file accessible by wireshark.
+
+Wireshark > Preferences > Protocols > SSL > set path to (Pre)-Master-Secret log filename to `/Users/kevintpeng/sslkeylogs/output.log`
