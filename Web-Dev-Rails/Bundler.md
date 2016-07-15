@@ -51,6 +51,7 @@ As safety, bundler will not automatically update a gem whose dependency versions
   - this calls [`install_from_spec`](https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L92)
 7. [Gem installer is called](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer/gem_installer.rb)
   - calls [`install` or `install_with_settings`](https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer/gem_installer.rb#L57)
+  - calls [post install on the gem](https://github.com/bundler/bundler/blob/cc4df62a4707281fc657101a93710c63ed957a70/lib/bundler/source/path/installer.rb#L26)
 
 ### Gemstash
 a cache for remote servers (including rubygems.org) and a private gem source. By default, it is a local cache.
