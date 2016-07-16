@@ -19,9 +19,9 @@ As an overview, TCP is the protocol used to connect the client and server, while
 My steps for setting up a local traffic capture:
 - requires root, os that supports packet capturing (OSX does), computer time zones should be correct
 - `sudo wireshark` to start
-- choose the right interface to capture from 
-  - `Wireshark > Preferences > Capture` set default interface to Display Ethernet: en15
-- click it on the welcome window, will bring up a table of packets
+- choose the right interface to capture from
+  - optionally, `Wireshark > Preferences > Capture` set default interface to Display Ethernet: en15. If this isn't available on your computer, try finding something like `Wi-Fi:en0`
+- on the window with "Welcome to Wireshark", clicking on one of the network interfaces on the left will bring up a table of packets. This table is a mess without fliters
   - `go` menu lets you navigate packets
   - `capture` menu controls the current capture
   - `analyze`
