@@ -67,7 +67,12 @@ My steps for setting up a local traffic capture:
 
 #### [Comparing two capture files](https://www.wireshark.org/docs/wsug_html_chunked/ChStatCompareCaptureFiles.html)
 
-#### [decrypting ssl traffic](https://jimshaver.net/2015/02/11/decrypting-tls-browser-traffic-with-wireshark-the-easy-way/)
+### Decryption using Wireshark
+Wireshark can decrypt SSL/TLS communications, if it has access to the Master Key used in encrypting the data
+- first wireshark checks whether any cached session matches the session ID or ticket from the Server Hello message. If so, it uses the cached Master Key to decrypt
+- alternatively, you can provide a key log file containing a list of Master Keys
+
+#### [decrypting ssl traffic from browsers](https://jimshaver.net/2015/02/11/decrypting-tls-browser-traffic-with-wireshark-the-easy-way/)
 add this to `.bashrc`:
 `alias wireshark="SSLKEYLOGFILE=/Users/kevintpeng/sslkeylogs/output.log open -a firefox;
 sudo wireshark"`
