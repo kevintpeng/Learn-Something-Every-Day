@@ -75,3 +75,6 @@ sudo wireshark"`
 This logs your browser's SSL keys, as it generates random pub/priv key pairings on the fly for each request. This alias opens a browser that logs these keys to a file accessible by wireshark.
 
 Wireshark > Preferences > Protocols > SSL > set path to (Pre)-Master-Secret log filename to `/Users/kevintpeng/sslkeylogs/output.log`
+
+#### [decrypting ssl for ruby](https://www.trustwave.com/Resources/SpiderLabs-Blog/How-To-Decrypt-Ruby-SSL-Communications-with-Wireshark/)
+- ruby uses openssl for SSL/TLS
