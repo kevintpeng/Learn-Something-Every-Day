@@ -13,6 +13,14 @@ Package management framework for Ruby, `gem` is the cli.
 - `gem install mygem` installs a gem from rubygems server or locally
 - `gem push mygem-1.0.0.gem` pushes to rubygems.org
 
+Monkey Patching a gem:
+- `git clone`, update gem version in gemspec
+- `gem build <gemfile>`
+- `gem install ./<gemname>.gem`
+```ruby
+gem '<mygem>', '=1.0.7'
+require '<mygem>'     
+```
 RubyGems modifies Ruby load path, controlling how Ruby code is found by the `require` statement.
 - adds lib's directory to Ruby `$LOAD_PATH`
 
