@@ -25,6 +25,11 @@ RUN apt-get -y update && apt-get install -y fortunes
 - `CMD` instructs software to run when image is loaded
 - `docker build -t <image-name>` takes the `Dockerfile` in the current directory and builds an image
 
+### Using Docker for testing
+1. Install docker for mac.
+2. `docker run -p 26389:80 --name testing nginx`
+3. `docker exec -i -t <container-id> /bin/bash`
+
 #### Difference from Virtual Machines
 Containers serve similar purpose of resource isolation but with different architecture, aimed at portability and efficiency.
 
