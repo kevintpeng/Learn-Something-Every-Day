@@ -21,4 +21,6 @@ Similar to 2PC. Second phase of 2PC has two sub-phases.
 - If the coordinator crashes at any point, from 2 onwards, now any node can take over and coordinate.
 - if a node has commited, we know that all nodes have prepared to commit already
 
-**Problem**: network partitioning can cause inconsistenet states.
+**Problem**: network partitioning can cause inconsistenet states. In network systems, *fail-stop* isn't the only model of failures. Nodes can follow a *fail-recover* fault model. Coordinator can recover and interfere with another recovery node. Failure in this case isn't crashing, but could be instead network interuptions.
+
+### Paxos
