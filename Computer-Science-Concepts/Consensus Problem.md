@@ -13,3 +13,12 @@ Solves consensus problem assuming no failures.
 - If coordinator crashes sending half of commits, then some nodes are updated, others are blocked
 
 ### Three-Phase Commit
+Similar to 2PC. Second phase of 2PC has two sub-phases. 
+1. Coordinator proposes
+2. If everyone agrees, prepare to commit, communicating the result of the vote to every node
+3. commit (or abort if delivery of prepare to commit to any node fails)
+
+- If the coordinator crashes at any point, from 2 onwards, now any node can take over and coordinate.
+- if a node has commited, we know that all nodes have prepared to commit already
+
+**Problem**: network partitioning can cause inconsistenet states.
