@@ -8,5 +8,5 @@ A test tool to execute configured code is isolation.
 - `kitchen version`
 - `kitchen list`, choose the right instance to create
 - `kitchen create <suite>-ubuntu-1404` to spin up an instance
-- `kitchen converge <suitename>` will build a docker container based on the suite
-- `kitchen login <suitename>` to "ssh" into the container, for manual verification
+- `kitchen test <instance>` will build a docker container based on the suite
+- `kitchen login <instance>` to "ssh" into the container, for manual verification
