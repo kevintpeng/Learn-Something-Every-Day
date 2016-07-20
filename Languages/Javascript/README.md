@@ -2,6 +2,7 @@
 - Client-side js extends core language, supplying objects to control ba browser and it's Document Object Model (DOM)
   - respond to user events, form inputs, page navigation
 - server-side js extends core by allowing communication with a database, file manipulation. Node.js is one server-side solution
+- Javascript can use the asynchronous event driven model, describing callbacks that trigger when certain events happen
 
 ### Basics, Variables and Scoping
 - case sensitive, unicode, semicolon delimited statements, java-like comments
