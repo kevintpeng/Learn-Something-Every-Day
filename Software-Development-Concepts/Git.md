@@ -126,3 +126,8 @@ Copy the output of `cat ~/.ssh/id_rsa.pub` and paste on GitHub.
   - creates separation for git efficiency
 - **Subtrees** cause subproject repos to be imported with its full history
 - **Wrappers** which provide multi-repo management functionality
+
+### Git Objects
+Git is a content-addressable filesystem. Built with a key-value store.
+
+TODO read (git book)[https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control]
