@@ -120,7 +120,7 @@ Copy the output of `cat ~/.ssh/id_rsa.pub` and paste on GitHub.
 
 [source](https://git-scm.com/doc)
 
-### Subprojects
+### Subprojects -- [source](https://git.wiki.kernel.org/index.php/SubprojectSupport)
 - **Submodules** provide fixed references from the superproject to subprojects
   - good for shared code between superprojects, or separation of maintainers
   - creates separation for git efficiency
