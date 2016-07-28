@@ -119,3 +119,10 @@ Input your account values. Then go [to github ssh](https://github.com/settings/s
 Copy the output of `cat ~/.ssh/id_rsa.pub` and paste on GitHub.
 
 [source](https://git-scm.com/doc)
+
+### Subprojects
+- **Submodules** provide fixed references from the superproject to subprojects
+  - good for shared code between superprojects, or separation of maintainers
+  - creates separation for git efficiency
+- **Subtrees** cause subproject repos to be imported with its full history
+- **Wrappers** which provide multi-repo management functionality
