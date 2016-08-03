@@ -1,4 +1,4 @@
-# Compression
+# Compression -- [source](https://en.wikipedia.org/wiki/Data_compression)
 Encoding information using fewer bits than the original representation.
 
 ## Lossless
