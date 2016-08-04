@@ -15,3 +15,8 @@ Encoding information using fewer bits than the original representation.
 
 ## Lossy
 - **lossy** compression reduces bits by removing unnecessary information
+### Interframe vs. Intraframe
+- interframe tracks differences between frames
+  - high computation, lots of space optimization
+- intraframe compression works on each frame 
+  - fast to compute final result, more space needed
