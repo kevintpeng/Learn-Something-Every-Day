@@ -25,7 +25,7 @@ Disadvantages:
  - actions are not totally ordered
 - data is structured around the queries made to the database, so it doesn't handle ad hoc queries well
 
-# Firebase
+## Firebase Realtime Database
 Stores and syncs data in a NoSQL cloud database. Data *syncs across all clients in realtime*, by pushing data to clients when changes are made to the database.
 - allows you to build server-less apps 
 - offers offline support
