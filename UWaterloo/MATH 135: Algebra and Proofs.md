@@ -8,10 +8,10 @@ Shows that divisibility is transitive: `If a|b and b|c, a|c`
 The denominator must be smaller if divisible: `If a|b and b≠0, then |a|≤|b|`
 #### Divison Algorithm
 There exists q and r s.t. b = aq + r, where 0 ≤ r < a
-### [Greatest Common Divisors](../CS-and-Math-Theory/Greatest Common Divisor.md)
+### [Greatest Common Divisors](../Math-CS/Greatest Common Divisor.md)
 [Bezout's Lemma (Extended Euclidean Algorithm)](https://github.com/kevintpeng/Extended-Euclidean-Algorithm/blob/master/EEA.rb)
-### [Modular Arithmetic](../CS-and-Math-Theory/Modular Arithmetic.md)
-### [RSA](../CS-and-Math-Theory/RSA.md)
+### [Modular Arithmetic](../Math-CS/Modular Arithmetic.md)
+### [RSA](../Math-CS/RSA.md)
 
 For proofs, try contradictions, contra-positives or direct proofs. For induction, find a statement P(n) that is true or false. Show that P(1) is true. Assume P(k) is true. Show that P(k+1) is true. 
 

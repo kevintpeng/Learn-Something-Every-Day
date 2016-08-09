@@ -1,4 +1,4 @@
-### [Mutexes](../../Software-Development-Concepts/Mutual Exclusion.md)
+### [Mutexes](../../Computer-Science-Concepts/Mutual Exclusion.md)
 Mutexes allow safe access of state across multiple goroutines. If one goroutine is r/w to a var, other goroutines are mutually excluded from accessing it.
 - `var m = &sync.Mutex{}`
 - goroutines must have access to the same mutex to lock properly
