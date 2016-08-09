@@ -17,7 +17,8 @@ Multithreading can maximize performance of a program by taking advantage of mult
 Multithreading and Asynchronous programming are separate concepts. **Multi-threading can be applied to both synchronous and asynchronous models.** Multiple threads can work on a single queue of tasks, as in the synchronous model. In the asynchronous model, multiple threads can work on entirely independent tasks, like waiting for user input, reading a database, computing a task etc...
 
 # I/O Concurrency Models
-Concurrency describes the concept of running several tasks at once. See [Asynchronous Programming and Multi-threading](../Software-Development-Concepts/Asynchronous Programming and Multithreading.md).
+Concurrency describes the concept of running several tasks at once. 
+
 ### Single-threaded Multi-process
 Each process handles exactly one request at a time. The web server load balances between processes. Not suitable for long-running blocking I/O workloads (workloads that call HTTP APIs).
 
