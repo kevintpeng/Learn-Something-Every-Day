@@ -1,9 +1,12 @@
 # Database Systems
 ### ACID Properties -- [source](https://en.wikipedia.org/wiki/ACID)
-- **atomicity** 
-- **consistency**
-- **isolation** 
-- **durability**
+These are properties of database **transactions**. Transactions are used in transactional databases, which describe most relational database management systems. Necessary design where sequence of data is important, and for critical operations.
+- **atomicity** requires each transaction be "all or nothing" (occurs in whole or not at all)
+ - generally implemented with some mechanism that indicates which transactions have started and finished
+ - Operating systems use `open(2)` and `flock(2)` 
+- **consistency** ensures that any transaction will bring the database to a valid state based on set rules
+- **isolation** ensures that concurrent operations should act as if they were executed serially (one after another)
+- **durability** ensures that commited transactions remain in the database even in the event of failure
 
 # Apache Cassandra
 Distributed database for managing large amounts of structured data
