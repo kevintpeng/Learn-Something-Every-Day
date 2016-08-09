@@ -1,5 +1,5 @@
 # Database Systems
-### ACID Properties -- [source](https://en.wikipedia.org/wiki/ACID)
+### ACID Properties of Transactions -- [source](https://en.wikipedia.org/wiki/ACID)
 These are properties of database **transactions**. Transactions are used in transactional databases, which describe most relational database management systems. Necessary design where sequence of data is important, and for critical operations.
 - **atomicity** requires each transaction be "all or nothing" (occurs in whole or not at all)
  - generally implemented with some mechanism that indicates which transactions have started and finished
@@ -8,7 +8,9 @@ These are properties of database **transactions**. Transactions are used in tran
 - **isolation** ensures that concurrent operations should act as if they were executed serially (one after another)
 - **durability** ensures that commited transactions remain in the database even in the event of failure
 
-# Apache Cassandra
+# Distributed
+
+## Apache Cassandra
 Distributed database for managing large amounts of structured data
 - lives across multiple servers
 - provides highly available (resilient to outage), no single point of failure
@@ -33,18 +35,20 @@ Firebase's database store information as JSON objects; it's a JSON Tree.
 - no tables or records
 - Firebase Storage (component of firebase) stores files
 
-# Redis
+# In-memory Data Stores
+
+## Redis
 Redis is a data store, useful for simplifying a system, increasing responsiveness, and capable of working in addition to other SQL and NoSQL servers.
 
 Redis is a data structures server, using key-value storage format (like hashes) with support for different types of values. Redis can hold more complex data structures than regular key-value stores.
 
-## Advantages of Redis 
+### Advantages of Redis 
 - It doesn't have to replace elements of the current tech stack, it can be **added to the current stack**. 
 - Disk persistent memory makes data retrieval much faster than SQL and NoSQL data stores.
 
 [source](http://oldblog.antirez.com/post/take-advantage-of-redis-adding-it-to-your-stack.html)
 
-# Memcached 
+## Memcached 
 Memory object caching system.
 - speeds up dynamic web applications 
   - lightening database loads
