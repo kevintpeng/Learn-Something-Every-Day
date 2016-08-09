@@ -1,3 +1,10 @@
+# Database Systems
+### ACID Properties -- [source](https://en.wikipedia.org/wiki/ACID)
+- **atomicity** 
+- **consistency**
+- **isolation** 
+- **durability**
+
 # Apache Cassandra
 Distributed database for managing large amounts of structured data
 - lives across multiple servers
