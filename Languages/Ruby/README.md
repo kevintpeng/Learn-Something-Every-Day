@@ -1,4 +1,4 @@
-# [Most of my ruby notes live under my Rails notes](../../Web-Dev-Rails)
+# [Most of my ruby notes live under my Rails notes](../../Web-Dev-Rails) or in my head.
 ### Object
 #### `inspect`
 displays an object in some defined, human-readable form, showing instance variables.
@@ -32,7 +32,6 @@ For some class, you can use ruby's built in `Comparable` mixin, and `def <=>(oth
 
 ### AutoLoad
 `autoload :MyLibrary, 'mylibrary'` works like `require 'mylibrary'` but it only loads dependencies on the first time they're used rather than during the call itself. Symbol is the classname assigned, ruby file to be loaded is found using the relative file directory location.
-
 
 ### Useful Array Methods
 - `Array#Permutation`
