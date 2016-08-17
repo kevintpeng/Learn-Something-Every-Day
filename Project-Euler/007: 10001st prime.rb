@@ -1,5 +1,5 @@
 # obviously not optimal because sieve requires an upper bound of n, not length
-# but reused code from 005
+# sieve is better for problems that can use memoization but reused code from 005
 
 def sieve(n) # O(n)
   all = (2..n).to_a
