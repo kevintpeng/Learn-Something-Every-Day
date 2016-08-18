@@ -1,13 +1,12 @@
 def largest_product_series(stream, series_length)
-  largest, product, index, segment = 0, 1, 0, 0
+  largest, product, index, adjacent = 0, 1, 0, 0
   while index < stream.length
     token = stream[index].to_i
-    product /= stream[index-series_length].to_i if segment == series_length
-    segment += 1 if segment < series_length
+    product /= stream[index-series_length].to_i if adjacent == series_length
+    adjacent += 1 if adjacent < series_length
     product *= token
-    product, segment = 1, 0 if token == 0
+    product, adjacent = 1, 0 if token == 0
     largest = product if product > largest
-    puts "#{segment.inspect} = #{product}" if largest == product
     index += 1
   end
   largest
