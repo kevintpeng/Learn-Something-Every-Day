@@ -1,3 +1,18 @@
+def largest_product_series(stream, series_length)
+  largest, product, index, segment = 0, 1, 0, 0
+  while index < stream.length
+    token = stream[index].to_i
+    product /= stream[index-series_length].to_i if segment == series_length
+    segment += 1 if segment < series_length
+    product *= token
+    product, segment = 1, 0 if token == 0
+    largest = product if product > largest
+    puts "#{segment.inspect} = #{product}" if largest == product
+    index += 1
+  end
+  largest
+end
+
 stream = <<-EOF
 73167176531330624919225119674426574742355349194934
 96983520312774506326239578318016984801869478851843
@@ -21,22 +36,4 @@ stream = <<-EOF
 71636269561882670428252483600823257530420752963450
 EOF
 .gsub!("\n", '')
-SIZE = 13
-largest = 0
-product = 1
-index = 0
-segment = 0
-while index < stream.length
-  num = stream[index].to_i
-  product /= stream[index-SIZE].to_i if segment == SIZE
-  segment += 1 if segment < SIZE
-  product *= num
-  if product == 0
-    product = 1
-    segment = 0
-  end
-  largest = product if product > largest
-  puts "#{segment.inspect} = #{product}" if largest == product
-  index += 1
-end
-puts largest
+puts largest_product_series(stream, 13)
