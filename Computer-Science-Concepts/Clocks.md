@@ -13,3 +13,6 @@
   - impractical because cannot query based on physical time, and is not tolerent
 - vector clocks were proposed to maintain a vector at each node which tracks the logical clocks of other nodes
   - while LC finds one consistent snapshot from nodes, VC finds all possible snapshots
+- **Physical Time** uses physical clocks, with uncertainty intervals
+  - overlapping intervals cannot determine order
+  - poor network conditions can result in async
