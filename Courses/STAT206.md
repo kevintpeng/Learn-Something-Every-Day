@@ -33,3 +33,11 @@ SKEWNESS = Mean - Median
 - bivariate data is data that is dependent on two variables
 - sample correlation coefficient quantifies the degree at which two variables are correlated
   - r ~= 0 shows no linear relationship, while |r| ~= 1 shows strong linear relationship
+
+### Graphical Summaries of Data Sets
+identifies distribution from which your sample is drawn, so you apply the right model
+- Relative Frequency Histogram 
+- Density Histogram, the height is chosen s.t. the relative freqency of the bin = area of the corresponding rectangle in the histogram (accounts well for variable bin widths)
+  - relative freqency is `frequency of each bin/total sample size` 
+- Empirical cumulative distribution function, ƒ(y) = `# of observations ≤ y/Total # of observations`
+  - plots an upwards staircase
