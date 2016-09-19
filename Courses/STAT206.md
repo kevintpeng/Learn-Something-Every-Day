@@ -41,3 +41,4 @@ identifies distribution from which your sample is drawn, so you apply the right 
   - relative freqency is `frequency of each bin/total sample size` 
 - Empirical cumulative distribution function, ƒ(y) = `# of observations ≤ y/Total # of observations`
   - plots an upwards staircase
+- Box and Whiser Plot plots quaritles 
