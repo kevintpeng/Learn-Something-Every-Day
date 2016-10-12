@@ -42,3 +42,38 @@ identifies distribution from which your sample is drawn, so you apply the right 
 - Empirical cumulative distribution function, ƒ(y) = `# of observations ≤ y/Total # of observations`
   - plots an upwards staircase
 - Box and Whiser Plot plots quaritles 
+
+### Statistical Inference
+- Descriptive Statistics describe the properties of the data
+- Statistical inference is analyzing the properties 
+- Three major types of inference problems
+  - Estimation: using sample of a population to estimate unknowns
+  - Hypothesis Testing: drawing samples from a population to test if a hypothesis is reasonable
+  - Prediction Problems: predicting future value based on past data (time series analysis)
+- statistical modelling is the identification of the distribution from which your data set and unknown are related
+
+### Theory of Probability
+- Random experiment, whose outcomes are uncertain
+  - S or Omega = Sample Space, the set of all possible outcomes (equally likely)
+  - event A is a subset of S
+- simple event is one with only one outcome
+
+Rules of Probability:
+- Fi is the empty set, P(omega) = 1, P(Fi) = 0
+- if A is a subset of B, P(A) <= P(B)
+- A and B are mutually exclusive if both events cannot occur simultaneously (intersection of A and B = Fi)
+- A and B are EXHAUSTIVE events if at least one of them have to happen (P(A union B) = P(Omega))
+- complement of P(Ac) = 1 - P(A)
+- `P(A u B) = P(A) + P(B) - P(A intersection B)`
+
+### Counting Rules
+- Addition/OR: p or q -> p + q # of outcomes
+- Multiplication/AND Rule: p and q -> p * q ways
+- Permutation Rule: arrange r objects from n objects without repetition, `nPr = n!/(n-r)!`
+- Combination Rule: permutations, without order, `nCr = n!/r!/(n-r)!`
+
+- Conditional Probability, the probability of an event given the simultaneous occurrence of another event: `P(A|B) = P(A n B)/P(B)`
+- Statistical independence, A and B are independent if `P(A|B) = P(A)`
+  - two mutually exclusive events of non-zero probability CANNOT be independent
+  - for two independent events, the probability of them simultaneously ocurring is the product of their probabilities
+  
