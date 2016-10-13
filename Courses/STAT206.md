@@ -65,6 +65,8 @@ Rules of Probability:
 - A and B are EXHAUSTIVE events if at least one of them have to happen (P(A union B) = P(Omega))
 - complement of P(Ac) = 1 - P(A)
 - `P(A u B) = P(A) + P(B) - P(A intersection B)`
+- Bayes Theorem: `P(Bi|A) = P(A|Bi)*P(Bi)/∑(P(A|Bj)*P(Bj))`
+  - denominator is the sum of intersections of A with all events in the event space. This works because B1...Bk are exhaustive AND mutually exclusive
 
 ### Counting Rules
 - Addition/OR: p or q -> p + q # of outcomes
@@ -76,4 +78,21 @@ Rules of Probability:
 - Statistical independence, A and B are independent if `P(A|B) = P(A)`
   - two mutually exclusive events of non-zero probability CANNOT be independent
   - for two independent events, the probability of them simultaneously ocurring is the product of their probabilities
+  
+### Random Variable Distribution
+A random variable Y is a function that assigns a number ot each outcome of a random experiment
+- `Y : omega -> Reals` is a map from sample space to real line  
+  - two coin flips, {HH, HT, TH, TT} -> {2, 1, 1, 0}
+- Random Variables: Y, X. Outcomes: y, x. Then X is said to be a discrete random variable if x takes integer values only, or continuous if the range is Real
+- the distribution function of x: f(x) = P(X=x), probability that r.v. X takes on the value of x
+- a distribution table for the random variable x is the set of all possible values of x, with their probabilities (charting the distribution function)
+  - `E(x) = μ`, mean. `Var(x) = σ^2` variance
+  - variance is the average of the squared deviations from the mean, or `E(Y - E(Y))^2 = sumof (yi - mean)^2 * f(yi)`
+- a discrete random variable can take infinite values (flip a coin until heads)
+- linearity of expectation is the property that the expected value of the sum of random variables is equal to the sum of individual expected values, regardless of whether they are independent (think weighted average)
+  - Y = a + b * X, then E(Y) = a + b * E(X) and V(Y) = b^2 * Var(X)
+
+### Cumulative Distribution Function
+- let Y be a r.v. The C.D.F of Y is given by `F(y) = P(Y <= y) forall y`
+  - remember CDF is the step graph, a piecewise definied function
   
