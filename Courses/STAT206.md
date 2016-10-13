@@ -85,6 +85,7 @@ A random variable Y is a function that assigns a number ot each outcome of a ran
   - two coin flips, {HH, HT, TH, TT} -> {2, 1, 1, 0}
 - Random Variables: Y, X. Outcomes: y, x. Then X is said to be a discrete random variable if x takes integer values only, or continuous if the range is Real
 - the distribution function of x: f(x) = P(X=x), probability that r.v. X takes on the value of x
+  - probability mass function is a function that gives the probability that a discrete random variable is exactly equal to some value
 - a distribution table for the random variable x is the set of all possible values of x, with their probabilities (charting the distribution function)
   - `E(x) = μ`, mean. `Var(x) = σ^2` variance
   - variance is the average of the squared deviations from the mean, or `E(Y - E(Y))^2 = sumof (yi - mean)^2 * f(yi)`
@@ -94,5 +95,5 @@ A random variable Y is a function that assigns a number ot each outcome of a ran
 
 ### Cumulative Distribution Function
 - let Y be a r.v. The C.D.F of Y is given by `F(y) = P(Y <= y) forall y`
-  - remember CDF is the step graph, a piecewise definied function
-  
+  - remember CDF is the step function for discrete distributions, a piecewise definied function
+  - probability/distribution function and CDF are two ways to represent some distribution of data
