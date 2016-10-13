@@ -84,7 +84,7 @@ A random variable Y is a function that assigns a number ot each outcome of a ran
 - `Y : omega -> Reals` is a map from sample space to real line  
   - two coin flips, {HH, HT, TH, TT} -> {2, 1, 1, 0}
 - Random Variables: Y, X. Outcomes: y, x. Then X is said to be a discrete random variable if x takes integer values only, or continuous if the range is Real
-- the distribution function of x: f(x) = P(X=x), probability that r.v. X takes on the value of x
+- the distribution function of x: `f(x) = P(X=x)`, probability that r.v. X takes on the value of x
   - probability mass function is a function that gives the probability that a discrete random variable is exactly equal to some value
 - a distribution table for the random variable x is the set of all possible values of x, with their probabilities (charting the distribution function)
   - `E(x) = μ`, mean. `Var(x) = σ^2` variance
@@ -97,3 +97,10 @@ A random variable Y is a function that assigns a number ot each outcome of a ran
 - let Y be a r.v. The C.D.F of Y is given by `F(y) = P(Y <= y) forall y`
   - remember CDF is the step function for discrete distributions, a piecewise definied function
   - probability/distribution function and CDF are two ways to represent some distribution of data
+  - `f(y) = F(y) - F(y-1)`
+
+- Uniform Discrete Distribution
+  - `Omega = {1,2,...,n}`, `f(y) = P(Y=y) = 1/n forall y`. That is, all yi in Sample Space have the same probabilities
+- Hypergeometric Distribution, describes the probability of r successes in n draws without replacement from a finite population size N that contains exactly R successes, where each draw is either a success or failure
+  - `P(X=r) = R choose r * (N-R) choose (n-r) / N choose n`
+- Binomial Distribution is same, but with replacement. The probability is the same for each trial
