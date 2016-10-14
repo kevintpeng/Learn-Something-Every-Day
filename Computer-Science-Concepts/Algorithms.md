@@ -9,3 +9,6 @@
 - edit distance: the cost of the best possible alignment between two strings
   - minimum edits (insertion, deletion, replacement)
   - our subproblem will be finding the edit distance between a prefix of s1 and s2
+
+## Subset sum problem
+- NP complete problem; is there a subset whose sum is 0?
