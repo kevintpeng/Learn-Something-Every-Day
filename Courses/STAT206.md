@@ -99,8 +99,24 @@ A random variable Y is a function that assigns a number ot each outcome of a ran
   - probability/distribution function and CDF are two ways to represent some distribution of data
   - `f(y) = F(y) - F(y-1)`
 
+### Discrete Distributions
 - Uniform Discrete Distribution
   - `Omega = {1,2,...,n}`, `f(y) = P(Y=y) = 1/n forall y`. That is, all yi in Sample Space have the same probabilities
 - Hypergeometric Distribution, describes the probability of r successes in n draws without replacement from a finite population size N that contains exactly R successes, where each draw is either a success or failure
   - `P(X=r) = R choose r * (N-R) choose (n-r) / N choose n`
 - Binomial Distribution is same, but with replacement. The probability is the same for each trial
+- Geometric/Negative Binomial distribution is # of failures before 1st success
+- X ~ Poi(mew), Poisson distribution, x follows a Poisson distribution with mean mew if x = 0,1,2,3,....
+  - P(X = x) = f(x) = e^(-mew) * mew^x / x!
+  - approximation to a binomial probabilities, limit of a binomial distribution, lim n->infinity, lim p -> 0, np = mew
+  - Binomial(n,p) -> Poi(mew)
+ 
+### Continuous Distributions
+X is said to be a continuous random variable if X takes values in an interval [a,b], a ≠ b
+- for any continuous distribution X, P(X=c) = 0 forall c
+- F is called the cumulative distribution of x if F(x) = P(X=x) forall x
+- probability density function, P(a ≤ x ≤ b) = a∫b f(x)dx (the area under the curve is the probability of the region
+  - it's just calculus. Now we're dealing with regions instead of discrete values
+  - ∫f(x) = 1, total area is 1
+- uniform distribution: X ~ Uni[a,b] if f(x) = { 1/(b-a) if a ≤ x ≤ b else 0 }
+  - constant function on the interval [a,b]
