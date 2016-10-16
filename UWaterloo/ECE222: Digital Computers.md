@@ -146,6 +146,8 @@ A system bus is an example of an interconnection network, joining I/O devices, m
 - polling is taxing on processor, and locks without using interrupts
 - instead let I/O alert the processor when it's ready, from hardware
 - interrupts cause processor to deviate from the normal sequence of program instructions to allow the processor to respond to high priority events
+
+### Interrupt Service Routine
   - special subroutine, called interrupt service routine (ISR) is responsible for handling services requested by the interrupt and ensuring consistent state after the ISR
    - difference between this and subroutine is that the ISR has to copy many registers to the stack to preserve their values
 - interrupt request signals from devices call the ISR, which responds with an acknowledgement
@@ -158,5 +160,37 @@ A system bus is an example of an interconnection network, joining I/O devices, m
 - if a code fragment requires atomicicity, the *Interrupt Enable (IE)* bit in the processor status register is set to 0
 - multiple device interrupts can be supported; IRQ bit in I/O device's status register indicates that it raised an interrupt
   - one approach is to poll all I/O devices, servicing the first deice to have IRQ set
+    - a shared interrupt request /IRQ signal is created using one bus driver (where each device is connected with an open switch by default)
+    - value of /IRQ becomes 0 if any device connected to the signal wishes to interrupt the processor
+    - instead of polling all devices, the device requesting service uses another set of signals to inform the processor that it is the one requesting service
+    - the INTA signal is daisy chained through all devices, stopping at the one requesting service
   - alternatively, *vectored interrupts* allow for reduced interrupt latency, without the need for polling
-- CONTINUE ON SLIDE 26
+- interrupt vector table holds addresses to Interrupt Service Routines (also called the interrupt vector)
+  1. I/O device provides interrupt code through the interconnected network, and asserts the interrupt request signal
+  2. saves state of processor, interrupt enable bit disabled
+  3. interrupt code is used as a pointer into the interrupt vector table for the right ISR
+  4. PC loaded with address of ISR
+  5. ISR executes
+  6. restore state of processors, IE enabled again
+  7. PC returns to the interrupted program
+- multiple I/O devices may use shared interrupt request signals for all devices or dedicated interrupt request signals, with lower latency and allowing the ISR to be immediately called by processor
+  - requires more wires (1 request signal and 1 acknowledge signal per device), and the processor can only support a fixed number of devices
+
+### Interrupt Nesting
+Sometimes ISRs take large latencies for servicing higher priority devices
+- disabling all interrupts during an ISR may result in unintended behaviour (order of execution)
+- instead, allow higher priority interrupts to be enabled during ISR execution 
+- interrupt nesting is similar to subroutine nesting
+- for simultaneous interrupt requests, arbitration or priority resolution is required
+  - for polling, service order is same as polling order
+  - for vectored interrupts, hardware must select only one device to identify itself
+- disabling IE bit prevents all I/O devices from interrupting, doesn't give very fine control over disabling I/O
+- for more fine control of behaviour, keep IE bit for each I/O device in I/O register (Keyboard IE and Display IE)
+
+### Processor Control Registers
+in addition to processor status (PS) register, other control registers are present
+- IPS register, where PS is automatically saved when an interrupt request is recognized
+- IENABLE has one bit per device to control if request from source is recognized
+- IPENDING has one bit per device to indicated if interrupt request has not been serviced
+  - `MoveControl R2, PS` is a special instruction used to update the processor control register
+
