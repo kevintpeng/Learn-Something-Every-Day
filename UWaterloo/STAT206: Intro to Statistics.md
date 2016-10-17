@@ -130,3 +130,5 @@ A random variable Z is called a standard normal distribution if
   - P(1 ≤ z ≤ 2) = P(-2 ≤ z ≤ -1), property of symmetry
 - for normal distribution, F(x) is the z-score for x, the probability of P(z ≤ x) 
 - 100th percentile is all data, 1st is lowest 1%
+
+Theorem: Any normal problem, you can convert to a Z-problem; If X ~ Normal with mean µ and variance σ^2, then `X-µ/σ = Z ~ N(0,1)`, where sigma is standard deviation, not variance; These are just transformations on the normal distribution
