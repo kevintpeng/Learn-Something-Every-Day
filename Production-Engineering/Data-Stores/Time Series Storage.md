@@ -24,3 +24,14 @@ Time series modelling is important as data sets grow
 - compressibility of data
 
 ### Language & API Design
+Want to avoid some legacy of SQL
+- SQL tables are fixed width and grow downwards
+  - cannot span rows without doing a JOIN
+- in time-series, rows are series identified by primary key and grow sideways
+- language should permit a GROUP BY functionality both vertically (between metrics) and horizontally (over time)
+  - both rows and columns are addressable by keys instead of literal identifiers
+  - strict equality and ranges
+- should support server-side processing for expressions, aggregate functions
+  - resampling into time resolutions different from the storage resolution (apply averaging transformations to simplify data)
+  - time series expressions (sum, division, ordering, ranking, limiting)
+- times series query language should be designed for analytics
