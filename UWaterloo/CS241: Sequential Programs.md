@@ -1,3 +1,4 @@
+# Sequential Programs
 ### MIPS [aside]
 - a reduced instruction set computer (RISC) instruction set architecture (ISA)
 - MIPS implementations are primarily used in embedded systems
