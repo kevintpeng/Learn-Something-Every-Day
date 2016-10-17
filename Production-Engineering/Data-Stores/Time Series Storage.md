@@ -1,4 +1,4 @@
-# Time Series Databases
+# Time Series Databases -- [source](http://jmoiron.net/blog/thoughts-on-timeseries-databases/)
 Time series modelling is important as data sets grow
 - a series is identified by a source name/ID
   - consists of a sequence of {timestamp, value}
@@ -35,3 +35,8 @@ Want to avoid some legacy of SQL
   - resampling into time resolutions different from the storage resolution (apply averaging transformations to simplify data)
   - time series expressions (sum, division, ordering, ranking, limiting)
 - times series query language should be designed for analytics
+- tagging events (name=value pairs), to individual time series points, which can help for more efficient queries related to the tag at the given time (think tailored filtering)
+
+### Log-structured merge-tree: Optimizing Writes -- [source](https://en.wikipedia.org/wiki/Log-structured_merge-tree)
+A time-series database should be well optimized for reads (usability) and writes (for scalability)
+- cannot use sql-like indexed collection (key, timestamp, value) rows, because then you have to query across all rows at worst
