@@ -121,3 +121,12 @@ X is said to be a continuous random variable if X takes values in an interval [a
   - ∫f(x) = 1, total area is 1
 - uniform distribution: X ~ Uni[a,b] if f(x) = { 1/(b-a) if a ≤ x ≤ b else 0 }
   - constant function on the interval [a,b]
+
+### Normal Distribution
+A random variable Z is called a standard normal distribution if
+1. Z takes values (-infinity, +infinity)
+2. f(Z) = bell curve formula
+3. Z ~ N(0,1) where (mean, variance); maximum at zero, and symmetric around 0 
+  - P(1 ≤ z ≤ 2) = P(-2 ≤ z ≤ -1), property of symmetry
+- for normal distribution, F(x) is the z-score for x, the probability of P(z ≤ x) 
+- 100th percentile is all data, 1st is lowest 1%
