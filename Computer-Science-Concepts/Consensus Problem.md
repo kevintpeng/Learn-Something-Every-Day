@@ -50,3 +50,7 @@ The Proposer sends an Accept Request message to a Quorum of Acceptors with the c
 
 ### Phase 2b: Accepted
 If an Acceptor receives an Accept Request message for a proposal N, it must accept it if and only if it has not already promised to any prepare proposals having an identifier greater than N. In this case, it should register the corresponding value v and send an Accepted message to the Proposer and every Learner. Else, it can ignore the Accept Request.
+
+## Raft
+Same goal and efficiency as Paxos, but uses a different structure aimed to be more understandable for humans
+- Raft separates key elements of consensus (leader election, log replication, safety) and enforces a stronger degree of coherency to reduce number states to be considered
