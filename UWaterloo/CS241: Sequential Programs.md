@@ -205,3 +205,25 @@ increaseBy(increment: Int) : (Int) => Int = {
   - implements a function value
 - in this example, the environment is the frame of increaseBy. The closure closes over the environment
   - the closure adds the environment for the lambda { x => x + increment } bu defining what increment really is.
+
+### Heap
+A data structure that manages memory so it can be allocated and freed
+- A6 - allocate and never free
+- A11 - allocate and free when extent ends
+- every procedure with a closure nested inside will have a frame on the heap
+
+#### Objects
+Objects can be thought of in terms of closures
+- objects have state and behaviour
+- a collection of closures (indexed by names) that close over the same environment
+
+```scala
+def newCounter: (()=>int, (int)=>Unit) = {
+  var value = 0
+  def get() = value
+  def incrementBy(amount: Int) = {
+    value = value + amount
+  }
+  (get, incrementBy) // returns a pair of functions, that share an environment stored on the HEAP
+}
+```
