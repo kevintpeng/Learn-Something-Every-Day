@@ -40,3 +40,4 @@ Want to avoid some legacy of SQL
 ### Log-structured merge-tree: Optimizing Writes -- [source](https://en.wikipedia.org/wiki/Log-structured_merge-tree)
 A time-series database should be well optimized for reads (usability) and writes (for scalability)
 - cannot use sql-like indexed collection (key, timestamp, value) rows, because then you have to query across all rows at worst
+- TODO
