@@ -259,7 +259,14 @@ increaseBy.code = Closure(procedure)
 
 val a = new Variable("a")
 val b = new Variable("b")
+
+val parameterVar = new Variable("parameterVar")
 val main = new Procedure("main", Seq(a,b), Seq())
 
-main.code = Call(increaseBy, v(a))
+// you can't use paramChunk because you don't know until runtime which paramChunk to access outer vars
+main.code = CallClosure(call(increaseBy, v(a)), b, Seq(parameterVar))
+
+val machineCode = compilerA6(Seq(main, increaseBy, procedure))
+val endState = A1.loadAndRun(machineCode.words, Word(encodeSigned(1)), Word(encodeSigned(2)))
+
 ```
