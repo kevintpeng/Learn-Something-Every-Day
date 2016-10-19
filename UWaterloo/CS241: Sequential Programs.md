@@ -270,3 +270,8 @@ val machineCode = compilerA6(Seq(main, increaseBy, procedure))
 val endState = A1.loadAndRun(machineCode.words, Word(encodeSigned(1)), Word(encodeSigned(2)))
 
 ```
+
+- For compilerA6, why do we need two phases? Varaccesses handles outer variable. To do that, you need the frames of all the outer procedures. We don't compute the frame of a procedure until runtime.
+- Phase one, translate all procedures and generate frames. Then EliminateVarAccesses phase 2.
+- phaseOneResults is a map from procedure to frame
+- eliminateCalls -> closurecalls, static links?
