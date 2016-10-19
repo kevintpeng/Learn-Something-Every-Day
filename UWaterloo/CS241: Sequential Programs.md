@@ -275,3 +275,4 @@ val endState = A1.loadAndRun(machineCode.words, Word(encodeSigned(1)), Word(enco
 - Phase one, translate all procedures and generate frames. Then EliminateVarAccesses phase 2.
 - phaseOneResults is a map from procedure to frame
 - eliminateCalls -> closurecalls, static links?
+- implementCall: Closure calls & Regular Calls. ImplementCall is the similarity between the two.
