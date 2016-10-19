@@ -227,3 +227,39 @@ def newCounter: (()=>int, (int)=>Unit) = {
   (get, incrementBy) // returns a pair of functions, that share an environment stored on the HEAP
 }
 ```
+
+### A6 Tutorial
+```scala
+// Testing your closures locally
+
+def increaseBy(increment: Int): (Int)=> Int = {
+  def procedure(x:Int) = { x + increment }
+  procedure
+}
+
+def main(a: Int, b: Int) = (increaseBy(a))(b)
+
+// now reimplemented in Lacs
+val increment = new Variable("increment")
+val increaseby = new Procedure("increaseBy",
+  Seq(increment), Seq())
+
+val x = new Variable("x")
+
+// 4th arg, Option can be None or some other Procedure 
+val procedure = new Procedure("procedure", Seq(x), Seq(), Some(increaseBy))
+
+// some helper function
+def v(variable: Variable): Code = read(Reg.result, variable)
+// now define the body of the procedure
+// make sure you implement some way that accesses outer scoped variable (should be similar to a regular read)
+procedure.code = binOp(v(x), plus, v(increment)) // increment is an outer variable
+
+increaseBy.code = Closure(procedure)
+
+val a = new Variable("a")
+val b = new Variable("b")
+val main = new Procedure("main", Seq(a,b), Seq())
+
+main.code = Call(increaseBy, v(a))
+```
