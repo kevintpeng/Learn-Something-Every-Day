@@ -192,16 +192,16 @@ in addition to processor status (PS) register, other control registers are prese
 - IPS register, where PS is automatically saved when an interrupt request is recognized
 - IENABLE has one bit per device to control if request from source is recognized
 - IPENDING has one bit per device to indicated if interrupt request has not been serviced
-  - `MoveControl R2, PS` is a special instruction used to update the processor control register
+  - `MoveControl R2, PS` is a special instruction used to update the processor control register (knows about keywords IPS, IENABLE, IPENDING, PS and is for moving values)
 - **example:** read a line of characters from keyboard
   - use Keyboard ISR, with polling within ISR to display
   - unfortunately only one interrupt occurs
 - assumptions: ILOC points to the memory location with the first instruction for ISR
-  - LINE points to the starting address of where to store the line in memory
+  - LINE is the starting address of where to store the line in memory
   - PNTR points to a memory location for the characters from the ISR
   - EOL indicates that the line has been read
 
-```mips
+```
 
 mov r2, ps
 ```
