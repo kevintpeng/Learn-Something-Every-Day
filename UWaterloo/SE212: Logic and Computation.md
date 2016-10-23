@@ -53,3 +53,23 @@ Logical Connectives -> Quantifiers -> Constants -> Functions -> Predicates
  
 ### Natural Deduction
 We extend the rules used in predicate logic, with ones able to handle quantifiers
+- Forall elimination: if a formula P is true for all values x, then t can be any term and P[t/x] is concluded, where we define P[t/x] to be the formula obtained by replacing every free occurrence of variable x **IN** formula P with t.
+- variable capture during substitution is when a free variable becomes bound
+- "t is free for x in P" if in P, no free x's occur within the scope of Forall w or exists w for any var w occurring in t
+  - you can substitute a var x for a formula as long as the formula doesn't contain x as a free variable within it
+- whenever we use P[t/x], t must be free for x in P
+- If t is not free for x in P, then variable capture would occur
+  - in the substitution of t for x, no free variables in t should be captured
+- Exists introduction: If P is true for some value, then there exists a value for which P is true
+  - choose a line of the proof to be term t, replace it with x and bound it by Exists x . 
+  - all occurences of t do not need to be replaced
+  - you have to choose t that does not contain bounded variables 
+  - avoid introducing x that is already free in the formula, since you might bound a free variable during substitution
+- unknown variables have restricted set of values that satisfy the formula (`exists x . P(x)`)
+- genuine variables satisfy the formula for all x (`forall x . x + x = 2x`)
+- Forall introduction: for every xg (generalized) if a formula is true for some unconstrained value, then it's true for all values
+  - xg must be a genuine variable and **not used on any previous line of the proof**
+- exists elimination: if the formula is true for some value, using an unknown variable xu, we derive that formula Q holds (not containing xu), then Q holds
+- Natural deduction is sound (proves only valid arguments) and complete (any valid argument is provable with ND)
+- Semantic tableaux is used to show a set of formulas is inconsistent, where each branch represents a conjunction of the set of formulas at the root can be satisfied
+  - the goal being to close all branches of the tree by creating valid contradictions
