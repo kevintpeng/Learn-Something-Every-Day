@@ -132,3 +132,21 @@ A random variable Z is called a standard normal distribution if
 - 100th percentile is all data, 1st is lowest 1%
 
 Theorem: Any normal problem, you can convert to a Z-problem; If X ~ Normal with mean µ and variance σ^2, then `X-µ/σ = Z ~ N(0,1)`, where sigma is standard deviation, not variance; These are just transformations on the normal distribution
+
+Some applications:
+1. given mew, sigma and a value A, find the probabilities P(x ≤ A) = ?
+2. given mew, sigma and probability, find the value: P(x≤A) = 0.9 find A
+3. Given probabilities and values, we are asked to find mew and sigma (using standardization)
+
+### Distribution of the Sample Mean
+Theorem: If x1, x2, ..., xn are independent normally distributed random variables with mean mew and variance sigma squared, then mean of x = ( x1 + x2 + ... + xn ) / n
+
+Theorem: If X ~ N(µ1, sig1^2) and Y ~ N(µ2, sig2^2), then aX + bY ~ N(a•µ1 + b•µ2, a^2•sig1^2 + b^2•sig2^2)
+
+x ~ N(80, 64) weight of canadians. 20 canadians get on an elevators, whats the probability it will break:
+- Find P((x1 + x2 + ... + x20)/n ≥ 1000/20) = P(x bar ≥ 50)
+- x bar ~ N(80, 64/20)
+
+Central Limit Theorem: Suppose x1 ... xn have a mean and variance sig^2 (not necessarily normal). If n is large, x bar ~apprx. N(µ, sig^2/n)
+- if we have a large enough sample size, the sample means are normally distributed regardless of the original distribution
+- arbitrarily, we'll call n ≥ 30 LARGE
