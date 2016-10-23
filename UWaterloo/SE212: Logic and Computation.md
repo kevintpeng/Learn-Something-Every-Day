@@ -73,3 +73,5 @@ We extend the rules used in predicate logic, with ones able to handle quantifier
 - Natural deduction is sound (proves only valid arguments) and complete (any valid argument is provable with ND)
 - Semantic tableaux is used to show a set of formulas is inconsistent, where each branch represents a conjunction of the set of formulas at the root can be satisfied
   - the goal being to close all branches of the tree by creating valid contradictions
+- universal instantiation (forall nb): forall x . P(x) non branches to P(t) for term t, t is free for x in P
+- existential quantification: exists x . P(x) non branches to P(yu) where yu is a constant or unknown var, not a free variable in the tableau so far
