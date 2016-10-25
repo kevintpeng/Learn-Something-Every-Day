@@ -43,6 +43,10 @@ identifies distribution from which your sample is drawn, so you apply the right 
 - Empirical cumulative distribution function, ƒ(y) = `# of observations ≤ y/Total # of observations`
   - plots an upwards staircase
 - Box and Whiser Plot plots quaritles 
+- five num summary = {min, Q1, Q2, Q3, max}
+- quartiles are calculated with `(n+1) * percentile`, averaging its neighbours for non integer values
+- outliers are numbers outside of `Q3 + 1.5 * IQR` and `Q1 - 1.5 * IQR`
+- left skewed if distribution function has a left slope (right vise versa)
 
 ### Statistical Inference
 - Descriptive Statistics describe the properties of the data
