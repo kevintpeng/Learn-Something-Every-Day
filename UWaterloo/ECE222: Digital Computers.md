@@ -129,6 +129,16 @@ Assembler converts source program to an object program in machine language
   - each module is assembled relative to location 0, then linker adds appropriate offset once code location is determined for each module
   - relative addressing and some instructions are position independent, while referencing external labels are position dependent
   
+### Conditional
+ARM - conditionals
+- ROR ROL by four
+- must use STR and LDR for memory
+- LDMIA SP! or STMDB SP! for stacks
+  - LDMFD, STMFD
+- 15 PC, 14 LR, 13 SP 
+- assemble each module as if starts from 0
+- linker adds appropriate offsets in memory
+ 
 # Part 5: Basic IO 
 A system bus is an example of an interconnection network, joining I/O devices, memory devices and CPU
 - memory mapped I/O treats I/O devices as part of the address space 
