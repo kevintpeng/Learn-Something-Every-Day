@@ -205,3 +205,31 @@ in addition to processor status (PS) register, other control registers are prese
 
 mov r2, ps
 ```
+
+## Part 6: IO Organization
+### Basic Hardware
+- hardware propagation delay: when a state change occurs at the input, the delay encountered before the corresponding change in the output waveform is the propagation delay
+  - sampling during the transition time can lead to incorrect data
+  - important to assert over a small time period
+- setup (prior) and hold (following) time are necessary for correct sampling of data
+- interconnection network is the circuit that transfers info between components (ex: system bus connecting address, data, control)
+
+### I/O Interface
+- bus contains signals, one for each component of the I/O interface
+- **address decoder** deterines when a device should respond to a request from a processor
+  - produces a device enable signal for input addresses belonging to the device range
+  - given a memory map, you can determine which address signals identify a particular device
+    - each has a boolean expression that represents address ranges
+    - also use memory map to determine the address signals used by the device after its enabled
+    - also determines number of unique addresses supported by each device
+
+### Bus Operation
+- a bus protocol is set of rules governing how the bus is used
+  - bus control lines specify whether read or write, the size of the operation, timing info
+- broadly, timing data transfers over bus synchronously with a global clock or asynchronously
+- master is device that initiates data transfer
+- slave is device addressed by master
+- X places Y on bus (X asserts signals amount to value Y) on the bus signals 
+  - bus signals could be address, command, or data
+- Skew occurs when two signals transmitted simultaneously from one source arrive at dest at different times
+  - happens because different lines have different propagation speeds
