@@ -276,3 +276,11 @@ val endState = A1.loadAndRun(machineCode.words, Word(encodeSigned(1)), Word(enco
 - phaseOneResults is a map from procedure to frame
 - eliminateCalls -> closurecalls, static links?
 - implementCall: Closure calls & Regular Calls. ImplementCall is the similarity between the two.
+
+### Deterministic Finite Automata
+A DFA is a 5-tuple; <∑, Q, q0, A, ∂> where
+- ∑ is a finite alphabet
+- Q is a finite set of states
+- q0 is an element of Q, is the starting state
+- A is a subset of Q, is the accepting states
+- ∂: Q x ∑ -> Q is a transition function
