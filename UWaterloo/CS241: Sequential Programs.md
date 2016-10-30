@@ -292,7 +292,7 @@ Formally, a DFA is a 5-tuple; <∑, Q, q0, A, ∂> where
 - ∑ is a finite alphabet
 - Q is a finite set of states
 - q0 is an element of Q, is the starting state
-- A is a subset of Q, is the accepting states
+- A is a subset of Q, is the accepting states; machine reports the input string is a member of the language it accepts
 - ∂: Q x ∑ -> Q is a transition function
 
 DFA recognition algorithm:
@@ -308,4 +308,14 @@ Non-determininistic Finite Automata (NFA) has multiple choices of transitions be
 - a word is accepted by a NFA if any path leads to accepting state
 - the machine takes all choices at once, so the NFA is a set of states at any given point, rather than a single state
 
-Formally, a NFA is a 5-tuple; <∑, Q, q0, A, ∂> same as DFA except `∂: Q x ∑ -> 2^Q` is a transition function to set of states
+Formally, a NFA is a 5-tuple; <∑, Q, q0, A, ∂> same as DFA except `∂: Q x ∑ -> 2^Q` is a transition function to set of states, where 2^Q is the [power set](../Math-CS/Sets.md#set-of-all-subsets)
+
+NFA recognition algorithm: 
+- define `∂* : Q x ∑* -> 2^Q` extended transition function, `∑*` is a string of symbols from ∑
+- `∂*(q, e) = {q}`
+- `∂*(q, head::tail) = union of all( q' in ∂(q,head) . ∂*(q', tail))`
+
+A word `w` is accepted by an NFA if `∂*(q0, w) n A ≠ {}`, the set of possible transitions is contained in `A`, the set of accepting states
+
+NFA-ε, accepts ε (empty string) as a possible string input. It nicely represents unknown states. To eliminate all epsilon-transitions from an NFA:
+- where an epsilon transfer (`∂*(q, epsilon) = {q}`) is a given element of the alphabet that, for example, causes state A -> B, then replace all transitions to A with a transition to B, and remove the epsilon-transition from A to B
