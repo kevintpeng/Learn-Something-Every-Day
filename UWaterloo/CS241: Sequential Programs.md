@@ -277,10 +277,35 @@ val endState = A1.loadAndRun(machineCode.words, Word(encodeSigned(1)), Word(enco
 - eliminateCalls -> closurecalls, static links?
 - implementCall: Closure calls & Regular Calls. ImplementCall is the similarity between the two.
 
-### Deterministic Finite Automata
-A DFA is a 5-tuple; <∑, Q, q0, A, ∂> where
+### Finite Automata
+In Theory of Computation, a Deterministic Finite Automata is a deterministic finite state machine that accepts and rejects finite strings of symbols, to produce a unique run of the automata for each input string. It recognizes exactly the set of regular languages, useful for lexical analysis and pattern matching
+
+[ASIDE] A regular language is a formal language (set of string and symbols constrained by rules) that can be expressed with regular expressions.
+- the collection of regular languages over an alphabet ∑ is defined recursively
+  - The empty language ø and the empty string language {ε} are regular languages
+  - forall a in ∑, the singleton language {a} is a regular language
+  - if A and B are regular languages, then A u B, A•B (concat), and A* (Kleene Star, one or more) are regular languages
+  - no other languages over ∑ are regular
+- it is a language accepted by deterministic and nondeterministic finite automaton
+
+Formally, a DFA is a 5-tuple; <∑, Q, q0, A, ∂> where
 - ∑ is a finite alphabet
 - Q is a finite set of states
 - q0 is an element of Q, is the starting state
 - A is a subset of Q, is the accepting states
 - ∂: Q x ∑ -> Q is a transition function
+
+DFA recognition algorithm:
+- define ∂* : Q x ∑* -> Q extended transition function, ∑* is a string of symbols from ∑
+- ∂*(q, e) = q
+- ∂* (q, head::tail) = ∂* ( ∂(q,head),tail), recursively applies alphabet symbols with function ∂() to move states
+
+- A word is **accepted by the DFA** if ∂* (q0, w) is an element of A
+- the language defined/specified by a DFA is the set of words accepted by the DFA
+- a language is **regular** if exists a DFA that specifies it
+
+Non-determininistic Finite Automata (NFA) has multiple choices of transitions between states
+- a word is accepted by a NFA if any path leads to accepting state
+- the machine takes all choices at once, so the NFA is a set of states at any given point, rather than a single state
+
+Formally, a NFA is a 5-tuple; <∑, Q, q0, A, ∂> same as DFA except `∂: Q x ∑ -> 2^Q` is a transition function to set of states
