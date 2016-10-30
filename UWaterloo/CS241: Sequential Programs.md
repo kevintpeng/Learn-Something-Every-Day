@@ -339,6 +339,7 @@ Let L be language of tokens, `L*` be the language of words that can be scanned
   - if `L = {aa, aaa}`, `W = aaaa`, then maximal munch first takes the token `aaa` from W, leaving W = `a`. `a` is not in L, so our method says no solution, even though it's possible to take the tokens `aa` and `aa` from W.
 
 Method:
+
 1. run DFA for L until it gets stuck
 2. if in non-accepting state, **backtrack** to last-visited accepting state. if no accepting states visited, ERROR
 3. output a token corresponding to accepting state
