@@ -319,3 +319,46 @@ A word `w` is accepted by an NFA if `∂*(q0, w) n A ≠ {}`, the set of possibl
 
 NFA-ε, accepts ε (empty string) as a possible string input. It nicely represents unknown states. To eliminate all epsilon-transitions from an NFA:
 - where an epsilon transfer (`∂*(q, epsilon) = {q}`) is a given element of the alphabet that, for example, causes state A -> B, then replace all transitions to A with a transition to B, and remove the epsilon-transition from A to B
+
+### Scanning
+Breaking a string into tokens using an NFA constrained by maximal munch property
+- Recognition: is some word in language?
+- Scanning: split a string into tokens s.t. each token is in language
+- maximal munch is the principle that when creating some construct, as much of the available input should be consumed
+- input: string w, language L
+- output: sequence of words w1, w2 ... wn s.t.
+  - w1, w2...wn = w
+  - forall i . wi in L
+  - forall i, wi is the longest prefix of wi, wi+1 ... wn that is in L (maximal munch)
+- *when tokenizing, break the string into the largest tokens possible*
+
+Let L be language of tokens, `L*` be the language of words that can be scanned
+- Given an NFA for L, construct an NFA for `L*` by adding epsilon-transitions from every accepting state to start state
+- since NFA is nondeterministic, we constrain each transition to use the maximal munch to produce a unique transition
+  - :( might not find a solution when one exists because it chooses branches of maximum token size and over looks a possible path to a solution
+  - if `L = {aa, aaa}`, `W = aaaa`, then maximal munch first takes the token `aaa` from W, leaving W = `a`. `a` is not in L, so our method says no solution, even though it's possible to take the tokens `aa` and `aa` from W.
+
+Method:
+1. run DFA for L until it gets stuck
+2. if in non-accepting state, **backtrack** to last-visited accepting state. if no accepting states visited, ERROR
+3. output a token corresponding to accepting state
+4. set DFA to start state and repeat from 1 (this is why we have to add epsilon transitions for `L*` eariler)
+
+### Regular Expressions
+A regular expression expresses a regular language. So L is basically a function that maps regular expressions to the sets of strings that it represents.  
+```sh
+ε       L(ε) = {ε} # empty string
+a in ∑  L(a) = {a} # literal character
+ø       L(ø) = {} # empty set
+R1 | R2 L(R1|R2) = L(R1) u (L(R2) # R1 & R2 are regex
+R1R2    L(R1R2) = {xy | x in L(R1), y in L(R2)} # concatenation of elements contained within each of the regular languages
+R*      L(R*) = { x1x2..xn | forall i . xi in L(R), n ≥ 0 } # Kleene's Star
+```
+
+Kleene's Theorem:
+- For a language L, the following statements are equivalent to each other:
+1. exists a DFA specifying L
+2. exists an NFA without epsilon-transitions specifying L 
+3. exists an NFA specifying L (could have epsilon)
+4. exists a regex specifying L
+5. L is regular 
