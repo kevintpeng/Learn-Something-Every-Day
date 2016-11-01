@@ -89,3 +89,5 @@ A theory is a set of statements we want to make about some phenomenon
 - also defined as the set of all theorems provable from those axioms (called the closure)
 - we include the axioms as premises 
 - we can use multiple theories together
+- an interpretation in which all axioms of the theory are tre is called a **model of the theory**
+- need theories to capture facts about environment so we show that software has certain behaviour within an environment
