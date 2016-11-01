@@ -79,3 +79,13 @@ We extend the rules used in predicate logic, with ones able to handle quantifier
 ## Theories
 ### Hidden Premises
 north_of(Ottawa, Toronto) and north_of(Toronto, Waterloo), therefore north_of(Ottawa, Waterloo)
+- north_of is implied to be transitive: `forall x,y,z . north_of(x,y) & north_of(y,z) => north_of(x,z)`
+
+An **enthymeme** is an argument that contains a hidden premise
+- hidden premises are environmental assumptions
+
+A theory is a set of statements we want to make about some phenomenon
+- a set of axioms about specific constants, function, and predicate symbols
+- also defined as the set of all theorems provable from those axioms (called the closure)
+- we include the axioms as premises 
+- we can use multiple theories together
