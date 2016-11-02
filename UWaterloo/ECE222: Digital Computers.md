@@ -243,3 +243,58 @@ mov r2, ps
   - bus signals could be address, command, or data
 - Skew occurs when two signals transmitted simultaneously from one source arrive at dest at different times
   - happens because different lines have different propagation speeds
+
+### Memory Systems
+Array of simple memory cells, each storing a single bit of information
+- size is the unique addressable memory locations
+- for k address bits, 2^k words of memory are addressable
+  - address decoder drives **word line** (bus), selecting a row of cells
+  - sense/write circuit connected to two bit lines, during read, read current bit values. during write, take input and store in cells
+  - control line for read and write specifies which operation
+  - CS is chip select, choses given chip
+- 1Kib x 1 means 1Ki bits of memory with 1 bit of input/output
+  - implemented with 32x32 cells, with a 5 bit decoder (2^5 = 32 addresses) for column and row
+  - read/write one cell at a time
+- Static RAM stored in latches, expensive
+  - two inverters form a latch, where X=1, Y=0 represents 1
+  - on read, the word lines are activated, by closing switches connecting the inverter to the circuit
+  - on write, place values on b and b' and connect the word lines via latches
+- Dynamic Ram store temporarily using capacitors, requires refreshes to recharge capacitor, but cheaper
+  - capacitor holds charge, when the charge is above a threshold, it holds 1
+  - during reads, assert word line and switch T is closed, connecting bit line to capacitor for reading
+  - during write, assert word line, close swithc T and drive bit line to alter amount of charge
+- Organization of Asynchronous 32Mib x 8 DRAM chip:
+  - 16Kib x 16Kib, 16Ki rows of 16Kib cells, each row has 16Kib/8 = 2048 bytes
+  - log2(16Ki) = 14 bits to address row
+  - log2(2048) = 11 bits to address specific byte in row
+  - row and column are multiplexed on 14 pins
+  - row address first placed then assert RAS 
+  
+### Memory Hierarchy
+Hierarchy of memory components goes from fastests to slowest, with speed cost trade off
+- CPU -> M1 -> M2 -> M3 -> M4
+- automatically move data up and down the hiearchy (frequent at the top) to optimize memory access time
+- locality of memory references is an intrinsic property of real programs
+- temporal locality is data that you recently used and are likely to use soon (local vars)
+- spatial locality is data near the recently used data that are likely to be used again soon (elements in an array)
+- caches assist with locality of memory references
+  - cache block is size that indicates multiple words of data/instructions transferred between cache and main memory
+  - cache hit if memory block is found 
+  - cahce miss if not
+  - cache eviction removing block of data/instructions from the cache
+  - cache dirty bit used to identify when contents of a cache block change
+- processor connects to the cache
+- cache connects to the main memory
+
+Cache Writing Protocol for Store R2, (R3):
+- if cache hit 2 approaches:
+  - write-through protocol updates the cache block and the main memory simultaniously 
+  - write-back protocol updates the cache block and simply flags that the cache block has been modified by setting a dirty bit
+if cache miss, 2 approaches:
+  - write-through protocol updates main memory directly and cache
+  - write-back protocol fetches the main memory block into the appropriate cache block, updates the cache block and sets the dirty bit
+- then dirty bit is used to decide whether to write-back data on eviction or replacement
+- if cache miss, write-allocate says fill chace with line and perform write, while no-write-allocate ignores filling cache and writes directly to main memory
+
+Mapping Functions determine the location in the cache for each memory address
+- **direct mapping** uses a fixed mapping mem block j => cache block (j mod 128)
