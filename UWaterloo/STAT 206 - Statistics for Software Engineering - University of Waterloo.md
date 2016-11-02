@@ -169,3 +169,11 @@ Toss coin 100 times
 - draw sample from population {y1, ..., yn} subset of population
 - Y ~ Geom(theta): yi = 1 if true with probabily theta, 0 if false with probability 1-theta
 - so P(Yi = yi) = theta^(y1-1)•(1-theta)
+- Likelihood Estimation: plug in two values that we're comparing into the density functions, take the greater of the two
+- the maximum Likelihood Estimate (MLE) is that value of theta that maximizes L(theta). we call this theta-hat
+
+- theta-hat = "most likely" value of theta that generated your sample
+- def: let Y1, ... Yn are independent random variables with distribution function f(y, theta) 
+- def: theta-hat is the Maximum Likelihood Estimate of theta if theta-hat maximizes L(theta)
+- if theta-hat maximizes L(theta), it must maximize l(theta) = log L(theta)
+- the log-likelihood function l(theta) = log L(theta)
