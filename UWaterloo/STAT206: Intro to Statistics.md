@@ -151,6 +151,21 @@ x ~ N(80, 64) weight of canadians. 20 canadians get on an elevators, whats the p
 - Find P((x1 + x2 + ... + x20)/n ≥ 1000/20) = P(x bar ≥ 50)
 - x bar ~ N(80, 64/20)
 
-Central Limit Theorem: Suppose x1 ... xn have a mean and variance sig^2 (not necessarily normal). If n is large, x bar ~apprx. N(µ, sig^2/n)
+Central Limit Theorem: Suppose x1 ... xn have a mean µ and variance sig^2 (not necessarily normal). For x bar = the mean of any independent random variables, then if n is large, x bar ~apprx. N(µ, sig^2/n)
 - if we have a large enough sample size, the sample means are normally distributed regardless of the original distribution
 - arbitrarily, we'll call n ≥ 30 LARGE
+
+### Exponential
+X is said to follow an exponential distribution with mean µ, `X ~ Exp(µ)` if X takes values between 0 and infinity and the density function of X `f(x) = (1/µ)•e^(-X/µ)`, X > 0
+- looks right skewed
+- CDF of the exponential `F(x) = Pr(X≤x) = 1 - e^(-x/µ)`
+  - since CDF is integral of density function, from min to infinity, and integral from min to infinity is 1 forall f(x)
+
+### Statistical Inference
+Toss coin 100 times
+- P(X ≥ 60) = 1000C60•0.5^60•(1-0.5)^40
+- statistical inference is using a sample to predict population values
+- Target population theta = unknown attribute of population (ex. avg income of students)
+- draw sample from population {y1, ..., yn} subset of population
+- Y ~ Geom(theta): yi = 1 if true with probabily theta, 0 if false with probability 1-theta
+- so P(Yi = yi) = theta^(y1-1)•(1-theta)
