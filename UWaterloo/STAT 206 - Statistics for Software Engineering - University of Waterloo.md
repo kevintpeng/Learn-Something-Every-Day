@@ -165,13 +165,15 @@ X is said to follow an exponential distribution with mean µ, `X ~ Exp(µ)` if X
 Toss coin 100 times
 - P(X ≥ 60) = 1000C60•0.5^60•(1-0.5)^40
 - statistical inference is using a sample to predict population values
-- Target population theta = unknown attribute of population (ex. avg income of students)
-- draw sample from population {y1, ..., yn} subset of population
+- Target population theta = unknown attribute of population (mean, proportion, variance, etc...)
+- a statistical model is the identification of the random variables from which your sample is drawn from; {y1, ..., yn} subset of population
+  - before using a model for analysis, check the model to see if it looks normal (check skewness and kurtosis)
 - Y ~ Geom(theta): yi = 1 if true with probabily theta, 0 if false with probability 1-theta
 - so P(Yi = yi) = theta^(y1-1)•(1-theta)
 - Likelihood Estimation: plug in two values that we're comparing into the density functions, take the greater of the two
 - the maximum Likelihood Estimate (MLE) is that value of theta that maximizes L(theta). we call this theta-hat
 
+- def: A Q-Q plot is a graph (z(α), y(α)) where z(α) = αth quartile of z ~ N(0,1)
 - theta-hat = "most likely" value of theta that generated your sample
 - def: let Y1, ... Yn are independent random variables with distribution function f(y, theta) 
 - def: theta-hat is the Maximum Likelihood Estimate of theta if theta-hat maximizes L(theta)
