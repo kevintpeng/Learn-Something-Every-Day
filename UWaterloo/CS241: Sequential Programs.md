@@ -393,3 +393,29 @@ To generate a string of terminal symbols from a CFG:
 canonical derivations: rightmost and leftmost, for precedence of parsing
 - there exists a parse tree iff exists rightmost derivation iff exists leftmost derivation
 - A CFG is **ambiguous** if it allows multiple parse trees for the same input (different paths of production rules for the same output)
+
+### Parsing
+- Top-down parsing starts with S and finds derivation steps leading to result w. The hard problem is choosing the right rules
+- Bottom-up algorithm starts with w, finds derivation steps leading to s.
+- Chomsky Normal Form: RHS of CFG can have an arbitrary number of symbols
+- in CNF form, production rules can only have either two nonterminals on the RHS or one terminal
+- formally, CFGs are allowed to have empty productions NP -> epsilon, which can always be eliminated without changing the language via epsilon (by altering production rules)
+- General Top-Down Cyk:
+  - Bottom up parsing, with dynamic programming to save results in table
+  - given w, does `s =>* w`
+  - sub-problem: given x, does `alpha =>* x`, alpha is a sequence of terminals and nonterminals, x is a seq of characters 
+  - w =yxz for some y,z. x is a substring of w
+  - A -> gamma alpha in P. alpha is a suffix of RHS of a rule in R
+  - *so we have to test for every suffix alpha and every substring x, in O(w^3) time, since for each w^2 substrings, check against O(w) partitions of each substring.*
+  - the table contains single entries for each nonterminal, where each cell of the table has a substring
+  - cases for filling our table:
+    - alpha -> epsilon (empty string) : true if x = epsilon
+    - alpha -> aß : true if x = ay AND  `ß =>* y`
+    - alpha -> A : true if exists A -> gamma in P s.t. `gamma =>* x`
+    - alpha -> Aß : if exists y,z where x=y and `A =>* y` and `ß=>* z`
+
+### Earley's Algorithm
+- bottom-up
+- P(w^2) Space
+- O(w^3) time for ambiguous
+- O(w^2) time for unambiguous
