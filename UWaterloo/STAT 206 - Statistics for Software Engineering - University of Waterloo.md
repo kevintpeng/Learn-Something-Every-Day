@@ -179,3 +179,9 @@ Toss coin 100 times
 - def: theta-hat is the Maximum Likelihood Estimate of theta if theta-hat maximizes L(theta)
 - if theta-hat maximizes L(theta), it must maximize l(theta) = log L(theta)
 - the log-likelihood function l(theta) = log L(theta)
+
+There are two general methods of interval estimation:
+- relative likelihood function R(theta) (Likelihood interval)
+  - R(theta) = L(theta)/L(theta-hat) , theta-hat is the MLE
+  - LOG RELATIVE LIKELIHOOD FUNCTION: gamma(theta) = log R(theta) = log L(theta) - log L(theta-hat)
+- sampling distributions (confidence interval)
