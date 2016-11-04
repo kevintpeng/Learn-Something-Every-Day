@@ -419,3 +419,19 @@ canonical derivations: rightmost and leftmost, for precedence of parsing
 - P(w^2) Space
 - O(w^3) time for ambiguous
 - O(w^2) time for unambiguous
+
+
+
+### CYK
+Does `S =>* my string`
+- alpha is our current progress
+- if S -> cccb, then 
+- S -> AcB tells us that AcB -> cccB
+- now we partition by `c` to split cccb
+- now do cases on alpha, our current progress
+- greek character are strings of terminals or non-terminals
+1. alpha = epsilon, we need x=epsilon
+2. alpha = aß, only works if RHS = ay, then ß ->* y
+3. alpha = A. intution non-terminal, try every production rule where A -> gamma
+  - if 
+4. alpha = Aß, then for all length + 1 partitions of RHS = yz, check A->*y and ß->*z
