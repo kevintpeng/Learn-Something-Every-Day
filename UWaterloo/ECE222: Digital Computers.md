@@ -298,3 +298,24 @@ if cache miss, 2 approaches:
 
 Mapping Functions determine the location in the cache for each memory address
 - **direct mapping** uses a fixed mapping mem block j => cache block (j mod 128)
+
+### Lab3
+```arm
+ENCODE
+; so go from 0 to 1F (00000 to 11111) and LSL 1 for P2, 2-6
+LSL Rx, #0x2
+AND Ry, Rx, #0x7C ; 1111100
+LSL Rx, #0x15
+AND Rz, Rx, #30000000 ; for 28-29
+LSL Rx, #0x1
+AND Rx, Rx, #80000000 ; for 31
+ADD Rx, Rx, Rz
+; Rx is the 28,29,31
+; Ry is the 2-6
+
+LOOP
+
+BL ENCODE
+; STR
+
+```
