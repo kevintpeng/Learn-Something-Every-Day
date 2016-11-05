@@ -400,7 +400,9 @@ canonical derivations: rightmost and leftmost, for precedence of parsing
 - Chomsky Normal Form: RHS of CFG can have an arbitrary number of symbols
 - in CNF form, production rules can only have either two nonterminals on the RHS or one terminal
 - formally, CFGs are allowed to have empty productions NP -> epsilon, which can always be eliminated without changing the language via epsilon (by altering production rules)
-- General Top-Down Cyk:
+
+### CYK
+CYK starts with S, starting nonterminal, as alpha. We want to expand nonterminals in alpha such that the input string is represented by the CFG. So, check all possible chains of production rules until it finds a valid parse tree. It follows four cases, each trying to reduce the string of terminal and non-terminal characters, alpha, to the base case where alpha is empty. Since alpha is our current state, we keep checking the leftmost character from alpha to see if it can reduce our input, with the end goal being an empty alpha and empty input (i.e. all of the input is represented by a parse tree of terminal/nonterminal characters). Complexity occurs when the leading character of alpha is a nonterminal, since you have to now have to split the input string in two, such that the nonterminal describes the first partition and the rest of alpha describes the second partition of the input string. So there are a quadratic number of substrings of input that could be checked, each with a linear time partition check. So O(n^3) time complexity. Dynamic programming is used to optimize the problem by eliminating repeated calculations with a memoization table.  
   - Bottom up parsing, with dynamic programming to save results in table
   - given w, does `s =>* w`
   - sub-problem: given x, does `alpha =>* x`, alpha is a sequence of terminals and nonterminals, x is a seq of characters 
@@ -419,19 +421,3 @@ canonical derivations: rightmost and leftmost, for precedence of parsing
 - P(w^2) Space
 - O(w^3) time for ambiguous
 - O(w^2) time for unambiguous
-
-
-
-### CYK
-Does `S =>* my string`
-- alpha is our current progress
-- if S -> cccb, then 
-- S -> AcB tells us that AcB -> cccB
-- now we partition by `c` to split cccb
-- now do cases on alpha, our current progress
-- greek character are strings of terminals or non-terminals
-1. alpha = epsilon, we need x=epsilon
-2. alpha = aß, only works if RHS = ay, then ß ->* y
-3. alpha = A. intution non-terminal, try every production rule where A -> gamma
-  - if 
-4. alpha = Aß, then for all length + 1 partitions of RHS = yz, check A->*y and ß->*z
