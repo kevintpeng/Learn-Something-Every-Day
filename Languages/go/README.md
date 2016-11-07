@@ -10,7 +10,7 @@ Go is a portable language, well catered for small tasks. In comparison to ruby, 
 ## Packages
 Every go project is made up of packages. Prgrams start running in package `main`. The package name is same as last element of the import path (`math/rand` has `package rand`).
 
-Individual statement: `import "fmt"`. Factored import statement: 
+Individual statement: `import "fmt"`. Factored import statement:
 ```go
 package main
 
@@ -27,7 +27,8 @@ func main() {
 - `fmt.Println()` prints, followed by a line break
 
 #### Exported names
-A name is exported if it **begins wiht a capital letter**. `Pi` is exported from the `math` package.
+A name is exported if it **begins with a capital letter**. `Pi` is exported from the `math` package.
+
 
 When importing a package, only exported names are accessible. `fmt.Println(math.Pi)`.
 
@@ -39,7 +40,7 @@ func add(x int, y int) int {
 }
 ```
 
-A function can return multiple results, comma delimited. 
+A function can return multiple results, comma delimited.
 ```go
 func swap(x, y string) (string, string) {
   return y, x
@@ -57,7 +58,7 @@ func div10(sum int) (x, y int) {
 ```
 
 #### Variables
-`var` statement declares a list of variables, type is last. 
+`var` statement declares a list of variables, type is last.
 ```go
 var c, python, java bool
 
@@ -67,7 +68,7 @@ func main() {
 }
 ```
 
-An initializer assigns values: `var i, j = 1, 2` (notice type can be omitted). `=:` is the short assignment statement, used in place of `var` with implicit type declaration (only available within the scope of a func).
+An initializer assigns values: `var i, j = 1, 2` (notice type can be omitted). `:=` is the short assignment statement, used in place of `var` with implicit type declaration (only available within the scope of a func).
 
 ##### Variable Types
 `bool`, `string`, `int`, `int8`, `int16`, `int32`, `int64`, `float32`, `float64` (only specify size of ints in specific uses). Zero values are assigned when there is no explicit value given:
@@ -81,13 +82,13 @@ A **constant** is decared like variables, but with `const` keyword instead of `v
 
 ##### Pointers
 - Pointers hold the memory address of the variable. `var p *int`.
-- The type `*T` is a pointer to a `T` value. 
+- The type `*T` is a pointer to a `T` value.
 - The zero value is `nil`.  
 - The operator `&` generates a pointer to its operand.
 - No C-like pointer arithmetic
 
 ##### Structs
-collection of fields. 
+collection of fields.
 ```go
 type Vertex struct {
   X int
@@ -97,7 +98,7 @@ type Vertex struct {
 
 - `.` is used to access struct fields. `v := Vertex{1, 2}` `v.X = 4`
   - When accessing a field, we could have struct pointer `p` and dereference `(*p).X` but syntactic sugar allows `p.X`
-- A struct literal denotes a newly allocated struct value by listing the values of its fields. 
+- A struct literal denotes a newly allocated struct value by listing the values of its fields.
 ```go
 var (
 	v1 = Vertex{1, 2}  // has type Vertex
@@ -111,8 +112,8 @@ var (
 `[n]T` is an array of `n` values of type `T`
 - `var a [10]int`
 - accessed using `a[1]`
-- arrays are not resizable 
-- Slicing an array with `[]T` creates a slice, dynamically sized view into the elements of an array. 
+- arrays are not resizable
+- Slicing an array with `[]T` creates a slice, dynamically sized view into the elements of an array.
   - `var s []int = primes[1:4]` => [3 5 7]
 - slices do not store memory, they reference an array
 - a slice literal is like an array literal without the length
@@ -167,13 +168,13 @@ switch os := runtime.GOOS; os {
 }
 ```
 
-Switch statement breaks after a case succeeds, read top to bottom. 
+Switch statement breaks after a case succeeds, read top to bottom.
 
 #### Defer
-`defer fmt.Println("world")` prints "world" when the func returns. Deferred function calls are pushed onto a stack. 
+`defer fmt.Println("world")` prints "world" when the func returns. Deferred function calls are pushed onto a stack.
 
 ## Methods
-Go has no classes. You can define methods on types. A method is a function with a special **reciever** argument. 
+Go has no classes. You can define methods on types. A method is a function with a special **reciever** argument.
 ```go
 func (v Vertex) Abs() float64 { // the method Abs has a reciever type Vertex
 	return math.Sqrt(v.X*v.X + v.Y*v.Y)
@@ -204,8 +205,9 @@ p.Scale(3)
 
 ### [Interfaces](./Interfaces.md)
 *Interface type* is a set of method signatures
-- A value of interface type can hold any value that implements those methods. 
+- A value of interface type can hold any value that implements those methods.
 - interface restricts the methods available for any value passed, defines an API for their use
+
 ```go
 type Abser interface {
 	Abs() float64
@@ -219,7 +221,7 @@ a = f  // a MyFloat implements Abser
 a.Abs() // runs f.Abs()
 ```
 
-A type implements an interface by implementing its methods in the signature. 
+A type implements an interface by implementing its methods in the signature.
 - you don't need to explicitly declare that some type `T` will implement interface `I` for method `M`
 - interface values can be thought of as a tuple of a value and a type
 	- interface holds a value of a specific type
@@ -236,7 +238,7 @@ A type implements an interface by implementing its methods in the signature.
 
 Analogy: Gophers are move books from one pile to another. Two Gophers can complete different tasks (one loads books, one moves them), this is called the concurrent composition of processes. It is only parallel if they work simultaneously.
 
-The whole process can be redesigned, to have gophers do different tasks. This is improving performance by adding a concurrent procedure to the existing design. Each task does not necessarily have to run in parallel, but the parallelism of the whole process becomes a free variable to manipulate. 
+The whole process can be redesigned, to have gophers do different tasks. This is improving performance by adding a concurrent procedure to the existing design. Each task does not necessarily have to run in parallel, but the parallelism of the whole process becomes a free variable to manipulate.
 
 #### Goroutines
 A *goroutine* is a thread managed by the Go runtime. `go f(x, y, z)` starts a gorountine that runs `f`.
@@ -268,8 +270,8 @@ A sender can `close(ch)` a channel to indicate no more values will be sent. Reci
 
 `for i := range c` recieves values from channel until it's closed. Closing is only necessary when the reciever must be told there are no more values coming, as in a `range` loop.
 
-#### Select 
-Like a switch, but decision is based on ability to communicate rather than equal values. Chooses which channel to recieve from. 
+#### Select
+Like a switch, but decision is based on ability to communicate rather than equal values. Chooses which channel to recieve from.
 ```go
 select {
 case c <- x:
@@ -281,7 +283,7 @@ default:
 }
 ```
 
-## Assorted Go Functions 
+## Assorted Go Functions
 `func make(Type, size IntegerType) Type`
 - allocates and initializes an object of type `slice`, `map` or `chan`.
 	- size of slice is capacity
