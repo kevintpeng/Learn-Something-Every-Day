@@ -115,3 +115,11 @@ Recall Theories are a set of axioms about constants, functions and predicate sym
   5. forall n . n x 0 = 0
   6. forall m,n . m x suc(n) = m x n + m
   7. induction: forall P . P(0) & (forall k . P(k) => P(suc(k))) => forall n . P(n)
+
+- **recursive functions** are defined in terms of itself and certain terminating clauses
+  - its value for 0 and value for n in terms of n-1
+- 
+### Satisfiable Modulo Theories
+- efficient and fully automatic analysis of the satisfiability of a formula in first order logic with theories
+- basic method is to map a problem in predicate logic to equivalent problem in prop logic and let SAT solver analyze
+
