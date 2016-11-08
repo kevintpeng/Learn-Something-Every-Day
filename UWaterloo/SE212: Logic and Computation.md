@@ -123,3 +123,22 @@ Recall Theories are a set of axioms about constants, functions and predicate sym
 - efficient and fully automatic analysis of the satisfiability of a formula in first order logic with theories
 - basic method is to map a problem in predicate logic to equivalent problem in prop logic and let SAT solver analyze
 
+## Sets
+Distinct elements, unordered collection. Has predicates `element of`.
+- Definitions; Set enumeration: list of items `{a, b, c}`
+- Set Comprehension: predicates `{ x | x in N and x ≤ 9}`
+
+Axioms:
+- types can be written using sets
+- set comprehension is equivalent to element of
+- all x are not element of the empty set
+- set equality
+- proper subset
+- power set P is the set of all subsets B of a set D
+- set union and intersection 
+- absolute complement
+- set difference 
+
+Derrived Laws of Set Theory:
+- intersection and union are commutative, associative, distributive, De Morgan's Law
+- empty set identities, universal set identities
