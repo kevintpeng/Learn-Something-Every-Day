@@ -135,10 +135,16 @@ Axioms:
 - set equality
 - proper subset
 - power set P is the set of all subsets B of a set D
+
+### Set Functions
 - set union and intersection 
 - absolute complement
 - set difference 
+- generalized set operations on multiple sets (think functions like summations ∑)
 
 Derrived Laws of Set Theory:
 - intersection and union are commutative, associative, distributive, De Morgan's Law
 - empty set identities, universal set identities
+
+### Proofs in Set Theory
+Russell's Paradox: if a set can contain sets as elements, can it contain itself?
