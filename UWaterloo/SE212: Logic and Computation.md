@@ -148,3 +148,10 @@ Derrived Laws of Set Theory:
 
 ### Proofs in Set Theory
 Russell's Paradox: if a set can contain sets as elements, can it contain itself?
+
+# Z Specification
+Formal specification language
+- we define types, functions (or other compound types), constants
+- relation `f: A <-> B means f in ℙ(A x B)`
+- partial functions are generalized functions where the domain on f may include all, some or none of A
+- function space is a set of functions
