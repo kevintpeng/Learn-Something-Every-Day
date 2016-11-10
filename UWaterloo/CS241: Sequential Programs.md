@@ -421,3 +421,31 @@ CYK starts with S, starting nonterminal, as alpha. We want to expand nonterminal
 - P(w^2) Space
 - O(w^3) time for ambiguous
 - O(w^2) time for unambiguous
+
+### Context Sensitive Analysis
+Reject programs that satisfy a grammar but are still invalid
+- in LACs, types prevent accidential misinterpretation
+
+Lacs Types
+- Int
+  - integers between -2<sup>31</sup> to 2<sup>31</sup>-1 with arithmetic modulo 2<sup>32</sup>
+- (type, ...) =&gt; type
+  - functions that take arguments of the specified types, return a value of the specified type
+
+A type is a collection of values. It is an interpretation of a sequence of bits 
+- a type is a compatable property of programs that guarantee some property of their execution 
+- ensures consistent use of operations
+- identify how much memory is needed for a value
+
+A **type system** is a set of rules htat compute the type of expression from the types of its subexpressions
+- type system is **sound** if when it computes a type gamma for expression e, then e evaluates to value v in &gamma;
+
+Using premise-conclusion notation from proofs, type inference rules:
+
+&Gamma; + NUM: Int
+
+  &Gamma;(ID) = &gamma;
+  
+ *___________________*
+
+&Gamma; + ID: &gamma;
