@@ -364,7 +364,7 @@ Kleene's Theorem:
 4. exists a regex specifying L
 5. L is regular 
 
-### [ASIDE] Context-Free Grammars
+### Context-Free Grammars
 Regular expressions can't express unlimited recursive structures. We want nesting in programming languages, so we need something more powerful than regular languages.
 
 A context-free grammar (CFG) is a set of recursive rewriting rules (productions) used to generate patterns of strings. Regular Expressions use iteration, Context-free Grammars use recursion
@@ -441,11 +441,18 @@ A **type system** is a set of rules htat compute the type of expression from the
 - type system is **sound** if when it computes a type gamma for expression e, then e evaluates to value v in &gamma;
 
 Using premise-conclusion notation from proofs, type inference rules:
+```
+Γ |- NUM: Int    in the context Γ (captial gamma), the symbol table, NUM has type Int 
+Γ(ID) = γ        Γ must be fed through all rules so that our symbol table is accessible when needed
+____________
+Γ |- ID: γ
 
-&Gamma; + NUM: Int
+Let E in {expras, expra, expr, term, factor}
 
-  &Gamma;(ID) = &gamma;
-  
- *___________________*
+Γ |- E1 : Int
+Γ |- E2 : Int
+_____________
+Γ |- E1 op E2 : Int   for op being arithmetic operation
 
-&Gamma; + ID: &gamma;
+
+```
