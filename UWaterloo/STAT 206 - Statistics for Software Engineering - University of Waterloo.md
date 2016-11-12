@@ -185,3 +185,4 @@ There are two general methods of interval estimation:
   - R(theta) = L(theta)/L(theta-hat) , theta-hat is the MLE
   - LOG RELATIVE LIKELIHOOD FUNCTION: gamma(theta) = log R(theta) = log L(theta) - log L(theta-hat)
 - sampling distributions (confidence interval)
+
