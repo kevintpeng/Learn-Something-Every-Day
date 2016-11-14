@@ -192,4 +192,12 @@ There are two general methods of interval estimation:
 - def: let Y1, ... Yn are independent random variables with distribution function f(y, theta) 
   - L(&theta;) = product of the distribution function evaluated at all sample points &Pi; f(yi, &theta;) for 1 ≤ i ≤ n
 - the MLE (maximal likelihood estimate) is simply the max of the likelihood function L
+  - *we can use the loglikelihood for computational convenience. The log of a product becomes a summation.*
   - recall for two-var functions, the first-order condition for extrema is when `∂ℓ/∂x = 0 and ∂ℓ/∂y = 0` 
+  
+For finding the MLE of &theta; for a Uniform Distribution, for Y from [0, &theta;], *intuitively it is double the mean of the sample.*
+- density function f = 1/(b-a) = 1/&theta;
+- distribution function f(y) = 1/&theta; if 0 ≤ y ≤ &theta; else 0
+- we define L(&theta;) to be the product of f(yi) at each sample point, so L(&theta;) = 1/&theta;^n, if all yi [0, &theta;]
+
+*We can think of the likelihood function simply as the probability that a given sample happens, plotted as a function of some unknown parameter, &theta; which the distribution function depends on. It tells us how likely a sample is for a given distribution.* 
