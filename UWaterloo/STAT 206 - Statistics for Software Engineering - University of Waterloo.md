@@ -214,10 +214,19 @@ For interval estimation, we can use relative likelihood function R(&theta;) or L
 - def: Log relative likelihood function &gamma;(&theta;) = log R(&theta;) = log L(&theta;) - log L(&theta;-hat)
 - def: 100•p% likelihood interval for &theta; = {&theta; : R(&theta;) ≥ p }, p on interval (0,1)
   - *the higher the value, the narrower the interval because 100% likelihood is essentially a point*
-- by our convention, &theta; in 50% = very plausible. &theta in 10% - 50% = plausible, &theta in 1% - 10% = implausible, &theta not in 1% = very implausible
+- by our convention, &theta; in 50% = very plausible. &theta in 10% - 50% = plausible, &theta in 1% - 10% = implausible, &theta; not in 1% = very implausible
 
 *By extension, we can use a continuous region to find &theta; for a specified percent certainty (since the likelihood function is a probability density function)*
 
 Estimates can be thought of as an outcomes of some r.v. that needs to be identified to construct intervals. We can use a sample {y1...yn} to estimate the interval [L,U] s.t. the interval [L,U] contains &theta; with high probability
 - [L,U] with random variables is the **coverage interval**
-- [l,u] as functions of the sample is the **confidence interval**
+- [l,u] as functions of the sample is the **confidence interval** (by subbing the mean in place of r.v. in the coverage interval). This gives us an interval for which &theta; has a 95% likelihood of being in (or whatever % you want to calculate)
+
+To calculate the confidence interval, 
+- find the pivotal quantity, with the pivotal distribution. 
+- Use the pivotal distribution to find end points of the interval.
+- construct the coverage interval 
+- use the data to construct the confidence interval
+
+### Chi-Squared Distribution
+A random variable W follows Chi-Squared Distribution with degrees of freedom `k` where `k` is a positive integer W ~ X<sub>k</sub>^2 if W = z<sub>1</sub><sup>2</sup> + ... + z<sub>k</sub><sup>2</sup> where z<sub>i</sub> ~ N(0,1) for independent r.v.
