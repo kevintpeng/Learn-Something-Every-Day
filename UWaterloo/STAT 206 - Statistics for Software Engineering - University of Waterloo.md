@@ -186,3 +186,10 @@ There are two general methods of interval estimation:
   - LOG RELATIVE LIKELIHOOD FUNCTION: gamma(theta) = log R(theta) = log L(theta) - log L(theta-hat)
 - sampling distributions (confidence interval)
 
+&theta; is unknown parameter of interest for a population.
+- `{y1, ..., yn}` is independently drawn sample from this population
+- &theta;-hat is most likely value of theta that generated the sample
+- def: let Y1, ... Yn are independent random variables with distribution function f(y, theta) 
+  - L(&theta;) = product of the distribution function evaluated at all sample points &Pi; f(yi, &theta;) for 1 ≤ i ≤ n
+- the MLE (maximal likelihood estimate) is simply the max of the likelihood function L
+  - recall for two-var functions, the first-order condition for extrema is when `∂ℓ/∂x = 0 and ∂ℓ/∂y = 0` 
