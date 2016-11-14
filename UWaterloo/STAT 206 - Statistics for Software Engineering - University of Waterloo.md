@@ -229,4 +229,8 @@ To calculate the confidence interval,
 - use the data to construct the confidence interval
 
 ### Chi-Squared Distribution
-A random variable W follows Chi-Squared Distribution with degrees of freedom `k` where `k` is a positive integer W ~ X<sub>k</sub>^2 if W = z<sub>1</sub><sup>2</sup> + ... + z<sub>k</sub><sup>2</sup> where z<sub>i</sub> ~ N(0,1) for independent r.v.
+A random variable W follows Chi-Squared Distribution with degrees of freedom `k` where `k` is a positive integer W ~ &Chi;<sub>k</sub>^2 if W = z<sub>1</sub><sup>2</sup> + ... + z<sub>k</sub><sup>2</sup> where z<sub>i</sub> ~ N(0,1) for independent r.v.
+- if W ~X<sub>k</sub><sup>2</sup>, it takes values between 0 and &infinity;
+- E(W) = k; V(W) = 2k
+- For k > 2, Chi-Squared distribution is not symmetric but right skewed
+- if W<sub>1</sub> ~ X<sub>k1</sub>^2 and W<sub>2</sub> ~ X<sub>k2</sub>^2 and w1 and w2 are independent, then w1 + w2 ~ X<sub>k1 + k2</sub>^2
