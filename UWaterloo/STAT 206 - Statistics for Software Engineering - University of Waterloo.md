@@ -234,3 +234,20 @@ A random variable W follows Chi-Squared Distribution with degrees of freedom `k`
 - E(W) = k; V(W) = 2k
 - For k > 2, Chi-Squared distribution is not symmetric but right skewed
 - if W<sub>1</sub> ~ X<sub>k1</sub>^2 and W<sub>2</sub> ~ X<sub>k2</sub>^2 and w1 and w2 are independent, then w1 + w2 ~ X<sub>k1 + k2</sub>^2
+
+### Student's T-Distribution
+Def: Let T be a r.v. T is said to follow a student's T-distribution with k degrees of freedom, T ~ T(k) if T is a ratio of two indep r.v.s
+
+### Prediction Intervals (Constructing Confidence Interval for next element)
+Also called time-series analysis/forecasting. n historical observations Y1, ..., Yn from a Normal population with mean &mew; and s.d. &sigma;. We want to find an interval [a,b] based on data sample containing Y<sub>n+1</sub> with a high degree of confidence. *Predict the next element*
+- ex: predict the quality of future job candidates
+- *we can only do this if yi is independent random variable, only works for complete independence, not for stocks. Forcasting often requires model fitting.*
+
+Model: Y1,...Yn ~ N(&mew;, &sigma;^2). Y<sub>n+1</sub> = ?
+- Yn+1 ~ N(&mew;, &sigma;^2)
+- Yn-mean ~ N(&mew;, &sigma;^2/n) from properties of normal
+  - recall two normal dist can be summed and multiplied
+- *anytime you replace &sigma; by its estimator s, replace z distribution with T.*
+
+### Hypothesis Testing
+Def: A statement made about attributes of a population. Null Hypothesis is current belief H<sub>o</sub>. Alternate hypothesis for measuring evidence for/against H<sub>o</sub>
