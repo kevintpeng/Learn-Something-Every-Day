@@ -201,3 +201,23 @@ For finding the MLE of &theta; for a Uniform Distribution, for Y from [0, &theta
 - we define L(&theta;) to be the product of f(yi) at each sample point, so L(&theta;) = 1/&theta;^n, if all yi [0, &theta;]
 
 *We can think of the likelihood function simply as the probability that a given sample happens, plotted as a function of some unknown parameter, &theta; which the distribution function depends on. It tells us how likely a sample is for a given distribution.* 
+
+Invariance Property Theorem: If &theta;-hat is the MLE for &theta;, then for non-extreme values, g(&theta;-hat) is the MLE for g(&theta;) for any continuous function g
+
+### Interval Estimation
+Same problem setup as finding the MLE, given a sample from a large population, find an interval [l, u] which contains &theta; with "high probability"
+
+For the MLE, find one # which represents our best guess &theta;-hat. We can create an interval near &theta;-hat of values that we deem plausible in some sense.
+
+For interval estimation, we can use relative likelihood function R(&theta;) or Likelihood interval through sampling distribution
+- def:  R(&theta;) = L(&theta;)/L(&theta;-hat)
+- def: Log relative likelihood function &gamma;(&theta;) = log R(&theta;) = log L(&theta;) - log L(&theta;-hat)
+- def: 100•p% likelihood interval for &theta; = {&theta; : R(&theta;) ≥ p }, p on interval (0,1)
+  - *the higher the value, the narrower the interval because 100% likelihood is essentially a point*
+- by our convention, &theta; in 50% = very plausible. &theta in 10% - 50% = plausible, &theta in 1% - 10% = implausible, &theta not in 1% = very implausible
+
+*By extension, we can use a continuous region to find &theta; for a specified percent certainty (since the likelihood function is a probability density function)*
+
+Estimates can be thought of as an outcomes of some r.v. that needs to be identified to construct intervals. We can use a sample {y1...yn} to estimate the interval [L,U] s.t. the interval [L,U] contains &theta; with high probability
+- [L,U] with random variables is the **coverage interval**
+- [l,u] as functions of the sample is the **confidence interval**
