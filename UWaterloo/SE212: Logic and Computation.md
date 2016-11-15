@@ -159,8 +159,25 @@ Russell's Paradox: if a set can contain sets as elements, can it contain itself?
   - binary relation is a set of pairs (in other words, specifically 2D)
 - recall set membership and unary predicates express the same info
 - similarily, relations and multi-arity predicates expresses the same info
+- all functions on sets can be applied to relations
+- for binary Relation `R : D <-> B`, dom R = {x : D | exists y : B . (x,y) in R}, ran R = {y : B | exists x : D . (x,y) in R}
 
-  
+### Proofs in relations 
+- for TP, axioms stated as `|= A <=> B` can be used as law `A <-> B` in a TP step
+- set equality A = B is proved by stating x in A <-> x in B, or by starting with A and ending with B (proving A <-> B)
+- **inverse relation** is swapping domain and range of R: R<sup>~</sup> = { (b,a) . a : D, b : B | (a,b) in R}
+- the **identity relation** of a set is pairing every element of the domain with itself; R : id(B) = {(a,a) | a in B}
+- **relation composition** is "R followed by S": R ; S = {(a,c) . a in A, c in C | (a,b) in R & (b,c) in S}
+  - composition is associative, `(R;S)~ = R~;S~`, `id(dom R) sube R;R~`, `id(dom R);R = R` 
+- **iteration** for creating counts of the same element: R<sup>0</sup> = id(D), R<sup>n</sup> = R;R<sup>n-1</sup>
+  - it follows that R<sup>n+m</sup> = R<sup>n</sup> ; R<sup>m</sup> and R<sup>n•m</sup> = (R<sup>n</sup>)<sup>m</sup>   
+- **relational image** R(|S|) = {y : B | exists x : D . x in S & (x,y) in R}
+
+Can create new binary relations from subsets of existing relations by restricting or subtracting domain or range.
+- S <| R triangle is domain restriction for relation R and set S; {(x,y) x:D, y:B | (x,y) in R & y in S}, <-| triangle with strike is domain subtraction, triangles pointing right are for range
+
+Relational overriding R ⊕ S = ((dom S) <-| R) u S
+
 # Z Specification
 Formal specification language
 - we define types, functions (or other compound types), constants
