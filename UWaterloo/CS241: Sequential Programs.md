@@ -456,3 +456,18 @@ _____________
 
 
 ```
+
+Type tree has two passes: first pass get all "defdef"s and create new ProcedureScopes for them. Second pass, create a symbol table for each.
+
+### Memory Management
+Heap is a data structure to manage memory that can be allocated/freed at any time
+- operations: 
+  - new/malloc/allocate: allocate a new block of memory whose size can be determined at runtime
+  - free/delete
+
+The stack and heap grow toward each other, by our convention stack grows by subtraction, heap by addition.
+
+We can structure our heap with blocks of memory, each block holding metadata about size and free/used. Then use a linked list of free blocks. A **fragmented** heap is split into small blocks.
+
+### Garbage Collector 
+Figures out the extent of objects for you, frees them implicitly.
