@@ -236,7 +236,10 @@ A random variable W follows Chi-Squared Distribution with degrees of freedom `k`
 - if W<sub>1</sub> ~ X<sub>k1</sub>^2 and W<sub>2</sub> ~ X<sub>k2</sub>^2 and w1 and w2 are independent, then w1 + w2 ~ X<sub>k1 + k2</sub>^2
 
 ### Student's T-Distribution
-Def: Let T be a r.v. T is said to follow a student's T-distribution with k degrees of freedom, T ~ T(k) if T is a ratio of two indep r.v.s
+Can be used to estimate the mean of a normal distribution where the standard deviation is unknown.
+
+Def: Let T be a r.v. T is said to follow a student's T-distribution with k degrees of freedom, T ~ T(k) if T is a ratio of two indep r.v.s T = Z/W
+- T-distribution looks like Normal but with more extreme obs
 
 ### Prediction Intervals (Constructing Confidence Interval for next element)
 Also called time-series analysis/forecasting. n historical observations Y1, ..., Yn from a Normal population with mean &mew; and s.d. &sigma;. We want to find an interval [a,b] based on data sample containing Y<sub>n+1</sub> with a high degree of confidence. *Predict the next element*
