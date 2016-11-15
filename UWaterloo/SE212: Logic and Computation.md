@@ -147,8 +147,20 @@ Derrived Laws of Set Theory:
 - empty set identities, universal set identities
 
 ### Proofs in Set Theory
-Russell's Paradox: if a set can contain sets as elements, can it contain itself?
+There's a whole bunch of rules, see slides for TP and ND extensions. George uses `by sets % then the rule`
 
+Russell's Paradox: if a set can contain sets as elements, can it contain itself?
+- he created type theory: for example, arrange sets of sets in levels and refer to all objects with a predicate if they are at the same level (type)
+
+### Relations
+- def: tuple is a list of csv
+- def: cartesian product A x B is the set of all pairs of the form (a,b)
+- def: relation is a subset of the cartesian product of two or more sets
+  - binary relation is a set of pairs (in other words, specifically 2D)
+- recall set membership and unary predicates express the same info
+- similarily, relations and multi-arity predicates expresses the same info
+
+  
 # Z Specification
 Formal specification language
 - we define types, functions (or other compound types), constants
