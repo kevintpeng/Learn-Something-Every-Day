@@ -184,3 +184,21 @@ Formal specification language
 - relation `f: A <-> B means f in ℙ(A x B)`
 - partial functions are generalized functions where the domain on f may include all, some or none of A
 - function space is a set of functions
+
+## Program Correctness
+Show that program has correct behaviour. A **spec** describes desired output for input. 
+
+**Formal Verification** describe in logic the spec for code, verified with proof theory. Important for critical software, helps to find bugs and "tests for ALL inputs". 
+
+### Programming Language
+We will verify imperative (seq of commands), sequential (no concurrency) and transformational programs (guarantees output and termination). 
+- assignment `V := E`, assigns result of expression to v
+- imperative programs manipulate states, where state is the value of vars at a given time
+
+Spec consists of pre and postcondition
+- postcondition is a wff about the final state
+- precondition before the program starts
+
+Triples are assertions `assert(P); C; assert(Q);`
+- `|=par` is partial correctness, which says for a triple, **if C terminates** then Q is the final state
+- `|=tot` is total correctness, which guarantees termination
