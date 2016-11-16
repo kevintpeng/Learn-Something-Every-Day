@@ -244,7 +244,7 @@ mov r2, ps
 - Skew occurs when two signals transmitted simultaneously from one source arrive at dest at different times
   - happens because different lines have different propagation speeds
 
-### Memory Systems
+# Part 7: Memory Systems
 Array of simple memory cells, each storing a single bit of information
 - size is the unique addressable memory locations
 - for k address bits, 2^k words of memory are addressable
@@ -304,3 +304,25 @@ Mapping Functions determine the location in the cache for each memory address
 2. display on LED
 3. Delay of 1s then decrement your # in R6m then display
 4. if R4 ≤ 0, fkasg LEDs on and off for 1 sec each until you press the button (ISR)
+
+# Part 8: Basic Processing
+CPU has control unit, ALU and registers. Fundamentally, there are 5 steps:
+- **fetch**
+- **decode**
+- read **memory**
+- **execute**: perform operation
+- store data by **write back**
+
+Processor has hardware to implement every instruction in the ISA. 
+
+The **datapath** of a processor hold a bunch of components that implement the ISA.
+- Register file is a set of registers 
+- ALU
+- processor-memory interface for memory and write-back operations
+- instruction address generator updates PC
+- instruction register
+- control circuitry, decides what happens with mux selectors, and regulates flow of data
+
+Design of Register file:
+- you want to be able to select two registers for a clock cycle, and write to at most one register. So we need two corresponding output data. The width of i/o is 32 bits (same as register width) and addresses are log<sub>2</sub>(32) = 5
+
