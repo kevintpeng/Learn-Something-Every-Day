@@ -204,7 +204,7 @@ For finding the MLE of &theta; for a Uniform Distribution, for Y from [0, &theta
 
 Invariance Property Theorem: If &theta;-hat is the MLE for &theta;, then for non-extreme values, g(&theta;-hat) is the MLE for g(&theta;) for any continuous function g
 
-### Interval Estimation
+### Interval Estimation (What values of &theta; are reasonable?)
 Same problem setup as finding the MLE, given a sample from a large population, find an interval [l, u] which contains &theta; with "high probability"
 
 For the MLE, find one # which represents our best guess &theta;-hat. We can create an interval near &theta;-hat of values that we deem plausible in some sense.
@@ -252,7 +252,7 @@ Model: Y1,...Yn ~ N(&mew;, &sigma;^2). Y<sub>n+1</sub> = ?
   - recall two normal dist can be summed and multiplied
 - *anytime you replace &sigma; by its estimator s, replace z distribution with T.*
 
-### Hypothesis Testing
+### Hypothesis Testing (Is &theta; reasonable?)
 Def: A statement made about attributes of a population. Null Hypothesis is current belief H<sub>o</sub>. Alternate hypothesis for measuring evidence for/against H<sub>o</sub>
 - Setup: Ho = &theta; = &theta;o; two-sided alternate hypothesis H1 ≠
 - objective: draw sample from population and calculate if H0 or H1 is "reasonable"
