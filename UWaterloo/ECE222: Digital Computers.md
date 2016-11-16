@@ -1,4 +1,6 @@
 # Digital Computers
+### Summary
+- focus learning cache problems
 
 # Part 3: ISA & Addressing Modes
 ### Intro to Addressing
@@ -286,6 +288,8 @@ Hierarchy of memory components goes from fastests to slowest, with speed cost tr
 - processor connects to the cache
 - cache connects to the main memory
 
+Caches are faster than memory because of their hardware implementation. The cache is on the CPU, with transistors and it doesn't have to go through the external bus. Additionally, the cache is smaller so less to check.
+
 Cache Writing Protocol for Store R2, (R3):
 - if cache hit 2 approaches:
   - write-through protocol updates the cache block and the main memory simultaniously 
@@ -294,11 +298,18 @@ if cache miss, 2 approaches:
   - write-through protocol updates main memory directly and cache
   - write-back protocol fetches the main memory block into the appropriate cache block, updates the cache block and sets the dirty bit
 - then dirty bit is used to decide whether to write-back data on eviction or replacement
-- if cache miss, write-allocate says fill chace with line and perform write, while no-write-allocate ignores filling cache and writes directly to main memory
+- if cache miss, write-allocate says fill cache with line and perform write, while no-write-allocate ignores filling cache and writes directly to main memory
 
 Mapping Functions determine the location in the cache for each memory address
 - **direct mapping** uses a fixed mapping mem block j => cache block (j mod 128)
+  - address is 3 parts; word (offset) selects specific word in a block
+  - block (index) determines location in cache
+  - tag ensure block found is correct
+- **fully-associative** allows a block from main memory to map to any location in the cache
+  - block field is empty, and consumed by the tag field
 
+*For final cache content questions, do the timeline table method*.
+  
 ### Lab4: ISR
 1. generate Random delay 5-25s in R6
 2. display on LED
