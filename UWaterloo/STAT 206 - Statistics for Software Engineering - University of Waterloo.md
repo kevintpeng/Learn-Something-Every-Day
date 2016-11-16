@@ -254,3 +254,20 @@ Model: Y1,...Yn ~ N(&mew;, &sigma;^2). Y<sub>n+1</sub> = ?
 
 ### Hypothesis Testing
 Def: A statement made about attributes of a population. Null Hypothesis is current belief H<sub>o</sub>. Alternate hypothesis for measuring evidence for/against H<sub>o</sub>
+- Setup: Ho = &theta; = &theta;o; two-sided alternate hypothesis H1 ≠
+- objective: draw sample from population and calculate if H0 or H1 is "reasonable"
+
+Steps: 
+1. construct the discrepancy measure D. D is a random variable that measures how much the data disagrees with H<sub>o</sub>
+  - D ≥ 0, where D = 0 is the best evidence to support the null hypothesis H<sub>o</sub>
+  - D's distribution is known
+2. calculate the value d (outcome from our sample)
+3. The p-value: P(D ≥ d); p-value is determining how unusual the sample is, assuming the null hypothesis is true. If p-value is 1%, then only 1% of samples have this outcome, or more likely, the null hypothesis is wrong.
+
+Suppose we want to deterimine if a coin is fair. Ho: &theta; = 0.5, H1: &theta; ≠ 0.5. Then D = |Y - 50| if Y is the number of successes out of 100 trials. d, for some sample, is computed and then we solve for p-value P(D ≥ d).
+
+We are heavily in favour of the null hypothesis. So our conventions state: 
+- p-value ≥ 0.1 => no evidence against null hypothesis
+- 5% ≤ p-value ≤ 10% => weak evidence against H0
+- 1% ≤ p-value < 5% => evidence against H0
+- p-value < 1% => strong evidence against H0
