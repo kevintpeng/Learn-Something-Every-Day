@@ -128,6 +128,7 @@ X is said to be a continuous random variable if X takes values in an interval [a
 
 ### Normal Distribution
 A random variable Z is called a standard normal distribution if
+
 1. Z takes values (-infinity, +infinity)
 2. f(Z) = bell curve formula
 3. Z ~ N(0,1) where (mean, variance); maximum at zero, and symmetric around 0 
