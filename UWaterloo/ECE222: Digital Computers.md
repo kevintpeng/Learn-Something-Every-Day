@@ -337,3 +337,7 @@ The **datapath** of a processor hold a bunch of components that implement the IS
 Design of Register file:
 - you want to be able to select two registers for a clock cycle, and write to at most one register. So we need two corresponding output data. The width of i/o is 32 bits (same as register width) and addresses are log<sub>2</sub>(32) = 5
 
+1. Fetch gets whatevers at PC address.
+2. Decode
+  - in ADD R1, R2, R3, Rsrc1 = R2, Rsrc2 = R3
+3. Execute
