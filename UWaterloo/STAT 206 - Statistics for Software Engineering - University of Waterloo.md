@@ -1,4 +1,14 @@
 # Intro to Statistics
+## Summary:
+**Counting Rules:**
+- Permutations: `nPr = n!/(n-r)!`
+- Combinations: `nCr = nPr/r!`; *like permutation formula without the r! permutations for each set of r values*
+
+**Random Distributions:**
+- Binomial: P of r successes in n bernouli trials: `P(X = r) = nCr • p^r • (1-p)^(n-r)`; *there are nCr combinations of exactly r successes in n trials*
+- Hyper-Geometric: P of r successes without replacement: P(X = r) = <sup>n</sup>C<sub>r</sub> • <sup>N-n</sup>C<sub>n-r</sub> / <sup>N</sup>C<sub>r</sub>; *we calculate what percent of all outcomes have r successes and n-r failures, for n*
+- Geometric: probability of k-1 failures before a success, for bernouli trials: `P(X = k) = (1-p)^(k-1)•p`
+
 ### Central Tendency
 the degree of clustering of values of a statistical distribution
 - arithmetic mean is `(1/n)∑(yi)` for 1 ≤ i ≤ n
