@@ -11,7 +11,7 @@
 - Negative Binomial: P of k failures before x successes
 - Poisson: models number of event occurences in a time interval: `P(X=k) = &lambda;^k•e^-&lambda;/k!`; &lambda; is E(X) and Var(X)
 - Exponential: the time before an occurence of an event (time between events in poisson)
-- Chi Square:
+- Chi Square: distribution for the sum of a set of squared normally distributed r.v.
 
 **Maximal Likelihood Estimate**:
 - purpose is to estimate &theta; for an instance of a distribution
@@ -273,9 +273,9 @@ Also called time-series analysis/forecasting. n historical observations Y1, ...,
 - ex: predict the quality of future job candidates
 - *we can only do this if yi is independent random variable, only works for complete independence, not for stocks. Forcasting often requires model fitting.*
 
-Model: Y1,...Yn ~ N(&mew;, &sigma;^2). Y<sub>n+1</sub> = ?
-- Yn+1 ~ N(&mew;, &sigma;^2)
-- Yn-mean ~ N(&mew;, &sigma;^2/n) from properties of normal
+Model: Y1,...Yn ~ N(&mu;, &sigma;^2). Y<sub>n+1</sub> = ?
+- Yn+1 ~ N(&mu;, &sigma;^2)
+- Yn-mean ~ N(&mu;, &sigma;^2/n) from properties of normal
   - recall two normal dist can be summed and multiplied
 - *anytime you replace &sigma; by its estimator s, replace z distribution with T.*
 
