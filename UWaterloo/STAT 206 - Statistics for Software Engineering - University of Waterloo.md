@@ -8,6 +8,18 @@
 - Binomial: P of r successes in n bernouli trials: `P(X = r) = nCr • p^r • (1-p)^(n-r)`; *there are nCr combinations of exactly r successes in n trials*
 - Hyper-Geometric: P of r successes without replacement: P(X = r) = <sup>n</sup>C<sub>r</sub> • <sup>N-n</sup>C<sub>n-r</sub> / <sup>N</sup>C<sub>r</sub>; *we calculate what percent of all outcomes have r successes and n-r failures, for n*
 - Geometric: probability of k-1 failures before a success, for bernouli trials: `P(X = k) = (1-p)^(k-1)•p`
+- Negative Binomial: P of k failures before x successes
+- Poisson: models number of event occurences in a time interval: `P(X=k) = &lambda;^k•e^-&lambda;/k!`; &lambda; is E(X) and Var(X)
+- Exponential: the time before an occurence of an event (time between events in poisson)
+- Chi Square:
+
+**Maximal Likelihood Estimate**:
+- purpose is to estimate &theta; for an instance of a distribution
+- take a sample of population for a known probability distribution
+- construct a likelihood function: L(&theta;) = &Pi;f(yi)
+- use the log likelihood function and find its max for &theta;-hat
+
+By extension, Invariance Property states for &theta;-hat as the MLE of &theta;, under mild conditions g(&theta;-hat) is the MLE of g(&theta;) forall cont. function g
 
 ### Central Tendency
 the degree of clustering of values of a statistical distribution
