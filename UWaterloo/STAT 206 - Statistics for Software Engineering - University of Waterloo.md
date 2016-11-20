@@ -21,6 +21,10 @@
 
 By extension, Invariance Property states for &theta;-hat as the MLE of &theta;, under mild conditions g(&theta;-hat) is the MLE of g(&theta;) forall cont. function g
 
+**Interval Estimation**:
+- using relative likelihood, the 100p% likelihood interval for &theta; says that for 0 ≤ p ≤ 1, the 10% likelihood nterval (p = 0.1•100 = 10%) says that any &theta; in this interval is at least 10% of L(&theta;-hat)
+
+
 ### Central Tendency
 the degree of clustering of values of a statistical distribution
 - arithmetic mean is `(1/n)∑(yi)` for 1 ≤ i ≤ n
