@@ -14,6 +14,13 @@
 - Chi Square: distribution for the sum of a set of squared normally distributed r.v.
 - Student's T Distribution is the ratio between two independent r.v.s T = Z/W; *Z is normal and W is Chi-Square*. T has k degrees of freedom, and as k -> infinity, T -> Z
 
+**Sampling Distribution**:
+- samples are a subset of the population, used to infer properties of the population. x-bar is a specific sample mean, s^2 is a sample's variance, while X-bar and S^2 (note the capitals) are the mean and variance of a generalized random sample
+- since a statistic is a random variable that depends only on the observed sample, it has a distribution, the **sampling distribution** (but remember the population's mean and variance are constant and unknown)
+- sampling distributions of X-bar and S^2 enable us to make inferences about the population parameters &mu; and &sigma;^2.
+- Central Limit Theorem: For Z = X-bar - &mu;/(&sigma;/n<sup>1/2</sup>), as n -> infinity then the distribution approaches the standard normal n(0,1). Applies for large n, or for sample distributions whose original distribution is close to normal
+- if a population is normally distributed, we can calculate the sample variance S^2: Chi^2 = (n-1)•S^2/&sigma;^2, degrees of freedom v = n-1
+
 **Maximal Likelihood Estimate**:
 - purpose is to estimate &theta; for an instance of a distribution
 - take a sample of population for a known probability distribution
@@ -24,7 +31,11 @@ By extension, Invariance Property states for &theta;-hat as the MLE of &theta;, 
 
 **Interval Estimation**:
 - using relative likelihood, the 100p% **likelihood interval** for &theta; says that for 0 ≤ p ≤ 1, the 10% likelihood nterval (p = 0.1•100 = 10%) says that any &theta; in this interval is at least 10% of L(&theta;-hat). *It's the interval of all &theta; values that are at least p% of the optimal value*
-- the x **confidence interval** says that x% of all samples we choose will 
+- the x **confidence interval** says that x% of all samples we choose will compute a theoretical confidence  interval that contains the actual unknown parameter.
+  - with known &sigma;, then by Central Limit Theorem, Z = X-bar - &mu;/(&sigma;/n<sup>1/2</sup>), and &mu;<sub>X-bar</sub> = &mu; and &sigma;<sub>X-bar</sub> = &sigma;/n^(1/2) we can construct a confidence interval for &mu; by subbing in our value for Z, using the z-table to compute the probability, then isolating X-bar to find the interval.
+  - with unknown population &sigma;, a random sample from a normal distribution has a sample distribution of T = X-bar - &mu;/(S/n^(1/2)), with n-1 degrees of freedom. S is the sample standard deviation. Now we use the t-table to calculate the to find the bounds of the interval given a desired probability of confidence, then isolate for the parameter.
+  - by convention, for any population distribution, a sample n ≥ 30, we can replace &sigma; with s and the confidence interval x-bar ± z* • s/n^(1/2) can be used
+  
 ### Central Tendency
 the degree of clustering of values of a statistical distribution
 - arithmetic mean is `(1/n)∑(yi)` for 1 ≤ i ≤ n
