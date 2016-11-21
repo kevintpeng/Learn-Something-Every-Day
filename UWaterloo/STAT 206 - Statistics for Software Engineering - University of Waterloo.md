@@ -11,7 +11,7 @@
 - Negative Binomial: P of k failures before x successes
 - Poisson: models number of event occurences in a time interval: `P(X=k) = &lambda;^k•e^-&lambda;/k!`; &lambda; is E(X) and Var(X)
 - Exponential: the time before an occurence of an event (time between events in poisson)
-- Chi Square: distribution for the sum of a set of squared normally distributed r.v.
+- Chi Square: distribution for the sum of a set of squared normally distributed r.v. It is a function of degrees of freedom v, and always has a mean of v and variance of 2v
 - Student's T Distribution is the ratio between two independent r.v.s T = Z/W; *Z is normal and W is Chi-Square*. T has k degrees of freedom, and as k -> infinity, T -> Z
 
 **Sampling Distribution**:
@@ -34,7 +34,8 @@ By extension, Invariance Property states for &theta;-hat as the MLE of &theta;, 
 - the x **confidence interval** says that x% of all samples we choose will compute a theoretical confidence  interval that contains the actual unknown parameter.
   - with known &sigma;, then by Central Limit Theorem, Z = X-bar - &mu;/(&sigma;/n<sup>1/2</sup>), and &mu;<sub>X-bar</sub> = &mu; and &sigma;<sub>X-bar</sub> = &sigma;/n^(1/2) we can construct a confidence interval for &mu; by subbing in our value for Z, using the z-table to compute the probability, then isolating X-bar to find the interval.
   - with unknown population &sigma;, a random sample from a normal distribution has a sample distribution of T = X-bar - &mu;/(S/n^(1/2)), with n-1 degrees of freedom. S is the sample standard deviation. Now we use the t-table to calculate the to find the bounds of the interval given a desired probability of confidence, then isolate for the parameter.
-  - by convention, for any population distribution, a sample n ≥ 30, we can replace &sigma; with s and the confidence interval x-bar ± z* • s/n^(1/2) can be used
+  - by convention, for any population distribution, a sample n ≥ 30, we can replace &sigma; with s and the confidence interval x-bar ± z * • s/n^(1/2) can be used, z * is the z-table value that gives us the desired confidence probability
+  - *the x% confidence interval says with x% confidence that the difference between the sample mean and the actual mean will not exceed the interval bounds z<sub>a/2</sub>•&sigma;/n<sup>1/2</sup>* 
   
 ### Central Tendency
 the degree of clustering of values of a statistical distribution
