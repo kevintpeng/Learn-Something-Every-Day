@@ -12,7 +12,7 @@
 - Poisson: models number of event occurences in a time interval: `P(X=k) = &lambda;^k•e^-&lambda;/k!`; &lambda; is E(X) and Var(X)
 - Exponential: the time before an occurence of an event (time between events in poisson)
 - Chi Square: distribution for the sum of a set of squared normally distributed r.v.
-- Student's T Distribution is the ratio between two independent r.v.s T = Z/W; *Z is normal and W is Chi-Square*
+- Student's T Distribution is the ratio between two independent r.v.s T = Z/W; *Z is normal and W is Chi-Square*. T has k degrees of freedom, and as k -> infinity, T -> Z
 
 **Maximal Likelihood Estimate**:
 - purpose is to estimate &theta; for an instance of a distribution
