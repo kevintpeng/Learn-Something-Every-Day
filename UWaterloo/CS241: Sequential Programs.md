@@ -471,3 +471,6 @@ We can structure our heap with blocks of memory, each block holding metadata abo
 
 ### Garbage Collector 
 Figures out the extent of objects for you, frees them implicitly.
+- allocating a frame on the heap may call the garbage collector, which will call a function that could overwrite savedParamPtr
+- after A6, the frame might be allocated on the heap. So always allocate on the stack first, then when you're done with Reg.savedPC, copy the chunk to the heap if needed
+- when you allocate, you can only use machine language because a lot has been eliminated by transformations. Write it with A6 tests-style
