@@ -341,3 +341,17 @@ Design of Register file:
 2. Decode
   - in ADD R1, R2, R3, Rsrc1 = R2, Rsrc2 = R3
 3. Execute
+
+# Part 9: Pipelining
+Pipelining allows for concurrent instructions per cycle, with different parts (stages) of the processor
+- with 5 stage datapath, only one stage is active in any cycle
+- pipeline diagram shows at each clock cycle what stage finished for each instruction is being run
+- to implement this we need **interstage buffers** to carry forward information for EACH instruction
+  - RA, RB, RM, RY, RZ, IR, PC
+- also pipelining the control signals
+- this allows a new instruction to enter and exit the pipeline every cycle
+
+### Issues
+- Data hazard is a result of a data dependency. Two successive instructions, `ADD R1, R2; ADD R3, R1`, the second one will decode the wrong value of R1, since the first hasn't writtenback to R1 yet. This can be resolved by stalling the pipeline
+- using interstage buffers, check IR for source registers of a new command (before decoding) and  check whether there is an older instruction who has the same destination as a source in the current instruction
+- *somethings wrong if there are two of the same stage in the same column (clock cycle) of the pipeline diagram*
