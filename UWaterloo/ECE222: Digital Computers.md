@@ -316,6 +316,8 @@ Mapping Functions determine the location in the cache for each memory address
 3. Delay of 1s then decrement your # in R6m then display
 4. if R4 ≤ 0, fkasg LEDs on and off for 1 sec each until you press the button (ISR)
 
+Writeback caches delay the writeback to memory, using the dirty bit. We only write to memory after the cache block is evicted. This is more efficient when you update values in the cache before they're evicted.
+
 # Part 8: Basic Processing
 CPU has control unit, ALU and registers. Fundamentally, there are 5 steps:
 - **fetch**
@@ -341,6 +343,13 @@ Design of Register file:
 2. Decode
   - in ADD R1, R2, R3, Rsrc1 = R2, Rsrc2 = R3
 3. Execute
+
+instr PC R4 RA RM RZ RY
+1F 37c00 1000 - - - - 
+2D 37C04 " 
+3X
+4M
+5W
 
 # Part 9: Pipelining
 Pipelining allows for concurrent instructions per cycle, with different parts (stages) of the processor
