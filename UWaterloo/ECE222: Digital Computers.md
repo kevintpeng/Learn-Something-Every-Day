@@ -272,7 +272,25 @@ Array of simple memory cells, each storing a single bit of information
   - row and column are multiplexed on 14 pins
   - row address first placed then assert RAS 
   
-### Memory Hierarchy
+#### DRAM
+- 1Kib x 1 means 1Ki bits of memory with 1 bit of input/output
+  - implemented as 5 x 5 decoders to access specific memory cells at a row and column (2^5 = 32)
+- asynchronous chip uses 14 x 11 decoder to access a row of cells from addresses of 16mib x (16mib/8)
+  - this architecture is good for **fast page mode**, once the row is chosen, you can iterate through columns for sequential r/w
+- synchronous chip is driven by clock, similar design with a buffered I/O byte, one for reads and one for writes so that they can happen simultaneously while the other operation is finishing up
+
+- **memory latency** is the time before tranfer of memory is complete
+- **bandwidth** is the amount of data transfered per unit time
+- Double Data Rate SDRAM switches between two banks of data for one r/w on every clock edge
+
+- memory controller is the interface for connecting chips to the system bus
+- chips can be combined into large arrays of chips, with a bunch of decoders 
+
+#### DMA
+Direct Memory Access is a hardware unit that handles memory access operations for the processor. Program controlled I/O is taxing on the processor with lots of overhead to access just one byte. Processor delagates to the DMA, which responds with an ISR when finished
+- DMAs sit in front of things like DISK drives and Ethernet access, separate from main memory
+
+### Caches! Memory Hierarchy
 Hierarchy of memory components goes from fastests to slowest, with speed cost trade off
 - CPU -> M1 -> M2 -> M3 -> M4
 - automatically move data up and down the hiearchy (frequent at the top) to optimize memory access time
@@ -298,25 +316,31 @@ if cache miss, 2 approaches:
   - write-through protocol updates main memory directly and cache
   - write-back protocol fetches the main memory block into the appropriate cache block, updates the cache block and sets the dirty bit
 - then dirty bit is used to decide whether to write-back data on eviction or replacement
-- if cache miss, write-allocate says fill cache with line and perform write, while no-write-allocate ignores filling cache and writes directly to main memory
+- if cache miss, **write-allocate** says fill cache with line and perform write, while **no-write-allocate** ignores filling cache and writes directly to main memory
+- *Writeback caches delay the writeback to memory, using the dirty bit. We only write to memory after the cache block is evicted. This is more efficient when you update values in the cache before they're evicted*
 
 Mapping Functions determine the location in the cache for each memory address
+- for any cache, the size of the block must be the same as the number of addressable bits for the main memory
+  - *otherwise we don't have enough information to trace back to the original memory block*
+  - each cache mapping just dictates how we choose to format this information
+
 - **direct mapping** uses a fixed mapping mem block j => cache block (j mod 128)
   - address is 3 parts; word (offset) selects specific word in a block
   - block (index) determines location in cache
   - tag ensure block found is correct
 - **fully-associative** allows a block from main memory to map to any location in the cache
   - block field is empty, and consumed by the tag field
+  - when accessing, each block tag is checked, which corresponds to a block of memory in the main memory
+  - then the word bits in the cache block decode to the respective word within the main memory block
+- **set associative mapping** uses direct mapping to map memory blocks to a set of cache blocks, think combination of direct and fully associative mapping
 
-*For final cache content questions, do the timeline table method*.
+*For final cache content questions, do the timeline table method, visually updated each cache block with respect to a timeline. Then you can figure out quickly which block is the least recently used*.
   
 ### Lab4: ISR
 1. generate Random delay 5-25s in R6
 2. display on LED
 3. Delay of 1s then decrement your # in R6m then display
 4. if R4 ≤ 0, fkasg LEDs on and off for 1 sec each until you press the button (ISR)
-
-Writeback caches delay the writeback to memory, using the dirty bit. We only write to memory after the cache block is evicted. This is more efficient when you update values in the cache before they're evicted.
 
 # Part 8: Basic Processing
 CPU has control unit, ALU and registers. Fundamentally, there are 5 steps:
