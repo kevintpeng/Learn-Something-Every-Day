@@ -290,7 +290,7 @@ Array of simple memory cells, each storing a single bit of information
 Direct Memory Access is a hardware unit that handles memory access operations for the processor. Program controlled I/O is taxing on the processor with lots of overhead to access just one byte. Processor delagates to the DMA, which responds with an ISR when finished
 - DMAs sit in front of things like DISK drives and Ethernet access, separate from main memory
 
-### Caches! Memory Hierarchy
+### Caches & Memory Hierarchy
 Hierarchy of memory components goes from fastests to slowest, with speed cost trade off
 - CPU -> M1 -> M2 -> M3 -> M4
 - automatically move data up and down the hiearchy (frequent at the top) to optimize memory access time
@@ -334,6 +334,30 @@ Mapping Functions determine the location in the cache for each memory address
   - then the word bits in the cache block decode to the respective word within the main memory block
 - **set associative mapping** uses direct mapping to map memory blocks to a set of cache blocks, think combination of direct and fully associative mapping
 
+#### Cache Structure
+- to fetch data from the cache, we use indexing based on the main memory address that the cache intercepts. 
+  - The first 5 bits of the address will be interpreted as the word bits (n bits to choose from the 2^n words in the block), 
+  - next 10 bits will be the block bits (b bits for 2^b blocks of cache capacity). 
+  - The remaining bits are called tag bits, used to determine correctness of cache hits (for direct caches, multiple memory blocks map to the same cache block)
+- *each cache block holds data, along with **tag bits** and a **valid bit**, tag bits for comparison to the tag in the address, while the valid bit state whether the data stored in the cache is valid data (V = 1)*
+
+#### Replacement Algorithms
+For set-associative and fully-associative caches, a cache miss needs to evict some undetermined block, of which is determined using a replacement algorithm.
+- LRU leverages temporal locality by tracking age of cache components, using log2(n) bits for each block (for caches with sets of size n)
+  - age is defined as the number of elements who have been accessed more recently than it
+- FIFO acts as a sort of round robin system
+- Random
+
+#### Cache performance
+For `C` time required to access a block in cache, `M` time when accessing memory (including miss penalty) and `h` hit percentage, cache performance is intuitively `tavg = (hC + (1-h)M)`. 
+
+If we're given M' instead, being the latency for accessing Memory, then the time is `tavg = C + (1-h)M'` since the time for a miss is equal to the time for a hit, then no matter what, we incur the time taken to access a block from cache, and add extra latency if it's a miss. 
+
+For two caches, intuitively `tavg =  h1•C1 + (1-h1)(h2•C2 + (1-h2)M)`
+
+#### Solving Cache Problems
+Given `a`-bit addresses, `2^a` (bytes or words; depending on addressing system) main memory, `c` byte/word cache size, `b` bytes/words per cache block. Cache block capacity = `c/b`. Word bits are first `log2(b)` bits (rightmost), block bits are next `log2(c/b)` bits, tag bits are remaining.
+
 *For final cache content questions, do the timeline table method, visually updated each cache block with respect to a timeline. Then you can figure out quickly which block is the least recently used*.
   
 ### Lab4: ISR
@@ -367,6 +391,8 @@ Design of Register file:
 2. Decode
   - in ADD R1, R2, R3, Rsrc1 = R2, Rsrc2 = R3
 3. Execute
+
+A change made by some stage at a given clock cycle is not noticed until the next cycle.
 
 instr PC R4 RA RM RZ RY
 1F 37c00 1000 - - - - 
