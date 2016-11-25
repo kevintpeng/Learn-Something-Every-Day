@@ -360,6 +360,9 @@ Given `a`-bit addresses, `2^a` (bytes or words; depending on addressing system) 
 
 *For final cache content questions, do the timeline table method, visually updated each cache block with respect to a timeline. Then you can figure out quickly which block is the least recently used*.
   
+#### Virtual Memory
+Programs are written using the full address space 2^32, but physical memory capacity is often less than this (2GB for example). Virtual memory populates the rest, storing it on disk
+  
 ### Lab4: ISR
 1. generate Random delay 5-25s in R6
 2. display on LED
