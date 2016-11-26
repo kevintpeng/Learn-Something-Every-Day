@@ -202,3 +202,9 @@ Spec consists of pre and postcondition
 Triples are assertions `assert(P); C; assert(Q);`
 - `|=par` is partial correctness, which says for a triple, **if C terminates** then Q is the final state
 - `|=tot` is total correctness, which guarantees termination
+- proof theories for programs are often sound but are not complete by Godel's completeness theorem
+
+### Proof Rules
+We add rules to state whether commands in our programming language satisfy some precondition and post condition, given a set of premises and a conclusion consisting of a triple
+- assignment says, with no premises, that `assert(P[E/var]); var := E; assert(P)`
+- composition of proofs: commands are sequential if the postcondition of A is the precondition of B
