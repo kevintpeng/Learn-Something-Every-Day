@@ -206,5 +206,10 @@ Triples are assertions `assert(P); C; assert(Q);`
 
 ### Proof Rules
 We add rules to state whether commands in our programming language satisfy some precondition and post condition, given a set of premises and a conclusion consisting of a triple
-- assignment says, with no premises, that `assert(P[E/var]); var := E; assert(P)`
-- composition of proofs: commands are sequential if the postcondition of A is the precondition of B
+- **assignment** says, with no premises, that `assert(P[E/var]); var := E; assert(P)`
+- **composition** of proofs: commands are sequential if the postcondition of A is the precondition of B
+  - like in TP, this composition of steps is how we form step by step proofs assert(A); c1; assert(B); c2; ... assert(F) |= assert(A); C; assert(F)
+  - these are annotated programs, they require every assertion except the precondition to be proven
+- **implied** proof rule says P' |- P, assert(P); C; assert(Q) and Q |- Q', then by implied, assert(P'); C; assert(Q'); where we must prove the **verification conditions** (VCs) P' |- P and Q |- Q' separately
+- **derived assignment**: if P |- Q[E/Var] then assert(P); Var := E; assert(Q). We prove the premise using ND as a verification condition
+- **conditionals**: assert(P); if(B) C; assert(Q). we need to handle two cases, boolean B true and boolean B false. For B is true, assert(P & B); C; assert(Q), for B is false, prove with ND the verification condition P & !B |- Q
