@@ -395,14 +395,7 @@ Design of Register file:
   - in ADD R1, R2, R3, Rsrc1 = R2, Rsrc2 = R3
 3. Execute
 
-A change made by some stage at a given clock cycle is not noticed until the next cycle.
 
-instr PC R4 RA RM RZ RY
-1F 37c00 1000 - - - - 
-2D 37C04 " 
-3X
-4M
-5W
 
 # Part 9: Pipelining
 Pipelining allows for concurrent instructions per cycle, with different parts (stages) of the processor
@@ -419,3 +412,14 @@ Pipelining allows for concurrent instructions per cycle, with different parts (s
 - *somethings wrong if there are two of the same stage in the same column (clock cycle) of the pipeline diagram*
 
 *For pipelining problems, be aware of how the register files are being updated. Forwarding is important to understand. Forwarding can be done by adding a mux with the output of one stage, linked to an input of a previous stage to share values. An intermediate register may have a wrong value in it. By adding a mux, we can select the actual correct value from the output of a previous command. In general, we don't want to add a mux in the decode stage since the mux is expensive with time. Adding it to other stages is negligable since they involve memory operations.*
+
+A change made by some stage at a given clock cycle is not noticed until the next cycle.
+
+```
+instr PC R4 RA RM RZ RY
+1F 37c00 1000 - - - - 
+2D 37C04 " 
+3X
+4M
+5W
+```
