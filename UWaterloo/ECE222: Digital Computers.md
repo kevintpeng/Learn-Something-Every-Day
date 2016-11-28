@@ -423,3 +423,8 @@ instr PC R4 RA RM RZ RY
 4M
 5W
 ```
+
+Memory Stalls
+
+Branches alter sequential execution, whose effect is unknown until the execution stage. The pipeline needs to squas the instructions fetched down the wrong path. The time taken is the **penalty**
+
