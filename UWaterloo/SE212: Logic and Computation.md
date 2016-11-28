@@ -118,7 +118,7 @@ Recall Theories are a set of axioms about constants, functions and predicate sym
 
 - **recursive functions** are defined in terms of itself and certain terminating clauses
   - its value for 0 and value for n in terms of n-1
-- 
+-
 ### Satisfiable Modulo Theories
 - efficient and fully automatic analysis of the satisfiability of a formula in first order logic with theories
 - basic method is to map a problem in predicate logic to equivalent problem in prop logic and let SAT solver analyze
@@ -137,9 +137,9 @@ Axioms:
 - power set P is the set of all subsets B of a set D
 
 ### Set Functions
-- set union and intersection 
+- set union and intersection
 - absolute complement
-- set difference 
+- set difference
 - generalized set operations on multiple sets (think functions like summations ∑)
 
 Derrived Laws of Set Theory:
@@ -162,13 +162,13 @@ Russell's Paradox: if a set can contain sets as elements, can it contain itself?
 - all functions on sets can be applied to relations
 - for binary Relation `R : D <-> B`, dom R = {x : D | exists y : B . (x,y) in R}, ran R = {y : B | exists x : D . (x,y) in R}
 
-### Proofs in relations 
+### Proofs in relations
 - for TP, axioms stated as `|= A <=> B` can be used as law `A <-> B` in a TP step
 - set equality A = B is proved by stating x in A <-> x in B, or by starting with A and ending with B (proving A <-> B)
 - **inverse relation** is swapping domain and range of R: R<sup>~</sup> = { (b,a) . a : D, b : B | (a,b) in R}
 - the **identity relation** of a set is pairing every element of the domain with itself; R : id(B) = {(a,a) | a in B}
 - **relation composition** is "R followed by S": R ; S = {(a,c) . a in A, c in C | (a,b) in R & (b,c) in S}
-  - composition is associative, `(R;S)~ = R~;S~`, `id(dom R) sube R;R~`, `id(dom R);R = R` 
+  - composition is associative, `(R;S)~ = R~;S~`, `id(dom R) sube R;R~`, `id(dom R);R = R`
 - **iteration** for creating counts of the same element: R<sup>0</sup> = id(D), R<sup>n</sup> = R;R<sup>n-1</sup>
   - it follows that R<sup>n+m</sup> = R<sup>n</sup> ; R<sup>m</sup> and R<sup>n•m</sup> = (R<sup>n</sup>)<sup>m</sup>   
 - **relational image** R(|S|) = {y : B | exists x : D . x in S & (x,y) in R}
@@ -186,12 +186,12 @@ Formal specification language
 - function space is a set of functions
 
 ## Program Correctness
-Show that program has correct behaviour. A **spec** describes desired output for input. 
+Show that program has correct behaviour. A **spec** describes desired output for input.
 
-**Formal Verification** describe in logic the spec for code, verified with proof theory. Important for critical software, helps to find bugs and "tests for ALL inputs". 
+**Formal Verification** describe in logic the spec for code, verified with proof theory. Important for critical software, helps to find bugs and "tests for ALL inputs".
 
 ### Programming Language
-We will verify imperative (seq of commands), sequential (no concurrency) and transformational programs (guarantees output and termination). 
+We will verify imperative (seq of commands), sequential (no concurrency) and transformational programs (guarantees output and termination).
 - assignment `V := E`, assigns result of expression to v
 - imperative programs manipulate states, where state is the value of vars at a given time
 
@@ -212,4 +212,6 @@ We add rules to state whether commands in our programming language satisfy some 
   - these are annotated programs, they require every assertion except the precondition to be proven
 - **implied** proof rule says P' |- P, assert(P); C; assert(Q) and Q |- Q', then by implied, assert(P'); C; assert(Q'); where we must prove the **verification conditions** (VCs) P' |- P and Q |- Q' separately
 - **derived assignment**: if P |- Q[E/Var] then assert(P); Var := E; assert(Q). We prove the premise using ND as a verification condition
-- **conditionals**: assert(P); if(B) C; assert(Q). we need to handle two cases, boolean B true and boolean B false. For B is true, assert(P & B); C; assert(Q), for B is false, prove with ND the verification condition P & !B |- Q
+- **one-armed conditionals**: assert(P); if(B) C; assert(Q). we need to handle two cases, boolean B true and boolean B false. For B is true, assert(P & B); C; assert(Q), for B is false, prove with ND the verification condition P & !B |- Q
+- **two-armed conditional:** no VCs, rule states that if the triples P & B and P & !B lead to Q, then the triple P leads to Q with the if else statement holds
+  - modified lets us work backwards, if assert(P1); C1; assert(Q); and assert(P2); C2; assert(Q); then assert((B => P1) & (!B => P2)); if(B) C1; else C2; assert(Q)
