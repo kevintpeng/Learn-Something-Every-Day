@@ -474,3 +474,43 @@ Figures out the extent of objects for you, frees them implicitly.
 - allocating a frame on the heap may call the garbage collector, which will call a function that could overwrite savedParamPtr
 - after A6, the frame might be allocated on the heap. So always allocate on the stack first, then when you're done with Reg.savedPC, copy the chunk to the heap if needed
 - when you allocate, you can only use machine language because a lot has been eliminated by transformations. Write it with A6 tests-style
+
+### Lambda Calculus
+For expressing computation based on function abstraction. It is turing complete and thus acts as a universal model of computation
+- &lambda; expressions and terms denote binding a variable to a function (think anonymous functions)
+- square_sum(x,y) = x^2 + y^2 can be written in anonymous form as (x,y) |-> x^2 + y^2
+- all functions in lambda calculus can be represented as single input functions
+  - (x,y) |-> x^2 + y^2 can be written as x |-> (y |-> x^2 + y^2)
+  - this method is **currying**, chaining function calls together 
+- id(x) = x is the identity function, useful for having a value represented as an anonymous function
+
+lambda calculus consists of a language of **lambda terms**, defined by formal syntax and a set of transformation rules 
+- **lambda expressions** can be valid or invalid, a valid expression is a term
+- all syntactically valid lambda terms are inductively defined by 3 rules:
+  - a variable x is a lambda term
+  - **abstraction**: if t is a lambda term, (&lambda;x.t) is a lambda term
+  - **application**: if t and s are a lambda terms, (ts) is a lambda term
+  - nothing else is a lambda term
+- an abstraction &lambda;x.t is a defn of an anonymous function that takes a single parameter x and substituting it into expression t
+  - abstraction binds free occurences of x in t 
+- application is like composition of terms; ts means t(s)
+
+### Exam
+- Closures, tail calls
+- formal languages
+- regular languages
+- DFAs, NFAs, Regex
+- Scanning
+- CFGs
+  - parse trees
+  - derivations
+  - ambiguity
+- CYK parsing
+- Other parsing algorithms (simple comparisons, big O)
+- name resolution
+- type-checking
+- heap
+- explicit malloc/free
+- fragmentation, compaction
+- cheney's garbage collector
+- lambda calculus
