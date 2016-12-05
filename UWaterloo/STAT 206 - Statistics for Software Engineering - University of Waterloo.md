@@ -1,15 +1,41 @@
 # Intro to Statistics
 ## Summary:
+**Data Summaries**
+- Discrete, continuous, categorical, ordinal
+- units, variables, attributes, summarizing data
+- center, variability, symmetry, skewness, measuring association between two variables
+- summarizing algebraically and graphically
+  - sample mean, mode, median & variability (5 num summary)
+  - IQR = Q3 - Q1, Range = Max - min, s^2 = 1/(n-1)∑(yi-y-bar)^2 sample variance
+  - kurtosis = 3 for normal
+  - measure of Association, relative risk
+  - sample correlation coefficient r<sub>xy</sub> = ∑(xi - x-bar)(yi - y-bar)/(∑(xi-x-bar)^2•(yi - y-bar)^2)
+  - histogram, box and whisker, whiskers are Q3 + 1.5•IQR
+
+**Conditional Probability**:
+- Bayes Theorem: `P(Bi|A) = P(A|Bi)*P(Bi)/∑(P(A|Bj)*P(Bj))`
+
 **Counting Rules:**
 - Permutations: `nPr = n!/(n-r)!`
 - Combinations: `nCr = nPr/r!`; *like permutation formula without the r! permutations for each set of r values*
 
 **Random Distributions:**
+
+*Discrete:*
 - Binomial: P of r successes in n bernouli trials: `P(X = r) = nCr • p^r • (1-p)^(n-r)`; *there are nCr combinations of exactly r successes in n trials*
+  - Y ~ Bin(n, &theta;)
+  - E(X) = n&theta;
+  - V(X) = n&theta;(1-&theta;)
 - Hyper-Geometric: P of r successes without replacement: P(X = r) = <sup>n</sup>C<sub>r</sub> • <sup>N-n</sup>C<sub>n-r</sub> / <sup>N</sup>C<sub>r</sub>; *we calculate what percent of all outcomes have r successes and n-r failures, for n*
 - Geometric: probability of k-1 failures before a success, for bernouli trials: `P(X = k) = (1-p)^(k-1)•p`
 - Negative Binomial: P of k failures before x successes
 - Poisson: models number of event occurences in a time interval: `P(X=k) = &lambda;^k•e^-&lambda;/k!`; &lambda; is E(X) and Var(X)
+
+*Continuous*:
+- Normal
+  - Z ~ N(0,1)
+  - Y ~ N(&mu;, &sigma;^2)
+  - Yi...Yn ~ N(&mu;, &sigma;^2), then Y-bar ~ N(&mu;, &sigma;^2/n), 
 - Exponential: the time before an occurence of an event (time between events in poisson)
 - Chi Square: distribution for the sum of a set of squared normally distributed r.v. It is a function of degrees of freedom v, and always has a mean of v and variance of 2v
 - Student's T Distribution is the ratio between two independent r.v.s T = Z/W; *Z is normal and W is Chi-Square*. T has k degrees of freedom, and as k -> infinity, T -> Z
