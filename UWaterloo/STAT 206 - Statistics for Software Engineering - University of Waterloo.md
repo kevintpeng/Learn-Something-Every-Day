@@ -310,3 +310,17 @@ We are heavily in favour of the null hypothesis. So our conventions state:
 - 5% ≤ p-value ≤ 10% => weak evidence against H0
 - 1% ≤ p-value < 5% => evidence against H0
 - p-value < 1% => strong evidence against H0
+
+### Hypothesis Testing for different distributions
+Concentrate on two sided test
+
+yi ~ f(yi, &theta;), i = 1...n, yi's independent r.v, &theta; is unknown parameter, {y1...yn} is sample
+
+We want to determine whether H0: &theta; = &theta;0 or H1: &theta; ≠ &theta;0
+
+1. Construct D, discrepancy measure, a r.v
+2. Calculate the value of D from sample: d
+3. Calculate the p-value of your test (following the above conventions)
+
+For normal problem, recall Y-bar - &mu;/s/n^(1/2) ~ Tn-1
+- construct the test statistic, D = |Y-bar - (48)/s/n^(1/2)|, so D ~ Tn-1 by the properties of the test statistic?
