@@ -38,7 +38,11 @@
   - Yi...Yn ~ N(&mu;, &sigma;^2), then Y-bar ~ N(&mu;, &sigma;^2/n), 
 - Exponential: the time before an occurence of an event (time between events in poisson)
 - Chi Square: distribution for the sum of a set of squared normally distributed r.v. It is a function of degrees of freedom v, and always has a mean of v and variance of 2v
+  - if df =1, X^2 = Z^2
+  - if df = 2, X^2 = Exp(2)
+  if df ≥50, X^2 ~ N(k, 2k)
 - Student's T Distribution is the ratio between two independent r.v.s T = Z/W; *Z is normal and W is Chi-Square*. T has k degrees of freedom, and as k -> infinity, T -> Z
+  - Symmetric, and if df is large, T ~ Z
 
 **Sampling Distribution**:
 - samples are a subset of the population, used to infer properties of the population. x-bar is a specific sample mean, s^2 is a sample's variance, while X-bar and S^2 (note the capitals) are the mean and variance of a generalized random sample
@@ -47,22 +51,38 @@
 - Central Limit Theorem: For Z = X-bar - &mu;/(&sigma;/n<sup>1/2</sup>), as n -> infinity then the distribution approaches the standard normal n(0,1). Applies for large n, or for sample distributions whose original distribution is close to normal
 - if a population is normally distributed, we can calculate the sample variance S^2: Chi^2 = (n-1)•S^2/&sigma;^2, degrees of freedom v = n-1
 
+**Point Estimation**:
+Find &theta;-hat. L(&theta;, y1...yn) = P(Y1 = y1, Y2 = y2, ... Yn = yn)
+
 **Maximal Likelihood Estimate**:
 - purpose is to estimate &theta; for an instance of a distribution
 - take a sample of population for a known probability distribution
 - construct a likelihood function: L(&theta;) = &Pi;f(yi)
 - use the log likelihood function and find its max for &theta;-hat
+- &theta;-hat is the MLE if &theta;-hat maximizes L(&theta; or l(&theta;)
+  - Binomial &theta;-hat = y/n, y is num of successes
+  - Poisson = y-bar
+  - exponential = y-bar
+  - normal &mu;-hat = y-bar, and &sigma;-hat = (1/n ∑(yi-y-bar)^2)^(1/2)
 
 By extension, Invariance Property states for &theta;-hat as the MLE of &theta;, under mild conditions g(&theta;-hat) is the MLE of g(&theta;) forall cont. function g
 
 **Interval Estimation**:
-- using relative likelihood, the 100p% **likelihood interval** for &theta; says that for 0 ≤ p ≤ 1, the 10% likelihood nterval (p = 0.1•100 = 10%) says that any &theta; in this interval is at least 10% of L(&theta;-hat). *It's the interval of all &theta; values that are at least p% of the optimal value*
+- using relative likelihood, the 100p% **likelihood interval** for &theta; says that for 0 ≤ p ≤ 1, the 10% likelihood interval (p = 0.1•100 = 10%) says that any &theta; in this interval is at least 10% of L(&theta;-hat). *It's the interval of all &theta; values that are at least p% of the optimal value*
 - the x **confidence interval** says that x% of all samples we choose will compute a theoretical confidence  interval that contains the actual unknown parameter.
   - with known &sigma;, then by Central Limit Theorem, Z = X-bar - &mu;/(&sigma;/n<sup>1/2</sup>), and &mu;<sub>X-bar</sub> = &mu; and &sigma;<sub>X-bar</sub> = &sigma;/n^(1/2) we can construct a confidence interval for &mu; by subbing in our value for Z, using the z-table to compute the probability, then isolating X-bar to find the interval.
   - with unknown population &sigma;, a random sample from a normal distribution has a sample distribution of T = X-bar - &mu;/(S/n^(1/2)), with n-1 degrees of freedom. S is the sample standard deviation. Now we use the t-table to calculate the to find the bounds of the interval given a desired probability of confidence, then isolate for the parameter.
   - by convention, for any population distribution, a sample n ≥ 30, we can replace &sigma; with s and the confidence interval x-bar ± z * • s/n^(1/2) can be used, z * is the z-table value that gives us the desired confidence probability
   - *the x% confidence interval says with x% confidence that the difference between the sample mean and the actual mean will not exceed the interval bounds z<sub>a/2</sub>•&sigma;/n<sup>1/2</sup>* 
   
+**Confidence Intervals**:
+- Binomial: CI: &theta;-hat ± Z * • (&theta;-hat(1-&theta;-hat)/n)^(1/2), n ≥(Z * / l)^2 • 1/y, l = MOE
+- Normal: CI for &mu; y-bar ± Z * &sigma; / (n)^(1/2) if &sigma; is known. y-bar ± t * • s / (n)^(1/2) where df = n-1 for &sigma; unknown
+- Normal: CI for &sigma;^2 [(n-1)s] ???
+- Poisson: y-bar ± Z * (y-bar/n)^(1/2)
+- Relationship between LI and CI = -2log(l(&theta;)/L(&theta;) ~ X^2 ???
+- 95% CI is e^(-z^2/2) LI
+
 ### Central Tendency
 the degree of clustering of values of a statistical distribution
 - arithmetic mean is `(1/n)∑(yi)` for 1 ≤ i ≤ n
@@ -350,3 +370,33 @@ We want to determine whether H0: &theta; = &theta;0 or H1: &theta; ≠ &theta;0
 
 For normal problem, recall Y-bar - &mu;/s/n^(1/2) ~ Tn-1
 - construct the test statistic, D = |Y-bar - (48)/s/n^(1/2)|, so D ~ Tn-1 by the properties of the test statistic?
+
+For Binomial Problem,
+- D = |&theta;~ - &theta;0/(&theta;(1-&theta;0)/n)^(1/2)|
+
+For Poisson,
+- D = |Y-bar - &mu;0/(&mu;0(1-&theta;0)/n)^(1/2)| (-> Z)
+
+Equality of two means:
+- matched pair -> look at differences
+- unmatched -> Y and X, check H0: &beta; = 0
+
+Goodness of fit tests:
+- assume distribution, calculate &lambda;
+- divide data into groups, find expected frequency of groups given observed frequencies
+
+```
+Test variable independence, construct observed and expected tables
+   S    NS        S    NS
+L 40    60   100  
+R 50    50   100
+  90    110  200
+```
+
+### Regression
+Y = &alpha; + &beta;x + R, R ~ N(0, &sigma;^2)
+
+1. &alpha;-hat, &beta;-hat, &sigma;-hat, Se
+  - see picture for solving these
+  
+*you can apply the regression method for unmatched by setting one outcome to 1 and other to 0*
