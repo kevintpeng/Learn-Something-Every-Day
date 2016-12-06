@@ -383,11 +383,10 @@ For Poisson,
 Relationship between CI and Hypothesis testing: If &theta;<sub>o</sub> belongs to the 100q% C.I, the p-value of the test (H0: &theta; = &theta;0, H1: ≠) will be greater than 1 - q
 
 For large samples, we can construct tests for parameters using the **Likelihood Ratio Test**
-1. A(&theta;) ~ X<sub>1</sub><sup>2</sup>
+1. &Lambda;(&theta;) ~ X<sub>1</sub><sup>2</sup>, &Lambda; is a special case of D for hypothesis testing. It applies to all distributions and can be thought of as *general case*
 2. Calculate &lambda;(&theta;0) = -2log(L(&theta;0)/L(&theta;-hat)
 3. Calculate p-value P(A ≥ &lambda;) = P(X1^2 ≥ &lambda;) = P(Z^2 ≥ &lambda;)
 
-**Get help on this, NOV 21, Likelihood Ratio Test**
 
 ### Equality of two means:
 - matched pair -> look at differences, test to see if the difference is 0
@@ -433,9 +432,12 @@ we get s = Residual standard, the error of the regression model, measuring the a
 
 No we can do hypothesis testing for &alpha; and &beta;. Take &beta; for example, if we want to HT for &beta; we're testing for existance of a linear relationship between Y and X. H0: &beta; = &beta;0
 
-**ask about the last part of N
+Residuals r<sub>x</sub>-hat = Residual = yi - &alpha;-hat - &beta;-hat•xi
+- if our model is correct, r<sub>i</sub>-hat's act like N(0, &sigma;^2)
+
 
 Goodness of fit tests:
+Given X1...Xn, check if Xi ~ f(ni;&theta;)
 - assume distribution, calculate &lambda;
 - divide data into groups, find expected frequency of groups given observed frequencies
 
