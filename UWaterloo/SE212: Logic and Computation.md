@@ -231,7 +231,7 @@ Procedures can change parameters and global variables
 - **procedure rule**: 
   - premise: assert(R); C; assert(S)
   - assert(H & R[a1/x1,...an/xn]); p(a1...an); assert(H & S[a1/x1,...an/xn]);
- 
+  - H must not include any variables that are altered by C, procedure body
 ```sh
 assert(P);
 assert(H & R[a1/x1, a2/x2]); # implied (VC i)
@@ -239,3 +239,34 @@ p(a1, a2);
 assert(H & S[a1/x1, a2/x2]); # Procedure
 assert(Q);                   # implied (VC j)
 ```
+
+### Logical Variable Introduction
+For any any assertion with a variable, we can introduce a sort of temporary variable (that is currently not used) to represent a value at a given state.
+
+**Rule: Log Var Intro**, P(w), then P(w0) & w = W0
+
+### Recursive Functions
+We use induction in the correctness proofs of recursive functions
+1. base case, function satisfies its spec where there are no recursive calls
+2. induction step, assuming it satisfies its spec for all calls to the function, then it satisfies its spec
+
+**Look through the examples!!!** around slide 200
+
+### Termination
+A non terminating while loop or a non-terminating function or procedure recursion
+- partial correctness does not check termination
+
+To show termination, we identify an integer expression involving the variables of the loop condition that
+1. is guaranteed to be non-negative
+2. decreases with every iteration
+3. makes the loop's guard become false as it approaches 0
+
+This expression is called the variant or bounding function.
+
+For recursion, show there is a section of the function that does not make recursive calls and is entered as the bounding function approaches 0
+
+The **Decision problem** is a subset of problems which have yes/no answers
+
+**Unsolvable (undecidable) problems:** decison problems for which no algorithm exists to solve
+
+
