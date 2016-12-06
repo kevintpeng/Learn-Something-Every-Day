@@ -395,6 +395,19 @@ For large samples, we can construct tests for parameters using the **Likelihood 
 - unmatched -> Y and X, check H0: &beta; = 0
 
 ### Simple Linear Regression Model
+We make some assumptions:
+1. Given our x, Y's are normally distributed
+2. E(Yi) = &alpha; + &beta;•Xi (the average of the Yi's are a linear function of the X's)
+3. V(Yi) = &sigma;^2 is independent of the value of X (doesn't change with respect to X)
+
+Regression is represented with a deterministic part and random part. 
+- Yi ~ N(&alpha; + &beta; • xi, &sigma;^2) then
+- Yi = &alpha; +&beta;•Xi + Ri, R- ~ N(0, &sigma;^2)
+- and so Yi = &mu; + Ri
+- df = n - # of unknowns in the deterministic part of the model
+- now given a data set of tupled (x,y)s, 
+- we know the distribution for Yi is normal, so find the MLEs using multivariate calc on Yi (these final equations are on the formula sheet)
+
 X = given constants, X is the regressor which helps explain Y
 
 1. Y = r.v., mean depends on x in a linear function E(Y) = &alpha; + &beta;x, unknown constants
@@ -419,6 +432,8 @@ Sxx is the sum of the residuals for x^2, Syy for y^2 and Sxy for x•y
 we get s = Residual standard, the error of the regression model, measuring the amount of variability of Y that cannot be explained by X.
 
 No we can do hypothesis testing for &alpha; and &beta;. Take &beta; for example, if we want to HT for &beta; we're testing for existance of a linear relationship between Y and X. H0: &beta; = &beta;0
+
+**ask about the last part of N
 
 Goodness of fit tests:
 - assume distribution, calculate &lambda;
