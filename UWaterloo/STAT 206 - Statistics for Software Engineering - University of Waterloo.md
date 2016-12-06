@@ -380,6 +380,9 @@ For Binomial Problem,
 For Poisson,
 - D = |Y-bar - &mu;0/(&mu;0(1-&theta;0)/n)^(1/2)| (-> Z)
 
+Relationship between CI and Hypothesis testing: If &theta;<sub>o</sub> belongs to the 100q% C.I, the p-value of the test (H0: &theta; = &theta;0, H1: ≠) will be greater than 1 - q
+
+
 Equality of two means:
 - matched pair -> look at differences
 - unmatched -> Y and X, check H0: &beta; = 0
