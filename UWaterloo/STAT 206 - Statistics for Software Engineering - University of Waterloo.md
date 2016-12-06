@@ -83,6 +83,10 @@ By extension, Invariance Property states for &theta;-hat as the MLE of &theta;, 
 - Relationship between LI and CI = -2log(l(&theta;)/L(&theta;) ~ X^2 ???
 - 95% CI is e^(-z^2/2) LI
 
+
+
+## Notes
+
 ### Central Tendency
 the degree of clustering of values of a statistical distribution
 - arithmetic mean is `(1/n)∑(yi)` for 1 ≤ i ≤ n
@@ -342,7 +346,7 @@ Def: A statement made about attributes of a population. Null Hypothesis is curre
 - Setup: Ho = &theta; = &theta;o; two-sided alternate hypothesis H1 ≠
 - objective: draw sample from population and calculate if H0 or H1 is "reasonable"
 
-Steps: 
+### Hypothesis Testing Steps: 
 1. construct the discrepancy measure D. D is a random variable that measures how much the data disagrees with H<sub>o</sub>
   - D ≥ 0, where D = 0 is the best evidence to support the null hypothesis H<sub>o</sub>
   - D's distribution is known
@@ -357,16 +361,15 @@ We are heavily in favour of the null hypothesis. So our conventions state:
 - 1% ≤ p-value < 5% => evidence against H0
 - p-value < 1% => strong evidence against H0
 
+Type I error: Convicting innocient, Type II: Acquilting guilty people
+
+
 ### Hypothesis Testing for different distributions
 Concentrate on two sided test
 
 yi ~ f(yi, &theta;), i = 1...n, yi's independent r.v, &theta; is unknown parameter, {y1...yn} is sample
 
 We want to determine whether H0: &theta; = &theta;0 or H1: &theta; ≠ &theta;0
-
-1. Construct D, discrepancy measure, a r.v
-2. Calculate the value of D from sample: d
-3. Calculate the p-value of your test (following the above conventions)
 
 For normal problem, recall Y-bar - &mu;/s/n^(1/2) ~ Tn-1
 - construct the test statistic, D = |Y-bar - (48)/s/n^(1/2)|, so D ~ Tn-1 by the properties of the test statistic?
