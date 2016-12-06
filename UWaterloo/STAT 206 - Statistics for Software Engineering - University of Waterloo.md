@@ -454,3 +454,9 @@ Y = &alpha; + &beta;x + R, R ~ N(0, &sigma;^2)
   - see picture for solving these
   
 *you can apply the regression method for unmatched by setting one outcome to 1 and other to 0*
+
+QUIZ
+
+5. (n-1)S^2/&sigma;^2 ~ X^2<sub>n-1</sub>
+
+8. use pivotal quantity for normal, isolate y-bar, sigma is known
