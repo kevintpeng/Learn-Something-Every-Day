@@ -382,10 +382,43 @@ For Poisson,
 
 Relationship between CI and Hypothesis testing: If &theta;<sub>o</sub> belongs to the 100q% C.I, the p-value of the test (H0: &theta; = &theta;0, H1: ≠) will be greater than 1 - q
 
+For large samples, we can construct tests for parameters using the **Likelihood Ratio Test**
+1. A(&theta;) ~ X<sub>1</sub><sup>2</sup>
+2. Calculate &lambda;(&theta;0) = -2log(L(&theta;0)/L(&theta;-hat)
+3. Calculate p-value P(A ≥ &lambda;) = P(X1^2 ≥ &lambda;) = P(Z^2 ≥ &lambda;)
 
-Equality of two means:
-- matched pair -> look at differences
+**Get help on this, NOV 21, Likelihood Ratio Test**
+
+### Equality of two means:
+- matched pair -> look at differences, test to see if the difference is 0
+  - 
 - unmatched -> Y and X, check H0: &beta; = 0
+
+### Simple Linear Regression Model
+X = given constants, X is the regressor which helps explain Y
+
+1. Y = r.v., mean depends on x in a linear function E(Y) = &alpha; + &beta;x, unknown constants
+2. Y's are all normally distributed (Gaussian REgression Model)
+3. Var(Yi) = &sigma;^2, independent of X -> Homoscedasticity
+
+The population means are a linear function of X
+
+Yi ~ N(&alpha; + &beta;xi, &sigma;^2), i = 1...n and Yi's independent
+
+
+### Method of Least Squares
+Method of fitting an estimated regression line to the data
+- a **residual** is essentially an error in the fit of the model y-bar = b0 + b1•x
+  - ei = yi  -y-bar is the residual for i = 1...n
+- the least squares method minimizes the sum of the squares of the residuals
+
+We get some equations to help us find &alpha;-hat, &beta;-hat, &sigma;-hat and s.
+
+Sxx is the sum of the residuals for x^2, Syy for y^2 and Sxy for x•y 
+
+we get s = Residual standard, the error of the regression model, measuring the amount of variability of Y that cannot be explained by X.
+
+No we can do hypothesis testing for &alpha; and &beta;. Take &beta; for example, if we want to HT for &beta; we're testing for existance of a linear relationship between Y and X. H0: &beta; = &beta;0
 
 Goodness of fit tests:
 - assume distribution, calculate &lambda;
