@@ -178,7 +178,7 @@ Can create new binary relations from subsets of existing relations by restrictin
 
 Relational overriding R ⊕ S = ((dom S) <-| R) u S
 
-# Z Specification
+## Z Specification
 Formal specification language
 - we define types, functions (or other compound types), constants
 - relation `f: A <-> B means f in ℙ(A x B)`
@@ -215,3 +215,27 @@ We add rules to state whether commands in our programming language satisfy some 
 - **one-armed conditionals**: assert(P); if(B) C; assert(Q). we need to handle two cases, boolean B true and boolean B false. For B is true, assert(P & B); C; assert(Q), for B is false, prove with ND the verification condition P & !B |- Q
 - **two-armed conditional:** no VCs, rule states that if the triples P & B and P & !B lead to Q, then the triple P leads to Q with the if else statement holds
   - modified lets us work backwards, if assert(P1); C1; assert(Q); and assert(P2); C2; assert(Q); then assert((B => P1) & (!B => P2)); if(B) C1; else C2; assert(Q)
+
+### Arrays
+Function mapping indicies to values starting at 0 or 1
+- for assignment to arrays, use relational overriding (+)
+- **assingment**: assert(P[B (+) {(i,e)} / B); B[i] := e; assert(P);
+
+### Functions and Procedures
+Formal parameters are the indentifiers, while actual parameters are the values passed during the function call
+- the name of the return value is always ret
+- return is always the last statement
+- functions do not alter global variables or parameter values
+
+Procedures can change parameters and global variables
+- **procedure rule**: 
+  - premise: assert(R); C; assert(S)
+  - assert(H & R[a1/x1,...an/xn]); p(a1...an); assert(H & S[a1/x1,...an/xn]);
+ 
+```sh
+assert(P);
+assert(H & R[a1/x1, a2/x2]); # implied (VC i)
+p(a1, a2);
+assert(H & S[a1/x1, a2/x2]); # Procedure
+assert(Q);                   # implied (VC j)
+```
