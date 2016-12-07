@@ -449,6 +449,12 @@ R 50    50   100
   90    110  200
 ```
 
+### Two Population Problem
+Two different populations, check if their means are equal
+- we have matched with tuples for samples, and unmatched for two sets
+- for matched, H0: &mu;1 = &mu;2, and yi = bi - ai
+  - then Yi ~ N(&mu;, &sigma;^2)
+
 ### Regression
 Y = &alpha; + &beta;x + R, R ~ N(0, &sigma;^2)
 
