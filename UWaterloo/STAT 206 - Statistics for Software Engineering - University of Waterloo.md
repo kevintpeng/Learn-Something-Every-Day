@@ -48,7 +48,7 @@
 - samples are a subset of the population, used to infer properties of the population. x-bar is a specific sample mean, s^2 is a sample's variance, while X-bar and S^2 (note the capitals) are the mean and variance of a generalized random sample
 - since a statistic is a random variable that depends only on the observed sample, it has a distribution, the **sampling distribution** (but remember the population's mean and variance are constant and unknown)
 - sampling distributions of X-bar and S^2 enable us to make inferences about the population parameters &mu; and &sigma;^2.
-- Central Limit Theorem: For Z = X-bar - &mu;/(&sigma;/n<sup>1/2</sup>), as n -> infinity then the distribution approaches the standard normal n(0,1). Applies for large n, or for sample distributions whose original distribution is close to normal
+- Central Limit Theorem: For Z = X-bar - &mu;/(&sigma;/n<sup>1/2</sup>), as n -> infinity then the distribution approaches the standard normal n(0,1). Applies for large n ≥ 30, or for sample distributions whose original distribution is close to normal
 - if a population is normally distributed, we can calculate the sample variance S^2: Chi^2 = (n-1)•S^2/&sigma;^2, degrees of freedom v = n-1
 
 **Point Estimation**:
