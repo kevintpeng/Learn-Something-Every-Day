@@ -383,6 +383,7 @@ For Poisson,
 Relationship between CI and Hypothesis testing: If &theta;<sub>o</sub> belongs to the 100q% C.I, the p-value of the test (H0: &theta; = &theta;0, H1: ≠) will be greater than 1 - q
 
 For large samples, we can construct tests for parameters using the **Likelihood Ratio Test**
+
 1. &Lambda;(&theta;) ~ X<sub>1</sub><sup>2</sup>, &Lambda; is a special case of D for hypothesis testing. It applies to all distributions and can be thought of as *general case*
 2. Calculate &lambda;(&theta;0) = -2log(L(&theta;0)/L(&theta;-hat)
 3. Calculate p-value P(A ≥ &lambda;) = P(X1^2 ≥ &lambda;) = P(Z^2 ≥ &lambda;)
