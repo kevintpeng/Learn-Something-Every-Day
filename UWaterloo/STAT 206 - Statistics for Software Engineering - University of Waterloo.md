@@ -83,7 +83,13 @@ By extension, Invariance Property states for &theta;-hat as the MLE of &theta;, 
 - Relationship between LI and CI = -2log(l(&theta;)/L(&theta;) ~ X^2 ???
 - 95% CI is e^(-z^2/2) LI
 
-
+**Goodness of Fit Tests**: X1...Xn ~ f(xi; &theta;'s)
+1. construct frequency tables for intervals 
+2. calculate the MLE for each of the &theta;'s
+3. compute an estimated probability for each range in the frequency table: Pi = integral a to b of 1/&theta;-hat • e^(-x/&theta;hat)dx
+4. Calculate expected frequencies ei = n•Pi
+5. Compute &lambda; = 2 ∑ yi • log(yi/ei)
+6. p-value = P(&Lambda; ≥ &lambda;) ~ X<sup>2</sup><sub>n-k-1</sub>: n = categories, k = parameters
 
 ## Notes
 
