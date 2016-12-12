@@ -44,6 +44,7 @@
 - complex SDRAMs need an interface, which converts regular bus lines to the necessary signals (RAS, CAS, Chip Select)
 - Chip select signal is important for selecting specific DRAM chips within a larger array of DRAM chips
 
+### Caches
 - caches sit in front of main memory and only take one clock cycle to respond with data
 - addresses are broken down, word is rightmost always and determines what byte from a block of memory it refers to
   - the block portion (not used in fully associative) decides which block to fill
@@ -58,6 +59,7 @@
   - it is added so that we do not have to write-through to memory for each write
 - write allocate (rather than no write allocate) says that we write-through to memory without caching the value
 
+### Virtual Memory
 - Virtual memory is an abstraction for a 32 bit address space, where we don't have enough physical memory to fill the address space
 - think of main memory (implemented by RAM) as a cache in front of disk drives 
 - The Memory Management Unit (MMU) holds information for handling the conversion of virtual addresses to physical ones
