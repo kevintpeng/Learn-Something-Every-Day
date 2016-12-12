@@ -33,7 +33,7 @@
 - by eliminating the need to arbitrate between USB devices, using only polling, USB hubs can be easily manufactured and chained
 - the PCI bus has SATA, Ethernet, USB hub
 
-### Memory
+### Memory System
 - memory is stored in arrays of cells that hold an on off value (1 bit, stored in a transistor or capacitor)
 - asynchronous DRAM chip uses row and column addresses to access bytes, asserted by the RAS/CAS signals from the external memory controller
 - fast page mode enables quick sequential burst reads (removes address stablization overhead)
@@ -43,6 +43,21 @@
 - both chips use RAS and CAS signals to enable latches for holding column/row addresses
 - complex SDRAMs need an interface, which converts regular bus lines to the necessary signals (RAS, CAS, Chip Select)
 - Chip select signal is important for selecting specific DRAM chips within a larger array of DRAM chips
+
+- caches sit in front of main memory and only take one clock cycle to respond with data
+- addresses are broken down, word is rightmost always and determines what byte from a block of memory it refers to
+  - the block portion (not used in fully associative) decides which block to fill
+  - tag bits need to exist so information is not lost about the uniqueness of each address
+- direct mapping maps addresses deterministically using modulos; address: [Tag, Block (portion used for modulos) = log2(number of blocks), Word = log2(block size in bytes)]
+- fully associative cache can map any memory block anywhere in the cache, so no `Block` bits; address: [Tag, Word = log2(block size in bytes)]
+- set associative cache maps memory blocks to sets which are fully associative (tag consumes the extra address bits compared to direct mapping); address: [Tag, Block (portion used to determine set) = log2(number of sets), Word]
+- replacement algorithms decide what to evict when the cache is full, or when the set is full for set associative
+- LRU, Random, Ordered
+- valid bit is added to each block to denote that is holds a value that is relevant to the current executing program
+- dirty bit is added to each cache block to denote that a write back must occur upon eviction 
+  - it is added so that we do not have to write-through to memory for each write
+- write allocate (rather than no write allocate) says that we write-through to memory without caching the value
+
 - Virtual memory is an abstraction for a 32 bit address space, where we don't have enough physical memory to fill the address space
 - think of main memory (implemented by RAM) as a cache in front of disk drives 
 - The Memory Management Unit (MMU) holds information for handling the conversion of virtual addresses to physical ones
