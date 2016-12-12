@@ -57,6 +57,7 @@
 ### Processors 
 - we use a 5 step processor: fetch, decode, execute, memory, writeback
 - the hardware depends on 6 components: register file, ALU, processor-memory interface, instruction address generator (with PC), Instruction Register, Control Circuitry
+- processor-memory interface uses MFC (memory finished) to signal to the processor that the memory operation is complete
 - pipelining allows multiple instructions to be processed at once, utilizing all components of the processor for different instructions, while maintaining instruction ordering as needed
 - data hazards exist between instructions, like if there is a read after write (RAW), in which case old values can be used
 - memory stalls (freezing subsequent instructions in the pipeline) occur when accessing memory and the cache misses (so the operation takes more than one clock cycle)
