@@ -1,7 +1,39 @@
 # Digital Computers
-### Summary
-- focus learning cache problems
+# Summary
+### Assembly and Data
+- We learned ARM, and general RISC and CISC programming 
+- Big endian describes a way to order bytes of a word, where the the word reads left to right, and is the correct value of the 32-bit integer representation
+- Little endian reverses the byte order, but bits in each byte remain the same
+- there are many addressing modes describing ways to manipulate instruction operands
+  - immediate, absolute, register, indirect, index, base with index, pc-relative, pre-index, pre-index with writeback, post-index
 
+### Input/Output
+- memory mapped I/O maps inputs and outputs to addresses
+- I/O devices on a bus each have an interface, with status bits like KIN, DOUT for signaling readiness 
+- for interupt during instruction `i`, finish `i`, set IE bit to 0 in Processor Status, PC <- start of ISR, run ISR, PC <- i + 4, set IE = 1, resume program
+- Vectored interrupts allow for fine-grained control of device interrupt priority by have Interrupt Enable and Interrupt Request (IRQ) signal for each device
+- A bus can have multiple lines, system bus is an inter-connection network connecting I/O devices, processor and memory
+- for data lines on a bus, you need to allow for setup and hold time of signals on the line
+- address decoder for I/O devices define an address range for each device using ECE124 logic 
+- busses obey a protocol defined by the system, to support bus transfers with precision
+- system bus has control lines, address line and data lines for placing requests or placing responses for interactions between I/O and processor
+- bus skew is the time required to account for varying bus propagation delay between lines (needed in order to ensure all lines hold correct values when, for example, a master-ready signal reaches a slave)
+- Synchronous Bus Read is a read protocol so that the system has checks for correctness
+  - processor drives bus, places address and read command on lines, and asserts master ready after skew delay, slaves decode address 
+  - cycle 1: requested slave is done decoding, and fetches requested data (this can take multiple clock cycles, n), master waits for slave-ready signal
+  - cycle 2 + n: When the data is fetched, data is placed on data line (incurs setup time), and held as slave-ready signal is sent
+  - cycle 3 + n: master receives slave ready, reads the data and then de-asserts master-ready. 
+  - cycle 4 + n: slave deasserts slave-ready and clears data line
+- Asynchronous Bus Read follows same protocol as synchronous but without the clock
+- writes are opposite, master places data on data line, master-ready signal indicates valid data and address values
+- there is serial transmission of data (1 bit at a time) or parallel transmission
+- PCI bus (Peripheral Component Interconnection) allows for plug-and-play connectivity, the PCI bridge is the interface for processor, memory to the PCI bus
+- a bridge interconnects two systems of different architecture (think different clock speeds, voltages, data-width 32vs64-bit)
+- USB (Universal Serial Bus) supports different transfer-rates, designed for plug-and-play, and can form a tree of hubs connected to the computer via the root hub, where the leaves of the trees are the I/O devices 
+- by eliminating the need to arbitrate between USB devices, using only polling, USB hubs can be easily manufactured and chained
+- the PCI bus has SATA, Ethernet, USB hub
+
+# Notes
 # Part 3: ISA & Addressing Modes
 ### Intro to Addressing
 - binary prefixes, 2^10 kibi, 2^20 mebi, 2^30 gibi ...
