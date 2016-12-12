@@ -33,6 +33,53 @@
 - by eliminating the need to arbitrate between USB devices, using only polling, USB hubs can be easily manufactured and chained
 - the PCI bus has SATA, Ethernet, USB hub
 
+### Memory
+- memory is stored in arrays of cells that hold an on off value (1 bit, stored in a transistor or capacitor)
+- asynchronous DRAM chip uses row and column addresses to access bytes, asserted by the RAS/CAS signals from the external memory controller
+- fast page mode enables quick sequential burst reads (removes address stablization overhead)
+- synchronous DRAM chips use clock, and includes a refresh signal for refreshing capacitors
+- buffers allow next steps to occur while the data is being transferred to/from output registers
+- synchronous is good for burst reads since clock cycles dictate sequential reads, where async requires reasserting CAS signals 
+- both chips use RAS and CAS signals to enable latches for holding column/row addresses
+- complex SDRAMs need an interface, which converts regular bus lines to the necessary signals (RAS, CAS, Chip Select)
+- Chip select signal is important for selecting specific DRAM chips within a larger array of DRAM chips
+- Virtual memory is an abstraction for a 32 bit address space, where we don't have enough physical memory to fill the address space
+- think of main memory (implemented by RAM) as a cache in front of disk drives 
+- The Memory Management Unit (MMU) holds information for handling the conversion of virtual addresses to physical ones
+- The Direct Memory Access (DMU) is a component that handles frequent/sequential I/O operations so the processor doesn't have to
+- Pages are fixed-length units of data, (around 4K bytes) 
+- Page table converts virtual addresses to physical addresses, by finding the page offset (assuming the page is in main memory)
+- like in caches, we parse the address, upper portion for page number and lower for offset (the specific division depends on the total number pages we have, and log2(n) bits to represent their number)
+- page table translation replaces the upper bits of the virtual address with the actual frame bits in main memory, maintaining the lower bits of the address for specific address within the page
+- Virtual memory read takes two main memory reads (one for table and one for actual page access)
+- Translation Lookaside Buffer (TLB) acts as a cache in front of the page table to reduce the number of page table reads, and uses LRU for cache algorithm 
+
+### Processors 
+- we use a 5 step processor: fetch, decode, execute, memory, writeback
+- the hardware depends on 6 components: register file, ALU, processor-memory interface, instruction address generator (with PC), Instruction Register, Control Circuitry
+- pipelining allows multiple instructions to be processed at once, utilizing all components of the processor for different instructions, while maintaining instruction ordering as needed
+- data hazards exist between instructions, like if there is a read after write (RAW), in which case old values can be used
+- memory stalls (freezing subsequent instructions in the pipeline) occur when accessing memory and the cache misses (so the operation takes more than one clock cycle)
+- branching causes a change in PC, which is different than the assumed [PC] + 4
+- branching computes the new PC in the execute stage by default, which causes two wasted cycles and requires the processor to squash the subsequent incorrect instructions
+- branch penalty is delayed by adding an adder in the decode stage so that the ALU need not compute the new address given the offset, meaning there is only 1 cycle for branch penalty
+- for conditional branching, the branch penalty is only incurred when the condition is met and we need to branch to the newly computed PC
+- the place where the instruction after the branch instruction is placed is called the branch delay slot
+- if we load something useful into the branch delay slot, then there is no branch penalty
+- this can be done by reordering instructions assuming no data dependencies
+- sometimes this can't occur, in which case a NoOPeration instruction is loaded
+- branch prediction allows us to optimize further by guessing what instruction to place in the branch delay slot
+- static branch prediction chooses to always take or always reject a branch
+- dynamic branch prediction uses previous decision to influence its guess, whose history is stored in a finite state machine
+- branch predition still requires the new PC address, if it wants to predict that the branch is followed, and does not have the newly computed address until after the decode hardware and computed it 
+- we can a Branch Target Buffer (BTB) that acts as a cache for final address calculations so that branch prediction can occur before the decode stage is complete, meaning there is no branch delay 
+- superscaler architecture allows for multiple instructions to be processed at each stage
+- interleaving allows for 2 instructions/cycle throughput, assuming no branches and no data dependencies
+- you have to avoid deadlock where two instructions depend on each other
+- for the ALU, multiplication is computed using series of addition operations
+- booth encoding can reduce the number of addition operations, especially for numbers with lots of sequential 1s (small numbers in signed encoding)
+- conversion uses the following table: at each position `i` in a binary number, 00 = 0, 01 = +1, 10 = -1, 11 = 0  
+
 # Notes
 # Part 3: ISA & Addressing Modes
 ### Intro to Addressing
