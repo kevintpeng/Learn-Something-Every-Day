@@ -10,7 +10,9 @@ Propositional logic uses terms that are either true or false, or a composition o
 - (ECE124) Conjunctive Normal Form and Disjunctive Normal Form are simple ways of expressing a formula (only &s and |s)
 - **Natural Deduction** is a proof theory where we prove a set of formulas entails another formula (and we often assume that the premises are consistent)
   - an argument is invalid if for some boolean valuation, the premises are true and the conclusion is false
+  - *proving negated statements is really wierd, you can disprove other parts and join them together with and_i*
 - **Transformational Proof** uses `<->`, a composition of logically equivalent statements to "transform" the premise into the conclusion
+  - *you can prove the arguments both ways*
 - **Semantic Tableaux** is another proof theory, which proves arguments by disproving the negation of the conclusion. You start with the premises and the negation of the conclusion, then form a tree to essential show there is no possible boolean valuation where the premises entail the negation of the conclusion (meaning the argument never invalid, and thus always valid)
   - we aim to branch the tableaux on connectives like `and` where you have two possibilities, and aim to close each branch with contradictions
 
