@@ -1,3 +1,21 @@
+# Summary
+Propositional logic uses terms that are either true or false, or a composition of terms 
+- Prime propositions cannot be decomposed further, used to build compound propositions
+- a formula is **satisfiable** if there exists a boolean valuation of `True`
+- tautology's are true for all boolean valuations, contradictions are always false, a contingent formula is neither
+- a set of formulas is **consistant** if there exists a boolean valuation so that they are all true
+- proof theories are used in place of truth tables to show things like logicial implications
+- a sound proof theory means any correct use of rules forms a correct argument
+- a complete proof theory means that any problem that follows the constraints of a proof theory is provable using the rules
+- (ECE124) Conjunctive Normal Form and Disjunctive Normal Form are simple ways of expressing a formula (only &s and |s)
+- **Natural Deduction** is a proof theory where we prove a set of formulas entails another formula (and we often assume that the premises are consistent)
+  - an argument is invalid if for some boolean valuation, the premises are true and the conclusion is false
+- **Transformational Proof** uses `<->`, a composition of logically equivalent statements to "transform" the premise into the conclusion
+- **Semantic Tableaux** is another proof theory, which proves arguments by disproving the negation of the conclusion. You start with the premises and the negation of the conclusion, then form a tree to essential show there is no possible boolean valuation where the premises entail the negation of the conclusion (meaning the argument never invalid, and thus always valid)
+  - we aim to branch the tableaux on connectives like `and` where you have two possibilities, and aim to close each branch with contradictions
+
+
+# Notes
 - Semantic Tableau is a tree of boolean valuations for a conjunction of formulas at the root
   - by looking at the leaves of the tree, you can prove validity
   - generally or statements branch, because naturally they are satisfied by two cases
