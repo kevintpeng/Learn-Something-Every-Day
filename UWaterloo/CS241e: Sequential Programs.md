@@ -475,6 +475,16 @@ Figures out the extent of objects for you, frees them implicitly.
 - after A6, the frame might be allocated on the heap. So always allocate on the stack first, then when you're done with Reg.savedPC, copy the chunk to the heap if needed
 - when you allocate, you can only use machine language because a lot has been eliminated by transformations. Write it with A6 tests-style
 
+### Cheney's Algorithm
+A stop and copy algorithm, which splits our total heap size in half, and performs collection by copying live objects (ones with pointers to it) from one semispace (the "from-space") to the other semispace (the "to-space") 
+- we refer to the semi-spaces as the "to" and "from" spaces rather than semispace 1 and 2 because their role swaps everytime we perform garbage collection
+
+The algorithm works in 2 parts:
+- check object references from the stack, and do one of the two following:
+  - if it hasn't been copied yet, make a copy in the to-space, put a forwarding pointer in place of the object in the from-space and update the reference to point to the newly copied object
+  - if it's been copied, then update the reference using the forwarding pointer
+- then check the objects in the to-space for references and perform the above checks
+
 ### Lambda Calculus
 For expressing computation based on function abstraction. It is turing complete and thus acts as a universal model of computation
 - &lambda; expressions and terms denote binding a variable to a function (think anonymous functions)
