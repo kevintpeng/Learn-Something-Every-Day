@@ -504,6 +504,24 @@ lambda calculus consists of a language of **lambda terms**, defined by formal sy
 - an abstraction &lambda;x.t is a defn of an anonymous function that takes a single parameter x and substituting it into expression t
   - abstraction binds free occurences of x in t 
 - application is like composition of terms; ts means t(s)
+- &Beta;-reduction is performing expression substitution during application over an abstraction
+- &alpha;-conversion is renaming variables to avoid variable binding over an existing, same named variable
+  - has practical use for programming languages, where a variable is defined twice, once in a nested scope
+
+### Church Encoding
+Means of representing data operators in lambda calculus (since in untyped lambda calculus, we only have function types)
+- church numerals are a representation of the natural numbers, using lambda calculus
+- church encoding maps primatives using higher-order functions
+- any computable operator and operands can be represented under church encoding (though not actually practical in use)
+  - it demonstrates the completeness of untyped lambda calculus
+
+Church numerals can be used to represent natural numbers by the number of times some function f is applied to x:
+- 0 = &lambda;f.&lambda;x.x
+- 1 = &lambda;f.&lambda;x.f x
+- 2 = &lambda;f.&lambda;x.f (f x)
+- n = &lambda;f.&lambda;x f<sup>n</sup> x
+- addition = &lambda;m.&lambda;n.&lambda;f.&lambda;x.f<sup>m</sup> (f<sup>n</sup> (x))
+- successor function succ(n) is &Beta;-equivalent to (plus 1)
 
 ### Exam
 - Closures, tail calls
