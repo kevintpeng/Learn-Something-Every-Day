@@ -6,6 +6,21 @@ This is just a list of facinating or otherwise useful blogs/articles that I've r
   - it is important to give feedback on work, while avoiding personal critique
   - it is important to receive criticism humbly
 
+### [Building An AI Startup](http://mattturck.com/2016/09/29/building-an-ai-startup/)
+- one perspective on important factors for building an AI startup are the 5 P's
+  - positioning: aim at a vertical, avoid horizontals covered by big tech companies
+  - product: build problem solving services, not tools
+  - petabytes: scrape or find data to get over chicken/egg problems
+  - process: sell ideas, help customers understand what problems are solvable and not through AI
+  - people: hire technical, be technical
+  
+### [The Power of Data Network Effects](http://mattturck.com/2016/01/04/the-power-of-data-network-effects/)
+- Network effect is the positive feedback loop that improves user experience the more users on the platform
+- Data network effect is positive feedback for AI products that improve with more data, while attracting more data providers as they improve
+- "cold start" problem is like chicken/egg problem, and a pure AI company must have a data acquisition strategy
+- data traps are interesting, you build a deliverable with tangible value to users, where useful data collection is a byproduct 
+
+  
 ### [Trump, Putin and the Pipelines to Nowhere](https://medium.com/@AlexSteffen/trump-putin-and-the-pipelines-to-nowhere-742d745ce8fd#.b3ylhhvrt)
 - This article has some biases in my opinion, and is strongly a persuasive piece
 - disregarding a lot of political slandering, I do think it brings up interesting points of economic dependence on perception
