@@ -6,3 +6,5 @@ Starting off with some simple high-dimensional intuition:
 - for a set of n points in d-dimensions, also with normally distributed coordinates, as d -> infinity, the distance between each of the points approaches the same value
   - this is essentially saying that the sum of d independent squared differences approaches a uniform value as d approaches infinity
   - and the *law of large numbers* states that: P(|(x1 + ... + xn)/n - E(x)| ≥ &epsilon;) ≤ Var(x)/n•&epsilon;<sup>2</sup>
+  - this is a bound of sample mean, for set of X ~ N(&mu;, &sigma;^2), where we think of &epsilon; to be error
+    - law of large numbers inequality is proved by Markov's inequality and Chebyshev's inequality
