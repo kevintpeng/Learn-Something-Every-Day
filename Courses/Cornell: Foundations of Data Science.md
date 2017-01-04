@@ -8,3 +8,10 @@ Starting off with some simple high-dimensional intuition:
   - and the *law of large numbers* states that: P(|(x1 + ... + xn)/n - E(x)| ≥ &epsilon;) ≤ Var(x)/n•&epsilon;<sup>2</sup>
   - this is a bound of sample mean, for set of X ~ N(&mu;, &sigma;^2), where we think of &epsilon; to be error
     - law of large numbers inequality is proved by Markov's inequality and Chebyshev's inequality
+- **Markov's inequality:** P( X ≥ &alpha;) ≤ E(X)/&alpha;
+- **Chebyshev's inequality:** P(|Y-E(Y)| ≥ &alpha;) ≤ Var(Y)/&alpha;^2
+
+#### Properties of the Unit Ball
+for a unit ball of d-dimensions, volume -> 0 as d -> infinity.
+- most of the volume is concentrated near the outer annulus width of 1/d
+- by shrinking some d-dimensional ball radius by factor f, we reduce the volume by a factor of f^d
