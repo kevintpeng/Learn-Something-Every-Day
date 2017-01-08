@@ -26,3 +26,7 @@ The nearest Neighbour Problem is an example of a problem that benefits from dime
   - it follows that the probability that the projection length differs substantially is exponentially small with respect to k
 - Johnson Lindenstrauss Lemma bounds the distance between f(vi) and f(vj) is between 0 and k^(1/2) with high probability
 
+### Background
+- Truncated Taylor series: if the Taylor series exists, then you can truncate it at any n-th derivative term, and there exists some real value z as input to the derivative to complete it, f(x) = f(0) + f'(z)x
+- `1+x ≤ e^x` forall real x. Proving inequalities a ≤ b is usually done by showing that b -a is non-negative
+- Gamma function, for a > 0, &Gamma;(a) = 0∫∞(x^(a-1)•e^(-x)dx)
