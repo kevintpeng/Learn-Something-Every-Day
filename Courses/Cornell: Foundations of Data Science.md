@@ -15,3 +15,18 @@ Starting off with some simple high-dimensional intuition:
 for a unit ball of d-dimensions, volume -> 0 as d -> infinity.
 - most of the volume is concentrated near the outer annulus width of 1/d
 - by shrinking some d-dimensional ball radius by factor f, we reduce the volume by a factor of f^d
+
+#### Random Projection and Johnson Lindenstrauss Lemma
+The nearest Neighbour Problem is an example of a problem that benefits from dimension reduction with projection `f: R^d -> R^k` k << d
+- basis of random projection: take k random d-dimensional vectors, u1, ..., uk, then f(v) = (u1 • v, ..., uk • v)
+  - show that |f(v)| ~= k^(1/2) * |v| with high probability
+  - f(v1 - v2) = f(v1) - f(v2), allowing us to approximate distance between d-dimension points in k-dimensions
+  - note that ui's are not orthogonal, and not necessarily unit length
+- then Random Projection Theorem bounds the probability that the random projection deviates from the expected value by a factor of &epsilon;
+  - it follows that the probability that the projection length differs substantially is exponentially small with respect to k
+- Johnson Lindenstrauss Lemma bounds the distance between f(vi) and f(vj) is between 0 and k^(1/2) with high probability
+
+### Background
+- Truncated Taylor series: if the Taylor series exists, then you can truncate it at any n-th derivative term, and there exists some real value z as input to the derivative to complete it, f(x) = f(0) + f'(z)x
+- `1+x ≤ e^x` forall real x. Proving inequalities a ≤ b is usually done by showing that b -a is non-negative
+- Gamma function, for a > 0, &Gamma;(a) = 0∫∞(x^(a-1)•e^(-x)dx)
