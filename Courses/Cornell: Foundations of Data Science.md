@@ -30,3 +30,4 @@ The nearest Neighbour Problem is an example of a problem that benefits from dime
 - Truncated Taylor series: if the Taylor series exists, then you can truncate it at any n-th derivative term, and there exists some real value z as input to the derivative to complete it, f(x) = f(0) + f'(z)x
 - `1+x ≤ e^x` forall real x. Proving inequalities a ≤ b is usually done by showing that b -a is non-negative
 - Gamma function, for a > 0, &Gamma;(a) = 0∫∞(x^(a-1)•e^(-x)dx)
+- Indicator Variable is either 0 or 1 to indicate the presence of some quantity
