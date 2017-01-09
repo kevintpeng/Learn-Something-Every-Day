@@ -31,3 +31,5 @@ The nearest Neighbour Problem is an example of a problem that benefits from dime
 - `1+x ≤ e^x` forall real x. Proving inequalities a ≤ b is usually done by showing that b -a is non-negative
 - Gamma function, for a > 0, &Gamma;(a) = 0∫∞(x^(a-1)•e^(-x)dx)
 - Indicator Variable is either 0 or 1 to indicate the presence of some quantity
+- Variance is the average squared deviation from the expected value
+- covariance between xi and xj is the average product their deviations
