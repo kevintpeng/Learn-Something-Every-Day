@@ -1,19 +1,20 @@
-# Daemon
-- a program that runs as a background process, not under direct control of an interactive user
-- usually, parent process of a daemon is the `init` process
-  - created by forking a child process and immediately exiting, causing init to adopt it as a child process
-  - also created directly by init
 
-### runit -- [TODO](http://rubyists.github.io/2011/05/02/runit-for-ruby-and-everything-else.html
-is an init scheme for unix-like operating systems.
-- initializes and supervises processes throughout the os
-- features parallelization of the start up of system services
-- is an init daemon, it is the acestor of all other processes (since it is the first process started during booting
+## SysV
+Runs scripts in `/etc/init.d`
+
+
+### runlevels
+Part of SystemV, in `/etc/rc.d/`, based on the distro you have folders or files defining each runlevel
+- `rc` for "run commands" defines what is run at each runlevel
+- a runlevel is the point at which the system is entered, or the level at which the user begins accessing the computer
+- 1 is low-level, 5 is high-level for GUIs
 
 ### Systemd 
 `systemd` is a suite of basic building blocks for service management.
 - runs as PID 1 and starts the rest of the system
 - `/usr/lib/systemd` holds configurations
+
+![systemd diagram](http://core0.staticworld.net/images/article/2014/10/systemd-diagram-100528171-orig.png)
 
 ### Upstart
 Used on Ubuntu by default
@@ -22,3 +23,15 @@ Used on Ubuntu by default
 Used on macOS
 
 [TODO](http://www.tuicool.com/articles/qy2EJz3)
+
+### runit -- [TODO](http://rubyists.github.io/2011/05/02/runit-for-ruby-and-everything-else.html
+is an init scheme for unix-like operating systems.
+- initializes and supervises processes throughout the os
+- features parallelization of the start up of system services
+- is an init daemon, it is the acestor of all other processes (since it is the first process started during booting
+
+# Daemon
+- a program that runs as a background process, not under direct control of an interactive user
+- usually, parent process of a daemon is the `init` process
+  - created by forking a child process and immediately exiting, causing init to adopt it as a child process
+  - also created directly by init
