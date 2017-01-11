@@ -24,7 +24,7 @@ Used on macOS
 
 [TODO](http://www.tuicool.com/articles/qy2EJz3)
 
-### runit -- [TODO](http://rubyists.github.io/2011/05/02/runit-for-ruby-and-everything-else.html
+### runit -- [TODO](http://rubyists.github.io/2011/05/02/runit-for-ruby-and-everything-else.html)
 is an init scheme for unix-like operating systems.
 - initializes and supervises processes throughout the os
 - features parallelization of the start up of system services
@@ -43,3 +43,14 @@ is an init scheme for unix-like operating systems.
 - `oneshot` blocks on start operation until the first process exits. The status is reported as "activating"
   - once start process completes, "activating" transitions straight to "inactive"
 - `forking`, process configured with `ExecStart=` will call `fork()` as part of its startup. `PIDFile=` is used so that systemd can identify the main process of the daemon
+- `Environment=` specifies variables accessible by `Exec` commands
+- `ExecStart=` specifies exactly one command with arguments that is run when the service is started
+
+Basic service:
+```
+[Unit]
+Description=Foo
+
+[Service]
+ExecStart=/usr/sbin/foo-daemon
+```
