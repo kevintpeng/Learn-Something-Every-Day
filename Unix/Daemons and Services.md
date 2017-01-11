@@ -35,3 +35,11 @@ is an init scheme for unix-like operating systems.
 - usually, parent process of a daemon is the `init` process
   - created by forking a child process and immediately exiting, causing init to adopt it as a child process
   - also created directly by init
+  
+### systemd Unit Files -- [source](https://www.freedesktop.org/software/systemd/man/systemd.service.html)
+`.service` files, in `/usr/lib/systemd/system/` have unit types:
+- `simple` does not block on start process, becoming "active" immediately after forking off the first process
+  - hard to debug errors
+- `oneshot` blocks on start operation until the first process exits. The status is reported as "activating"
+  - once start process completes, "activating" transitions straight to "inactive"
+- `forking`, process configured with `ExecStart=` will call `fork()` as part of its startup. `PIDFile=` is used so that systemd can identify the main process of the daemon
