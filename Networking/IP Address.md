@@ -53,3 +53,9 @@ hostname that means *this computer*
 - used to access the network services that are running on the host via its loopback network interface
 - IPv4 network standards reserve the entire 127.0.0.0/8 address block for loopback purposes
 - the resolution of the name `localhost` into one or more IP addresses is configured by /etc/hosts line `127.0.0.1   localhost`
+
+### DHCP
+Dynamic Host Configuration Protocol dynamically distributed network configurations like IP addresses, controlled by DHCP server
+- without DHCP servers, sysadmins or some system must distribute static IPs
+- DHCP servers assign local IPs on a private network
+- distributes default gateway, name servers, time servers
