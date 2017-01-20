@@ -10,10 +10,13 @@
 - bounds on tail probability, for non-negative random variables: `P(x > a) ≤ E(x)/a`
 - for symmetric matrix A, the number of eigenvalues including multiplicity equals dimension(A)
 - m x n matrix A<sup>T</sup> is the transpose of the n x m matrix A (columns become rows)
+- an orthogonal matrix Q is square, with orthonormal unit vectors for rows and columns 
+  - Q<sup>T</sup>Q = I, so Q<sup>T</sup> = Q<sup>-1</sup>
 - conjugate transpose of a matrix, A * is the transpose of A and then taking the complex conjugate of all entries 
 - Real Spectral Theorem: let A be a real symmetric matrix, then
   - the `n` eigenvalues are real, as are the components of the corresponding `n` eigenvectors
   - (spectral decomposition) A is orthogonally diagonalizable; A = VDV<sup>T</sup> where V is the matrix with columns |vi| = 1 and D is a diagonal matrix
+- A is symmetric <=> A is orthogonally diagonalizable
 
 ### High-Dimensional Space
 Starting off with some simple high-dimensional intuition:
