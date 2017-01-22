@@ -12,3 +12,6 @@ Physical order of rows is not preserved, but the index specifies logical orderin
 ### Clustered
 Alters the data into a certain distinct order to match the index
 - only one clustered index per table, but increases sequential reads (because of hardware burst reads)
+
+### Clusters
+Index for join operations, records for the tables that share some cluster key are stored together physically for faster read times (less I/O operations)
