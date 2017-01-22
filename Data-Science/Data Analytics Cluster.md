@@ -6,7 +6,15 @@ Very fast in-memory data processing framework, ~100x faster than Hadoop
 - Hadoop has HBase, running on top of HDFS, with everything replicated on each node
   - is best suited for analytics on data lakes 
 - Cassandra offers performance over HBase (which is only designed for data lake use cases)
+
+### Spark and the Resilient Distributed Dataset (RDD)
 - Spark with its SQL query API provides a comfortable interface for distributed analysis
+  - Spark API is designed after the RDD abstracting out the data (ignoring the underlying implementation, potentially across many machines) into a signle enumerable data structure
+  - RDD works through chaining together a series of transformations in a functional style
+  
+Transformations and Actions are the two functions types
+- Transformations change state of the dataset
+- Actions extract information from the datase
 
 ### Background: OLTP OLAP
 transactional OLTP and analytical OLAP describe the intent of some data system
@@ -20,7 +28,7 @@ transactional OLTP and analytical OLAP describe the intent of some data system
   - Fact Table holds `n` keys relating each dimension to a table
   - the Fact Table describes a `cube`, some hypercube of n-dimensional coordinates, where each coordinate is decribed some some tuple of values in a 1-D Dimension table
 
-### Spark Task Distribution
+### Spark Task Distribution Optimiation
 Important to partition data for optimized performance
 - order of operations is critical
 - data should be partitioned with a lower bound of 2 times the number of cores 
