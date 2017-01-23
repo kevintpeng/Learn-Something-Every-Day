@@ -22,3 +22,25 @@ Denormalization separates data into documents, of similar data
 - RDBMS use tables of rows, while NoSQL uses collections of documents
 - consider how data will be manipulated, and what the access patterns will be like (read/write ratios ...)
 - no joins
+
+### Object Oriented Design to Databases
+- mapping an OO modelled data, for example an inheritance tree, to RDBMS can end up being modelled as a shapes table, with each row having a shape type with some attributes that may be unique to that type of shape
+  - lots of columns with lots of `nil` data, very inefficient
+  - in NoSQL, query planner will overlook documents that are missing an attribute being queried through a `find`
+  - sparce indexes exclude documents without the indexed key 
+  
+### One to Many relationships
+Ownership pattern determines which model we should use
+- Embedded Arrays in documents hold keys for related documents
+  - slice subsets of arrays
+  - uses foreign keys
+- Embedded trees nest documents
+  - more performance, since documents are nested directly inside
+  - harder to search, and hard to fetch partial results (must fetch all comments then filters)
+- Normalized approach using multiple collections (creating 
+  - results in more subqueries (loses data locality) 
+
+### Many to Many
+Relational needs a 3rd join table (again less performant)
+
+NoSQL, we can do one-sided where all categories are stored in embedded arrays in products
