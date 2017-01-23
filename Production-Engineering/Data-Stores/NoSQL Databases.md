@@ -51,14 +51,27 @@ Distributed NoSQL DB.
 - **gossip protocol** is used
 - data is indexed with a memtable
 - writes are fairly cheap, and indexes greatly improve reads at the cost of writes-
-Rows are spread around 
+
+Distributed database for managing large amounts of structured data
+- lives across multiple servers
+- provides highly available (resilient to outage), no single point of failure
+- provides a solution to distributing data across data centers and availability zones
+- uses a masterless "ring" design
+ - doesn't have to use sharded architecture or master-slave models
+- because there is no master, and no single point of failure, it is truely continuous in uptime
+
+Disadvantages:
+- doesn't handle transactions (local nor XA (aka 2 phase commit) )
+ - this implies inconsistent indexing
+ - actions are not totally ordered
+- data is structured around the queries made to the database, so it doesn't handle ad hoc queries well
 
 ### Gossip Protocol
 Communications protocol for spreading new information 
 - through periodic, pairwise, inter-process interactions, nodes spread information in a robust way
 - information exchanged during interactions is bounded
 
-### Durability through Storage
+### Durability through Storage -- [TODO source](https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf)
 Writes first to the CommitLog, and then to the Memtable, overflowing into disk as an SSTable
 - fsync synchronizes file's in-core state with a storage device
 - durability is achieved through fsync, flushing the write-back cache to disk (ECE 222)
