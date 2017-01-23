@@ -44,3 +44,24 @@ Ownership pattern determines which model we should use
 Relational needs a 3rd join table (again less performant)
 
 NoSQL, we can do one-sided where all categories are stored in embedded arrays in products
+
+# Cassandra
+Distributed NoSQL DB. 
+- distributed, so no single point of failure
+- **gossip protocol** is used
+- data is indexed with a memtable
+- writes are fairly cheap, and indexes greatly improve reads at the cost of writes-
+Rows are spread around 
+
+### Gossip Protocol
+Communications protocol for spreading new information 
+- through periodic, pairwise, inter-process interactions, nodes spread information in a robust way
+- information exchanged during interactions is bounded
+
+### Durability through Storage
+Writes first to the CommitLog, and then to the Memtable, overflowing into disk as an SSTable
+- fsync synchronizes file's in-core state with a storage device
+- durability is achieved through fsync, flushing the write-back cache to disk (ECE 222)
+- commitlog is append-only which obviates the need for random seeking 
+  - CommitLogAllocator manages CommitLogSegment instances (each being a file on disk, with a sequence of serialized RowMutation objects)
+  - commitlog_sync can be periodic or batch which dictates how fsync to disk is called
