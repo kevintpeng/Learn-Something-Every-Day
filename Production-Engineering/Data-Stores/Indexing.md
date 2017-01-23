@@ -7,7 +7,7 @@ Optimize read time, aiming for sub-linear time efficiency at the cost of extra w
 ### Non-clustered
 Physical order of rows is not preserved, but the index specifies logical ordering
 - indexed columns are typically non-primary keys, used for JOIN, WHERE and ORDER BY
-- index tree holds index keys in sorted order, with pointers to the records
+- index tree holds index keys in sorted order, with pointers to the records (page in page organized or row offset in file organized) 
 - more scalable, but reduced read speeds
 
 ### Clustered
