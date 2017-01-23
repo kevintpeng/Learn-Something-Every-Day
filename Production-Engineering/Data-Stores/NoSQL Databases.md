@@ -1,5 +1,5 @@
 # NoSQL
-DB architectural design, opposed to SQL
+DB architectural design, opposed to SQL. The main advantage of NoSQL over SQL is that it can model data in different ways than a relational model, which can improve performance. A disadvantage is that NoSQL can result in very complicated data models 
 - can store structured or unstructured data, not requiring a predefined schema for data
 - while SQL databases require migrations for schema changes, NoSQL schemas can interate dynamically 
 - strong for graph stores and document databases
