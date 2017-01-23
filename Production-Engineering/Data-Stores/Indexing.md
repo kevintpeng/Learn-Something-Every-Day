@@ -1,5 +1,6 @@
 # Indexing
-Optimize read-write time, aiming for sub-linear time efficiency
+Optimize read time, aiming for sub-linear time efficiency at the cost of extra write time
+- done so by constructing an index data-structure whose implementation varies based on what operations we want to optimize
 - important for validations on uniqueness and other database constraints
   - corresponding index is created implicitly for constraints
 
