@@ -78,3 +78,16 @@ Writes first to the CommitLog, and then to the Memtable, overflowing into disk a
 - commitlog is append-only which obviates the need for random seeking 
   - CommitLogAllocator manages CommitLogSegment instances (each being a file on disk, with a sequence of serialized RowMutation objects)
   - commitlog_sync can be periodic or batch which dictates how fsync to disk is called
+
+### Data distribution
+It is important to spread data across the cluster uniformly
+- data location is chosen based on the hash of its primary key
+- primary keys is used to fetch data from a table, a simpke key uses a single column (just user id)
+- a composite/compound key is generated from more columns (group and user id)
+  - a compound key is broken into the *partition key* (the value of the first part of the arguments)
+  - *cluster key* is the rest of the arguments
+  - this concept more abstractly describes how the data locality is distributed in the Cassandra Cluster
+    - partion key describes which node will hold respective data
+    - cluster key organizes information on the node
+  - this is logically broken down based on what queries will look like
+
