@@ -18,7 +18,7 @@
   - (spectral decomposition) A is orthogonally diagonalizable; A = VDV<sup>T</sup> where V is the matrix with columns |vi| = 1 and D is a diagonal matrix
 - A is symmetric <=> A is orthogonally diagonalizable
 
-### High-Dimensional Space
+## 2: High-Dimensional Space
 Starting off with some simple high-dimensional intuition:
 - for X ~ N(0,1), X is a coordinate of some d-dimensional vector, then as d -> infinity, the volume of the unit ball (all vectors **x** s.t. |**x**| ≤ 1) -> 0
   - this is intuitive because for |**x**| to be ≤ 1, the sum of its squared components must be ≤ 1, and since they are normally distributed, we know that for large d, the sum of squared x coordinates will almost surely exceed 1
@@ -49,4 +49,6 @@ The nearest Neighbour Problem is an example of a problem that benefits from dime
 Recall an Eigenvector of a linear mapping is a non-zero vector that does not change direction after the mapping is applied
 - v is an eigenvector of T if T(v) = &lambda;v (scalar multiple)
 - &lambda; is the eigenvalue
+
+## 3: Best Fit Subspaces & SVD
 
