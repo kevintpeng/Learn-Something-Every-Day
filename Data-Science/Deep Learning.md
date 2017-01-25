@@ -8,7 +8,7 @@ Deep Learning models that support inferences and are robustly applicable to many
 - Vision and speech comes down to finding representations of features
   - utilize clustering of supervised learning
 - Restricted Boltzmann Machines (RBM)
-  - stochastic model 
+  - generative stochastic artificial neural network, that can learn a probability distribution 
   - visible variables (pixel intensity)
   - hidden variables (features)
   - "tell me the features, and it will generate a semantic response"
