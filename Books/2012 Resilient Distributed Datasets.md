@@ -34,3 +34,12 @@ errors = line.filter(_.startsWith("ERROR")) # derives RDD from lines RDD, not in
 errors.persist() # reduced dataset, so now stores RDD in RAM, greatly increasing future computation 
 ```
 
+### Fine Grained vs Coarse Grained
+- fine grained control over read and write operations describe operations that can apply to single records or subsets
+- coarse grained reads/writes describe general functions across a dataset
+
+### RDD vs DSM
+Distributed Shared Memory is a very general abstraction, so harder to optimize and make fault-tolerent
+- RDDs form a directed acyclic graph of transformations, which can be used to recompute 
+- changing any element of the original dataset breaks the deterministic nature of this process
+
