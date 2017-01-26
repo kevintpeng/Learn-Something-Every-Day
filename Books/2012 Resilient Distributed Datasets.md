@@ -4,7 +4,7 @@ A distributed memory abstraction for performing in memory computations, on a lar
 - handles iterative algorithms better and provides interactive data mining
 - RDDs provide a restricted form of shared memory (like RAM, for efficient transfer of data between processes)
 - RDDs let scientists leverage distributed memory, useful for retaining data during intermediate operation
-  - very important that the datasets provide reuse of data for iterative machine learning and graph algorithms ([PageRank](./PageRank.md), K-mean clustering, logistical regression)
+  - very important that the datasets provide reuse of data for iterative machine learning and graph algorithms ([PageRank](./1998 Pagerank.md), K-mean clustering, logistical regression)
   - no needing to setup an external storage system (which would need lots of disk writes, data serialization and data replication)
 - RDDs provide a general abstraction for this, not specific to any particular algorithm, allowing for efficient data persistance 
 - main challenge in designing RDDs is defining a storage interface for efficient fault tolerence
@@ -26,3 +26,11 @@ Spark allows programmers to create RDD objects from stable storage, then apply m
 - Like DryadLINQ (API that it's inspired by), Spark computes RDDs lazily, waiting until it's used in an action so that it can pipeline transformations (apply transformations in parallel with stages)
 - persist can be called on RDD objects to have them persist in RAM (and disk as needed)
   - priority can be specified for determining spillover into disk
+- note that this RAM and disk is shared acrossed nodes in an underlying implementation of a data store (HDFS, Cassandra, etc...)
+
+```sh
+lines = spark.textFile("hdfs://...")        # defines RDD, not in RAM
+errors = line.filter(_.startsWith("ERROR")) # derives RDD from lines RDD, not in RAM
+errors.persist() # reduced dataset, so now stores RDD in RAM, greatly increasing future computation 
+```
+
