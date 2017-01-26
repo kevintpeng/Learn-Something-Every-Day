@@ -1,4 +1,4 @@
-# [Resilient Distributed Datasets](http://www-bcf.usc.edu/~minlanyu/teach/csci599-fall12/papers/nsdi_spark.pdf)
+# [Resilient Distributed Datasets 2012](http://www-bcf.usc.edu/~minlanyu/teach/csci599-fall12/papers/nsdi_spark.pdf)
 A distributed memory abstraction for performing in memory computations, on a large cluster
 - uses in memory operations, improving performace by orders of magnitude
 - handles iterative algorithms better and provides interactive data mining
