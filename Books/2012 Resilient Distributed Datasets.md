@@ -1,5 +1,5 @@
 # [Resilient Distributed Datasets 2012](http://www-bcf.usc.edu/~minlanyu/teach/csci599-fall12/papers/nsdi_spark.pdf)
-A distributed memory abstraction for performing in memory computations, on a large cluster
+A distributed memory abstraction for performing in memory computations, on a large cluster. It only allows batch transformations on the whole dataset (coarse-grained), but 
 - uses in memory operations, improving performace by orders of magnitude
 - handles iterative algorithms better and provides interactive data mining
 - RDDs provide a restricted form of shared memory (like RAM, for efficient transfer of data between processes)
@@ -15,6 +15,7 @@ A distributed memory abstraction for performing in memory computations, on a lar
 
 ### RDD Abstraction
 An RDD is a read-only partitioned collection of records
+- partitions are used to cluster similar data together, for read optimization
 - only created using deterministic operations (transformations) on data in stable storage or on data in other RDDs
   - map, filter, join
 - RDDs don't have to be materialized (for ex. in memory) at all times, as long as they can be deterministicly recomputed from other datasets, to recompute its partitions
@@ -40,6 +41,14 @@ errors.persist() # reduced dataset, so now stores RDD in RAM, greatly increasing
 
 ### RDD vs DSM
 Distributed Shared Memory is a very general abstraction, so harder to optimize and make fault-tolerent
-- RDDs form a directed acyclic graph of transformations, which can be used to recompute 
+- RDDs form a directed acyclic graph of transformations (the linage graph), which can be used to recompute the RDD
 - changing any element of the original dataset breaks the deterministic nature of this process
+  - ex. on a dataset, one transformation could be `get subset by index`, and altering the underlying data will require the whole dataset to be recomputed. An RDD cannot be created with a fine grained operation like this
+- RDDs can only be created using coarse grained transformations, DSMs let you read/write any address
+- RDDs do not need checkpointing as they can recover through lineage
+  - only the failed partition needs to be recomputed (no need to roll back the whole program)
+- RDDs are not useful for systems with asynchronous, fine-grained updates to the underlying dataset
 
+### Spark
+Spark provides an abstraction over RDDs, written in scala for static typing and interactive use
+- driver program connects to a cluster of workers, each which can store partitions in RAM
