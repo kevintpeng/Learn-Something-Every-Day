@@ -58,3 +58,30 @@ Spark provides an abstraction over RDDs, written in scala for static typing and 
 ### Representation of Resillient Distributed Datasets
 Important to capture the concept of the linage graph of a RDD through its formalized definition. This is achieved through a simple graph representation, without needing extra logic in the schedule for each one 
 - RDDs are composed of a set of dependent parent RDDs, a set of atomic partitions, a function of its parents for computing the dataset, a set of metadata for partitioning scheme and data placement
+- RDD dependencies can be classified as narrow if a parent partition is accessed by onl one child partition or wide if by multiple children partitions
+  - narrow parent RDDs allow for pipelined execution
+  - joins are wide *unless hash-partitioned*
+  - recovery from a failure mode is very efficient for narrow dependencies since only lost parent partitions need to be computed
+
+### Implementation
+Spark is built in Scala, on Mesos cluster manager; a distributed kernel, built at a different layer of abstraction, for handelling a large distributed system
+- each spark program runs its own mesos program, with a master and workers (mesos handles resources between applications)
+
+#### Job Scheduler
+Assigns tasks based on data locality, which works very well for narrow RDDs
+- for wide RDDs, parents are materialized to simplify fault tolerence protocol 
+- if any task fails, it is re-run on another node given that it's parent is available
+- tasks are resubmitted to recompute any missing partitions
+
+#### Interpreter Integration
+Scala's interactive interpreter works by compiling each line of input as a class and invoking a function on it. Each object, for ex. `Line1`, includes a singleton object containing the lines variables and functions.
+- Spark adds Class Shipping; serving the bytecode via HTTP
+- Spark modifies code generation; passes the environment for the closure (singleton object) so that workers can access variables and functions corresponding to the bytecode
+
+#### Memory Management
+RDDs can be stored as unserialized Java objects, serialized data in memory and serialized on disk
+- by default to manage memory, uses LRU eviction policy
+  - do not evict if memory belongs to the same RDD that is asking to be stored
+  - transformations will run over the entire dataset, resulting in expensive overlow to disk on all writes
+  - must constrain eviction, to prevent cyclical eviction (with no cache hits)
+- again, users can define persistent priority 
