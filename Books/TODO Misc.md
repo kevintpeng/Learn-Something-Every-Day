@@ -1,5 +1,0 @@
-- https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol
-- https://en.wikipedia.org/wiki/GNU_Privacy_Guard
-- torrent/peer-to-peer protocols
-- raft
-- vector clocks
