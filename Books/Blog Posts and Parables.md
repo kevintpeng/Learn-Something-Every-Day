@@ -20,6 +20,27 @@ This is just a list of facinating or otherwise useful blogs/articles that I've r
 - "cold start" problem is like chicken/egg problem, and a pure AI company must have a data acquisition strategy
 - data traps are interesting, you build a deliverable with tangible value to users, where useful data collection is a byproduct 
 
+### Zero to One
+- it takes forward thinking to create new technology, to progress vertically not horizontally
+- technology enables vertical progress, the creation of new ways to do more, with less
+
+*What important truth do very few people agree with you on?* A delusional popular belief hides a contrarian truth.
+- 1990s, most industries were in recession, except for the tech industry
+- Dot-com mania was from sept 1998 to march 2000; a Silicon Valley gold rush, a delusional popular belief
+- the burst happened in March 2000; it scared most tech companies into the following dogma:
+
+1. Make incremental advances
+2. Stay lean and flexible
+3. Improve on the competition
+4. Focus on product, not sales. The only sustainable growth is viral
+
+While this is the safe thing, the opposite principles are also valid:
+
+1. It's better to risk boldness 
+2. A bad plan is better than no plan
+3. Competitive markets destroy profits
+4. Sales matter just as much as product
+
   
 ### [Trump, Putin and the Pipelines to Nowhere](https://medium.com/@AlexSteffen/trump-putin-and-the-pipelines-to-nowhere-742d745ce8fd#.b3ylhhvrt)
 - This article has some biases in my opinion, and is strongly a persuasive piece
