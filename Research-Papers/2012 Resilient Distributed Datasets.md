@@ -85,3 +85,9 @@ RDDs can be stored as unserialized Java objects, serialized data in memory and s
   - transformations will run over the entire dataset, resulting in expensive overlow to disk on all writes
   - must constrain eviction, to prevent cyclical eviction (with no cache hits)
 - again, users can define persistent priority 
+
+#### Checkpointing
+Lineage graphs can always be used to recompute lost data, but is time consuming for large jobs
+- RDDs can be checkpointed into stable storage
+- with wide transformations, a full recomputation may be required
+- read only nature of RDDs make them simple to checkpoint relative to other DMSs
