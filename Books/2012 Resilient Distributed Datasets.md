@@ -20,7 +20,7 @@ An RDD is a read-only partitioned collection of records
   - map, filter, join
 - RDDs don't have to be materialized (for ex. in memory) at all times, as long as they can be deterministicly recomputed from other datasets, to recompute its partitions
 - users have fine-grained control over how an RDD is persisted and partitioned (records stored in different parts of memory or different computers entirely)
-  - for ex. data being joined from two different RDD's can have elements grouped together by key for hash-partitioning
+  - for ex. data being joined from two different RDD's can have elements grouped together by whatever key they're being joined by, using hash-partitioning
 
 ### Spark Programming Interface
 Spark allows programmers to create RDD objects from stable storage, then apply methods on the objects (transformations, returning another RDD, or actions, returning a value)
@@ -52,3 +52,9 @@ Distributed Shared Memory is a very general abstraction, so harder to optimize a
 ### Spark
 Spark provides an abstraction over RDDs, written in scala for static typing and interactive use
 - driver program connects to a cluster of workers, each which can store partitions in RAM
+- Partitioner class holds partitioning configurations
+- spark has transformations and actions, some that take other closures to apply to the RDD object
+
+### Representation of Resillient Distributed Datasets
+Important to capture the concept of the linage graph of a RDD through its formalized definition. This is achieved through a simple graph representation, without needing extra logic in the schedule for each one 
+- RDDs are composed of a set of dependent parent RDDs, a set of atomic partitions, a function of its parents for computing the dataset, a set of metadata for partitioning scheme and data placement
