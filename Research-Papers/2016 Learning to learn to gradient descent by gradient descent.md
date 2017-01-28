@@ -9,5 +9,15 @@ Optimization algorithms are still designed by hand. This paper casts optimizatio
 
 ### Learning to learn with recurrent neural network
 By applying meta-learning, we are essentially recursively applying a learning algorithm on itself. This process is a recurrent neural network (RNN), formed by a directed, cyclic graph
+- activation function of a node defines the output of that node 
+- each unit has a time-varying real valued activation
+- each edge (connection) has a modifiable weight
+
+LSTM (Long short-term memory) is a recurrent neural network architecture
+- well suited for learning form experience to classify, process and predict time series when there is long lag between important events
+- LSTM units are introduced (excels at remembering values for either long or short durations)
+- no activation function within its recurrent component, so not iteravely squashed over time and gradient term does not vanish when Backpropagation through time is applied
 
 In this work, they directly parameterize the optimizer, define a good optimizer as one with low expected loss, given a distribution of functions f
+
+Challenge: optimizing tens of thousands of parameters; not feasible through a fully connected RNN (huge hidden state)
