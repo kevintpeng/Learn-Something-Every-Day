@@ -42,5 +42,5 @@ Recall that the gradient vector ` ∇f = (fx, fy)` is like a derrivative for a f
 - **gradient descent** is recursively finding the derivative at some point, following the tangent line's slope down closer to the min
   - *reminds me of applying [Newton's method](https://en.wikipedia.org/wiki/Newton%27s_method_in_optimization) for approximating the absolute minimum* 
   - the size of each step is determined by the *learning rate*, related to the parameter α
-  - repeat until convergence: `thetaj := thetaj - α•∂J(theta0,theta1)/∂thetaj`
-- when applied to linear regression, substitute the cost and hypothesis functions:
+  - repeat until convergence: &theta;<sub>j</sub> := &theta;<sub>j</sub> - α•∂/∂&theta;<sub>j</sub> • J(theta0,theta1)
+- &alpha; is the learning rate, too low is slow and too high results in divergence
