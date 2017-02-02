@@ -51,4 +51,8 @@ Recall an Eigenvector of a linear mapping is a non-zero vector that does not cha
 - &lambda; is the eigenvalue
 
 ## 3: Best Fit Subspaces & SVD
-
+Singular Value Decomposition of a matrix is finding the best-fitting k-dim subspace (k is a natural number)
+- minimizing the sum of squared perpendicular distances of points to the subspace
+- equivalent to maximizing the sum of squared lengths of projections onto the subspace
+- special case, 1-dim, line through the origin
+  - can be found by k applications of the best fitting line algorithm, where ith iteration 
