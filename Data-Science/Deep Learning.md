@@ -40,6 +40,10 @@ A model can be seen as a computation graph (DAG), whose nodes represent operatio
 - x,y are conditionally independent if conditional probabilities given z P(x,y|z) = P(x|z)P(y|z)
 - Bernoulli Distribution &phi; &isin; [0,1], the probability a variable is equal to 1
 - important sometimes to have a sharp point at x = 0, with exponential distribution or adjusted to some point &mu; using laplace distribution
+- Structured Probabilistic Model plots multiple variables on the same graph
+  - factorization of distribution into smaller distributions, dependent on less variables
+- KL Divergence or information difference is asymmetric difference between two distributions P and Q; q * = argmin<sub>q</sub>D<sub>KL</sub>(q||p)
+  - KL Divergence from P to Q, D<sub>KL</sub>(P||Q) is the amount of information lost when Q is used to approximate P
   
 Information Theory revolves around quantifying how much information is in a signal
 
