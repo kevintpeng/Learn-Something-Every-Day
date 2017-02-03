@@ -44,7 +44,8 @@ A model can be seen as a computation graph (DAG), whose nodes represent operatio
   - factorization of distribution into smaller distributions, dependent on less variables
 - KL Divergence or information difference is asymmetric difference between two distributions P and Q; q * = argmin<sub>q</sub>D<sub>KL</sub>(q||p)
   - KL Divergence from P to Q, D<sub>KL</sub>(P||Q) is the amount of information lost when Q is used to approximate P
-  
+- can draw an undirected graph over random variables, showing how the probability distributions can be factored
+
 Information Theory revolves around quantifying how much information is in a signal
 
 ### Logistic Regression
