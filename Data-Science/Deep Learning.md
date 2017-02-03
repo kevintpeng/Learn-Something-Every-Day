@@ -34,7 +34,12 @@ A model can be seen as a computation graph (DAG), whose nodes represent operatio
   - equal to the product of all the eigenvalues
 
 ### Probability & Information Theory
-- Marginal Probability is the distribution over a subset of variables
+- Marginal Probability is the distribution over a subset of variables (summation of individual probabilities)
+- for continuous probabilities, we use an integral
+- Chain Rule: P(a,b,c) = P(A|b,c)P(b,c) = P(A|b,c)P(b|c)P(c)
+- x,y are conditionally independent if conditional probabilities given z P(x,y|z) = P(x|z)P(y|z)
+- Bernoulli Distribution &phi; &isin; [0,1], the probability a variable is equal to 1
+- important sometimes to have a sharp point at x = 0, with exponential distribution or adjusted to some point &mu; using laplace distribution
   
 Information Theory revolves around quantifying how much information is in a signal
 
