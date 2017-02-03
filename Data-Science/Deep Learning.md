@@ -30,6 +30,13 @@ A model can be seen as a computation graph (DAG), whose nodes represent operatio
   - eigenvector is defined by Av = &lambda;v, so the vector's direction is unchanged through matrix multiplication
   - eigenvectors can be rescaled to any vector sv for s ≠ 0, so we look for unit eigenvectors
 - let V be the concatenation of eigenvectors for A as columns. Then A = Vdiag(&lambda)V<sup>-1</sup>
+- determinant of a matrix can be thought of as the expansive multiplicative factor
+  - equal to the product of all the eigenvalues
+
+### Probability & Information Theory
+- Marginal Probability is the distribution over a subset of variables
+  
+Information Theory revolves around quantifying how much information is in a signal
 
 ### Logistic Regression
 Regression model where the dependent variable is categorical
