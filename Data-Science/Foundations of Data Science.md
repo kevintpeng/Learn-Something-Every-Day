@@ -54,5 +54,8 @@ Recall an Eigenvector of a linear mapping is a non-zero vector that does not cha
 Singular Value Decomposition of a matrix is finding the best-fitting k-dim subspace (k is a natural number)
 - minimizing the sum of squared perpendicular distances of points to the subspace
 - equivalent to maximizing the sum of squared lengths of projections onto the subspace
-- special case, 1-dim, line through the origin
-  - can be found by k applications of the best fitting line algorithm, where ith iteration 
+
+The best fitting subspace algorithm:
+1. start with special case, 1-dim line of best fit; line through the origin
+2. perform `k` applications of the best fitting line algorithm, where in the `i`th iteration, we find the best fitting line **perpendicular** to each of the `i-1` lines
+
