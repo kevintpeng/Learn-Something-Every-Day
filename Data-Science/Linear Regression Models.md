@@ -4,6 +4,12 @@
 - `r^2` is the square of the sample correlation coefficient
 - r = 0.7, r^2 = 0.49 implying 49% of variability in x is caused by variability in y, so 51% is unaccounted for
 
+### Ordinary Least Squares (OLS)
+Method for estimates unknown parameters in linear regression
+- dataset is n observations {yi, xi}, i from 1 to n, where yi is a scaler value corresponding to some vector x: 
+  - yi = xi<sup>T</sup>&beta; + &epsilon;i
+  - then Y = X&beta; + &epsilon;; &beta; is p x 1 vector, X is n x p matrix, Y and &epsilon; are n x 1 vectors
+  
 ### Generalized Linear Model
 for p-dimensional fector function `y-hat(w,x) = w0 + w1x1 + ... + wpxp`, w = (w1,...,wp) are coefficients and w0 is the intercept
 - linear regression fits a line (linear model) to minimize the sum of squares between observations
