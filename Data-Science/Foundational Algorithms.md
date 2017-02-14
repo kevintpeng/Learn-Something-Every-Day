@@ -1,3 +1,5 @@
+### Generalized Linear Model
+
 ### k-means clustering
 Partitioning `n` observations into `k` clusters, in which each observation belongs to the cluster with the nearest mean
 - NP-hard
