@@ -7,4 +7,14 @@ MNIST is a computer vision dataset, classic example is the set of handwritten di
 ### PCA, principal component analysis
 applying orthogonal tranformations to convert a set of correlated variables into a set of linearly uncorrelated variables, called principle components
 - orthogonal transformations preserve euclidean distance between points, so in 2&3-dimensional euclidean space, rotations, reflections or improper rotations (combination)
-- number of principle components is less than or equal to number of original variablesx
+- number of principle components is less than or equal to number of original variables
+
+Covariance is a measure of joint variability of two random variables
+- covariance is positive when there is a positive correlation between variables
+- variance is the average squared deviation of one variable
+- covariance is the average product of deviations in two variables
+- covXY = &sigma;xy = E[(X - &mu;x)(Y - &mu;y)]
+- covariance is in units obtained by multiplying the units of X and Y
+- correlation is normalized, dimensionless version of covariance
+- covariance matrix is holds covariance for every combination of variables
+- joint probability distribution describes a composition of multiple random variables, bivariate or multivariate distributions
