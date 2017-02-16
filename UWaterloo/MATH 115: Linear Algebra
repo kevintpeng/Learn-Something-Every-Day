@@ -1,0 +1,273 @@
+1A MATH 115: LINEAR ALGEBRA
+Chapter 2 
+span(A) is the set of all linear combinations from the set of vectors A.
+Any matrix has a RREF.
+The augmented matrix [A|bvector] is consistent if and only if the coefficient matrix A has rank(A) = rank([A|bvector])
+Let A={v1 … vk} in Rn, then if span(A)=Rn, k>=n
+If A is linearly independent, then k<=n
+A is linearly independent only if rank(A) = k
+A is a basis of Rn only if rank of coefficient matrix is n
+Bases of the same subspaces have equal number of vectors. 
+
+Chapter 3
+3.1 Intro to Matrices
+m x n matrix has m rows and n columns. 
+Transpose of a matrix: Aij = ATji (rows become columns)
+Span of a set of matrices:Let Beta = {A1, … , An} be a set of m x n matrices
+Span Beta = {t1A1 + … + tkAk | t1, … ,tk in R} 
+Beta is Linearly independent if the only solution to the zero matrix is t1-n=0
+Matrix Multiplication: Let B be an m x n matrix. Transpose each row to get m number of vectors in n space. Let A be n x p matrix with p number of vectors in n space represented by each column. Then BA is the matrix whose i-jth entry is: (BA)ij = bi ⦁ aj
+*Think (BA)ij = bTi ⦁ aj (transpose every row and find the dot product with columns of a)
+Another way to think of it is as a linear combination of the column vectors where vector x dictates the weight of each column: 
+Let A be an m x n matrix. Take the n column vectors in A (v1, v2 … vn) and multiply by a vector x in Rn. Then you get
+	A(xvector) = x1*v1 + x2*v2 + … + xn*vn
+
+Theorem 4 
+If A and B are m x n matrices, and A(xvector) = B(xvector) then A=B
+Identity Matrix: n x n matrix I = diag(1,1, … , 1).
+Theorem 5
+	If A is any m x n matrix, then ImA = A = AIn
+
+3.2 Matrix Mapping and Linear Mappings
+Def: For any m x n matrix A, we define a function fA : ℝn ➞ ℝm called the matrix mapping: fA(x) = Ax 	for a vector x
+
+Theorem 1
+Let e1, e2 … en be the standard basis of vector ℝn, let A be an m x n matrix and let fA: ℝn ➞ ℝm be the corresponding matrix mapping. Then for all vectors x in ℝn we have fA(x)=x1fA(e1) + … + xnfA(en)
+Theorem 2
+let A be an m x n matrix and let fA: ℝn ➞ ℝm, Then fA is a linear mapping if and only if it is closed under addition and scalar multiplication.
+Theorem 3
+If L: ℝn ➞ ℝm is a linear mapping, then L can represented as a matrix mapping with the corresponding m x n matrix [L]:
+[L] = [L(e1) … L(en)]
+Where [L] is the standard matrix.
+When solving for the standard matrix of the linear mapping L, plug in the standard basis of n to recreate the standard matrix.
+Theorem 4
+If L and M are linear mappings, and t is an element of the reals, then (L+M) and (tL) are linear mappings.
+Theorem 5
+Let L: ℝn ➞ ℝm, M: ℝn ➞ ℝm, N: ℝm ➞ ℝp be linear mappings, and t in reals. Then,
+[L+M] = [L] + [M], 	[tL] = t[L], 	[N∘L] = [N][L]
+
+3.3 Geometric Transformations
+Rotations 
+	Rtheta: ℝ2 ➞ ℝ2 The linear transformation that rotates vector x counterclockwise through angle theta to the image Rtheta(x).
+To get the standard matrix, input the standard basis of R2:
+Rtheta(1,0) = [cos(theta) sin(theta)]
+Rtheta(0,1) = [-sin(theta) cos(theta)]
+Make these the columns of the standard matrix: 
+[Rtheta] = 	| cos(theta) 	-sin(theta) |
+| sin(theta)	cos(theta)  |
+Stretches
+|t 0|
+|0 1|
+
+Contractions and Dilations
+|t 0|
+|0 t|
+
+Shear
+|1 s|
+|0 1|
+
+Reflection
+If a line passes through the origin, then the reflection across it is linear. refln(pvector) = pvector - 2*projn(pvector) where n is the normal of the line.
+
+3.4 Special Subspaces for Systems and Mappings: Rank Theorem
+Theorem 1 
+Let A be an m x n matrix. Then the set S = {x in Rn | Ax = zero vector} of all solutions to the homogeneous system Ax = zero vector is a subspace of Rn.
+Def: Solution Space is the set of all solutions (vectors) to a homogeneous system.
+Def: The Nullspace of a linear mapping L is the set of all vectors whose image under L is the zero vector:
+	Null(L) = (x in Rn | L(x) = zero vector}
+	Null(L) = Null([L]) // the standard matrix of linear mapping L.
+
+Solution Set of Ax = b (non-homogenous system)
+Comparing the solution set of a nonhomogeneous system with the solution space of the corresponding homogeneous system, we see that the solution set is a translation of the solution space.
+
+Theorem 2
+Let p and v vectors be solutions of the system of linear equations Ax vector = b vector, b vector != 0 vector. The p-v = zero vector (the solution to the homogenous system).
+If h vector is any solution to the corresponding system A(x-vector) = 0
+
+Def: The range of a linear mapping L: Rn => Rm is the set
+	Range(L) = {L(x) in Rm | x in Rn}.
+Range of L is subset of codomain of L=Rm
+Null(L) is subset of Domain of L=Rn
+For a linear mapping L, the range(L) is the span of the columns of L.
+
+Def: Columnspace of an m x n matrix A is the set Col(A):
+	Col(A) = {Ax in Rm | x in Rn}
+Alt: Columnspace is the subspace spanned by the column vectors of a A. 
+IF [L] = Am x n = [a1 a2 . . . an] => Ax = [a1 … an][{x1 … xm}] = x1a1 + … + xnan
+Col(A) = span{a1, … ,an] => IT IS A SUBSPACE
+Range(L) = Col([L])
+For a basis of Col(A), find a linearly independent version of the Col(A).
+If the nullspace has non-zero vectors, then the set has infinite number of solutions and the set is linearly dependent.
+Theorem 3
+	Axvector = bvector is only consistent if bvector is in the range of the linear mapping or the columnspace of A.
+
+
+Def Rowspace of A is the subspace spanned by the rows of A:
+	Row(A) = ATxvector in Rn | x in Rm}
+Theorem 4
+	If the m x n matrix A is row equivalent to the matrix B, then Row(A) = Row(B)
+Theorem 5
+	Let B be the RREF form of an m x n matrix A. Then the non-zero rows of B form a basis of Row(A), hence the number of vectors in Row(A) is equal to rank(A). 
+
+Rank of A = leading 1s in RREF, non zero rows in REF, dimCol(A), dimRow(A), n - dim null(A) 
+
+Extra class notes
+Ex: Let /V = /en = [{1,0,0}] Then proj/v: R3 => R3
+and range of proj/v = span{/v}= x1-axis.
+Ex: Let L:R2 => R3 , L(x1,x2) = (x1-x2, x2, -3x1+x2) = x1[{1,0,-3}] + x2[{-1,1,1}] => Range(L) = span{[1,0,-3],[-1,1,1]}
+Def: the columnspace of an m x n matrix A is the set 
+	Col(A) = {Ax in Rm | x in Rn}
+		Ax = x1v1 + x2v2 + … + xnvn
+
+Theorem 3 The system of equations Ax = b is consistent if and only if b is in the range of the linear mapping L with standard matrix A (or, equivalently, if and only if b is in the columnspace of A)
+
+Basis for col(A):
+Find RREF form. Then the columns with leading 1s of A are a basis for the columnspace of A (the columns of non-reduced A).
+
+3.5 Inverse Matrices and Inverse Mappings
+Def Let A be an n x n matrix. If there exists B, such that AB = I = BA, A is invertible and B is the inverse of A.
+Theorem 1 (the inverse is unique)
+Let A be a square matrix and BA = I = AB and CA = I = AC, then B = C.
+Theorem 2 (Inverse matrices have rank n)
+	A and B are n x n such that AB = I, so B = A-1 and B and A have rank n.
+Theorem 3 (Properties)
+(tA)-1 = (1/t)(A-1)
+(AB)-1 = A-1 B-1
+(AT)-1 = (A-1)T
+
+Procedure for finding inverse:
+Solve for AX = I. If true, invertible. else not invertible.
+take column vectors from x and expand:
+[A(x1) A(x2) A(x3)] = [e1 e2 e3]
+A(x1) = e1	A(x2) = e2	A(x3) = e3
+Solve the triple augmented matrix:
+[A | e1 | e2 | e3]
+Theorem 4 (Invertible Matrix Theorem)
+	Suppose that A is an n x n matrix, L: Rn => Rn. Then the following statements are equivalent (Any one statement implies all other 8):
+A is invertible.
+rank(A) = n
+RREF of A is I.
+For all bvectors in Rn, the system A(xvector) = bvector is consistent and has exactly one unique solution.
+The columns of A is linearly independent
+The columnspace of A is Rn.
+L is invertible.
+Range(L) = Rn.
+Null(L) = {zerovector}
+
+Def: Inverse Linear Mapping
+L and M: Rn => Rn are linear mappings and M compose L = Id (Identity Mapping) = L compose M then L is invertible and M is the inverse linear mapping of L.
+Theorem 5 (The inverse linear mapping is unique)
+  
+3.6 Elementary Matrices
+A matrix that can be obtained by performing a single row operation on the identity matrix is called an elementary matrix.
+Theorem 1 (an elementary matrix describes a row operation)
+	If A is an n x n matrix and E is the elementary matrix obtained by some elementary row operation, then the product EA is the matrix obtained from A by performing the same elementary row operation.
+Theorem 2 (row reduction can be described with elementary matrices)
+	For any m x n matrix A, there exists a sequence of elementary matrices, E1, E2, … Ek such that all matrices multiplied together with A is the RREF form of A.
+The elementary matrices of a 2 x 3 matrix A are 2 x 2 because A has 2 rows to perform elementary operations on. Elementary matrices are square.
+
+Theorem 3 (A matrix with an RREF form is the product of elementary matrices)
+	If an n x n matrix A has rank n, then it may be represented as a product of elementary matrices.
+Elementary matrices are square and invertible. To find the coefficient matrix from RREF and elentary matrices, multiply the inverse of the elementary matrices with the RREF matrix.
+
+Chapter 5
+5.1 Determinants in Terms of Cofactors
+A determinant is a single number that describes a matrix.
+We can use the determinant of a matrix 
+Determines whether a system of n equations in n variables was consistent.
+5.2 Elementary Row Operations and Determinants
+Theorem 1 (row multiplication yields a scalar multiple of determinant)
+	Let A and B n x n matrices where B is obtained from A by multiplying the i-th row of A by a number r. Then det B = r det A.
+Theorem 2 (swapping inverts determinant)
+	If B is an n x n matrix obtained from A by swapping two rows, then det B = -det A
+Theorem 3 (addition doesn’t affect determinant)
+	If B is obtained from an n x n matrix A by adding r times the i-th row of A to the k-th row, then det B = det A
+Determinant and Invertibility
+Theorem
+	if A is an n x n matrix, the following are equivalent:
+det A != 0
+rankA = n
+A is invertible
+Theorem
+	If A and B are n x n matrices then det(AB) = det A x det B
+5.3 Cramer’s Rule
+A is n x n invertible
+solve Ax=b => x=A-1b=(1/detA)(CofA)Tb
+Replace column i of matrix A with vector b, and if Ni is the resulting matrix, detNi = b1C1i + b2C2i + … +bnCni Ni is the matrix with ith column = b
+the back to the formula, the ith component of x vector
+xi = (1/detA)(b1C1i + b2C2i + … bnCni)
+xi = detNi/detA
+Using cramer’s rule to solve system of equations
+Rewrite as augmented matrix [A|b]
+compute determinant, if not 0, system has unique solution.
+By cramer’s rule,
+x1 = detN1/detA
+x2 = detN2/detA
+x3 = detN3/detA
+
+6.1 Eigenvalues and eigenvectors 
+Eigenvector is a special vector of a linear transformation that is mapped by the linear transformation to a multiple of itself.
+def: L:Rn => Rn linear transformation.
+An eigenvector for L is a non-zero vector v of Rn s.t. L(v)=lambda(v vector) where the scalar lambda is an eigenvalue. lambda and v is called an eigenpair.
+The pairing is not one-to-one, each eigenvalue corresponds to infinitely many eigenvectors.
+EX: L(b)=[A]b= lambda(vector b). IF true, then b is an eigenvector.
+Rotation mapping: geometrically, it is clear that the vector image of the mapping changed direction as it rotates, so Rotation around theta of vector v is not an eigenvector for all lambda and all vectors v.
+Eigenvalues and Eigenvectors of a Matrix
+The geometric interpretation of eigenvectors is clearer if thought of as belonging to a linear transformation.  
+Rewriting the definition for matrices rather than linear mappings,
+Suppose A is an n x n matrix. A non zero vector v in Rn such tht Av = lambda(v) is called an eigenvector of A: the scalar lambda is the eigenvalue of A. 
+Finding Eigenvectors and Eigenvalues
+Suppose that a square matrix A is given, then a non-zero vector v in Rn is an eigenvector if and only if Av=lambda(v). 
+or Av-lambda(v)=0	vector	since v=Iv
+then Av-lambda(I)(v)=0 vector
+(A-lambda(I))v=0 vector
+by definition, eigenvectors are non-zero. By invertible matrix theorem, we know that a homogeneous systems with n equations in n variables has a non-trivial solution if and only if it has a determinant equal to 0. Hence, for lambda to be an eigenvalue, we must have det(A-lambda(I))=0.
+
+Theorem 1
+	Suppose that A is an n x n matrix. A real number lambda is an eigenvalue of A if and only if A satisfies the equation
+det(a-lambda(I))= 0
+	If lambda is an eigenvalue of A, then all non-trivial solutions of the homogeneous system (A-lambda(I))v=0vector are eigenvectors of A that correspond to lambda.
+def: Let lambda be an eigenvalue of an n x n matrix A. Then the set containing the zero vector and all eigenvectors of A corresponding to lambda is called the eigenspace of lambda.
+
+Diagonalization
+Let A be an n x n matrix s.t. {v1 … vn} is a basis of eigenvectors of A. Let lambda1 … lambda-n be the corresponding eigenvectors.
+
+Chapter 7
+Orthonormal Basis is a set of perpendicular vectors.
+Let’s you compute Beta components of a vector in that set.
+Orthogonal Matrix S means STS = I (not to be mixed up with inverses)
+but this implies that STS = I = S-1S so ST = S-1
+
+A vector is orthogonal to a subspace of Rn if v dot s =0 for every vector s in the subspace S. 
+The orthogonal complement of S is Sperp = {v in Rn: v dot s =0 for all s in S}
+	set of k vectors
+Theorem:
+intersection of S n Sperp = {0vector}
+dim Sperp = n-k
+If {v1 … vk} and {vk+1 … Vn} are ONB of S and Sperp, then {v1 … vk, vk+1 … vn} is ONB for Rn.
+If S is k-dim subspace with {v1...vk} ONB, then 
+proj of vector v onto S = (v dot v1)v1 + … + (v dot vk)vk
+perp(v onto S) = v - proj(v onto S)
+
+The Gram-Schmidt procedure
+-Produces an orthonormal basis of a given subspace S of Rn
+Let S=span{w1 … wk} be a subspace of Rn s.t. wi is not equal to the zero vector for all i.
+Algorithm
+Let v1 = w1 and S1=span{v1}
+Find v2 orthogonal to v1 , v2 = perpS1w2
+v3 = perpS1w3 = w3
+ith, 
+Diagonalization of Symmetric matrices
+Defn: The matrix A is symmetric if AT = A.
+Theorem: (real eigenvalues)
+	A symmetric implies all its eigenvalues are real.
+Theorem: 
+	If v1 and v2 are eigenvectors of a symmetric matrix A corresponding to distinct eigenvalues lambda1 lambda2 then v1 and v2 are orthogonal.
+Principle Axis Theorem
+Matrices A and B are similar if P-1AP = B.
+If P is an orthogonal matrix, then A and B are orthogonally similar, and since P-1=PT then PTAP = B.
+A matrix A is orthogonally diagonalizable if PTAP=D with P orthogonal.
+Theorem Principle Axis Theorem:
+	Every symmetrix matrix is orthogonally diagonalizable if A is symmetric and there are P orthogonal and D diagonal s.t. PTAP=D.
+
