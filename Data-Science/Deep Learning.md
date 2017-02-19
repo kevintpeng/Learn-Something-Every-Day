@@ -1,4 +1,4 @@
-# [Deep Learning](http://www.deeplearningbook.org)
+# [Deep Learning](https://github.com/HFTrader/DeepLearningBook/blob/master/DeepLearningBook.pdf)
 Deep Learning models that support inferences and are robustly applicable to many problems
 - speech 
 - computer vision
