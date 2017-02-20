@@ -56,6 +56,18 @@ Regression model where the dependent variable is categorical
 - logistic functions take real input and output a result between 0 and 1 (interpreted as probability)
 - standard logistic function S(t) = &sigma;(t) = `1/(1 + e^-t)` &isin; (0,1), a type of *sigmoid function*
 
+### Numeric Computation
+Overflow and Underflow are two problems when represented infinitely many real numbers with finite bit strings
+- exponential expressions can easily overflow or underflow
+- softmax = exp(xi)/∑(exp(xj), which can evaluate to 0 very easily with small numerators, and log softmax to -infinity
+- stablization is important to avoid these rounding errors
+
+Conditioning refers to how quickly a function changes with respect to small changes to input
+- poor conditioning occurs when a function's output can be greatly effected by input rounding errors
+
+Most learning algorithms involve optimization, specifically minimization of functions
+- notationally, `*` denotes minimization, so x<sup>`*`</sup> = arg min f(x)
+
 ### Recurrent Neural Network (RNN)
 Class of Neural Networks, that is a directed cyclic graph
 
