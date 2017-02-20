@@ -67,6 +67,11 @@ Conditioning refers to how quickly a function changes with respect to small chan
 
 Most learning algorithms involve optimization, specifically minimization of functions
 - notationally, `*` denotes minimization, so x<sup>`*`</sup> = arg min f(x)
+- minimization occurs on functions of single output (may be a vector function)
+- gradiant of f, the vector containing all partial derivatives: &nabla;f(x)
+- critical points in multi-dimensions are where all partial derivatives are 0 in the gradient
+- directional derivative with respect to `a` is f(x + `a`u)
+- gradiant descent is the process of finding the directional derivative at each step that minimizes the vector function the most
 
 ### Recurrent Neural Network (RNN)
 Class of Neural Networks, that is a directed cyclic graph
