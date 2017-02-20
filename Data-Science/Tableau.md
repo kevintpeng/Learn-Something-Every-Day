@@ -1,4 +1,5 @@
 # Tableau
+
 ### [Column-Oriented Database Systems](http://nms.csail.mit.edu/~stavros/pubs/tutorial2009-column_stores.pdf)
 - Row-store have all associated data in a tuple, making it easy to add/modify records
 - Column-stores have all data points as separate entries, storing them individually meaning we won't make unecessary reads
@@ -9,6 +10,12 @@
   - performance benefits from clustered indexing
 
 ### Tableau Extracts
+Tableau Data Extracts are a compressed set of files that represent a data table from our data source, for the purpose of visualization in Tableau.
+- TDE's are heavily optimized to work with large datasets using low RAM and reduced Disk
+- TDE's have a file for each column (file of data elements) + metadata file(s)
+- TDE is a single file that contains many individual [memory-mapped files](https://en.wikipedia.org/wiki/Memory-mapped_file), composed of column and metadata files
+- compression is not general file compression, it's run length encoding and dictionary compression so no need for decompression when loading into memory
+
 Compressed snapshot of data stored on disk - saved subsets of data sources for performance optimization
 - can add functionality to data filtering
 - extracts can perform full refreshes or incremental refreshes that add rows that are new since the previous refresh
