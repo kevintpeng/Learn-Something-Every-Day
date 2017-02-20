@@ -4,6 +4,13 @@ MNIST is a computer vision dataset, classic example is the set of handwritten di
 - MNIST digits intuitively live in a lower dimensional subspace than 784
 - goal of dimensionality reduction is to think of other ways to encode information in lower dimensions, losing only irrelevent information -- [source](http://colah.github.io/posts/2014-10-Visualizing-MNIST/)
 
+### Principal Axis Theorem
+Motivation:
+- x^2/9 + y^2/25 = 1 defines an elipse
+- x^2/9 - y^2/25 = 1 is a hyperbola
+- with cross terms, 5x^2 + 8xy + 5y^2 = 1, it is not obvious whether it's elipse or hyperbola
+- through completing the square, a special case of matrix diagonalization
+
 ### PCA, principal component analysis
 applying orthogonal tranformations to convert a set of correlated variables into a set of linearly uncorrelated variables, called principle components
 - orthogonal transformations preserve euclidean distance between points, so in 2&3-dimensional euclidean space, rotations, reflections or improper rotations (combination)
