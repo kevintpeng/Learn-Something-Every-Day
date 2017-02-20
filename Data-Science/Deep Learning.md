@@ -72,6 +72,11 @@ Most learning algorithms involve optimization, specifically minimization of func
 - critical points in multi-dimensions are where all partial derivatives are 0 in the gradient
 - directional derivative with respect to `a` is f(x + `a`u)
 - gradiant descent is the process of finding the directional derivative at each step that minimizes the vector function the most
+- min ||u|| ||&nabla;f(x)|| cos&theta;
+- gradient descent proposes a new point x' = x - &isin;&nabla;f(x), &isin; is the learning rate
+- evaluated iteratively evaluating f(x - - &isin;&nabla;f(x)), and &isin; can be determined by trying multiple &sin; values and picking the smallest result (linear search)
+
+**Jacobian Matrices** J contains all partial derivatives of a vector field: J<sub>i,j</sub> = ∂/∂xj • f(x)<sub>i</sub>
 
 ### Recurrent Neural Network (RNN)
 Class of Neural Networks, that is a directed cyclic graph
