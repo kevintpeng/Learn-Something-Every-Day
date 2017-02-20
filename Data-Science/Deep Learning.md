@@ -69,7 +69,7 @@ Conditioning refers to how quickly a function changes with respect to small chan
 Most learning algorithms involve optimization, specifically minimization of functions
 - notationally, `*` denotes minimization, so x<sup>`*`</sup> = arg min f(x)
 - minimization occurs on functions of single output (may be a vector function)
-- gradiant of f, the vector containing all partial derivatives: &nabla;f(x)
+- gradiant of f at point x (for vector x), the vector containing all partial derivatives: &nabla;<sub>x</sub>f(x)
 - critical points in multi-dimensions are where all partial derivatives are 0 in the gradient
 - directional derivative with respect to `a` is f(x + `a`u)
 - gradiant descent is the process of finding the directional derivative at each step that minimizes the vector function the most
@@ -77,7 +77,10 @@ Most learning algorithms involve optimization, specifically minimization of func
 - gradient descent proposes a new point x' = x - &isin;&nabla;f(x), &isin; is the learning rate
 - evaluated iteratively evaluating f(x - - &isin;&nabla;f(x)), and &isin; can be determined by trying multiple &sin; values and picking the smallest result (linear search)
 
-**Jacobian Matrices** J contains all partial derivatives of a vector field: J<sub>i,j</sub> = ∂/∂xj • f(x)<sub>i</sub>
+**Jacobian Matrices** J contains all partial derivatives of a vector field: J<sub>i,j</sub> = ∂/∂xj • f(x)<sub>i</sub>, where f(x)<sub>i</sub> denotes the ith output as a function of the vector x (we can think of a vector field as a *vector of vector functions*)
+- second derivatives are important to determine curvature of the function
+  - can be used to determine dead ends (linear functions) or divergence 
+- **Hessian Matrix** is the Jacobian of the gradient (gradient is a vector of vector functions, a vector field for a given point)
 
 ### Recurrent Neural Network (RNN)
 Class of Neural Networks, that is a directed cyclic graph
