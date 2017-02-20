@@ -16,7 +16,7 @@ A model can be seen as a computation graph (DAG), whose nodes represent operatio
 - A is invertible iff it has exactly one solution for every value of b
 - span of a set of vectors is the set of all points obtainable by linear combinations of the original vectors
 - linear dependence occurs when a vector in a set can be described as a linear combination of other vectors in the set
-- norms are used to measure the size of vectors; norms are functions that:
+- **norms** are used to measure the size of vectors; norms are functions that:
   - f(x) = 0 => x = 0
   - f(x + y) ≤ f(x) + f(y)
   - forall a . f(ax) = |a|f(x)
@@ -26,16 +26,17 @@ A model can be seen as a computation graph (DAG), whose nodes represent operatio
 - Symmetric Matrices: A = A<sup>T</sup>
 - Orthogonal Matrices: AA<sup>T</sup> = I
 - decomposition is useful in math, like prime factorization
-- eigendecomposition is breaking a matrix into eigenvectors and eigenvalues
+- **eigendecomposition** is breaking a matrix into eigenvectors and eigenvalues
   - eigenvector is defined by Av = &lambda;v, so the vector's direction is unchanged through matrix multiplication
   - eigenvectors can be rescaled to any vector sv for s ≠ 0, so we look for unit eigenvectors
 - let V be the concatenation of eigenvectors for A as columns. Then A = Vdiag(&lambda)V<sup>-1</sup>
-- determinant of a matrix can be thought of as the expansive multiplicative factor
+- **determinant** of a matrix can be thought of as the expansive multiplicative factor
   - equal to the product of all the eigenvalues
 
 ### Probability & Information Theory
-- Marginal Probability is the distribution over a subset of variables (summation of individual probabilities)
-- for continuous probabilities, we use an integral
+- Marginal Probability is the distribution over a subset of variables (denominator is the summation of individual probabilities in the subset)
+  - different than conditional probability in that it is not contingent on a value of a variable 
+  - for continuous probabilities, we use an integral
 - Chain Rule: P(a,b,c) = P(A|b,c)P(b,c) = P(A|b,c)P(b|c)P(c)
 - x,y are conditionally independent if conditional probabilities given z P(x,y|z) = P(x|z)P(y|z)
 - Bernoulli Distribution &phi; &isin; [0,1], the probability a variable is equal to 1
