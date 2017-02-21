@@ -96,6 +96,10 @@ Most learning algorithms involve optimization, specifically minimization of func
 - the directional second derivative tells us how well we can expect a gradient descent step to perform
 - we approximate f with the second order taylor polynomial: f(x) = f(x0) + (x - x0)<sup>T</sup>&nabla;<sub>x0</sub>f(x) + 1/2(x - x0)<sup>T</sup>H<sub>x0</sub>(x - x0)
 - second derivative tells us whether it's a saddle point, or local max/min
+- Newton's method can improve time, in that it can converge in less iterations that gradient descent
+  - based on second order taylor series expansion to approximate f(x), then repeatedly jumping to the approximation's minimum
+- gradient descent is a first-order optimization while Newton's method using the Hessian is a second-order optimization algorithm
+- TODO: Lipschitz continuity
 
 ### Recurrent Neural Network (RNN)
 Class of Neural Networks, that is a directed cyclic graph
