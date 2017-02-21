@@ -40,10 +40,3 @@ While this is the safe thing, the opposite principles are also valid:
 2. A bad plan is better than no plan
 3. Competitive markets destroy profits
 4. Sales matter just as much as product
-
-  
-### [Trump, Putin and the Pipelines to Nowhere](https://medium.com/@AlexSteffen/trump-putin-and-the-pipelines-to-nowhere-742d745ce8fd#.b3ylhhvrt)
-- This article has some biases in my opinion, and is strongly a persuasive piece
-- disregarding a lot of political slandering, I do think it brings up interesting points of economic dependence on perception
-  - markets and stock prices are a complex amalgamation public perception, parametrically dependent on confidence, future prospects, and current financial valuations
-  - as an aside, a tech company's valuation is often the company's future prospects, and by association its growth. A valuation is not strongly based on current financial statistics, but rather projected values
