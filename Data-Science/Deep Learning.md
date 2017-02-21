@@ -25,6 +25,9 @@ A model can be seen as a computation graph (DAG), whose nodes represent operatio
 - L<sup>1</sup> norm is better for machine learning, since it grows linearly near the origin (good to discriminate between c exactly zero and close to)
 - Symmetric Matrices: A = A<sup>T</sup>
 - Orthogonal Matrices: AA<sup>T</sup> = I
+- a **linear transformation** 
+  - is analogous to a linear function in one dimension 
+  - representable by a vector field
 - decomposition is useful in math, like prime factorization
 - **eigendecomposition** is breaking a matrix into eigenvectors and eigenvalues
   - eigenvector is defined by Av = &lambda;v, so the vector's direction is unchanged through matrix multiplication
@@ -32,6 +35,10 @@ A model can be seen as a computation graph (DAG), whose nodes represent operatio
 - let V be the concatenation of eigenvectors for A as columns. Then A = Vdiag(&lambda)V<sup>-1</sup>
 - **determinant** of a matrix can be thought of as the expansive multiplicative factor
   - equal to the product of all the eigenvalues
+- a **basis** of a vector space is a set of vectors that are linearly independent, and can express any vector in the vector space as a linear combination of the basis vectors. We can represent a set of vectors as a matrix
+  - a basis is linearly independent spanning set of the vector space
+  - for set of vectors S, the **span** W is the intersection of all subspaces containing S. then S is a spanning set of W 
+- **eigenspace** for an eigenvalue &lambda; E<sub>&lambda;</sub> is the set of all vectors (eigenvectors) that satisfy 0&#8407; = (I•&lambda; - A)•v&#8407;
 
 ### Probability & Information Theory
 - Marginal Probability is the distribution over a subset of variables (denominator is the summation of individual probabilities in the subset)
@@ -77,10 +84,18 @@ Most learning algorithms involve optimization, specifically minimization of func
 - gradient descent proposes a new point x' = x - &isin;&nabla;f(x), &isin; is the learning rate
 - evaluated iteratively evaluating f(x - - &isin;&nabla;f(x)), and &isin; can be determined by trying multiple &sin; values and picking the smallest result (linear search)
 
-**Jacobian Matrices** J contains all partial derivatives of a vector field: J<sub>i,j</sub> = ∂/∂xj • f(x)<sub>i</sub>, where f(x)<sub>i</sub> denotes the ith output as a function of the vector x (we can think of a vector field as a *vector of vector functions*)
+**Jacobian Matrices** J corresponds to a function. It contains all partial derivatives of a vector field: J<sub>i,j</sub> = ∂/∂xj • f(x)<sub>i</sub>, where f(x)<sub>i</sub> denotes the ith output as a function of the vector x (we can think of a vector field as a *vector of vector functions*)
 - second derivatives are important to determine curvature of the function
   - can be used to determine dead ends (linear functions) or divergence 
 - **Hessian Matrix** is the Jacobian of the gradient (gradient is a vector of vector functions, a vector field for a given point)
+- forall points where all partial derivatives are continuous, the differential operation is commutative, so H<sub>i,j</sub> = H<sub>j,i</sub> and therefore the Hessian matrix is symmetric (true for nearly all points in most fields) 
+- since the Hessian Matrix is real and symmetric, it can be decomposed into an orthogonal basis of eigenvectors
+- second derivative in a direction d&#8407;, d&#8407; is a unit vector, we use the Hessian matrix, and its eigenvectors, with the result being some weighted average of all eigenvalues (depending on its proximity to each corresponding eigenvector), and since the eigenvalues describe orthogonal eigenspaces, we can weight from 0 to 1 for each eigenvalue based on the angle between d&#8407; and their corresponding eigenvectors
+  - if d&#8407; is an eigenvector, than the second derivative is its eigenvalues
+  - the second derivative is bounded by the largest and smallest eigenvalues
+- the directional second derivative tells us how well we can expect a gradient descent step to perform
+- we approximate f with the second order taylor polynomial: f(x) = f(x0) + (x - x0)<sup>T</sup>&nabla;<sub>x0</sub>f(x) + 1/2(x - x0)<sup>T</sup>H<sub>x0</sub>(x - x0)
+- second derivative tells us whether it's a saddle point, or local max/min
 
 ### Recurrent Neural Network (RNN)
 Class of Neural Networks, that is a directed cyclic graph
