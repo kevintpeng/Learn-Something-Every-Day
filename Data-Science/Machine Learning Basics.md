@@ -16,3 +16,4 @@ Machine learning is a form of applied statistics, with a lesser emphasis on conf
   - Density estimation (PMF estimation): determine general clustering in a probability mass function
 - **performance measure** is a quantitative measure for an algorithm for success of task T
   - generally test how well it performs on data it hasn't seen, so the test set
+- **experience** is often the dataset, containing features, and in the case of supervised learning it contains annotations with labels or targets
