@@ -82,7 +82,7 @@ Most learning algorithms involve optimization, specifically minimization of func
 - gradiant descent is the process of finding the directional derivative at each step that minimizes the vector function the most
 - min ||u|| ||&nabla;f(x)|| cos&theta;
 - gradient descent proposes a new point x' = x - &isin;&nabla;f(x), &isin; is the learning rate
-- evaluated iteratively evaluating f(x - - &isin;&nabla;f(x)), and &isin; can be determined by trying multiple &sin; values and picking the smallest result (linear search)
+- evaluated iteratively evaluating f(x - - &isin;&nabla;f(x)), and &isin; can be determined by trying multiple &sin; values and picking the smallest result (line search)
 
 **Jacobian Matrices** J corresponds to a function. It contains all partial derivatives of a vector field: J<sub>i,j</sub> = ∂/∂xj • f(x)<sub>i</sub>, where f(x)<sub>i</sub> denotes the ith output as a function of the vector x (we can think of a vector field as a *vector of vector functions*)
 - second derivatives are important to determine curvature of the function
@@ -99,7 +99,11 @@ Most learning algorithms involve optimization, specifically minimization of func
 - Newton's method can improve time, in that it can converge in less iterations that gradient descent
   - based on second order taylor series expansion to approximate f(x), then repeatedly jumping to the approximation's minimum
 - gradient descent is a first-order optimization while Newton's method using the Hessian is a second-order optimization algorithm
-- TODO: Lipschitz continuity
+- Newton's method can converge on a saddle point very easily, as the first and second directional derivatives are 0
+- Convex optimization provides more guarantees than regular optimization, by only working with convex functions, strongly restricted
+  - convex functions have positive Hessians everywhere, since there are no saddle points and any local mins are global mins
+- Lipschitz continuous functions have their rate of change bounded by a Lipschitz constant L: forall x, y . |f(x)-f(y)| ≤ L |x-y|
+  - useful for bounding gradient descent's learning rate, for better accuracy
 
 ### Recurrent Neural Network (RNN)
 Class of Neural Networks, that is a directed cyclic graph
