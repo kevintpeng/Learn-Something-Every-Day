@@ -72,8 +72,10 @@ Most learning algorithms involve optimization, specifically minimization of func
 - min ||u|| ||&nabla;f(x)|| cos&theta;
 - gradient descent proposes a new point x' = x - &isin;&nabla;f(x), &isin; is the learning rate
 - evaluated iteratively evaluating f(x - - &isin;&nabla;f(x)), and &isin; can be determined by trying multiple &sin; values and picking the smallest result (line search)
+- gradients are a generalization of the concept of derivatives, for vector functions
+- Jacobian is a generalization of the gradient, for vector-valued functions
 
-**Jacobian Matrices** J corresponds to a function. It contains all partial derivatives of a vector field: J<sub>i,j</sub> = ∂/∂xj • f(x)<sub>i</sub>, where f(x)<sub>i</sub> denotes the ith output as a function of the vector x (we can think of a vector field as a *vector of vector functions*)
+**Jacobian Matrix** J corresponds to a function. It contains all partial derivatives of a vector field: J<sub>i,j</sub> = ∂/∂xj • f(x)<sub>i</sub>, where f(x)<sub>i</sub> denotes the ith output as a function of the vector x (we can think of a vector field as a *vector of vector functions*)
 - second derivatives are important to determine curvature of the function
   - can be used to determine dead ends (linear functions) or divergence 
 - **Hessian Matrix** is the Jacobian of the gradient (gradient is a vector of vector functions, a vector field for a given point)
