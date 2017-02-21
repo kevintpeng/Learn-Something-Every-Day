@@ -12,7 +12,7 @@ Machine learning is a form of applied statistics, with a lesser emphasis on conf
   - Anomaly Detection: program sifts through a set of events and flags them as being unusual
   - Synthesis: generating new examples, based on the training set
   - Imputation of Missing Values: fill in missing inputs
-  - Denoising: for some corrupted example y, and clean example x, find the conditional probability distribution p(x|y)
+  - Denoising: for some corrupted example x, and clean example y, find the conditional probability distribution p(y|x)
   - Density estimation (PMF estimation): determine general clustering in a probability mass function
 - **performance measure** is a quantitative measure for an algorithm for success of task T
   - generally test how well it performs on data it hasn't seen, so the test set
