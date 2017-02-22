@@ -17,3 +17,18 @@ Machine learning is a form of applied statistics, with a lesser emphasis on conf
 - **performance measure** is a quantitative measure for an algorithm for success of task T
   - generally test how well it performs on data it hasn't seen, so the test set
 - **experience** is often the dataset, containing features, and in the case of supervised learning it contains annotations with labels or targets
+
+### Linear Regression Example
+Simple algorithm for solving a regression problem, to predict some scaler y from input vector x in Rn: y = w<sup>T</sup>x, w is a vector n parameters 
+- w is simply the weights of each xi feature
+- set aside a design matrix X<sup>(test)</sup> of m examples with a corresponding target vector y<sup>(test)</sup> containing correct values of y, not used for training but as performance measure P
+  - common performance measure is based on the sum of squared deviation 
+  - this is minimized when the sum of squared differences function's gradient is 0
+
+### Capacity, Overfitting and Underfitting
+In machine learning, we want to perform new tasks unseen before, this is called generalization
+- one goal is to minimize generalization error, or test error
+- generalization error is the expected value of the error for inputs, based on a distribution similar to what real inputs will be
+- estimate generaliation error with a test set
+- in linear regression, training error is minimized, but we actually care about test error, however you cannot use the test error to affect the result of training since the test error is not part of the training set
+- in theory, arbitrary collection of examples doesn't allow us to make any adjustments, but assuming data is collected over some probability distribution (data generating process)
