@@ -1,4 +1,9 @@
 # Ember
+### Ember CLI
+- Broccoli compiles the project and serves it with Express.js
+- Asynchronous Module Definition is a specification of Javascript, can be transpiled to from ES6
+- Ember CLI expects ES6 Modules 
+
 ### Prerequisite
 Promise object (js) is the native way of handling asynchronous calculations, and can return a value that may be available now, later or never
 - takes a function parameter that handles the outcome of the Promise (whether it be accepted or rejected)
@@ -52,6 +57,12 @@ var html    = template(context);
 
 **Actions** are defined in routes and controllers and act as event handlers from the UI -> Route -> Controller -> Model
 - `{{action "actionName" parameters}}` in hbs
+
+### Store
+`Store` is an ember data class, manages everything related to our model's data
+- for duration of a life cycle, there is a unique instance of the Store, injected into every route controller serializer and adapter under the key store
+  - why we call `.store` in Routes
+  - `registry.injection()`
 
 ### Components
 Component names must have one dash in their name by convention
