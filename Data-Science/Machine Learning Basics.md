@@ -1,3 +1,4 @@
+
 # Machine Learning Basics
 Machine learning is a form of applied statistics, with a lesser emphasis on confidence and greater on statistical estimates.
 - Formally, learning is improving a performance measure P, by learning from experience E with respect to some class of tasks T
@@ -24,6 +25,8 @@ Simple algorithm for solving a regression problem, to predict some scaler y from
 - set aside a design matrix X<sup>(test)</sup> of m examples with a corresponding target vector y<sup>(test)</sup> containing correct values of y, not used for training but as performance measure P
   - common performance measure is based on the sum of squared deviation 
   - this is minimized when the sum of squared differences function's gradient is 0
+  - Mean Square Error is a function of the sum of square differences
+  - MSE<sub>test</sub> =. 1/m • ∑(&ycirc;<sup>(test)</sup> - y<sup>(test)</sup>)<sup>2</sup> from 1 to i
 
 ### Capacity, Overfitting and Underfitting
 In machine learning, we want to perform new tasks unseen before, this is called generalization
