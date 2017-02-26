@@ -27,6 +27,19 @@ Simple algorithm for solving a regression problem, to predict some scaler y from
   - this is minimized when the sum of squared differences function's gradient is 0
   - Mean Square Error is a function of the sum of square differences
   - MSE<sub>test</sub> =. 1/m • ∑(&ycirc;<sup>(test)</sup> - y<sup>(test)</sup>)<sup>2</sup> from 1 to i
+- we want improve weights w to minimize MSE<sub>test</sub>, by minimizing MSE<sub>train</sub>
+- solve for &nabla;<sub>w</sub>MSE<sub>train</sub> = 0 the **normal equations**
+
+Normal Equation is an analytical solution to the linear regression problem, using a least-squares cost function
+- starting with: MSE<sub>test</sub> =. 1/m • ∑(&ycirc;<sup>(test)</sup> - y<sup>(test)</sup>)<sup>2</sup> from 1 to i
+- &nabla;<sub>w</sub>MSE<sub>train</sub> = 0
+- &nabla;<sub>w</sub> 1/m • ∑(&ycirc;<sup>(test)</sup> - y<sup>(test)</sup>)<sup>2</sup> = 0
+- &nabla;<sub>w</sub> ∑(&ycirc;<sup>(test)</sup> - y<sup>(test)</sup>)<sup>2</sup> = 0
+- y<sup>(test)</sup> = w<sup>T</sup>x is our prediction or hypothesis function for x
+- &nabla;<sub>w</sub> ∑(w<sup>T</sup>x - y<sup>(test)</sup>)<sup>2</sup> = 0
+
+  - X, the design matrix replaces our summation term, since it represents the m rows of n+1 features, +1 for the intercept
+  - use transposed matrix multiplaction (essentially squaring each
 
 ### Capacity, Overfitting and Underfitting
 In machine learning, we want to perform new tasks unseen before, this is called generalization
