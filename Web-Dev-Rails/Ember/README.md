@@ -95,4 +95,7 @@ Component names must have one dash in their name by convention
   - why we call `.store` in Routes, to access this unique object
   - `registry.injection()`
 
-
+### {{action}}
+Useful helper for binding actions in templates to those in components, routes, and controllers
+- an input form is good for a component, if they're the same for new/edit, other than the actions for save and cancel
+- actions can be passed as arguments to components, passing down from template's context, much like you'd pass the model
