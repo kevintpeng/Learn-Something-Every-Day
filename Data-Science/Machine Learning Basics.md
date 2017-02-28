@@ -1,3 +1,12 @@
+### Summary
+Machine learning is applied statistics, for the purpose of predicting outcomes for unseen experiences by extrapolating from a set of experiences.
+- goal is to minimize generalization error, error incurred when running a model on new testing data, a model that was trained exclusively on a training data set
+- overfitting and underfitting are undesirable outcomes of model training, and happen when the capacity of a model is not optimal
+  - overfitting is controlled by restricting the hypothesis space, dictating the model's capacity
+- in regressions, we have a fixed parameter (weighting) vector
+- non-parametric models allow for extreme fitting of data, with a non-fixed parametric vector
+- the no free lunch theorem states that the average performance of all classification algorithms over all data sets is equal
+
 # Machine Learning Basics
 Machine learning is a form of applied statistics, with a lesser emphasis on confidence and greater on statistical estimates.
 - Formally, learning is improving a performance measure P, by learning from experience E with respect to some class of tasks T
