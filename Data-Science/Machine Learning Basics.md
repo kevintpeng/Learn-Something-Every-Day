@@ -47,4 +47,19 @@ In machine learning, we want to perform new tasks unseen before, this is called 
 - generalization error is the expected value of the error for inputs, based on a distribution similar to what real inputs will be
 - estimate generaliation error with a test set
 - in linear regression, training error is minimized, but we actually care about test error, however you cannot use the test error to affect the result of training since the test error is not part of the training set
-- in theory, arbitrary collection of examples doesn't allow us to make any adjustments, but assuming data is collected over some probability distribution (data generating process)
+- in statistical learning theory, arbitrary collection of examples doesn't allow us to make any adjustments, but assuming data is collected over some probability distribution (data generating process)
+  - theoretically, we can follow the i.i.d assumption: independent identically distributed draws
+- therefore the test and the train examples are from the same data generating distribution, p<sub>data</sub>
+  - expected train error = expected test error
+- in practice, splitting the sets and minimizing the training error almost certainly means that expected test error ≥ expected train error
+  - we want to reduce training error and reduce the gap between training and test error
+  - correspond to underfitting and overfitting, and can be mitigated with **capacity**
+- a models capacity is generally it's ability to fit many functions
+- high capacity corresponds to overfitting, low to underfitting
+- one way to control capacity is to restrict the **hypothesis space**
+  - linear regression models are restricted to the set of linear functions
+  - by introducing an `x^2` term into the linear regression equation &ycirc; = b + w1x + w2x<sup>2</sup> increases the model capacity (increased using more features, x^2, and their corresponding parameters w2)
+  - machine learning algorithms work best when they correspond to the appropriate capacity for the true complexity of the task
+- in statistical learning theory, model capacity is quantified by the Vapnik-Chervonenkis (VC) dimension
+  - measure capacity of binary classifiers
+- VC dimension is the largest possible value of `m` for which there exists a training set of m different x points that the classifier can label arbitrarily 
