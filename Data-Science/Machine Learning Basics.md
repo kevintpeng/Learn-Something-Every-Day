@@ -1,4 +1,3 @@
-
 # Machine Learning Basics
 Machine learning is a form of applied statistics, with a lesser emphasis on confidence and greater on statistical estimates.
 - Formally, learning is improving a performance measure P, by learning from experience E with respect to some class of tasks T
@@ -60,6 +59,27 @@ In machine learning, we want to perform new tasks unseen before, this is called 
   - linear regression models are restricted to the set of linear functions
   - by introducing an `x^2` term into the linear regression equation &ycirc; = b + w1x + w2x<sup>2</sup> increases the model capacity (increased using more features, x^2, and their corresponding parameters w2)
   - machine learning algorithms work best when they correspond to the appropriate capacity for the true complexity of the task
-- in statistical learning theory, model capacity is quantified by the Vapnik-Chervonenkis (VC) dimension
+- in statistical learning theory, model capacity is quantified by the **Vapnik-Chervonenkis (VC) dimension**
   - measure capacity of binary classifiers
 - VC dimension is the largest possible value of `m` for which there exists a training set of m different x points that the classifier can label arbitrarily 
+- simpler functions are more likely to generalize (have small difference between training and test error), still need to have sufficient complexity to keep training error low
+
+**Non-parametric** models allow for high capacity (well fit models)
+- non-parametric models are not necessarily bounded by a function (often describe non-practical algorithms)
+- linear regression has a fixed length vector of weights, while the nearest neighbour regression (non-parametric) uses X, the training matrix and y, the target vector of corresponding values to each point
+  - model looks up the closest training entry to the test point x, and returns the regression target
+- non-parametric learning algorithms can be constructed through nested parametric learning algorithms
+  - outer algorithm, for learning the number of parameters needed for the inner regression algorithm
+- error in mapping x to y can be seen as inherently stochastic or deterministic with non-considered variables
+  - the error in a "perfect model" for a given distribution incurs **Bayes error**
+- for non-parametric models, the generalization error decreases with more examples until it reaches the best possible error
+- any fixed-parameter model without enough capacity will bound itself to a value greater than Bayes error
+
+### The No Free Lunch Theorem
+Logically, inferring general rules of a limited set of examples in not valid
+- learning theory claims that algorithms can generalize well from a finite training set
+  - must have information about every member of the set, otherwise you can't get something from nothing
+- learning is based on probabilistic rules rather than logical reasoning
+- no free lunch states that every classification algorithm has the same average error over the set of all tasks
+  - no learning algorithm is inherently better than any other, without information and assumptions
+- important to understand distributions that are relevant to real world experiences and algorithms that work well on data drawn from these data generating distributions
