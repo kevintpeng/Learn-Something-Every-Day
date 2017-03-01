@@ -6,6 +6,8 @@ Machine learning is applied statistics, for the purpose of predicting outcomes f
 - in regressions, we have a fixed parameter (weighting) vector
 - non-parametric models allow for extreme fitting of data, with a non-fixed parametric vector
 - the no free lunch theorem states that the average performance of all classification algorithms over all data sets is equal
+- to design a learning algorithm, regularizers are used to specify preference of kinds of functions learned, controlling capacity
+- regularization is any modification to the learning algorithm with the intent of reducing generalization error, not training error
 
 # Machine Learning Basics
 Machine learning is a form of applied statistics, with a lesser emphasis on confidence and greater on statistical estimates.
@@ -104,3 +106,8 @@ J(w) = MSE_{train} + \lambda w^{T}w
 ```
 --->
 - result is a weighted tradeoff between fitting the training data and being small
+- generally, we can regularize a model that learns function f(x;&theta;) by adding a penalty called a **regularizer** to the cost function
+  - in weight decay, the regularizer &Omega;(w) = w<sup>T</sup>w
+- exclusion from the hypothesis space is infinite preference against it
+- to design a learning algorithm, regularizers are used to specify preference of kinds of functions learned, controlling capacity
+- regularization is any modification to the learning algorithm with the intent of reducing generalization error, not training error
