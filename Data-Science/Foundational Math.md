@@ -1,13 +1,9 @@
 ### Linear Algebra Review
 - Matrix multiplcation AB = C, is every column of A, dotted with every row of B
 - Identity Matrix is related to the inverse Matrix: if Ax = b then Ix = A<sup>-1</sup>b, so A is invertible iff exists 
-
-  AA<sup>-1</sup> = I
-  
-
 <!---
 ```latex
-\int\limits_0^1 x^2 + y^2 \ dx 
+AA^-1 = I
 ```
 --->
 <img src="https://jules2689.github.io/gitcdn/images/website/images/latex/f72f92513e9f087b1ec342ba9eb7c3ab.png" height="60">
