@@ -1,9 +1,14 @@
 ### Linear Algebra Review
 - Matrix multiplcation AB = C, is every column of A, dotted with every row of B
 - Identity Matrix is related to the inverse Matrix: if Ax = b then Ix = A<sup>-1</sup>b, so A is invertible iff exists 
+
+<!---
 ```latex
 AA^-1 = I
 ```
+--->
+![latex image](https://jules2689.github.io/gitcdn/images/website/images/latex/c2794d6f83ba5c9cd16fda2eca1ef699.png)
+
 
 - A is invertible iff it has exactly one solution for every value of b
 - span of a set of vectors is the set of all points obtainable by linear combinations of the original vectors
