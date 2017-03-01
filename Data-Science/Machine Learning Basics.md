@@ -92,3 +92,6 @@ Logically, inferring general rules of a limited set of examples in not valid
 - no free lunch states that every classification algorithm has the same average error over the set of all tasks
   - no learning algorithm is inherently better than any other, without information and assumptions
 - important to understand distributions that are relevant to real world experiences and algorithms that work well on data drawn from these data generating distributions
+
+### Regularization
+
