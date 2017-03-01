@@ -1,0 +1,3 @@
+[submodule "diatex"]
+	path = diatex
+	url = https://github.com/jules2689/diatex
