@@ -5,7 +5,7 @@
   AA<sup>-1</sup> = I
   
 ```latex
-\[ \int\limits_0^1 x^2 + y^2 \ dx \]
+\int\limits_0^1 x^2 + y^2 \ dx 
 ```
   
 - A is invertible iff it has exactly one solution for every value of b
