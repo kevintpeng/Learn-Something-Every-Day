@@ -98,11 +98,8 @@ The no free lunch theorem implies that the algorithm must be designed well for a
 - modify what we're trying to minimize, by summing the MSE with a criterion, which is pre-defined by the user (&lambda; would control the preference for a preferred function)
 - weight decay is an example, where we minimize J(w), second term is just &lambda; • L<sup>2</sup> norm:
 
-<!---
 ```latex
-J(w) = MSE_{train} + \Lambda w^{T}w
+J(w) = MSE_{train} + \lambda w^{T}w
 ```
---->
-![latex image](https://jules2689.github.io/gitcdn/images/website/images/latex/24dc07a8a6cd9637c454c0eddb2db4dd.png)
 
-
+- result is a weighted tradeoff between fitting the training data and being small
