@@ -10,8 +10,7 @@
 \int\limits_0^1 x^2 + y^2 \ dx 
 ```
 --->
-![latex image](https://jules2689.github.io/gitcdn/images/website/images/latex/f72f92513e9f087b1ec342ba9eb7c3ab.png)
-
+<img src="https://jules2689.github.io/gitcdn/images/website/images/latex/f72f92513e9f087b1ec342ba9eb7c3ab.png" height="60">
   
 - A is invertible iff it has exactly one solution for every value of b
 - span of a set of vectors is the set of all points obtainable by linear combinations of the original vectors
