@@ -1,9 +1,0 @@
-up:
-  - ruby: 2.3.1
-  - bundler
-
-open:
-  site: kpeng.ca/Learn-Something-Everyday/
-
-commands:
-  build: ./_generate/require_clean_git && git stash && git checkout gh-pages || git checkout -b gh-pages && git reset --hard master && ruby _generate/generate.rb && git add -A && git commit -m "generate all pages" && git push origin gh-pages; git checkout master && git stash pop
