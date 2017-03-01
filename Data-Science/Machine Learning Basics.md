@@ -45,7 +45,6 @@ Normal Equation is an analytical solution to the linear regression problem, usin
 - &nabla;<sub>w</sub> ∑(&ycirc;<sup>(test)</sup> - y<sup>(test)</sup>)<sup>2</sup> = 0
 - y<sup>(test)</sup> = w<sup>T</sup>x is our prediction or hypothesis function for x
 - &nabla;<sub>w</sub> ∑(w<sup>T</sup>x - y<sup>(test)</sup>)<sup>2</sup> = 0
-
   - X, the design matrix replaces our summation term, since it represents the m rows of n+1 features, +1 for the intercept
   - use transposed matrix multiplaction (essentially squaring each
 
@@ -94,4 +93,11 @@ Logically, inferring general rules of a limited set of examples in not valid
 - important to understand distributions that are relevant to real world experiences and algorithms that work well on data drawn from these data generating distributions
 
 ### Regularization
+The no free lunch theorem implies that the algorithm must be designed well for a task, the only way so far is by changing its capacity (thus affecting the hypothesis space)
+- can have more granularity in algorithm design by introducing more kinds of function to the hypothesis space
+- modify what we're trying to minimize, by summing the MSE with a criterion, which is pre-defined by the user (&lambda; would control the preference for a preferred function)
+- weight decay is an example, where we minimize J(w), second term is just &lambda; • L<sup>2</sup> norm:
+```latex
+J(w) = MSE_{train} + \Lambda w^{T}w
+```
 
