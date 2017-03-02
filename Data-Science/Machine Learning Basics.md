@@ -111,3 +111,7 @@ J(w) = MSE_{train} + \lambda w^{T}w
 - exclusion from the hypothesis space is infinite preference against it
 - to design a learning algorithm, regularizers are used to specify preference of kinds of functions learned, controlling capacity
 - regularization is any modification to the learning algorithm with the intent of reducing generalization error, not training error
+
+### Hyperparameters
+A hyperparameter is not learned by the algorithm, it is predefined like the capacity in a polynomial regression or &lambda; in weight decay
+- often parameters that are not easy to optimize (capacity learned from any training set will result in the highest possible capacity, resulting in overfitting)
