@@ -53,7 +53,7 @@ Normal Equation is an analytical solution to the linear regression problem, usin
 ### Capacity, Overfitting and Underfitting
 In machine learning, we want to perform new tasks unseen before, this is called generalization
 - one goal is to minimize generalization error, or test error
-- generalization error is the expected value of the error for inputs, based on a distribution similar to what real inputs will be
+- **generalization error** is the expected value of the error for inputs, based on a distribution similar to what real inputs will be
 - estimate generaliation error with a test set
 - in linear regression, training error is minimized, but we actually care about test error, however you cannot use the test error to affect the result of training since the test error is not part of the training set
 - in statistical learning theory, arbitrary collection of examples doesn't allow us to make any adjustments, but assuming data is collected over some probability distribution (data generating process)
@@ -115,3 +115,13 @@ J(w) = MSE_{train} + \lambda w^{T}w
 ### Hyperparameters
 A hyperparameter is not learned by the algorithm, it is predefined like the capacity in a polynomial regression or &lambda; in weight decay
 - often parameters that are not easy to optimize (capacity learned from any training set will result in the highest possible capacity, resulting in overfitting)
+- a validation set can be formed (partition of the test dataset) to train hyperparameters (over iterations?)
+  - after validation set optimizes hyperparameters, generalization error may be estimated with the test set
+- cross-validation is the use of all examples in the training and test sets
+- k-fold cross-validation partitions the dataset into k non-overlapping subsets, and iterate through each subset as the single test subset, and average the test error across k trials
+- when dataset `D` is too small for simple train/test split to yield accurate estimation of generalization error (mean loss on a small test has high variance)
+
+### Estimators, Bias, Variance
+**Point Estimation** attempts to provide the single best prediction
+- generally predicting a parameter (or vector of them) e.g. the weights in linear regression
+
