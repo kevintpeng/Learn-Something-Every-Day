@@ -8,10 +8,3 @@ Spark SQL is a module on top of Spark's RDD API
 
 Datasets are a distributed collection of data. It is an abstraction on top of the RDD API, reaping the benefits of powerful lambda transformations, strong typing and SQL's optimized execution
 - A DataFrame is a Dataset organized by named columns (conceptually similar to tables in RDBMS)
-
-### Pivot Tables
-Pivot Tables are an important concept for converting row-oriented tables into column-oriented
-- important for data tools optimized for column-oriented paridigms 
-- `df.groupBy("A", "B").pivot("C").sum("D")`
-  - to get good performance from the pivot function, pass it a sequence of the column headers that we pivot on
-  - `df.groupBy("A", "B").pivot("C", Seq("small", "large")).sum("D")`
