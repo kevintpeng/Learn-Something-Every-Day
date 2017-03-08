@@ -1,14 +1,12 @@
 ### Linear Algebra Review
 - Matrix multiplcation AB = C, is every column of A, dotted with every row of B
-- Identity Matrix is related to the inverse Matrix: if Ax = b then Ix = A<sup>-1</sup>b, so A is invertible iff exists 
+- Identity Matrix is related to the inverse Matrix: if Ax = b then Ix = A<sup>-1</sup>b, so A is invertible iff exists <img src="https://jules2689.github.io/gitcdn/images/website/images/latex/c2794d6f83ba5c9cd16fda2eca1ef699.png" height=14>
 
 <!---
 ```latex
 AA^-1 = I
 ```
 --->
-![latex image](https://jules2689.github.io/gitcdn/images/website/images/latex/c2794d6f83ba5c9cd16fda2eca1ef699.png)
-
 
 - A is invertible iff it has exactly one solution for every value of b
 - span of a set of vectors is the set of all points obtainable by linear combinations of the original vectors
@@ -36,6 +34,8 @@ AA^-1 = I
   - a basis is linearly independent spanning set of the vector space
   - for set of vectors S, the **span** W is the intersection of all subspaces containing S. then S is a spanning set of W 
 - **eigenspace** for an eigenvalue &lambda; E<sub>&lambda;</sub> is the set of all vectors (eigenvectors) that satisfy 0&#8407; = (I•&lambda; - A)•v&#8407;
+- sparce vectors can be used to optimize storage, reducing storage for dense vectors that are mostly 0s
+  - [0,0,0,0,1,0,0,0,3] => [(4,1), (8,3)]
 
 ### Probability & Information Theory
 - Marginal Probability is the distribution over a subset of variables (denominator is the summation of individual probabilities in the subset)
