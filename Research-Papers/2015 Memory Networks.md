@@ -22,3 +22,8 @@ A memory network takes some input `x`, `x` is a word, sentence, audio, image
 4. decode the output features `o` to give the response: r=R(o)
 
 Components of the memory network can be composed of other learning algorithms.-
+
+### A MemNN Implementation for Text
+One implementation of a memory network where the components are neural networks
+- most of the inference happens in O and R stages
+- s<sub>O</sub> is a function that produces a score for the match between a pair of sentences x and m<sub>i</sub>
