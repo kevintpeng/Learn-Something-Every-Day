@@ -21,9 +21,25 @@ A memory network takes some input `x`, `x` is a word, sentence, audio, image
 3. compute output features `o` given the new input and memory: o = O(I(x), m')
 4. decode the output features `o` to give the response: r=R(o)
 
-Components of the memory network can be composed of other learning algorithms.-
+Components of the memory network can be composed of other learning algorithms.
+
+Memory network applied to a set of problems 
+
+LSTM looks at a sequence, are questions a sequence?
+- a theoretically large LSTM could hold 
 
 ### A MemNN Implementation for Text
 One implementation of a memory network where the components are neural networks
 - most of the inference happens in O and R stages
 - s<sub>O</sub> is a function that produces a score for the match between a pair of sentences x and m<sub>i</sub>
+
+### LSTM
+Specific RNN architecture, designed to learn from experience to classify and predict time series
+- memory is tied to number of parameters
+
+### [Pointer Network](https://arxiv.org/pdf/1506.03134.pdf)
+
+### [Neural Turing Machine](https://arxiv.org/pdf/1410.5401.pdf)
+Coupling neural networks with external memory resources
+- constructs a system analogous to a Turing Machine or Von Neumann architecture
+- motive, separate ability to store memories vs. number of parameters to train
