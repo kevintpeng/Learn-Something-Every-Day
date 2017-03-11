@@ -32,6 +32,9 @@ LSTM looks at a sequence, are questions a sequence?
 One implementation of a memory network where the components are neural networks
 - most of the inference happens in O and R stages
 - s<sub>O</sub> is a function that produces a score for the match between a pair of sentences x and m<sub>i</sub>
+- we use the scoring function to figure out which memories are relevent to the input question `x`
+- `k` number of supporting memories can be fetched, by applying s<sub>O</sub> to both `x`, and the previous `k-1` memories fetched
+- U<sup>T</sup>U is sort of a distance metric (think dot product)
 
 ### LSTM
 Specific RNN architecture, designed to learn from experience to classify and predict time series
