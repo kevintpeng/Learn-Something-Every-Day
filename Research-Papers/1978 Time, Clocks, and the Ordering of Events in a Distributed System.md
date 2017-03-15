@@ -4,6 +4,8 @@ Physical clocks can be imprecise for the sake of total ordering across multiple 
 - the clock condition states that for sequential events, where `a` happens before `b`, then the clock function `C` should yield `C(a) < C(b)`, which in implementation requires that the logical clock be incremented between events
 
 # [Time, Clocks, and the Ordering of Events in a Distributed System 1978](http://amturing.acm.org/p558-lamport.pdf)
+#distributedsystems
+
 A system is distributed if the message transmission delay is non negligable relative to the time between events in a single process
 - In distributed systems, the concept of an event happening before another one is partial ordering
 - paper examines a distributed algorithm for synchronizing a system of logical clocks for totally ordering events
