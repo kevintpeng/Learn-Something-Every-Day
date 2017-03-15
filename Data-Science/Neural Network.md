@@ -1,7 +1,8 @@
 # Artificial neural network
-A computational approach based on a collection of neural units connected by axons.
+Uses a connectionism model, based on modelling mental phenomena using interconnected units. Neural Networks are a computational approach based on a collection of neural units connected by axons.
 - each neural unit holds a function of all of it's inputs, whose output is propagated to other neural units
 - typically consist of multiple layers or a cube design where signal path traverses from front to back
+- in connectionist models, networks change over time
 
 ### Models
 Artificial neural networks (ANNs) are simple mathematical models defining `f: X -> Y` or a distribution over X or both X and Y
