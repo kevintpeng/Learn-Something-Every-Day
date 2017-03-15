@@ -1,4 +1,6 @@
 # [Memory Networks 2015](https://arxiv.org/pdf/1410.3916.pdf)
+#datascience #machinelearning
+
 Facebook AI research. Many machine learning models lack read/write capability to long term memory
 - all memory is stored within hidden layers of the model, embedded by hidden states and weights
 - RNNs can be used to try to learn for information and produce the next set of words to output after reading a stream of words
