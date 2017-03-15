@@ -1,4 +1,6 @@
 # [Machine Learning in Automated Text Categorization 2002](http://nmis.isti.cnr.it/sebastiani/Publications/ACMCS02.pdf)
+#datascience
+
 Text Categorization is the task of assigning a boolean value to each pair `(dj, ci)` in `D x C`, where D is domain of documents and `C = {c1, ..., cn}`, `n = |C|`, is a set of predefined categories.
 
 More formally, the task is to approximate the unknown *target function* `fi: D x C -> {T, F}`, where fi is the classifier.
