@@ -1,4 +1,6 @@
 # [A Short Introduction to Boosting](https://cseweb.ucsd.edu/~yfreund/papers/IntroToBoosting.pdf)
+#datascience
+
 Boosting is a general method of producing a very accurate prediction rule by combining inaccurate rough rules
 - boosting Probably approximately correct learning models (PAC)
   - PAC models find efficient functions, bound to polynomial time/space with respect to the example size
