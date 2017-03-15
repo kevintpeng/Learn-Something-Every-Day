@@ -1,4 +1,6 @@
 # [The first collision for full SHA-1 2017](http://shattered.io/static/shattered.pdf)
+#encryption #security 
+
 MD4, MD5, SHA-1, SHA-2 and SHA-256 are all cryptographic hashing algorithms
 - a cryptographic hashing function is h: {0,1}<sup>`*`</sup> -> {0,1}<sup>n</sup>, `*` denoting any natural number
   - maps any aribitrarily long bit string to a finite one, deterministically
