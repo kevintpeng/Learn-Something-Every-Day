@@ -1,4 +1,6 @@
 # [MapReduce 2004](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf)
+#distributedsystems
+
 Computation model, takes a set of key/values and produces a set of key/values
 - functional style programming, for ease of parallelization, using the id
 - example, distributed grep 
