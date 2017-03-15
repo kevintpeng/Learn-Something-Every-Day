@@ -1,5 +1,5 @@
 # [Resilient Distributed Datasets 2012](http://www-bcf.usc.edu/~minlanyu/teach/csci599-fall12/papers/nsdi_spark.pdf)
-#datascience #datastores
+#distributedsystems
 
 A distributed memory abstraction for performing in memory computations, on a large cluster. It only allows batch transformations on the whole dataset (coarse-grained), but 
 - uses in memory operations, improving performace by orders of magnitude
