@@ -98,7 +98,7 @@ Logically, inferring general rules of a limited set of examples in not valid
 The no free lunch theorem implies that the algorithm must be designed well for a task, the only way so far is by changing its capacity (thus affecting the hypothesis space)
 - can have more granularity in algorithm design by introducing more kinds of function to the hypothesis space
 - modify what we're trying to minimize, by summing the MSE with a criterion, which is pre-defined by the user (&lambda; would control the preference for a preferred function)
-- weight decay is an example, where we minimize J(w), second term is just &lambda; • L<sup>2</sup> norm: <img src='https://jules2689.github.io/gitcdn/images/website/images/latex/b6a77b551b69539fabd97852217d9ad8.png' alt='latex image' height='30px'>
+- weight decay is an example, where we minimize J(w), second term is just &lambda; • L<sup>2</sup> norm: <img src='https://jules2689.github.io/gitcdn/images/website/images/latex/b6a77b551b69539fabd97852217d9ad8.png' alt='latex image' height='24px'>
 
 <!---
 ```latex
@@ -124,8 +124,8 @@ A hyperparameter is not learned by the algorithm, it is predefined like the capa
 ### Estimators, Bias, Variance
 **Point Estimation** attempts to provide the single best prediction
 - generally predicting a parameter (or vector of them) e.g. the weights in linear regression
-- &&theta;-hat is used to denote an estimator for a parameter &theta; 
-- point estimators is just a function of the data, <img src='https://jules2689.github.io/gitcdn/images/website/images/latex/8567979de1a48c174f1140d9f17bd337.png' alt='latex image' height='24px'>
+- &theta;-hat is used to denote an estimator for a parameter &theta; 
+- point estimators is just a function of the data, <img src='https://jules2689.github.io/gitcdn/images/website/images/latex/8567979de1a48c174f1140d9f17bd337.png' alt='latex image' height='24px' valign="middle">
 
 
 <!---
