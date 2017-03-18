@@ -127,7 +127,12 @@ A hyperparameter is not learned by the algorithm, it is predefined like the capa
 - &&theta;-hat is used to denote an estimator for a parameter &theta; 
 - point estimators is just a function of the data {x1,...,xm}
 
+
+<!---
 ```latex
 \hat{\theta}_m = g(x^{(1)},...,x^{(m)})
 ```
+--->
+<img src='https://jules2689.github.io/gitcdn/images/website/images/latex/8567979de1a48c174f1140d9f17bd337.png' alt='latex image' height='75px'>
+
 
