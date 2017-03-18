@@ -124,4 +124,10 @@ A hyperparameter is not learned by the algorithm, it is predefined like the capa
 ### Estimators, Bias, Variance
 **Point Estimation** attempts to provide the single best prediction
 - generally predicting a parameter (or vector of them) e.g. the weights in linear regression
+- &&theta;-hat is used to denote an estimator for a parameter &theta; 
+- point estimators is just a function of the data {x1,...,xm}
+
+```latex
+\hat{\theta}_m = g(x^{(1)},...,x^{(m)})
+```
 
