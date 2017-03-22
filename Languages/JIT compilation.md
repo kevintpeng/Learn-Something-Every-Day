@@ -26,9 +26,12 @@ Optimizations:
 
 ### Javascript JIT Compilation
 Safari and Chrome do JIT compilation for JS, using bytecode
+- JIT is better for long running programs, but historically JavaScript on the web was typically small snippits of logic, so interpretation was a simple solution
+- Google Maps was one big influences of browser optimizations, and promoted long-running apps (where JIT compilation overhead is negligable for JS code/functions that are called hundreds of times)
 - V8 JavaScript Engine compiles directly to native machine code (used in chrome)
 
 ### Late Binding in Dynamic Languages
 Programming mechanism where method calls are looked up by name at runtime
 - language doesn't guarantee existance of method so late binding cannot bind to a particular slot on the virtual method table
+- late binding is popularized by OOP
 
