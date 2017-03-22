@@ -21,6 +21,12 @@ A single neuron takes input from other nodes and computes an output
 
 <img src="http://natekohl.net/media/sigmoid-scale.png" height=200 alt="adjusting weighting"> vs. <img src="http://natekohl.net/media/sigmoid-shift.png" height=200 alt="adjusting bias">
 
+**Feedforward Neural Networks** are the simplest type of NN
+- neurons arranged in layers, and nodes between layers have connections and associated weights
+- nodes are typed based on which layer they're in: input, hidden, or output
+- feedforward, information *only moves in one direction*- no cycles 
+- single layer perceptron has no hidden layers, while multi layer perceptron (MLP) has one or more 
+
 ### Models
 Artificial neural networks (ANNs) are simple mathematical models defining `f: X -> Y` or a distribution over X or both X and Y
 
