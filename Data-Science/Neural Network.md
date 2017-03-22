@@ -1,4 +1,6 @@
 # Artificial neural network
+Artificial neural networks (ANNs) are simple mathematical models defining `f: X -> Y` or a distribution over X or both X and Y
+
 Uses a connectionism model, based on modelling mental phenomena using interconnected units. Neural Networks are a computational approach based on a collection of neural units connected by axons.
 - each neural unit holds a function of all of it's inputs, whose output is propagated to other neural units
 - typically consist of multiple layers or a cube design where signal path traverses from front to back
@@ -26,9 +28,11 @@ A single neuron takes input from other nodes and computes an output
 - nodes are typed based on which layer they're in: input, hidden, or output
 - feedforward, information *only moves in one direction*- no cycles 
 - single layer perceptron has no hidden layers, while multi layer perceptron (MLP) has one or more 
-
-### Models
-Artificial neural networks (ANNs) are simple mathematical models defining `f: X -> Y` or a distribution over X or both X and Y
+- MLPs learn through the **Backpropagation algorithm**
+  - one way NNs are trained
+  - supervised, learning from mistakes
+  - initially all edge weights are random
+  - for every input, the output is compared to the desired one, and error is propagated back to the previous layer
 
 # Convolutional Neural Networks
 [source](https://ujjwalkarn.me/2016/08/11/intuitive-explanation-convnets/)
