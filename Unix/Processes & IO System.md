@@ -20,3 +20,7 @@ An anonymous pipe is a one-way FIFO channel for communication between processes.
 
 ### File Descriptors
 A **handle** is just an abstract reference to some resource outside the scope of your software (think like accessing memory in a database or from the OS). A **File Descriptor** is a type of handle 
+
+#### inode
+Data structure that describes a filesystem object (file/directory), with metadata attributes, disk block location as well as the object's data
+- must include size in bytes, device ID (containing inode), user ID of owner, group ID, file permissions mode, timestamp for last modified & accessed, link count for number of hard links
