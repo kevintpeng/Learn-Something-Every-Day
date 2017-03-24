@@ -17,3 +17,6 @@ Processes have ids, PIDs. Processes can spawn other decendents, who inherit the 
 An anonymous pipe is a one-way FIFO channel for communication between processes.
 - typically a parent program opens anonymous pipes, spawns child processes that inherit other ends of the pipes
   - or creates several processes and arranges them in a pipeline
+
+### File Descriptors
+A **handle** is just an abstract reference to some resource outside the scope of your software (think like accessing memory in a database or from the OS). A **File Descriptor** is a type of handle 
