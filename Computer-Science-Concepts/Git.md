@@ -130,4 +130,6 @@ Copy the output of `cat ~/.ssh/id_rsa.pub` and paste on GitHub.
 ### Git Objects
 Git is a content-addressable filesystem. Built with a key-value store.
 
-TODO read [git book](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)
+### Git Server Protocols
+**Local protocol** is basic, uses another directory on disk as the remote
+
