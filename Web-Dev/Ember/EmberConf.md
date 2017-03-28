@@ -1,4 +1,5 @@
 # EmberConf
+### Glimmer
 - Glimmer, low level rendering pipeline, templating engine for building live DOM from hbs
 - design, small kernel + addons
   - ember-engine, ember-fastboot
