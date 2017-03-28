@@ -37,6 +37,7 @@ JS Engines > Libraries > Code
 V8 is a JS engine, doesn't generate any intermediate code, instead compiles to machine code at execution
 - JS is dynamically typed, objects can change types during runtime
 - V8 introduces hidden classes to track types
+  - chain of hidden classes are created as objects are altered in shape
 
 ### Security
 - Same-origin policy states a browser permits scripts in first page to access data from second page iff they have the same origin
