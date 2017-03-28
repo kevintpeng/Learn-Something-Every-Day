@@ -24,3 +24,25 @@ Web App manifest; json of configurations for browsers, with metadata when you ad
 
 **Local Storage** on browser stores strings within the user's web browser
 - IndexDB, WebSQL
+
+### Speed
+Physics > Hardware > Kernel > Userland > Humans
+
+JS Engines > Libraries > Code
+- two perspectives: time budget, or micro vs macro
+- User Timing API, CPU profiler, flame graphs
+- Hidden classes for JIT compilaiton optimizations
+  - `node --allow)batuves_syntax` for native syntax
+  
+V8 is a JS engine, doesn't generate any intermediate code, instead compiles to machine code at execution
+- JS is dynamically typed, objects can change types during runtime
+- V8 introduces hidden classes to track types
+
+### Security
+- Same-origin policy states a browser permits scripts in first page to access data from second page iff they have the same origin
+  - origin = uri + scheme + hostname + port
+  - prevents accessing DOM information between separate web pages
+  - significant since more pages with tight coupling to cookies for authentication and sensitive information storage
+- HTML Escaping (ember's rendering layer escapes HTML)
+- Content Security Policy (CSP) reduces XSS risks -- [source](https://content-security-policy.com)
+- external links should use `rel=noopener`, prevents cross-origin pages from accessing the source link
