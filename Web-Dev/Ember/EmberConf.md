@@ -50,3 +50,45 @@ V8 is a JS engine, doesn't generate any intermediate code, instead compiles to m
 - external links should use `rel=noopener`, prevents cross-origin pages from accessing the source link
 
 [https://balinterdi.com/emberconf/](https://balinterdi.com/emberconf/)
+
+### Cardstack
+Wordpress-like editing in Ember.
+- mobiledoc is a platform agnostic post or article format, with no concept of layout
+  - has a wrapping object, type definitions for mobiledoc-specific types
+  
+### SVG
+XML-encoded, and dynamically rendered by browser
+- follow paint order, not z-indexed
+- SVG's can be interactive, and embedded directly in html with `<svg>`
+
+### Ember-Concurrency
+Small library, supplements tools and conventions for concurrency and asynchrony
+- **Structured Concurrency** 
+
+#### Arguements against Callbacks
+Callback is any executable code that is passed as an argument to other code, which is expected to call back the argument a some given time. Callbacks may be synchronous or asynchronous.
+
+The **call graph** is a control flow graph representing relationships between subroutines. A callback cycle can be created and result in a stack overflow. Lots of esoteric call graphs are derived from callback workflows.
+
+#### Event Driven Architecture
+Events in OOP translates to a message. Messages are implemented as methods, which are classic function calls
+- events are sequential, in a queue called the event loop
+- events raised in other events are not executed immediately, they are enqueued and wait until the current event is processed:
+<img src='http://250bpm.wdfiles.com/local--files/blog:25/events2.png'>
+
+State Machines offer a solution to callbacks too, but can be extremely large when considering every possible state and transition
+- green threads are implemented at the language level. Goroutines are one example of green threads, acting as abstracted threads
+  - help to eliminate state machines
+- green threads can model any state machine, but require further checks to prevent thread blocking
+
+#### Structured Concurrency
+TCP uses "sessions", implemented as a process or thread. Session management involves mutable state concurrency which may require several locks, mutexes, callbacks
+- simplist programming model would spawn a thread for each TCP connection, and green threads make this a lot less expensive
+  - processes and pipes in unix, goroutines and channels in go
+- *if a language has green threads and a cancellation mechanism, it allows for imperative programming without needomg state machines* 
+- structured concurrency restricts the extent of nested green threads cannot exceed the extent of the calling green thread
+- call stack in structured programming is synonomous to the call tree in structured concurrency
+- cancelling needs to be implemented to handle the case where parent green threads return before children green threads
+  - if parent A is waiting for child B to return, but B is an infinite loop, then A is stuck
+- we only have to care about cancellation when calling functions that can switch to a new green thread (only for blocking functions)
+
