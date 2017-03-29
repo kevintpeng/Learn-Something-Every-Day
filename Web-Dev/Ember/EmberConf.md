@@ -95,3 +95,13 @@ TCP uses "sessions", implemented as a process or thread. Session management invo
 In javascript, cancelable asynchronous operations are very hard to do with promises, and preventing concurrent execution of two async operations is hard to do with promises
 - `ember-concurrency` remedies this
 - manages **tasks**, which are cancelable and dependent on a host object
+
+### State, Time and Concurrency
+- user is effectively an async operation
+- ember-concurrency has tasks; handles canceling, constraining concurrency if needed, and gives derived state
+- derived state means you don't need to introduce addition state like `isMyTaskRunning`
+  - manual state tracking is an anti-pattern
+- Task maintains reference to multiple TaskInstances
+- essential state vs accidental state, accidental state like `user count` can be replaced with derived state
+- declarative APIs > Imperative APIs
+- ember-concurrency thinks about derived state with respect to time
