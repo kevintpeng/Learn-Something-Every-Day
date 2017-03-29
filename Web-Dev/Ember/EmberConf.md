@@ -48,3 +48,5 @@ V8 is a JS engine, doesn't generate any intermediate code, instead compiles to m
 - HTML Escaping (ember's rendering layer escapes HTML)
 - Content Security Policy (CSP) reduces XSS risks -- [source](https://content-security-policy.com)
 - external links should use `rel=noopener`, prevents cross-origin pages from accessing the source link
+
+[https://balinterdi.com/emberconf/](https://balinterdi.com/emberconf/)
