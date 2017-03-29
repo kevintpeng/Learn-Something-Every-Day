@@ -117,3 +117,17 @@ Addon structure:
   - export helpers that would be overridden, or anything that should be publicly used (part of API)
   - no real concept of private functions though
 - in node land, addons use hooks
+
+### Yarn -- [todo](https://medium.com/@sdboyer/so-you-want-to-write-a-package-manager-4ae9c17d9527)
+npm is non-deterministic and had performance issues
+- dependency resolution
+  - build the ideal tree
+  - generate actions needed to get from current tree to ideal tree (think diffs)
+- fetching and linking packages, from global cache to node_modules
+
+npm has non-determinism and depends on install order of dependencies. Dependency graphs can be vastly different between machines when the initial state was different, since any duplicated dependencies with different versions live in multiple places in node modules. -- [todo](https://github.com/npm/npm/issues/10380)
+
+yarn uses the npm registry, tries to fix the shortcomings
+- create list of packages 
+- has a Lockfile so that the dependency trees are consistent across development machines
+- yarn has built-in parallelism
