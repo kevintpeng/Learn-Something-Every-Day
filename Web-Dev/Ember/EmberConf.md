@@ -92,3 +92,6 @@ TCP uses "sessions", implemented as a process or thread. Session management invo
   - if parent A is waiting for child B to return, but B is an infinite loop, then A is stuck
 - we only have to care about cancellation when calling functions that can switch to a new green thread (only for blocking functions)
 
+In javascript, cancelable asynchronous operations are very hard to do with promises, and preventing concurrent execution of two async operations is hard to do with promises
+- `ember-concurrency` remedies this
+- manages **tasks**, which are cancelable and dependent on a host object
