@@ -48,3 +48,10 @@ Feed-forward neural network: connections between units are acyclic, and is unidi
   - modified version of one of the original functions, giving the integral of pointwise multiplication of the two functions
 
 ### [ImageNet classification with deep convolutional neural networks](http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)
+CNN's capacity can be controlled by varying their depth and breadth (layers), and make strong assumptions with less needed connections
+- faster to train since less connections, theoretical "best-performance" is only slightly worse dispite less connections
+- ImageNet challenge is to create a classifier that determines which object is in the image
+- in this implementation, they use ReLU instead of tanh for activiation functions (since it has 10x performance) 
+  - multiple GPUs, each handling different convolutional layers
+  - local response normalization
+  - overlapping pooling
