@@ -1,5 +1,5 @@
 # [Deep Learning](https://github.com/HFTrader/DeepLearningBook/blob/master/DeepLearningBook.pdf)
-See [prerequisite math](./Foundational Math.md).
+See [prerequisite math](./Foundational%20Math.md) and [foundational machine learning](Foundations%20of%20Machine%20Learning.md) and [neural networks](Neural%20Network.md)
 
 Deep Learning models that support inferences and are robustly applicable to many problems
 - speech 
@@ -11,8 +11,28 @@ A model can be seen as a computation graph (DAG), whose nodes represent operatio
 - the depth of the model can be less than the depth of the problem, meaning the model has a more limited understanding of the problem
 - is a kind of *representation learning* or feature learning
 
-### Recurrent Neural Network (RNN)
-Class of Neural Networks, that is a directed cyclic graph
+### Optimization and Training techniques -- [source](https://blog.acolyer.org/2017/03/01/optimisation-and-training-techniques-for-deep-learning/)
+Hyper-parameters are picked constants that largely influence the effectiveness of an algorithm
+- tuning hyper-parameters is time consuming because benchmarking effectiveness requires a full trial run
+- in 2012, most hyper-parameters were picked from human intuition
+- random search turns out to work well, since: 
+  - the parameter space usually has a low effective dimensionality
+  - importance of some parameters vary with datasets
+- grid search might miss information if one axis of the grid is independent to the result (thus we have lots of wasted trials)
+- graphing box and whisker plots for expected best trial (in accuracy) for given number of random trials
+<img src='https://adriancolyer.files.wordpress.com/2017/02/random-search-fig-2.jpeg?w=960'>
+- deep networks have LOTS of hyper-parameters (many per layer) 
+
+**Improving neural networks by preventing co-adaptation of feature detectors**
+- simple technique for reducing overfitting: randomly drop (50% change) a hidden unit, called dropout
+- co-adaptation in biology is the process by which two or more species undergo adaptation as a pair or group
+  - undergoing natural selection together, through evolutionary pressure
+  - better isolates neurons as feature detectors, more independent contributions
+- as a mental model, a neural network with n units can be seen as a collection of 2<sup>n</sup> possible thinned networks, with shared weighting and each individual thinned network is tested rarely
+
+**Regularization** in deep learning is used to add an extra term to the cost function (weight decay, L2 regularization)
+
+**max-norm** regularization works well in conjunction with dropout. Bounds the norm of the weight vector at each hidden unit by `c`, clipping constant.
 
 ### Deep Generative Models
 - Vision and speech comes down to finding representations of features
