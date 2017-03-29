@@ -105,3 +105,15 @@ In javascript, cancelable asynchronous operations are very hard to do with promi
 - essential state vs accidental state, accidental state like `user count` can be replaced with derived state
 - declarative APIs > Imperative APIs
 - ember-concurrency thinks about derived state with respect to time
+
+### Addons
+- should solve an interesting/useful problem
+- deliberate API design
+- reliable/tested
+
+Addon structure:
+- like ember, with `addon` folder in ember land
+  - contains most logic 
+  - export helpers that would be overridden, or anything that should be publicly used (part of API)
+  - no real concept of private functions though
+- in node land, addons use hooks
