@@ -140,3 +140,6 @@ A hyperparameter is not learned by the algorithm, it is predefined like the capa
   - likelihood of a specific sample coming up is the product of the individual probabilities of each event in the sample
   - now we want to estimate any &theta;, some parameter of the unknown distribution; let's do the mean
   - then &theta;-hat is our estimate of &theta; and it is the selected value of &theta; for the unknown distribution that *maximizes the probability* of our sample coming up
+
+- **KL Divergence** is a measure of non-symmetry between two probability distributions
+  - Kullback-Leibler divergence
