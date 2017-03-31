@@ -135,11 +135,18 @@ A hyperparameter is not learned by the algorithm, it is predefined like the capa
 --->
 
 - **Consistency** formally describes the probabilistic convergence of a point estimate to the actual value
+
+### Maximum Likelihood Estimation
 - **Maximum Likelihood Estimation** helps to formally derive what a good estimator function is for a models
   - we have an unknown distribution, and some sample
   - likelihood of a specific sample coming up is the product of the individual probabilities of each event in the sample
   - now we want to estimate any &theta;, some parameter of the unknown distribution; let's do the mean
   - then &theta;-hat is our estimate of &theta; and it is the selected value of &theta; for the unknown distribution that *maximizes the probability* of our sample coming up
-
 - **KL Divergence** is a measure of non-symmetry between two probability distributions
   - Kullback-Leibler divergence
+
+*The MLE can be simplified to finding &theta; that maximizes the average log likelihood of each event in our sample, the training data.*
+
+In ML, the MLE is used to minimize dissimilarity between the empircal distribution of the training set, and the model distribution, as measured by the KL divergence
+
+#### Conditional Log-Likelihood and MSE
