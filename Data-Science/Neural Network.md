@@ -55,3 +55,6 @@ CNN's capacity can be controlled by varying their depth and breadth (layers), an
   - multiple GPUs, each handling different convolutional layers
   - local response normalization
   - overlapping pooling
+
+Maxout networks are designed to work with dropout networks
+- dropout is like training an exponential number of networks
