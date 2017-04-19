@@ -187,3 +187,18 @@ We define &phi; to be a transformation function that maps the dataset X to a hig
 - want to train a linear SVM on transformed dataset X' to get a classifier f<sub>SVM</sub>
   - after training, during testing, every new example x will first be transformed to x' = &phi;(x)
 - so the output is a label for the class. In otherwords f<sub>SVM</sub>(&phi;(x)) = f<sub>SVM</sub>(x') in {0,1} for a binary classification problem
+- can achieve nonlinear SVMs by applying linear SVMs in higher dimensions 
+- this is very simple to understand, but it is also computationally expensive to perform
+- we can apply different transformations, one example is a polynomial kernel, and this one maps from R2 -> R5, and by simply transforming the input before performing a linear SVM is extremely expensive in high dimensions
+
+It turns out that SVMs only compute pair-wise dot products and thus we don't need to always work in a higher dimensional space during training/testing
+- during the training, the optimization problem only uses pair-wise dot products of examples
+- there exists a closed form method to compute dot products in higher dimensions without needing to transform the vectors in the dataset
+- **kernel functions** let us compute this
+  - we can implicitly transform datasets to higher dimensional R<sup>M</sup> faster and without extra memory
+  - in other words, instead of pre-processing data input, then performing dot products, the kernel function can replace dot products and be applied to un-transformed vectors with the same effect
+  - the intuition behind this is that the kernel function K can effectively perform a dot product while working exclusively in R<sup>N</sup>
+- different kernels, or kernel functions, exist to perform dot products in different dimensions with different transformations
+  - the chosen dimensional transform is important for finding an effective decision boundary
+  - selecting the correct kernel for a task requires a lot of hyperparameter tuning for the model to get good performance
+  - **K-Fold Cross Validation** is a technique that might help
