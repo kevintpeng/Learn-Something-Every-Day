@@ -178,3 +178,5 @@ Often data doesn't divide nicely. We can approach this by mapping data into a hi
   - applying kernels to improve classification results
   - kernel K(v,w) is a function K: R<sup>N</sup>, R<sup>N</sup> -> R computing the dot product between v and w
 - so a linear SVM finds a hyperplane that best separates data points called the **decision boundary**
+- in most datasets, a linear decision boundary cannot be found in the original feature space/dimensionality
+- the challenge in training a linear SVM classifier in finding a decision boundary is that we must apply a good transformation to map the dataset to a higher dimension
