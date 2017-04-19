@@ -167,5 +167,14 @@ We can generalize linear regression to the classification scenario by defining d
   
 #### Support Vector Machines
 Similar to logistic regression, also driven by linear funcition w<sup>T</sup>x + b (weighted vector funciton)
+- the goal is similar to logistic regression: find a hyperplane that divides a dataset into two classes
+- support vectors are the data points nearest to the hyperplane, if removed would alter the position of the dividing hyperplane
+  - margins are the magnitude of the support vectors, and we want to maximize the margins if possible
 - while logistic regression provides probabilities, SVMs predict one class for positive output values, and other for negative
-- **kernel trick** 
+
+Often data doesn't divide nicely. We can approach this by mapping data into a higher dimension:
+<img src="http://66.media.tumblr.com/9bffea56372d28d2a30f80557451e824/tumblr_inline_o9aabehtqP1u37g00_540.png" height=200><img src="http://www.eric-kim.net/eric-kim-net/posts/1/imgs/data_2d_to_3d.png" height=200>
+- **kernel trick** is used to accomplish this -- [source](http://www.eric-kim.net/eric-kim-net/posts/1/kernel_trick.html)
+  - applying kernels to improve classification results
+  - kernel K(v,w) is a function K: R<sup>N</sup>, R<sup>N</sup> -> R computing the dot product between v and w
+- so a linear SVM finds a hyperplane that best separates data points called the **decision boundary**
