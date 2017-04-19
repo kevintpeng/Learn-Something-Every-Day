@@ -180,3 +180,8 @@ Often data doesn't divide nicely. We can approach this by mapping data into a hi
 - so a linear SVM finds a hyperplane that best separates data points called the **decision boundary**
 - in most datasets, a linear decision boundary cannot be found in the original feature space/dimensionality
 - the challenge in training a linear SVM classifier in finding a decision boundary is that we must apply a good transformation to map the dataset to a higher dimension
+
+We define &phi; to be a transformation function that maps the dataset X to a higher dimensionality dataset X' (think R2 to R3 as shown above)
+- want to train a linear SVM on transformed dataset X' to get a classifier f<sub>SVM</sub>
+  - after training, during testing, every new example x will first be transformed to x' = &phi;(x)
+- so the output is a label for the class. In otherwords f<sub>SVM</sub>(&phi;(x)) = f<sub>SVM</sub>(x') in {0,1} for a binary classification problem
