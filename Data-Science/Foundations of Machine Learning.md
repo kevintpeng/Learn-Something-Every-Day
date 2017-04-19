@@ -160,3 +160,12 @@ Association of some input with some output
 We can generalize linear regression to the classification scenario by defining different families of probability distributions
 - in binary classification, we have class 0 and class 1, and combined the probability distributions for both classes should sum to 1 for all domain values
   - *since they sum to 1, we only calculate one distribution*
+- logistical regression: squash a linear regression into the range (0,1) using a logistic sigmoid, and interpret as probability
+  - logistic regression is hard, linear regression has optimal weight parameters for its function since there is a closed-form solution
+- in logistic regression, we must search for optimal weights by maximizing the log-likelihood funciton, or minimize the negative log-likelihood with gradient descent
+  - applies generally to almost all supervised learning problems 
+  
+#### Support Vector Machines
+Similar to logistic regression, also driven by linear funcition w<sup>T</sup>x + b (weighted vector funciton)
+- while logistic regression provides probabilities, SVMs predict one class for positive output values, and other for negative
+- **kernel trick** 
