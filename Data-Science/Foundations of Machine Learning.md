@@ -172,6 +172,8 @@ Similar to logistic regression, also driven by linear funcition w<sup>T</sup>x +
   - margins are the magnitude of the support vectors, and we want to maximize the margins if possible
 - while logistic regression provides probabilities, SVMs predict one class for positive output values, and other for negative
 
+<img src="http://www.eric-kim.net/eric-kim-net/posts/1/imgs/linsep_svm_linear.png" height=200>
+
 Often data doesn't divide nicely. We can approach this by mapping data into a higher dimension:
 <img src="http://66.media.tumblr.com/9bffea56372d28d2a30f80557451e824/tumblr_inline_o9aabehtqP1u37g00_540.png" height=200><img src="http://www.eric-kim.net/eric-kim-net/posts/1/imgs/data_2d_to_3d.png" height=200>
 - **kernel trick** is used to accomplish this -- [source](http://www.eric-kim.net/eric-kim-net/posts/1/kernel_trick.html)
