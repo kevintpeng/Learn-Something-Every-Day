@@ -150,3 +150,13 @@ A hyperparameter is not learned by the algorithm, it is predefined like the capa
 In ML, the MLE is used to minimize dissimilarity between the empircal distribution of the training set, and the model distribution, as measured by the KL divergence
 
 #### Conditional Log-Likelihood and MSE
+
+### Supervised Learning
+Association of some input with some output
+- human often acts as "supervisor" annotating data
+- many supervised learning algorithms are **probabilistic** estimating a probability distribution
+- using MLE to find best parameter vector 
+
+We can generalize linear regression to the classification scenario by defining different families of probability distributions
+- in binary classification, we have class 0 and class 1, and combined the probability distributions for both classes should sum to 1 for all domain values
+  - *since they sum to 1, we only calculate one distribution*
