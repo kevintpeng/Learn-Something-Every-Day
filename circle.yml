@@ -2,10 +2,15 @@ checkout:
   post:
     - git submodule sync
     - git submodule update --init --recursive --remote # use submodules
+    - cd .diatex && bundle install --without test
+    - gem install htmlbeautifier
+    - sudo apt-get --no-install-recommends install graphviz
+    - sudo apt-get --no-install-recommends install texlive-latex-base
+    - sudo apt-get --no-install-recommends install dvipng
 
 test:
   override:
-    - ruby ./diatex/diatex ./
+    - BUNDLE_GEMFILE=.diatex/Gemfile bundle exec ruby ./diatex/diatex ./
     - git config --global user.email "kevin@kpeng.ca" && git config --global user.name "Kevin Peng"
     - git status
     - git add --all .
