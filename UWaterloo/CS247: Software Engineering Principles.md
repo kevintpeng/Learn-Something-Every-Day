@@ -1,4 +1,4 @@
-# [CS247](https://www.student.cs.uwaterloo.ca/~cs247/current/general.shtml)
+# [CS247: Software Engineering Principles](https://www.student.cs.uwaterloo.ca/~cs247/current/general.shtml)
 Software Engineering is a collection of practices and priciples, tools, techniques, etc. that aims to:
 - imporve software quality
 - improve developer productivity
