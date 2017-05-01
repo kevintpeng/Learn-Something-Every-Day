@@ -2,6 +2,8 @@
 Software Engineering is a collection of practices and priciples, tools, techniques, etc. that aims to:
 - imporve software quality
 - improve developer productivity
+- `g++ -5 -std=14 -Wall`
+- overloading vs overriding
 
 ### ADT Design
 
