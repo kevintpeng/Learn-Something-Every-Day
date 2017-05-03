@@ -2,6 +2,7 @@
 ### Summary
 - fibbonacci numbers come from the number of **compositions** from the set {1,2}
 - the set of binary strings can be represented through a **cartesian power**: {0,1}<sup>n</sup>
+- **binomial theorem** is intuitively, the number of ways to get each final term, written as combinations of (1+x) terms, choosing either 1 or x
 
 
 ### Introduction
@@ -27,8 +28,13 @@ A **composition** of a non negative integer `n` is a sequence where m1,..mr are 
 - combinations are different ways to choose k things from n things
 - Pascal's triangle shows the number of combinations for a given column and row
 
+**Combinatorial Proof** is any proof involving some kind of counting argument
+- example is the binomial theorem
+
 **Binomial Theorem**: (1+x)<sup>n</sup> = ∑ (nCk)x<sup>k</sup>
 - intuition: we have n `(1+x)` terms. When multiplying these terms, we either choose the 1 or the x
   - when multiplying we end with n+1 terms x<sup>0</sup> + ... + x<sup>n</sup>
   - to get the coefficients of these terms, we want to look at how many combinations we get for choosing x:
   - we get nC0 x<sup>0</sup> + ... + nCn•x<sup>n</sup>
+  - we are **counting** the number of ways each x<sup>k</sup> term occurs during multiplicative expansion
+- we call each (nCk) a binomial coefficient
