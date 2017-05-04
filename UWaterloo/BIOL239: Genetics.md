@@ -23,3 +23,6 @@ Mendelian genetics, pedigree analysis is applied for humans
 - **Mendel's law of segregation**: two alleles for each trait separate during gamete formation and unite at random during fertilization
 - Peas are wrinkled based on whether they are soluble or not
   - starch active branching enzyme makes the starch insoluble, acting catalytically 
+- **Dihybrid crosses** with respect to two genes have different alleles for both genes; come from two pure bred homozygous dominant and recessive parents respectively
+- **Mendel's Law of Independent assortment**: during gamete formation, different pairs of alleles segregate independently of each other
+- by summing genotypic ratios, we get the phenotypic ratios 1:2:1 and 9:3:3:1 for one and two genes respectively
