@@ -3,7 +3,7 @@
 - fibbonacci numbers come from the number of **compositions** from the set {1,2}
 - the set of binary strings can be represented through a **cartesian power**: {0,1}<sup>n</sup>
 - **binomial theorem** is intuitively, the number of ways to get each final term, written as combinations of (1+x) terms, choosing either 1 or x
-
+- two conjectures that lead to pascal's triangle are: 1. nCk = nC(n-k) and 2. nCk = (n-1)C(k-1) + (n-1)Ck
 
 ### Introduction
 Study of finite or countable discrete structures 
@@ -38,3 +38,24 @@ A **composition** of a non negative integer `n` is a sequence where m1,..mr are 
   - we get nC0 x<sup>0</sup> + ... + nCn•x<sup>n</sup>
   - we are **counting** the number of ways each x<sup>k</sup> term occurs during multiplicative expansion
 - we call each (nCk) a binomial coefficient
+- Proving conjecture 1: nCk = nC(n-k) algebraically is simple
+  - but we need to do combinatorial proofs, and get a more intuitive sense for the statement
+  - intuitively, it is suggesting that we're counting the complement
+  
+Show nCk = nC(n-k) with a **combinatorial proof**
+- *look at both sides, and what they're counting, then understand why they're are equal and formailze*
+- let S be the set of k-subsets of [n]
+- let T be the set of (n-k)-subsets of [n]
+- *to formailize counting, we will form a bijection from S to T*
+- forall members A in S, f(A) [n]\A; *set subtraction, so notice f is mapping an element to its complement*
+- f<sup>-1</sup>: T -> S
+- f<sup>-1</sup>(B) = [n]\B forall B in T
+- since we have a bijection between S and T, then |S| = |T|
+
+Show the second conjecture is true
+- S is the set of all k-subsets of [n]
+- idea: partition S into two disjoint sets S1 and S2
+- S1 is the set of all k-subsets of [n] that contain n
+- S2 is the set of all k-subsets of [n] that do NOT contain n
+- we can see they are disjoint, and so |S| = |S1| + |S2|
+- then we can see |S1| = (n-1)C(k-1)
