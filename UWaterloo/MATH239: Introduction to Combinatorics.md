@@ -3,6 +3,7 @@
 - fibbonacci numbers come from the number of **compositions** from the set {1,2}
 - the set of binary strings can be represented through a **cartesian power**: {0,1}<sup>n</sup>
 - **binomial theorem** is intuitively, the number of ways to get each final term, written as combinations of (1+x) terms, choosing either 1 or x
+  - binary strings produce similar results, when applying a generating series
 - two conjectures that lead to pascal's triangle are: 1. nCk = nC(n-k) and 2. nCk = (n-1)C(k-1) + (n-1)Ck
 
 ### Introduction
@@ -59,3 +60,26 @@ Show the second conjecture is true
 - S2 is the set of all k-subsets of [n] that do NOT contain n
 - we can see they are disjoint, and so |S| = |S1| + |S2|
 - then we can see |S1| = (n-1)C(k-1)
+
+Prove (n+k)Cn = k∑i=0 (n+i-1)C(n-1) 
+- intuitively, say we have 5C3, if we partition based on the last number (5), then we have 4C2 possible subsets, also with 4 fixed, we have 3C2 possible subsets, and fixing 3, we have 2C2 subsets
+
+Proof:
+- Let S be the family (means set) of n-subsets of [n+k] |S| = (n+k)Cn
+- forall sets A in S, the largest element of A is in {n,n+1,...,n+k}
+- partition S into smaller families based on the largest element
+- Let S<sub>i</sub> be the family of n-subsets of [n+k] whose largest element is n+i where i in {0,1,...,k}
+  - notice, Si n Sj = ø forall distinct i,j 
+  - also S = So u S1 u S2 u ... u Sk
+  
+#### Generating Series
+Let S be a set of objects, N = {0,1,2...}
+- a **weight function** of S is a function w:S -> N which assigns to each σ in S a non-negative integer w(σ) called the weight of σ
+- Example: S = binary strings of length 4. For σ in S, weight of σ, w(σ), is the number of 1s in σ
+- this gives us a General Problem: How many elements of S are there of weight k?
+
+So the **generating series** for S with respect to the weight functon w is:
+&Phi;<sub>S</sub>(x) = ∑(σ in S)x<sup>w(σ)</sup>
+- brute forcing binary strings of length four, and applying the weight function
+  - &Phi;<sub>S</sub>(x) = x<sup>0</sup> + 4x<sup>0</sup> + 6x<sup>1</sup> + 4x<sup>2</sup> + x<sup>3</sup>
+- observe that the coefficient of x<sup>k</sup> is the # of elements of weight k in S
