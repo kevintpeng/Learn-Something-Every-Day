@@ -25,6 +25,8 @@ Order notation:
 - o is describes functions strictly less than g
 - &omega; is strictly greater than g
 
+"Best Case & Worst Case" refer to instances of inputs into the algorithm, but this has nothing to do with upper/lower bounds.
+
 Proof: first derive an appropriate c and n<sub>0</sub>, then show that desired relationship holds for all n ≥ n<sub>0</sub>
 - 0≤2n2+3n+11≤cn2 foralln≥n0.
 - exists some c > 0, and n0 > 0 s.t. 2n<sup>2</sup> + 3n + 11 ≤ cn<sup>2</sup>
