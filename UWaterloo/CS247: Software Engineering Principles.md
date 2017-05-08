@@ -83,18 +83,33 @@ g(X(s)) // OK
 g(Z(s)) // OK
 ```
 
-### Modules and Interfaces
+Header file is effectively global
+- .cc has a namespace. If you leave it blank `namespace { //functions }` then it's anonymous
+- we can hide helper methods best in here
+- should not pollute the global namespace
 
-### Exceptions
+Apply the `override` keyword as a sanity check, so that the compiler can catch it
 
-### Interface Specifications
+`final` says you cannot override in a derived class
 
-### OO Design Principles
+#### **Attribute-based ADTs** 
+are primarily composed of "virtual data members", accessors and mutators (focused on the information in it)
+- all other functions are non-members
+- easier to write the contract for the ADT
+- virtual data members might not have actual storage, since it could be a computed attribute
+- attributed based ADT design overall provides safety through enforcing legal value ranges
+- compiler reports type incompatibilities 
+- efficiency; only areas we need to check for legal values are: constructors and mutators (both member and nonmember)
 
-### Design Patterns
+### Value vs. Entity Objects, Information Hiding
+**Entity** has a unique identity (but may have same data), and thus objects are not equal, even with same attribute values
+- has a lifespan/continuity, changes over time
 
-### UML Modelling
-
-### Generic Programming(STL)
-
-### Testing and Debugging
+**Value** object represents a value of an ADT, managing data and immutability
+- faked in C++ by returning a new object by value 
+  - over-write/std::move content instead of modifying "this"
+  
+#### Design of Entity ADTs
+An operation on an enitity object should reflect a real-world event
+- copying & converting an entity is not meaningful
+- computation on entities are not meaningful; overloading operators should be avoided
