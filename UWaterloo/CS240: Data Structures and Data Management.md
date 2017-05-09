@@ -1,4 +1,4 @@
-# Data Structures and Data Management
+# [Data Structures and Data Management](https://www.student.cs.uwaterloo.ca/~cs240/s17/)
 - storing, accessing, performing operations on large collections of data
 
 ### [Introduction](https://www.student.cs.uwaterloo.ca/~cs240/s17/modules/module01-2up.pdf)
