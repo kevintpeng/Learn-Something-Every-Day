@@ -24,8 +24,10 @@ Order notation:
 - &Theta; describes the set of functions asymptotically equal to g
 - o is describes functions strictly less than g
 - &omega; is strictly greater than g
+- `c` offsets a transformation of the function, while `n0` describes the "sufficiently large" factor during comparison 
 
-"Best Case & Worst Case" refer to instances of inputs into the algorithm, but this has nothing to do with upper/lower bounds.
+"Best Case & Worst Case" refer to instances of inputs into the algorithm, but this has nothing to do with upper/lower bounds. Lets look at a contrived example:
+- best and worst cases can have a range; suppose we introduce a probabilistic, nondeterministic factor (contrieved example in class)
 
 Proof: first derive an appropriate c and n<sub>0</sub>, then show that desired relationship holds for all n ≥ n<sub>0</sub>
 - 0≤2n2+3n+11≤cn2 foralln≥n0.
@@ -55,4 +57,3 @@ Squaring(b,x) we recursively call ExpSquaring(b*b, x/2) or b*ExpSquaring(b*b, (x
 
 we see that Tb(x) = x, and Te(x) = {3log2(x), 4log2(x)
 ```
-
