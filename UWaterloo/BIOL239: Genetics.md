@@ -27,3 +27,7 @@ Mendelian genetics, pedigree analysis is applied for humans
 - **Mendel's Law of Independent assortment**: during gamete formation, different pairs of alleles segregate independently of each other
 - by summing genotypic ratios, we get the phenotypic ratios 1:2:1 and 9:3:3:1 for one and two genes respectively
 - a **test cross** is used to find a genotype from a phenotype
+
+### Mendelian
+Genes can have incomplete dominance or codominanance, resulting in new phenotype ratios
+- some genes might have multiple possible alleles, in which case you can determine a **dominance series** by crossing every combination of homozygotes
