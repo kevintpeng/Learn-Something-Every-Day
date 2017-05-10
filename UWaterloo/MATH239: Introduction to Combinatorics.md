@@ -73,6 +73,8 @@ Proof:
   - also S = So u S1 u S2 u ... u Sk
   
 #### Generating Series
+Helps us with a very general enumeration problem
+
 Let S be a set of objects, N = {0,1,2...}
 - a **weight function** of S is a function w:S -> N which assigns to each σ in S a non-negative integer w(σ) called the weight of σ
 - Example: S = binary strings of length 4. For σ in S, weight of σ, w(σ), is the number of 1s in σ
@@ -82,4 +84,28 @@ So the **generating series** for S with respect to the weight functon w is:
 &Phi;<sub>S</sub>(x) = ∑(σ in S)x<sup>w(σ)</sup>
 - brute forcing binary strings of length four, and applying the weight function
   - &Phi;<sub>S</sub>(x) = x<sup>0</sup> + 4x<sup>0</sup> + 6x<sup>1</sup> + 4x<sup>2</sup> + x<sup>3</sup>
+  - &Phi;<sub>S</sub>(x) = (1+x)^4
 - observe that the coefficient of x<sup>k</sup> is the # of elements of weight k in S
+
+Theorem 1.6.3
+Let &Phi;<sub>S</sub>(x) be the generating series for a finite set and weight function w. Then 
+
+1. &Phi;<sub>S</sub>(1) = |S| (follows intuitively by the fact that at 1, it is defined to be the sum of all coefficients)
+1. &Phi;<sub>S</sub>'(1) = sum of all weights
+1. &Phi;<sub>S</sub>'(x)/&Phi;<sub>S</sub>(x) = average weight of an element in S
+
+Example:
+
+S is the set of all binary strings. Then we have 2^k possible strings
+- now se have 
+
+#### Formal Power Series
+- FPS is a power series of the form A(x) = infinity ∑0 a<sub>n</sub>x<sup>n</sup> = a<sub>0</sub>x<sup>0</sup> + a<sub>2</sub>x<sup>2</sup> + ...
+- we can encode all these numbers as (1+x)^n, not really as a function but think of it as encoding/short form
+
+Let A(x) and B(x) be two FPS
+- it is natural that equality of two power series implies equal coefficients
+- operation: additions, add the coefficients for each term
+- we can multiply by a constant, where each coefficient is multiplied by the coefficient
+- multiply two FPS, just think back to foil/binomial expansion; there's no fancy/fast form
+- division, if A(x)B(x)=1, then B is the inverse of A
