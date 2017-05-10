@@ -1,7 +1,7 @@
 # Math 213
 ### Summary
 - differential equations contain derivatives of a dependent variable
-- we can avoid numerical solutions if the equati
+- we can avoid numerical solutions if the equation is a linear ordinary differential equation (ODE) with constant coefficients
 
 ### Introduction
 Studying linear, time-invariant dynamic systems using differential equations  
