@@ -11,7 +11,6 @@ Software Engineering is a collection of practices and priciples, tools, techniqu
 - allows implementations to be swapped out without affecting code
 
 #### Operator Overloading
-- fi
 
 C++ 11 introduced "move" semantics
 - compilers have return value optimization, saving the cost of a copy, when returning a temporary object, holding a function return value
@@ -112,4 +111,51 @@ are primarily composed of "virtual data members", accessors and mutators (focuse
 #### Design of Entity ADTs
 An operation on an enitity object should reflect a real-world event
 - copying & converting an entity is not meaningful
+- equality
 - computation on entities are not meaningful; overloading operators should be avoided
+
+Example: Card game 
+- Score is a value
+- Hand is entity
+- Player is entity
+- Deck is entity
+- Card is value (or could be an entity if you want it to exist in a certain deck and location, if we consider repeatability)
+
+Mutable Value-based ADTs like Dates can be problematic if they can be referenced from two variables
+- references/pointers to the object should never be returned, so make a deep copy when returning
+- we could remove all mutators to make an object immutable
+- we could make all data members private
+- could ensure class cannot be derived from "final" or make methods final
+
+```C++
+// fake deep copy + over writing original object data via operator "="
+
+class X {
+  public:
+  X(const X&) = delete;
+  X& operator=(const X&) = delete;
+} // how to disable C++11 and up
+```
+
+- **Singleton Design Pattern** ensures that exactly one object of our ADT exists
+- **PImpl Idiom** encapsulates the data representation in a nested private structure (which can be in a separate file)
+
+```
+class Rational::Impl {
+  int numerator_, denominator_; // private data fields
+  public:
+    Impl(int n, int d): numerator_ {n}, denominator_ {d} {} // ...
+}
+
+Rational::Rational(int n, int d): // start initializer list
+  rat_ {new Rational::Impl {n,d} {
+  if(d==0) throw "Panic, denominator=0";
+  }
+```
+
+### Special Member Functions
+Member functions are provided by default by the compiler
+- move assignment, we don't return things by reference
+- Rvalue references are a new category of reference variables 
+- usaully overwriting something completely
+- since we're stealing things, the thing we're getting information from is not a constant
