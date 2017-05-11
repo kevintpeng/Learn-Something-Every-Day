@@ -73,3 +73,5 @@ Priority Queue is an ADT with a collection of items (associated with a priority)
 - heaps are balanced & left justified
 - heap-order proerty says that any node's children have equal or lower priority
 - since the height of a heap is &Theta;(log n), then insertion and deletion operations are also O(log n)
+- our insert will simply add the element in the last slot, then "bubble up"
+- our delete will shift the last element into the first slot, then perform swaps again by "bubble down"
