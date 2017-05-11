@@ -63,3 +63,13 @@ Start from inner-most loop, and use &Theta;-bounds throughout to obtain a &theta
 - identify elementary operations of &theta;(1)
 - complexity of loop is expressed as the sum of complexities at each iteration
 - use maximum rules whenever to simplify: that is O(f(n) + g(n)) = O(max{f(n), g(n)})
+
+### [Priority Queue](https://www.student.cs.uwaterloo.ca/~cs240/s17/modules/module02-2up.pdf)
+Priority Queue is an ADT with a collection of items (associated with a priority) 
+- insert: with tagged priority
+- deleteMax: remove the item with highest priority
+
+**Heaps** are a type of binary tree. A **max-heap** has additional properties:
+- heaps are balanced
+- heap-order proerty says that any node's children have equal or lower priority
+- since the height of a heap is &Theta;(log n), then insertion and deletion operations are also O(log n)
