@@ -59,9 +59,7 @@ we see that Tb(x) = x, and Te(x) = {3log2(x), 4log2(x)
 ```
 
 #### Loop Analysis
-- lines 4 & 5; 6 operations
-- lines 3 to 5; n∑j-i 6
-- n∑1 6 - (i-1)∑1 6
-- 6n - (i-1)•6
-- 6n - 6i + 6
-- now lines 2 gives n∑1 (6n - 6i + 6)
+Start from inner-most loop, and use &Theta;-bounds throughout to obtain a &theta;-bound for the complexity of the algorithm
+- identify elementary operations of &theta;(1)
+- complexity of loop is expressed as the sum of complexities at each iteration
+- use maximum rules whenever to simplify: that is O(f(n) + g(n)) = O(max{f(n), g(n)})
