@@ -2,6 +2,18 @@
 ### Summary
 - differential equations contain derivatives of a dependent variable
 - we can avoid numerical solutions if the equation is a linear ordinary differential equation (ODE) with constant coefficients
+- let Q(D) is a polynomial of differentials with coefficients, and when multiplied with some y(t), we get a ODE Q(D)y(t) = P(D)f(t), and in this course, we solve for y(t) with a given P(D)
+
+### [Pre-reading](http://users.math.msu.edu/users/gnagy/teaching/ode.pdf)
+Ordinary Differential equations are ones where the unknown function depends on a single independent variable t
+- order of a differential equation is the highest derivative 
+- linear differential equations are first order ODE on the unknown y is y'(t) = f)t, y(t)), where f is given and y' = dy/dt (the differential). Then the equation is **linear** iff f(t,y) = a(t)y + b(t). But since we only care about constant coefficients for now, it is y' = ay + b
+- now let's look at solving differential equations; integrating on both sides does not work
+  - for y' = 2y + 3, integrating is not enough to find a solution y, we still need to find a **primative** of y
+  - we have only rewritten the original equation as an integral equation
+- the linear differential equation y' = ay + b has infinitely many solutions: y(t) = ce<sup>mt</sup> - b/a, c in REALS
+- this infinitely many solutions is called the **general solution** of the differential equation
+  - there are infinitely many solutions, one solution fo
 
 ### Introduction
 Studying linear, time-invariant dynamic systems using differential equations  
@@ -13,4 +25,12 @@ Studying linear, time-invariant dynamic systems using differential equations
 - linear differential equations contain no constant terms (otherwise called affine)
   - only able to perform analytical solutions when coefficients are constant
   - principle of superposition greatly simplifies analysis
- 
+
+### Lecture 2
+A general solution for an ODE is an expression for y(t) satisfying the equation and containing n "arbitrary constants/constants of integration"
+- a set of n initial conditions determines values of these arbitrary constants
+- the goal is to find the general solution of the eq, and plug in the initial conditions to evaluate the arbitrary constants 
+- start by finding an **auxiliary equation** y<sub>c</sub>(t) = 0, also called the complementary solution
+- then, we'll find a particular solution
+- y˜(t) = yc(t) + yp(t)
+- Q(D)(yc(t) + yp(t)) = Q(D)yc(t) + Q(D)yp(t) = 0 + f(t)
