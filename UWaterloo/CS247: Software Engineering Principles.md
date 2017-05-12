@@ -198,6 +198,10 @@ Node & Node::operator=(const Node & other) { // returns Node reference
 }
 ```
 
+- Rule of three: if a class requires at least one of a user-defined destructor, copy constructor or copy assignment operator exist, then it should have all three
+- Rule of five: for user defined destructors, copy constructors or copy assignment, the move ctor and move assignment cannot be defined implicitly, and thus all five should be explicitly user defined
+- 
+
 TODO Big three five zero
 
 ## Special Member Functions
@@ -230,7 +234,6 @@ need a destructor if object acquires resources, or maybe log, or inheritance hie
 - destructor is also compiler generated based on memberwise destruction
 
 Copy constructors make new objects whose value is equal to existing obj, used by compiler to copy objects of the ADT
-*TODO Copy ctor optimized move semantics*
 
 ```c++
 Money n{m}; //calls copy constructor
@@ -249,7 +252,7 @@ Copying with pointers
   1. temps destruction cleans up original data 
   
 **Move Constructor** makes new object whose value is equal to existing obj, but does not preserve the value of existing obj
-- [TODO](http://thbecker.net/articles/rvalue_references/section_01.html) rvalue is a feature of C++, solving the 1) implementation of move semantics and 2) perfect forwarding
+- rvalue is a feature of C++, solving the 1) implementation of move semantics and 2) perfect forwarding
   - lvalues may appear on either LHS or RHS of assignments, while rvalues can only appear on RHS
   - in the special case that the RHS of assignment is an rvalue, we want the copy assignment to swap pointers rather than perform cloning then destruction; this is called **move semantics** 
   - `void foo(X&& x);` declares an **rvalue reference overload** (X& is an ordinary/lvalue reference)
