@@ -198,6 +198,8 @@ Node & Node::operator=(const Node & other) { // returns Node reference
 }
 ```
 
+TODO Big three five zero
+
 ## Special Member Functions
 Member functions are provided by default by the compiler
 - move assignment, we don't return things by reference
@@ -239,7 +241,18 @@ Copying with pointers
 - **shallow copies** reference the same object from pointers (default)
 - **deep copies** also make distinct new members (no sharing)
 
+[TODO](http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom)
 **Copy Swap idiom**; using move semantics -- goal is to provide safe copy
 - we want to create a deep copy of the parameter, and if the heap overflows, we don't want to change the original object 
-  - make a deep copy of RHS in temp local object
-  - swap info between LHS and temp
+  1. make a deep copy of RHS in temp local object
+  1. swap info between LHS (this) and temp
+  1. temps destruction cleans up original data 
+  
+**Move Constructor** makes new object whose value is equal to existing obj, but does not preserve the value of existing obj
+- [TODO](http://thbecker.net/articles/rvalue_references/section_01.html) rvalue is a feature of C++, solving the 1) implementation of move semantics and 2) perfect forwarding
+  - lvalues may appear on either LHS or RHS of assignments, while rvalues can only appear on RHS
+  - 
+- without std::move(m) ...
+- compiler generated is memberwise move (shallow)
+
+**Move assignment** 
