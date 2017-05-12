@@ -5,6 +5,7 @@
 - **binomial theorem** is intuitively, the number of ways to get each final term, written as combinations of (1+x) terms, choosing either 1 or x
   - binary strings produce similar results, when applying a generating series
 - two conjectures that lead to pascal's triangle are: 1. nCk = nC(n-k) and 2. nCk = (n-1)C(k-1) + (n-1)Ck
+- a **formal power series** is <sup>∞</sup>∑<sub>i=0</sub> a<sub>i</sub>x<sup>i</sup>, of only rational coefficients
 
 ### Introduction
 Study of finite or countable discrete structures 
@@ -108,4 +109,12 @@ Let A(x) and B(x) be two FPS
 - operation: additions, add the coefficients for each term
 - we can multiply by a constant, where each coefficient is multiplied by the coefficient
 - multiply two FPS, just think back to foil/binomial expansion; there's no fancy/fast form
-- division, if A(x)B(x)=1, then B is the inverse of A
+  - thinking about the table of coefficients, this form looks like: (infinity)∑n=0( n∑j=0 a<sub>j</sub>b<sub>n-j</sub>)x<sup>n</sup>
+- division, if A(x)B(x)=1, then B is the inverse of A. But the inverse may or may not exist, but when it does exist, *it is unique*
+  - let's look at what it means for FPS to have an inverse
+  - we want A(x)B(x) = 1 = 1x<sup>0</sup> + 0x<sup>1</sup> + ...
+  - a0b0 = 1, and since a0 is given, it *must not be 0* and b0 = 1/a0. Now that we know what b0, we can then solve for b1 for the x<sup>1</sup> term
+
+Examples applying operations:
+- does x+x^2 have an inverse? No, since the coefficient of x^0 = 0
+- does 1-x have an inverse? Yes; (1-x)^-1 = 1 + x + x<sup>2 + x<sup>3</sup> + ... notice this is a geometric series, but we want to avoid the concept of limits, don't think of them as functions, but rather an encoding of numbers for the purpose of counting combinatorial objects
