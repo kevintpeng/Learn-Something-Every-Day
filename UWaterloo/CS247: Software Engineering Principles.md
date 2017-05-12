@@ -251,7 +251,8 @@ Copying with pointers
 **Move Constructor** makes new object whose value is equal to existing obj, but does not preserve the value of existing obj
 - [TODO](http://thbecker.net/articles/rvalue_references/section_01.html) rvalue is a feature of C++, solving the 1) implementation of move semantics and 2) perfect forwarding
   - lvalues may appear on either LHS or RHS of assignments, while rvalues can only appear on RHS
-  - 
+  - in the special case that the RHS of assignment is an rvalue, we want the copy assignment to swap pointers rather than perform cloning then destruction; this is called **move semantics** 
+  - `void foo(X&& x);` declares an **rvalue reference overload** (X& is an ordinary/lvalue reference)
 - without std::move(m) ...
 - compiler generated is memberwise move (shallow)
 
