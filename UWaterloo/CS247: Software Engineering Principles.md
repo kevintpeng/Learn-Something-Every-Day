@@ -5,6 +5,25 @@ Software Engineering is a collection of practices and priciples, tools, techniqu
 - `g++ -5 -std=14 -Wall`
 - overloading vs overriding
 
+### C++
+- Inheritance `class Base{}; class Derived : public Base {};`
+- Polymorphism is when we can use base class pointers to point to objects of any derived type `class Bear : public Animal {}`
+- Static Binding functions occurs at compile time
+- References act like pointers: `Node&`
+
+Initialization lists; setting values in body of constructor vs initialization list is slightly different `B() : a(3) {}`
+
+- references and const members cannot be set outside of the initialization list
+- any object not initialized in the initialization list will have its default constructor called (extra computation + side effects)
+  - one issue: values set in the initialization list are not constructed in the order of the list, but rather the order of definitions
+  
+We cannot leave const variables uninitialized
+- `const int* x`
+- const references should be passed and returned from functions as const referneces
+  - more efficient (no copying), promise to compiler that original object will not be changed
+  - gives ability to pass literals & temp values, which means we won't change anything and thus won't need the literal to be assigned an address (think print function)
+
+
 ### [ADT Design](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/02ADTDesign-1up.pdf)
 - user defined type, bundles together the range of possible values stored, and operations that can manipulate the varible
 - provides compiler ways to perform type assertions at compile time
@@ -153,9 +172,74 @@ Rational::Rational(int n, int d): // start initializer list
   }
 ```
 
-### Special Member Functions
+### Tutorial
+Copy and swap idiom is a way of avoiding code duplication & errors
+- during assignment, create a temp object, using the copy constructor, then swap the old value of the assignee with the newly created object
+
+```c++
+using namespace std;
+  std::swap
+  
+int a = 1; int b = 2;
+swap(a,b);
+// a=2; b=1;
+
+// copy and swap
+void Node::swap(Node & other) { // reference
+  using std::swap;
+  swap(data, other.data);
+  swap(next,  other.next);
+}
+
+Node & Node::operator=(const Node & other) { // returns Node reference
+  Node tmp{other};
+  swap(tmp);
+  return *this;
+}
+```
+
+## Special Member Functions
 Member functions are provided by default by the compiler
 - move assignment, we don't return things by reference
 - Rvalue references are a new category of reference variables 
 - usaully overwriting something completely
 - since we're stealing things, the thing we're getting information from is not a constant
+
+Virtual data member example: class cube stores length, width + height, but also returns surface area and volume
+
+Design example: License plates have 2-8 chars, and are unique
+
+
+```
+class Point {
+    double coeffs[2];
+  public:
+    Point(): coeffs{} {}; // first sets coeffs to {0,0}, second is body of ctor
+    //...
+```
+
+### Comipler-Generated Default Constructors + Destructors
+when no ctor is explicited declared, compiler will generate a default one based on memberwise initialization
+- simple data memebers, pointers are uninitialized
+- member objects (accesible through all methods of object) and inherited members use default constructors
+
+need a destructor if object acquires resources, or maybe log, or inheritance hierarchy -> virtual destructor
+- `virtual ~MyClass() = default; // default is a keyword, sort of opposite of delete`
+- destructor is also compiler generated based on memberwise destruction
+
+Copy constructors make new objects whose value is equal to existing obj, used by compiler to copy objects of the ADT
+*TODO Copy ctor optimized move semantics*
+
+```c++
+Money n{m}; //calls copy constructor
+Mony p = m; //same as above
+```
+
+Copying with pointers
+- **shallow copies** reference the same object from pointers (default)
+- **deep copies** also make distinct new members (no sharing)
+
+**Copy Swap idiom**; using move semantics -- goal is to provide safe copy
+- we want to create a deep copy of the parameter, and if the heap overflows, we don't want to change the original object 
+  - make a deep copy of RHS in temp local object
+  - swap info between LHS and temp
