@@ -33,4 +33,6 @@ Mendelian genetics, pedigree analysis is applied for humans
 Genes can have incomplete dominance or codominanance, resulting in new phenotype ratios
 - some genes might have multiple possible alleles, in which case you can determine a **dominance series** by crossing every combination of homozygotes
 - **complementation** between two genes is when the phenotype changes if either of two genes has homozygous recessive (mutations in the same gene result in the same phenotypic offspring, while mutations in different genes results in the new phenotype in F1)
-- **epistatic** is control over another gene, that is when F2 is homozygous recessive for the epistatic gene, then we see a new phenotype. The ratio is 9:3:4 for **recessive epistasis**
+- **epistatic** is control over another gene
+  - we see three phenotypes: one for both dominant, and two for at least one recessive phenotype (where only one shows through for both recessive) 
+  - that is when F2 is homozygous recessive for the epistatic gene, then we see a new phenotype. The ratio is 9:3:4 for **recessive epistasis**
