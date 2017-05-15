@@ -1,6 +1,9 @@
 # [Data Structures and Data Management](https://www.student.cs.uwaterloo.ca/~cs240/s17/)
 - storing, accessing, performing operations on large collections of data
 
+### Summary
+- for exists proofs, we can keep using the properties of inequalities to simplify the statement
+
 ### [Introduction](https://www.student.cs.uwaterloo.ca/~cs240/s17/modules/module01-2up.pdf)
 
 #### Problem 
