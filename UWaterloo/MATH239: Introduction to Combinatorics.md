@@ -5,7 +5,9 @@
 - **binomial theorem** is intuitively, the number of ways to get each final term, written as combinations of (1+x) terms, choosing either 1 or x
   - binary strings produce similar results, when applying a generating series
 - two conjectures that lead to pascal's triangle are: 1. nCk = nC(n-k) and 2. nCk = (n-1)C(k-1) + (n-1)Ck
-- a **formal power series** is <sup>∞</sup>∑<sub>i=0</sub> a<sub>i</sub>x<sup>i</sup>, of only rational coefficients
+- generating series for a finite set use a weight function `w` to map each element to a natural number
+- a **formal power series** is <sup>∞</sup>∑<sub>i=0</sub> a<sub>i</sub>x<sup>i</sup>, of only rational coefficients (note that lots of functions are considered FPS, with lot's of 0 coefficients, so it's not necessarily infinite)
+- k **partitions** of S are A1, A2... Ak s.t S = A1 u A2 ... u Ak and Ai n Aj = ø
 
 ### Introduction
 Study of finite or countable discrete structures 
@@ -125,3 +127,9 @@ Substitution (composition)
 - substitution should result in another FPS, so when is it allowed/when is A(B(x)) a FPS?
   - well, when B(x) has a constant or coefficient for x<sup>0</sup>, then the result is not an FPS because the constant will result as infinity (constant is not finite)
 - formally, if A(x) and B(x) are FPS, if the constant term of B(x) = 0, then the substitution of B(x) into A(x) is also a FPS
+
+#### More Generating Series Tools
+- **Sum Lemma** (1.8.1): let S be a set with weight function w, and let (A,B) be a partiton of S. (S = A u B and A n B = ø). Then &Fi;<sub>S</sub>(x) = &Fi;<sub>A</sub>(x) + &Fi;<sub>B</sub>(x)
+  - is intuitive, written at ∑ + ∑
+  - if the intersection of A and B is not empty, add a subtraction term - &Fi;<sub>A n B</sub>(x)
+  - it follows that we can take the summation of weight functions applied to any amount of partitions
