@@ -4,6 +4,9 @@ Software Engineering is a collection of practices and priciples, tools, techniqu
 - improve developer productivity
 - `g++ -5 -std=14 -Wall`
 - overloading vs overriding
+- modular design and separate compilation streamlines the build process, and allows for parallel engineering and code reuse
+- dependency graphs can contain cycles, and this can be avoided using forward declarations
+- Makefiles can be used to derive header dependencies
 
 ### C++
 - Inheritance `class Base{}; class Derived : public Base {};`
@@ -260,3 +263,49 @@ Copying with pointers
 - compiler generated is memberwise move (shallow)
 
 **Move assignment** 
+
+### Program decomposition
+Why do we decompose? So work can be done independently, faster recompilation, easier resue of components and allows for code evolution
+
+Prefer declarations (forward declarations) over definitions where you can
+- declaration tells the compiler of a name (type or constant)
+- definition tells compiler amount of space to allocate, what ADT methods exist, and their signatures
+  - only one, otherwise compiler will complain
+
+Global constants declared, possibly in multiple header files, but defined in one location
+- if defined in multiple places
+- we put what we need to know in header files so refactoring is easier
+
+Cyclical dependencies is a compiler problem
+- have to put **include guards**
+- use "preprocessor macro" to make sure we never include a header more than once
+  - accidentially reuse of name is a common mistake
+
+```
+ADT1.cc
+#include "ADT1.h"
+
+ADT1.h
+#include "ADT2.h"
+
+ADT2.h
+#include "ADT1.h"
+```
+
+When must you include? When a compiler must know how much space to allocate (like with inheritance or inline code). We can't fix inheritance but we can turn an object into a pointer/reference and move inlined code to a implmentaiton file
+
+**Forward declarations** notify compiler that data or function will be declared in the future
+- used to break circular header dependencies
+
+#### Build Process
+1. cpp preprocessor; then sends preprocessed source code
+1. cc1plus compiler; then sends assembly code
+1. as assembler; then sends object code
+1. ld linker; takes libraries and other object files, outputs executable
+
+Extract dependency relationships, as specified by include statements. Then we can determine what needs to be recompiled based on file changes.
+- the gola is a fully automated build that incorporates all updated source files, is incremental and rebuilds only what changed, and automatically derives dependencies
+- **Makefiles** help to specify build instructions and file dependencies
+  - implicit rules exist to omit specific compile commands, and will choose the environment's default `.o` file creation
+  - `g++` flag `-MMD` generates a dependency graph for user source files
+  
