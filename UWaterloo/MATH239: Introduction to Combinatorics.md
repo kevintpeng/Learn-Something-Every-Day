@@ -118,3 +118,10 @@ Let A(x) and B(x) be two FPS
 Examples applying operations:
 - does x+x^2 have an inverse? No, since the coefficient of x^0 = 0
 - does 1-x have an inverse? Yes; (1-x)^-1 = 1 + x + x<sup>2 + x<sup>3</sup> + ... notice this is a geometric series, but we want to avoid the concept of limits, don't think of them as functions, but rather an encoding of numbers for the purpose of counting combinatorial objects
+
+Substitution (composition)
+- Let A(x) = inf-sum a<sub>n</sub>x^n and B(x) = inf-sum a_n•x^n (both FPS)
+- substitution/composition is A(B(x))
+- substitution should result in another FPS, so when is it allowed/when is A(B(x)) a FPS?
+  - well, when B(x) has a constant or coefficient for x<sup>0</sup>, then the result is not an FPS because the constant will result as infinity (constant is not finite)
+- formally, if A(x) and B(x) are FPS, if the constant term of B(x) = 0, then the substitution of B(x) into A(x) is also a FPS
