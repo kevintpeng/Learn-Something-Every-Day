@@ -309,3 +309,59 @@ Extract dependency relationships, as specified by include statements. Then we ca
   - implicit rules exist to omit specific compile commands, and will choose the environment's default `.o` file creation
   - `g++` flag `-MMD` generates a dependency graph for user source files
   
+### Namespaces
+Lookup rules:
+
+1. local
+2. innermost scope, moving outwards
+3. namespace of all function arguments
+
+```c++
+namespace X {
+  int i, j ,k;
+}
+
+int k;
+void f1() {
+  int i = 0; // local
+  using namespace X;
+  i++; // local i, since namespace is superseded by local declarations
+  j++; // X::j
+  k += 1; // compiler error, ambiguous
+  ::k += 1; // global k
+  X::k += 1; // X::k
+}
+
+void f2() {
+  int i = 0;
+  using X::i; 
+  using X::j;
+  using X::k;'
+  i += 1; // using keyword overrides local
+  j += 1; // X::j
+  k += 1; // X::k overrides global, obviously
+}
+
+// not relevant on midterm: header order matters
+// header1.h
+namespace A {
+  int f(double);
+}
+
+// header2.h
+namespace B {
+  using A::f;
+  void g();
+}
+
+// herader3.h
+namespace A {
+  int f(int);
+}
+
+// main, different include orders:
+1,2,3 => f(double) // notice first definition, since 2 doesn't have f(int) signature
+2,1,3 => none
+1,3,2 => both visible, better match is picked
+3,2,1 => f(int)
+```
