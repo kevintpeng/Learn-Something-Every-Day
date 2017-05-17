@@ -133,3 +133,16 @@ Substitution (composition)
   - is intuitive, written at ∑ + ∑
   - if the intersection of A and B is not empty, add a subtraction term - &Fi;<sub>A n B</sub>(x)
   - it follows that we can take the summation of weight functions applied to any amount of partitions
+
+- suppose we want to find the number of ways to make $n for l loonies and t toonies. Then we can make a generating series &Phi;<sub>L x T</sub>(x) and compute coefficient [x<sup>9</sup>]
+- **Product Lemma** (1.8.2): Let A and B be sets with weight functions w<sub>A</sub>, w<sub>B</sub>.  Let w be the weight function for the set A x B, defined as w<sub>A</sub>(a) + w<sub>B</sub>(b) for (a,b) in A x B. Then &Phi;<sub>A x B</sub>(x) = &Phi;<sub>A</sub>(x) + &Phi;<sub>B</sub>(x)
+- remark: can be generalized to any number k of separate generating series for a k-tuple
+
+## Chapter 2
+Compositions of a number are basically tuples, whose elements add to to the number (natural numbers), and we say it has k parts for a k-tuple
+- a counting problem is how many compositions of n are there with k parts?
+  - rewritten/generalized, given a set S and a weight function w: s -> P0,1,2,...} how many elements of S are there of any given weight n?
+  - [x<sup>m</sup>] &Phi;<sub>S</sub>(x) is the generating series for S with respect to w
+  - *compositions can be written as caresian products, and thus be described by generating series*: k parts is N<sup>k</sup>
+  - all compositions with 1 part
+  - recall we can use the product lemma, and use a weight function for natural numbers
