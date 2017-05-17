@@ -2,6 +2,7 @@
 ### Summary
 - differential equations contain derivatives of a dependent variable
 - we can avoid numerical solutions if the equation is a linear ordinary differential equation (ODE) with constant coefficients
+- then when solving a differential equation, we want to find some function that satisfies the expression, which can be solved given the initial condition, and by finding a function of the form `y(t) = c•e^(mt)` (since it has a nice derivative allowing us to find a characteristic equation, often polynomial). Then, using each root and initial conditions, we can find an equation for each unknown constant 
 - let Q(D) is a polynomial of differentials with coefficients, and when multiplied with some y(t), we get a ODE Q(D)y(t) = P(D)f(t), and in this course, we solve for y(t) with a given P(D)
 
 ### [Pre-reading](http://users.math.msu.edu/users/gnagy/teaching/ode.pdf)
