@@ -6,6 +6,8 @@
   - binary strings produce similar results, when applying a generating series
 - two conjectures that lead to pascal's triangle are: 1. nCk = nC(n-k) and 2. nCk = (n-1)C(k-1) + (n-1)Ck
 - generating series for a finite set use a weight function `w` to map each element to a natural number
+  - model a lot of counting problems using generating series; simply find a weight function and count the number elements of a given weight 
+  - they act as a simple numerical function that represents a physical counting problem, where &Phi;(1) = |S|, and &Phi;'(1) is the sum of the weights of all elements (since the power represents the weight and coefficient is the count)
 - a **formal power series** is <sup>∞</sup>∑<sub>i=0</sub> a<sub>i</sub>x<sup>i</sup>, of only rational coefficients (note that lots of functions are considered FPS, with lot's of 0 coefficients, so it's not necessarily infinite)
 - k **partitions** of S are A1, A2... Ak s.t S = A1 u A2 ... u Ak and Ai n Aj = ø
 
