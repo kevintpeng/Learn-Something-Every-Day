@@ -9,6 +9,7 @@
   - model a lot of counting problems using generating series; simply find a weight function and count the number elements of a given weight 
   - they act as a simple numerical function that represents a physical counting problem, where &Phi;(1) = |S|, and &Phi;'(1) is the sum of the weights of all elements (since the power represents the weight and coefficient is the count)
 - a **formal power series** is <sup>∞</sup>∑<sub>i=0</sub> a<sub>i</sub>x<sup>i</sup>, of only rational coefficients (note that lots of functions are considered FPS, with lot's of 0 coefficients, so it's not necessarily infinite)
+  - like a power series (think taylor series) but differs in that we allow n to be infinity, and don't consider that x is a number thus ignoring the idea of convergence 
 - k **partitions** of S are A1, A2... Ak s.t S = A1 u A2 ... u Ak and Ai n Aj = ø
 
 ### Introduction
