@@ -122,7 +122,7 @@ Let A(x) and B(x) be two FPS
 
 Examples applying operations:
 - does x+x^2 have an inverse? No, since the coefficient of x^0 = 0
-- does 1-x have an inverse? Yes; (1-x)^-1 = 1 + x + x<sup>2 + x<sup>3</sup> + ... notice this is a geometric series, but we want to avoid the concept of limits, don't think of them as functions, but rather an encoding of numbers for the purpose of counting combinatorial objects
+- does 1-x have an inverse? Yes; (1-x)^-1 = 1 + x + x<sup>2</sup> + x<sup>3</sup> + ... notice this is a geometric series, but we want to avoid the concept of limits, don't think of them as functions, but rather an encoding of numbers for the purpose of counting combinatorial objects
 
 Substitution (composition)
 - Let A(x) = inf-sum a<sub>n</sub>x^n and B(x) = inf-sum a_n•x^n (both FPS)
