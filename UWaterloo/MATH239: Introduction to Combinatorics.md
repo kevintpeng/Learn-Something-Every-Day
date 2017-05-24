@@ -11,6 +11,9 @@
 - a **formal power series** is <sup>∞</sup>∑<sub>i=0</sub> a<sub>i</sub>x<sup>i</sup>, of only rational coefficients (note that lots of functions are considered FPS, with lot's of 0 coefficients, so it's not necessarily infinite)
   - like a power series (think taylor series) but differs in that we allow n to be infinity, and don't consider that x is a number thus ignoring the idea of convergence 
 - k **partitions** of S are A1, A2... Ak s.t S = A1 u A2 ... u Ak and Ai n Aj = ø
+- Sum Lemma allows us to partition generating series 
+- Product Lemma allows us to combine and break down generating series with cartesian products 
+- if sets A,B of binary strings, then AB is unambiguous iff there is a bijection between AB and A x B
 
 ### Introduction
 Study of finite or countable discrete structures 
@@ -149,3 +152,7 @@ Compositions of a number are basically tuples, whose elements add to to the numb
   - *compositions can be written as caresian products, and thus be described by generating series*: k parts is N<sup>k</sup>
   - all compositions with 1 part
   - recall we can use the product lemma, and use a weight function for natural numbers
+
+### Binary strings
+The weight function for the string is the length of the string
+- &Phi;<sub>A U B</sub>(x) = &Phi;<sub>A</sub>(x) + &Phi;<sub>B</sub>(x); Sum lemma, iff A U is unambiguous
