@@ -1,7 +1,13 @@
 # Math 213
 ### Summary
-- differential equations contain derivatives of a dependent variable
-- we can avoid numerical solutions if the equation is a linear ordinary differential equation (ODE) with constant coefficients
+- differential equations contain derivatives of a dependent variable; the solution is not a value, but rather a function or class of functions. We often need initial conditions to find a specific function solution
+- separable differential equations allow us to solve them analytically, where we separate x's and y's to opposite sides of the equations and perform implicit differentiation (recall MATH 119)
+- we can model many natural phenomena with differential equations exponential model
+- population can be modelled simply with an exponential model, but more effectively as a differential equation. We can say dN/dt = r N (1 - N/K), "Logistic differential equation" where 1 N/K dampens growth at the population limit
+- **homogeneous equations** can be transformed to separable equations with a substitution
+- **boundary conditions**? -- TODO
+- **ordinary differential equations** don't involve partial derivatives (so single independent variable) 
+- we want analytical solutions, and can avoid numerical solutions if the equation is a linear ordinary differential equation (ODE) with constant coefficients: d<sup>n</sup>/dt<sup>n</sup>y(t) + a<sub>n-1</sub>d<sup>n-1</sup>/dt<sup>n-1</sup>y(t) + ... 
 - then when solving a differential equation, we want to find some function that satisfies the expression, which can be solved given the initial condition, and by finding a function of the form `y(t) = c•e^(mt)` (since it has a nice derivative allowing us to find a characteristic equation, often polynomial). Then, using each root and initial conditions, we can find an equation for each unknown constant 
 - let Q(D) is a polynomial of differentials with coefficients, and when multiplied with some y(t), we get a ODE Q(D)y(t) = P(D)f(t), and in this course, we solve for y(t) with a given P(D)
 - Laplast Transform allows us to solve differential equations, by solving an algebraic equation in the Laplast domain
