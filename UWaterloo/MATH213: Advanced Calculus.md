@@ -24,9 +24,7 @@ Uncommon, but we want to find a substitution u(x,y) = C
 
 ### Nth-Order Linear ODE (Homogeneous with constant coefficients)
 
-
-
-### [Pre-reading](http://users.math.msu.edu/users/gnagy/teaching/ode.pdf)
+### [Textbook](http://users.math.msu.edu/users/gnagy/teaching/ode.pdf)
 Ordinary Differential equations are ones where the unknown function depends on a single independent variable t
 - order of a differential equation is the highest derivative 
 - linear differential equations are first order ODE on the unknown y is y'(t) = f)t, y(t)), where f is given and y' = dy/dt (the differential). Then the equation is **linear** iff f(t,y) = a(t)y + b(t). But since we only care about constant coefficients for now, it is y' = ay + b
