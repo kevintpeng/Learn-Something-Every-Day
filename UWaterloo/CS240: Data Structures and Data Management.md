@@ -78,3 +78,32 @@ Priority Queue is an ADT with a collection of items (associated with a priority)
 - since the height of a heap is &Theta;(log n), then insertion and deletion operations are also O(log n)
 - our insert will simply add the element in the last slot, then "bubble up"
 - our delete will shift the last element into the first slot, then perform swaps again by "bubble down"
+
+# Sorting and Randomization
+- kth element in the array in not easy; we need to manipulate to get it
+- for a given element, it is easy to find it's index if the array was sorted in O(n)
+- quick select uses this intuition; pick a pivot, and restructure the array by partitioning, then the pivot is in it's correct place
+  - assuming all n! permutations are equally likely, average cost is the sum of costs for all permutations, divided by n! 
+  - T(n,k) is the average cost for selecting the kth item from size n
+  - general case: i is the index of our pivot in a sorted array, (n-1)! are the total number of possible positions once we've selected our i. throwing away i+1 elements after partitioning
+  - below, we've described below as 
+  <img width="696" alt="screen shot 2017-05-25 at 10 12 25 am" src="https://cloud.githubusercontent.com/assets/7998752/26453725/b9a3b52c-4132-11e7-8cc6-a746d643de26.png">
+
+### Randomized algorithms
+- relies on some random numbers, from a PRNG, a deterministic program that uses a true random seed
+  - the goal is to have a uniform distribution over our desired range, while making the period of repetition large enough that it is negligable 
+- basic example: Von Neumann 1946 "Middle squared method", takes a seed of 4 digits, squares it, pad/truncate to get an 8 digit, then return
+- *the motivation is that we don't have control over input (bad instances), but we can control the random numbers, to shift the probability distribution from what we can't control*
+
+Average vs expected running time
+- the **Expected running time** of a randomized algorithm for a particular input I is the "expected" value of T(I,R)
+  - for T, calculate the sum of T(I,R) • Pr[R] (think weighted average) and assuming uniform distribution of R, we get simply the mean runtime across all R
+- the motivation behind randomized quickselect is that we have a very small chance of sorting an array by shuffling (2/n!) 
+  - first idea: *sorted arrays are worst case for quickselect since we select element 1 and never have a left partition, so O(n^2)*
+  - second idea: randomize the pivot, by choosing a random pivot
+- Worst-case linear time partitioning called "medians-of-five" for pivot select. Partition into groups of five, find each median and take the median of medians, then we can say in &Theta;(n) run time the number that is highly probable to be close to the actual median 
+  - mutually recursive, and can be shown to be &theta;(n) notice they call each other recursively
+
+*Quick Sort vs Merge Sort, quick sort has a slower worst-case, but under expected case, they are comparable. But quick sort retains order and is an in place sorting algorithm*
+
+Tail call elimination can be done using loops to reduce the number of stack frames, and optimized further by only recurising on the smaller partition
