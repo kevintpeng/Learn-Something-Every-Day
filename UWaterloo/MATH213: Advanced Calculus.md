@@ -12,6 +12,20 @@
 - let Q(D) is a polynomial of differentials with coefficients, and when multiplied with some y(t), we get a ODE Q(D)y(t) = P(D)f(t), and in this course, we solve for y(t) with a given P(D)
 - Laplast Transform allows us to solve differential equations, by solving an algebraic equation in the Laplast domain
 
+### Separable ODE
+Goal is to separate functions and derivatives of x and y to either side of the equation, dy/dx(expression of y) = f(x), then take the integral of both sides
+
+### Exact ODE
+Uncommon, but we want to find a substitution u(x,y) = C 
+
+### First-Order Linear ODE (variable coefficients)
+
+### Nth-Order Linear ODE (Homogeneous)
+
+### Nth-Order Linear ODE (Homogeneous with constant coefficients)
+
+
+
 ### [Pre-reading](http://users.math.msu.edu/users/gnagy/teaching/ode.pdf)
 Ordinary Differential equations are ones where the unknown function depends on a single independent variable t
 - order of a differential equation is the highest derivative 
