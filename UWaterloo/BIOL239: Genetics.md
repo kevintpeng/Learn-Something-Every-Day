@@ -36,3 +36,27 @@ Genes can have incomplete dominance or codominanance, resulting in new phenotype
 - **epistatic** is control over another gene
   - we see three phenotypes: one for both dominant, and two for at least one recessive phenotype (where only one shows through for both recessive) 
   - that is when F2 is homozygous recessive for the epistatic gene, then we see a new phenotype. The ratio is 9:3:4 for **recessive epistasis**
+- **hypothesis testing** let's us use different breeding tests to decide between hypotheses
+- genotype does not always dictate phenotype, sometimes environment influences it
+- **pedigree analysis** allows us to track inheritance of human traits
+
+### Mitosis -- Chapter 3
+Interphase gap -- cells are activitly creating whatever they should be creating in the biological role
+- individual form sister chromatids remain joined at the centromere
+- metaphase chromosomes are either **metacentric or acrocentric** depending on the location of the centromere
+
+Interphase Gap 2
+- phase before mitosis, cells synthesize proteins for mitosis
+
+**Mitosis:** Prophase
+
+
+Mitosis: 
+- Prophase
+  - kinetochore is where microtubules of the spindle attach
+- Metaphase -- metaphase plane is formed 
+- Anaphase -- sister chromatids move to opposite poles, **disjunction**
+- Telophase and cytokinesis 
+  - animal, contractile ring squeezes creating the cleavage furrow to split cells 
+  - plant, you have to lay down celulose at the cell plane to divide cells
+  
