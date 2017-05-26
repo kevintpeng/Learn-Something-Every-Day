@@ -365,3 +365,72 @@ namespace A {
 1,3,2 => both visible, better match is picked
 3,2,1 => f(int)
 ```
+
+### Week 4: Defensive Programming
+Possible Failures
+- Errors: bugs invariant violation, exposure of data representation
+- Misuse of your code: client code violations of your preconditions
+- External problems: wrong input, hardware limitations (overflow, OOM)
+
+Assertions, use them to document and check assumptions
+- preconditions and postconditions
+- check represnetation invariants
+- goal is obiviously to abort with as close to the error as possible
+  - pass information from where the error happens to where we can handle it
+- traditionally we use `cerr`
+
+Exceptions, objects thrown to represent the ocurrene of an error
+- standard exception hierarchy
+- Exceptions are not programming errors, assertions check state
+  - exceptions handle invalid input or cases of ambiguity
+
+Type of guarantees: Basic, strong, no throw
+- to meet a specific safety guarantee, for basic and strong, must keep it in "valid state" => maintain class invariant 
+- no leaks (either memory or other resources)
+- destructors must not raise exceptions
+- strong => need to restore to valid state before function 
+- no throw => all of the above, + ensure no exceptions propagate
+- your operator= and swap can't have leaks
+
+Smart Pointers that handle certain classes of problems using more type safety than C pointers and they should be able to do the correct and obvious thing during object deletion
+- unique_ptr, transfers ownership on assignment, so cannot pass by reference
+  - if an exception is raised, the smart pointer's destructor is invoked, in tern deleteing any heap allocated object it points to
+  - only move semantics, no copy
+  - "deleter routine" function pointer counts as part of the object type, so two unique pointers that point to the same type of object but have different deleters are treated as being different types
+  - deleter bound to a *local variable* does nothing, while one bound to a pointer invokes `delete` which is the default action
+- `unique_ptr<MyClass>`
+- not designed to be shared, so cannot replace normal pointers
+  - *choose to make it shared, but then we can't take it back*
+  - *only move semantics, so we can't do pass by value without transferring ownership*
+
+**Sink and source idiom** for complicated (think factory thats responsible for creating something because it's so complicated). Source creates it, sink absorbs it and takes ownership
+- idiom is just a guideline, lower level than a pattern
+- Sink takes a unique_ptr, `pt.reset()` passed by copy == transfer of ownership
+
+Shared pointer, `shared_ptr` supports **shared ownership** of a referent
+- referent maintains a count of pointers referring to it
+- when count reaches 0, the object can be destroyed, mimicking garbage collection
+- can always make unique_ptr a shared_ptr but *reverse is not true*
+
+`weak_ptr` works with a `shared_ptr` and shares ownership, but does not contribute to the reference count
+- this handles cycles properly for something like a graph implementation, where internal counter would never otherwise reach 0
+
+The **RAII Programming Idiom**, Resource Acquisition is Initialization: equates resource management with the lifetime of an object
+- since its clean-up code is in destructor of a local object, then no matter how we exit its destructor is called ensuring that we properly clean things up 
+- for more than heap allocated objects
+- (existed before smart pointers) 
+- Resource is allocated inside an object's constructor
+- Resource is deallocated inside an object's destructor
+
+`noexcept` is a funciton declaration that they will not throw exceptions
+- doesn't have to delete in reverse order of declaration (just small compiler optimizations)
+
+### Week 5: [Reprsentation Invariant, Abstraction Function](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/08RepInvariant-1up.pdf)
+Interface specification is a contract betweeen a modules provider and the client programmer, documenting each other's expectations 
+- **representation invariant** defines the set of valid concrete values of ADT's implementation
+- **abstraction function** lets us interpret legal concrete values as ADT's abstract values (think list converts to set)
+
+Example: Set representation as an array, where size of the set is tracked, while the array is of fixed allocation
+
+1. No duplicate elements: forall i,j : O to `size` - 1 | i ≠ j => elements[i] ≠ elements[j]
+2. only nullptr above index `size`: forall i > `size`-1 | elements[i] == nullptr
