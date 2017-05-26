@@ -156,3 +156,15 @@ Compositions of a number are basically tuples, whose elements add to to the numb
 ### Binary strings
 The weight function for the string is the length of the string
 - &Phi;<sub>A U B</sub>(x) = &Phi;<sub>A</sub>(x) + &Phi;<sub>B</sub>(x); Sum lemma, iff A U is unambiguous
+
+**Star Lemma** states that if A is a set of binary strings and A * is unambiguous, then the generating series for A * is 1 / (1 - &Phi;<sub>A</sub>(x)) with respect to the weight function equal to the length.  Note, the geometric series shape
+- proof, start with the sum lemma to break down the fact that A * is A0, A1, A2, A3, A4 ... and their weight functions are the same
+- since it is unambiguous, it behaves like a cartesian product and thus we can apply the product lemma
+- by applying the product lemma, the sum of the same term raised to the k allows us to apply the geometric series formula
+- notice we can only perform substitution because the constant term is 0
+  - if B(x) is a FPS with [x<sup>0</sup>]B(x) = 0, then we can substitute. [x<sup>0</sup>] B(x) means no elements of weight 0. empty string not in A means no strings of length 0. *since it was unambiguous, the empty string cannot be in A*
+
+b is a **substring** of s if s = abc
+
+Block decomposition is breaking a string into blocks of consecutive 1's or 0's: `{1}*({0}{0}*{1}{1}*)*{0}*`
+- 1-decomposition is breaking a string into blocks starting with 1's (0-decomposition defined similarily)
