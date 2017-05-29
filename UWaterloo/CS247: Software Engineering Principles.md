@@ -434,3 +434,15 @@ Example: Set representation as an array, where size of the set is tracked, while
 
 1. No duplicate elements: forall i,j : O to `size` - 1 | i ≠ j => elements[i] ≠ elements[j]
 2. only nullptr above index `size`: forall i > `size`-1 | elements[i] == nullptr
+
+Representation invariants for linked list
+- header's data field is a null ptr (header is a special node) 
+- head of list is never nullptr since it points to heaer node
+-` n1.next.prev == n1`
+
+Linked list implementation note: We can change the representation invariant, affecting what edge cases we need to deal with.
+
+- What if we strengthen our invariant by requiring all element fields are not nullptr? Then we can dispense with using size to count nodes when traversing list. 
+- What if we weaken our invariant on initial values of header's prev & next, allowing nullptr? Then we need to reintroduce code for special cases.
+- **Structural invariants** describe relationships with other data elements. 
+- **Value invaraints** describe restrictions on data values (like sets can't have duplicates)
