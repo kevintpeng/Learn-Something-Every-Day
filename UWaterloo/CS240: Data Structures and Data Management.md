@@ -107,3 +107,13 @@ Average vs expected running time
 *Quick Sort vs Merge Sort, quick sort has a slower worst-case, but under expected case, they are comparable. But quick sort retains order and is an in place sorting algorithm*
 
 Tail call elimination can be done using loops to reduce the number of stack frames, and optimized further by only recurising on the smaller partition
+
+*Tutorial*: if A is a partial sorted array where n^k elements are already sorted, 0 < k < 1, then we can sort the remaining elements in &Theta;(n) time. First use merge-sort in &Theta;(n^k log (n^k)) = &Theta;(kn^k log n) = &Theta;(n^k logn) in o(n) since log n is smaller than n^c for any c > 0 and since k < 1.
+
+Consider Stooge Sort: partition sort by thirds. The sort A1 U A2, sort A2 U A3, then finally resort A1 U A2. By the algorithm, we know the recurrence is 
+
+T(n) = 
+- &Theta;(1) if n=1 or n=2
+- 3T(2n/3) + &Theta;(1) if n ≥ 3
+  - three sub problems, of size 2n/3
+- simplifies to 3^kT((2/3)^kn) + 3^i, i from 0 to k-1
