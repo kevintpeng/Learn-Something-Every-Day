@@ -167,4 +167,8 @@ The weight function for the string is the length of the string
 b is a **substring** of s if s = abc
 
 Block decomposition is breaking a string into blocks of consecutive 1's or 0's: `{1}*({0}{0}*{1}{1}*)*{0}*`
-- 1-decomposition is breaking a string into blocks starting with 1's (0-decomposition defined similarily)
+- 1-decomposition is breaking a string into blocks with exactly a single 1 (0-decomposition defined similarily)
+
+## Chapter 3
+We have rational function results, and often want to find [x^n] f(x)/g(x)
+- we can use partial fraciton expansion, which works well because we get a sum of terms of the form i/(j-kx), which we can use the geometric series to simplify
