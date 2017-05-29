@@ -116,4 +116,12 @@ T(n) =
 - &Theta;(1) if n=1 or n=2
 - 3T(2n/3) + &Theta;(1) if n ≥ 3
   - three sub problems, of size 2n/3
-- simplifies to 3^kT((2/3)^kn) + 3^i, i from 0 to k-1
+- simplifies to 3^k T((2/3)^kn) + d•3^i, i from 0 to k-1
+- we need log base (2/3)^k n = 1, 3/2 n = K recurences to reach the base case
+- 3^k T(1) + d(3^k - 1/2)
+- &Theta;(3^k) or ~ O(n^2.71)
+
+Consider Bogo sort. We want the expected case running time. To do so, take a probabilistic approach: `T(n) = 1cn + (1/n!)d + (1-1/n!)T(n)`. Note that this is a probabilistic analysis, so each coefficient is just a probability. 1cn is 100% chance to shuffle n object and check n objects if they're sorted.
+- T(n) = cn + (1/n!)d + (1 - 1/n!)T(n)
+- T(n) = n!(cn) + d
+- T(n) in &Theta;(n•n!)
