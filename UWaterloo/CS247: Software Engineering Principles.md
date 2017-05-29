@@ -446,3 +446,10 @@ Linked list implementation note: We can change the representation invariant, aff
 - What if we weaken our invariant on initial values of header's prev & next, allowing nullptr? Then we need to reintroduce code for special cases.
 - **Structural invariants** describe relationships with other data elements. 
 - **Value invaraints** describe restrictions on data values (like sets can't have duplicates)
+
+Inductive reasoning: ensure that constructors hold invariance.
+- recall invariant is a property that is true for the entire program, or effectively the lifespan of the object
+- structural induction: the invariant is true of all instances of the ADT only if the invariant is:
+  - established by constructor
+  - preserved by mutators
+  - no representation exposure occurs (no access private data)
