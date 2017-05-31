@@ -172,3 +172,14 @@ Block decomposition is breaking a string into blocks of consecutive 1's or 0's: 
 ## Chapter 3
 We have rational function results, and often want to find [x^n] f(x)/g(x)
 - we can use partial fraciton expansion, which works well because we get a sum of terms of the form i/(j-kx), which we can use the geometric series to simplify
+  - recall with partial fraction expansion, we use long division to get the factors of the denominators
+  - numerator must be less than denominator, so we can divide it out so that we can an integer plus a rational
+  - repeated roots, like (x-1)^2 must be written as A/(x-1) + B(x-1)^2
+
+We now use **recurrences** to get the coefficients (example: fibonacci sequence, where the nth term is described in terms of previous terms like n-1 and n-2)
+- we did an example by brute forcing and noticing a pattern
+- **homogeneous linear recurrence** if for n ≥ k, an = q<sub>1</sub>a<sub>n-1</sub> ... q<sub>k</sub>a<sub>n-k</sub>, with given initial coditions from 0 to k-1 
+  - linear because all `a` are in separate terms to the first power
+  - homogeneous since the total degree of each term is the same
+- the **characteristic polynomial** of this recurrence is C(y) = y^k + q1y^(k-1) + ... + qk
+- 
