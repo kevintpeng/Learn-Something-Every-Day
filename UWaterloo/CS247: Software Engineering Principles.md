@@ -453,3 +453,13 @@ Inductive reasoning: ensure that constructors hold invariance.
   - established by constructor
   - preserved by mutators
   - no representation exposure occurs (no access private data)
+
+Designing an abstraction function is important to know
+- say we have a deck of cards, implemented as a vector of length 52
+- abstraction functions:
+  - suit = (Suit)(index/13)
+  - rank = (Rank)(index%13)
+
+### UML
+Software Model, using UML
+- class diagram
