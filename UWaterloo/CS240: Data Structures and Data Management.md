@@ -104,6 +104,22 @@ Average vs expected running time
 - Worst-case linear time partitioning called "medians-of-five" for pivot select. Partition into groups of five, find each median and take the median of medians, then we can say in &Theta;(n) run time the number that is highly probable to be close to the actual median 
   - mutually recursive, and can be shown to be &theta;(n) notice they call each other recursively
 
+
+### Sorting
+Comparison sorts are lower bounded at &Omega;(n log n) 
+- decision trees
+- HeapSort is the only fast algorithm with O(1) space
+- QuickSort is often the fastest
+- CountSort and RadixSort can achieve o(n log n)
+
+Radix Sort
+- R is the base, m is the number of digits, then we can represent x = x0 R^0 + ... + x<sub>m-1</sub>R<sup>n-1</sup>
+- MSD (most significat digit), bucket based on digit and apply a sorting algorithm to sort each bucket
+- LSD (least), bucket again based on the least significant digit, and use a *stable sort*, otherwise lose previous work done on lesser digits
+  - can be written iteratively,
+  - runningtime of LSD: &Theta;(m(n+R))
+  - space used &Theta;(n+R): array B for n and array I and C for indicies and counts
+
 *Quick Sort vs Merge Sort, quick sort has a slower worst-case, but under expected case, they are comparable. But quick sort retains order and is an in place sorting algorithm*
 
 Tail call elimination can be done using loops to reduce the number of stack frames, and optimized further by only recurising on the smaller partition
@@ -125,3 +141,6 @@ Consider Bogo sort. We want the expected case running time. To do so, take a pro
 - T(n) = cn + (1/n!)d + (1 - 1/n!)T(n)
 - T(n) = n!(cn) + d
 - T(n) in &Theta;(n•n!)
+
+### Dictionary ADT
+
