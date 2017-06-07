@@ -22,11 +22,19 @@ Annuity starts not at payment period 0 but at 1.
   - multiply by 1/(1+i)^n is (P/F,i,N)
 
 ### Chapter 4: Equivalence of Repeated Cash Flows
-<img width="449" alt="screen shot 2017-05-30 at 11 07 28 pm" src="https://cloud.githubusercontent.com/assets/7998752/26614184/d629a0cc-458c-11e7-9a84-ea0f84119caa.png">
 
-<img width="424" alt="screen shot 2017-05-30 at 11 08 19 pm" src="https://cloud.githubusercontent.com/assets/7998752/26614195/e4bd599e-458c-11e7-92b7-188104538876.png">
+For uniform series over time, to calculate future amount:
+
+<img width="449" alt="screen shot 2017-05-30 at 11 07 28 pm"  alt="uniform series" src="https://cloud.githubusercontent.com/assets/7998752/26614184/d629a0cc-458c-11e7-9a84-ea0f84119caa.png">
+
+For uniform series calculating its present value (considering compounding interest):
+
+<img width="424" alt="screen shot 2017-05-30 at 11 08 19 pm" alt="" src="https://cloud.githubusercontent.com/assets/7998752/26614195/e4bd599e-458c-11e7-92b7-188104538876.png">
+
+
 
 <img width="382" alt="screen shot 2017-05-30 at 11 08 44 pm" src="https://cloud.githubusercontent.com/assets/7998752/26614208/f4466da6-458c-11e7-8571-7b68232d3970.png">
+
 
 <img width="517" alt="screen shot 2017-05-30 at 11 09 07 pm" src="https://cloud.githubusercontent.com/assets/7998752/26614229/03d360a8-458d-11e7-8cd9-894712fe2ac4.png">
 
