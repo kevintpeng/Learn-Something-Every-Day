@@ -78,10 +78,28 @@ Some known Laplace transforms:
 Properties of Laplace using notation L{ f(t) } = F(t):
 
 1. L{ c1f(t) + c2g(t) } = L{c1f(t)} + L{c2g(t)} by properties of integrals, the Laplace transform is a linear operator
-2. L{f'(t)} = s • L{f(t)} - f(0) by integration by parts. This turns derivatives into multiplication.
+1. L{ f(ct) } = 1/c F(s/c) *time-scaling*
+1. L{ e^(at)f(t) } = F(s-a) *translates the transform*
+1. L{ &mu;<sub>c</sub>(t) f(t-c) } = e^(-cs) F(s)
+1. L{ t f(t) } = - d/ds F(s)
+1. L{f'(t)} = s • L{f(t)} - f(0) by integration by parts. This turns derivatives into multiplication.
   - L{f''(t)} = s • L{f'(t)} - f'(0) = s^2 L{ f(t) } - s f(0) - f'(0)
   - L{f<sup>(k)</sup>(t)} = s^k L{y} - s^(k-1)f(0) - s^(k-2)f'(0) + ... *(this is called "shifting transform")*
-3. L{ e^(at)f(t) } = F(s-a) *translates the transform*
-4. L{ &mu;<sub>c</sub>(t) f(t-c) } = e^(-cs) F(s)
+  - this gives us a powerful tool to solve differential equations: **converting them to algebraic equations**
+  
+The transform can be inverted by means of the inversion integral: f(t) = 1/(2π • j) integral of F(s) e^st from &sigma; - j∞ to &sigma; + j∞ *so somehow, by taking the integral over the imaginary range, we get the inverse laplace transform operator*
+- this is a "contour integral" on the complex plane, the contour of integration, the straight line Re(s) = &sigma; must lie within the Radius of Convergence of F(s)
+- given that an integral is just a sum, the inversion formula shows that f(t) is a sum of exponentials e^st, weighted by F(s)
 
-The transform can be inverted by means of the inversion integral: f(t) = 1/(2π • j) integral of F(s) e^st from &sigma; - j∞ to &sigma; + j∞
+### Laplace for differential equations
+```
+y'' + 5y' + 6y = 0, y(0) = 2, y'(0) = 3
+L{y''} + 5L{y'} + 6L{y} = L{0}
+s^2 L{y} - s(2) - 3 + 5(s L{y} - 2) + 6L{y} = 0
+s^2L{y} + 5s L{y} + 6L{y} - 2s - 13 = 0
+L{y}(s^2+5s+6) -2s -13 = 0
+L{y}(s+3)(s+2) = 2s + 13
+L{y} = (2s+13)/((s+3)(s+2))
+y = L^-1{(2s+13)/((s+3)(s+2))}  partial fraction expansion now
+  = L^-1{ A/(s+3) + B/(s+2)
+```
