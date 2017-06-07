@@ -103,3 +103,9 @@ L{y} = (2s+13)/((s+3)(s+2))
 y = L^-1{(2s+13)/((s+3)(s+2))}  partial fraction expansion now
   = L^-1{ A/(s+3) + B/(s+2)
 ```
+
+### Convolution
+**Convolution** of (f * g)(t) is the integral from 0 to t of f(t-&tau;)g(&tau;)d&tau;
+- e.g. f(t) = sint and g(t) = cost and requires integral solution methods
+- Theorem states: L{ (f * g)(t) } = F(s)G(s), the products of laplace transforms
+- again, (f * g)(t) = L^-1{ F(s)G(s) }
