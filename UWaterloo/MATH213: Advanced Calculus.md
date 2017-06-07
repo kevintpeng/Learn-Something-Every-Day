@@ -54,3 +54,34 @@ A general solution for an ODE is an expression for y(t) satisfying the equation 
 - then, we'll find a particular solution
 - y˜(t) = yc(t) + yp(t)
 - Q(D)(yc(t) + yp(t)) = Q(D)yc(t) + Q(D)yp(t) = 0 + f(t)
+
+# Laplace Transforms
+Helps us solve differential equations. Transform takes you from one set of functions to another set of functions. f(t) -> F(s), different domains.
+- **Laplace Transform** is a means of representing a function as a weighted sum of exponentials
+  - the transform is applying weights to exponentials
+  - F(s) := L{f(t)} := indefinite integral of f(t)e^(-st)dt 
+  - since it's an indefinite integral, it will only be defined if the integral converges
+- If all of our signals were exponentials y=e^st, then differentiation is just multiplication.
+- If not, it would be best to express signals as linear combinations of exponentials
+
+Some known Laplace transforms:
+- L{ 1 } = 1/s
+- L{e^at} = 1/(a-s) only if it converges
+- L{sin at} = a/(s^2+a^2) *(by using integration by parts)*
+- L{cos at} = s/(s^2 + a^2) *(by the second property of laplace transforms on sin at)*
+- L{ t } = 1/s^2 *by derivative property of laplace transforms*
+- L{ t^n } = n!/s^(n+1)
+- L{ u<sub>c</sub>(t)f(t-c) } = e^(-sc) L{ f(t) } for the unit step function, where 0 until c, then 1
+  - *this will be useful for describing piecewise functions (think back to when we learned about compositions of unit step functions)*
+  - the unit step function can act as an offset, since it zeroes out a function until `c`
+  
+Properties of Laplace using notation L{ f(t) } = F(t):
+
+1. L{ c1f(t) + c2g(t) } = L{c1f(t)} + L{c2g(t)} by properties of integrals, the Laplace transform is a linear operator
+2. L{f'(t)} = s • L{f(t)} - f(0) by integration by parts. This turns derivatives into multiplication.
+  - L{f''(t)} = s • L{f'(t)} - f'(0) = s^2 L{ f(t) } - s f(0) - f'(0)
+  - L{f<sup>(k)</sup>(t)} = s^k L{y} - s^(k-1)f(0) - s^(k-2)f'(0) + ... *(this is called "shifting transform")*
+3. L{ e^(at)f(t) } = F(s-a) *translates the transform*
+4. L{ &mu;<sub>c</sub>(t) f(t-c) } = e^(-cs) F(s)
+
+The transform can be inverted by means of the inversion integral: f(t) = 1/(2π • j) integral of F(s) e^st from &sigma; - j∞ to &sigma; + j∞
