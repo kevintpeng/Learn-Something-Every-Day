@@ -92,6 +92,7 @@ The transform can be inverted by means of the inversion integral: f(t) = 1/(2π 
 - given that an integral is just a sum, the inversion formula shows that f(t) is a sum of exponentials e^st, weighted by F(s)
 
 ### Laplace for differential equations
+So the reason that Laplace transforms help us solve differential equations is because we apply a one-to-one transform on both sides of an equation
 ```
 y'' + 5y' + 6y = 0, y(0) = 2, y'(0) = 3
 L{y''} + 5L{y'} + 6L{y} = L{0}
@@ -109,3 +110,4 @@ y = L^-1{(2s+13)/((s+3)(s+2))}  partial fraction expansion now
 - e.g. f(t) = sint and g(t) = cost and requires integral solution methods
 - Theorem states: L{ (f * g)(t) } = F(s)G(s), the products of laplace transforms
 - again, (f * g)(t) = L^-1{ F(s)G(s) }
+- *notice that we have the convolution as an integral, dependent on t. The convolution is a function of t, and so &tau; is just used to sum across 0 to t.*
