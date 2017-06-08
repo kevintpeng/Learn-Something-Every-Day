@@ -366,6 +366,9 @@ namespace A {
 3,2,1 => f(int)
 ```
 
+### Week 3: [Interface Specification](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/06InterfaceSpecification-1up.pdf)
+
+
 ### Week 4: Defensive Programming
 Possible Failures
 - Errors: bugs invariant violation, exposure of data representation
