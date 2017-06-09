@@ -182,4 +182,11 @@ We now use **recurrences** to get the coefficients (example: fibonacci sequence,
   - linear because all `a` are in separate terms to the first power
   - homogeneous since the total degree of each term is the same
 - the **characteristic polynomial** of this recurrence is C(y) = y^k + q1y^(k-1) + ... + qk
-- 
+
+## Chapter 4
+Graphs are a set of verticies and edges. Isomorphism is a relation between to graphs that describes two sets the are effectively the same. 
+
+We can represent graphs using either the **adjacency matrix** or the **incidence matrix**. Adjacency between two vertices occurs when they are joined by an edge. A vertex is incident to edges that join it to another vertex.
+
+The adjacency matrix is defined as a p x p matrix A = [a<sub>ij</sub>] where a<sub>ij</sub> = 1 if vi and vj are adjacent and 0 otherwise. Notice that this is symmetric since (1,2) and (2,1) would both be marked 1 as a result of an edge.
+
