@@ -190,3 +190,14 @@ We can represent graphs using either the **adjacency matrix** or the **incidence
 
 The adjacency matrix is defined as a p x p matrix A = [a<sub>ij</sub>] where a<sub>ij</sub> = 1 if vi and vj are adjacent and 0 otherwise. Notice that this is symmetric since (1,2) and (2,1) would both be marked 1 as a result of an edge.
 
+Observation: If G is a bipartite graph, then every subgraph of G is also bipartite, and every odd cycle is nonbipartite.
+
+Proof: let C<sub>2k+1</sub> be a cycle. Assume that it is bipartite and Let (A,B) be a bipartition. Adjust notation so that v1 in A and thus v2 in B, v3 in A, ... In fact, vi in A iff i is odd. Now v<sub>2k+1</sub> in A. But v1 and v<sub>2k+1</sub> are edges, and both in A. This is a contradiction.
+
+And there's some intuition that we can use (but not prove yet), that if a graph is not bipartite, then it contains some odd cycle as a subgraph. This is why 2-colourable graphs are very easy to solve, while 3-colorable or more is very difficult (there doesn't exist any proof that let's us take a shortcut).
+
+For n ≥ 1, the n-cube is the graph whose vertices are the binary strings of length n, and two strings are adacent <=> they differ in one bit:
+
+<img src="http://mathworld.wolfram.com/images/eps-gif/HypercubeGraphs_1000.gif" alt="n-cubes from 2 to 6">
+
+Since each vertex is adjacent to anything differing by 1 bit, then each n bit can differ, so it is incident to n edges. We also have 2^n. Finally, by the handshaking lemma, we have 2^n•n/2 number of edges.
