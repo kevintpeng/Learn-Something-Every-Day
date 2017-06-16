@@ -144,3 +144,7 @@ Consider Bogo sort. We want the expected case running time. To do so, take a pro
 
 ### Dictionary ADT
 
+### Tries
+Tries, or Radix Tree, are a dictionary for strings. The basic trie is for binary strings and is thus a binary string.
+
+Compressed Tries (Patricia Tries) store extra information at each node. They store which bit position the next strings differ at, allowing us to encode strings with idential portions very efficiently.
