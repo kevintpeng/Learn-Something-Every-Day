@@ -137,3 +137,15 @@ Sex Chromosome Aneuploidy
 Kleinfelter's results from non-disjunction in female in Meiosis I or Meiosis II
 
 Kleinfelter's results from non-disjunction in males in only Meiosis I.
+
+**Aneuploid mosaics** like Turner's Syndrome result from mitotic nondisjunction
+- the centromere doesn't split so we can end up with a trisomic cell and monosomic cell
+- lagging chromatid at anaphase can be lost and cause monosomic cells 
+- Turner's syndrome only works if you are an aneuploid mosaic
+
+Mosaicism involving sex chromosomes is called a **Gynandromorph**
+
+**Euploids** contain only complete sets of chromosomes
+- **Polyploids** carry three or more complete sets of chromosomes (more gene expression)
+- **Monoploids** are organsims which have one complete set of set, and are generally infertile
+- Note "somic" => aneuploid, "ploid" => euploid
