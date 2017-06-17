@@ -106,3 +106,34 @@ Looking at Drisophila:
 - **Hemizygous** for a particular chromosome means you only have one copy of the allele.
 - **Nondisjunction** occurs when an error in Meiosis causes X chromosomes in females to not separate uniformly, so two end up together in one egg and nullo-X in the other
 - **chromosomal theory of inheritance** is affirmed, and the conclusion is that genes reside on specific chromosomes, genes determine traits 
+
+### Changes in Chromosome Number
+
+Aneuploidy - individual whose chromsome number is not a multiple of `n`
+- Monosomic 2n -1
+- Trisomic 2n + 1
+- Tetrasomic 2n + 2 four copies of a given chromosome
+
+Autosomal aneuploidy is generally lethal
+- chromosome 1 and 2 are large so almost always lethal
+- Trisomy 21 is tolerated well since it is a small chromosome
+- Nondisjunction of hommight happen after cross over has occurred in meiosis I, in which case we get two diplo-21 gametes and two nullo-21
+- nondisjunction after Meiosis II, we get two normal, one diplo-21, one nullo-21 and thus one trisomy, and two normal, one monosomy
+
+Aneuploidy for the X chromosome
+- **X-inactivation**, all but one X chromosome is repressed, otherwise females will have all genes expressed twice
+  - happens randomly per cell
+  - Bar body is the condensed inactive X
+  - tendency to clonally keep the same X off
+  - calico multi-coloured cats are a result of inactivation of random X's, for codominant alleles
+  
+Sex Chromosome Aneuploidy
+- XXX 1:1000, normal
+- XO (one X) 1:2500 Turner's Syndrome 
+- XXY 1:500 Klinefelter Syndrome
+- XYY
+- OY: lethal
+
+Kleinfelter's results from non-disjunction in female in Meiosis I or Meiosis II
+
+Kleinfelter's results from non-disjunction in males in only Meiosis I.
