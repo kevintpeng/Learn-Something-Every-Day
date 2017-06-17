@@ -60,3 +60,49 @@ Mitosis:
   - animal, contractile ring squeezes creating the cleavage furrow to split cells 
   - plant, you have to lay down celulose at the cell plane to divide cells
   
+unipartite, bipartite?
+
+#### Meiosis 
+Germ cells divide to produce gametes through meiosis.
+
+Germ cells go through Meiosis. First the chromosomes go through duplication. 
+- meiosis I is separation of chromosomes: 2n->n
+  - centromere remains entact
+  - homologous pairs will cross and swap genetic material
+  
+Prophase I:
+- Leptotene, chromosomes condense
+- Zygotene, chromosomes seek out homologous partner, so they line up. **Synaptonemal complex** form (protein structure that brings them together like a zipper)
+  - **tetrad**s form from two homologous chromosomes pairs (4 chromatids total)
+- Pachytene, **crossing over** is genetic exchange between non-sister chromatids of homologous pair, and get a hybrid between maternal and paternal
+  - **recombination nodules** appear along the synaptonemal complex, facilitating DNA exchange (3-4 sites)
+- Diplotene, synaptonemal complex dissolves
+  - crossing over gives us independent assortment
+- Diakinesis, separation occurs
+
+Metaphase I:
+- microtubules pulls chromosomes 
+
+Anaphase I:
+
+Meiosis II:
+- Anaphase II, centromere breaks
+
+Comparing:
+- Mitosis for somatic cells, meiosis for germ cells (in the sexual cycle)
+- Mitosis duplicates identitcal cells, Meiosis facilitates cross-over and exchange of genetic material
+- Mitosis is one stage, Meiosis is two stages of division (since haploid cells are the results)
+
+**Oogenesis** is egg formation in humans. The egg need lots of cytoplasm with mitochondria
+- start with diploid cells (divided through mitosis) 
+- *is like meiosis but three of the four haploids produced disintegrate in what we call* **polar bodies**
+- create a **secondary oocyte** 
+  - undergoes another round of meiosis
+- store oocytes in ovaries arrested at prophase I diplotene after corssing over, and release mature haploid oocytes after puberty
+  - ovum and sperm fuse to form the diploid zygote (formation of two gametes)
+  - since oocytes are suspended at prophase I, with microtubules attached to kinetochores, there may be segregation errors as they degrade resulting in a trisomy 
+  
+Looking at Drisophila:  
+- **Hemizygous** for a particular chromosome means you only have one copy of the allele.
+- **Nondisjunction** occurs when an error in Meiosis causes X chromosomes in females to not separate uniformly, so two end up together in one egg and nullo-X in the other
+- **chromosomal theory of inheritance** is affirmed, and the conclusion is that genes reside on specific chromosomes, genes determine traits 
