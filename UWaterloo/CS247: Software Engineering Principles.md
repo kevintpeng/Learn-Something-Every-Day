@@ -465,4 +465,6 @@ Designing an abstraction function is important to know
 
 ### UML
 Software Model, using UML
-- class diagram
+- class diagram, + public, - private, # protected, underlined = static, *pure virtual*
+- associations between two classes indicate some link between objects
+- multiplicity annotations constrain the number of allowable links in an association
