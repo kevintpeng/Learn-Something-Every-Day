@@ -149,3 +149,8 @@ Mosaicism involving sex chromosomes is called a **Gynandromorph**
 - **Polyploids** carry three or more complete sets of chromosomes (more gene expression)
 - **Monoploids** are organsims which have one complete set of set, and are generally infertile
 - Note "somic" => aneuploid, "ploid" => euploid
+
+Whiptail lizards are only females.
+
+Polyploids (like Triploids and Tetraploids) are almost always sterile, since during cell division, chromatids do not segregate correctly
+- Salmon can segragate correctly since they tag maternal and paternal
