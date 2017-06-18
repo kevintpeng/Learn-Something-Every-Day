@@ -106,6 +106,8 @@ Looking at Drisophila:
 - **Hemizygous** for a particular chromosome means you only have one copy of the allele.
 - **Nondisjunction** occurs when an error in Meiosis causes X chromosomes in females to not separate uniformly, so two end up together in one egg and nullo-X in the other
 - **chromosomal theory of inheritance** is affirmed, and the conclusion is that genes reside on specific chromosomes, genes determine traits 
+- Thomas Hunt Morgan showed that crisscross inheritance occurs in X-linked traits (mother passes to son, father passes to daughter)
+  - XXX dies usually since 
 
 ### Changes in Chromosome Number
 
@@ -143,7 +145,7 @@ Kleinfelter's results from non-disjunction in males in only Meiosis I.
 - lagging chromatid at anaphase can be lost and cause monosomic cells 
 - Turner's syndrome only works if you are an aneuploid mosaic
 
-Mosaicism involving sex chromosomes is called a **Gynandromorph**
+**Gynandromorph** is a special case where nondisjunction occurs in the first mitosis division.
 
 **Euploids** contain only complete sets of chromosomes
 - **Polyploids** carry three or more complete sets of chromosomes (more gene expression)
@@ -154,3 +156,25 @@ Whiptail lizards are only females.
 
 Polyploids (like Triploids and Tetraploids) are almost always sterile, since during cell division, chromatids do not segregate correctly
 - Salmon can segragate correctly since they tag maternal and paternal
+
+### Linkage and Recombination 
+If genes are on different chromosomes, they will assort independently
+- but if two genes are close together on a chromosome, they will be **linked** and **recombination** will be rare
+- **parental phenotype** are the same exhibited phenotypes as either pure bred parent (in dihybrid crosses)
+- **recombinant/nonparental phentotypes** are parts of the parents
+- mendel's law of independent assortment predicts that in the dihybrid cross, all 4 phenotypes will occur with ratio 1:1:1:1
+  - if genes are linked, we'll get more than 50% parentals, and vise versa
+  - the more recombinants, the further apart the genes are on a chromosome
+- |recombinants| ≤ |parental|
+
+To keep track of parental allelic combinations, we can represent genotypes:
+- vg b / vg<sup>+</sup> b<sup>+</sup>, rather than vg vg<sup>+</sup> b<sup>+</sup> b to hold more information
+- take the F1 female and cross with an all recessive male to determine parental : recombinant ratio
+  - we choose recessive male when testing with F1 since we don't want their traits to show
+- if we only look at the males, then the male parent genotype doesn't matter
+
+### [Reproductive Genetics](https://learn.uwaterloo.ca/d2l/le/content/318066/viewContent/1816760/View)  -- Thylacines
+Thylacines/Tasmanian Tigers
+- targeted for reincarnation through DNA extraction from preserved remains
+- let haploid number n = 4
+  - three autosomes
