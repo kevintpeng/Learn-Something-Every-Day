@@ -221,6 +221,29 @@ Double crossovers might not occur because they are rare.
   - capsule prevents the immune system from stopping bacteria
   - he showed that they achieved **transformation**, a substance changing genetic characteristics
 
+What component is responsible for this phenomenon of transforming cells?
+- Oswald Avery **transforming principle**
+  - took the heat killed smooth, and treated with different enzymes
+  - protease is an enzyme that chops up all the protien, and yet transformation still occurred so it wasn't protein
+  - RNase chews up RNA, introduced into rough form cells and there was still transformation
+  - DNase destroyed DNA, and there wasn't transformation
+
+Chase and Hershey Experiments with infecting bacterial cells with bacteriophages
+- bacteriophage injects bacteria with DNA, T2 phage
+  - grow inside cells and then are released when the cell bursts
+
+Structure of DNA: Deoxyribose sugar is a pentagon of carbons
+- 5' is connected to 4', not part of pentagon
+- 5' connected to one phosphodiester and 3' connected to another phospherdiester
+- directed from 5' -> 3'
+
+DNA is a double helix, first proposed by James Watson and Francis Crick
+- Rosalind Franklin was a scientist who helped to discover 
+- Purines (Adenine and Guanine) are always connected by a hydrogen bond to a Pyramidine (Thymine or Cytosine)
+- has multiple forms; B-form and spirals right
+- Z form is the left form highly active form 
+- A form is dehydrated
+
 ### [Reproductive Genetics](https://learn.uwaterloo.ca/d2l/le/content/318066/viewContent/1816760/View)  -- Thylacines
 Thylacines/Tasmanian Tigers
 - targeted for reincarnation through DNA extraction from preserved remains
