@@ -173,6 +173,40 @@ To keep track of parental allelic combinations, we can represent genotypes:
   - we choose recessive male when testing with F1 since we don't want their traits to show
 - if we only look at the males, then the male parent genotype doesn't matter
 
+The Chi Square Test is a statistical test to evaluate hypotheses that two genes assort independently 
+- basically to determine how statistically significant an outcome is
+- apply an null hypothesis of no linkage
+
+1. Use the data from an experiment, to determine total number of offspring and classes, and the given distribution 
+2. Calculate the expected number (based on 1:1 ratio for null hypothesis).
+3. &Chi;^2 = ∑ (observed - expected)^2/expected
+4. Determine the degrees of freedom (df) = number of classes - 1
+5. Use the chi-square value and number of degrees of freedom to determine a `p value` = probability that a deviation from the predicted numbers at least as large as that observed in the experiment will occur by chance
+6. Evaluate the significance of the p value. **0.05 p value** is the boundary between accepting and rejecting null hypothesis
+  - p=0.05 corresponds to two standard deviations
+  - p value that's high means that there is a higher probability that the result was due to chance
+
+Recombination was demonstrated using **physical markers** that were visible under the mircoscope. In the example, there was discontinuity and a bend.
+- using **recombination frequency** as the percentage, we can measure it using **mapping units**
+- by convention, `ry / Ry ; tV / Tv` is notation for maternal / paternal and semi colon indicates different chromosomes
+- recombination frequencies of 50% indicates either not on the same chromosome, or they're really far apart on the same 
+  - we can discern between the two by looking at each linkage with a gene between them
+
+Two Point Crosses
+- Limitation is that mapping units are less accurate when genes are far apart, due to high variance
+
+Three Point crosses
+- double crossovers messes up the data, since crosses can occur without changing the gamete class
+- 2^3 = 8 different genotypes
+- highest two are the parents, always
+- second two highest are single crossovers in the largest region I, SCOI
+- third highest two are single crossovers in the smaller region II, SCOII
+- last two will be double crossovers, one in each region, DCO
+
+- Next, for all pairs two genes, sum all the recombinants (ignoring the third) and multiply by 100 to get m.u.
+- using m.u. we can determine order
+- finally, we add DCO to the pair of genes with the farthest m.u. to account for the error messing up the map units
+
 ### [Reproductive Genetics](https://learn.uwaterloo.ca/d2l/le/content/318066/viewContent/1816760/View)  -- Thylacines
 Thylacines/Tasmanian Tigers
 - targeted for reincarnation through DNA extraction from preserved remains
