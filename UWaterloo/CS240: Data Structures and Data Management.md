@@ -148,3 +148,12 @@ Consider Bogo sort. We want the expected case running time. To do so, take a pro
 Tries, or Radix Tree, are a dictionary for strings. The basic trie is for binary strings and is thus a binary string.
 
 Compressed Tries (Patricia Tries) store extra information at each node. They store which bit position the next strings differ at, allowing us to encode strings with idential portions very efficiently.
+
+### Skip List
+Inserting into a skip-list, we can use RNG to determine the height, based on a binary string seed. 
+- each height has 1/2^h probability of occurring
+- SkipSearch(L, x) returns an element before the element x
+
+We can make modifications to a linked list to optimize search times
+- transpose huristic swaps searched element 1 closer to the front
+- move to front moves searched elements directly to the front
