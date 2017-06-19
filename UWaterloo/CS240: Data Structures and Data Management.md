@@ -157,3 +157,12 @@ Inserting into a skip-list, we can use RNG to determine the height, based on a b
 We can make modifications to a linked list to optimize search times
 - transpose huristic swaps searched element 1 closer to the front
 - move to front moves searched elements directly to the front
+
+### Midterm
+- first principles runtimes
+- AVL Insert O(log n), Delete O(log n)
+  - know rotations
+- Dictionary tricks for linked lists (move to front and transpose)
+- Heap Insert O(log n), Delete-Max O(log n), Heapify O(n) 
+- Heapsort, Mergesort, Quicksort
+- quickselect expected O(n), count sort O(n + R), radix sort O(m(n+R))
