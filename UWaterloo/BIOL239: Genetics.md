@@ -205,7 +205,7 @@ Three Point crosses
 
 - Next, for all pairs two genes, sum all the recombinants (ignoring the third) and multiply by 100 to get m.u.
 - using m.u. we can determine order
-- finally, we add DCO to the pair of genes with the farthest m.u. to account for the error messing up the map units
+- finally, we add the number of DCO  **twice** (since two crossovers occur) to the pair of genes with the farthest m.u. to account for the error messing up the map units, since we don't get a recombinant phenotype
 
 ### [Reproductive Genetics](https://learn.uwaterloo.ca/d2l/le/content/318066/viewContent/1816760/View)  -- Thylacines
 Thylacines/Tasmanian Tigers
