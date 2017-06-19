@@ -186,6 +186,7 @@ The Chi Square Test is a statistical test to evaluate hypotheses that two genes 
   - p=0.05 corresponds to two standard deviations
   - p value that's high means that there is a higher probability that the result was due to chance
 
+### Map distances 
 Recombination was demonstrated using **physical markers** that were visible under the mircoscope. In the example, there was discontinuity and a bend.
 - using **recombination frequency** as the percentage, we can measure it using **mapping units**
 - by convention, `ry / Ry ; tV / Tv` is notation for maternal / paternal and semi colon indicates different chromosomes
@@ -202,10 +203,23 @@ Three Point crosses
 - second two highest are single crossovers in the largest region I, SCOI
 - third highest two are single crossovers in the smaller region II, SCOII
 - last two will be double crossovers, one in each region, DCO
-
-- Next, for all pairs two genes, sum all the recombinants (ignoring the third) and multiply by 100 to get m.u.
+- Next, for all 3 different pairs of genes, sum all the recombinants (ignoring the third) and multiply by 100 to get m.u.
 - using m.u. we can determine order
 - finally, we add the number of DCO  **twice** (since two crossovers occur) to the pair of genes with the farthest m.u. to account for the error messing up the map units, since we don't get a recombinant phenotype
+- pick one parental class, and pick one double crossover, and odd one out will be the one in the middle
+
+Double crossovers might not occur because they are rare.
+- another possibility is **interference**, genes that are really close, or close to the centromere, or near the telomeres, are all reasons that double crossovers might not occur ( or pr(I) * pr(II) ≠ pr(DCO) )
+- **coefficient of coincidence** is a measure of the amount of interference (0 = no interference)
+  - coefficient of coincidence = observed/expected, and interference = 1 - coefficient of coincidence; so 30% interference means 30% less than what we expect
+  
+### DNA
+- weakly acidic, phosphorous rich, from the nuclei of white blood cells 
+- phosphorous links 
+- thought that proteins were 
+- **Frederick Griffith** performed experiments with bacteria
+  - capsule prevents the immune system from stopping bacteria
+  - he showed that they achieved **transformation**, a substance changing genetic characteristics
 
 ### [Reproductive Genetics](https://learn.uwaterloo.ca/d2l/le/content/318066/viewContent/1816760/View)  -- Thylacines
 Thylacines/Tasmanian Tigers
