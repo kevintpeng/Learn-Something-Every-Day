@@ -468,3 +468,9 @@ Software Model, using UML
 - class diagram, + public, - private, # protected, underlined = static, *pure virtual*
 - associations between two classes indicate some link between objects
 - multiplicity annotations constrain the number of allowable links in an association
+- graph nodes are an example of a self association
+- a **class association** represents link attributes (one's that don't belong to either object but are important in describing the association)
+- **aggregation** is a "part-of" relation between an aggregate (the collection) and its members, members can have mny aggregations
+- a **composition** is a strong "part of" relation, as the composite does not exist without its components
+- **generalization** is the relation between a base class and its derived classes
+
