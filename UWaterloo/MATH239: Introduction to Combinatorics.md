@@ -183,6 +183,9 @@ We now use **recurrences** to get the coefficients (example: fibonacci sequence,
   - homogeneous since the total degree of each term is the same
 - the **characteristic polynomial** of this recurrence is C(y) = y^k + q1y^(k-1) + ... + qk
 
+Important takeaway: for a rational function f/g, where deg(f) < deg(g), we can use partial fraction decomposition to break the rational into terms of the form c/(1-ax) or some variant. 
+- If each denominator is written as `1-ax`, then we can simply compute the x^n term of f/g by summing `ac` for each term
+
 ## Chapter 4
 Graphs are a set of verticies and edges. Isomorphism is a relation between to graphs that describes two sets the are effectively the same. 
 
