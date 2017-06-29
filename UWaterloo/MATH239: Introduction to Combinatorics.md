@@ -186,6 +186,8 @@ We now use **recurrences** to get the coefficients (example: fibonacci sequence,
 Important takeaway: for a rational function f/g, where deg(f) < deg(g), we can use partial fraction decomposition to break the rational into terms of the form c/(1-ax) or some variant. 
 - If each denominator is written as `1-ax`, then we can simply compute the x^n term of f/g by summing `ac` for each term
 
+We can also find recurrence relations for `An` from the generating series by taking the denominator polynomial and converting any `x^i` term to `A_{n-i}`, then solving for `An`.
+
 ## Chapter 4
 Graphs are a set of verticies and edges. Isomorphism is a relation between to graphs that describes two sets the are effectively the same. 
 
