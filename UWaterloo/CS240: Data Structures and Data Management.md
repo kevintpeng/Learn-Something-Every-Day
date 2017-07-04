@@ -166,3 +166,18 @@ We can make modifications to a linked list to optimize search times
 - Heap Insert O(log n), Delete-Max O(log n), Heapify O(n) 
 - Heapsort, Mergesort, Quicksort
 - quickselect expected O(n), count sort O(n + R), radix sort O(m(n+R))
+
+## Multi-dimensional Data
+d-dimensional data, with **aspects**/coordinates
+- operations insert, delete, rage-search query
+- for range searches, we could either use a sorted tree or a binary search tree; O(log n + k), k is number of inside nodes
+- d-dimensional dictionaries can be squashed to a single dimension, but range searches on single aspects are lost
+- **partition trees** has `n` leaves, one for each item, and each internal node corresponds to a region
+- **Quadtrees** are partition trees, where each node corresponds to a square in the cartesian plane, the root of which contains all
+  - each node has 4 children, the 4 subquadrants of the given square
+  - points on split lines belong to left and bottom
+  - can be used for compression, image processing
+- **kd-trees** aim to optimize what quadtrees do, by splitting each region in half by the median using alternating vertical and horizontal lines using the median to split equally
+  - usually pretty balanced, so building takes O(n log n) 
+  - by convention when building the binary tree, above in grid is left, below is right
+  - range search operation: O(# nodes on boundary + output) 
