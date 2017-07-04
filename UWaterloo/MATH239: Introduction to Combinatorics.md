@@ -215,21 +215,31 @@ For n ≥ 1, the **n-cube** is the graph whose vertices are the binary strings o
 
 Since each vertex is adjacent to anything differing by 1 bit, then each n bit can differ, so it is incident to n edges. We also have 2^n. Finally, by the handshaking lemma, we have 2^n•n/2 number of edges.
 
+The **cut** induced by a set of verticies denoted by &delta;(X) is the set of all edges that have one end in X and the other in X'.
+- &delta;(X) is symmetric to &delta;(X') and is the set of edges that result from a partition (X, X')
+- a graph is not connected iff exists a non-empty subset of X of V(G) s.t. &delta;(X) = 0
+
 **Hamiltonian Cycles** go through all verticies of a graph.
 
 **Eulerian Circuit** is a closed trail which every edge is used.
 
-## Multi-dimensional Data
-d-dimensional data, with **aspects**/coordinates
-- operations insert, delete, rage-search query
-- for range searches, we could either use a sorted tree or a binary search tree; O(log n + k), k is number of inside nodes
-- d-dimensional dictionaries can be squashed to a single dimension, but range searches on single aspects are lost
-- **partition trees** has `n` leaves, one for each item, and each internal node corresponds to a region
-- **Quadtrees** are partition trees, where each node corresponds to a square in the cartesian plane, the root of which contains all
-  - each node has 4 children, the 4 subquadrants of the given square
-  - points on split lines belong to left and bottom
-  - can be used for compression, image processing
-- **kd-trees** aim to optimize what quadtrees do, by splitting each region in half by the median using alternating vertical and horizontal lines using the median to split equally
-  - usually pretty balanced, so building takes O(n log n) 
-  - by convention when building the binary tree, above in grid is left, below is right
-  - range search operation: O(# nodes on boundary + output) 
+A 4-regular graph cannot have a bridge
+- an edge e is a bridge of G iff G has no cycles containing e
+
+### Trees
+All edges are bridges. Exactly p vertcies and p-1 edges. 
+- T is a spanning tree of G <=> T is a maximal subgraph without cycles <=> T is a minimal subgraph that is connected
+- BFS can be used to find a spanning tree of a graph
+- **level** of a vertex in T is the # of times we must follow parent to get to the root
+- for T a BFS tree of G, every non-tree edge e joins vertices that are at most one level apart
+
+### Planarity
+**planar embedding** is a drawing of G on a plane such that no edges cross
+- a graph has no planar embedding iff it can be drawn on a sphere
+- planar embedding breaks surface into **faces**
+- **boundary** of a face F is all edges and vertices that are incident with F
+- **degree** of a face is length of the closed boundary walk
+- any tree is planar with exactly one face *since no cycles*
+- **dual handshaking lemma** for a planar embedding of a connected graph G, `sum of all degrees of faces is 2 x |E(G)|`
+- **Euler's formula** for all planar embedding of a connected graph G, `v+f = e+2`
+- *for induction proofs with graphs, remove instead of add*
