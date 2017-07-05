@@ -243,3 +243,8 @@ All edges are bridges. Exactly p vertcies and p-1 edges.
 - **dual handshaking lemma** for a planar embedding of a connected graph G, `sum of all degrees of faces is 2 x |E(G)|`
 - **Euler's formula** for all planar embedding of a connected graph G, `v+f = e+2`
 - *for induction proofs with graphs, remove instead of add*
+- Euler's Formula can be used to prove that graphs are nonplanar
+  - 7.5.3 gives `q ≤ 3p - 6`, a linear bound for the number of edges in a planar graph
+  - 7.5.6 gives q ≤ 2p - 4, another linear bound for triangle free planar graphs
+  - only useful for disproving planarity
+- **subdivision** of a graph J is any graph H that can be obtained from J by replacing every edge by a path of length ≥ 1
