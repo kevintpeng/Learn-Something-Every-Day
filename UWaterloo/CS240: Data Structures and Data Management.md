@@ -181,3 +181,6 @@ d-dimensional data, with **aspects**/coordinates
   - usually pretty balanced, so building takes O(n log n) 
   - by convention when building the binary tree, above in grid is left, below is right
   - range search operation: O(# nodes on boundary + output) 
+- **range trees** are trees of trees for points, built by sorting x and with each node having an associated tree sorted on y
+  - associated tree holds the same subtree as the node sorted on x, but it instead is sorted by y
+  - insert: `log n` for x coordinate lookup, then for each `log n` parent, insert into each associated tree in `log n` time for y 
