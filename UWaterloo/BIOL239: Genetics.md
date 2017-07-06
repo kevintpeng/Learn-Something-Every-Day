@@ -244,8 +244,19 @@ DNA is a double helix, first proposed by James Watson and Francis Crick
 - Z form is the left form highly active form 
 - A form is dehydrated
 
-### [Reproductive Genetics](https://learn.uwaterloo.ca/d2l/le/content/318066/viewContent/1816760/View)  -- Thylacines
-Thylacines/Tasmanian Tigers
-- targeted for reincarnation through DNA extraction from preserved remains
-- let haploid number n = 4
-  - three autosomes
+### DNA Replication
+Watson-Crick model of replication is **semiconservative**; one strand is from the parental molecule and other is newly synthesized
+- double helix separates, and complementary bases align opposite to **templates**
+- enzymes link sugar-phosphate elements of newly aligned nucleotides
+- label dna using radiation, centrifuge DNA in Cesium choloride
+
+**Meselson-Stahl Experiment**: use atomic weights to show how DNA replicates.
+
+1. E coli is grown on <sup>15</sup>N for several generations (so that the DNA itself is atomically heavier)
+1. DNA is extracted and density is analyzed through centrifugation (visible bands determine atomic weight)
+1. Cells are transferred to a lighter medium <sup>14</sup>N for one generation.
+1. DNA is analyzed again, but this time it is precisely 14N and 15N on the gradient. "Hybrid"
+1. More generations, less and less hybrid and more 14
+
+This proves the semiconservative model.
+
