@@ -248,3 +248,7 @@ All edges are bridges. Exactly p vertcies and p-1 edges.
   - 7.5.6 gives q ≤ 2p - 4, another linear bound for triangle free planar graphs
   - only useful for disproving planarity
 - **subdivision** of a graph J is any graph H that can be obtained from J by replacing every edge by a path of length ≥ 1
+- **kuratowski theorem** says that a graph G is nonplanar <=> G has a subdivision of K5 or K3,3 as a subgraph
+- K<sub>r</sub> r≥1 requires `r` colors and is in fact r-colorable
+- 4 color theroem: every planar graph is 4-colorable.
+- 6 color theroem, easier to prove: we do it by induction on p=|V(G)|. The key thing here is that we show there is always a vertex of at most degree 5 (for planar graphs) and the IH is assuming that for some number of vertices less than p, we have a 6-colorable graph
