@@ -66,4 +66,6 @@ We used net present value and internal rate of return
 - for **discounting**,  
 - Weighted average cost of capital (WACC) is the funding cost for many corporate projects
 
+<img width="641" alt="screen shot 2017-07-12 at 1 33 04 pm" src="https://user-images.githubusercontent.com/7998752/28131059-b697443a-6706-11e7-98cd-4f2c16f90ae6.png">
+
 ### Chapter 15: Minimum Attractive Rate of Return (MARR)
