@@ -359,6 +359,12 @@ Glucose is another sugar preferred by the bacteria over lactose
 - no glucose and lactose, we'll have an activator resulting in lots of transcription
 - high glucose -> low CAMP, so less lactose
 
+I<sup>-</sup> mutation that signals repressor, cannot bind to the operator 
+- I<sup>s</sup>
+- p- mutation, RNA cannot associate with it
+- O<sup>c</sup> repressor protein can't associate with operator
+- Z- mutation, cannot create allolactose
+
 ### Lac Operon
 - in the absense of lactose, we don't want to be making proteins if we don't need them, the repressor is going to bind to the operator
 - this is going to stop transcription
@@ -367,11 +373,13 @@ Glucose is another sugar preferred by the bacteria over lactose
 - **allolactose** binds 
 - three genes: LacZ,Y,A, **polycistronic message**, all at once
 - promoter, followed by operator, then lacZ, lacY, lacA
-- lacZ encodes 
-- lacY allows it into the inner membrane
+- lacZ encodes &Beta;-galactosidase 
+  - turns lactose into glucose and galactose
+  - alternatively turns lactose into allolactose
+- lacY encodes permease, transporting lactose and allows it into the inner membrane
 - lacA doesn't matter too much
+- repression of lacZ, lacY and lacA are all linked, leading to the idea that they are transcribed as aprt of the same **polycistronic mRNA**
 - lacI is upstream part of the repressor gene, and binds to some other part
-
 - DNA binding domain
 - Inducer binding domain, allolactose changes the confirmation, so that this repressor protein cannot bind to the DNA operator
 - in gene I<sup>-</sup>, a mutation in our repressor with no repressor, **lac operon** is expressed ALL THE TIME
