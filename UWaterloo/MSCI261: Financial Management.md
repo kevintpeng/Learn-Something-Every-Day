@@ -44,3 +44,11 @@ One way of comparing things is with present worth analysis
 - **mutually exclusive alternatives** choose only one out of many
 - **present worth analysis** is evaluating mutually exlcusive alternatives at the present time
   - net present worth = PW(benefit) - PW(cost)
+
+### Chapter 8: Risk
+Average, Sqr, Varp, Stdevp, Frequency, Count, Ln
+
+Three risk characteristics of financial assets
+- **Horizon**, how long it takes to get money
+- **Safety** is there guarantee?
+- **Liquidity** how easy it is to sell the asset
