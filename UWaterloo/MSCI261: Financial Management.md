@@ -52,3 +52,18 @@ Three risk characteristics of financial assets
 - **Horizon**, how long it takes to get money
 - **Safety** is there guarantee?
 - **Liquidity** how easy it is to sell the asset
+
+**Ex-ante** is the expected return of an investment
+- on a bond, we already know what to expect, so you can simply calculate ex-ante
+
+**Ex-post** is a measure of past performance
+- actual return realized upon sale of the asset
+- will be the same as ex-ante if you sell at bond maturity date
+
+
+### Chapter 6: Choosing a discount rate
+We used net present value and internal rate of return
+- for **discounting**,  
+- Weighted average cost of capital (WACC) is the funding cost for many corporate projects
+
+### Chapter 15: Minimum Attractive Rate of Return (MARR)
