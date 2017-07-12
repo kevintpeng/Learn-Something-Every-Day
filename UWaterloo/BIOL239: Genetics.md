@@ -260,3 +260,120 @@ Watson-Crick model of replication is **semiconservative**; one strand is from th
 
 This proves the semiconservative model.
 
+Two steps; initiations and elongation
+- origin of replication, rich in AT sequencing
+- AT have two hydrogen bonds, so it's easy to break apart
+  - heating breaks hydrogren bonds
+- initiator protein and DNA helicase are at the replication fork to open up the replication bubble 
+
+**Elongation**: DNA polymerase must have 
+- DNA primase puts down RNA primer
+- RNA primer is from 5' to 3'
+- **primer** 
+
+One kind of E coli DNA polymerase, III, type of enzyme that is used to extend DNA using RNA primers
+- leading strand
+- template is always 3' to 5'
+
+DNA polymerase I removes RNA primer and fills in gaps, still from 5' to 3'
+
+DNA **ligase** joins leading and lagging strands by the phosphodieseter 
+
+E coli DNA Polymerase adds nucleotides to the end of a DNA stand
+- can only add nucleotides in the 5' to 3' direction
+- needs a free 3' hydroxide to polymerize
+
+Three **activities** for our two types of E. coli DNA polymerase
+
+1. 5' to 3' polymerase activity
+1. 3' to 5' exonuclease activity (chewing it off) and fixing mistakes
+1. 5' to 3' exonuclease primer degradation
+
+Problem with circular chromosomes: **positive supercoils**, tension opened by **topoisomerases**
+- nicks both DNA strnads and separate the two daughter molecules
+
+Eukaryotes have **linear chromosomes**
+- **telomeres** are at the end of each chromosome
+- telomeres are smaller and smaller after each replication
+  - repeated units of TTAGGG
+
+### Genetic Code
+DNA acts as a template for RNA
+- **transcription** is ATCG to AUCG, and the messenger RNA can go through **translation** to protein
+- grouping into triplets, we get 4^3 = 64 **codons**
+- AUG => Met or methymine is the start codon
+- UAG, UAA, UGA are the stop codons, translation stops
+- gene's nucleotide is colinear with the encoded **polypeptide**
+- from DNA, what is the linear order of the amino acids which determines how the protein folds
+- **reading frame**, the partitioning of groups of three nucleotides
+- **frameshift mutation** might make the reading frame not make sense
+- **intragenic suppression** restoration of gene function by one mutation cancelling another in the same gene
+  - sometimes the mutated section doesn't affect the resulting protein
+  - multiples of three are ok, or deletions and additions might cancel out
+- genetic code is almost universal, but there are exceptions
+
+Researchers used radioactive labelling (C14 instead of C12) which makes no difference in DNA structure
+- mRNA is very unstable
+- code was cracked, by filtering DNA (some experiment)
+- RNA-likes trand is 5' to 3'
+- Template strand is 3' to 5'
+- mRNA is made from template strand
+- **polypeptide** is a chain of amino acids
+  - amino and carboxy at the terminus
+
+### Transcription
+The process by which the polymerization of ribonucleotides is guided by complementary base pairing (template?) to produce and **RNA transcript** of a gene
+- nucleotides will be added 5' to 3' direction
+- Uracil replaces Thymine
+- two types of termination
+  - **Rho dependent**: protein/factor is binding to the RNA 
+  - Rho independent
+- eukaryotic transcription needs a promoter and includes an enhancer most of the time
+- AAUAA, poly A tail?
+- assembly of Pro and Euk, start at **shine dalgarno**
+
+### Translation
+The process in which the genetic code carried by mRNA directs the synthesis of proteins from amino acids
+- transfer RNAs (tRNA) short single stranded RNA, each carries one pariticular amino acid
+
+Mutations: silent, missense (wrong amino acid), nonsense (cause a stop, truncation), frameshift, or in promoter
+- prokaryotic promoter -10 TATAAT and -35 concensus (concensus sequence?)
+
+### Gene Regulation in Prokaryotes 
+DNA regulation determines which genes are transcribed and translated (think immune cell vs muscle cells have same DNA but different funcitons)
+- gene is a sequence of DNA (RNA polymerase needs to attach somewhere), we call **promoter**
+- each gene has a promoter
+- for prokaryotes, multiple genes can be associated with one promoter (some sequence of DNA)
+- an **operon** is a sequence of DNA that includes the regulatory DNA sequence, promoter, and its associated genes
+- what can enhance and inhibit this process?
+- **repressor** attaches to a sequence after promoter that represses transcription, regulating gene expression
+- **activator** binds for more transcription
+- **inducers** turn on activation of the activator
+- **lac operon** codes for genes involved in the metabolism of lactose (for E. coli)
+  - has promoter, operator, lacZ, lacY, lacA and is preceeded by a **CAP site** (Catabolite ACtivator Protein) binds as an activator
+- if there's no lactose, lac repressor is bound to operator
+- if lactose is present, we have **allolactose** that acts as an inducer
+- if present, it binds to repressor so it doesn't bind as well, and we can start metabolizing lactose
+
+Glucose is another sugar preferred by the bacteria over lactose
+- no glucose and lactose, we'll have an activator resulting in lots of transcription
+- high glucose -> low CAMP, so less lactose
+
+### Lac Operon
+- in the absense of lactose, we don't want to be making proteins if we don't need them, the repressor is going to bind to the operator
+- this is going to stop transcription
+- normally it binds to promoter, but without lac I, it binds to operator 
+- repressor, four monomers come together to create a tetramer that binds to the operator on the lac operon
+- **allolactose** binds 
+- three genes: LacZ,Y,A, **polycistronic message**, all at once
+- promoter, followed by operator, then lacZ, lacY, lacA
+- lacZ encodes 
+- lacY allows it into the inner membrane
+- lacA doesn't matter too much
+- lacI is upstream part of the repressor gene, and binds to some other part
+
+- DNA binding domain
+- Inducer binding domain, allolactose changes the confirmation, so that this repressor protein cannot bind to the DNA operator
+- in gene I<sup>-</sup>, a mutation in our repressor with no repressor, **lac operon** is expressed ALL THE TIME
+  - this is **constitutive expression**
+  
