@@ -202,3 +202,9 @@ DFAs give us a nice representation of how we can reuse information about the sta
 - after hash values are equal, do a full string comparison to guarantee correctness
 - run time is &Theta;(mn), since it's possible that each n characters causes a hash collision, follwed by `m` iterations through the length of the pattern to verify that it is not a correct match
 - in practice, our runtime is O(m + n), iterate through our match to check correctness and iterate through `n` characters to find substring
+
+What if we want to search many patterns on the same text? Then preprocess text `T`
+- use a trie that stores all suffixes of text `T` called a **suffix trie**
+  - side note, not all substring, but instead only suffixes, so the last letter of our text is in every suffix
+
+<img width="1066" alt="screen shot 2017-07-13 at 11 02 17 am" src="https://user-images.githubusercontent.com/7998752/28172880-d7e22150-67ba-11e7-9e17-a5ff761999cd.png">
