@@ -111,3 +111,13 @@ y = L^-1{(2s+13)/((s+3)(s+2))}  partial fraction expansion now
 - Theorem states: L{ (f * g)(t) } = F(s)G(s), the products of laplace transforms
 - again, (f * g)(t) = L^-1{ F(s)G(s) }
 - *notice that we have the convolution as an integral, dependent on t. The convolution is a function of t, and so &tau; is just used to sum across 0 to t.*
+
+### Frequency Responses of LTI systems
+Previously, we transform problems in analysis of LTI systems into Laplace to be solved algebraically
+- we can transform problems to the "Frequency domain" by looking at how LTI systems respond to sinusoids
+- sometimes we can look at poles and zeroes and understand the system
+- we know response to a two-sided exponential input e^st is transfer function H(s)•e^st
+- for sinusoids, it is the case where `s` is purely imanginary by euler's formula, so e^(j&omega;t)
+- the **frequency response** of a system is H(j&omega;)
+
+https://www.youtube.com/playlist?list=PLUMWjy5jgHK3j74Z5Tq6Tso1fSfVWZC8L
