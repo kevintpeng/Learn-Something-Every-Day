@@ -252,3 +252,8 @@ All edges are bridges. Exactly p vertcies and p-1 edges.
 - K<sub>r</sub> r≥1 requires `r` colors and is in fact r-colorable
 - 4 color theroem: every planar graph is 4-colorable.
 - 6 color theroem, easier to prove: we do it by induction on p=|V(G)|. The key thing here is that we show there is always a vertex of at most degree 5 (for planar graphs) and the IH is assuming that for some number of vertices less than p, we have a 6-colorable graph
+
+
+### Matching
+Some subset of edges such that every vertex is of degree 1 or 0
+- a matching is **perfect** if it contains every vertex
