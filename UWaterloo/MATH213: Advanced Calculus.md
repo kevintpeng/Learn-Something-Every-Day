@@ -121,3 +121,7 @@ Previously, we transform problems in analysis of LTI systems into Laplace to be 
 - the **frequency response** of a system is H(j&omega;)
 
 https://www.youtube.com/playlist?list=PLUMWjy5jgHK3j74Z5Tq6Tso1fSfVWZC8L
+
+### Bode Plots
+- if operator s is a value that causes the transfer function to approach infinity, it's called a **pole**
+- **zero** if it approaches 0
