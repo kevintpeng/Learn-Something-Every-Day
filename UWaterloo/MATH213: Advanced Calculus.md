@@ -125,3 +125,5 @@ https://www.youtube.com/playlist?list=PLUMWjy5jgHK3j74Z5Tq6Tso1fSfVWZC8L
 ### Bode Plots
 - if operator s is a value that causes the transfer function to approach infinity, it's called a **pole**
 - **zero** if it approaches 0
+
+### Fourier Series
