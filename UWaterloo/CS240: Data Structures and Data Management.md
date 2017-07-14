@@ -189,7 +189,7 @@ d-dimensional data, with **aspects**/coordinates
 DFAs give us a nice representation of how we can reuse information about the state of what we've matched thus far. Refer to cs241 notes for details.
 
 **KMP** matches left to right, and shifts the pattern upon a bad match based on the largest prefix of our pattern that is a suffix of what we've matched so far.
-- build a failure array during preprocessing, which acts as an easy lookup for what the most efficient shift would be (and this simply implements DFAs in practice)
+- build a **failure array** during preprocessing, which acts as an easy lookup for what the most efficient shift would be (and this simply implements DFAs in practice)
 - runtime is &Theta;(m) to build failure array and &Theta;(n) to run KMP, where `m` is the length of the pattern and `n` is the string length
   - note there is no more than `2n` iterations of either algorithm because the worst case is that each element is iterated by both the right and left iterators as we walk along string `T`
 
