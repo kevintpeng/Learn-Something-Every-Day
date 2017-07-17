@@ -203,6 +203,7 @@ DFAs give us a nice representation of how we can reuse information about the sta
 We have to build two extra data structures to perform BM: Last occurence function and good suffix array
 - for **good suffix array**, at each `i` of the array, where `i` represents the `m-i` length suffix, we want to find the rightmost occurrence (the next occurrence) of the suffix that we've correctly matched so far
 - *recall in BM, we're iterating from right to left when checking the pattern, so it makes sense we want the rightmost occurence of the right suffix*
+- *for the implementation, we choose element at `i` to represent the next index of the pattern that shares the same suffix, excluding `P[i]`, the `i`th character of our pattern, because when we mismatch, we can reuse the matched suffix and shift the pattern to check the next portion of the pattern that's different but share some suffix*
 
 **Rabin-Karp Fingerprint** uses hashing to compare our pattern to a substring (think hashing to check if your downloaded file is correct)
 - after hash values are equal, do a full string comparison to guarantee correctness
