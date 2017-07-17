@@ -71,3 +71,6 @@ We used net present value and internal rate of return
 ### Chapter 15: Minimum Attractive Rate of Return (MARR)
 Assumed interested rate was given so far, but in practice we compute different rates or MARR
 
+- **closed end** mutual funds IPO on stock market and there's a fixed number
+- **open end** mutual funds have an unlimited number of units, but must have a reserve for "redemption"
+  - redemption has a fee
