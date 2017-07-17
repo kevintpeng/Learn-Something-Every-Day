@@ -477,3 +477,20 @@ Software Model, using UML
 - a **composition** is a strong "part of" relation, as the composite does not exist without its components
 - **generalization** is the relation between a base class and its derived classes
 
+### STL
+- Generic containers take an element as a parameter, and use **iterators** to navigate
+  - should know almost nothing about the underlying data
+- generic algorithms should also know little to nothing about the element type
+- Alexander Stepanov thinks OOP is wrong, and generic programming is better at supporting polymorphism
+  - templates are more flexible, and not virtual to improve efficiency
+
+Three main data containers:
+
+1. emplace
+1. sequence containers: vector deque list forward_list std::array
+1. Container adapters: stack queue priority_queue
+1. ordered associative containers: set map multiset multimap
+1. unordered associative containers: unordered_set unordered_map unordered_multiset
+1. non-member cbegin/cend/rbegin/rend/crbegin/crend
+
+encouraged to define adapter classes that wrap around STL container classes for special needs
