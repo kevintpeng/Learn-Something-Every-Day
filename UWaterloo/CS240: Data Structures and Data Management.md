@@ -194,9 +194,15 @@ DFAs give us a nice representation of how we can reuse information about the sta
   - note there is no more than `2n` iterations of either algorithm because the worst case is that each element is iterated by both the right and left iterators as we walk along string `T`
 
 **Boyer-Moore** is reverse order searching (right to left)
+- we move the pattern left to right as usual, but when checking the pattern, we'll go right to left
+- the goal is to shift the pattern as much as possible when mismatches occur
 - **bad character jumps** skip the entire pattern length if it finds a character in string `T` not in P
-- **good suffix jump** let's us shift P left to align with the next rightmost occurence of the suffix (not including the bad match character)
+- **good suffix jump** let's us shift P right to align with the next leftmost occurence of the suffix (not including the bad match character)
 - Good suffix array is what we build during preprocessing of the pattern
+
+We have to build two extra data structures to perform BM: Last occurence function and good suffix array
+- for **good suffix array**, at each `i` of the array, where `i` represents the `m-i` length suffix, we want to find the rightmost occurrence (the next occurrence) of the suffix that we've correctly matched so far
+- *recall in BM, we're iterating from right to left when checking the pattern, so it makes sense we want the rightmost occurence of the right suffix*
 
 **Rabin-Karp Fingerprint** uses hashing to compare our pattern to a substring (think hashing to check if your downloaded file is correct)
 - after hash values are equal, do a full string comparison to guarantee correctness
