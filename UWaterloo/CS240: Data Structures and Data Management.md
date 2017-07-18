@@ -215,3 +215,32 @@ What if we want to search many patterns on the same text? Then preprocess text `
   - side note, not all substring, but instead only suffixes, so the last letter of our text is in every suffix
 
 <img width="1066" alt="screen shot 2017-07-13 at 11 02 17 am" src="https://user-images.githubusercontent.com/7998752/28172880-d7e22150-67ba-11e7-9e17-a5ff761999cd.png">
+
+### Compression
+Transmission and storage of data
+- source text S, coded text `C`, each with their own alphabet `∑`
+- judge encoding schemes by speed, reliability (error correcting), security/encryption, size
+- compression ratio |C| log ∑<sub>C</sub> / |S| log |∑<sub>S</sub>|
+- logical compression only applies to certain domains
+- ASCII is a character encoding
+- **prefix-free** is when no string in an alphabet is a prefix of another
+  - important since we can do decoding with a dictionary resulting in a sort of "short circuiting"
+- **Huffman coding**, each character of ∑ is a leaf of the trie
+  - uses **static dictionary** which doesn't change for the entire encoding decoding
+- **run-length encoding** is a variable-length code with fixed decoding dictionary (not explicitly stored)
+  - blocks of 0s and 1s are **runs**
+- **prefix-free integer encoding** has some leading number of 0s followed by the binary representation of a number
+  - this scheme is prefix free since we have uniquely defined each number by adding leading 0s
+  - number of 0s is the length of `k` in binary `- 1`
+- **Adaptive Dictionaries** in contrast to static, starts out with a usually fixed dictionary (set of characters like UTF) but after writing the `i`th character to output, both encoder and decoder update D<sub>i</sub> to D<sub>i+1</sub>
+  - Huffman and RLE make use of physical characteristics like repeated single characters
+  - in certain domains of text, there are very common substrings (think html tags)
+- **Lempl-Ziv** is a family of adaptive compression algorithms
+  - each character in the code corresponds to exactly a character or substring
+  - GIF uses LZW
+- **LZW** is fixed width encoding using `k` bits
+  - store decoding dictionary with 2^k entries (the number of possible permutations)
+  - first |∑s| entries are for each single character
+  - encoding algorithm: *walk through text `S`, populating the remainder of dictionary by gradually adding new substrings based on the longest token that we've seen so far, appended with the first mismatch, creating a new substring in our dictionary*
+  - decoding: same idea, build dictionary while reading strings *and this seems to work well since both sides are deterministic, and doesn't involve explicitly storing the dictionary with the text*
+    - in the case that the decoder is one step behind encoder, s = s<sub>prev</sub> + s<sub>prev</sub>[0]
