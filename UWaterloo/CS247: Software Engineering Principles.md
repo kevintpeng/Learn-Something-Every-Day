@@ -494,3 +494,10 @@ Three main data containers:
 1. non-member cbegin/cend/rbegin/rend/crbegin/crend
 
 encouraged to define adapter classes that wrap around STL container classes for special needs
+
+#### Iterators
+Iterator is any object that has the ability to iterate through elements using ++ and dereference
+- pointer is a form of an iterator
+- InputIterator reads forward (istream), can be dereferenced as an rvalue and supports equality and inequality
+- OutputIterator can be dereferenced as an lvalue (so we can mutate)
+- ForwardIterator same as input and output, with the ability to have multi-passes while still being dereferenceable
