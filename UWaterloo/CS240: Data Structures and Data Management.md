@@ -244,3 +244,9 @@ Transmission and storage of data
   - encoding algorithm: *walk through text `S`, populating the remainder of dictionary by gradually adding new substrings based on the longest token that we've seen so far, appended with the first mismatch, creating a new substring in our dictionary*
   - decoding: same idea, build dictionary while reading strings *and this seems to work well since both sides are deterministic, and doesn't involve explicitly storing the dictionary with the text*
     - in the case that the decoder is one step behind encoder, s = s<sub>prev</sub> + s<sub>prev</sub>[0]
+
+### Memory
+2-3 Trees are better than AVL trees since loading pages is expensive, and AVL trees do the &Theta;(log n) page loads
+- binary search tree structure, but with the possibility of two keys and three children at an internal node
+- leaves don't store keys, and are assigned NIL
+- insertion follows a sort of bubble up process
