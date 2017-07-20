@@ -477,6 +477,21 @@ Software Model, using UML
 - a **composition** is a strong "part of" relation, as the composite does not exist without its components
 - **generalization** is the relation between a base class and its derived classes
 
+### Design Patterns 3
+Composite design pattern gives the client access to all member types through a compund object via a **uniform interface**
+- exists to simplify client code and decouple it from data structure changes
+- uniformity/composite design vs safety/liskov substitutability
+  - preserving the illusion that component objects are treated the same vs avoiding cases where the client attempts to do something meaningless
+
+### Design Patterns 4: Iterators
+
+
+Iterator is any object that has the ability to iterate through elements using ++ and dereference
+- pointer is a form of an iterator
+- InputIterator reads forward (istream), can be dereferenced as an rvalue and supports equality and inequality
+- OutputIterator can be dereferenced as an lvalue (so we can mutate)
+- ForwardIterator same as input and output, with the ability to have multi-passes while still being dereferenceable
+
 ### STL
 - Generic containers take an element as a parameter, and use **iterators** to navigate
   - should know almost nothing about the underlying data
@@ -495,9 +510,3 @@ Three main data containers:
 
 encouraged to define adapter classes that wrap around STL container classes for special needs
 
-#### Iterators
-Iterator is any object that has the ability to iterate through elements using ++ and dereference
-- pointer is a form of an iterator
-- InputIterator reads forward (istream), can be dereferenced as an rvalue and supports equality and inequality
-- OutputIterator can be dereferenced as an lvalue (so we can mutate)
-- ForwardIterator same as input and output, with the ability to have multi-passes while still being dereferenceable
