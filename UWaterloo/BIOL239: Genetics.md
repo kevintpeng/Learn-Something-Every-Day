@@ -296,6 +296,14 @@ Eukaryotes have **linear chromosomes**
 - **telomeres** are at the end of each chromosome
 - telomeres are smaller and smaller after each replication
   - repeated units of TTAGGG
+  
+#### DNA Replicaiton Process
+1. Two Helicases, one at each replication fork of the DNA
+2. Primase make exactly two RNA primers
+3. DNA Polymerase III extends out, *copying DNA to mRNA* 
+4. Repeat 2 & 3
+5. DNA Polymerase I fixes RNA primers, leaving a nick at the end
+6. Ligase mends the nicks
 
 ### Genetic Code
 DNA acts as a template for RNA
