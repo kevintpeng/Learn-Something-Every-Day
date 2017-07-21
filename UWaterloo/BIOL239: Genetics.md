@@ -393,3 +393,16 @@ I<sup>-</sup> mutation that signals repressor, cannot bind to the operator
 - in gene I<sup>-</sup>, a mutation in our repressor with no repressor, **lac operon** is expressed ALL THE TIME
   - this is **constitutive expression**
   
+### Population
+Hardy Weinberg Equalibrium
+- baseline estimate for equalibrium, caluclated to show that allele frequency doesn't change
+- p^2 + 2pq + q^2 = 1 and p + q = 1 for two allele calculations
+- run through Chi Square test
+  
+### Restriction Enzymes/Cloning
+Restriction REN
+- Digest
+- plasmid is what you're cloning onto
+- phosphodiester backbone, giving us a plasmid
+- LB AMP selects for e coli containing a plasmid
+
