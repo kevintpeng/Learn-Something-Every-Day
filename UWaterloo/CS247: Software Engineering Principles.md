@@ -513,7 +513,11 @@ Three main data containers:
 encouraged to define adapter classes that wrap around STL container classes for special needs
 
 ### [Generic Algorithms](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/18STLAlgorithms-1up.pdf)
-
+STL algorithms usually process a sequence of data elements
+- traversal bounded by two iterators
+- templates use duck typing
+  - type compatible if it supplies all method signatures used in the template
+- an algorithm accepting a basic type of iterator like input iterator can accept fancier ones (because of inheritance)
 
 
 ### [C++ Lambdas, bind, mem_fn](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/19Lambdas-1up.pdf)
