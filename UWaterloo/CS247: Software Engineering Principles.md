@@ -492,7 +492,9 @@ Iterator is any object that has the ability to iterate through elements using ++
 - OutputIterator can be dereferenced as an lvalue (so we can mutate)
 - ForwardIterator same as input and output, with the ability to have multi-passes while still being dereferenceable
 
-### STL
+### [Design Patterns 5: Decorator and Factory](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/16DesignPatterns-1up.pdf)
+
+### [STL Containers](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/17STLContainers-1up.pdf)
 - Generic containers take an element as a parameter, and use **iterators** to navigate
   - should know almost nothing about the underlying data
 - generic algorithms should also know little to nothing about the element type
@@ -510,3 +512,8 @@ Three main data containers:
 
 encouraged to define adapter classes that wrap around STL container classes for special needs
 
+### [Generic Algorithms](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/18STLAlgorithms-1up.pdf)
+
+
+
+### [C++ Lambdas, bind, mem_fn](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/19Lambdas-1up.pdf)
