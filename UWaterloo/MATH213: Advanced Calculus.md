@@ -127,3 +127,20 @@ https://www.youtube.com/playlist?list=PLUMWjy5jgHK3j74Z5Tq6Tso1fSfVWZC8L
 - **zero** if it approaches 0
 
 ### Fourier Series
+Sinusoids are easier to analyze because of the frequency response and the fact that it is only ever changed in amplitude or horizontal translations
+- we want to decompose signals into sinusoids
+- given a sinusoidal signal, we can often express it as an infinite sum of sinusoids
+- **fourier series** are infinite sums of sinusoids
+  - think of as coefficients tell us how much of each frequency is in our function
+  - definite integrals of sin and cos from 0 to 2 pi is 0
+  - definite integral from 0 to 2pi of sintcost = 0
+  - definite integral from 0 to 2pi of sin(mt) sin(nt) = 0 when m ≠ n
+  - definite integral from 0 to 2pi of sin^2(mt) = pi, m non zero
+  - definite integral from 0 to 2pi of cos^2(mt) = pi, m non zero
+- we can use these facts to evaulate fourier coefficients
+  - first term in a fourier series, every term in the infinte series will be zero EXCEPT the a<sub>0</sub> term, the first constant term in the fourier series
+  - so definite integral of a fourier series is a0 • 2pi, or the average value of a function f over the interval [0, 2pi]
+- it turns out the infinite set of sinusoids constitutes an orthogonal basis of a vector space
+  - vector space describes the set of possible vectors, a basis is a set of vectors that can express any vector in the vector space as a linear combination of the basis vectors
+  - an orthogonal basis just means that all the basis vector are orthogonal to each other
+  
