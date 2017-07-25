@@ -140,7 +140,13 @@ Sinusoids are easier to analyze because of the frequency response and the fact t
 - we can use these facts to evaulate fourier coefficients
   - first term in a fourier series, every term in the infinte series will be zero EXCEPT the a<sub>0</sub> term, the first constant term in the fourier series
   - so definite integral of a fourier series is a0 • 2pi, or the average value of a function f over the interval [0, 2pi]
+  - we can find the nth coefficent `an` by multiplying both sides by cos(nt) 
+  - nth coefficient `bn` by multiplying both sides by sin(nt)
 - it turns out the infinite set of sinusoids constitutes an orthogonal basis of a vector space
   - vector space describes the set of possible vectors, a basis is a set of vectors that can express any vector in the vector space as a linear combination of the basis vectors
   - an orthogonal basis just means that all the basis vector are orthogonal to each other
-  
+- we will take its projection onto each of them
+- a funciton is **periodic** with period T if for all t, f(t + T) = f(t)
+  - try to represent it as a superposition of sinusoidal functions `e^(j2pi n t / T)`, n is an integer
+- such functions are "eigenvectors" of linear systems (scalar multiple after being transformed by the system)
+- **inner product** is an algebraic operation
