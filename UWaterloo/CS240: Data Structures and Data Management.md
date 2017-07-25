@@ -250,3 +250,30 @@ Transmission and storage of data
 - binary search tree structure, but with the possibility of two keys and three children at an internal node
 - leaves don't store keys, and are assigned NIL
 - insertion follows a sort of bubble up process
+  - find the lowest internal node where the new key can be added to, then if we have three keys, push the middle up, recursively
+- structurally, for each node, we have k keys and k+1 children (so 2 keys, 3 children or 1 key, 2 children, so that we can do lookups at the k+1 positions between the keys), and all leaves need to be at the bottom layer (so the trees always balanced)
+- deletion has a bunch of cases, but generally we first swap the KVP with its successor recursively, until the key is a leaf (before the NIL layer)
+  - case 1, the leaf is a 2-node, in which case we simply delete the key which leaves behind a 1-node
+  - case 2, if 1-node, we leave an empty node which is unbalanced, so we want to rotate (or "transfer") such that the result is still balanced while preserving structure. Deletion of a child of a 2-node means we do a sort of partial rotation. But transfer only works for **immediate** siblings (adjacent). If not sibling, we merge down from the parent.
+  - case 3, 1-node deletes one of its children, then merge the whole subtree into a 2-node. Then the parent is an empty node, so merge one parent down. This may result in recursive merge calls down.
+
+**B-Trees** is a generalization of 2-3 trees. An (a,b)-tree of order M:
+- each internal node has at least a children (**except the root** which can have at least two children), and at most b children
+- same structural properties, for k keys, k+1 children
+- B-tree of order M is a (ceil(M/2),M)-tree
+- lower bound for height of a B-tree is &Theta;((log n)/(log M)), analyzing number of nodes and number of KVP per node
+- in external memory, we want to use a B-tree of order M, s.t. an M-node fits in a page (with 32 byte values, M = 10.5 ~= 10)
+  - in this case, we only load &Theta;(logn/logM) instead of &Theta;(logn) as is the case in AVL trees
+
+Hashing in external memory may result in lots of disk transfers since data is often scattered. This gets worse when we use things like cuckoo hashing
+- with linear probing, cache misses result in hash table accesses being in the same page
+- **exendible hashing** is similar to B-trees with height 1 and max size S at the leaves
+- the **directory** stored in memory is based on the first &alpha; digits, which hashes to 2^L possible keys and we store the first d digits of the hash key for the directory
+  - key prefixes in directory point to blocks of S items (think pages in external memory) 
+- blocks are shared, so that every block stores a local depth kB ≤ d, which says how many digits are shared amongst all keys in the block
+  - hash values agree on leading kB bits
+  - 2^(d-kB) directory entries point to the given block B
+- so again, we specify `S`, the max size of each block, and `d`, the size of key prefixes in our directory, then the directory entries point us to blocks. When the number of keys in a block exceeds `S`, the block needs to be split
+- insertion, put in corresponding block unless block is full, starting with one block. Then we split B into two blocks when the keys in the block B exceed `S`. Separate according to kB+1, and split on 0 vs 1
+  - if the block is full and kB = d, perform a directory grow, where we double the directory size (d += 1)
+  
