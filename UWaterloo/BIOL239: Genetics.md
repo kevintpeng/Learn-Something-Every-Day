@@ -406,3 +406,13 @@ Restriction REN
 - phosphodiester backbone, giving us a plasmid
 - LB AMP selects for e coli containing a plasmid
 
+### Cancer Genetics
+Genetic disorder involving mutations in cells
+- **oncogenesis** causes tumors if loss of cell cycle control occurs, and cancer is caused if cells undergo further changes, disrupting other tissues
+- Carcinoma (skin), Sarcoma (connective tissue), Leukemia (blood), Lymphoma (immune system)
+- cancer arises when cell division no longer function properly
+- tumor-suppressor genes, involved in cell cycle control, p53 and RB
+  - p53 is the gatekeeper, it regulates G1 to S checkpoint
+  - if **cyclin-dependent kinase** (CDK) is still active, then cell commits to S phase because it doesn't think there's DNA damage
+  - p53 induces expression of p21, activating CDK which stops cell cycle before S phase
+  
