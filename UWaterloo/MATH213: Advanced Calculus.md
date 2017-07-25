@@ -118,7 +118,9 @@ Previously, we transform problems in analysis of LTI systems into Laplace to be 
 - sometimes we can look at poles and zeroes and understand the system
 - we know response to a two-sided exponential input e^st is transfer function H(s)•e^st
 - for sinusoids, it is the case where `s` is purely imanginary by euler's formula, so e^(j&omega;t)
-- the **frequency response** of a system is H(j&omega;)
+- the **frequency response** of a system is H(j&omega;), s = j&omega; or s is a sinusoid
+- if instead the input is of the form e^jwt unitstep(t), then it may provoke transients that are not of the form e^jwt
+- if H(s) is stable, then in "steady-state" (neglecting transient terms which decay to 0) the output will be H(jw)e^jwt unitstep(t)
 
 https://www.youtube.com/playlist?list=PLUMWjy5jgHK3j74Z5Tq6Tso1fSfVWZC8L
 
