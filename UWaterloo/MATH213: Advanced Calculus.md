@@ -91,7 +91,7 @@ The transform can be inverted by means of the inversion integral: f(t) = 1/(2π 
 - this is a "contour integral" on the complex plane, the contour of integration, the straight line Re(s) = &sigma; must lie within the Radius of Convergence of F(s)
 - given that an integral is just a sum, the inversion formula shows that f(t) is a sum of exponentials e^st, weighted by F(s)
 
-### Laplace for differential equations
+### Part 3: Laplace for differential equations
 So the reason that Laplace transforms help us solve differential equations is because we apply a one-to-one transform on both sides of an equation
 ```
 y'' + 5y' + 6y = 0, y(0) = 2, y'(0) = 3
@@ -105,7 +105,7 @@ y = L^-1{(2s+13)/((s+3)(s+2))}  partial fraction expansion now
   = L^-1{ A/(s+3) + B/(s+2)
 ```
 
-### Signals and Systems
+### Part 4-1: Signals and Systems
 Essential some function or transformation. Properties of systems:
 
 1. CT, DT, hybrid describe types of in/out functions
@@ -119,7 +119,7 @@ Essential some function or transformation. Properties of systems:
   - lumped is one which signals only depend on the var `t`
   - distributed is a system which depends on other indep vars
 
-### Zero-state and Zero-input
+### Part 4-2: Zero-state and Zero-input
 We'll look at linear, time-invariant, lumped-parameter systems
 - model by linear ODE with constant coefficents, Q(D)y(t) = P(D)f(t), order n with some initial values
 - we care about t≥0
@@ -134,7 +134,7 @@ We'll look at linear, time-invariant, lumped-parameter systems
 
 The big conclusion from this section is that we're studying **zero-input response**. It tells us all we need to know about the system's dynamics
 
-### Convolution
+### Part 4-3: Convolution
 **Convolution** of (f * g)(t) is the integral from 0 to t of f(t-&tau;)g(&tau;)d&tau;
 - e.g. f(t) = sint and g(t) = cost and requires integral solution methods
 - Theorem states: L{ (f * g)(t) } = F(s)G(s), the products of laplace transforms
@@ -157,10 +157,18 @@ The big conclusion from this section is that we're studying **zero-input respons
   - the modulus of the pole is the hypotenuse of the complex number. As it increases, response speeds up
   - as the angle of the complex number decreases, the response is less oscillatory
   - *the further the poles are from the origin, the "faster" the response, and the closer they are to the real axis, the less oscillatory the response*
+  - poles to the right of the imaginary axis (positive real part) give rise to growing exponentials (not stable)
+  - *we're using complex numbers so that we have a nice "vector" almost of information, holding both the frequency and the amplitude of a sinusoid in one number* 
+  - **stable** rational transfer function if all poles lie strictly to the left of the imaginary axis (negative)
+- a single input single output (SISO) system is bounded input bounded output (BIBO) stable iff its transfer function is both stable and "proper" (degree of numerator doesn't exceep the denominator)
+  - by bounded, we're looking at a function s.t. |f(t)| ≤ some M
+  
+The big conclusion of this section is that we get a lot of information about a system's transient (think oscillation part) by looking at its poles on the complex plane
 
-### Frequency Responses of LTI systems
+### Part 5: Frequency Responses of LTI systems
 Previously, we transform problems in analysis of LTI systems into Laplace to be solved algebraically
 - we can transform problems to the "Frequency domain" by looking at how LTI systems respond to sinusoids
+  - *the frequency domain on the complex plane has a bunch discrete points on it, which each represent some sinusoid. This is cool because the inverse laplace takes us from the frequency domain (complex numbers) to the time domain (real numbers), which is an integral (summation) over a bunch of points in the frequency domain. But really what this physically means is that we're summing a bunch of sinusoids to represent something in the time domain!*
 - sometimes we can look at poles and zeroes and understand the system
 - we know response to a two-sided exponential input e^st is transfer function H(s)•e^st
 - for sinusoids, it is the case where `s` is purely imanginary by euler's formula, so e^(j&omega;t)
@@ -168,12 +176,44 @@ Previously, we transform problems in analysis of LTI systems into Laplace to be 
 - if instead the input is of the form e^jwt unitstep(t), then it may provoke transients that are not of the form e^jwt
 - if H(s) is stable, then in "steady-state" (neglecting transient terms which decay to 0) the output will be H(jw)e^jwt unitstep(t)
 
-https://www.youtube.com/playlist?list=PLUMWjy5jgHK3j74Z5Tq6Tso1fSfVWZC8L
+It seems the frequency response contains just as much information as the impluse or step responses. 
 
 ### Bode Plots
-- if operator s is a value that causes the transfer function to approach infinity, it's called a **pole**
-- **zero** if it approaches 0
+We know that putting sinusoids as input to a system (the frequency response) restricts what algebraic transformations can occur. This happens to mean that for sinusoids, this is only two things that can change: amplitude and phase. So for a fixed frequency input, the output has the exact same frequency. So a Bode Plot is just some graphical representation of what our system response looks like for all possible inputs (changing the frequency)
+- going to call amplitude gain, and do this on a logarithmic scale (and first convert amplitude to power (and power is proportional to amplitude squared)
+- going to plot phase in degrees against frequency of the input sinusoid
 
+We can use transfer functions again let's us find the bode plot of a system
+- we only want frequency response, so steady-state response (ignoring transients, or the real part of s is 0) j&omega;
+- as before, input is multiplied by transfer function, which gives us a complex number as the result
+  - length of the line gives us gain
+  - angle off the real axis is the phase (arctan)
+
+Graphing Bode Plots by hand from the transfer function, with straight line approximation
+- ex: transfer function H(s) = K, then gain = log K dB, and phase = 0 deg for positive K, -180 for negative K
+  - poles cause the transfer function to approach ∞
+  - zeroes cause the transfer function to equal 0
+- we plot frequency on a log scale too
+- poles at the origin for transfer function (1/s) contribute 20 dB/log omega to the gain and -90 deg 
+  - we can use properties of logarithms to do summations instead of multiplication
+- zeroes give us the negative gain and phase of a pole
+
+So transfer functions in LTI systems can be decomposed into a summation of four components
+
+1. Constants (where the gain is constant, log K and phase is 0 or 180 for ±K)
+2. Poles/Zeroes at origin (where gain is a linear function (dB vs. decades of &omega;) slope -20 dB/dec, phase is ±90 deg)
+3. Real Poles/Zeroes
+  - K/(1+&tau;s) is our transfer function with the "Time Constant" (recall the standard first order system transfer function)
+  - magnitude/gain is 20 log K - 20 log √(1 + (&omega;&tau;)^2), phase is -(angle of jw - (-1/&tau;))
+  - draw by hand with low and high-frequency asymptotes
+  - for gain we have two straight lines: look at &omega; >> 1/&tau;, &omega; << 1/&tau;, the bend occurs at 1/&tau;
+    - two line estimate is -∞ to 1/&tau; to ∞ (second part is sloped)
+  - for phase we have three straight lines, (visually, as &omega; -> ∞, the imaginary part goes to infinity with a fixed real part):  angle varies from 0 to -90
+  - the exact value of the angle for jw - (-1/&tau;) is Tan<sup>-1</sup> &omega;/(1/&tau;))
+    - three line estimate is -∞ to 0.1/&tau; to 10/&tau; to ∞
+  - zero is drawn as 1/pole
+4. Complex Poles, we have to check a third case for magnitude, where &omega; = 1/&tau;, in which case we get a bump in the graph
+  
 ### Fourier Series
 Sinusoids are easier to analyze because of the frequency response and the fact that it is only ever changed in amplitude or horizontal translations
 - we want to decompose signals into sinusoids
