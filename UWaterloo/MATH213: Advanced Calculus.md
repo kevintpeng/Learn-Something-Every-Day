@@ -165,7 +165,7 @@ The big conclusion from this section is that we're studying **zero-input respons
   
 The big conclusion of this section is that we get a lot of information about a system's transient (think oscillation part) by looking at its poles on the complex plane
 
-### Part 5: Frequency Responses of LTI systems
+### Part 5-1: Frequency Responses of LTI systems
 Previously, we transform problems in analysis of LTI systems into Laplace to be solved algebraically
 - we can transform problems to the "Frequency domain" by looking at how LTI systems respond to sinusoids
   - *the frequency domain on the complex plane has a bunch discrete points on it, which each represent some sinusoid. This is cool because the inverse laplace takes us from the frequency domain (complex numbers) to the time domain (real numbers), which is an integral (summation) over a bunch of points in the frequency domain. But really what this physically means is that we're summing a bunch of sinusoids to represent something in the time domain!*
@@ -178,7 +178,7 @@ Previously, we transform problems in analysis of LTI systems into Laplace to be 
 
 It seems the frequency response contains just as much information as the impluse or step responses. 
 
-### Bode Plots
+### Part 5-2: Bode Plots
 We know that putting sinusoids as input to a system (the frequency response) restricts what algebraic transformations can occur. This happens to mean that for sinusoids, this is only two things that can change: amplitude and phase. So for a fixed frequency input, the output has the exact same frequency. So a Bode Plot is just some graphical representation of what our system response looks like for all possible inputs (changing the frequency)
 - going to call amplitude gain, and do this on a logarithmic scale (and first convert amplitude to power (and power is proportional to amplitude squared)
 - going to plot phase in degrees against frequency of the input sinusoid
@@ -214,7 +214,7 @@ So transfer functions in LTI systems can be decomposed into a summation of four 
   - zero is drawn as 1/pole
 4. Complex Poles, we have to check a third case for magnitude, where &omega; = 1/&tau;, in which case we get a bump in the graph
   
-### Fourier Series
+### Part 6: Fourier Series
 Sinusoids are easier to analyze because of the frequency response and the fact that it is only ever changed in amplitude or horizontal translations
 - we want to decompose signals into sinusoids
 - given a sinusoidal signal, we can often express it as an infinite sum of sinusoids
