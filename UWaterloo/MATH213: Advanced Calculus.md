@@ -105,12 +105,50 @@ y = L^-1{(2s+13)/((s+3)(s+2))}  partial fraction expansion now
   = L^-1{ A/(s+3) + B/(s+2)
 ```
 
+### Signals and Systemas
+Essential some function or transformation. Properties of systems:
+
+1. CT, DT, hybrid describe types of in/out functions
+  - often represented by difference equations
+2. Memoryless (pure function) vs. Dynamic (depends on state)
+3. Causality, dependent only on prior values of the input with respect to time
+4. Multivariable vs. Scalar
+5. **Linearity**, if the input is a linear combination of signals, then the output is a linear combination of their individual responses
+6. **Time Invariance**, doesn't change with time (response can be horizontally shifted without change shape)
+7. Lumped vs. distributed-parameter systems
+  - lumped is one which signals only depend on the var `t`
+  - distributed is a system which depends on other indep vars
+
+### Zero-state and Zero-input
+We'll look at linear, time-invariant, lumped-parameter systems
+- model by linear ODE with constant coefficents, Q(D)y(t) = P(D)f(t), order n with some initial values
+- we care about t≥0
+- if system is **dynamic**, then we also have to look at the negative values of t
+- let's decompose f into the + and - parts, where f<sub>-</sub>(t) into a sum of functions whose value is zero for all non-negative t
+- *I guess we can find a unique solution (input) to Q(D)y(t) = P(D)F<sub>-</sub>(t) since we have initial conditions*
+- **zero-input response** is y<sub>-</sub>(t), because it's the response if f(t) is "turned off" at t=0
+- by causality we can form the same equation for inputs, y(t) = y<sub>-</sub>(t) + y<sub>+</sub>(t)
+- **zero-state response** is y<sub>+</sub>(t)
+- *note, even for t≥0 , the zero-input and zero-state responses are generally not part of the solution y(t)*
+- wikipedia describes zero state response as the result only from external input or driving functions, not from the initial state.
+
+The big conclusion from this section is that we're studying **zero-input response**. It tells us all we need to know about the system's dynamics
+
 ### Convolution
 **Convolution** of (f * g)(t) is the integral from 0 to t of f(t-&tau;)g(&tau;)d&tau;
 - e.g. f(t) = sint and g(t) = cost and requires integral solution methods
 - Theorem states: L{ (f * g)(t) } = F(s)G(s), the products of laplace transforms
 - again, (f * g)(t) = L^-1{ F(s)G(s) }
-- *notice that we have the convolution as an integral, dependent on t. The convolution is a function of t, and so &tau; is just used to sum across 0 to t.*
+- *notice that we have the convolution as an integral, dependent on t. The convolution is a function of t, and so &tau; is just used to sum across 0 to t.* 
+- RC circuit system changes the potential difference after passing through the circuit, and we can express the voltages through a differential equation
+  - the transfer function is the transform of the impulse response
+  - impulse response is a zero-state response so set the initial conditions to zero
+  - *I think in general, we'll treat initial values as zero in this course, or at least that seems like a fair assumption if we're stuck*
+- **first order transfer functions** have one pole
+- **standard first order system** is H(s) = K/(s&Tau; + 1), K, &tau; positive integers
+- the steady-state value of the step response is K, the **dc gain** of the transfer function
+- **transient term** is the part of the ODE that tends to 0 as t->infinity
+- tau determines the rate of decay of the transient term e^(-t/&tau;)
 
 ### Frequency Responses of LTI systems
 Previously, we transform problems in analysis of LTI systems into Laplace to be solved algebraically
