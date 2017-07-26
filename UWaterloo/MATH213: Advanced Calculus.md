@@ -105,7 +105,7 @@ y = L^-1{(2s+13)/((s+3)(s+2))}  partial fraction expansion now
   = L^-1{ A/(s+3) + B/(s+2)
 ```
 
-### Signals and Systemas
+### Signals and Systems
 Essential some function or transformation. Properties of systems:
 
 1. CT, DT, hybrid describe types of in/out functions
@@ -140,6 +140,8 @@ The big conclusion from this section is that we're studying **zero-input respons
 - Theorem states: L{ (f * g)(t) } = F(s)G(s), the products of laplace transforms
 - again, (f * g)(t) = L^-1{ F(s)G(s) }
 - *notice that we have the convolution as an integral, dependent on t. The convolution is a function of t, and so &tau; is just used to sum across 0 to t.* 
+- e^st as input to a system gets multiplied by some constant y(0), which turns out to be H(s), our **transfer function** by the convolution integral
+- *we'll look at the poles of the response, because the sort of characterize the transfer function*
 - RC circuit system changes the potential difference after passing through the circuit, and we can express the voltages through a differential equation
   - the transfer function is the transform of the impulse response
   - impulse response is a zero-state response so set the initial conditions to zero
@@ -148,7 +150,13 @@ The big conclusion from this section is that we're studying **zero-input respons
 - **standard first order system** is H(s) = K/(s&Tau; + 1), K, &tau; positive integers
 - the steady-state value of the step response is K, the **dc gain** of the transfer function
 - **transient term** is the part of the ODE that tends to 0 as t->infinity
-- tau determines the rate of decay of the transient term e^(-t/&tau;)
+  - it turns out that the closer the pole is to zero, the slower the transient decays
+- tau determines the rate of decay of the transient term e^(-t/&tau;), called **time constant**
+- poles are at complex values, and at the pole of a function f(z), f(z) -> ∞ as z->a, for pole `a`
+  - the real part determines the rate of decay of the amplitude of osillation, imaginary part determines the angular frequency of the oscillations
+  - the modulus of the pole is the hypotenuse of the complex number. As it increases, response speeds up
+  - as the angle of the complex number decreases, the response is less oscillatory
+  - *the further the poles are from the origin, the "faster" the response, and the closer they are to the real axis, the less oscillatory the response*
 
 ### Frequency Responses of LTI systems
 Previously, we transform problems in analysis of LTI systems into Laplace to be solved algebraically
