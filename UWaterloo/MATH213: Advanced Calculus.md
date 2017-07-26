@@ -1,4 +1,4 @@
-# Math 213
+# Math 213: Introduction to Control Systems and Differential Equations
 ### Summary
 - differential equations contain derivatives of a dependent variable; the solution is not a value, but rather a function or class of functions. We often need initial conditions to find a specific function solution
 - separable differential equations allow us to solve them analytically, where we separate x's and y's to opposite sides of the equations and perform implicit differentiation (recall MATH 119)
