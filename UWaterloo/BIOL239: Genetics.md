@@ -340,6 +340,9 @@ The process by which the polymerization of ribonucleotides is guided by compleme
 - AAUAA, poly A tail?
 - assembly of Pro and Euk, start at **shine dalgarno**
 
+Terminator signal is encoded in the gene
+- **rho-dependent** or **rho-independent** are two types of termination, dependent on the rho factor
+
 ### Translation
 The process in which the genetic code carried by mRNA directs the synthesis of proteins from amino acids
 - transfer RNAs (tRNA) short single stranded RNA, each carries one pariticular amino acid
