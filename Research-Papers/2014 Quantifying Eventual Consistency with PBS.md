@@ -1,4 +1,4 @@
-# [2013 Quantifying Eventual Consistency with PBS](http://www.bailis.org/papers/pbs-vldbj2014.pdf)
+# [2014 Quantifying Eventual Consistency with PBS](http://www.bailis.org/papers/pbs-vldbj2014.pdf)
 In general, a quorum is the minimal number of people that need be present in order to make the preceeding of a meeting valid. In quorum replication, there are N replicas.
 - a write quorum waits for W acknowledgements from replicas
 - read quorum, consult R of the replicas and return the most recent value from the read quorum
