@@ -236,8 +236,8 @@ Sinusoids are easier to analyze because of the frequency response and the fact t
   - from above, what we mean by orthogonal basis is that, like in linear algebra, multiplying any of the two sinusoids together (inner product/dot product ish) we get zero, which means that any two sinusoids are orthogonal which is exactly what we showed above for the definite integrals
   - *orthogonality is an important property, it allows us to get a unique representation of some function f(t) as a composition of sinusoids*
   - we can find a formula for the coefficients of each sinusoid, by taking the projection of the function onto each of the sinusoids, that is intuitively, *we're just finding coefficients to tell us how much each sinusoid is expressed in f(t). An analogy is to think of sinusoids as independent from each other (since they're orthogonal) and summing across them lets us break f(t) into a sum of small parts, and we use projections to determine how much each sinusoid term should be worth in our summation.* 
-- each projection is actually a definite integral 
+- each projection is actually a definite integral, which describes part of the subspace that we're projecting onto
 - a funciton is **periodic** with period T if for all t, f(t + T) = f(t)
   - try to represent it as a superposition of sinusoidal functions `e^(j2pi n t / T)`, n is an integer
-- such functions are "eigenvectors" of linear systems (scalar multiple after being transformed by the system)
+- such functions are "eigenvectors" or rather *eigenfunctions* of linear systems (scalar multiple after being transformed by the system)
 - **inner product** is an algebraic operation, just simply multiplying them together on some interval
