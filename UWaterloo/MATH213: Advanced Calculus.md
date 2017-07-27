@@ -198,7 +198,7 @@ Graphing Bode Plots by hand from the transfer function, with straight line appro
   - we can use properties of logarithms to do summations instead of multiplication
 - zeroes give us the negative gain and phase of a pole
 
-So transfer functions in LTI systems can be decomposed into a summation of four components
+So transfer functions in LTI systems can be decomposed into a product of four types of components:
 
 1. Constants (where the gain is constant, log K and phase is 0 or 180 for ±K)
 2. Poles/Zeroes at origin (where gain is a linear function (dB vs. decades of &omega;) slope -20 dB/dec, phase is ±90 deg)
