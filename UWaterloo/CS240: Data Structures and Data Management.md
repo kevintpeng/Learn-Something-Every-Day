@@ -245,6 +245,30 @@ Transmission and storage of data
   - decoding: same idea, build dictionary while reading strings *and this seems to work well since both sides are deterministic, and doesn't involve explicitly storing the dictionary with the text*
     - in the case that the decoder is one step behind encoder, s = s<sub>prev</sub> + s<sub>prev</sub>[0]
 
+### Text Transformation
+Preprocessing our text so that we can make better use of compression algorithms
+- move to front huristic
+
+**Burrows-Wheeler Transform** is a compression technique, that reorders the characters in the text, to be more easily compressible with Move To Front
+- is a **block compression** method
+- BWT, followed by MTF, RLE and Huffman is the algorithm for `bzip2`
+- a **cyclic shift** is shifting all characters some `i` distance, and wrapping back to the start past index n
+
+Encoding for BWT:
+
+1. place all cyclic shifts (or rotations) of S in a list L (n^2 size list)
+2. Sort the strings in L lexicographically (alphabetically, $ is last)
+3. Make a list C, of last characters of each string in L 
+
+Decoding for BWT, given string C from encoding:
+
+1. make an array A of tuples (C[i],i)
+2. Sort A by the characters ($ is first, same characters are sorted by their i increasing) into array N
+3. set j to index of $ in C
+4. recursively set j to N[j] (kind of a linked list structure) and build output string S appending C[j] to S
+
+The reason this works well is because sorting all possible rotations will group any repeated substrings together in the encoding phase, for list L. It happens that the last character will be the first character of some substring, and each subportion of repeated characters will have its characters grouped together. It's pretty remarkable that the output is simple and deterministically reversable through decoding. The inverse works because at any iteration of our decoding, we can treat the last column as the letter that preceeds some prefix of a rotation. Since we have all possible rotations, at every step of the recursion, we can always place each letter of C at the start of the corresponding string and resort. This gives us a new list of reordered, possible prefixes that must all exist because of the property of rotations. Our decoding algorithm is just a restricted set of instructions to perform this.
+
 ### Memory
 2-3 Trees are better than AVL trees since loading pages is expensive, and AVL trees do the &Theta;(log n) page loads
 - binary search tree structure, but with the possibility of two keys and three children at an internal node
