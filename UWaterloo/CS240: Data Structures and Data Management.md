@@ -284,7 +284,7 @@ It's pretty remarkable that the output is simple and deterministically reversabl
   - case 3, 1-node deletes one of its children, then merge the whole subtree into a 2-node. Then the parent is an empty node, so merge one parent down. This may result in recursive merge calls down.
 
 **B-Trees** is a generalization of 2-3 trees. An (a,b)-tree of order M:
-- each internal node has at least a children (**except the root** which can have at least two children), and at most b children
+- each internal node has at least `a` children (**except the root** which can have at least two children), and at most `b` children
 - same structural properties, for k keys, k+1 children
 - B-tree of order M is a (ceil(M/2),M)-tree
 - lower bound for height of a B-tree is &Theta;((log n)/(log M)), analyzing number of nodes and number of KVP per node
