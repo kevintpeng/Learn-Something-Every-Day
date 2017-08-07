@@ -518,6 +518,75 @@ STL algorithms usually process a sequence of data elements
 - templates use duck typing
   - type compatible if it supplies all method signatures used in the template
 - an algorithm accepting a basic type of iterator like input iterator can accept fancier ones (because of inheritance)
-
+- algorithms like `equal` operate over two sequences
+- 
 
 ### [C++ Lambdas, bind, mem_fn](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/19Lambdas-1up.pdf)
+
+
+### Exam Review
+- **5 special member** functions (ctor, dtor, copy ctor, move ctor, equality)
+  - no compiler generated equality
+  - shallow copy by default
+  - rule of five 
+- **entity vs. value**
+  - values support equality, type conversion, copying, and immutability. Entites are opposite
+- namespace
+  - global is implicit, scoped to the program and accessed by `::x` or `x`
+  - unnamed is explicit, scoped to file, accessed by `x`
+    - compiler will complain that x's are ambiguous if we have global and unnamed namespace definitions for `x`
+- **exceptions**
+  - catch by reference, only one catch block will ever be accepted
+  - stack unwinding
+  - exception vs. assertion 
+- **RAII**, resources are allocated in ctor, deallocation in dtor
+- smart pointers
+  - cannot dereference weak pointers 
+  - reference counts for shared/weak
+- **require, modifies, ensures, throws, returns**
+- **representation invariant**
+  - set comprehension
+  - recursion
+  - by projection
+  - by example
+
+Documentation Example for a set:
+- Representation Invariant: vector invariants (size, capacity), only integers, forall i<j, set uniqueness: this.elm[i] != this.elm[j]
+- Abstraction Function: { this.elm[i] | forall i, 0 ≤ i < this.size }
+- Constructor: ensures(initializes this), modifies(this)
+- Destructor: modifies(this), ensures(this no longer exists)
+- Insert: modifies(this), ensures(this@pre with element inserted, else do nothing)
+- Remove: modifies(this), ensures(this=this@pre with x removed)
+- IsIn: returns(
+- size: throws(out of range), returns(element at index x)
+
+- **Open Closed Principle** 
+- **inheritance vs. composition**
+- **single responsibility principle** 
+- **liskov substitutability** 
+- **law of demeter**
+- **Refactors** 
+  - duplication in the same class, make helper
+  - two related, push to parent class
+  - two unrelated, inheritance or composition
+  - large classes violate single responsibility principle
+- **Singleton**, construction is private, disallow copy, declare static method for instantiation
+- **Template Method** creates a general structure for a function with "holes"/primative operations, which are defined as virtual to be defined by a concrete class
+- **Adapter Pattern** 
+- **Facade Pattern**
+- **Strategy Pattern**
+- **Iterator**
+  - composite iterator
+- **observer** push and pull UMLs (push doesn't need an association from view to model)
+- **Factory Method** pattern defines an interface for creating objects
+  - **abstract factory pattern** extends by making an object responsible for creating families of related objects
+- decorator vs composite: the intents are different
+- STL containers: arrays vs deque vs vector
+- iterator hiearchy
+  - random access iterator is the most powerful, can access any element in constant time
+- second container should be big enough if using two iterator
+- functors
+  - mem_fn_ref converts an objects member function into a functor
+  - mem_fn converts 
+  - std ref and bind
+- lambda
