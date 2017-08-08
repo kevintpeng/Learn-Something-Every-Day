@@ -519,10 +519,23 @@ STL algorithms usually process a sequence of data elements
   - type compatible if it supplies all method signatures used in the template
 - an algorithm accepting a basic type of iterator like input iterator can accept fancier ones (because of inheritance)
 - algorithms like `equal` operate over two sequences
-- 
 
 ### [C++ Lambdas, bind, mem_fn](https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/19Lambdas-1up.pdf)
+- Lambdas are nice ways to write temporary functions and functors
+  - can be treated as a function pointer/object or a functor
+  - captured reference is only valid if the referred-to variables still exist
+  - lambdas by default cannot change values, use `mutable` keyword
+  - capture list is for local variable, member variables must be passed in as `this`
+- `bind` is a functor adapter that replaces older adapters (from `#include <functional>`)
+  - bound parameters are copied into a function object, unless the `ref(myvar)` keyword is used
+  - call arguments (not bound) that are references are modifiable
+  - compiler error if unbound rvalue argument tries to be modified 
+  - useful when used with placeholds to set some of the arguments
+  - when binding member functions, must provide a pointer to the member function: `&X::func` as the first argument to bind
+  - useful as an argument to STL algorithms that call the `()` operation on an object
+- `mem_fn` is an adapter that's cleaner if there's no arguments to bind
 
+### C++ Templates
 
 ### Exam Review
 - **5 special member** functions (ctor, dtor, copy ctor, move ctor, equality)
