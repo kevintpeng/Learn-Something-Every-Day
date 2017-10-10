@@ -41,7 +41,12 @@ As a part of state, there's a bunch of numbers:
 1. client sends request to primary, <REQUEST operation, client-id, request-number>
 2. primary receives request, and looks up the client in its client table. If request number is strictly larger than the last from the client, then it's processed.
 3. primary increments the op-number (logical timestamp) and adds it to the log. It updates the client table. Now it proceeds with 2PC to its other replicas <PREPARE view-number, message, op-number, commit-number>
-4. backups receive prepare, replies PREPAREOK if
+4. backups receive prepare, add the request to a priority queue, and once the all preceding requests are added to its log, it adds the new request and finally replies PREPAREOK to the primary
+5. primary waits until it has received `f`, and then can increase the commit number to the op-number of the committed request and can send the requested operation to the service and send a reply to the client
+6. backups learn of the commit through the next prepare or a timeout possibly, they finish all operations (maybe through state transfer) and then they send the operation up to the service layer without notifying the client (primary has done this already)
+
+### changing views in failure
+primary should be sending prepare, and if not commit, messages regularily to replicas. Because of round robin, there's no leader election and all replicas know which replica is the new primary
 
 ### Paper's architecture
 - a cohort is a single logical entity, with several underlying replica modules of some primary module
@@ -52,4 +57,3 @@ As a part of state, there's a bunch of numbers:
   - changes to epochs are administrative, changes to views are due to failure
 - there are four protocols for the algorithm: normal operation, view changes, recovery for crashed replicas and reconfiguration for epoch changes
 - ensures availability beyond some number `f` of failed replicas, by using a protocol that does not need to check `f` replicas
-  -
