@@ -1,1 +1,4 @@
+# Learn Something Every Day
 I always aim to learn new concepts and ideas that will allow me to grow and have a greater understanding of software. Throughout my career, I hope to grow this repository with summary notes on new topics. The intention of this repository is simply to help me retain all the information that I learn, so take a look into my brain and find some topics to delve into!
+
+I take a lot of summary notes here, but I will often also put my learnings into an [anki deck](https://apps.ankiweb.net/) which is a wonderful way to do spaced repetition learning for long term retention. Taking summary notes in combination with some form of active recollection has worked really well for me and would be my recommendation to anyone looking to always be learning in this fast changing industry.
