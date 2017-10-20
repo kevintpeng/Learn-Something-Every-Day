@@ -7,3 +7,6 @@ For A, we need
 
 1. every loyal general to obtain the same information. *Can't use value obtained directly from the `i th` general, otherwise he could send different values to different loyal generals*
 2. if `i th` general is loyal, then the value he sends must be used by every loyal general as v(i). 
+
+### Impossible sometimes
+Turns out the Byzantine Generals Problem is not solvable unless more than 2/3 of the generals are loyal
