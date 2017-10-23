@@ -8,3 +8,9 @@ Paxos is a consensus algorithm where any process can propose values and the grou
 - we use 2 phase commits to select proposed values, because we cannot select a value until we know that a majority has promised to not select any older proposals than it
   - a process can only promise proposals newer than its latests selected proposal
   - a process can only accept a proposal 
+
+### Distributed State Machines with Paxos
+If state that we're agreeing on is a sequence of values (more specifically a function of a sequence), then the state can model a state machine
+- if order and the sequence itself is agreed, then we can achieve consistency among a set of processes
+- this is **multi-paxos**
+- each item in the sequence represents a separate instance of paxos
