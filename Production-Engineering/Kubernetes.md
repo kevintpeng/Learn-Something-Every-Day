@@ -58,19 +58,3 @@ Architecture
 
 **Controllers** in kubernetes are control loops that regulate state 
 - watches shared state through the APIserver, each trying to bring the cluster to the desired state
-
-# Background
-[Borg](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43438.pdf) is an orchestration software system, for managing clusters of machines for performing tasks and jobs.
-- provides a system for allocating resources for future tasks, and setting priorities in the case of running out of resources
-- each borg cell has a borgmaster and a separate scheduler (for 10k+ machines)
-  - Borg master acts as a single process, but is backed up using replication, where information is kept with Paxos
-- Borgmaster receives jobs and tasks in a priority queue, which is asynchronously read by the scheduler
-- [scheduling algorithm](https://pdfs.semanticscholar.org/17af/beaad2aea3189cec58939f76718cd97d30fe.pdf?_ga=2.218917593.1326100776.1504734464-95379282.1504734464)
-- borglets are local agents on every machine, that start and stop tasks on machines, used for monitoring uptime and statistics, and expose HTTP endpoint
-- the borgmaster scheme scales through being distributed, implementing priority score caching, and randomization of which machines to score (only scoring a subset)
-- jobs in borg were inflexible (especially for multi-job semantics), so kubernetes organizes by pods using labels -- arbitrary key value pairs that users attach to any object, to allow sets of pods to be references
-- kubernetes has one ip address per pod (instead of machine), avoiding port conflicts and management
-- linux namespaces are the kernel feature that facilitate containerization and allow single IP addresses for each pod
-- pods are an extension of allocs, achieving the similar idea of assigned resources (useful for the logsaver pattern, with a side process for web server logs)
-- the Kubernetes architecture improves upon borg, breaking the master into an API server responsible for processing requests and the cluster management logic into micro-services (including replication controller and node controllers)
-
