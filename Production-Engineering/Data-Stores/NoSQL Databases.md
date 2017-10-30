@@ -70,6 +70,8 @@ Disadvantages:
 Communications protocol for spreading new information 
 - through periodic, pairwise, inter-process interactions, nodes spread information in a robust way
 - information exchanged during interactions is bounded
+- `broadcast_address` facilitates node to node interaction, for the purpose of peer discovery within the cluster (uses a public address)
+- `listen_address` is for gossip, and is the address that Cassandra binds to
 
 ### Durability through Storage -- [TODO source](https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf)
 Writes first to the CommitLog, and then to the Memtable, overflowing into disk as an SSTable
@@ -90,4 +92,3 @@ It is important to spread data across the cluster uniformly
     - partion key describes which node will hold respective data
     - cluster key organizes information on the node
   - this is logically broken down based on what queries will look like
-
