@@ -5,6 +5,7 @@ A label assigned to a device connected to a computer network, nicknames for IP a
 # Domain Name System
 decentralized naming system for computers and services connected to the internet
 - translates domain names to the numerical IP addresses need for the purpose of locating and identifying services and devices
+- there are [different kinds of dns records](./DNS%20Resource%20Records.md) 
 
 ### DNS Zone
 Any distinct contiguous portion of the domain name space in the Domain Name System. 
