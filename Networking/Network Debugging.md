@@ -11,4 +11,6 @@ Summarizing some of my thought process, first determine what layer the issue is 
 - **routing layer 3 issues** 
   - `ifconfig` is used for information about network interfaces
   - `ping` of course is an easy way to see if a hostname or address is discoverable
+  - `route` will display the routing table
+  - `bridge link show` can be used to display
   
