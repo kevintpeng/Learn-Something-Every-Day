@@ -1,5 +1,6 @@
 # Operating-system-level virtualization
-Server virtualization method where the kernel of an OS allows multiple isolated user-space VMs. 
+OS level virtualization is a method for making multiple user-spaces on top of an existing kernel. The purpose is to create isolation between possibly distrusting processes from different users, allowing multiple applications to be consolidated onto a single system. Instances, called containers, may look like a real computer to the process. Hardware capabilities and files are isolated too. Many kernels has resource management capabilites that limit the impact of one container's resource use on another. Furthermore, cluster management systems can provide a "resource quality of service" which can describe how strong a guarantee it wishes to make to each different process based on importance. 
 
-### [Packer](https://www.packer.io/)
-tool for creating machine and container **images** 
+OS level virtualization, in contrast to hardware virtualization, only needs to create user-spaces while leveraging the host's kernel and architecture. Hardware virtualization is a full emulation of hardware features like instruction sets, interrupts and memory access. As a result, OS level virtualization is much faster as it has little to no overhead and uses the normal system call interface. Both aim to achieve isolation and thus have the same benefits as a result. One limitation of OS level virtualization is that the container must run on an OS that uses the same kernel as the host. Windows and linux OS's are not compatible for example.
+
+Overall, isolation from containers enables better use of resources, reducing wasted resources on idle processes and allowing bare metal hosts to divide its resources among many applications in a controlled and isolated environment. 
