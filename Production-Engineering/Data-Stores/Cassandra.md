@@ -14,3 +14,6 @@ No master, all nodes are homogeneous
 - partitioner is a hash function that determines which node receives the first replica of a piece of data
 - replication of data is confgiured by a factor and placement strategy
 - snitch knows the network topology and is used to place replicas and chooses the best replica for reading 
+
+### Data Modelling
+Modelling is different for Cassandra compared to a traditional RDBMS. Since there are no joins, the complexity trade of in Cassandra is knowing about access and query patterns ahead of time. The primary key is a tuple. The first element is the **partition key**. It should be unique, but also is used to determine data locality. The hash of the partition key determines which node and replica the data belongs to. All following elements are clustering columns which specify ordering in the partition.
