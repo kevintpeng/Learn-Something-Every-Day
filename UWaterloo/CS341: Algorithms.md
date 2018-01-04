@@ -1,0 +1,5 @@
+# [Algorithms](https://www.student.cs.uwaterloo.ca/~cs341/)
+[learn](https://learn.uwaterloo.ca/d2l/le/content/362174/Home?itemIdentifier=TOC)
+- Insertion Sort O(n^2)
+- Maximum sub-range sum, use prefix sum array for O(n^2), or divide and conquer for O(n log n)
+  - recurrence relation is T(n) = 2 T(n/2) + O(n), reducing to O(n log n)
