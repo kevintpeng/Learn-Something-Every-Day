@@ -26,3 +26,17 @@ User-visible registers (1 to 64 depending on architecture)
 - processor checks for interrupt, store snapshot on stack and execute interrupt handler
   - simple model just disables interrupts while running a handler
 - lean ISR vs heavy ISR gives you control of what state need be preserved (lean specifies registers to preserve)
+
+### Context Switching
+OS creates an abstraction, running processes; instances of executing programs. Its context consists of registers, vars, program counter)
+- Multiprogramming environment has independent sequential processes, only one is active at once
+- OS keeps processes in a process table (Process Control Block)
+- a **context switch** or task switch is switching the CPU from one process to another
+  - **context** is the contents of the CPU's registers and PC at any point
+  - consists of suspension of one process and resuming of another
+
+Context switch steps:
+
+1. Save context of CPU
+2. Schedule next process for execution
+3. Load new context of CPU
