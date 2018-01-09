@@ -40,3 +40,5 @@ Context switch steps:
 1. Save context of CPU
 2. Schedule next process for execution
 3. Load new context of CPU
+
+Embedded Parallel Operating System (EPOS)
