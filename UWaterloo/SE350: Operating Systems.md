@@ -21,7 +21,7 @@ User-visible registers (1 to 64 depending on architecture)
   - Instruction register is invisible (the instruction itself)
   - Program status word contains status information, like coditions, exit codes, flags
 
-### Interupts for Peripherals (ISRs)
+#### Interupts for Peripherals (ISRs)
 - non blocking solution 
 - processor checks for interrupt, store snapshot on stack and execute interrupt handler
   - simple model just disables interrupts while running a handler
@@ -41,4 +41,44 @@ Context switch steps:
 2. Schedule next process for execution
 3. Load new context of CPU
 
-Embedded Parallel Operating System (EPOS)
+Embedded Parallel Operating System (EPOS) for labs
+
+### Scheduler
+**scheduler** decides which process to run at a certain time & how long it runs
+- part of OS process management subsystem
+  - executes scheduling algorithm
+
+#### Scheduling algorithm
+- consists of job queue, ready queue, CPU, and I/O waiting queue
+- scheduling decision is made when new process is created, process exits, a process gets blocked, or an I/O interrupt occurs
+
+3 types of scheduling algorithms (high level categories)
+- all need some sort of fairness, balance, and policy enforcement
+
+1. batch (payroll)
+- max trhoughput
+- keep CPU busy
+
+2. realtime (deadlines)
+- meet deadlines, predictibly
+
+3. interactive (desktop)
+- respond to requests quickly
+
+**Preemptive scheduling** is the act of interrupting a task with a context switch, with the intention to resume later
+
+#### Algorithms 
+Round robin uses timer interrupts
+- time too short is expensive for context switches, too long might not be fair 
+- preemptive
+
+Priority scheduling runs processes in priority (static or dynamic)
+- non-preemptive, but may use round robin for tiebreaking priority
+
+#### Implementation
+Traditionally implemented with a hiearchy of abstract Scheduler classes
+- class can be specialized
+
+EPOS instead uses composition? to detach scheduling policy and data structure mechanism and criteria
+- so it has a thread object (process execution instance), criterion, schedluer mechanism (queue for example)
+
