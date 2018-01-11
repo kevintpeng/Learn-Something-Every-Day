@@ -14,3 +14,8 @@ mergesort gives us a divide and conquor solution, using in tandum merge
 - we can use recursive trees to count recursive call
 
 **worst case** runtime analysis makes no assumption about input, and thus must hold for all input
+
+### on some math rules
+sum of 1/i for i 1 to n is essentially the approximation of the integral for 1/n, but strictly less than the actual integral, log n
+
+log n! = nlog n - theta(n) is stronger than saying big o n log n
