@@ -82,3 +82,4 @@ Traditionally implemented with a hiearchy of abstract Scheduler classes
 EPOS instead uses composition? to detach scheduling policy and data structure mechanism and criteria
 - so it has a thread object (process execution instance), criterion, schedluer mechanism (queue for example)
 
+![epos uml](/assets/epos_scheduling_uml.png)
