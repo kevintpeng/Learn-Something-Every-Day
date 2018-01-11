@@ -4,6 +4,10 @@
 OS provides abstraction
 - often a cost vs. complexity tradeoff
 
+OS must handling running many processes, uses ISR's & context switches to handle multiple processes
+
+Requires scheduling to determine which processes run with what order and frequency
+
 ### [Overview](https://learn.uwaterloo.ca/d2l/le/content/372772/viewContent/2065318/View)
 - OS is an abstraction the enbles the use of hardware
 - CPUs, Memory, I/O modules, timers, interrupt controller, system bus
@@ -73,7 +77,10 @@ Round robin uses timer interrupts
 - preemptive
 
 Priority scheduling runs processes in priority (static or dynamic)
+- extends priority class
 - non-preemptive, but may use round robin for tiebreaking priority
+
+First come first server (will extend priority)
 
 #### Implementation
 Traditionally implemented with a hiearchy of abstract Scheduler classes
