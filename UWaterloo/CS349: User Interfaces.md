@@ -35,3 +35,15 @@ X Client-server architecture
 3 Drawing primatives: pixel, stroke and ergion
 
 **Graphics Context(GC)** holds all options in a structure and is passed to the draw routine
+- in X, GC is on the X Server
+- fast to switch between contexts since reduced network request size between client and server
+- modern systems (OpenGL) have GC, called attribute state
+- `XGCValues` in Xlib 
+
+**Painter's Algorithm** is a really primitve algorithm to draw more complex shapes (combine, layers)
+- to paint, a program needs low level primatives, or high level things like game sprites, buttons, etc..
+- bunch of `Displayable` base class objects, where derived classes are for things you wnat to paiunt
+- ordered display list for layers
+- other displayables are polylines, text, shapes, clipRectangle
+
+
