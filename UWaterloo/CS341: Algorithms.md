@@ -16,6 +16,11 @@ mergesort gives us a divide and conquor solution, using in tandum merge
 **worst case** runtime analysis makes no assumption about input, and thus must hold for all input
 
 ### on some math rules
+Proving asymptotic bounds (big O) can be done through the use of limits, where the limit->infinity of T(n)/f(n) = 
+- 0 implies o(f(n))
+- infinity implies omega(f(n))
+- infinity > c > 0 implies theta(f(n))
+
 sum of 1/i for i 1 to n is essentially the approximation of the integral for 1/n, but strictly less than the actual integral, log n
 
 log n! = nlog n - theta(n) is stronger than saying big o n log n
