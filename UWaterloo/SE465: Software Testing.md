@@ -33,5 +33,7 @@ Need testing critera to define coverage
 - edge coverage subsumes node coverage
 - branch coverage subsumes statement (node) coverage
 
+Buffer overflow is a common security vulnerability, and occurs when input overruns a buffer's boundary and overwrites adjacent memory.
+
 ### Control Flow Graph
 
