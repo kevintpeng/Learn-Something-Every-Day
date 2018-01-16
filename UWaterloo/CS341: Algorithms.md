@@ -35,3 +35,4 @@ informally solving a computational problem c1 by using an algorithm that solves 
 - solvable with induction, guess and check
 - recursion tree, mergesort example
 - master theorem, practical
+  - intuition is that certain bounds can be estimated based on what dominates; root, leaves
