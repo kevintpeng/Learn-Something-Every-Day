@@ -11,5 +11,6 @@ I'm visiting Japan in the summer, and I'm really excited to see Tokyo!
 - geography: Kanto region, on the Honshu island
 - culture: I liked watching anime, and playing japanese games
 - economy: largest metropolitan economy, 2 trillion GDP in 2012
+- transportation: bullet train
 
 Things to see: Imperial Palace (political), Akihabara (anime)
