@@ -32,3 +32,6 @@ Need testing critera to define coverage
 **Subsumption**: a test criterion C1 subsumes C2 iff forall test sets that satisfy C1 also satisfy C2. In other words, A subsumes B if it's a strictly weaker coverage criterion
 - edge coverage subsumes node coverage
 - branch coverage subsumes statement (node) coverage
+
+### Control Flow Graph
+
