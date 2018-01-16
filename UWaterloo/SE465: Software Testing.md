@@ -17,3 +17,18 @@ Program must be RIP for a failure to occur: Reachable, incorrect state, propagat
 
 Avoidance, Detection (testing), Tolerance (redundancy)
 
+### Structural Coverage
+Static Testing at compile time involves review through code inspection (code review)
+
+Dynamic Testing includes black and white box testing
+
+Need testing critera to define coverage 
+- test case is fed into a program, many is a test set
+  - prefix and postfix values as specification
+- measuring test set effectiveness depends on use case/criteria
+- **coverage**: given set of test requirements `TR` for a coverage criterion `C`, a test set `T` satisfies `C` iff forall `tr` in `TR`, exists some `t` in `T` s.t. `t` satisfies `tr`
+- coverage level helps us evaluate effectiveness of a test set, helps to find infeasible test requirements
+
+**Subsumption**: a test criterion C1 subsumes C2 iff forall test sets that satisfy C1 also satisfy C2. In other words, A subsumes B if it's a strictly weaker coverage criterion
+- edge coverage subsumes node coverage
+- branch coverage subsumes statement (node) coverage
