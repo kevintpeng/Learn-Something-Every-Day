@@ -91,4 +91,44 @@ EPOS instead uses composition? to detach scheduling policy and data structure me
 
 ![epos uml](/assets/epos_scheduling_uml.png)
 
-###
+### Processes
+
+**Virtual Memory** uses swap disk of some form (alternative memory medium) to create the illusion of more memory
+- abstraction that you put between 
+
+**Paging** 
+
+## Chapter 3
+How OS deals with processes, first understanding of states of processes and how to manage them.
+
+Uniprocessor interleaves execution of processes, while multiprocessor has parallel execution of processes
+
+### How does the OS manage processes
+A process is a program in execution, a unit activity with a sequence of instructions, and state
+- executable program, associated data, and execution of the program
+
+Process elements include PID, state, priority, memory pointers (shared memory blocks), context data (PSW, counter, registers), I/O status info, accounting info (process time, time limit, threads)
+
+**Process Control Block** is the data structure that contains the process elements
+- allows support for multiple processes
+- should not allow users to manipulate the process control block
+
+
+For sharing CPU, a single processor system works as follows: task switcher triggers after timeout (quantum size, say after for example 6 instructions) or after I/O request, switch to dispatcher that switches processes
+
+![trace](/assets/se350_single_processor_trace.png)
+
+Longer quantum size means less wasted cycles on dispatcher, but lower responsiveness (longer wait time till first instruction for processes scheduled later)
+
+**Two state process model** says a process is either running or not running
+- naively, we can use a queue for round robin scheduling 
+
+Processes are terminated if 
+- completes normally
+- time limit exceeds (`ulimit`)
+- memory unavailable
+- error (bounds, protection, arithmetic, I/O)
+- deadlock, resulting in the OS killing it
+- parent termination
+
+Core dump 
