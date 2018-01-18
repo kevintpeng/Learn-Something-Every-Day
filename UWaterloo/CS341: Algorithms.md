@@ -36,3 +36,8 @@ informally solving a computational problem c1 by using an algorithm that solves 
 - recursion tree, mergesort example
 - master theorem, practical
   - intuition is that certain bounds can be estimated based on what dominates; root, leaves
+  
+### Master Theorem
+case based theorem, for find asymptotic behaviour of recurence relations where all subproblems are of equal size.
+
+to prove, expand the recursion tree and simplify the expression using a summation over all levels. then use the sum of c^j formula to get three cases based on the value of (a/b^d)
