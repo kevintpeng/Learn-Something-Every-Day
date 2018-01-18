@@ -90,3 +90,5 @@ EPOS instead uses composition? to detach scheduling policy and data structure me
 - so it has a thread object (process execution instance), criterion, schedluer mechanism (queue for example)
 
 ![epos uml](/assets/epos_scheduling_uml.png)
+
+###
