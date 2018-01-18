@@ -24,3 +24,20 @@ Proving asymptotic bounds (big O) can be done through the use of limits, where t
 sum of 1/i for i 1 to n is essentially the approximation of the integral for 1/n, but strictly less than the actual integral, log n
 
 log n! = nlog n - theta(n) is stronger than saying big o n log n
+
+### Reduction
+informally solving a computational problem c1 by using an algorithm that solves another computational problem c2
+- useful in complexity theory to compare difficulty of problems
+- we can use reduction to solve parts of algorithms
+- three sum can be represented as a two sum problem where we use sorted two sum for the second value, composed of the second and third array
+
+**recurrence** is an equation for divide and conquer problems / recursive
+- solvable with induction, guess and check
+- recursion tree, mergesort example
+- master theorem, practical
+  - intuition is that certain bounds can be estimated based on what dominates; root, leaves
+  
+### Master Theorem
+case based theorem, for find asymptotic behaviour of recurence relations where all subproblems are of equal size.
+
+to prove, expand the recursion tree and simplify the expression using a summation over all levels. then use the sum of c^j formula to get three cases based on the value of (a/b^d)

@@ -8,6 +8,8 @@ OS must handling running many processes, uses ISR's & context switches to handle
 
 Requires scheduling to determine which processes run with what order and frequency
 
+## Chapter 1
+
 ### [Overview](https://learn.uwaterloo.ca/d2l/le/content/372772/viewContent/2065318/View)
 - OS is an abstraction the enbles the use of hardware
 - CPUs, Memory, I/O modules, timers, interrupt controller, system bus
@@ -30,6 +32,19 @@ User-visible registers (1 to 64 depending on architecture)
 - processor checks for interrupt, store snapshot on stack and execute interrupt handler
   - simple model just disables interrupts while running a handler
 - lean ISR vs heavy ISR gives you control of what state need be preserved (lean specifies registers to preserve)
+
+Interrupts are mechanically similar to multiprogramming
+- ISR jumps with a fresh start, but instead you push the registers onto the control stack and ???
+
+How do you handle interrupts during an ISR?
+
+1. You can disable interrupts to stop nested interrupts
+- instead use a queue
+
+2. You could have multiple interrupts going on, with priority (this gets into scheduling algorithms)
+
+ARM fast interrupts for sequential interrupt processing uses a single jump instead of jumping back to user program before next interrupt.
+- can cause unexpected behaviour, hard to debug becuase it doesn't have to jump back 
 
 ### Context Switching
 OS creates an abstraction, running processes; instances of executing programs. Its context consists of registers, vars, program counter)
@@ -91,6 +106,27 @@ EPOS instead uses composition? to detach scheduling policy and data structure me
 
 ![epos uml](/assets/epos_scheduling_uml.png)
 
+### Multiprogramming
+More than one program to execute
+- same mechanism for ISR, but instead is used to switch between programs depending on priority
+- **busy waiting** is basically polling of a status register
+  - important for systems that need extremely low latency (skips context switch)
+- interrupt-driven waits for an interrupt from I/O module
+
+## Chapter 2
+### Operating System 
+A program that controls execution of other programs to help them by acting as a standard interface between application and hardware
+- convenience, efficiency, ability to evolve
+- we have layers so that programmers can focus on their specific layer (application layer) without worrying about lower level things like file systems
+- provide services, things like `ulimit -a`
+
+`ulimit` controls limitations within the shell and its forked processes
+
+The OS manages computer resources. **Kernel** is the portion of OS that is in main memory, containing frequently used functions. 
+
+`/procs/` demo
+- bunch of pid directories, with some info about the processes
+- nucleus 
 ### Processes
 
 **Virtual Memory** uses swap disk of some form (alternative memory medium) to create the illusion of more memory
