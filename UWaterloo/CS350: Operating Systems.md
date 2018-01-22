@@ -35,4 +35,4 @@ Semaphore keeps track of how many resources are available
 Bounded Buffer can be written with locks and CVs
 - producer lock, while loops to `cv.wait(notfull, mutex)`, then insert item and `cv.signal(notempty, mutex)`, unlock
 
-CV implementation, 1 lock and 4 CV for assignment 1.
+CV implementation, 1 lock and 4 CV for assignment 1. Don't use timers. Use pressure-plate like behaviour for fairness. Let `k` more cars or if the intersection clears, switch.
