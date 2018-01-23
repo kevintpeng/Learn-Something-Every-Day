@@ -35,5 +35,34 @@ Need testing critera to define coverage
 
 Buffer overflow is a common security vulnerability, and occurs when input overruns a buffer's boundary and overwrites adjacent memory.
 
-### Control Flow Graph
+Graph Theory Review highlights:
+- simple path
+- **test path** is a path that starts and ends at two specific nodes
+- paths in CFG are based on syntax, may  not correspond to semantically (something that's always false could still be a path)
+  - syntactically vs. semantically reachable nodes
+  - semantic reachability is undecidable (NP complete)
 
+When talking about node or edges in a graph G in **coverage criterion**, generally syntactically reachable
+
+**Single Entry Single Exit graphs:** Type of control flow graph where all test paths start at a single node and end at another
+
+we have some mapping `pathG` from our test cases to test paths
+- test case can be funciton input, test path is the code conditional flow based on input
+
+**Node Coverage**: forall nodes in reachG[N0], our TR specifies some requirement to visit node n
+
+**Edge Coverage:** all reachable paths of length 1 are required to be visited based on our TR (includes the 0 edges case too)
+- Edge coverage => Node coverage
+
+**Edge Pair Coverage**:** TR contains each reachable path of length up to and including 2, in G.
+
+**Simple Path** has no duplicate nodes except possibly at its ends
+- no internal loop, bound their length
+
+**Prime Path** is simple and does not appear as a subpath of any other simple path
+- prime path coverage if TR contains each prime path in G
+- Complete path coverage contains all paths in G
+- Specified Path coverage contains a specified set S of paths
+- *will need to find all prime paths*
+
+Test paths are not a subset of Prime Paths 
