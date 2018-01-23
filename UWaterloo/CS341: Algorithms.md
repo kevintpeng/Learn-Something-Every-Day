@@ -41,3 +41,17 @@ informally solving a computational problem c1 by using an algorithm that solves 
 case based theorem, for find asymptotic behaviour of recurence relations where all subproblems are of equal size.
 
 to prove, expand the recursion tree and simplify the expression using a summation over all levels. then use the sum of c^j formula to get three cases based on the value of (a/b^d)
+
+### Divide and Conquer Algorithm examples
+find the two closest points in a set
+- naive is O(n^2)
+- break the set in half by x value
+- find the closest pair in left and right, then find closest pair spanning both L and R
+  - finding the spanning pair can be found by checking a bounded region, based on subproblems L and R
+  - delta=min(closest(L), closest(R)), then sort by y, move box of size 2delta by delta from the bottom point to top. each box contains at most 8 points ( a fifth on either half would contradict our chosen delta value)
+- analysis, n log^2 n
+- this can be simplified if you keep an extra copy of the list sorted by y, then filter using sets at each step. this is O(n log n)
+
+multiplying integers is O(n^2) with respect to digits naively
+- observing that (a+b)(c+d) - ac - bd = ad + bc reduces our recursive calls from 4 to 3
+- from master theorem, this is n^1.4
