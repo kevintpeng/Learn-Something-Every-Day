@@ -1,4 +1,10 @@
 # [CS442: Programming Languages Principles](https://cs.uwaterloo.ca/~plragde/442/slides/)
+
+### Summary
+Untyped Lambda Calculus
+- 3 grammar rules, other definitions follow based on the three possible 
+
+### Intro
 Expressivity, meaning, guarantees, implementation
 
 parantheses based syntax facilitates metaprogramming
@@ -75,3 +81,28 @@ Substitution rule gotchas
 2. if our term substitution `s` contains free variables, they must not be bound by a lambda after substitution
   - inadvertent capture of free variables
   - solved with change of variables to a "fresh variable"
+
+This definition of substitution gives us **alpha equivalence**, `=a` 
+- so long as y isn't a free variable, `λx.t =a `
+
+β-reduction is `(λx.t1) t2 ->β [x |-> t2] t1`, *notice it just says passing a function an argument is equivalent to substitution in its term*
+- **redex** (beta reducable expression), is a subterm of the form `(λx.t1) t2`, a function application
+  - several reduction strategies
+- **full beta reduciton** allows reduction of any redex, we lose determinacy
+
+Two redecies:
+```
+(λx.(λy.x)z)w
+    1-------
+2------------
+
+If redex 1 first:
+(λy.w)z
+
+If 2:
+(λx.x)w
+
+But they're the same
+```
+
+*The rules for full beta reduction says perform any beta reduction in the expression you want*
