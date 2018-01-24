@@ -2,8 +2,10 @@
 
 ### Summary
 - Lock for achieving mutual exclusion
+  - spinlocks vs locks that block
+- for blocking, threads sleep on wait channels
 - Semaphores for resource tracking
-- CV's when we need to wait
+- conditional variables when we need to wait
 
 ### Intro
 Three views of an OS: 
