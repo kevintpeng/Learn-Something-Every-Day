@@ -98,3 +98,21 @@ Not great because context switch isnt guaranteed, and we are spinning
 Suppose that a threaded program has N queues of items. The program needs to support an operation called Transfer i,j). Each call to Transfer will transfer a single item from the ith queue to the jth queue, unless there is nothing in the queue, in which case the call will not affect the queues. The program will have multiple concurrent threads, each of which may call Transfer zero or more times. How would you use locks to ensure that Transfer operations are atomic? Specifically, how many locks would you use, what would each lock protect, and when would the locks be acquired and released to ensure that transfers are atomic?
 - tl;dr: N queues, implement a concurrent transfer function, n locks with resource ordering, supports N/2 transfers concurrently
 
+### Processes
+a process is the environment created to run a program in
+
+a process has an array of threads, data, files
+
+kernel abstracts physical ram as virtual memory, remaps addresses to 0, so every process is isolated and each thinks it is the only thing running; **processes dont talk to each other**
+- kernel keeps track of processes in a table, with what state theyre in currently
+- states = {READY, RUNNING, BLOCKED, ZOMBIE}
+
+**process management calls**: creation, destruction, synchronization, attribute management
+- fork, execv
+- waitpid lets us wait for another process to terminate
+
+fork Creates an identical clone, child, returns 0 if its the child
+
+exit terminates, stores a final message (status code) and turns the process into a zombie
+
+waitpid makes process go to sleep until process with pid terminates, can omly be called on children
