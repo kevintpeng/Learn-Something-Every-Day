@@ -144,3 +144,48 @@ But they're the same
 ```
 
 *The rules for full beta reduction says perform any beta reduction in the expression you want*
+
+**Confluence**, not every term has a normal form:
+
+`(λx.xx)(λx.xx)` one step beta reduces to itself (since `x = (λx.xx)`, for x x)
+
+- confluence theorem roughly says that if you can beta reduce divergently, you can bring them back together to a unique normal form
+  - normal forms are unique is a consequence of the confluence theorem
+- diamond property doesn't hold (some operations simplify the number of steps taken, but doesn't affect normal form still)
+  - instead we need to define a form of parallel reduciton, where the diamond property holds
+  - finally show that the multi-step relation (transitive closure) for parallel beta reduction is equivalent to full beta-reduction
+
+`(λz.w)((λy.yy)(λy.yy))` can reduce forever if we try to first reduce the argument, or reduce in one step if we reduce the lambda.
+
+**Standardizaiton Theorem** says the repeatedly reducing the leftmost outermost redex will find a normal form if it exists. It's called **normal order reduction** and is deterministic, unlike full beta reduction in general.
+
+```
+(λz.w)((λy.yy)(λy.yy))
+       1-------------
+2---------------------
+2 is the outermost (in this case also leftmost)
+```
+
+**Call by name** is like normal order, but does not reduce in the body of abstractions
+- this avoids variable capture but is inefficient
+
+Haskell is lazy eval version of call-by-name, call-by-need
+
+**Call-by-value** strict and eager, is leftmost, innermost
+- first, substitute values
+
+### Programming in Lambda Calculus
+We use symbols to represent familiar notions.
+
+To use conditionals, if B then T else F, we can say if some complex statement B simplifies to `λx.λy.x` it's true, and `λx.λy.y` is false
+
+cons consumes two arguments,
+f and r, and produces a function
+consuming a message. This function
+produced represents a list, where 
+based on a sort of control bool
+that we pass into it, returns either
+first or rest of the list,
+recursively defining a list as we 
+know it.
+
