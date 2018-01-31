@@ -116,3 +116,57 @@ fork Creates an identical clone, child, returns 0 if its the child
 exit terminates, stores a final message (status code) and turns the process into a zombie
 
 waitpid makes process go to sleep until process with pid terminates, can omly be called on children
+
+### Multiprocessing
+You need synchronization around the global parts of sys4 implementation
+- you can have an interrupt while running in the kernel
+- practice working through user + kernel stack state for a scenario
+  - all trap frames + kernel code is on the kernel stack
+  - user stack lives in the address space of the process
+  - kernel stack does not; elsewhere, only the kernel knows about it
+
+System calls to implement:
+
+1. pid_t fork
+  - create process structure
+  - `struct proc p = kmalloc`
+  - set all fields
+  - fork is a clone, so address space is the same. So create new address space (allocate memory) `memcopy`-like thing
+    - loaded, same size
+  - assign PID AFTER you know it's allocated (it's unique)
+    - edit process structure to include pid
+  - pick a unique id (counter maybe, or use address with conversion to unsigned)
+  - add parent/child relationship (either part of the struct or global)
+  - now we need a thread; needs to be a new thread. So use thread fork with a parameter to tell it to attach it to
+    - `proc_create_runprogram()` to setup process
+      - it can fail if there's no memory, or other things, so check return value to make sure it didn't fail
+  - create and copy address space `as_copy()`, pass it old and new address spaces, then it allocates memory and copy it from the parent
+    - if it failed, return appropriate error code
+  - `thread_fork()` creates new thread, need entry point function to setup kernel stack so that it can return to user mode ..?
+
+```C
+// entry point
+entrypt( void *tf, unsigned long ) {
+  // take parent's trap frame and put it on the kernel stack
+  struct trapframe t = *tf;
+  // setup return value for fork, which need to go in the trap frame for that thread
+  t.tf.v0 = 0
+  t.tf.a3 = ...
+  t.tf.pc += 4 // program counter
+  mips_usermode // fake the return from the exception
+```
+- parent process could destroy it's trap frame before the child reads it
+
+1. parent could have to wait until the child is finished (but it's slow)
+2. copy the parent's trap frame to the heap, and pass it to the child (so no synchronization issue)
+
+2. waitpid
+  - is this one of my children? no? then return error code
+  - else if it's a zombie, read child's exit status and destroy it
+  - else, wait channel (/ lock + cv) on the child
+    - every process needs to have one of these, so wait on the child's cv
+    - now when child calls exit, it deletes address space and stuff, then checks if parent is sleeping and wake them up
+    - now the child must be a zombie
+    - if child's parent is dead (zombie/non-existant), then delete yourself instead of becoming a zombie because no one can waitpid on your child
+    - if a parent exits without calling waitpid, it has to check it's children and delete all zombies
+  - exit code says why this process died
