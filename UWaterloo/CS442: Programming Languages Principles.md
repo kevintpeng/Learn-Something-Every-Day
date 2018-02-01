@@ -11,6 +11,10 @@ Untyped Lambda Calculus
 - 3 grammar production rules, other definitions follow based on the three possible 
 - helps to formalize substitution, through a-equiv and B-red
 
+Recursion
+- use some tricks to make recursion a finite substitution, we do this under normal order reduction and also under call-by-value
+- we use combinators, in this case the Y combinator, to make recursion work 
+
 ### 1 Intro
 Expressivity, meaning, guarantees, implementation
 
@@ -189,3 +193,61 @@ first or rest of the list,
 recursively defining a list as we 
 know it.
 
+[**Natural Numbers** p 60](https://cs.uwaterloo.ca/~plragde/442/slides/03-untyped-lambda.pdf)
+- idea: code up by eliminator
+- Church numerals
+- 3 is something that does something 3 times
+  - "apply s to z, n times"
+
+test:
+```
+λ
+```
+
+**General Recursion** p 64
+- `?` needs to be something that produces `fact`, let's stick a variable there and call it `r`, and stick a `lambda r` at the start
+
+x = f(x), then x is a fixed point of f, nothing happens
+
+for pfact, we need to compute the fixed point (`fact`) of `pfact`
+
+suppose `fact = Y pfact`, then
+```
+fact = pfact fact 
+fact = Y pfact
+Y f = f (Y f)
+```
+
+forall f.
+
+Can't substitute pfact into r because the function signature would be wrong in the recursive call
+
+
+we end up with this cool definition of `pfact'` (protofactorial) which when applied to itself, produces `pfact' pfact'` as a recursive call
+
+finally, rearranging
+
+Y combinator doesn't work with call by value?
+
+```
+Y = λf. (
+Y g = (λr.g(r r))(λr.g(r r)) // call by value FORCES (r r) to evaluate first
+// normal order reduction DOES work though
+```
+
+We have to stop this evaluation
+- call by value doesn't reduce in the body of an abstraction
+- let's wrap it in an abstraction: `(r r) = λx.(r r) x`, now it needs to be applied before it get's reduced
+  - this can be used equivilently, but SYNTACTICALLY it is different
+  - `f` replaced with `λx.f x` is called η-expansion 
+- Normal Order Reduction and call-by-value are two lazy ways to perform reduction
+
+variables? we take out λ. ??? well we re-introduce some combinators. *These give us ways to still represent functions I guess?*
+
+#### de Bruijn (brown) indices p 74
+replace terms with numbers based on their function call DEPTH
+- this is "lexical depth relative to its binding occurrence", *binding occurrence is where λx appears*
+- sometimes indices need to be shifted?
+
+### 4 OCaml
+Meta language, for theorem provers. It was supposed to be used to express a proof and mechanical step through it to verify
