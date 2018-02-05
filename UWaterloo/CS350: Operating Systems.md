@@ -170,3 +170,40 @@ entrypt( void *tf, unsigned long ) {
     - if child's parent is dead (zombie/non-existant), then delete yourself instead of becoming a zombie because no one can waitpid on your child
     - if a parent exits without calling waitpid, it has to check it's children and delete all zombies
   - exit code says why this process died
+  
+### A note on Page faults
+If the kernel panics on a page fault, it's just telling you you're getting a segfault: doing something with memory you're not allowed to do
+- epc (program counter) >= 0x8000 0000 implies bug in kernel code
+  - <= 0x8000 0000 implies that error is noticed by user proc implies stack or address space is setup wrong
+- virtual address is either a load (read) or store (write)
+  - if the address is a low like 0x4 implies dereferencing/writing to NULL
+  - if really high like 0xdeadbeef implies reading/writing memory that's already been freed
+  - other, could be anything but typically it's an array out of bounds error
+- really bizarre behaviour implies overwriting important data like program info or constants
+
+### Virtual Memory
+Warning: Do hex math on exam
+
+In our address space, code starts at 0, followed by data. Data grows up. Stack starts on the far right and grows right.
+
+In OS-161, stack is set by OS.
+
+Each process has an address space. OS allocates some ram for the process based on its request (code + data size). Core map is a data structure that is used to track memory that's used vs. free. Each address space is mapped with respect to 0, and uses fake addresses. 
+
+Aside: modern operating systems randomize position of code, data, stack and heap to hide any information about the process structure itself
+
+**Address Translation**: performed by the hardware by the MMU. Every time there's a context switch, the kernel tells the MMU how to translate instruction addresses. We have three goals
+- transparency: for any scheme, the process must not know of the scheme
+- efficiency: time & space (table vs. two vars)
+- protection: true isolation
+
+**Dynamic Relocation**: most efficient scheme in both time and space. 
+- find contiguous memory block to assign a process. Then subtract the beginning address from each address (offset)
+  - store the limit (size of block), and hold the limit and offset in the kernel
+- if virtual address v >= Limit, throw EXCEPTION, else p <- v + Relocation
+- requires contiguous memory regions, leading to *external fragmentation*
+
+**Paging**: divide memory into small segments (frames or physical pages). Now we can request ANY frames
+- fixes problem on fragmentation, but requires a page table
+  - exhaustive list, with an entry for each page, whose value 
+  - MMU doesn't know how much was allocated, so it has to look it up to see if it's `valid?`
