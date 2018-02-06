@@ -251,3 +251,11 @@ replace terms with numbers based on their function call DEPTH
 
 ### 4 OCaml
 Meta language, for theorem provers. It was supposed to be used to express a proof and mechanical step through it to verify
+- talked about syntax, ocaml has type inference, but we can explicitly state types
+- user-defined types with algebraic datatype definition is pretty cool, playing cards example
+  - can't just `|`-together types, each disjunct needs to have a constructor defined for it (prevents type ambiguity)
+    - unambiguous types is what makes static type inferencing work
+    - so we get things like `type iors = Int of int | String of string;;`, where `Int` is an arbitrarily named constructor, so it acts as a label so we can distiguish `Int 6` as an `: iors = 6` vs `6` is an `: int = 6`
+  - constructors are not subtypes
+- types that look the same are not 
+- option type: `type 'a option = None | Some of 'a`
