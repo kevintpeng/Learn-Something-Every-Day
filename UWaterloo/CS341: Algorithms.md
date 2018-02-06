@@ -55,3 +55,9 @@ find the two closest points in a set
 multiplying integers is O(n^2) with respect to digits naively
 - observing that (a+b)(c+d) - ac - bd = ad + bc reduces our recursive calls from 4 to 3
 - from master theorem, this is n^1.4
+
+### Greedy Algorithms and their proofs
+
+### Dynamic Programming
+DP can be used to remove repeated recursive calls.
+- linear independent set example <= weighted activity selection <= weighted independence set
