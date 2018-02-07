@@ -6,6 +6,9 @@
 - for blocking, threads sleep on wait channels
 - Semaphores for resource tracking
 - conditional variables when we need to wait
+- virtual memory is important 
+- page tables are fast + handle fragmenting, but extremely space inefficent
+  - kernel manages MMU registers on context switches, manages page tables, handles exceptions raised (for writes/loads outside of address space), and MMU translates addresses and throws exceptions
 
 ### Intro
 Three views of an OS: 
@@ -207,3 +210,59 @@ Aside: modern operating systems randomize position of code, data, stack and heap
 - fixes problem on fragmentation, but requires a page table
   - exhaustive list, with an entry for each page, whose value 
   - MMU doesn't know how much was allocated, so it has to look it up to see if it's `valid?`
+- page table is fixed size, regardless of the addressing space size
+
+```
+V -> virtual addr
+PGSIZE = page size = frame size
+PG# = V / PGSIZE
+OFFSET = V % PGSIZE
+FRAME# = lookup(PG#)
+PHYSADDR = FRAME# x FRAMESIZE + OFFSET
+         = FRAME# x PGSIZE + OFFSET
+         = first address of page + offset into page
+#OF_PGS = VMemSize / PGSIZE (not virtual address size)
+     = 2^16 / 2^12 
+     = 2^4 pages
+#BITSPERPG = log (#OF_PGS) (these are bits to address pages)
+           = log (2^4)
+           = 4
+#OFFRAMES = PhysMemSize / FRAMESIZE
+BITSPERFRAME = log (#OFFRAMES)
+BITSFOROFFSET = log (PGSIZE)
+```
+
+practice:
+
+```
+a) bitsforoffset = 16
+pages = 2^16
+b) bitsforpageaddr = 16
+c) 48
+
+Vmemsize = 2^16
+Physmemsize = 2^18
+pagesize = 2^12
+pages = 2^4
+pageaddrbits = 4
+
+phys = framesize x frame# + offset
+phys = 2^12 * 0x26 + 2c
+     = 0x900 * 0x26 + 2c
+     = 
+
+page# = 0x1
+frame# = 0x26
+
+0x1502C
+0x32800
+0x14024
+```
+
+so the format of the solution for "given v find p using page tables": first calculate `b`, the # of bits needed for the page address, take the first `b` bits of `v` and lookup in our page table to get `f` the frame number. Finally "append" them together.
+
+#### Translation Look-aside Buffer
+Page table lookups are slow. The idea is, when an address needs to translated, check the cache before leaving the CPU to memory. Improves performance, especially on sequential reads (like programs, arrays, etc...)
+- in hardware managed TLB, MMU picks up exceptions 
+- in software, the kernel will handle exceptions, fetching pages, TLB eviction, and re-execution
+- MIPS TLB entries are 64 bits: first 20 bits for page #, 6 bits for PID, first 20 bits of lower word is frame #
