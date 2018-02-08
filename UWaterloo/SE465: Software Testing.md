@@ -2,9 +2,7 @@
 [piazza](https://piazza.com/class/ja1fsztq51yi9), [learn](https://learn.uwaterloo.ca/d2l/le/content/359316/Home?itemIdentifier=TOC)
 ### Summary
 - design test subsets
-- daikon is invariant-based bug detection
-- to fund bugs requires a specification
-- looks for patterns in values to deterime invariants dynamically
+- **daikon** is invariant-based bug detection using patterns dynamically
 
 ### [Fault, Error, Failure](https://bitbucket.org/lintan/testing18/raw/b93cad84c4bf15eb63cefa1d4f77678163311ea4/03-FaultErrorFailure.pdf)
 - Fault == Bug, incorrect code
