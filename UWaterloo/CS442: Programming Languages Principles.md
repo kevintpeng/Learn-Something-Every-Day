@@ -259,3 +259,6 @@ Meta language, for theorem provers. It was supposed to be used to express a proo
   - constructors are not subtypes
 - types that look the same are not 
 - option type: `type 'a option = None | Some of 'a`
+- records: `let p = {x = 5 ; y = 2};;`
+- file by default exports its function definitions, `Stack.pop` 
+- interface is used to check, not infer
