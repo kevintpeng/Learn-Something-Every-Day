@@ -262,3 +262,8 @@ Meta language, for theorem provers. It was supposed to be used to express a proo
 - records: `let p = {x = 5 ; y = 2};;`
 - file by default exports its function definitions, `Stack.pop` 
 - interface is used to check, not infer
+
+### 5 Types
+Look at the parse tree of the expression rather than dynamic evaluation of the expression
+- can distinguish stuck expressions from valid ones
+- `t:T` is pronounced "t has type T"
