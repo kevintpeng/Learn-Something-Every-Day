@@ -267,3 +267,25 @@ Meta language, for theorem provers. It was supposed to be used to express a proo
 Look at the parse tree of the expression rather than dynamic evaluation of the expression
 - can distinguish stuck expressions from valid ones
 - `t:T` is pronounced "t has type T"
+- if `t` is typable, then its type is unique and there is only one derivation
+  - terms can make **progress** and preserve types
+- progress says if `t:T`, then either `t` is a value or there is some `t'` s.t. `t->t'`
+- preservation says if `t:T` and `t->t'`, then `t':T`
+- progress + preservation is type safety
+- **strong normalization theorem** says: every reduction of every well-typed term in the simply-typed lambda calculus is of finite length
+  - suggests that simply-typed lambda calc is a weak model of computation
+
+### 6 Extension to Lambda Calculus
+Type rules for sum types:
+- figuring out how to type an element of a subtype (like Int+Bool) isn't straight foward
+  - OCaml requires unique constructors as we say to fix this
+- inject left (`inl`) and right (`inr`) to express which side the type satisfies
+- `inl 5 as Nat+Bool` is an annotation to help the type checker figure out what type it is
+
+General Recursion
+
+```
+pfact r n = if n == 0 then 
+            else n * r r (n - 1)
+```
+```
