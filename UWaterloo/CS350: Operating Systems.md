@@ -266,3 +266,22 @@ Page table lookups are slow. The idea is, when an address needs to translated, c
 - in hardware managed TLB, MMU picks up exceptions 
 - in software, the kernel will handle exceptions, fetching pages, TLB eviction, and re-execution
 - MIPS TLB entries are 64 bits: first 20 bits for page #, 6 bits for PID, first 20 bits of lower word is frame #
+
+#### Segmentation and Paging
+TLB is paging, physical memory is segmented. Looked for contiguous frames in physical memory for a segment
+
+
+#### Address Spaces
+Modern OS's use on demand leaves them on disk, and only load frames into memory the exact moment it's needed. Downside, everytime you address something that's not in RAM, you need to fetch it from disk (slow process)
+
+Executable and linking format (ELF) files 
+- `cs350-objdump`, load elf function reads header, which contains all information you need to know about a program (code segment, virtual memory address, offset, rodata / read only data / constants)
+
+50 / 50 split between user and kernel
+- user space: kuseg
+- kseg0: does not use TLB or paging for address translation
+- kseg1: does not use TLB or paging for address translation
+- kseg2 not used
+- exam question: based on fault address, what happened?
+
+So how does kernel do address translation?
