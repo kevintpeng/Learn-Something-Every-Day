@@ -288,4 +288,3 @@ General Recursion
 pfact r n = if n == 0 then 
             else n * r r (n - 1)
 ```
-```
