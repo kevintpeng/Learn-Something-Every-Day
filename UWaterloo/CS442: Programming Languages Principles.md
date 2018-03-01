@@ -288,3 +288,34 @@ General Recursion
 pfact r n = if n == 0 then 
             else n * r r (n - 1)
 ```
+
+### 7 Type Inference
+- type inference treats uninterpreted types as type variables,
+- we introduce type substitutions, sigma, which is a map from type variables {A, B, ...} to types {Nat, Bool}
+  - descend into terms, and substitute
+  - we'll borrow composition notation from other courses: (f o g) x = f ( g x ), this is two sets of substitution for mappings in both f and g
+- formally then, **type inference** is given context and a term (GAMMA, t), finding some solution (sigma substitution, output type T) s.t. substitution applied to GAMMA infers that term t is of type T
+  - think about sigma as a set of values with types, they may not substitute ALL variables as in algebra we still might have unknowns after substituting one variable.
+
+so let's look at typing currently untyped terms.
+
+λx:A.λy:B.x has an obvious return type A
+
+λx.λy.y x is not typable, you need to substitute before you can type the expression (in other words, there's lots of possible types?)
+
+**Algorithms** work by structural recursion on the term t.
+
+1. recursively find substitutions that types subterms, then add it as a result of the relationship between subterms. 
+2. accumulate **constraints**, equations involving variables, then solve the system of equations. In practice, easier to prove and optimize and extend
+
+#### Algorithm W
+given an untyped term t, annotate each abstraction var x, with a fresh type variable X, and record teh association x:X in context GAMMA
+
+We need three inference rules to do this, one for each possible way t can be formed
+
+1. if t is just a var, all we can do is look it up in GAMMA
+2. abstraction. We want to show that it has some form of X -> T (X is a type variable, T is some concrete type). By doing so, we don't add anything to our substitution map sigma. That only happens in application (where substitution intuitively happens)
+3. application. we want to show that application has some type T, GAMMA |- t1 t2 : T. We need as premises the fact that t1 is some mapping for a types (T' -> T) for some substitution sigma1, and ALSO that t2 is of type T' with some other substitution sigma2 so that the expression is well typed. 
+- interestingly, we need to use information from the first inference on t1 in order to type t2. We have to apply sigma1 to GAMMA context in our second expression when inferring t2.
+- write this as an algebraic equation, T1 = T2 -> X, where X is fresh. Again this is just saying that t1 : T1 must be abstraction, a mapping of one type to another. Then we must infer X by solving the equation. Taking these two expressions and making an equation is **unification**, saying they're the same. The **unifier** is the substitution that solve it such that `sigma T1 = sigma T2`
+
