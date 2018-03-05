@@ -10,6 +10,12 @@ Untyped Boolean Expressions
 Untyped Lambda Calculus
 - 3 grammar production rules, other definitions follow based on the three possible 
 - helps to formalize substitution, through a-equiv and B-red
+  - during substitution, we have to worry about variable capture (free variable getting bound)
+  - `BV[x] = empty, BV[λx.t] = BV[t] u {x}, BV[t1 t2] = BV[t1] u BV[t2]`
+  - for the def of substitution, the four obvious cases, and modify to 1. not substitute for bound vars and 2. change of var to avoid variable capture
+- church-rosser theorem says that normal forms are unique, but getting there can be any path in a "diamond" shape of possibilites (based on order of operations)
+- standardization theorem, reducing leftmost outermost redex will find a normal form if it exists
+  - NOR, normal order reduction (and is deterministic, unlike full beta reduction)
 
 Recursion
 - use some tricks to make recursion a finite substitution, we do this under normal order reduction and also under call-by-value
