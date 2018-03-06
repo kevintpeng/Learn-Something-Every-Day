@@ -315,6 +315,8 @@ so let's look at typing currently untyped terms.
 2. accumulate **constraints**, equations involving variables, then solve the system of equations. In practice, easier to prove and optimize and extend
 
 #### Algorithm W
+Consumes the context and term, and produces the inferred type and the set of substitutions
+
 given an untyped term t, annotate each abstraction var x, with a fresh type variable X, and record teh association x:X in context GAMMA
 
 We need three inference rules to do this, one for each possible way t can be formed
@@ -325,3 +327,35 @@ We need three inference rules to do this, one for each possible way t can be for
 - interestingly, we need to use information from the first inference on t1 in order to type t2. We have to apply sigma1 to GAMMA context in our second expression when inferring t2.
 - write this as an algebraic equation, T1 = T2 -> X, where X is fresh. Again this is just saying that t1 : T1 must be abstraction, a mapping of one type to another. Then we must infer X by solving the equation. Taking these two expressions and making an equation is **unification**, saying they're the same. The **unifier** is the substitution that solve it such that `sigma T1 = sigma T2`
 
+#### Constraint-based type inference
+First accumulates type constraints and then finds substitutions that satisfy them.
+- A constraint set C is a set of equations {Si = Ti}
+
+1. for variables, no constraints
+2. for abstractions, annotation is in the context
+3. for application, simpler because we don't need this substitution as we go. Instead, we throw everything in C instead of sigma, and accumulate all type relations with equations.
+
+Now we need to solve the system of equations. A solution for a problem (Γ, t, S, C) is a pair (σ, T) such that
+σ unifies C and σS = T
+
+We want **soundness** and **completeness** as properties
+- soundness, if we get a solution, it's correct
+- completeness, if there's an answer, this approach finds it
+
+##### Solving Constraint Set
+Recursive definition of the `unify()` operation, where unify in the context of constraint-based type inference is the operation of solving a system of equations
+- unify will take a set of constraints, and return the set of substitutions
+- a **principal unifier** is less general than any other unifier
+- theroem 22.4.5.3 says `unify(C)` will produce the principal unfier, the best one
+
+#### Polymorphism
+Problem arises now when we use polymorphic functions. Applying them to data, they get specialized. 
+
+Let-polymorphism uses type reconstruction as above, and generalizes it to provide a simple form of polymorphism. 
+- idea 1: perform substitution (expensive)
+- idea 2: type `id` as forall X. X -> X
+  - quantifiers are all internal
+  - quantifiers are only permitted at the top of a type expression
+  - we say a type variable occurs free in a type environment Γ if it is not quantified there.
+  - Quantifier elimination just says if a var is in the env Γ, then immediately substitute with a fresh variable
+  
