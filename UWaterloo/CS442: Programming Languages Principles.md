@@ -359,7 +359,7 @@ Let-polymorphism uses type reconstruction as above, and generalizes it to provid
   - we say a type variable occurs free in a type environment Γ if it is not quantified there.
   - Quantifier elimination just says if a var is in the env Γ, then immediately substitute with a fresh variable
   
-### Haskell and Laziness
+### 8 Haskell and Laziness
 `take 1 $ qsort` will be worst case O(n^2)
 
 `take 1 $ msort` will be worst case O(n) because it will lazily only look at the first element of each subproblem, and O(m log n) for `take m` since we just need to find replacements to the element we removed from the possible smallest elements, one at each height for each iteration
@@ -383,3 +383,78 @@ foldl (+) 0 [1,2,3,...,n]
     O(1) space in eagar
     O(n) space in lazy
 ```
+
+### 9 Types in Haskell
+Type classes in Haskell offer a
+controlled approach to "ad hoc overloading".
+
+we want one particular name to mean different things in different contexts
+- provide simple solution with enough generality that these type classes can be used for a bunch of different things
+- can create an instance of a type class (take certain function signatures, and write something that implements the same signature)
+
+#### Some basic classes
+##### `Eq`
+`Eq` are types with the notion of equality
+- ``` `==` ```and``` `/=` ``` operators
+
+`deriving` keyword gives you default behaviour. 
+
+```
+data Btree a =
+  Empty
+| Node (Btree a) a (Btree a)
+  deriving Eq
+```
+
+This is the obvious structural equality.
+
+We can also define non-default equality be explicitly defining our own equality.
+
+```
+data First = Pair Int Int
+instance Eq First where
+(Pair x _) == (Pair y _) = (x==y)
+(Pair 1 3) == (Pair 2 3)
+> False
+(Pair 1 3) == (Pair 1 4)
+> True
+```
+
+##### `Ord`
+Inherits from Eq, specifies `<`, `>`, `<=`, `>=`, default defn of `min` and `max`, `compare`
+
+```
+msort :: (Ord a) => [a] -> [a]
+
+can be read as, msort has type list to list s.t. a derives Ord
+more generally:
+fcn-name :: constraints => type signature
+```
+
+##### `Show`
+specifies the method `show :: a -> String` and `read :: String -> a` which is a simple parser (crazy cool)
+
+#### Implementaiton of type classes
+Simply a dictionary of operators to their function signatures
+
+Code defining Num:
+
+```
+class Num a where
+  (+), (*) :: a -> a -> a
+  negate :: a -> a
+```
+
+Then under the hood, the compiler conceptually creates the following:
+
+```
+data NumDict a
+= MkND (a -> a -> a)
+       (a -> a -> a)
+       (a -> a)
+plus  (MkND p _ _) = p
+times (MkND _ t _) = t
+neg  (MkND _ _ n) = n
+```
+
+Again, it's really just a hidden dictionary.
