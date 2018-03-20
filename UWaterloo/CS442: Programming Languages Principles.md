@@ -359,3 +359,27 @@ Let-polymorphism uses type reconstruction as above, and generalizes it to provid
   - we say a type variable occurs free in a type environment Γ if it is not quantified there.
   - Quantifier elimination just says if a var is in the env Γ, then immediately substitute with a fresh variable
   
+### Haskell and Laziness
+`take 1 $ qsort` will be worst case O(n^2)
+
+`take 1 $ msort` will be worst case O(n) because it will lazily only look at the first element of each subproblem, and O(m log n) for `take m` since we just need to find replacements to the element we removed from the possible smallest elements, one at each height for each iteration
+
+```
+foldr c b [] = b
+foldr c b (x:xs) = c x (foldr c b xs)
+```
+looking at space complexity:
+```
+foldr (+) 0 [1,2,3,...,n]
+1 + (2 + (3 + (... + (n + 0))))
+      O(n) space
+```      
+
+but foldl is tail recursive (using tail call optimization) in an eager language:
+
+```
+foldl (+) 0 [1,2,3,...,n]
+((((0 + 1) + 2) + 3) + ... + n)
+    O(1) space in eagar
+    O(n) space in lazy
+```
