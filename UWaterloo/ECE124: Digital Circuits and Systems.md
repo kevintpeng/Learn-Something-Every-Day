@@ -10,9 +10,9 @@
 - flip-flops store data since outputs feed into inputs
  
 ##### Simplification
-- # of gates
-- # of levels of logic
-- # of states & # of flip-flops
+- num of gates
+- num of levels of logic
+- num of states & # of flip-flops
 
 ##### Analysis and Design of Synchronous Sequential Systems
 Start with informal specification of desired system
