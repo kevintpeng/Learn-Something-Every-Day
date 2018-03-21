@@ -61,3 +61,25 @@ multiplying integers is O(n^2) with respect to digits naively
 ### Dynamic Programming
 DP can be used to remove repeated recursive calls.
 - linear independent set example <= weighted activity selection <= weighted independence set
+
+### Intractability
+Looking at problems that we do not know of any efficent algorithms for (SAT, 01 Knapsack, Travelling Salesman Problem)
+- focus on decision problems: boolean output rather than optimization problems
+
+Let's formalize the set of tractable problems, "easy":
+
+class P: given a computational decision probelm C, C is in P iff there exists an algorithm solving C in O(n^k) for constant k
+
+pretty good definition in practice, but edges cases exist like n^1000 or exponential algorithms that run efficiently on average 
+
+Idea behind **reduction**: if you're trying to sell security software, you can't say that it not hackable, but you can argue that if your software is hacked, then every other piece of software is hacked too. 
+
+Looking at travelling salesperson problem, there is no known algorithm that can determine a tour in G in polynomial time. It's really hard to prove that there is absolutely no algorithm that exists. But we can prove that TSP is as difficult as a bunch of other unsolved problems. 
+
+How do we prove in a relative sense?
+
+C1 **reduces** to C2 (C<sub>1</sub> <=<sub>P</sub> C<sub>2</sub>) if given a polynomial time solution for C2, we can solve C1 in poly-time
+
+We define **completeness** as, Let C be a set of problems, let ci in C b3 C-complete if forall ck in C, ck reduces to ci (ci is the hardest problem in C).
+
+We can try to argue that TSP is the hardest problem in its class by saying that it is C-complete for a set of problems. This is C=NP. It is canonically the set of brute-force solvable problems.
