@@ -459,7 +459,7 @@ neg  (MkND _ _ n) = n
 
 Again, it's really just a hidden dictionary.
 
-#### More Useful Type Classes
+#### [More Useful Type Classes](http://learnyouahaskell.com/functors-applicative-functors-and-monoids)
 Haskell's purity, higher order functions, and parameterized algebraic data types let us implement polymorphism at a "higher level" than any other language. Type classes alow us to describe behavior of types. Again, in the previous section we have type classes like `Eq` that describe classes that can perform equaltiy checks. Here are more powerful type classes.
 
 1. Monoid in math is a set with an identity and an associative (bracketable any way) binary operation
@@ -474,7 +474,7 @@ class Monoid a where
   mconcat = foldr mappend mempty
 ```
 
-2. The functor class is motivated by the awkward use of `Maybe`, and can be used for lists. It can be used ot represent higher-order concepts like lists 
+2. The functor class is motivated by the awkward use of `Maybe`, and can be used for lists. It can be used ot represent higher-order concepts like lists. Broadly, functors are things that can be mapped over, and this is reflected by the definition which simply provides an interface for `fmap`
 
 ```haskell
 class Functor f where
