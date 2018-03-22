@@ -83,3 +83,10 @@ C1 **reduces** to C2 (C<sub>1</sub> <=<sub>P</sub> C<sub>2</sub>) if given a pol
 We define **completeness** as, Let C be a set of problems, let ci in C b3 C-complete if forall ck in C, ck reduces to ci (ci is the hardest problem in C).
 
 We can try to argue that TSP is the hardest problem in its class by saying that it is C-complete for a set of problems. This is C=NP. It is canonically the set of brute-force solvable problems.
+
+Looking at the optimization version of the knapsack problem, it's clear that finding the max value also let's us simply solve the decision version of it.
+
+C* is NP complete means
+
+1. Show C* in NP
+2. Show every C in NP, C <=<sub>P</sub> C* showing that C * is NP-hard
