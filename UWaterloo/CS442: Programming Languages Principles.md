@@ -458,3 +458,101 @@ neg  (MkND _ _ n) = n
 ```
 
 Again, it's really just a hidden dictionary.
+
+#### More Useful Type Classes
+1. Monoid in math is a set with an identity and an associative (bracketable any way) binary operation
+  - integers with 0 and `+`
+  - list with `[]` and `++` (more generalizable, so more useful)
+
+```haskell
+class Monoid a where
+  mempty :: a
+  mappend :: a -> a -> a
+  mconcat :: [a] -> a
+  mconcat = foldr mappend mempty
+```
+
+2. The functor class is motivated by the awkward use of `Maybe`.
+
+```haskell
+class Functor f where
+  fmap :: (a -> b) -> f a -> f b
+
+instance Functor Maybe where
+  fmap _ Nothing = Nothing
+  fmap g (Just a) = Just (g a) {- unwrap and wrap again in another Just -}
+```
+
+3. Kinds help us handle two arguments?
+  - Kind of bool (or other concrete type) is `*`. think of it as a type constant, type constructor with 0 arguments
+  - Kind of Maybe and [] (or other single argument type constructors) is `* => *`
+  - `,` and `->` have kind `* => * => *` 
+  - notice they have the wrong type to be a functor (too many arguments) so we need to provide the first arugment
+
+In class example:
+```haskell
+instance Functor ((->) r) where
+  fmap = (.)
+
+now we have f makes an r -> ?
+from above,
+fmap :: (a -> b) -> f a -> f b
+so when f = ((->) r),
+
+(a -> b) -> (r -> a) -> (r -> b)
+   f           g
+
+composition?
+```
+
+Another "more useful" example:
+
+```
+instance Functor ((,) w) where
+  fmap f (w,a) = (w, f a)
+
+```
+
+Still kind of weird and limited, since we only have one argument functors. If you want to partially apply a function to the second argument, then we can simply wrap it in some `newtype` that flips the arguments and overrides the `fmap` definition to unswap accordingly.
+
+Functor laws: 
+
+```
+fmap id = id
+fmap (g . h) = fmap g . fmap h
+```
+
+The **Applicative class** has less power than monads by design
+
+```
+class Functor f => Applicative f where
+  pure :: a -> f a
+  (<*>) :: f (a -> b) -> f a -> f b
+```
+
+- `<*>` pronounced "applied" maybe?
+- Recall function application `($) :: (a -> b) -> a -> b`
+- notice that `applied` is very close to the actual application operator
+- `Maybe`, `[]`, `((->) r)` and `((,) w)` are all instances of `Applicative`
+- Applicative f has kind ```* => *```
+
+Looking at an example of `Maybe`:
+
+```haskell
+instance Applicative Maybe where
+  pure = Just                       {- implementing Applicative interface -}
+  Nothing <*> _ = Nothing
+  _ <*> Nothing = Nothing
+  (Just f) <*> (Just y) = Just (f y)
+
+fmap (+) (Just 2) <*> (Just 3)
+> Just 5
+(+) <$> (Just 2) <*> (Just 3)
+> Just 5
+pure (+) <*> (Just 2) <*> (Just 3)
+> Just 5
+```
+
+So notice we're "lifting" things into `Maybe`, kind of just general definitions of operators that let us perform optional things within the `Maybe` type
+- `pure` lifts a function up, making it a `Maybe` compatible function by writing ```pure f <*>``` instead of ```f <$>```
+
