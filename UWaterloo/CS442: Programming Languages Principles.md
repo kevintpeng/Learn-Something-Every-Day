@@ -460,6 +460,8 @@ neg  (MkND _ _ n) = n
 Again, it's really just a hidden dictionary.
 
 #### More Useful Type Classes
+Haskell's purity, higher order functions, and parameterized algebraic data types let us implement polymorphism at a "higher level" than any other language. Type classes alow us to describe behavior of types. Again, in the previous section we have type classes like `Eq` that describe classes that can perform equaltiy checks. Here are more powerful type classes.
+
 1. Monoid in math is a set with an identity and an associative (bracketable any way) binary operation
   - integers with 0 and `+`
   - list with `[]` and `++` (more generalizable, so more useful)
@@ -472,11 +474,24 @@ class Monoid a where
   mconcat = foldr mappend mempty
 ```
 
-2. The functor class is motivated by the awkward use of `Maybe`.
+2. The functor class is motivated by the awkward use of `Maybe`, and can be used for lists. It can be used ot represent higher-order concepts like lists 
 
 ```haskell
 class Functor f where
   fmap :: (a -> b) -> f a -> f b
+
+{- notice there is no default implementation of fmap -}
+{- also notice that f is not a concrete type that holds a value, 
+   but rather a type constructor that takes one type as the parameter -}
+
+instance Functor [] where  
+    fmap = map  
+
+{- the type signature for map is: -}
+map :: ( a -> b ) -> [a] -> [b]
+
+{- so the above instance of list above is correct! where: -}
+f = []
 
 instance Functor Maybe where
   fmap _ Nothing = Nothing
@@ -522,7 +537,7 @@ fmap id = id
 fmap (g . h) = fmap g . fmap h
 ```
 
-The **Applicative class** has less power than monads by design
+4. The **Applicative class** has less power than monads by design
 
 ```
 class Functor f => Applicative f where
@@ -556,3 +571,15 @@ pure (+) <*> (Just 2) <*> (Just 3)
 So notice we're "lifting" things into `Maybe`, kind of just general definitions of operators that let us perform optional things within the `Maybe` type
 - `pure` lifts a function up, making it a `Maybe` compatible function by writing ```pure f <*>``` instead of ```f <$>```
 
+#### Revisiting the Monad class
+Again, monads are more powerful than applicatives:
+
+```haskell
+class Applicative m => Monad m where
+  (=<<) :: (a -> m b) -> m a -> m b {- produces a value in the context m, from a value a in context m -}
+  (>>=) :: m a -> (a -> m b) -> m b {- reversed arguments -}
+  (>>) :: m a -> m b -> m b
+  m >> n = m >>= \_ -> n
+  fail :: String -> m a
+  fail s = error s
+```
