@@ -583,3 +583,5 @@ class Applicative m => Monad m where
   fail :: String -> m a
   fail s = error s
 ```
+
+looking at IO example:
