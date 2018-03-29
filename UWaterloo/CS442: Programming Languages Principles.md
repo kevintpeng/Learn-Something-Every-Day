@@ -21,6 +21,15 @@ Recursion
 - use some tricks to make recursion a finite substitution, we do this under normal order reduction and also under call-by-value
 - we use combinators, in this case the Y combinator, to make recursion work 
 
+Monads
+- this is a hard topic, but monads in haskell let you program in a way that looks imperative but are actually still functional
+- Monads let you chain functions together. They are types that implement `>>=` operator which is just a fancy operator for chaining, much like a semi colon in C
+- [why do we need them?](https://stackoverflow.com/questions/28139259/why-do-we-need-monads), well sometimes we want functions to be able to return more than one type and would use a type like an optional: `Number | Nothing`
+- this is easy to implement, but we would need to REIMPLEMENT any functions that we want this to happen in
+- this is fine for a single function, but for an expression that is function composition like f(g(h(x))), each of the functions needs to be reimplemented
+- monads let us define how to handle breaking down and passing around values of our new type (in this case `Number | Nothing`) without needing to redefine every function in a composition expression
+- it does this by defining our type as a monad, which overrides the `>>=` operator that allows us to chain functions together while handling the new optional type 
+
 ### 1 Intro
 Expressivity, meaning, guarantees, implementation
 
@@ -585,3 +594,22 @@ class Applicative m => Monad m where
 ```
 
 looking at IO example:
+
+### Higher-order Polymorphism: System F
+Introduce quantifiers. `(lambda X.t)[T] -> [X |-> T]t` is a type application.
+- the forall quantifier lets us type the identity function, `id id :: forall X.X -> X`
+- we could not type `lambda x.x x` in the simple typed calculus but we can in System F
+- the core intermediate language of GHC is based on System F
+- GHC core is explicitly typed
+
+#### Theorems
+Type checking is still simple structural recursion, so progress and preservation theorems apply.
+- type inference is undecidable 
+- *still useful in practice using a subset of it*
+
+#### Programming
+We need to still encode booleans and integers to make it useful. *We use these encodings to allow us to leverage structural properties of the simple definition of our language, while making it expressive using these encodings*
+
+Again, a boolean is `lambda x. lambda y. x :: X -> X -> X`. This can be expressed instead as `forall X . X -> X -> X` in system F.
+
+Natural numbers consume a successor and zero: `Nat :: forall X . (X -> X) -> X -> X`, where `X->X` is the type of a successor.
