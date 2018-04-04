@@ -15,7 +15,10 @@ Steps for 1040NR
  
 2. California
 
-3. New York
+3. New York State, IT-203: Nonresident and Part-Year Resident Income Tax Return
+- file as nonresident
+- IT-360
+- IT-2
 
 4. New York City
 
