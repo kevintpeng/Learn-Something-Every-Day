@@ -21,14 +21,29 @@ Recursion
 - use some tricks to make recursion a finite substitution, we do this under normal order reduction and also under call-by-value
 - we use combinators, in this case the Y combinator, to make recursion work 
 
-Monads
+[Monads](http://learnyouahaskell.com/a-fistful-of-monads)
 - this is a hard topic, but monads in haskell let you program in a way that looks imperative but are actually still functional
-- Monads let you chain functions together. They are types that implement `>>=` operator which is just a fancy operator for chaining, much like a semi colon in C
-- [why do we need them?](https://stackoverflow.com/questions/28139259/why-do-we-need-monads), well sometimes we want functions to be able to return more than one type and would use a type like an optional: `Number | Nothing`
+- Monads let you chain functions together. They are types that implement `>>=` operator ("bind") which is just a fancy operator for chaining, much like a semi colon in C
+- [why do we need them?](https://stackoverflow.com/questions/28139259/why-do-we-need-monads), well sometimes we want functions to be able to return more than one type and would use a type like an optional (in haskell called "Maybe"): `Just Number | Nothing`
 - this is easy to implement, but we would need to REIMPLEMENT any functions that we want this to happen in
 - this is fine for a single function, but for an expression that is function composition like f(g(h(x))), each of the functions needs to be reimplemented
 - monads let us define how to handle breaking down and passing around values of our new type (in this case `Number | Nothing`) without needing to redefine every function in a composition expression
 - it does this by defining our type as a monad, which overrides the `>>=` operator that allows us to chain functions together while handling the new optional type 
+
+More fundamentally, we first learn about Functors and Applicatives, and Monads are just more expressive Applicative Functors which are just more expressive Functors.
+- a functor is typeclass that describes types that implements fmap, which is just a generic implementation of map (lists are functors, but we can apply the same concept to optionals or other recursive structures like Trees)
+- functor type constructors must always be of the form `(a -> b)` or more specifically `(a -> f a)`
+- functors must obey laws about mapping
+  - `fmap id (f a) = f a`, identity function should still work
+  - `fmap (x . y) (f a) = fmap x $ fmap y (f a)`, composition is chaining
+- Applicative is a typeclass that describes types that implement `pure` and `<*>`, which allows us to apply functions that have been wrapped in the functor, like `f (a -> b)`.
+- allows us to take normal functions and wrap them in the functor using `pure`
+- allows us to curry functions using `<*>`
+- allows us to apply normal binary functions to two functors
+- makes our lists, Maybes, functors in general more useful
+- Monad is a type class that describes types that implement the interface `return` (same as `pure`), `>>=` bind operator, `>>`, and `fail`, but we mostly care about bind
+- Monads enable a more expressive style of programming by allowing functions to be chained, and short circuit
+- we get `do` notation as syntactic sugar for this
 
 ### 1 Intro
 Expressivity, meaning, guarantees, implementation
