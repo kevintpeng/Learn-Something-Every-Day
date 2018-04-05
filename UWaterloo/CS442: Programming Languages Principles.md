@@ -44,6 +44,7 @@ More fundamentally, we first learn about Functors and Applicatives, and Monads a
 - Monad is a type class that describes types that implement the interface `return` (same as `pure`), `>>=` bind operator, `>>`, and `fail`, but we mostly care about bind
 - Monads enable a more expressive style of programming by allowing functions to be chained, and short circuit
 - we get `do` notation as syntactic sugar for this
+- this concept of "chaining" is important, because it let's us do things beyond just chaining applications together. For example, the `Maybe` monad let's us check and handle possible failure, the list monad let's us handle non-determinism by running a function on all possiblilites
 
 ### 1 Intro
 Expressivity, meaning, guarantees, implementation
