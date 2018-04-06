@@ -21,6 +21,31 @@ Recursion
 - use some tricks to make recursion a finite substitution, we do this under normal order reduction and also under call-by-value
 - we use combinators, in this case the Y combinator, to make recursion work 
 
+[Monads](http://learnyouahaskell.com/a-fistful-of-monads)
+- this is a hard topic, but monads in haskell let you program in a way that looks imperative but are actually still functional
+- Monads let you chain functions together. They are types that implement `>>=` operator ("bind") which is just a fancy operator for chaining, much like a semi colon in C
+- [why do we need them?](https://stackoverflow.com/questions/28139259/why-do-we-need-monads), well sometimes we want functions to be able to return more than one type and would use a type like an optional (in haskell called "Maybe"): `Just Number | Nothing`
+- this is easy to implement, but we would need to REIMPLEMENT any functions that we want this to happen in
+- this is fine for a single function, but for an expression that is function composition like f(g(h(x))), each of the functions needs to be reimplemented
+- monads let us define how to handle breaking down and passing around values of our new type (in this case `Number | Nothing`) without needing to redefine every function in a composition expression
+- it does this by defining our type as a monad, which overrides the `>>=` operator that allows us to chain functions together while handling the new optional type 
+
+More fundamentally, we first learn about Functors and Applicatives, and Monads are just more expressive Applicative Functors which are just more expressive Functors.
+- a functor is typeclass that describes types that implements fmap, which is just a generic implementation of map (lists are functors, but we can apply the same concept to optionals or other recursive structures like Trees)
+- functor type constructors must always be of the form `(a -> b)` or more specifically `(a -> f a)`
+- functors must obey laws about mapping
+  - `fmap id (f a) = f a`, identity function should still work
+  - `fmap (x . y) (f a) = fmap x $ fmap y (f a)`, composition is chaining
+- Applicative is a typeclass that describes types that implement `pure` and `<*>`, which allows us to apply functions that have been wrapped in the functor, like `f (a -> b)`.
+- allows us to take normal functions and wrap them in the functor using `pure`
+- allows us to curry functions using `<*>`
+- allows us to apply normal binary functions to two functors
+- makes our lists, Maybes, functors in general more useful
+- Monad is a type class that describes types that implement the interface `return` (same as `pure`), `>>=` bind operator, `>>`, and `fail`, but we mostly care about bind
+- Monads enable a more expressive style of programming by allowing functions to be chained, and short circuit
+- we get `do` notation as syntactic sugar for this
+- this concept of "chaining" is important, because it let's us do things beyond just chaining applications together. For example, the `Maybe` monad let's us check and handle possible failure, the list monad let's us handle non-determinism by running a function on all possiblilites
+
 ### 1 Intro
 Expressivity, meaning, guarantees, implementation
 
@@ -459,7 +484,9 @@ neg  (MkND _ _ n) = n
 
 Again, it's really just a hidden dictionary.
 
-#### More Useful Type Classes
+#### [More Useful Type Classes](http://learnyouahaskell.com/functors-applicative-functors-and-monoids)
+Haskell's purity, higher order functions, and parameterized algebraic data types let us implement polymorphism at a "higher level" than any other language. Type classes alow us to describe behavior of types. Again, in the previous section we have type classes like `Eq` that describe classes that can perform equaltiy checks. Here are more powerful type classes.
+
 1. Monoid in math is a set with an identity and an associative (bracketable any way) binary operation
   - integers with 0 and `+`
   - list with `[]` and `++` (more generalizable, so more useful)
@@ -472,11 +499,24 @@ class Monoid a where
   mconcat = foldr mappend mempty
 ```
 
-2. The functor class is motivated by the awkward use of `Maybe`.
+2. The functor class is motivated by the awkward use of `Maybe`, and can be used for lists. It can be used ot represent higher-order concepts like lists. Broadly, functors are things that can be mapped over, and this is reflected by the definition which simply provides an interface for `fmap`
 
 ```haskell
 class Functor f where
   fmap :: (a -> b) -> f a -> f b
+
+{- notice there is no default implementation of fmap -}
+{- also notice that f is not a concrete type that holds a value, 
+   but rather a type constructor that takes one type as the parameter -}
+
+instance Functor [] where  
+    fmap = map  
+
+{- the type signature for map is: -}
+map :: ( a -> b ) -> [a] -> [b]
+
+{- so the above instance of list above is correct! where: -}
+f = []
 
 instance Functor Maybe where
   fmap _ Nothing = Nothing
@@ -522,7 +562,7 @@ fmap id = id
 fmap (g . h) = fmap g . fmap h
 ```
 
-The **Applicative class** has less power than monads by design
+4. The **Applicative class** has less power than monads by design
 
 ```
 class Functor f => Applicative f where
@@ -556,3 +596,36 @@ pure (+) <*> (Just 2) <*> (Just 3)
 So notice we're "lifting" things into `Maybe`, kind of just general definitions of operators that let us perform optional things within the `Maybe` type
 - `pure` lifts a function up, making it a `Maybe` compatible function by writing ```pure f <*>``` instead of ```f <$>```
 
+#### Revisiting the Monad class
+Again, monads are more powerful than applicatives:
+
+```haskell
+class Applicative m => Monad m where
+  (=<<) :: (a -> m b) -> m a -> m b {- produces a value in the context m, from a value a in context m -}
+  (>>=) :: m a -> (a -> m b) -> m b {- reversed arguments -}
+  (>>) :: m a -> m b -> m b
+  m >> n = m >>= \_ -> n
+  fail :: String -> m a
+  fail s = error s
+```
+
+looking at IO example:
+
+### Higher-order Polymorphism: System F
+Introduce quantifiers. `(lambda X.t)[T] -> [X |-> T]t` is a type application.
+- the forall quantifier lets us type the identity function, `id id :: forall X.X -> X`
+- we could not type `lambda x.x x` in the simple typed calculus but we can in System F
+- the core intermediate language of GHC is based on System F
+- GHC core is explicitly typed
+
+#### Theorems
+Type checking is still simple structural recursion, so progress and preservation theorems apply.
+- type inference is undecidable 
+- *still useful in practice using a subset of it*
+
+#### Programming
+We need to still encode booleans and integers to make it useful. *We use these encodings to allow us to leverage structural properties of the simple definition of our language, while making it expressive using these encodings*
+
+Again, a boolean is `lambda x. lambda y. x :: X -> X -> X`. This can be expressed instead as `forall X . X -> X -> X` in system F.
+
+Natural numbers consume a successor and zero: `Nat :: forall X . (X -> X) -> X -> X`, where `X->X` is the type of a successor.
