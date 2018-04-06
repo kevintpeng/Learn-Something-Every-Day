@@ -633,7 +633,27 @@ class Applicative m => Monad m where
 looking at IO example:
 
 ### Higher-order Polymorphism: System F
-Introduce quantifiers. `(lambda X.t)[T] -> [X |-> T]t` is a type application.
+There are varieties of polymorphism, we studied let-polymorphism
+- **polymorphism** is a term referring to a range of language mechanics that enable code to be more easily reused
+- we can substitute a full copy of the polymorphic expression every time we use it, so that its set of type varialbles are only constrained in its specific application, and doesn't affect other applications (due to alpha renaming)
+
+```
+  gamma |- [x |-> t1] t2 : T2
+------------------------------- T-LetPoly simple
+gamma |- let x = t1 in t2 : T2
+```
+
+But we can pass garbage into the value for x and if it's not used in t2, it won't be type checked, so we need to add the extra premise to check this:
+
+```
+gamma |- [x |-> t1] t2 : T2    gamma |- t1 : T1
+-----------------------------------------------
+       gamma |- let x = t1 in t2 : T2
+```
+
+Let-polymorphism only allows top level let-bindings, "disallows functions that take polymorphic values as arguments"?
+
+System F introduce quantifiers. `(lambda X.t)[T] -> [X |-> T]t` is a type application. The pair of a type application and type abstraction forms a redex analogous to normal app-abs pairs.
 - the forall quantifier lets us type the identity function, `id id :: forall X.X -> X`
 - we could not type `lambda x.x x` in the simple typed calculus but we can in System F
 - the core intermediate language of GHC is based on System F
