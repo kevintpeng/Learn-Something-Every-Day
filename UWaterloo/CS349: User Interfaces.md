@@ -46,4 +46,5 @@ X Client-server architecture
 - ordered display list for layers
 - other displayables are polylines, text, shapes, clipRectangle
 
-
+### [MVC](https://www.student.cs.uwaterloo.ca/~cs349/w18/lectures/3.0%20Model-View-Controller.pdf)
+Makes it easier to maintain code by allowing the interface (view or controller) to be easily changed. Makes for better unit testing.
