@@ -21,6 +21,27 @@ Recursion
 - use some tricks to make recursion a finite substitution, we do this under normal order reduction and also under call-by-value
 - we use combinators, in this case the Y combinator, to make recursion work 
 
+Types
+- we studied type inference which, instead of dynamically evaluating expressions and checking their type, looks at their parse tree before hand and infers types
+- strong normalization theorem says every reduction of well-typed terms is of finite length
+  - basically says in the simply typed lambda calculus system, infinite expressions aren't well typed in the first place, suggesting the system is weak
+- we use type variables as placeholders for uninterpreted types
+- type inference of a term is assigning appropriate variables to subterms, and trying to find a set of substitutions, sigma, that makes the term well-typed
+- eventually, all variables will have a concrete type based on constraints defined in the program (like variables in an if condition must make the condition of type boolean)
+- if there are still free variables in the final type for the expression, then the expression is ALMOST polymorphic
+  - problem is, without changes, its first application will cause it to be specialized based on the constraints of the type we substituted in
+- we introduce let-polymorphism where we can substitute a full copy of the polymorphic expression every time we use it, so that its set of type varialbles are only constrained in its specific application, and doesn't affect other applications (due to alpha renaming)
+
+Haskell and Laziness
+- laziness in haskell makes it so that it only evaluates parts of an expression that are required to return the result
+- `take 1 $ quicksort` would be worst case O(n^2) since it has to complete the full algorithm in worst case because quickselect might not find the first element till the algorithm completes
+- `take 1 $ mergesort` is worst case O(n) because it only needs to run a single iteration of the algorithm, grabbing the first element from each subarray and recursively grabbing the smaller of its two children
+
+Typeclasses in Haskell
+- basically like java interfaces
+- Eq is a typeclass that defines the notion of equality, and we write `deriving Eq` at the end of a `data` definition to include default definitions of structural equality for a data type
+- other typeclasses include Ord, Show, Functor, Applicative, Monad
+
 [Monads](http://learnyouahaskell.com/a-fistful-of-monads)
 - this is a hard topic, but monads in haskell let you program in a way that looks imperative but are actually still functional
 - Monads let you chain functions together. They are types that implement `>>=` operator ("bind") which is just a fancy operator for chaining, much like a semi colon in C
