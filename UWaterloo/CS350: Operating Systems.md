@@ -267,6 +267,22 @@ Page table lookups are slow. The idea is, when an address needs to translated, c
 - in software, the kernel will handle exceptions, fetching pages, TLB eviction, and re-execution
 - MIPS TLB entries are 64 bits: first 20 bits for page #, 6 bits for PID, first 20 bits of lower word is frame #
 
+
+Page fault is when the TLB does not have the page cached already so it throws an exception to be handled by the kernel (as in software managed tlbs)
+
+1. If TLB is full, perform eviction
+2. Else load the page into cache
+3. Update PTE present bit
+4. Return from exception and retry memory access
+
+We want to try to limit page faults. This can be done by
+1. Having a good cache eviction algorithm (round robin skip method)
+2. Prefetch relevant pages
+3. Limit number of processes to prevent cycling cache evicitons
+
+What is the clock replacement algorithm for cache eviction?
+Modified round robin heuristic with a skip bit. Every time a page table entry is used, set the skip bit to 1. When evicting, round robin and skip any tlb entries that have a value 1, zeroing it as it’s passed. Evict the first 0.
+
 #### Segmentation and Paging
 TLB is paging, physical memory is segmented. Looked for contiguous frames in physical memory for a segment
 
@@ -285,3 +301,58 @@ Executable and linking format (ELF) files
 - exam question: based on fault address, what happened?
 
 So how does kernel do address translation?
+
+#### Scheduling
+Scheduling is a problem of ordering jobs based on parameters like arrival time, duration/size, priority. Simple approaches include round robin and shortest job. Pre-emption can be used so that jobs don’t have to run in one pass, they can be stopped in between. This allows for round robin with a runtime, or longest time remaining. In the context of operating systems, jobs are processes, and often processes do not have a known duration. Jobs can also be blocked when doing CPU scheduling.
+
+CFS (linux completely fair scheduler) is a weighted scheduling system that tries to balance process runtimes based on weight which is semantically a process’ priority. At any time, the amount of effective CPU time a process gets should be approximately it’s percentage of the total weight of all jobs (job weight/ sum of all weights). We measure this will virtual runtime, which can be calculated as the actual runtime * all weights / job weight, and CFS will attempt to have equal virtual runtime across all processes.
+
+This is implemented in two possible ways. 
+1. Shared queue. Requires mutual exclusion, so contention increases as we have more cores requesting work. But should maintain fairness extremely well.
+2. Separate per-core queues. Scales better as we won’t have cores waiting on the locked queue for work. However, load imbalance is very possible and requires periodic rebalancing. This is called thread migration.
+
+#### Hardware Devices
+What are device registers vs device drivers? 
+
+Device drivers are the kernel code that interacts with hardware devices.
+
+Device registers are either status or command, (read/write) and act as an interface for sending and receiving information from a hardware device. 
+1. Memory mapped IO. Each register has a physical memory address
+2. Special I/O Instructions, in x86 `in` and `out`
+
+Current time status registers
+Restart-on-expiry command
+Countdown status+command
+Beep command
+
+Data transfer to/from devices is facilitated by a data buffer. Two options for transferring to or from this buffer
+1. Program controlled, cpu transfers bytes but blocks cpu
+2. Direct Memory Access, CPU initiates, device controller does the transfer and notifies completion via an interrupt.
+
+Went over disks. Old hard drives had spinning disks for large data storage. Disks are divided into tracks and have blocks/sectors on each track. Disks use a mechanical head the seeks across tracks while the disk spins. We want to minimize seek time (time for head to move across tracks), rotational latency (how fast the disk spins and how much it has to rotate to line up the starting block) and finally transfer time (time taken to spin through number of sequential blocks). In practice, software can only optimize seek time. 
+
+What is the elevator algorithm for disk head scheduling?
+Always seek in one direction (either inwards or outwards) until there are no more read requests in the given direction, then go the other direction. In this way, read/write operations are batched, with a maximum latency guarantee of two full end to end seeks, preventing starvation. 
+
+#### File Systems
+Interface:
+1. Open(filepath, option), returns a file descriptor for the file at file path. The file descriptor is unique (per process) and is stored in a process’ file descriptor table. This might create a new file depending on the options passed in. 
+2. Close(descriptor), invalidates a valid file descriptor.
+3. Read(fd, length, options), performs sequential read for a file corresponding to the descriptor provided, of length specified by the parameter.
+4. Write “”
+5. lseek(fd, size, offset, option)? 
+6. Meta-data like chmod
+
+Persistent data structures:
+1. File data
+2. I-nodes
+3. Links + directories
+
+Directories are special case of files. They have an i-number and an i-node.
+Directories use hard links to the files in it. A hard link is a mapping from a pathname to an i-number. I numbers are unique, pathnames are not. Once all hard links are deleted, the file is effectively deleted too. Hard links cannot be made to directories in order to prevent cycles in file system structure.
+
+Very Simple File System (VSFS) is an implementation of the logical file system. It uses I nodes to store file meta data. An i-node is a fixed size, 256 bytes, containing file size, number of data blocks, and up to 12 pointers to data blocks (either direct or with some degree of indirection depending on the implementation of the file system, we covered double and triple).  VSFS has all the i-nodes at the start of the file system in addition to the superblock, i-node bit map and the data block bitmap. Bitmaps are a simple block of binary data that corresponds to which data/i-node locations are in use vs free. This is for fast lookup (constant time) for finding free I-nodes or data blocks. Finally, the superblock holds all the file system information like i-node capacity and location of the i-node table. 
+
+A file system might observe power failure or unexpected shutdown, and use be tolerant to such failure. Two options to do so are,
+1. Special purpose restoration tools that look for inconsistencies in expected data structures and tries to fix them.
+2. Journaling file system operations and replaying journals during crash recovery.
