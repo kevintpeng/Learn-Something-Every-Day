@@ -169,3 +169,26 @@ weights = {x1, ..., xn}
 W = t
 V = t
 ```
+
+### Undecidability
+NP-Complete is a set of uniquely difficult problems, but not the most difficult by any means, just uniquely interesting to study. There are more difficult (complex classes) of algorithms. At the top are ones that are undecidable, not solvable.
+
+Consider the Halting problem: design an algorithm that determines if a given algorithm and input data halts (terminates). If a program will get stuck in an infinite loop, it does not halt. 
+
+But this is undecidable. Consider a halting algorithm that exists. Then consider an algorithm that takes an algorithm as input (think compilers and this is reasonable). Then let H be our halting algorithm. If we design a self-referential algorithm:
+
+```
+HSelf(x):
+  if H(x, x) == yes: while true {}
+  else halt
+```
+
+Then the result of this program is a contradiction and here's why. Assume HSelf halts. Then `HSelf(HSelf)` should halt. But applying the halting program H, `H(HSelf, HSelf)` returns true. But then HSelf would enter an infinite loop by definition. The contradiction here is that if HSelf with this input is non-halting, even though we assumed it were halting. The logical conclusion of this statement is, `HSelf halts implies HSelf doesn't halt` which is a contradiciton.
+
+Looking at the other case, assume HSelf doesn't halt. Then `HSelf(HSelf)` calls `H(HSelf, HSelf)` which returns false. `HSelf`'s implementation causes it to halt. The logical statement derived here is `HSelf doesn't halt implies HSelf halts`. This statemnt is a contradiciton.
+
+Since both cases are contradictions, we can conclude that there cannot exist a halting algorithm.
+
+This was proven using a paradox. If x, then not x style of logic. The idea is that we assume an algorithm for a problem exists, and show that if this were true, then for some input, every case reduces to a contradiction, allowing us to conclude that such an algorithm could never exist.
+
+We can use reduction techniques from the last chapter to show other problems are undecidable. Show that we can phrase some undecidable problem in terms of some other problem (as a specific input or case of the problem), and this proves that this other algorithm must also be undecidable.
