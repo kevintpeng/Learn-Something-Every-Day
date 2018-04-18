@@ -197,6 +197,17 @@ W = t
 V = t
 ```
 
+### NP-Complete Problems
+Travelling Salesman Problem (TSP) decision version says is there some tour of a given complete graph whose total weight is less than k?
+
+Hamiltonian Cycle is can we find a path that visits every vertex exactly once? This reduces to TSP by converting a graph instance to a complete graph with weights 0 for existing edges and 1 for non existing, then solve TSP less than 1.
+
+0/1 knapsack decision problem finds out whether there is some subset of items (with weight and value) that can fit in a constrained weight backpack, with total value over k.
+
+Independent set is the same problem we saw before for linear graphs, but generalized to all graphs. Output yes iff there exists a subset S of V of size greater than k s.t. no pair of vertices in S have an edge.
+
+Vertex Cover outputs yes if there is a subset S of V vertices of size > k, s.t. every edge has at least one end in S. This can be reduced easily to independent sets
+
 ### Undecidability
 NP-Complete is a set of uniquely difficult problems, but not the most difficult by any means, just uniquely interesting to study. There are more difficult (complex classes) of algorithms. At the top are ones that are undecidable, not solvable.
 
