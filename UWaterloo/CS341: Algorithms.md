@@ -74,6 +74,21 @@ An alternative approach with exchange arguments is to define the solution we're 
 DP can be used to remove repeated recursive calls.
 - linear independent set example <= weighted activity selection <= weighted independence set
 
+### Graphs
+Minimum Spanning Tree is a spanning tree (one that includes all vertices in a graph) who's sum of all edge weights is minimized (it is the spanning tree with lowest weight possible). Greedy approach gives us Prim's Algorithm, starting at any vertex, continuously add the edge with smallest weight, to a vertex not yet in the set of the MST. 
+
+Topological sorting DAGs takes O(m+n) using Kosaraju's Algorithm. Intuition is to DFS through the graph and label the order of arrival at leaves of the DAG. Then sort from largest to smallest to obtain the sorted list of vertices.
+
+Shortest paths between points in a graph has many variations.
+
+Shortest path in a DAG is O(n + m), Topological sort then iterative DP to find the shortest path to each point from a single start.
+
+Shortest path in a non-negative weighted undirected graph, use Dijkstra's Algorithm, greedy O(m log m) approach.
+
+Shortest path between two vertices, with possibly negative weights but no negative weight cycles, use Bellman Ford O(nm), iterative DP solution looking at paths P(k, i) where k is the destination, and i is the number of edges in the path. 
+
+For shortest paths between all pairs of vertices, there are O(n^2) vertex pairs (nC2), use **Floyd-Warshall**, O(n^3) algorithm, iterative DP looking at paths P(i, j, n) where i is source, j is dest, n is some intermediate node.
+
 ### Intractability
 Looking at problems that we do not know of any efficent algorithms for (SAT, 01 Knapsack, Travelling Salesman Problem)
 - focus on decision problems: boolean output rather than optimization problems
