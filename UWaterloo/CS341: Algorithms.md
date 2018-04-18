@@ -56,7 +56,19 @@ multiplying integers is O(n^2) with respect to digits naively
 - observing that (a+b)(c+d) - ac - bd = ad + bc reduces our recursive calls from 4 to 3
 - from master theorem, this is n^1.4
 
-### Greedy Algorithms and their proofs
+### [Greedy Algorithms and their proofs](https://web.stanford.edu/class/archive/cs/cs161/cs161.1138/handouts/120%20Guide%20to%20Greedy%20Algorithms.pdf)
+Greedy proofs are probably one of the hardest things to grasp in this course. A greedy proof uses some heuristic to construct a solution to some sort of optimzation problem (maximize the output of something, minimize the weight of this graph, ...)
+
+Once you come up with an algorithm, a proof goes as follows. This is called an **exchange argument**. 
+
+1. Consider the greedy solution that we came up with, Sg and consider an optimal solution S. 
+2. If S = Sg, clearly the greedy algorithm is optimal in this case. When S ≠ Sg, we compare the solutions. They must differ in some way, determine what and label these elements. In particular, some element in S might be replaced with some other element in Sg. Or two elements might have different ordering. Label these elements. 
+3. Exchange elements, showing some way to transform the optimal solution in one step so that it is closer to the greedy solution. The key here is that any step must not change the cost of the solution. During the exchange step, some problems might only have one optimal solution and so an exchange will lead to a contradiction, showing that the optimal solution S must be equal to Sg (this is uncommon though).
+4. If we can iterate on each exchange until we reach the greedy solution, then we have proven that Sg is just a different optimal solution. 
+
+The key ideas here are, to show that Sg produces a solution that is optimal. By showing that every optimal solution is just a rearrangement in some way with equal cost, we prove that the greedy solution is optimal. 
+
+An alternative approach with exchange arguments is to define the solution we're comparing to as an arbitrary solution, and show that by taking exchange steps that never increase the cost, and step towards the greedy solution in a provably finite number of steps, then we can say that the greedy solution is optimal. The key idea here is that by showing we can reach the greedy solution from EVERY solution using exchanges that never increase the cost, there must be no solution who's cost is less than the greedy solution to begin with. 
 
 ### Dynamic Programming
 DP can be used to remove repeated recursive calls.
