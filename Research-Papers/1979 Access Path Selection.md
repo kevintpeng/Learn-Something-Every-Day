@@ -10,7 +10,7 @@ Introduces the idea of **query optimizers**, which reminds me a lot of C vs asse
 
 This is why it looks a lot like a C compiler to me. Very similar process of converting code to executables, with optimizations along the way that could beat many manually written assembly subroutines at a higher level of abstraction.
 
-This paper was on optimization. **Access path selection** is a step during the optimization phase. An **access path** is a way of accessing some relation (table) in the database, which is a set of tuples (row of data), and the path itself is the lookup operation which is O(n) by performing a full data scan of the database, but can be faster with indexing (some hash map structure probably or binary tree). The cost of taking each of these paths is estimated by the optimizer using statistics tracked by the database system. 
+This paper was on optimization. **Access path selection** is a step during the optimization phase. An **access path** is a way of accessing some relation (table) in the database, which is a set of tuples (row of data), and the path itself is the lookup operation which is O(n) by performing a full data scan of the database, but can be faster with indexing (some hash map structure probably or binary tree). The cost of taking each of these paths is estimated by the optimizer using statistics tracked by the database system. Different suppliementary data strucutures provide more options for possible access paths an optimizer can select, and more complex queries can further leverage optimizations.
 
 ### Intro to Parsing
 A **query block** is a basic unit of SQL that operates on tables or the results of other queries (join, group,...)
