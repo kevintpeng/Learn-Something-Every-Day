@@ -6,8 +6,8 @@
 - for blocking, threads sleep on wait channels
 - Semaphores for resource tracking
 - conditional variables when we need to wait
-- virtual memory is important 
-- page tables are fast + handle fragmenting, but extremely space inefficent
+- virtual memory is important for isolation of processes and their security
+- page tables are fast + handle fragmenting, but extremely space inefficent (since page tables could be larger than the actual amount used in the address space)
   - kernel manages MMU registers on context switches, manages page tables, handles exceptions raised (for writes/loads outside of address space), and MMU translates addresses and throws exceptions
 
 ### Intro
@@ -295,12 +295,12 @@ Executable and linking format (ELF) files
 
 50 / 50 split between user and kernel
 - user space: kuseg
-- kseg0: does not use TLB or paging for address translation
-- kseg1: does not use TLB or paging for address translation
+- kseg0: does not use TLB or paging for address translation, but is cached
+- kseg1: does not use TLB or paging for address translation, not cached since it's for device registers which are semantically volatile
 - kseg2 not used
 - exam question: based on fault address, what happened?
 
-So how does kernel do address translation?
+In OS161/MIPS, given a physical address, it could have come from 3 possible spots: kuseg, kseg0, or kseg1
 
 #### Scheduling
 Scheduling is a problem of ordering jobs based on parameters like arrival time, duration/size, priority. Simple approaches include round robin and shortest job. Pre-emption can be used so that jobs don’t have to run in one pass, they can be stopped in between. This allows for round robin with a runtime, or longest time remaining. In the context of operating systems, jobs are processes, and often processes do not have a known duration. Jobs can also be blocked when doing CPU scheduling.
