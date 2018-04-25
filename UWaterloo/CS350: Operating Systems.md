@@ -283,9 +283,19 @@ We want to try to limit page faults. This can be done by
 What is the clock replacement algorithm for cache eviction?
 Modified round robin heuristic with a skip bit. Every time a page table entry is used, set the skip bit to 1. When evicting, round robin and skip any tlb entries that have a value 1, zeroing it as it’s passed. Evict the first 0.
 
-#### Segmentation and Paging
-TLB is paging, physical memory is segmented. Looked for contiguous frames in physical memory for a segment
-
+#### Segmentation
+So far, been putting entire address space of each process in memory (with a large space between the stack and the heap).
+- dynamic relocation is not flexible for large address spaces (needs contiguous space)
+- instead of having a single offset and size register, segmentation says to have multiple, in some implementation
+- each segment is just a contiguous portion of the address space
+- canonically, we have 3 segements based on logical separation; code, stack, heap
+- then we can design it so that only USED memory ends up in physical memory (in contrast to having the entire address space allocated in physical addresses)
+- a **segmentation fault** occurs when attempting to reference an address that is not a part of any segment
+- logical segments is nice conceptually, but in practice we need an implementation that easily knows which segmenet an address belongs to (without checking if it's part of the stack vs. the heap)
+- simple approach is to use the top few bits to splice an address space into multiple segments
+  - *note these segments are visible to the user, since they're segmented based on their virtual addresses*
+- there's an implicit approach too; PC addresses are probably from the text segment, addresses based off of the stack or base pointer are the stack segment, everything else is heap
+- **segment tables** are another approach allowing more fine-grained segmentation, simple scheme for a dynamic number of segments, lookup segment number in the table to get the size and start of the segment, and perform checks and throws address exceptions accordingly
 
 #### Address Spaces
 Modern OS's use on demand leaves them on disk, and only load frames into memory the exact moment it's needed. Downside, everytime you address something that's not in RAM, you need to fetch it from disk (slow process)
