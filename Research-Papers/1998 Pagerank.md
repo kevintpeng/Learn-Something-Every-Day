@@ -1,7 +1,6 @@
 # [PageRank 1998](http://ilpubs.stanford.edu:8090/422/1/1999-66.pdf)
-#datascience
 
-An algorithm, the basis of Google, that ranks relative importance of web pages based on traffic and connectivity on the graph
+An algorithm, the basis of Google, that ranks relative importance of web pages based on traffic and connectivity on the graph. One major consideration of this study is that web pages are free from quality control and are influenced by profit seeking ventures.  
 - we represent the internet as a graph of nodes (pages) and directed edges (links)
 - forward links are known for a given page, but total number of backlinks cannot be guaranteed
 - total backlinks in a good estimator of importance in academia but not as reliable for the web
