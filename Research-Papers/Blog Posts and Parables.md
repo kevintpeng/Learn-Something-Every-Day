@@ -5,6 +5,13 @@ This is just a list of facinating or otherwise useful blogs/articles that I've r
 - giving and recieving criticism is vital for thriving in engineering, but is a fine-line between baseless complaints and assertive and constructive critque 
   - it is important to give feedback on work, while avoiding personal critique
   - it is important to receive criticism humbly
+  
+[Debugging Titles](https://engineering.riotgames.com/news/debugging-titles-part-i) introduces further insight into job titles like senior engineer.
+- describes pillars of engineering as programming, subject matter expertise, people leadership, craft leadership, product sense, delivery methods
+- interesting that they introduce a well defined system for measuring these areas, it seems to be a guideline for growth towards "senior" rather than a definition
+  - I think this system is really awesome for guiding growth, needs to be used carefully so as not to use it to compare oneself directly with others
+  - if it's not done well though, you might undervalue certain members of the team accidentially, this system has to be hollistic
+
 
 ### [Building An AI Startup](http://mattturck.com/2016/09/29/building-an-ai-startup/)
 - one perspective on important factors for building an AI startup are the 5 P's
