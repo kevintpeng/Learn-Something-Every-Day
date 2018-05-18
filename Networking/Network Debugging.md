@@ -7,7 +7,7 @@ Summarizing some of my thought process, first determine what layer the issue is 
   - `curl -v` is useful for checking HTTP response headers and body
 - **tcp udp layer 4 issues** 
   - wireshark can be very useful for catching issues here, like which requests are being sent and where
-  - `netstat` can be useful for whitebox testing to see if a machine is listening on the right port
+  - `netstat -tulpn` can be useful for whitebox testing to see if a machine is listening on the right port
 - **routing layer 3 issues** 
   - `ifconfig` is used for information about network interfaces
   - `ping` of course is an easy way to see if a hostname or address is discoverable
