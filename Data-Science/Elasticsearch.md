@@ -55,3 +55,9 @@ Relevance is the score of each document, represented by a positive float called 
   - Field-length norm, how long is the field, the longer the less likely a word in the field will be relevant
 
 [source](https://www.elastic.co/guide/en/elasticsearch/guide/current/controlling-relevance.html)
+
+### Split Brains
+Split brain is when you have multiple sub-clusters of a distributed system functioning with multiple nodes thinking that they're master.
+- in master selection, a quorum consisting of a majority of nodes must be availble and agree that the master selected is indeed the master
+- 2-node and 3-node both require 2 available nodes for master election
+- the additional node need not be a full functional node, it could be used for the purpose of tie breaking elections
