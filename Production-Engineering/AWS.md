@@ -28,7 +28,14 @@ Amazon's cloud computing platform, allows faster turn around time on ideation to
 - **ElastiCache** provides managed deployments of Memcached or Redis 
 
 #### Management Services
+- **CloudWatch** is a general monitoring service which collects metrics, log files, and sets alarms
+- **CloudFormation** is a tool for provisioning hardware, as declared through a json interface
+- **CloudTrail** is a service that tracks AWS API calls and ties them to users (API callers)
+- **AWS Config** 
 
+#### Identity Management
+- **Amazon Identity Access Management (Amazon IAM)** controls permissions for AWS
+- **Amazon KMS (key management system)**
 
 ### Deploying on Compute Services
 **Auto-scaling groups** is a collection of EC2 instances *(kinda like kubernetes controllers)*
