@@ -11,7 +11,7 @@ Amazon's cloud computing platform, allows faster turn around time on ideation to
 - **Elastic Load Balancer (ELB)** offers traffic distribution over a set of EC2 instances
 - **Elastic Beanstalk** is a full feature platform for running web applications in AWS, without needing to deal with the infrastructure
 - **Amazon Virtual Private Cloud (Amazon VPC)** allows you to provision a logically isolated section of AWS cloud, with configurable subnets and route tables
-- **Amazon Direct Connect** allows datacenters to directly connect to the VPC through a VPN which may reduce latency compared to an over-the-internet solution
+- **Amazon Direct Connect** provides a network path to connect on-premise hardware directly to the VPC through a VPN which may reduce latency compared to an over-the-internet solution
 - **Route 53** is a DNS web service allowing you to purchase and manage domains
 
 #### Storage and Content Delivery
