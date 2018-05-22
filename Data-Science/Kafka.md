@@ -1,12 +1,10 @@
 # Kafka 
-Kafka is publish-subscribe messaging system, as a replacement for a traditional message broker. Message brokers decouple processing from data producers, and provide message validation, transformation and routing.
+Kafka is publish-subscribe messaging system. Messages come from some set of producers, stored into partitions called topics. Abstractly, Kafka is a append-only log which can be read from by consumers at some offset. Design-wise, it seems like it makes use of MVC principles where the "view" is the consumers and you can connect many different views of the data.
 - can be used for website activity tracking, with real-time publish-subscribe feeds 
   - site activity (page views, searches, actions) is published to central topics, with one topic per activity type
   - feeds are available for subscription for a range of use cases, like real-time processing, monitoring, logging
 - Metrics, tracking operational data
 - Log aggregation as a stream of messages
-
-![logo](http://kafka.apache.org/images/kafka_logo.png)
 
 Publish and subscribe to streams of records, similar to a message queue, handles a firehose of data
 - lets you store streams of records 
@@ -21,10 +19,3 @@ Used for real-time streaming data pipelines that move data between systems, or r
 - Connector: 
 
 Kafka can be used to perform to "Extract" portion of an ETL pipeline, as the router
-
-### Types of architecture
-Kafka -> stream processing + algorithmic analysis -> Kafka
-
-Kafka -> Splunk
-
-Kafka -> Flume -> HDFS
