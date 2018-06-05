@@ -19,8 +19,16 @@ Amazon's cloud computing platform, allows faster turn around time on ideation to
 - **Amazon Glacier** is an *extremely* low cost storage system, optimized for infrequent access
 - **Elastic Block Storage (EBS)** offers persistent storage volumes to be mounted on EC2 instances
 - **AWS Storage Gateway** facilitates connections between on-premise applications and AWS storage infrastructure and provides a cache
+  - three configurations: gateway-cached volumes, gateway-stored volumes and gateway-virtual tape libraries
+  - gateway-cache volumes allow you to expand local storage capacity using S3 for up to 1 PB of data/gateway
+  - gateway-stored volumes allow you to back up local storage onto S3
+  - gateway virtual tape libraries are for archiving data 
 - **Amazon Cloudfront** is a CDN service
-
+  - useful for globally distributed consumers of some AWS resource, uses geo-location to route users to the closest cache
+  - not for single location users
+  - optimized to work with S3 objects and EC2 or ELB
+  - cache eviction can be forced, otherwise it depends on the TTL for objects
+  - can be used for dynamic content, with multiple origins, and can be configured for different cache behavior as needed
 #### Database Services
 - **Amazon Relational Database Service (RDS)**
 - **Amazon DynamoDB** NoSQL offering, document and key value storage
