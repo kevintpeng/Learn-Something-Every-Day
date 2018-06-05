@@ -33,6 +33,9 @@ An elasticsearch cluster is made up of nodes
 
 Writes first hit the coordinating node, route to the respective shard, where the shard uses a memory buffer and transaction log to do cached writes
 
+### X-Pack
+Part of the ELK stack ecosystem, for security, alerting, monitoring, reporting
+
 ### Elasticsearch Query DSL
 - Leaf query clauses look for a particular value in a field 
 - Compound query clauses wrap other leaf or compound queries 
