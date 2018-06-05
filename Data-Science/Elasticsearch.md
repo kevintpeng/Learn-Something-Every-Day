@@ -2,36 +2,37 @@
 - Allows real-time searching on data on large scale and analyze data. 
 - Provides a RESTful API for programs to interface on it. 
 - Elasticsearch is scalable horizontally, with the addition of multiple nodes and let's the cluster automatically take advantage of extra hardware. 
-- automatic error detection with rebalancing
 - stores data in json
 - schema free, index a JSON document and it will detect the data structure and types, create index, and make data searchable
+- built on top of Java library, Apache Lucene
+  - competing software Apache Solr is also built on Lucene
+  - elasticsearch is often used for analytical querying, filtering and grouping whereas solr excels at text search
+- uses shards, the partitioning unit for Lucene indexes
+  - elasticsearch benefits from automatic shard-rebalancing which Solr does not have (as of 2016)
+- elasticsearch is not a primary data store, it is at its core a different data structure that allows efficient lookups for certain queries
 
-### Installation
-Requires at least java 7. In console, 
-```
-java -version
-echo $JAVA_HOME
-```
+### Inverted Indexes
+**Inverted Index** is a data structure, implemented by Lucene, and is leveraged as the lowest abstraction in Elasticsearch for building up the search engine as a whole
+- maps terms to documents containing the term 
+- can use this data structure to form boolean predicate queries using AND/OR to intersect/union results
+- prefixes and suffixes are much faster to search; terms are stored in a tree allowing us to narrow a set of terms down in O(log n) time (range search algorithm probably) while arbitrary substring requires O(n) operation across all terms
+- when building the indexes, we must consider search speed, compactness and build time
 
-If not downloaded, [get the java SE Development Kit 8u91.](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+An elasticsearch index is made of up one or more shards, each of which is a wrapper over an individual lucene index made up of index segments
+- lots of layers of abstraction, each exposing a different interface to handle searches over the data
 
-Download elasticsearch.
-```
-# download to current directory
-curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.3.2/elasticsearch-2.3.2.tar.gz 
-tar -xvf elasticsearch-2.3.2.tar.gz # this extracts the download to the current directory
+### Architecture
+An elasticsearch cluster is made up of nodes
+- cluster is horizontally scalable
+- a master node orchestrates cluster-wide operations like creation/deletion of indexes and tracking nodes in the cluster
+  - any node with `node.master = true` is master-eligible, and in big clusters there are dedicated master-eligible nodes
+- data node holds the inverted index structure
+- client node is set if node.master and node.data is set to false, and acts as a load balancer to serve requests
+- ingest nodes can apply transformations before indexing documents
+- coordinator node is not a role, but it is a responsibility taken on by any node that faces clients and either serves or re-routes requests (referenced often as being just a single node, functionally the client node)
 
-# open folder, run batch file
-cd elasticsearch-2.3.2/bin
-./elasticsearch
-```
+Writes first hit the coordinating node, route to the respective shard, where the shard uses a memory buffer and transaction log to do cached writes
 
-This will pull up an elasticsearch node as the *master* in a single cluster on port `9200`.
-
-```
-# Shutdown local node
-curl -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
-```
 ### Elasticsearch Query DSL
 - Leaf query clauses look for a particular value in a field 
 - Compound query clauses wrap other leaf or compound queries 
