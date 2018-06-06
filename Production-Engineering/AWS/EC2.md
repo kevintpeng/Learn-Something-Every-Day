@@ -12,3 +12,8 @@ Compute is the amount of resources (Memory, CPU, Network Performance, Storage) r
   - provisioned IOPS SSDs allow you to specify I/O requirements and pay for what you need
   - EBS contends for some of the network throughput for an instance, and I imagine that I/O operations have significantly higher latency than on instance storage while costing more
 - Amazon EBS-optimized instances ensure additional dedicated network capacity for the EBS I/O
+
+### Scripting
+`user data` is a configurable parameter that allows execution of scripts or configuration tasks
+- two types are shell scrpits and cloud-init directives
+- cloud-init is a tool across many linux distributions for automating config and setup alongside AMIs or as a part of AMIs
