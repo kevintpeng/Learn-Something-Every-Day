@@ -45,6 +45,11 @@ Amazon's cloud computing platform, allows faster turn around time on ideation to
 - **Amazon Identity Access Management (Amazon IAM)** controls permissions for AWS
 - **Amazon KMS (key management system)**
 
+### Security
+- **AWS Directory Services** is a managed offering of Microsoft AD, Simple AD and AD connector
+  - AD uses LDAP (Lightweight Directory Access Protocol), which handles authentication and identity management
+- **Key Management Service (KMS)** 
+
 ### Deploying on Compute Services
 **Auto-scaling groups** is a collection of EC2 instances *(kinda like kubernetes controllers)*
 - provides mechanism for replication
