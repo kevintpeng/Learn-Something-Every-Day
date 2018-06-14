@@ -2,13 +2,17 @@
 Single rooted tree at `/`. Instead of separate trees (as with disk partitioning), volumes can be *mounted* on a directory. Two-disk setups used to be common, with first disk with startup programs and second mounted as `/usr`.
 
 ### `/bin`
-Contains binaries, including fundamental utilities like `ls` and `cp` used to mount `/usr`
+Contains binaries, including fundamental utilities like `ls` and `cp` used to mount `/usr`. This is loaded in the $PATH which exposes these binaries as commands from your shell.
 
 ### `/boot`
 Contains files required for booting process
 
 ### `/etc`
 System-wide configuration files and system databases.
+
+### `/dev`
+Location of special or device files. Files here can represent external devices like speakers, or data volumes.
+- contains partitions of hard drives (hd1, hd2). Representing devices as files means that we can write data to a file and it is consumed by the device, the speaker file will play sound if you write text into it.
 
 ### `/home`
 Contains user home directories. OSX useds `/Users` instead.
