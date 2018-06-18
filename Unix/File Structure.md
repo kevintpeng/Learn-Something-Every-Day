@@ -13,6 +13,9 @@ System-wide configuration files and system databases.
 ### `/dev`
 Location of special or device files. Files here can represent external devices like speakers, or data volumes.
 - contains partitions of hard drives (hd1, hd2). Representing devices as files means that we can write data to a file and it is consumed by the device, the speaker file will play sound if you write text into it.
+- `fdisk -l` shows disk devices and their partitions
+  - `sda` for example might be partitioned into `sda1`, `sda2`, etc
+- `df` shows disk space by volume on the system
 
 ### `/home`
 Contains user home directories. OSX useds `/Users` instead.
