@@ -6,6 +6,8 @@ RAID is a configuration on a system which can abstractly allows a collection of 
   - when writing with two physical drives backing a RAID 0 drive, effectively half of the data is written to one and half to the other
 - note the raid controller is the interface that handles how RAID is implemented, and can be software or hardware level
 - `/dev` in linux is a collection of files representing devices that our system has access to
+  - see [aws documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html) on device naming schemes on ec2
+  - `sda1` is for root, `sd[b-z]`, `hd[a-z]`, `xvd[a-z]` are possible names for aws mounted drives
 - `mdadm` is a linux utility that allow us to monitor and manage software RAID devices
   - `cat /proc/mdstat` shows status of all raids
   - this is the primary entry point for verifying if a raid volume is configured
