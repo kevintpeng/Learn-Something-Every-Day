@@ -17,3 +17,7 @@ Compute is the amount of resources (Memory, CPU, Network Performance, Storage) r
 `user data` is a configurable parameter that allows execution of scripts or configuration tasks
 - two types are shell scrpits and cloud-init directives
 - cloud-init is a tool across many linux distributions for automating config and setup alongside AMIs or as a part of AMIs
+
+### [Block Device Mapping](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html)
+Each system has an associated root device volume (EBS or instance store). Block device mapping allows additional EBS or instances store volumes to be attached to the system on launch.
+- a **block device** is a OS-level concept 
