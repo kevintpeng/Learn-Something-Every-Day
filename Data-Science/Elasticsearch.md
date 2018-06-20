@@ -30,6 +30,7 @@ An elasticsearch cluster is made up of nodes
 - client node is set if node.master and node.data is set to false, and acts as a load balancer to serve requests
 - ingest nodes can apply transformations before indexing documents
 - coordinator node is not a role, but it is a responsibility taken on by any node that faces clients and either serves or re-routes requests (referenced often as being just a single node, functionally the client node)
+  - coordinating-only node is the same as client node
 
 Writes first hit the coordinating node, route to the respective shard, where the shard uses a memory buffer and transaction log to do cached writes
 
