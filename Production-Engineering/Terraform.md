@@ -7,3 +7,8 @@ Infrastructure as code. Orchestration tool for building, changing, versioning in
 - **user data** is a configuration that allows shell execution after hardware is provisioned
   - useful for configurations that need to be dynamic
 - terraform provisions resources, defined in `.tf` files, from possibly multiple providers like digital ocean and aws
+
+### Provisioner
+Used to execute scripts on a local or remote machines, a part of resource creation or destruction
+- a failed provisioner caused a **tainted** resource status
+  - terraform cannot reason about what exact state a resource failed in, so it will destroy and recreate upon `terraform apply`
