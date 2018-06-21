@@ -22,5 +22,16 @@ On EC2, you can deploy to the EC2 classic network or a custom VPC.
 - **peering** connections allow traffic to flow between two VPCs
   - peering is 1-to-1 and non-transitive
   - peering must happen within the same region (US oregon for example)
-- **security groups** 
-- **access control lists (ACLs)**
+- **security groups** control inbound and outbound traffic based on protocol and port
+  - security groups are stateful, meaning responses to in/outbound traffic doesn't need to follow rules
+- **access control lists (ACLs)** are stateless firewalls for controlling in/outbound traffic for subnets
+  - subnet level security where SGs are instance level
+  - allow deny rules 
+  - rule order is short circuited
+- **NAT instances and gateways** allow instances in private subnets to have access to the internet
+  - this is because source IP of requests will be private and need to be public
+- NAT instances are AMIs that are instantiates and assigned a public IP which all requests proxied theough it will have their private IP translated to the instance's public IP
+- NAT gateways are amazon managed resources designed to operate just like a NAT instance but with builtin availability
+  - both are intended to allow outbound but not inbound requests
+- **VPGs** (virtual private gateways) is the AWS side of a VPN connection, allowing VPCs to be an extension of a data center
+- **CGW** (customer gateway) is the client side/data center side of the VPN connection, which establishes the VPN tunnel
