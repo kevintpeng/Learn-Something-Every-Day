@@ -20,3 +20,10 @@ Retrospective on one person's life and how uncontrolled ambition retracted from 
 - purpose, to define what's important to you, and tie all actions back to this purpose
 
 Do not forgo ambition, but rather be patient with ambitious goals and be cautious sacrificing the fundamentals
+
+### [Extreme Ownership](https://www.amazon.com/Extreme-Ownership-U-S-Navy-SEALs-ebook/dp/B00VE4Y0Z2)
+This book revolves around ideas pertaining to leadership and to approaching accountability and ownership. It encourages leaders to always be looking at themselves and how they can own a situation and take responsibility and learn from faults. It uses metaphors from the military to explain how as a leader or follower in society, you can best conduct yourself with a growth mindset by understanding that you should primarily look to yourself during failures to understand how you can learn from mistakes.
+
+The philosophy behind extreme ownership extends to understanding the vision behind a team and understanding how you as a leader or follower within a team can help to execute this vision by believing in it, and trusting and empathizing with leaders--above and below you--and their decisions.
+
+I think the ideas presented here are not necessarily revolutionary, but it reinforces the idea that you should own as much of your world as you can, and instead of making excuses, looking for any way you can benefit from failures of your own and others. I think the caveat to this mental framework is that it is important for your own sanity and for the growth of others to share feedback when constructive, rather than selflessly absorbing failures of the team. 
