@@ -1,7 +1,7 @@
 # Elasticsearch
-- Allows real-time searching on data on large scale and analyze data. 
-- Provides a RESTful API for programs to interface on it. 
-- Elasticsearch is scalable horizontally, with the addition of multiple nodes and let's the cluster automatically take advantage of extra hardware. 
+- Allows near real-time searching on data on large scale and analyze data.
+- Provides a RESTful API for programs to interface on it.
+- Elasticsearch is scalable horizontally, with the addition of multiple nodes and let's the cluster automatically take advantage of extra hardware.
 - stores data in json
 - schema free, index a JSON document and it will detect the data structure and types, create index, and make data searchable
 - built on top of Java library, Apache Lucene
@@ -13,7 +13,7 @@
 
 ### Inverted Indexes
 **Inverted Index** is a data structure, implemented by Lucene, and is leveraged as the lowest abstraction in Elasticsearch for building up the search engine as a whole
-- maps terms to documents containing the term 
+- maps terms to documents containing the term
 - can use this data structure to form boolean predicate queries using AND/OR to intersect/union results
 - prefixes and suffixes are much faster to search; terms are stored in a tree allowing us to narrow a set of terms down in O(log n) time (range search algorithm probably) while arbitrary substring requires O(n) operation across all terms
 - when building the indexes, we must consider search speed, compactness and build time
@@ -33,13 +33,14 @@ An elasticsearch cluster is made up of nodes
   - coordinating-only node is the same as client node
 
 Writes first hit the coordinating node, route to the respective shard, where the shard uses a memory buffer and transaction log to do cached writes
+- sharding allows elasticsearch to horizontally scale its cluster beyond the hardware limitations of a single node
 
 ### X-Pack
 Part of the ELK stack ecosystem, for security, alerting, monitoring, reporting
 
 ### Elasticsearch Query DSL
-- Leaf query clauses look for a particular value in a field 
-- Compound query clauses wrap other leaf or compound queries 
+- Leaf query clauses look for a particular value in a field
+- Compound query clauses wrap other leaf or compound queries
 - behaviour of a query clause depends on if it used in *query context* or *filter context*
 
 - **Query context** describes "How well does this document match this query clause"
@@ -56,7 +57,7 @@ Relevance is the score of each document, represented by a positive float called 
 - algorithm known as **term frequency/inverse document frequency**, TF/IDF
   - Term Frequency is how often the term appears in a field
   - Inverse document frequency, how often does each term appear in the index, more often, the less relevant
-    - common terms have lower weight 
+    - common terms have lower weight
   - Field-length norm, how long is the field, the longer the less likely a word in the field will be relevant
 
 [source](https://www.elastic.co/guide/en/elasticsearch/guide/current/controlling-relevance.html)
