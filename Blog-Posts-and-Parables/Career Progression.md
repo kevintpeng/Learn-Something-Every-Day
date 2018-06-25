@@ -20,3 +20,6 @@ Retrospective on one person's life and how uncontrolled ambition retracted from 
 - purpose, to define what's important to you, and tie all actions back to this purpose
 
 Do not forgo ambition, but rather be patient with ambitious goals and be cautious sacrificing the fundamentals
+
+### [The 5 hour rule](https://medium.com/@michaeldsimmons/bill-gates-warren-buffett-and-oprah-all-use-the-5-hour-rule-308f528b6363)
+It's the idea that many successful entrepreneurs follow, of having a set aside amount of time daily to learn and grow. This follows the previous article above nicely, in maintaining your fundamentals, one of which is learning. This is something I am strongly aligned with, as per the existence of this repository of thoughts and notes. By setting aside time every day to learn, you can ensure that stagnation will be avoided and you can see compounding effectiveness as you improve learning workflows. The article goes on further to say that others spend this 1-hour a day thinking about their mental models and perception of the world around them, while other's spend it experimenting with new ideas.
