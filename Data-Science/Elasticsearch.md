@@ -87,3 +87,9 @@ How do we configure indices to route data to the correct node?
 How do old indices get shuffled from hot to warm? How expensive is this operation?
 - by updating the routing allocation setting for the index template
 - elasticsearch handles the implementation of shuffling
+
+### Curator
+Plugin that acts on elasticsearch indices, helping to automate administrative alterations to indices
+- helps to solve how to remove data, for example when dealing with time series data with a rolling window
+- automates snapshot management
+- **aliases** allow indices to be referenced in a more predictable manor
