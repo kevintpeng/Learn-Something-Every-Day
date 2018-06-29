@@ -93,3 +93,13 @@ Plugin that acts on elasticsearch indices, helping to automate administrative al
 - helps to solve how to remove data, for example when dealing with time series data with a rolling window
 - automates snapshot management
 - **aliases** allow indices to be referenced in a more predictable manor
+- still compatible with ES 6
+
+### Elasticsearch 6
+- Sequence IDs have consensus on the sequence of operations between primary and replica shards
+- index sorting (preprocessing time vs. query time)
+- multiple mapping types per index are not supported in 6
+  - each index should now represent a single mapping type/document type
+  - indices are conceptually more like tables than databases
+- improved security through HTTPS node communication
+- <5.6 to 6.x requires a full cluster restart
