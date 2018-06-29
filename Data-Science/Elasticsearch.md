@@ -103,3 +103,4 @@ Plugin that acts on elasticsearch indices, helping to automate administrative al
   - indices are conceptually more like tables than databases
 - improved security through HTTPS node communication
 - <5.6 to 6.x requires a full cluster restart
+- ships by default with x-pack
