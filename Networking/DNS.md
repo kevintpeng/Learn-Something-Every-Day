@@ -7,7 +7,7 @@
   - these are hierarchical much like FQDNs themselves
   - authoritative name servers give answers to queries about domains under their control, and otherwise redirect requests
   - the **zone file** lives on the name server and is used to identify which IP address should be contacted
-- DNS resolution is cached client side
+- DNS primarily uses UDP because the client will know to retry with TCP if needed, and UDP is reliable enough while its simplicity is well suited for DNS
 
 ### Resolution
 1. `/etc/hosts` to see if it has that domain name locally
