@@ -22,7 +22,7 @@ Amazon's cloud computing platform, allows faster turn around time on ideation to
   - three configurations: gateway-cached volumes, gateway-stored volumes and gateway-virtual tape libraries
   - gateway-cache volumes allow you to expand local storage capacity using S3 for up to 1 PB of data/gateway
   - gateway-stored volumes allow you to back up local storage onto S3
-  - gateway virtual tape libraries are for archiving data 
+  - gateway virtual tape libraries are for archiving data
 - **Amazon Cloudfront** is a CDN service
   - useful for globally distributed consumers of some AWS resource, uses geo-location to route users to the closest cache
   - not for single location users
@@ -33,13 +33,13 @@ Amazon's cloud computing platform, allows faster turn around time on ideation to
 - **Amazon Relational Database Service (RDS)**
 - **Amazon DynamoDB** NoSQL offering, document and key value storage
 - **Redshift** is a data warehousing offering, columnar storage (like tableau) with SQL interface
-- **ElastiCache** provides managed deployments of Memcached or Redis 
+- **ElastiCache** provides managed deployments of Memcached or Redis
 
 #### Management Services
 - **CloudWatch** is a general monitoring service which collects metrics, log files, and sets alarms
 - **CloudFormation** is a tool for provisioning hardware, as declared through a json interface
 - **CloudTrail** is a service that tracks AWS API calls and ties them to users (API callers)
-- **AWS Config** 
+- **AWS Config**
 
 #### Identity Management
 - **Amazon Identity Access Management (Amazon IAM)** controls permissions for AWS
@@ -48,18 +48,18 @@ Amazon's cloud computing platform, allows faster turn around time on ideation to
 ### Security
 - **AWS Directory Services** is a managed offering of Microsoft AD, Simple AD and AD connector
   - AD uses LDAP (Lightweight Directory Access Protocol), which handles authentication and identity management
-- **Key Management Service (KMS)** 
+- **Key Management Service (KMS)**
 
 ### Deploying on Compute Services
 **Auto-scaling groups** is a collection of EC2 instances *(kinda like kubernetes controllers)*
 - provides mechanism for replication
 - provides auto-healing via http endpoints or using an ELB
 
-**Launch Configuration** is a template for ASG's to use 
+**Launch Configuration** is a template for ASG's to use
 - uses AMI (Amazon Machine Image) as snapshot to build off of
 
 **Elastic Load Balancer (ELB)** is a proxy that can be used as a network load balancer
-- can be used for health checks 
-- health checks typically used to deterimine which EC2 instance to route to
-- can be used for single endpoint health checks too, with customizable parameters 
+- can be used for health checks
+- health checks typically used to determine which EC2 instance to route to
+- can be used for single endpoint health checks too, with customizable parameters
 - ASG can rely on ELB health checks to determine when to recreate an instance
