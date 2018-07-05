@@ -9,4 +9,4 @@ There are many types of DNS record types ([source](https://en.wikipedia.org/wiki
 - **TXT**: Text Record, plain text, often used to carry data (like a basic api)
 - **PTR**: Reverse DNS record, takes IP address and returns DNS record
 
-TTY (time to live) is another field in the DNS zone file, which specifies how long a caching server should serve the record from its cache rather than from teh nameserver again.
+TTL (time to live) is another field in the DNS zone file, which specifies how long a caching server should serve the record from its cache rather than from teh nameserver again.
