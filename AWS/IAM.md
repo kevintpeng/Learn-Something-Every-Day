@@ -1,7 +1,7 @@
 # Identity and Access Management
 Services related to permissions for users, as specific as resource-level access management.
 - **principals** are any IAM entity that can either be given access or denied access to some resource or AWS service
-- **authentication** is the process of accessing a principal
+- **authentication** is the process of verifying a principal
   - supports user/pass, access key, and access key/session token
   - root users, IAM users, roles/temp tokens
 - **authorization** is the process of determining if a principal can perform some action on a resource
