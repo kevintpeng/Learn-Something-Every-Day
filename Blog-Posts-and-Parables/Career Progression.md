@@ -28,4 +28,6 @@ This book revolves around ideas pertaining to leadership and to approaching acco
 
 The philosophy behind extreme ownership extends to understanding the vision behind a team and understanding how you as a leader or follower within a team can help to execute this vision by believing in it, and trusting and empathizing with leaders--above and below you--and their decisions.
 
+The book presents other fundamentals of leadership: the importance of systematic planning processes, of consistent communication between leaders and their followers, of understanding dichotomies of leadership that require balance (confidence vs. humility, quiet vs. silent, ambitious vs. humble, attention vs. obsession to details)
+
 I think the ideas presented here are not necessarily revolutionary, but it reinforces the idea that you should own as much of your world as you can, and instead of making excuses, looking for any way you can benefit from failures of your own and others. I think the caveat to this mental framework is that it is important for your own sanity and for the growth of others to share feedback when constructive, rather than selflessly absorbing failures of the team.

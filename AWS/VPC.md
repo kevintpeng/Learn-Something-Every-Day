@@ -7,7 +7,7 @@ On EC2, you can deploy to the EC2 classic network or a custom VPC.
   - VPN's have a default one to modify
   - each subnets must be associated with a route table, defaulting to the main route table
 - **internet gateways** enable communication between instances in a VPC and the internet
-  - by pointing a subnet's route table to an attached internet gateway, 
+  - by pointing a subnet's route table to an attached internet gateway,
   - a subnet is considered public if it has a route to the internet
   - the internet gateway logically provides 1-to-1 mapping from some public IP address to the instances VPC-internal private IP address using NAT
 - **DHCP** (Dynamic Host Configuration Protocol) is a standard for passing configuration over TCP/IP networks
@@ -26,11 +26,11 @@ On EC2, you can deploy to the EC2 classic network or a custom VPC.
   - security groups are stateful, meaning responses to in/outbound traffic doesn't need to follow rules
 - **access control lists (ACLs)** are stateless firewalls for controlling in/outbound traffic for subnets
   - subnet level security where SGs are instance level
-  - allow deny rules 
+  - allow deny rules
   - rule order is short circuited
 - **NAT instances and gateways** allow instances in private subnets to have access to the internet
   - this is because source IP of requests will be private and need to be public
-- NAT instances are AMIs that are instantiates and assigned a public IP which all requests proxied theough it will have their private IP translated to the instance's public IP
+- NAT instances are AMIs that are instantiates and assigned a public IP which all requests proxied through it will have their private IP translated to the instance's public IP
 - NAT gateways are amazon managed resources designed to operate just like a NAT instance but with builtin availability
   - both are intended to allow outbound but not inbound requests
 - **VPGs** (virtual private gateways) is the AWS side of a VPN connection, allowing VPCs to be an extension of a data center

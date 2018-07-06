@@ -3,3 +3,10 @@ Pretty interesting observations about general human sentiment, in technology and
 
 ### [Short, Self Contained, Correct, Examples](http://sscce.org/)
 Sort of interesting blurb on how best to ask for help in forums like stack overflow.
+
+### [Varieties of Argumentative Experience](http://slatestarcodex.com/2018/05/08/varieties-of-argumentative-experience/)
+Articulation of what different levels of quality look like for arguments, ranging from actually refuting the central point to name-calling.
+- one framework lists this as a hierarchy, including refutation, counterargument, contradiction, responding to tone, and attacking ethos
+- another framework describes the existence of meta-debate; discussion about ethos, delivery of arguments, biases, social norms
+- interestingly, different varieties of argument can be equally effective
+- **bulverizing** is a logical fallacy where you try to prove by assuming the opponent is wrong by associating the validity of an argument with the ethos of the arguer

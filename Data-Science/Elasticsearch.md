@@ -87,3 +87,20 @@ How do we configure indices to route data to the correct node?
 How do old indices get shuffled from hot to warm? How expensive is this operation?
 - by updating the routing allocation setting for the index template
 - elasticsearch handles the implementation of shuffling
+
+### Curator
+Plugin that acts on elasticsearch indices, helping to automate administrative alterations to indices
+- helps to solve how to remove data, for example when dealing with time series data with a rolling window
+- automates snapshot management
+- **aliases** allow indices to be referenced in a more predictable manor
+- still compatible with ES 6
+
+### Elasticsearch 6
+- Sequence IDs have consensus on the sequence of operations between primary and replica shards
+- index sorting (preprocessing time vs. query time)
+- multiple mapping types per index are not supported in 6
+  - each index should now represent a single mapping type/document type
+  - indices are conceptually more like tables than databases
+- improved security through HTTPS node communication
+- <5.6 to 6.x requires a full cluster restart
+- ships by default with x-pack

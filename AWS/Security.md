@@ -7,11 +7,3 @@ One major priority of AWS is security. It uses a shared model where AWS fronts s
 
 ### Account Security
 - Passwords, MFA, Access Keys, Key Pairs
-
-### Exercises
-1?
-2A
-3C
-4A?
-5?
-6B
