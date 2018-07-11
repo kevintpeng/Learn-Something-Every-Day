@@ -5,6 +5,7 @@
 Data processing pipeline that can ingest from multiple sources and store to Elasticsearch
 - used for logs, metrics, and sometimes other use cases
 - parses and transforms data on the fly
+- can be used to filter out incoming logs
 
 ## Kibana
 Part of the elasticsearch ecosystem, by enabling visual exploration and analysis
