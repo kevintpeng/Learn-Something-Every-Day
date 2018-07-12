@@ -43,11 +43,16 @@ Plugin that acts on elasticsearch indices, helping to automate administrative al
 - still compatible with ES 6
 
 ### Elasticsearch 6
+- Search cross clusters allows "federated search" (simultaneous search over multiple resources), allowing results to be searched from multiple indices
 - Sequence IDs have consensus on the sequence of operations between primary and replica shards
+  - this allows more intelligent replay of operations in the event of failure, compared to the brute force comparison before
 - index sorting (preprocessing time vs. query time)
+  - allows you to query for leaderboard-style requests easier
+  - will group similar documents together
+- better search scalability, less contention between massive queries
+- distributed watch execution moves X-Pack watcher watches from master-only to the nodes that hold the shards of the watcher index (more scalability)
 - multiple mapping types per index are not supported in 6
   - each index should now represent a single mapping type/document type
   - indices are conceptually more like tables than databases
 - improved security through HTTPS node communication
-- <5.6 to 6.x requires a full cluster restart
 - ships by default with x-pack
