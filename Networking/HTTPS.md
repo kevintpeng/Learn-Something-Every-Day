@@ -6,8 +6,13 @@ Extra layer of encryption, using SSL/TLS
   - the public key certificate proves ownership of a public key (so that you know the server that's able to decrypt your messages is exactly who you think they are)
   - cert contains which DNS names are a part of the cert, expiry date, issuer, and of course the public key for encryption
 
+
 Looking at wikipedia, we see `Issued by: GlobalSign Organization Validation CA`
 
 The issuer in this case is an **intermediate certificate authority**
 
 The intermediate certificate authorities are owned by the **root certificate authority**. These are trusted using some other mechanism, such as secure physical distribution.
+
+This forms a **chain of trust** from a certificate chain.
+
+**P12 cert** is a file format for storing multiple cryptographic objects, or simply one private key and its associated certificate chain
