@@ -41,3 +41,7 @@ Managing and understanding one's own reactions can allow one to be more receptiv
 - know that close friends will usually act as the supportive mirror over the honest mirror
 - feelings define intentions, influencing actions which affect others and ultimately generate stories used for feedback
 - understands which stage a piece of feedback might be targeting is key to learning from it
+
+##### Switchtracking can derail feedback into an argument
+- relationship triggers (who, how, when) are impulse responses to feedback, which can result in raising relationship issues in the form of an argument
+- switchtracking is the result of a relationship trigger, where a new topic is raised which may seem related to the feedback but is actually a separate topic or piece of feedback to discuss
