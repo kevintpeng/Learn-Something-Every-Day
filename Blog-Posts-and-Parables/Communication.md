@@ -51,3 +51,4 @@ Managing and understanding one's own reactions can allow one to be more receptiv
 - which combination of feedback recovery we are can determine our natural comfort level with feedback
   - short recovery from negative + long lasting positive = low risk, high reward; love feedback
   - long negative + long positive = high risk high reward
+- being able to spot patterns in our reactions can help us mentally prepare for and catch situations where we might have otherwise negatively reacted
