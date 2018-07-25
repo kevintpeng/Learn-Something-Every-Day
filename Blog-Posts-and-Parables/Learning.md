@@ -39,9 +39,21 @@ It's the idea that many successful entrepreneurs follow, of having a set aside a
 ### [The way you read books is important](https://medium.com/the-mission/the-way-you-read-books-says-a-lot-about-your-intelligence-find-out-why-c2127b00eb03)
 This article articulated some important concepts around how to tackle books in digestible and reasonable ways. The biggest takeaway for me is to not approaching books with a completionist mindset, and instead optimize for value (non-fiction material). I think people get hung up with hearing statistics about billionaires finishing a book a day or something in that vein. What really matters is extracting value out of reading material in an effective way. It highlights that having a reading backlog of unread books is a strong habit for ensuring that the books you do end up consuming are higher quality and more impactful. It keeps you humble, knowing how little you know about the world. **Reading books like magazines** can be a helpful idea for skimming books for value. Treat books like experiments, in hopes of finding life-changing and inspirational ideas.
 
-### [Deep Work and Flow](https://www.robinwieruch.de/lessons-learned-deep-work-flow/)
+### [Deep Work implies Flow](https://www.robinwieruch.de/lessons-learned-deep-work-flow/)
 This is a really interesting article that ties together ideas from two books.
 
 **Deep Work** pushes your cognitive capabilities to the limit, creating new value and improving skills. Often requires a distraction free context.
+- willpower is a muscle that gets tired, routines help to reduce wasted willpower
+- dramatically reduce your shallow obligations, and make yourself hard to reach
+- schedule time to complete tasks, and timebox everything for measurable results
+- prepare all support you will need during a deep working session (drinks, charged laptop, etc)
+- making an investment like traveling to a coffee shop or library increases the perceived importance of the task
 
 **Flow** is a state of mind where time becomes irrelevant and intentional focus leads to active enjoyment (different from passive pleasure). I think about riding roller coasters or enjoying a good dinner. Deep work can induce a state of flow.
+- for flow, you need to be conscious of your own goals, and be conscious of your perception of the environment around you
+- intentions arise when one is consciously aware of desire
+- when you gain more control of consciousness (through understanding your perception of the world), you can direct your intentions to achieve goals more effectively
+- attention controls the perceived importance of information which can be deprived through multi-tasking
+- attention is a currency, intention is strategy, your self can be though of as all experiences and goals achieved through spending attention, while intention influences goals
+- disorder in life--external events inducing negative emotions, or any information that conflicts with our goals--can consume attention
+- continuous order in your consciousness where you control your attention and intentions, flow can be achieved
