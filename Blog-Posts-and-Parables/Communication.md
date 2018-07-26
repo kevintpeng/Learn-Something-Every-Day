@@ -52,3 +52,9 @@ Managing and understanding one's own reactions can allow one to be more receptiv
   - short recovery from negative + long lasting positive = low risk, high reward; love feedback
   - long negative + long positive = high risk high reward
 - being able to spot patterns in our reactions can help us mentally prepare for and catch situations where we might have otherwise negatively reacted
+
+#### Labels and self-perception of identity
+- often we hook onto labels as our sense of self-identity; I definitely do
+  - "loyal", "motivated", "fair", "smart" are some strong binary labels that are thrown around a lot
+- recognizing that you are not all-in on a label in your own mind is important to cultivating a growth mindset, rather than a fixed mindset, where you are open to learning, to accepting that there are areas for improvements under a label
+- feedback that contradicts our picture of ourself, in the context of shallow labels, can feel like an attack on our own identity
