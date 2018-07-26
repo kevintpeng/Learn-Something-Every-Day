@@ -45,3 +45,10 @@ Managing and understanding one's own reactions can allow one to be more receptiv
 ##### Switchtracking can derail feedback into an argument
 - relationship triggers (who, how, when) are impulse responses to feedback, which can result in raising relationship issues in the form of an argument
 - switchtracking is the result of a relationship trigger, where a new topic is raised which may seem related to the feedback but is actually a separate topic or piece of feedback to discuss
+
+#### knowing how feedback naturally affects our happiness can help to identify spiraling situations
+- baseline level of happiness can shift based on positive vs negative feedback, but eventually will return to the baseline
+- which combination of feedback recovery we are can determine our natural comfort level with feedback
+  - short recovery from negative + long lasting positive = low risk, high reward; love feedback
+  - long negative + long positive = high risk high reward
+- being able to spot patterns in our reactions can help us mentally prepare for and catch situations where we might have otherwise negatively reacted
