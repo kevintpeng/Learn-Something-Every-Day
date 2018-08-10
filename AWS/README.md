@@ -24,10 +24,11 @@ Amazon's cloud computing platform, allows faster turn around time on ideation to
   - gateway-stored volumes allow you to back up local storage onto S3
   - gateway virtual tape libraries are for archiving data
 - **Amazon Cloudfront** is a CDN service
-  - useful for globally distributed consumers of some AWS resource, uses geo-location to route users to the closest cache
+  - useful for globally distributed consumers of some AWS resource, uses geo-location to route users to the closest cache; edge location
+  - cache eviction can be forced, otherwise it depends on the TTL for objects
+    - caches can be configured to invalidate certain old records (based on Time To Live), but asset versioning at the API level is best practice
   - not for single location users
   - optimized to work with S3 objects and EC2 or ELB
-  - cache eviction can be forced, otherwise it depends on the TTL for objects
   - can be used for dynamic content, with multiple origins, and can be configured for different cache behavior as needed
 #### Database Services
 - **Amazon Relational Database Service (RDS)**
