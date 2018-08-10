@@ -29,12 +29,6 @@ Writes first hit the coordinating node, route to the respective shard, where the
 ### X-Pack
 Part of the ELK stack ecosystem, for security, alerting, monitoring, reporting
 
-### Split Brains
-Split brain is when you have multiple sub-clusters of a distributed system functioning with multiple nodes thinking that they're master.
-- in master selection, a quorum consisting of a majority of nodes must be available and agree that the master selected is indeed the master
-- 2-node and 3-node both require 2 available nodes for master election
-- the additional node need not be a full functional node, it could be used for the purpose of tie breaking elections
-
 ### Curator
 Plugin that acts on elasticsearch indices, helping to automate administrative alterations to indices
 - helps to solve how to remove data, for example when dealing with time series data with a rolling window
