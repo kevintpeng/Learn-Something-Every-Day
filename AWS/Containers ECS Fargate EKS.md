@@ -1,7 +1,8 @@
 # Containers
-### ECS (Elastic Container Service)
-Let's you run, stop and manage docker containers on a serverless infrastructure managed by AWS
-- **ECR (Elastic Container Registry** manages custom docker images
+### ECS (EC2 Container Service)
+Let's you run, stop and manage docker containers on a managed cluster of EC2 instances
+- **ECR (EC2 Container Registry** manages custom docker images
+  - provides IAM resource-level control
 - still responsible for the availability, capacity and maintenance of the underlying infrastructure
   - spin up EC2 instances and run tasks on top
 - ECS task definition includes the image, cpu and memory requirements, launch type (infrastructure)
