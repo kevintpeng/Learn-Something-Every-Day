@@ -30,21 +30,36 @@ Amazon's cloud computing platform, allows faster turn around time on ideation to
   - not for single location users
   - optimized to work with S3 objects and EC2 or ELB
   - can be used for dynamic content, with multiple origins, and can be configured for different cache behavior as needed
+- **AWS Direct Connect** establishes a direct private connection between a datacenter and AWS, without going over the internet
+
 #### Database Services
 - **Amazon Relational Database Service (RDS)**
 - **Amazon DynamoDB** NoSQL offering, document and key value storage
 - **Redshift** is a data warehousing offering, columnar storage (like tableau) with SQL interface
 - [**ElastiCache**](./ElastiCache.md) provides managed deployments of Memcached or Redis
 
+#### Data Services
+- **Amazon Kinesis Analytics** consumes and processes stream data with SQL
+- **Amazon Kinesis Stream** is made up of shards, each of which can consume up to 1000 PUTS/s and scales linearly
+  - manually provisioned capacity
+  - data is loaded using HTTPS, Kinesis Client Library, Kinesis Producer Library and the Kinesis Agent
+  - by default, available in a stream for 24 hours, configurable up to 7 days
+- **Amazon Kinesis Firehose** captures and loads streaming data into S3 and Redshift
+  - automatically meets load demands
+
 #### Management Services
 - **CloudWatch** is a general monitoring service which collects metrics, log files, and sets alarms
 - **CloudFormation** is a tool for provisioning hardware, as declared through a json interface
 - **CloudTrail** is a service that tracks AWS API calls and ties them to users (API callers)
-- **AWS Config**
+- **AWS Config** is useful for compliance and asserting that configurations are in place to meet regulations (as defined by config rules)
+- **AWS Trusted Advisor** automatically makes recommendations on cost, security, and performance on your whole AWS environment
+- **EC2 Systems Manager** is for applying OS patches, OS configurations and running commands across many machines
+- **Amazon Inspector** looks at EC2 instances for common issues and security vulnerabilities
 
 #### [Identity Management](./IAM.md)
 - **Amazon Identity Access Management (Amazon IAM)** controls permissions for AWS
-- **Amazon KMS (key management system)**
+  - **Amazon KMS (key management system)** can create and manage keys
+  - can rotate keys
 
 ### [Security](./Security.md)
 - **AWS Directory Services** is a managed offering of Microsoft AD, Simple AD and AD connector
