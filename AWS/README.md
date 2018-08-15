@@ -17,7 +17,7 @@ Amazon's cloud computing platform, allows faster turn around time on ideation to
 #### Storage and Content Delivery
 - [**Amazon Simple Storage Service (S3)**](./S3.md) is a cost effective object storage system
 - **Amazon Glacier** is an *extremely* low cost storage system, optimized for infrequent access
-- **Elastic Block Storage (EBS)** offers persistent storage volumes to be mounted on EC2 instances
+- [**Elastic Block Storage (EBS)**](./EBS.md) offers persistent storage volumes to be mounted on EC2 instances
 - **AWS Storage Gateway** facilitates connections between on-premise applications and AWS storage infrastructure and provides a cache
   - three configurations: gateway-cached volumes, gateway-stored volumes and gateway-virtual tape libraries
   - gateway-cache volumes allow you to expand local storage capacity using S3 for up to 1 PB of data/gateway
