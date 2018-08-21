@@ -37,3 +37,6 @@ I think the ideas presented here are not necessarily revolutionary, but it reinf
 - this articles proposes and systematic approach to ramping up, while aiming to minimize collateral damage from disrespecting other peoples' time
 - the method: 30 min 1:1, 25 mins for asking what's important to learn, 3 mins for understanding the biggest challenges, 2 mins for who else to talk to
 - over indexes on knowledge for the current state of the team, which helps to jump in immediately, understanding all necessary terminology as a result
+
+### [Performance](https://medium.com/cto-craft/the-hard-truth-about-performance-a-guide-for-ctos-d0481213d388)
+Career growth is important for self-worth, confidence, and satisfaction. It's important in any role to set goals for yourself and ensure that whatever role you take on helps you reach those goals. It's also important to define expectations with those who evaluate you. In performance reviews, think about progress (past), plan (future) and blockers (current), and make a professional development plan for yourself to track progress and goals.
