@@ -13,3 +13,6 @@ See [DNS Overview notes](../Networking/DNS.md) first.
   - latency-based
   - failover
   - geolocation
+
+### Alias records
+These are cool, they function similar to CNAME in that they can be used to point from FQDN to another. Typically, this adds one extra resolution step for the client, but for Alias records, any FQDN within AWS can point to another in AWS, and the resolution steps will be taken server-side, reducing the number of resolution steps needed.
