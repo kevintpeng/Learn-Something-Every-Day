@@ -24,6 +24,7 @@ IPv4, IPv6, ICMP.
 
 ### 2 Data Link
 Ethernet protocol, WiFi protocol, amongst others. Each frame wraps informations around each data payload. This layer's responsibility is making a connection and ensuring error free transfer
+- ARP is a protocol for discovering MAC address associated with an IPv4 address (or other layer 3 address)
 
 ### 1 Physical
 Bits over cables. Electrical specs.
