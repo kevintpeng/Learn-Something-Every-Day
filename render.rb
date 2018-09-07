@@ -52,7 +52,7 @@ class Converter
     title = page.css("h1").first
     if title && head
       head.add_child(Nokogiri::HTML.fragment(
-        <<~HTML
+        <<-HTML
           <title>#{title.text}</title>
         HTML
       ))
@@ -75,7 +75,7 @@ class Converter
       title.add_next_sibling(toc) if sublist
 
       title.add_next_sibling(Nokogiri::HTML.fragment(
-        <<~HTML
+        <<-HTML
           <a href="index.html">Back to #{title_for_path(File.dirname(path))}</a>
         HTML
       ))
