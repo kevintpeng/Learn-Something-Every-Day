@@ -1,0 +1,4 @@
+*.deb
+vendor
+.bundle
+Gemfile.lock
