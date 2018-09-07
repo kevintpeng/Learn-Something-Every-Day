@@ -1,18 +1,12 @@
-checkout:
-  post:
-    - git submodule sync
-    - git submodule update --init --recursive --remote # use submodules
-    - cd .diatex && bundle install --without test
-    - gem install htmlbeautifier
-    - sudo apt-get --no-install-recommends install graphviz
-    - sudo apt-get --no-install-recommends install texlive-latex-base
-    - sudo apt-get --no-install-recommends install dvipng
-
+dependencies:
+  pre:
+    - wget https://github.com/jgm/pandoc/releases/download/1.19.1/pandoc-1.19.1-1-amd64.deb
+    - sudo dpkg -i pandoc-1.19.1-1-amd64.deb
+deployment:
+  source:
+    branch: develop
+    commands:
+      - ./deploy.sh
 test:
   override:
-    - BUNDLE_GEMFILE=.diatex/Gemfile bundle exec ruby ./diatex/diatex ./
-    - git config --global user.email "kevin@kpeng.ca" && git config --global user.name "Kevin Peng"
-    - git status
-    - git add --all .
-    - git commit -m "Convert latex and diagram for '$(git log -1 --pretty=%B)' [ci skip]" || true
-    - git push origin master || true
+    - ./build.sh
