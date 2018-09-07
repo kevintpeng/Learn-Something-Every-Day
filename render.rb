@@ -4,9 +4,9 @@ class Converter
   require 'pandoc-ruby'
   require 'nokogiri'
 
-  @@footer = <<~HTML
+  @@footer = <<-HTML
     <div id="footer">
-      Notes by <a href="http://www.davepagurek.com">Dave Pagurek</a>. Contribute <a href="https://github.com/davepagurek/SE-Notes">on GitHub</a>.
+      Notes by <a href="github.com/kevintpeng">Kevin Peng</a>. 
     </div>
   HTML
 
@@ -88,7 +88,7 @@ class Converter
     output_path = File.join(path, "index.html")
     File.write(
       output_path,
-      <<~HTML
+      <<-HTML
         <html>
         <head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
