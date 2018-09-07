@@ -1,22 +1,26 @@
 ![debugging](https://qph.ec.quoracdn.net/main-qimg-b09edd5890452b228cd0e36f6f552268)
 
+**`PATH`** determines what binaries are known, colon delimited defining the order of looking for commands
+
+`Shims` are executables that can intercept commands and change arguments, handle the operation, or redirect the operation
+
 ### curl
-Tool for transfering data from or onto a server, can use almost all protocols
+Tool for transferring data from or onto a server, can use almost all protocols
 
 ### nc
 Netcat is a computer networking utility for reading and writing to network connections using TCP or UDP
-- used as a dependable backend 
+- used as a dependable backend
 - `nc -l 9292` opens a port at 9292
 
 ### ssh
 For logging into remote machines. `ssh hostname`
-- connects and logs into the specified *hostname* 
+- connects and logs into the specified *hostname*
 
 ### man
 Manual pages for any command line tool. `man some-command` pulls up help info about a command.
 
 ### `touch a b c`
-Creates or updates last write date of files a,b and c.
+Creates or updates last write date of files a, b and c.
 
 ### echo
 Echo is a print cmd to standard output. Takes arguments and prints them delimited by spaces. alternatively, can take a literal string using quotes.

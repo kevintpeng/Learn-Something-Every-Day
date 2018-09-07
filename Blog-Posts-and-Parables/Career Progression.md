@@ -31,3 +31,12 @@ The philosophy behind extreme ownership extends to understanding the vision behi
 The book presents other fundamentals of leadership: the importance of systematic planning processes, of consistent communication between leaders and their followers, of understanding dichotomies of leadership that require balance (confidence vs. humility, quiet vs. silent, ambitious vs. humble, attention vs. obsession to details)
 
 I think the ideas presented here are not necessarily revolutionary, but it reinforces the idea that you should own as much of your world as you can, and instead of making excuses, looking for any way you can benefit from failures of your own and others. I think the caveat to this mental framework is that it is important for your own sanity and for the growth of others to share feedback when constructive, rather than selflessly absorbing failures of the team.
+
+### [On Joining New Teams](http://boz.com/articles/career-cold-start.html)
+- people tend to focus on high, early impact which can ultimately cloud long term growth and cultivate negative working relationships early
+- this articles proposes and systematic approach to ramping up, while aiming to minimize collateral damage from disrespecting other peoples' time
+- the method: 30 min 1:1, 25 mins for asking what's important to learn, 3 mins for understanding the biggest challenges, 2 mins for who else to talk to
+- over indexes on knowledge for the current state of the team, which helps to jump in immediately, understanding all necessary terminology as a result
+
+### [Performance](https://medium.com/cto-craft/the-hard-truth-about-performance-a-guide-for-ctos-d0481213d388)
+Career growth is important for self-worth, confidence, and satisfaction. It's important in any role to set goals for yourself and ensure that whatever role you take on helps you reach those goals. It's also important to define expectations with those who evaluate you. In performance reviews, think about progress (past), plan (future) and blockers (current), and make a professional development plan for yourself to track progress and goals.

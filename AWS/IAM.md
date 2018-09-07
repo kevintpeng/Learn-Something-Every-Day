@@ -10,6 +10,9 @@ Services related to permissions for users, as specific as resource-level access 
   - conditionals can describe parameters that must be true for the policy to hold for a given principal
   - the three parameters together form an **Amazon Resource Name** (ARN)
   - managed policies can apply to multiple users and groups, while user policies grant one-off authorization for some single principal
+- many services require you to **pass** a role to the service, allowing the service to assume the role's permissions
+  - user must have permission to pass a role to the service
 - **MFA** provides an extra layer of security
 - IAM allows two access keys per principal, to allow **key rotations**
 - Policy overlap is resolved by prioritizing denies over allows, and defaulting to deny
+- **AWS Security Token Service** enables temporary, limited-privilege credentials for IAM users
