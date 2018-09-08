@@ -13,11 +13,11 @@ Graphs are the most pervasive abstraction in CS. They model networks of transpor
 
 ### Classifications
 ##### Cliques
-A graph on n vertices where every pair of vertices is connected is called an *n-clique*, denoted by Kn. Kn = (V, E) where V = {1, 2, ..., n} and E = {{i,j}: 1 ≤ i ≤ j ≤ n}. The number of edges in Kn is nC2 (number of two vertex combinations).
+A graph on n vertices where every pair of vertices is connected is called an *n-clique*, denoted by Kn. Kn = (V, E) where V = {1, 2, ..., n} and E = { {i,j}: 1 ≤ i ≤ j ≤ n}. The number of edges in Kn is nC2 (number of two vertex combinations).
 ##### Paths
-Two endpoints with one linear path connecting all vertices. A path on n vertices, denoted by Pn, is the graph Pn = (V, E) where V={1,2...,n} and E = {{i,i+1}: 1 ≤ i ≤ n-1 }. The total number of edges is n-1.
+Two endpoints with one linear path connecting all vertices. A path on n vertices, denoted by Pn, is the graph Pn = (V, E) where V={1,2...,n} and E = { {i,i+1}: 1 ≤ i ≤ n-1 }. The total number of edges is n-1.
 ##### Cycles
-A path with connected endpoints. A cycle on n ≥ 3 vertices the graph Cn = (V, E) where V = {1, 2, ..., n} and E = {{i,i+1}: 1 ≤ i ≤ n-1} ∪ {{1,n}}. The number of edges in Cn is n.
+A path with connected endpoints. A cycle on n ≥ 3 vertices the graph Cn = (V, E) where V = {1, 2, ..., n} and E = { {i,i+1}: 1 ≤ i ≤ n-1} ∪ { {1,n}}. The number of edges in Cn is n.
 
 ### Important Concepts
 ##### Graph isomorphism
@@ -51,7 +51,7 @@ A diameter d of a graph is the maximum eccentricity of any vertex. Algorithm to 
 
 ### Subgraphs and Connectivity
 - A graph G' = (V', E') is a subgraph of G iff V' is a subset of V and E' is a subset of E.
-- A graph G' = (V', E') is an induced subgraph of G iff V' is a subset of V and E' = {{u,v} in E: u,v in V'}
+- A graph G' = (V', E') is an induced subgraph of G iff V' is a subset of V and E' = { {u,v} in E: u,v in V'}
   - subset of vertices, different edges
 
 ## Kinds of Graphs
@@ -95,11 +95,11 @@ Proof by induction on number of vertices. For one vertex, one colour is needed. 
 ### Bipartite graphs and matchings
 A bipartite graph can be partitioned into two parts s.t. edges of the graph only go between the two parts, but not inside a part (think domain to codomain or red-black tree).
 
-A graph G is said to be **bipartite** iff there exists U ⊆ V s.t. `E ⊆ {{u,u'}:u in U and u' in V \ U}`
+A graph G is said to be **bipartite** iff there exists U ⊆ V s.t. `E ⊆ { {u,u'}:u in U and u' in V \ U}`
 
 The sets U and V \ U are called the **classes** of G.
 
-A **complete bipartite** graph Km,n is a graph with ALL possible edges between the two classes. `Km,n = (V,E) s.t V={1,2,...,m+n} and E={{i,j}: 1 ≤ i ≤ m, m+1 ≤ j ≤ m+n}`
+A **complete bipartite** graph Km,n is a graph with ALL possible edges between the two classes. `Km,n = (V,E) s.t V={1,2,...,m+n} and E={ {i,j}: 1 ≤ i ≤ m, m+1 ≤ j ≤ m+n}`
 
 Another way to state the definition is a bipartite graph is 2-colourable.
 
