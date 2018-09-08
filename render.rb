@@ -95,7 +95,7 @@ class Converter
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
           <meta http-equiv="Content-Style-Type" content="text/css">
           <meta name="generator" content="pandoc">
-          <title>#{title_for_path(path)} - Dave's SE Notes</title>
+          <title>#{title_for_path(path)} - Kevin Peng Learn Something Every Day</title>
           <style type="text/css">code{white-space: pre;}</style>
           <link rel="stylesheet" href="/Learn-Something-Every-Day/style.css" type="text/css">
         </head>
@@ -110,7 +110,7 @@ class Converter
           }
           <ul>
           #{
-            Dir.entries(path).select{|f| File.directory?(f) && !f.start_with?(".") && !f.include?("vendor")}.map{|f|
+            Dir.entries(path).select{|f| File.directory?(File.join(path, f)) && !f.start_with?(".") && !f.include?("vendor")}.map{|f|
             "<li><a href='#{f}/index.html'>#{f}</a></li>"
             }.join("\n")
           }
