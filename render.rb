@@ -35,7 +35,7 @@ class Converter
           :table_of_contents,
           :mathjax,
           tab_stop: 2,
-          css: "/SE-Notes/style.css"
+          css: "/Learn-Something-Every-Day/style.css"
         )
     )
     process_page!(page, path)
@@ -97,7 +97,7 @@ class Converter
           <meta name="generator" content="pandoc">
           <title>#{title_for_path(path)} - Dave's SE Notes</title>
           <style type="text/css">code{white-space: pre;}</style>
-          <link rel="stylesheet" href="/SE-Notes/style.css" type="text/css">
+          <link rel="stylesheet" href="/Learn-Something-Every-Day/style.css" type="text/css">
         </head>
         <body>
           <h1>#{title_for_path(path)}</h1>
