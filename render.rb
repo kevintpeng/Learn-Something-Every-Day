@@ -97,7 +97,7 @@ class Converter
           <meta name="generator" content="pandoc">
           <title>#{title_for_path(path)} - Kevin Peng Learn Something Every Day</title>
           <style type="text/css">code{white-space: pre;}</style>
-          <link rel="stylesheet" href=/style.css" type="text/css">
+          <link rel="stylesheet" href="/style.css" type="text/css">
         </head>
         <body>
           <h1>#{title_for_path(path)}</h1>
