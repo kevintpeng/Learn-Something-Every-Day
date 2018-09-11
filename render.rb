@@ -35,7 +35,7 @@ class Converter
           :table_of_contents,
           :mathjax,
           tab_stop: 2,
-          css: "/Learn-Something-Every-Day/style.css"
+          css: "/style.css"
         )
     )
     process_page!(page, path)
