@@ -128,7 +128,7 @@ class Converter
   end
 
   def title_for_path(path)
-    return "All Topics" if path == "./."
+    return "Learn Something Every Day" if path == "./."
 
     match = /^(\.\/)?(.+?)(\/.)?$/.match(path)
     return match[2]
