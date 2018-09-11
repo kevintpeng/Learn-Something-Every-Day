@@ -1,13 +1,13 @@
 # Digital Computers
-# Summary
-### Assembly and Data
+## Summary
+#### Assembly and Data
 - We learned ARM, and general RISC and CISC programming 
 - Big endian describes a way to order bytes of a word, where the the word reads left to right, and is the correct value of the 32-bit integer representation
 - Little endian reverses the byte order, but bits in each byte remain the same
 - there are many addressing modes describing ways to manipulate instruction operands
   - immediate, absolute, register, indirect, index, base with index, pc-relative, pre-index, pre-index with writeback, post-index
 
-### Input/Output
+#### Input/Output
 - memory mapped I/O maps inputs and outputs to addresses
 - I/O devices on a bus each have an interface, with status bits like KIN, DOUT for signaling readiness 
 - for interupt during instruction `i`, finish `i`, set IE bit to 0 in Processor Status, PC <- start of ISR, run ISR, PC <- i + 4, set IE = 1, resume program
@@ -33,7 +33,7 @@
 - by eliminating the need to arbitrate between USB devices, using only polling, USB hubs can be easily manufactured and chained
 - the PCI bus has SATA, Ethernet, USB hub
 
-### Memory System
+#### Memory System
 - memory is stored in arrays of cells that hold an on off value (1 bit, stored in a transistor or capacitor)
 - asynchronous DRAM chip uses row and column addresses to access bytes, asserted by the RAS/CAS signals from the external memory controller
 - fast page mode enables quick sequential burst reads (removes address stablization overhead)
@@ -44,7 +44,7 @@
 - complex SDRAMs need an interface, which converts regular bus lines to the necessary signals (RAS, CAS, Chip Select)
 - Chip select signal is important for selecting specific DRAM chips within a larger array of DRAM chips
 
-### Caches
+#### Caches
 - caches sit in front of main memory and only take one clock cycle to respond with data
 - addresses are broken down, word is rightmost always and determines what byte from a block of memory it refers to
   - the block portion (not used in fully associative) decides which block to fill
@@ -59,7 +59,7 @@
   - it is added so that we do not have to write-through to memory for each write
 - write allocate (rather than no write allocate) says that we write-through to memory without caching the value
 
-### Virtual Memory
+#### Virtual Memory
 - Virtual memory is an abstraction for a 32 bit address space, where we don't have enough physical memory to fill the address space
 - think of main memory (implemented by RAM) as a cache in front of disk drives 
 - The Memory Management Unit (MMU) holds information for handling the conversion of virtual addresses to physical ones
@@ -71,7 +71,7 @@
 - Virtual memory read takes two main memory reads (one for table and one for actual page access)
 - Translation Lookaside Buffer (TLB) acts as a cache in front of the page table to reduce the number of page table reads, and uses LRU for cache algorithm 
 
-### Processors 
+#### Processors 
 - we use a 5 step processor: fetch, decode, execute, memory, writeback
 - the hardware depends on 6 components: register file, ALU, processor-memory interface, instruction address generator (with PC), Instruction Register, Control Circuitry
 - processor-memory interface uses MFC (memory finished) to signal to the processor that the memory operation is complete
@@ -98,9 +98,9 @@
 - booth encoding can reduce the number of addition operations, especially for numbers with lots of sequential 1s (small numbers in signed encoding)
 - conversion uses the following table: at each position `i` in a binary number, 00 = 0, 01 = +1, 10 = -1, 11 = 0  
 
-# Notes
-# Part 3: ISA & Addressing Modes
-### Intro to Addressing
+## Notes
+## Part 3: ISA & Addressing Modes
+#### Intro to Addressing
 - binary prefixes, 2^10 kibi, 2^20 mebi, 2^30 gibi ...
 - memory systems do not address single bits, they have an address space, range of addresses
 - byte addressable systems refer to bytes or a word for instructions
@@ -111,14 +111,14 @@
   - **little-endian** is opposite (like how numbers are read)
 - word alignment structures words 4 addresses apart
 
-### Instruction Sets
+#### Instruction Sets
 - computer must have instructions capable of performing data transfers, arithmetic, sequence control, I/O
 - an Instruction-set architecture (ISA) defines set of opcodes and native commands by a processor (ARM, x86, MIPS, SPARC, RISC-V)
 - RISC ISA, each instruction fits in a word and memory operands are accessed only using load and store instructions
   - all operands for arithmetic and logical operations must be in processor registers
 - CISC ISA has variable length for instructions, many instructions can access memory direction using memory addresses
 
-### Representative Notations
+#### Representative Notations
 - **Register Transfer Notation** is a way of expressing semantics of instructions as data transfers
   - memory locations are symbolic names like `LOC1`
   - Registers are identified by register names `R0`
@@ -133,7 +133,7 @@
   - `Branch_if_[R2]>0 LOOP` = `If(T1>0) where T <- [R2] then PC<-LOOP` used for looping until conditional
   - `Clear` = `R2 <- 0`
 
-### Addressing Modes
+#### Addressing Modes
 - addressing modes are different ways to specify the location of instruction's operand
 - *effective address* is the location of an operand, which differs based on the addressing mode
 - Immediate `#Value`, Operand = Value
@@ -149,7 +149,7 @@
   - decrementing is similar, but it decrements prior to the register being read
   - both are useful for dealing with stacks a queues
 
-### Stacks
+#### Stacks
 - resides in main memory, top of stack is the lowest memory address, pointed to by the special CPU register called the stack pointer
 - Push is `Subtract SP, SP, #4; Store R2, (SP)`, Pop is `Load R1, (SP); Add SP, SP, #4;`
 - Subroutines are blocks of instructions that are executed repeatedly for modularization
@@ -163,15 +163,15 @@
   - stack frame consists of all items pushed onto the stack before or during the subroutine, including parameters and return address before and frame pointer, local variables and register values modified during the subroutine
   - the frame pointer indicates start of new stack frame where parameters are stored at `n(FP)` and local vars at `-n(FP)`, where n is a multiple of 4
 
-# Part 4: ARM
-### ARM ISA Characteristics
+## Part 4: ARM
+#### ARM ISA Characteristics
 - Advanced RISC Machine is most common
 - RISC has fixed length instructions, load and store instructions access memory, arithmetic/logic instructions operate only on registers
   - requires less transistors than CISC processors in personal computers
 - has 16 registers, 15 general purpose and 1 program counter at R15
 - CPSR (Current program status register) holds N-Negative, Z-Zero, C-Carry, V-Overflow, (conditional codes, all are set when event occurs else cleared) interupt disable, 5 status registers
 
-#### Addressing Modes
+##### Addressing Modes
 - all addressing modes are derivatives of indexing addressing mode, where effective address is the sum of [Rn, #offset]
   - PC-relative: `LDR Rd, Item` is semantically `Rd <- [[PC] + Item]`
     - for ARM, processors are pipelined, by the time the load is executed, the next instruction has already been fetched so `[PC] = PC+8` pointing two instructions ahead of load 
@@ -180,12 +180,12 @@
     - can be used for easier iteration through sequential memory
   - post-index: `LDR Rd, [Rn], #offset` is semantically `Rd <- [[Rn]]; Rn <- [Rn] + offset`; increments index after loading
 
-#### Memory Operations
+##### Memory Operations
 - when loading with fewer than 32 bits, zero extensions are used to fill the rest of the word with 0s, signed extension fills with the most significant bit loaded into remaining bits
 - Regular: LDR/STR for words, H suffix (LDRH) for half words (zero extended), B suffix for bytes (zero), SB/SH for sign extended versions
 - Multiple word load/store: `LDMIA R10!, {R0, R1, R6, R7)`, IA is opcode for increment after, R10 holds the memory location to start loading from, and loads words sequentially into specified registers. IA makes R10 hold [R10] + 4*n for n registers
 
-#### Instructions
+##### Instructions
 All instructions can take registers or literals 
 - `ADD R0, R2, R4`: R0 <- [R2] + [R4]
 - `SUB R0, R3, #17`: R0 <- [R3] - 17
@@ -200,7 +200,7 @@ All instructions can take registers or literals
   - conditional suffixes can be attached to other instructions too, executing based on CPSR flags (N,Z,V,C)
   - `CMP R0, R1; MOVLT R0, R1`: R0 <- R1 if R0 < R1
 
-#### Assembler
+##### Assembler
 Assembler converts source program to an object program in machine language
 - `label operation operand(s) comment`
 - operations can either be mnemonics, labels and names are in a symbol table
@@ -228,7 +228,7 @@ Assembler converts source program to an object program in machine language
   - each module is assembled relative to location 0, then linker adds appropriate offset once code location is determined for each module
   - relative addressing and some instructions are position independent, while referencing external labels are position dependent
   
-### Conditional
+#### Conditional
 ARM - conditionals
 - ROR ROL by four
 - must use STR and LDR for memory
@@ -238,7 +238,7 @@ ARM - conditionals
 - assemble each module as if starts from 0
 - linker adds appropriate offsets in memory
  
-# Part 5: Basic IO 
+## Part 5: Basic IO 
 A system bus is an example of an interconnection network, joining I/O devices, memory devices and CPU
 - memory mapped I/O treats I/O devices as part of the address space 
   - allows us to apply memory instructions for I/O
@@ -246,7 +246,7 @@ A system bus is an example of an interconnection network, joining I/O devices, m
   - provides means for data transfer (DATA register) and status (STATUS REGISTER) and control (CONTROL register) information
 - program controlled I/O and interrupt-driven I/O use memory mapped I/O
 
-### Program Controlled I/O
+#### Program Controlled I/O
 - program-controlled I/O, I/O interaction is realized by a program, through an interface listening for input
 - signal protocol is needed for proper timing of inputs
   - input device, Keyboard, sends 'ready' signal, processor Loads from DATA register, output Display, signals 'ready' to receive, processor Stores to Display's DATA register
@@ -256,7 +256,7 @@ A system bus is an example of an interconnection network, joining I/O devices, m
 - instead let I/O alert the processor when it's ready, from hardware
 - interrupts cause processor to deviate from the normal sequence of program instructions to allow the processor to respond to high priority events
 
-### Interrupt Service Routine
+#### Interrupt Service Routine
   - special subroutine, called interrupt service routine (ISR) is responsible for handling services requested by the interrupt and ensuring consistent state after the ISR
    - difference between this and subroutine is that the ISR has to copy many registers to the stack to preserve their values
 - interrupt request signals from devices call the ISR, which responds with an acknowledgement
@@ -285,7 +285,7 @@ A system bus is an example of an interconnection network, joining I/O devices, m
 - multiple I/O devices may use shared interrupt request signals for all devices or dedicated interrupt request signals, with lower latency and allowing the ISR to be immediately called by processor
   - requires more wires (1 request signal and 1 acknowledge signal per device), and the processor can only support a fixed number of devices
 
-### Interrupt Nesting
+#### Interrupt Nesting
 Sometimes ISRs take large latencies for servicing higher priority devices
 - disabling all interrupts during an ISR may result in unintended behaviour (order of execution)
 - instead, allow higher priority interrupts to be enabled during ISR execution 
@@ -296,7 +296,7 @@ Sometimes ISRs take large latencies for servicing higher priority devices
 - disabling IE bit prevents all I/O devices from interrupting, doesn't give very fine control over disabling I/O
 - for more fine control of behaviour, keep IE bit for each I/O device in I/O register (Keyboard IE and Display IE)
 
-### Processor Control Registers
+#### Processor Control Registers
 in addition to processor status (PS) register, other control registers are present
 - IPS register, where PS is automatically saved when an interrupt request is recognized
 - IENABLE has one bit per device to control if request from source is recognized
@@ -316,14 +316,14 @@ mov r2, ps
 ```
 
 ## Part 6: IO Organization
-### Basic Hardware
+#### Basic Hardware
 - hardware propagation delay: when a state change occurs at the input, the delay encountered before the corresponding change in the output waveform is the propagation delay
   - sampling during the transition time can lead to incorrect data
   - important to assert over a small time period
 - setup (prior) and hold (following) time are necessary for correct sampling of data
 - interconnection network is the circuit that transfers info between components (ex: system bus connecting address, data, control)
 
-### I/O Interface
+#### I/O Interface
 - bus contains signals, one for each component of the I/O interface
 - **address decoder** deterines when a device should respond to a request from a processor
   - produces a device enable signal for input addresses belonging to the device range
@@ -332,7 +332,7 @@ mov r2, ps
     - also use memory map to determine the address signals used by the device after its enabled
     - also determines number of unique addresses supported by each device
 
-### Bus Operation
+#### Bus Operation
 - a bus protocol is set of rules governing how the bus is used
   - bus control lines specify whether read or write, the size of the operation, timing info
 - broadly, timing data transfers over bus synchronously with a global clock or asynchronously
@@ -343,7 +343,7 @@ mov r2, ps
 - Skew occurs when two signals transmitted simultaneously from one source arrive at dest at different times
   - happens because different lines have different propagation speeds
 
-# Part 7: Memory Systems
+## Part 7: Memory Systems
 Array of simple memory cells, each storing a single bit of information
 - size is the unique addressable memory locations
 - for k address bits, 2^k words of memory are addressable
@@ -369,7 +369,7 @@ Array of simple memory cells, each storing a single bit of information
   - row and column are multiplexed on 14 pins
   - row address first placed then assert RAS 
   
-#### DRAM
+##### DRAM
 - 1Kib x 1 means 1Ki bits of memory with 1 bit of input/output
   - implemented as 5 x 5 decoders to access specific memory cells at a row and column (2^5 = 32)
 - asynchronous chip uses 14 x 11 decoder to access a row of cells from addresses of 16mib x (16mib/8)
@@ -383,11 +383,11 @@ Array of simple memory cells, each storing a single bit of information
 - memory controller is the interface for connecting chips to the system bus
 - chips can be combined into large arrays of chips, with a bunch of decoders 
 
-#### DMA
+##### DMA
 Direct Memory Access is a hardware unit that handles memory access operations for the processor. Program controlled I/O is taxing on the processor with lots of overhead to access just one byte. Processor delagates to the DMA, which responds with an ISR when finished
 - DMAs sit in front of things like DISK drives and Ethernet access, separate from main memory
 
-### Caches & Memory Hierarchy
+#### Caches & Memory Hierarchy
 Hierarchy of memory components goes from fastests to slowest, with speed cost trade off
 - CPU -> M1 -> M2 -> M3 -> M4
 - automatically move data up and down the hiearchy (frequent at the top) to optimize memory access time
@@ -431,42 +431,42 @@ Mapping Functions determine the location in the cache for each memory address
   - then the word bits in the cache block decode to the respective word within the main memory block
 - **set associative mapping** uses direct mapping to map memory blocks to a set of cache blocks, think combination of direct and fully associative mapping
 
-#### Cache Structure
+##### Cache Structure
 - to fetch data from the cache, we use indexing based on the main memory address that the cache intercepts. 
   - The first 5 bits of the address will be interpreted as the word bits (n bits to choose from the 2^n words in the block), 
   - next 10 bits will be the block bits (b bits for 2^b blocks of cache capacity). 
   - The remaining bits are called tag bits, used to determine correctness of cache hits (for direct caches, multiple memory blocks map to the same cache block)
 - *each cache block holds data, along with **tag bits** and a **valid bit**, tag bits for comparison to the tag in the address, while the valid bit state whether the data stored in the cache is valid data (V = 1)*
 
-#### Replacement Algorithms
+##### Replacement Algorithms
 For set-associative and fully-associative caches, a cache miss needs to evict some undetermined block, of which is determined using a replacement algorithm.
 - LRU leverages temporal locality by tracking age of cache components, using log2(n) bits for each block (for caches with sets of size n)
   - age is defined as the number of elements who have been accessed more recently than it
 - FIFO acts as a sort of round robin system
 - Random
 
-#### Cache performance
+##### Cache performance
 For `C` time required to access a block in cache, `M` time when accessing memory (including miss penalty) and `h` hit percentage, cache performance is intuitively `tavg = (hC + (1-h)M)`. 
 
 If we're given M' instead, being the latency for accessing Memory, then the time is `tavg = C + (1-h)M'` since the time for a miss is equal to the time for a hit, then no matter what, we incur the time taken to access a block from cache, and add extra latency if it's a miss. 
 
 For two caches, intuitively `tavg =  h1•C1 + (1-h1)(h2•C2 + (1-h2)M)`
 
-#### Solving Cache Problems
+##### Solving Cache Problems
 Given `a`-bit addresses, `2^a` (bytes or words; depending on addressing system) main memory, `c` byte/word cache size, `b` bytes/words per cache block. Cache block capacity = `c/b`. Word bits are first `log2(b)` bits (rightmost), block bits are next `log2(c/b)` bits, tag bits are remaining.
 
 *For final cache content questions, do the timeline table method, visually updated each cache block with respect to a timeline. Then you can figure out quickly which block is the least recently used*.
   
-#### Virtual Memory
+##### Virtual Memory
 Programs are written using the full address space 2^32, but physical memory capacity is often less than this (2GB for example). Virtual memory populates the rest, storing it on disk
   
-### Lab4: ISR
+#### Lab4: ISR
 1. generate Random delay 5-25s in R6
 2. display on LED
-3. Delay of 1s then decrement your # in R6m then display
+3. Delay of 1s then decrement your ## in R6m then display
 4. if R4 ≤ 0, fkasg LEDs on and off for 1 sec each until you press the button (ISR)
 
-# Part 8: Basic Processing
+## Part 8: Basic Processing
 CPU has control unit, ALU and registers. Fundamentally, there are 5 steps:
 - **fetch**
 - **decode**
@@ -494,7 +494,7 @@ Design of Register file:
 
 
 
-# Part 9: Pipelining
+## Part 9: Pipelining
 Pipelining allows for concurrent instructions per cycle, with different parts (stages) of the processor
 - with 5 stage datapath, only one stage is active in any cycle
 - pipeline diagram shows at each clock cycle what stage finished for each instruction is being run
@@ -503,7 +503,7 @@ Pipelining allows for concurrent instructions per cycle, with different parts (s
 - also pipelining the control signals
 - this allows a new instruction to enter and exit the pipeline every cycle
 
-### Issues
+#### Issues
 - Data hazard is a result of a data dependency. Two successive instructions, `ADD R1, R2; ADD R3, R1`, the second one will decode the wrong value of R1, since the first hasn't writtenback to R1 yet. This can be resolved by stalling the pipeline
 - using interstage buffers, check IR for source registers of a new command (before decoding) and  check whether there is an older instruction who has the same destination as a source in the current instruction
 - *somethings wrong if there are two of the same stage in the same column (clock cycle) of the pipeline diagram*
