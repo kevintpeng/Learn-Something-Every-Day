@@ -10,7 +10,7 @@ Course is about classical control; most prevalent, assumes linear and time invar
   - Complex conjugate, $\bar{z}$ of the denominator for turning division into multiplication
     - $z\bar{z} = |z|^2$
 
-# [Introduction](http://davepagurek.github.io/SE-Notes/se380/01%20intro.html)
+### [Introduction](http://davepagurek.github.io/SE-Notes/se380/01%20intro.html)
 - u(t) is convention for control systems (control signal), effectively our algorithm
 - r(t) is also convention, for reference signal
 - open loop solution is missing feedback from y(t), so the algorithm cannot effectively make r(t) and y(t) converge
@@ -28,7 +28,7 @@ Better algorithm, we can add another term with an integral that effectively keep
 
 - Signals are functions of time, systems apply transformations on these functions
 
-### Design Cycle
+#### Design Cycle
 1. Study the system to be controlled, decide on sensors and actuators. Sensors change what information is at your disposal, and actuators represent choices you can make in response to the inputs.
 2. Model the resulting system
   - mathematical model
@@ -50,7 +50,7 @@ Better algorithm, we can add another term with an integral that effectively keep
 
 e.g. follower is $u(t) = -K_p (r(kT)-y(kT)), \quad kT \le t \lt (k+1)T$
 
-# [Modelling](http://davepagurek.github.io/SE-Notes/se380/02%20modelling.html)
+### [Modelling](http://davepagurek.github.io/SE-Notes/se380/02%20modelling.html)
 - for control design, we need a good mathematical model of a plant; simple but accurate
 - design is simple but simulation we can use more complex
 
@@ -62,8 +62,8 @@ e.g. follower is $u(t) = -K_p (r(kT)-y(kT)), \quad kT \le t \lt (k+1)T$
 4. Isolate input and output to get a transfer function
 5. Experimentally determine parameter values for the transfer function (e.g. weight of your robot)
 
-## Applying known laws to get equations
-### e.g. Spring
+#### Applying known laws to get equations
+##### e.g. Spring
 
 <img src="img/spring.png" />
 
@@ -73,7 +73,7 @@ $\dot{q} := \frac{dq}{dt}, \quad \ddot{q} := \frac{d^2q}{dt^2}$
 
 Assume that $q=0$ corresponds to the mass location at which the spring is neither stretched nor compressed.
 
-Newton's 2nd law: $M\ddot{q} = \sum{ \text{forces acting on } M}$
+Newton's 2nd law: $F = ma$ or $M\ddot{q} = \sum{ \text{forces acting on } M}$
 
 Force due to spring: $F_K(q) = Kq$, assumed to be linear
 
@@ -84,15 +84,17 @@ $$M\ddot{q} = -Kq - C(\dot{q}) + u$$
 
 Note: if the damper is linear ($C(\dot{q})=bq$), then the overall system is linear
 
-### e.g. Resistor
+##### e.g. Resistor
 
 <img src="img/resistor.png" />
+
+Non linear resistor just means it's a function that's non linear with respect to the current
 
 $V_R(t) = h(i(t)), \quad h : \mathbb{R} \rightarrow \mathbb{R}$ is possibly nonlinear
 
 $u(t)$: applied voltage; $y(t)$: voltage across capacitor
 
-Apply Kirchoff's Voltage Law:
+Apply Kirchoff's Voltage Law, recall that it states that conservation of energy holds for voltage in a circuit:
 $$\begin{align}
 -u(t) + V_R + y &= 0\\
 \\
@@ -104,12 +106,22 @@ V_R &= h(i(t)) = h(C\dot(y))\\
 
 Note: if the resister were linear ($h(i) = Ri$), the whole system would be linear (see 2.3.4 in notes)
 
-## State models
 
-### e.g. Cart
+**Observe that, no matter what you're trying to model, there are governing laws that define modelling in that domain**
+- if you need more examples, 2.3 in the notes has many examples
+
+
+#### State models
+- State-space models are a way of expressing mathematical models in a standard form
+  - the state-space's axes are the state variables
+- the benefit is that the state variables are expressed as vectors, abstracted away from input, output and states
+  - allow us to use linear algebra to solve
+
+##### e.g. Cart
 <img src="img/carairresistance.png" />
 
 Newton's second law: $M\ddot{y} = u - D(\dot{y})$
+- u is the vector of control inputs
 
 We put this model into a standard form by defining two **state variables**:
 $$x_1 := y \text{ (position)}, \quad x_2 := \dot{y} \text{ (velocity)}$$
@@ -135,8 +147,10 @@ x_2 \\
 \frac{1}{M}u - \frac{1}{M}D(x_2)
 \end{bmatrix}\\
 \end{align}$$
+- X maps a scalar value to a two-tuple
 
-In the special case where air resistance is a linear function of $x_2$ ($D(x_2)=d x_2$), then $f(x,u)$ becomes a linear function of $x$ and $u$:
+
+When they're non-linear we can't say much, but in the special case where air resistance is a linear function of $x_2$ ($D(x_2)=d x_2$), then $f(x,u)$ becomes a linear function of $x$ and $u$:
 
 $$f(x,u) = \begin{bmatrix}
 0 & 1 \\
