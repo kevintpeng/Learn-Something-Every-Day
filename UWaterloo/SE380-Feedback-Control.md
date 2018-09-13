@@ -1,4 +1,6 @@
 # [SE380: Introduction to Feedback Control Systems](https://uwflow.com/course/se380)
+[notes on learn](https://learn.uwaterloo.ca/d2l/le/content/402630/fullscreen/2241439/View)
+
 Course is about classical control; most prevalent, assumes linear and time invariant plant
 - it requires that we have a transfer function
 - when you use feedback, you need to consider the possibility of a system not converging
@@ -6,7 +8,8 @@ Course is about classical control; most prevalent, assumes linear and time invar
 ### Review
 - Complex Numbers
   - Euler's Identity: $e^{j\theta} = \cos(\theta) + j\sin(\theta)$ gives us a way to think about complex numbers in terms of angles
-  - Polar form makes it easy to multiply/divide: $|z| = ℝ$ and $< z = \theta$
+  - Polar form makes it easy to multiply/divide: $|z| = ℝ$ and $arg(z) = \theta$
+    - arg is the principle argument (angle when in polar form)
   - Complex conjugate, $\bar{z}$ of the denominator for turning division into multiplication
     - $z\bar{z} = |z|^2$
 
