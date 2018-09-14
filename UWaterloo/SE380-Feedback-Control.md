@@ -13,6 +13,22 @@ Course is about classical control; most prevalent, assumes linear and time invar
   - Complex conjugate, $\bar{z}$ of the denominator for turning division into multiplication
     - $z\bar{z} = |z|^2$
 
+Consider $f(\omega) = 1 + j\omega \in \mathbb{R} \Rightarrow \mathbb{C}$
+
+1. $\lim_{\omega \rightarrow +-\inf} = +=\inf$ (vertically)
+2. $f(0) = 1 \in \mathbb{R}$
+3. $f(1) = 1 + j = \sqrt{2} e^{\frac{\pi}{4}j}$
+
+Let's plot magnitude vs. omega. As $\omega \rightarrow \inf$, $angle(z) \rightarrow \frac{\pi}{2}$
+
+<img src="img/mag-vs-omega.png"/>
+
+Let's plot angle vs. omega. Note that at $\omega = 1, angle(\omega) \rightarrow \frac{\pi}{4}$
+
+<img src="img/angle-vs-omega.png"/>
+
+This is a bode plot. $f$ is our transfer function, and we've plotted two graphs again $\omega$
+
 ### [Introduction](http://davepagurek.github.io/SE-Notes/se380/01%20intro.html)
 - u(t) is convention for control systems (control signal), effectively our algorithm
 - r(t) is also convention, for reference signal
