@@ -234,6 +234,7 @@ Since the governing equation is second order, we need two initial conditions. So
 
 In general, it is a good idea to use:
 - position and velocity for a physical system
+  - captures potential energy and kinetic energy respectively
 - Capacitor voltage and inductor current for a circuit
 
 ### e.g. 2.5.2: Pendulum
@@ -252,28 +253,55 @@ y &= \text{angular position} = \theta\\
 & & & y = x_1
 \end{align}$$
 
+- *written in terms of state (x's) and control input (u's)* 
+
 This is nonlinear due to the sine term.
 
 ### e.g. 2.4.5 Circuit
 <img src="img/circuit.png" />
 
 $$\begin{align}
-x_1 &:= \text{voltage across capacitor} = \frac{1}{C} \int{y(\tau)d\tau}\\
+x_1 &:= \text{voltage across capacitor} = \frac{1}{C} \int_{0}^{t}{y(\tau)d\tau}\\
 x_2 &:= \text{current through inductor} = y\\
 \\
 -u + V_R + V_C + V_L &= 0\\
-\Rightarrow -u + Rx_2  + x_1 + L\dot{x_2} &= 0, \quad \text{from capacitor equation: } \dot{x_1}=\frac{1}{C} x_2\\
+\Rightarrow -u + Rx_2  + x_1 + L\dot{x_2} &= 0, 
 \\
+\\
+\dot{x_1} &= \frac{1}{C}x_2(t)\\
+\dot{x_2} &= \frac{-1}{L}x_1 - \frac{R}{L}x_2 + \frac{1}{L}u\\
+y &= x_2\\
+\\
+\dot{x} &= \begin{bmatrix}
+0 & \frac{1}{C}\\
+\frac{-1}{2} & \frac{-R}{L}\end{bmatrix} \begin{bmatrix}x_1\\
+x_2\end{bmatrix} + \begin{bmatrix}0 \\ \frac{1}{L}\end{bmatrix} u\\
 \dot{x} &= \begin{bmatrix}
 0 & \frac{1}{C}\\
 \frac{-1}{2} & \frac{-R}{L}\end{bmatrix} \begin{bmatrix}x_1\\
 x_2\end{bmatrix} + \begin{bmatrix}0 \\ \frac{1}{L}\end{bmatrix} u\\
 y &= \begin{bmatrix}0 & 1\end{bmatrix}\\
 \end{align}$$
+- $y(t)$ is our output in amps, $u(t)$ is input, in volts
+- *intuition said to choose capacitor and inductor for state variables (since they both depend on time, state)*
+  - if there were not any capacitors or inductors, the system could not store state and would not be dynamic
+
+recall that capacitors hold charge, that converges over time:
+
+<img src="http://hyperphysics.phy-astr.gsu.edu/hbase/electric/imgele/capchg.png"/>
+
+recall that inductors impede/release current over time:
+
+<img src="https://qph.fs.quoracdn.net/main-qimg-e07b00787a47a6aa85b77902790cacae"/>
+
+### Overview
+- examples should give you an idea of how to choose state variables
+- these methods shown are to give us ways to solve dynamic questions, systems that hold state (energy)
 
 ## Linearization
 
 This is the process of aproximating a nonlinear state-space model with a linear model.
+- *when we linearize, we always need to pick a point that we're estimating at, can't make a linear estimate that's generally good*
 
 ### e.g. 2.5.2
 Linearize $y=x^3$ at the point $\bar{x}=1$.
@@ -284,14 +312,19 @@ Let $\bar{y} := f(\bar{x}) = 1^3 = 1$
 
 Taylor series at $x=\bar{x}$ is:
 $$y=\sum_{n=0}^\infty c_n (x-\bar{x})^n, \quad c_n = \frac{1}{n!} \frac{d^n f(x)}{dx^n} \biggr|_{x=\bar{x}}$$
+- *the constant depends on derivatives*
+- *next, let's write this out explicitly*
 
-Keep only the terms $n=0$ and $n=1$:
 $$\begin{align}
+f(x) &= f(\bar{x}) + \frac{df(x)}{dx}\biggr|_{x-\bar{x}} (x-\bar{x}) + \text{higher order terms}\\
+\text{Keep only the terms $n=0$ and $n=1$:}\\
 f(x) &\approx f(\bar{x}) + \frac{df(x)}{dx}\biggr|_{x-\bar{x}} (x-\bar{x})\\
 y - \bar{y} &\approx + \frac{df(x)}{dx}\biggr|_{x-\bar{x}} (x-\bar{x})\\
 \end{align}$$
+- *this looks like a linear equation!*
 
 If we define the derivations $\partial y := y - \bar{y}, \partial x := x - \bar{x}$, then $\partial y = \frac{df}{dx} \bigg|_{x=\bar{x}} \partial x$, i.e. $\partial y = 3 \partial x$
+- *evaluated at 1, for $x^3$*
 
 ### e.g. 2.5.3
 $$y = \begin{bmatrix}y_1 \\ y_2\end{bmatrix} = f(x) = \begin{bmatrix}x_1 x_2 - 1 \\ x_3^2 - 2x_1 x_3\end{bmatrix} =: \begin{bmatrix}f_1(x) \\ f_2(x)\end{bmatrix}$$
