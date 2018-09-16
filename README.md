@@ -36,8 +36,6 @@ nmap <silent> <Leader>mn <Plug>StopMarkdownPreview
 let g:vim_markdown_math = 1
 ```
 
-For illustrations, I use <a href="https://paintbrush.sourceforge.io">Paintbrush</a>, an mspaint clone for Mac. I have also had to disble BetterTouchTool for Paintbrush in Sierra to prevent it from thinking there are extra clicks happening.
-
 ### Hosting
 
 1. Make a `develop` branch
