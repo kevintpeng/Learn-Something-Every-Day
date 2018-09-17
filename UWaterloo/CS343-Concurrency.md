@@ -23,6 +23,10 @@ a `goto L` here is the same control flow as exception handling (catching at the 
 - forwarding is a bad thing to have (dealing with union returns)
 - in a chain of function calls, the intermediate functions don't need to be coupled when we avoid forwarding
 
+##### Longjmp and setjmp -- [src](http://www.di.unipi.it/~nids/docs/longjump_try_trow_catch.html)
+- required variable of type `jmp_buf`
+- `setjmp` takes the variable, returning 0 the first time it is invoked, while filling the `jmp_buf` with the **calling environment** (state of registers when function is invoked, setjmp in this case) and **signal mask** (?)
+
 ##### Exception handling
 so dynamic multi-level exit allows complex forms of transfers among routines, this is often called exception handling
 - an **exceptional event** is known, low frequency and triggers an alternative outcome
