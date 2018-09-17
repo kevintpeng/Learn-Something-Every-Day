@@ -372,15 +372,18 @@ $$\begin{align}
 \end{align}$$
 
 i.e. $y-\bar{y} \approx A(x-\bar{x})$
+- *notice multivariate has the same benefits as single, we just get a linear mapping instead*
 
 By extension, near $(x,u)=(\bar{x}, \bar{u})$:
 $$f(x, u) \approx f(\bar{x}, \bar{u})+ \frac{\partial f}{\partial x} \biggr|_{(x,u)=(\bar{x}, \bar{u})} (x-\bar{x}) + \frac{\partial f}{\partial u} \biggr|_{(x,u)=(\bar{x}, \bar{u})} (u-\bar{u})$$
 
-Let's apply this to $\dot{x}=f(x,u), y=h(x,u)$.
+Let's apply this to $\dot{x}=f(x,u), y=h(x,u)$, *a dynamic system; non-linear state space model*
 
 **Definition:** A constant pair $(\bar{x}, \bar{u}) \in \mathbb{R}^n \times \mathbb{R}^m$ is an **equilibrium configuration** of the system $\dot{x}=f(x,u), y=h(x,u)$ if $f(\bar{x}, \bar{u})=(0,...,0)$. The constant $\bar{x}$ is the **equilibrium point.**
+- *system is at rest at $\bar{x}$ and $\bar{u}$, we'll always do linearization at an equalibrium configuration*
 
-### e.g. Find all the equilibria at which the pendulum is upright
+### 2.5.4 e.g. Find all the equilirium configurations at which the pendulum is upright
+<img src="img/pendulum.png" />
 
 $$\begin{align}
 \dot{x} &= f(x,u)\\
@@ -399,12 +402,16 @@ $$
 \end{bmatrix} \Rightarrow \bar{x_2}=0, \quad \bar{u}=0
 $$
 
+- *(0,0,0...) the derrivatives vanish, so we solve for that*
+- *if we start pendulum at upright, zero velocity, zero torque, our model says it won't move; it's at rest, and won't physically move based on our model*
+- *same idea as before, but now x and u are a function of t, making it a dynamical system*
+
 Therefore the equilibria are:
 $$
 \begin{bmatrix}\bar{x_1}\\\bar{x_2}\end{bmatrix} = \begin{bmatrix}\pi + 2\pi k \\ 0\end{bmatrix}, \quad \bar{u}=0
 $$
 
-Assume that $\dot{x}=f(x,u)$ has an equilibrium configuration at $(x,u)=(\bar{x}, \bar{u})$.
+Assume that $\dot{x}=f(x,u)$ (the nonlinear state-space model) has an equilibrium configuration at $(x,u)=(\bar{x}, \bar{u})$. *Forgetting about the higher order terms due to linearization,*
 
 $$
 f(x,u) \approx \underbrace{f(\bar{x}, \bar{u})}_{=0} + \underbrace{\frac{\partial f}{\partial x} \biggr|_{(x,u)=(\bar{x}, \bar{u})} (x - \bar{x})}_{=: A} + \underbrace{\frac{\partial f}{\partial u} \biggr|_{(x,u)=(\bar{x}, \bar{u})} (u - \bar{u})}_{=:B}$$
@@ -414,6 +421,8 @@ $$\begin{align}
 \partial x(t) &:= x(t) - \bar{x}\\
 \partial u(t) &:= u(t) - \bar{u}\\
 \end{align}$$
+- this is the linearized model
+- A and B are the linear approximations, that hold well when $\delta x$ and $\delta y$ are small
 
 Then we get linearized state equations:
 $$\dot{\partial x} = \dot{x} - 0 = f(x,u) \approx A\partial x + B \partial u\\
@@ -424,12 +433,23 @@ Linearized output equation:
 $$\partial y = \underbrace{\frac{\partial h}{\partial x} \biggr|_{(x,u)=(\bar{x},\bar{u})} \partial x}_{=:C} + \underbrace{\frac{\partial h}{\partial u} \biggr|_{(x,u)=(\bar{x},\bar{u})} \partial u}_{=:D}\\
 \partial y := y-\bar{y}=y-h(\bar{x},\bar{u})$$
 
+- *together, A, B, C, D, characterize our linear state-space model*
+
 ### Summary
 Linearizing $\dot{x}=f(x,u)$ and $y=h(x,u)$:
 
-1. Select an equilibrium configuration $(\bar{x}, \bar{u}) \in \mathbb{R}^n \times \mathbb{R}^m$: $\bar{y}=h(\bar{x},\bar{u}), f(\bar{x},\bar{u})=0$
-2. Compute Jacobians of $f,h$ to get $A,B,C,D$
+1. Select an equilibrium configuration $(\bar{x}, \bar{u}) \in \mathbb{R}^n \times \mathbb{R}^m$: $\bar{y}=h(\bar{x},\bar{u}), f(\bar{x},\bar{u})=0$, where all derivatives vanish
+2. Compute Jacobians of $f,h$ to get $A,B,C,D$, *matrices have to be constants, no x's or u's*
 3. Linearization: $\dot{\partial x} = A \partial + B \partial u, \partial y = C \partial x + D \partial u$
+
+We do this to simplify our mathematical model, by finding a good linear approximation at some point, allowing us to solve things about non-linear systems
+- now that our models are linear, we can apply lapace transforms
+
+### e.g. 2.5.5 (Pendulum)
+
+1. equalibrium config is $\bar{x} = (\pi, 0), \bar{u} = 0$
+2. $ A = \frac{\delta f}{\delta x}, B = (0, \frac{3}{M l^2}), C = (1, 0), D = 0$
+3. Linearize model. $\dot{\delta x}$
 
 # Block Diagrams
 
