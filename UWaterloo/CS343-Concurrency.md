@@ -56,10 +56,41 @@ dynamic call means we don't know what code block will be run when calling a func
 
 - sequel is static propagation
   - an example of a sequel is the implementation of the catch body
--
+
+##### Resumption
+termination is recovery, resumption says there might be a fix without needing to unwind the stack
+- in resumption, there is no stack unwinding
+- `catchResume` adds another frame on top of the stack using a normal routine call
+  - extra cost is simply searching for it
+- propagation goes down the stack looking for a handler for the type of exception thrown (checking guarded blocks)
+- in exceptional example 2.8, C5 is just being a good citizen, cleaning up and forwarding the exception down the stack
+  - in C8, we hit a resume, so we don't unwind the stack, it's recovering from exceptional state
+  - fixup routine is in the catch block--the handler, instead dynamically return to the top of the stack
+  - might still terminate, in which case we'll do a static return and unwind the stack
+
+##### Micro C++
+- supports two forms of raising: throw and **resume**
+- supports two kinds of handlers, termination and resumption
+- supports propagation of nonlocal and concurrent exceptions
+- event is just like a class; `_Event` is just a keyword replacement for `class`
+- automatic inheritence
+  - msg, for unhandled exceptions
+  - `uBaseCoroutine` source tells you who threw the exception
+- rethrow is just continuing (forwarding) unwinding (probably for cleanup)
+- reresume is just forwarding the exception
+
+why is there no `_At` for `_Throw`?
+- if you can throw at someone, you can unwind their stack
 
 ### Coroutine
 Any routine that can be suspended and resumed
 - requires execution location, state, status (active, inactive, terminated)
-- synchronous execution alongside other coroutines
-- **semi-coroutine**
+- coroutine does not start from the beginning at each activiation, it activates at last point of suspension
+- synchronous execution alongside other coroutines, they each have their own stack but no concurrency here
+
+<img src="img/coroutine.png"/>
+
+Let's look at a Fibonacci number generator, `nextFibonacci()`
+- first year we wrote a loop, second year we write a class to encapsulate state, saw that it was actually closures storing state
+- now we can use coroutines to hold state implicitly
+
