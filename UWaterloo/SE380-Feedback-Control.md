@@ -451,9 +451,33 @@ We do this to simplify our mathematical model, by finding a good linear approxim
 2. $ A = \frac{\delta f}{\delta x}, B = (0, \frac{3}{M l^2}), C = (1, 0), D = 0$
 3. Linearize model. $\dot{\delta x}$
 
-# Block Diagrams
+*Note that in practice, our system is still non-linear, so we need to bring it close to equilibrium configuration for our controller to be effective*
+
+### 2.8 Transfer Functions
+u(t) -> |LTI system| -> y(t)
+
+Transfer function of the system is the ratio $\frac{Y(s)}{U(s)}$ where all Laplace transforms are taken with zero initial conditions
+
+example: Recall the mass spring damper 
+
+$M\ddot{q} =  u - kq - c(\dot{q})$$
+
+If the damper is nonlinear, then this system doesn't have a transfer function. If $C \dot{q} = b \dot{q}$, b is a constant, then taking the Laplace transform of the differential equation:
+
+$\begin{align}
+s^2 M Q(s) &= U(s) - K Q(s) - s b Q(s) \\
+\frac{Q(s)}{U(s)} &= \frac{1}{s^2 M + b s + K}
+\end{align}$
+
+### Block Diagrams
 
 <img src="img/blocks.png" />
+
+full table:
+
+<img src="img/table22.png" />
+
+<img src="img/defn285.png" />
 
 Let $\mathbb{R}(s)$ be the set of all real rational transfer functions.
 - $G(s) \in \mathbb{R}(s)$ is **proper** if the degree of the denominator is greater than or equal to the numerator
@@ -466,20 +490,36 @@ A complex number $x \in \mathbb{C}$ is a **zero** of $G(s)$ if $\lim_{s \rightar
 
 - The transfer function obtained from a state space model is always rational and always proper
 
-### e.g. Linearized pendulum
+### 2.8.1 Obtaining a TF from a state model
+<img src="img/transfer281.png" />
+- the transfer funciton obtained from a state space model is always rational and proper
+- state space model can be converted to a unique rational proper transfer function
+- transfer function model only goes to state space model if the transfer funciton is rational and proper, never unique
+
+### 2.8.6 Linearized pendulum
 $$\begin{align}
 \bar{x} &= \begin{bmatrix}\pi\\0\end{bmatrix}, \quad \bar{u}=0\\
 \\
 \partial \dot{x} &= \begin{bmatrix} 0 & 1 \\ \frac{3g}{l} & 0 \end{bmatrix} \partial x + \begin{bmatrix}0 \\ \frac{3}{Ml^2}\end{bmatrix} \partial u\\
 \partial y &= \begin{bmatrix}1 & 0\end{bmatrix} \partial x\\
 \\
-G(s) &= C(sI-A)^{-1}B + D, \quad (sI-A)^{-1} = \frac{\text{adj}(sI-A)}{\det(sI-A)}\\
+G(s) &= C(sI-A)^{-1}B + D, \quad (sI-A)^{-1} = \frac{\text{adj}(sI-A) \text{   <-- n x n}}{\det(sI-A) \text{   <--- polynomial}}\\
 &= \begin{bmatrix}1 & 0\end{bmatrix}\begin{bmatrix}s & -1 \\ \frac{-3g}{l} & s\end{bmatrix}^{-1}\begin{bmatrix}0 \\ \frac{3}{Ml^2}\end{bmatrix}\\
 &= \begin{bmatrix}1 & 0\end{bmatrix}\begin{bmatrix}s & \frac{-3g}{l} \\ 1 & s\end{bmatrix}^T\begin{bmatrix}0 \\ \frac{3}{Ml^2}\end{bmatrix}\\
 &= \frac{\frac{s}{Ml^2}}{s^2 - \frac{3g}{l}}\\
 \end{align}$$
 
-## Block diagram manipulations
+- adj, swap diagonals, switch signs on anti-diagonals
+
+### 2.9 Block diagram manipulations
+
+<img src="img/block236.png" />
+- transfer functions in series can be multiplied together and written as a single block
+
+<img src="img/block237.png" />
+- by linearization, transfer functions in parallel are added 
+
+
 ```
           +------+
   U(s) -->| G(s) |--> Y(s)      Y(s) = G(s)U(s)
@@ -514,6 +554,12 @@ G(s) &= C(sI-A)^{-1}B + D, \quad (sI-A)^{-1} = \frac{\text{adj}(sI-A)}{\det(sI-A
 
 ```
 
+We have the tools to simplify block diagrams now, simplifying series/parallel blocks and rearranging them relative to summing junctions. So some strategies we can use:
+
+1. mathematically; write equation for Y(s) and rearrange using our laws
+2. re-arrange blocks to reveal common configurations listed above
+3. systematic method below, for complicated diagrams
+
 ## Systematic method of finding transfer functions
 1. Introduce new variables $\{v_1, v_2, ... \}$ at the output of every summer
 2. Write expressions for inputs of summers in terms of $\{u, y, v_1, v_2, ...\}$
@@ -531,11 +577,575 @@ v_1&=u-H_1G_2v_2\\
 \begin{bmatrix}1 & H_1 G_2 & 0 \\ -G_1 & 1+H_2G_2 & -H_3 \\ 0 & -G_3G_2 & 1\end{bmatrix}
   \begin{bmatrix}v_1 \\ v_2 \\ y\end{bmatrix} &= \begin{bmatrix}u \\ 0 \\ 0\end{bmatrix}\\
 \\
+\text{since # of equations = # of variables, we can apply}&\text{ cramer's rule } Ax = b, x_i = \frac{det(A_i)}{det(A)}\\
+\text{where }A_i \text{ is the matrix formed by replacing the}&\text{ i-th column of A by the column vector b}\\
 \text{By cramer's rule:}\\
-Y(s) &- \frac{
+Y(s) - \frac{
 \det\begin{bmatrix}1 & H_1G_2 & u \\ -G_1 & 1+H_2G_2 & 0 \\ 0 & -G_2G_3 & 0\end{bmatrix}
 }{
 \det\begin{bmatrix}1 & H_1G_2 & 0 \\ -G_1 & 1+H_2G_2 & -H_3 \\ 0 & -G_3G_2 & 1\end{bmatrix}
-}\\
+}
 &= \frac{G_1 G_2 G_3}{1 + H_1 H_2 G_2 - H_3 G_3 G_2 + G_1 H_1 G_2} U(s)\\
 \end{align}$$
+
+
+# Chapter 4: First and Second Order Systems
+The order of a dynamic system is the order of the highest derivative of its governing differential equation.
+- understand relationship between ple locations and time domain behaviour; how do pole locations affect the response of the system?
+- use feedback to change the pole location of a closed loop system
+
+## First order
+$$\tau \dot{y} = ku$$
+or
+$$\frac{Y(s)}{U(s)} = \frac{K}{\tau s + 1}$$
+or
+$$\begin{align}
+\dot{x}&=\frac{-x}{\tau} + \frac{K}{\tau} u\\
+y &= x
+\end{align}$$
+
+Observations:
+- Pole at $s=\frac{-1}{\tau}$
+- No zeroes
+- BIBO stable if and only if $\tau \gt 0$
+- steady-state gain: $K$
+- bandwidth: $\frac{1}{\tau}$ rad/s
+- Impulse response: $g(t)=\frac{K}{\tau} e^{-1/\tau} 1(t)$
+  - $g(0)=\frac{K}{\tau}$
+  - $g(\tau)=g(0)e^{-1} \approx 0.37g(0)$
+  - $g(2\tau)=g(0)e^{-2} \approx 0.14g(0)$
+- Higher bandwidth implies faster impulse response, and vice versa
+
+Step response:
+$$y(t) = \mathcal{L}^{-1}\{G(s)U(s)\} = \mathcal{L}^{-1}\left\{\frac{K}{\tau s + 1} \frac{1}{s}\right\} = \mathcal{L}^{-1}\left\{\frac{K}{s} - \frac{K}{s + \frac{1}{\tau}}\right\}$$
+$$K(1-e^{\frac{-t}{\tau}}), \quad t \ge 0$$
+
+<img src="img/firstordertime.png" />
+
+Observations:
+1. After $4\tau$ seconds, $y(t)$ is within 2% of its steady-state value
+2. For all $t \gt 0$, $y(t) \lt y_{ss}$ (no overshoot)
+3. $y(t)$ increases monotonically (no oscillations)
+4. Decrease in $\tau \Leftrightarrow$ step response gets faster $\Leftrightarrow$ bandwidth goes up $\Leftrightarrow$ poles move to the left
+
+## Second order
+$$\ddot{y}+2\zeta\omega_n \dot{y} + \omega_n^2 y = K\omega_n^2 u$$
+or
+$$ \frac{Y(s)}{U(s)} = \frac{K\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}$$
+or
+$$\begin{align}
+\dot{x} &= \begin{bmatrix}0&1\\-\omega_n^2&-2\zeta\omega_n\end{bmatrix}x + \begin{bmatrix}0\\K\omega_n^2\end{bmatrix}u\\
+y &= \begin{bmatrix} 1 & 0\end{bmatrix}x\\
+\end{align}$$
+
+### e.g.
+<img src="img/secondorderspring.png" />
+
+$$\begin{align}
+M \ddot{q} &= u - K_{spring} q - b\dot{q}\\
+\frac{Y(s)}{U(s)} &= \frac{\frac{1}{M}}{s^2 + \frac{b}{M}s + \frac{K_{spring}}{M}}\\
+\\
+\omega_n &= \sqrt{\frac{K_{spring}}{M}}\\
+\zeta &= \frac{b}{2 \sqrt{K_{spring}M}}\\
+K &= \frac{1}{K_{spring}}
+\end{align}$$
+
+### Pole locations
+From the quadratic formula, find the zeroes of the denominator:
+$$s = -\zeta \omega_n \pm \omega_n \sqrt{\zeta^2 - 1} = \omega_n\left(-\zeta \pm \sqrt{\zeta^2 - 1}\right)$$
+
+<img src="img/secondorderpolelocations.png" />
+
+Pole locations are used to categorize the system:
+- Undamped $\zeta = 0$
+- Underdamped $0 \lt \zeta \lt 1$
+- Critically damped $\zeta = 1$
+- Overdamped $\zeta \gt 1$
+
+Steady-state gain: $K$
+Zeroes: none
+
+<img src="img/secondordergian.png" />
+
+### Step response
+
+<img src="img/secondorderstepresponse.png" />
+
+## Underdamped Systems
+
+- Poles are complex conjugate: $s = -\zeta \omega_n \pm j\omega_n \sqrt{1 - \zeta^2} = \omega_n e^{\pm j (\pi - \theta)}, \theta = \arccos(\zeta)$
+
+<img src="img/underdampedpolar.png" />
+
+#### Impulse response
+$$g(t) = K\frac{\omega_n}{\sqrt{1-\zeta^2}} \underbrace{e^{-\zeta \omega_n t}}_\text{decay rate} \sin\underbrace{\left(\omega_n \sqrt{1-\zeta^2} t\right)}_\text{oscillation rate}, \quad t \ge 0$$
+
+Observe: If we fix $\zeta \in (0,1)$, then larger bandwidth $\Leftrightarrow$ faster decay
+
+#### Step response
+$$\begin{align}
+u(t) &= 1(t)\\
+\Rightarrow U(s) &= \frac{1}{s}\\
+\\
+Y(s) &= G(s)U(s)\\
+\Rightarrow y(t) &= \mathcal{L}^{-1}{G \dot U}\\
+&= K\left(1 - \frac{1}{\sqrt{1 - \zeta^2}} e^{-\zeta \omega_n t} \sin\left(\omega_n \sqrt{1 - \zeta^2}t + \theta\right)\right), \quad \theta = \arccos \zeta\\
+\end{align}$$
+
+### Summary
+
+- As $\zeta \rightarrow 1$, response is less oscilatory, less overshoot, imaginary part of poles approaches zero
+- As $\zeta \rightarrow 0$, response is more oscillatory, more overshoot, real part of poles approaches 0
+- $\omega_{BW} \approx \omega_n$. As $\omega_n \rightarrow \infty$, response is faster, poles have larger magnitude.
+- Frequency of oscillation depends on imaginary part of the poles; rate of decay depends on the real part
+
+## General characteristics of step response
+- Look at common metrics to quantify the quality
+- metrics apply to **any** system
+- we use $G(s) = \frac{K \omega_n^2}{s^2 + 2\zeta \omega_n s + \omega_n^2}$ to get equations for the metrics in therms of $K, \omega_n, \zeta$
+
+<img src="img/stepcharacteristics.png" />
+
+### Overshoot
+- only undamped second order systems have it:
+$$\%OS = \frac{||y||_\infty - |G(0)|}{|G(0)|}$$
+- only depends on dampting ratio:
+$$\%OS = \exp\left(\frac{-\zeta \pi}{\sqrt{1 - \zeta^2}}\right), \quad 0 \lt \zeta \lt 1$$
+- More damping (larger $\zeta$) $\Leftrightarrow$ less overshoot
+
+#### e.g. mass-spring damper
+$$\frac{Y(s)}{U(s)} = \frac{\frac{1}{M}}{s^2 + \frac{b}{M}s + \frac{K_{spring}}{M}}$$
+
+- Find conditions on $M,b,K_{spring}$ so that $\%OS \le \%OS_{max} = 0.05$
+
+$$\begin{align}
+\zeta &= \frac{b}{2\sqrt{MK_{spring}}}\\
+\zeta &\ge \frac{-\ln(\%OS_{max})}{\sqrt{\pi^2 + (\ln\%OS_{max})^2}} =:\zeta_{min}\\
+\\
+\text{To meet specs:}\\
+\frac{b}{2\sqrt{MK_{spring}}} \ge 0.6901\\
+\end{align}$$
+
+The angle the poles make is $\pm(\pi - \arccos \zeta)$.
+$$ \zeta \ge \zeta_{min} \Leftrightarrow \theta \le \arccos(\zeta_{min})$$
+In this example, $\theta \le 46^{\circ}$
+<img src="img/overshootangle.png" />
+Therefore the overshoot spec is not met if there are poles in the shaded region.
+
+### Settling time
+- The smallest time $T_s$ such that $\forall t \ge T_s,\quad \frac{|G(0)-y(t)|}{|y(t)|} \le 0.02$.
+- An estimate is obtained by looking at the decay rate $e^{-\zeta \omega_n t}$:
+$$e^{-\zeta \omega_n t} \le 0.02 \Rightarrow t \ge \frac{4}{\zeta \omega_n} \text{ (approx)}$$
+i.e. $T_s = \frac{4}{\zeta \omega_n}$
+
+#### e.g. Mass-spring damper
+Find the condition so that $T_s \le T_s^{max} = 3$
+
+$$\begin{align}
+G(s) &= \frac{\frac{1}{M}}{s^2 + \frac{b}{M}s + \frac{K_{spring}}{M}}\\
+\frac{4}{\zeta \omega_n} &\le 3 = T_s^{max}\\
+\Leftrightarrow \zeta\omega_n &\ge \frac{4}{T_s^{max}}\\
+\Leftrightarrow \frac{b}{2M} &\ge \frac{4}{3}\\
+\end{align}$$
+
+<img src="img/massspringpoles.png" />
+
+### Time-to-peak
+- Smallest $T_p \gt 0$ such that $||y||_\infty = y(T_p)$
+- Derived similar to overshoot: $T_p = \frac{\pi}{\omega_n \sqrt{1 - \zeta^2}}, \quad 0 \lt \zeta \lt 1$
+- So $T_p$ only depends on the imaginary part of the poles
+
+
+#### e.g. mass-spring damper again
+Spec: $T_p \le T_p^{max} = 3 \text{ seconds }$
+
+$$\begin{align}
+\omega_n\sqrt{1-\zeta^2} &\le \frac{\pi}{T_p^{max}}\\
+\Leftrightarrow \sqrt{\frac{K_{spring}}{M} - \frac{b^2}{4M^2}} &\le \frac{\pi}{3}\\
+\end{align}$$
+
+<img src="img/massspringpoles2.png" />
+
+#### Changes to poles
+
+<img src="img/polechanges.png" />
+
+| | decrease real part | increase imaginary part | angle of poles to $\pm \pi$ | increase magnitude|
+|-|-|-|-|-|
+|$\omega_n$ | + | + | no change | +|
+|$\zeta$ | + | - | + | no change|
+|%OS | - | + | - | no change|
+|$T_s$ | - | no change | - | -|
+|$T_p$ | no change | - | + | -|
+
+# 4 State Response
+$$\begin{align}
+\dot{x}&=Ax\\
+x &\in \mathbb{R}^n\\
+A &\in \mathbb{R}^{n \times n}\\
+x(0) &= x_0 \in \mathbb{R}^n \text{ (initial condition) }\\
+\end{align}$$
+
+Recall:
+1. When $n=1$ (A is scalar), the solution is $x(t)=e^{tA}x_0$
+2. Taylor series expansion of $e^{At}=1 + At + \frac{(At)^2}{2!} + ...$
+
+Motivated by 1 and 2, define the **matrix exponential**:
+$$e^A := I + A + \frac{A^2}{2!} + ...$$
+
+### e.g. 3.1.1
+$$\begin{align}
+A &= \begin{bmatrix}0 & 0 \\ 0 & 0\end{bmatrix}\\
+\Rightarrow e^A &= I + 0 + 0 + ...\\
+&= \begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}\\
+\end{align}$$
+
+### e.g. 3.1.2
+$$\begin{align}
+A &= \begin{bmatrix}1 & 0 \\ 0 & 2\end{bmatrix}\\
+\text{For a diagonal matrix:}\\
+A^k &= \begin{bmatrix}1^k & 0 \\ 0 & 2^k\end{bmatrix}\\
+\Rightarrow e^A &= I + \begin{bmatrix}1 & 0 \\ 0 & 2\end{bmatrix} + \begin{bmatrix}1^2 & 0 \\ 0 & 2^2\end{bmatrix} + ...\\
+&= \begin{bmatrix}e^1 & 0 \\ 0 & e^2\end{bmatrix}\\
+\end{align}$$
+
+### e.g. 3.1.3
+$$
+A = \begin{bmatrix}0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0\end{bmatrix}\\
+$$
+Check that $A^3=0$ (i.e. $A$ is nilpotent).
+$$
+e^A = I + A + \frac{A^2}{2} = \begin{bmatrix}1 & 1 & \frac{1}{2} \\ 0 & 1 & 1 \\ 0 & 0 & 1\end{bmatrix}\\
+$$
+
+Replace $A$ with $tA$ to get a function of time:
+$$e^{At} = I + tA + \frac{t^2A^2}{2!} + ...$$
+
+**Theorem:** The unique solution to $\dot{x}=Ax, \quad x(0)=x_0$ is $x(t)=e^{tA}x_0$.
+
+## Using Laplace
+Take the Laplace transform of $\dot{x}=Ax$ without assuming $x(0)=0$:
+$$\begin{align}
+sX(s) - x(0) &= AX(s)\\
+X(s) &= (sI-A)^{-1} x(0)\\
+\end{align}$$
+
+**Conclusion**: $e^{At}$ and $(sI-A)^{-1}$ are Laplace transform pairs.
+
+### e.g.
+$$\begin{align}
+A &= \begin{bmatrix}0&1&0\\0&0&1\\0&0&0\end{bmatrix}\\
+sI-A &= \begin{bmatrix}s&-1&0\\0&s&-1\\0&0&s\end{bmatrix}\\
+(sI-A)^{-1} &= \frac{\text{adj}(sI-A)}{\det(sI-A)}\\
+&= \frac{1}{s^3} \begin{bmatrix}s^2&s&1\\0&s^2&s\\0&0&s^2\end{bmatrix}\\
+e^{tA} &= \mathcal{L}^{-1} \left\{ (sI-A)^{-1} \right\}\\
+&= \begin{bmatrix}1&t&\frac{t^2}{2}\\0&1&t\\0&0&1\end{bmatrix}, \quad t \ge 0\\
+\end{align}$$
+
+## Total Response
+The solution of $\dot{x}=Ax+Bu$, $y=Cx+Du$, $x(0)=x_0$ is:
+$$x(t) = \underbrace{e^{At}x_0}_\text{initial state response} + \underbrace{\int_0^t e^{A(t-\tau)} Bu(\tau)d\tau}_\text{forced response}$$
+$$Y(t)=Cx(t)+Du(t)$$
+
+In SISO (single-input-single-output) special case where $x(0)=0$, we get the familiar result:
+$$\begin{align}
+y(t)&=(g * u)(t) = \int_0^t g(t-\tau)u(\tau)d\tau\\
+g(t)&=Ce^{At}B 1(t) + D\delta(t)
+\end{align}$$
+Where $1(t)$ is the unit step function and $\delta(t)$ is the unit impulse.
+
+## Stability of state-space models
+The system $\dot{x}=Ax$ is **asymptotically stable** if $x(t) \rightarrow 0$ for any initial condition.
+
+$e^{At} \rightarrow 0$ if and only if all the eigenvalues of $A$ have a negative real part.
+
+### e.g. 3.4.2
+$$\begin{align}
+M\ddot{q}&=u-Kq \quad \text{(mass-spring)}\\
+x &= \begin{bmatrix}x_1\\x_2\end{bmatrix} := \begin{bmatrix}q\\\dot{q}\end{bmatrix}\\
+\dot{x} &= \begin{bmatrix}0&1\\\frac{-k}{M}&0\end{bmatrix}x + \begin{bmatrix}0\\\frac{1}{M}\end{bmatrix}u\\
+\\
+\text{Using } M=1, k=4:\\
+e^{At} &= \begin{bmatrix}\cos 2t&\frac{1}{2}\sin 2t\\-2\sin 2t & \cos 2t\end{bmatrix}\\
+\end{align}$$
+
+Since $e^{At}$ does not approach 0 as $t$ grows large, the system is not asymptotically stable.
+
+Let's double-check this using the eigenvalues. Solve for $s$ such that $\det(sI-A)=0$.
+$$\begin{align}
+A &= \begin{bmatrix}0 & 1 \\ -4 & 0 \end{bmatrix}\\
+\det \begin{bmatrix}s & -1 \\ 4 & s\end{bmatrix} &= 0\\
+s^2 + 4 &= 0\\
+s &= \pm 2j
+\end{align}$$
+The system is therefore not asymptotically stable since it has at least one eigenvalue (in this case, it has two) with a non-negative real part.
+
+If we introduce friction:
+$$\begin{align}
+\ddot{q} &= u-4q-\dot{q}
+\end{align}$$
+
+Check that it is asymptotically stable (it should be)
+
+## Bounded input, bounded output stability
+$$
+Y(s)=G(s)U(s) \quad \text{or} \quad y(t)=(g*u)(t), g(t)=\mathcal{L}^{-1}\left\{G(s)\right\}\\
+$$
+
+A signal $u(t)$ is **bounded** if there exists a constant $b$ such that, for all $t \ge 0$, $|u(t)| \le b$.
+
+For example, $\sin t$ is bounded by $b=1$.
+
+If $u$ is bounded, $||u||_\infty$ denotes the **least upper bound**. For example, for $\sin t$, then $|u(t)| \le 10$ and $u$ is bounded.
+
+A linear, time-independent system is **BIBO stable** if every bounded input produces a bounded output. $||u||_\infty$ is finite $\Rightarrow ||y||_\infty$ is finite.
+
+### e.g. 3.5.1
+$G(s)=\frac{1}{s+2}$. The impulse response is $g(t)=\mathcal{L}^{-1}\{G(s)\} = e^{-2t}$. Then:
+
+$$\begin{align}
+y(t) &=(g * u)(t)\\
+&= \int_0^t e^{-2\tau} u(t-\tau) d\tau\\
+\forall t \ge 0:\\
+|y(t)|&=\left|\int_0^t e^{-2\tau} u(t-\tau) d\tau\right|\\
+&\le \int_0^t \left|e^{-2\tau} u(t-\tau) \right| d\tau\\
+&\le \int_0^t e^{-2\tau} d\tau ||u||_\infty\\
+&\le \int_0^\infty e^{-2\tau} d\tau ||u||_\infty\\
+&= \frac{1}{2} ||u||_\infty\\
+\\
+||y||_\infty &\le \frac{1}{2} ||u||_\infty\\
+\therefore \text{ system is BIBO stable. }
+\end{align}$$
+
+## BIBO and poles
+**Theorem 3.5.4:** Assume that $G(s)$ is rational and strictly proper. Then the following are equivalent:
+1. $G$ is BIBO stable.
+2. the impulse response $g(t)=\mathcal{L}^{-1}\{G(s)\}$ is absolutely integrable: $\int_0^\infty |g(\tau)| d\tau \lt \infty$
+3. Every pole of $G$ has a negative real part
+
+For example, $\frac{1}{s+1}, \frac{1}{(s+3)^2}, \frac{s-1}{s^2+5s+6}$ are all BIBO stable because their poles have a negative real part.
+
+On the other hand, take $\frac{1}{s}, \frac{1}{s-1}$. These are all BIBO unstable because they have poles which do not have a negative real part. The function $\frac{1}{s}$ is an integrator, so when you give it a constant function as an input, the output will be a ramp, which is unbounded.
+
+**Theorem 3.5.5:** If $G(s)$ is rational and improper (the degree of the numerator is greater than the degree of the denominator), then $G$ is not BIBO stable.
+
+## Stability of state-space models and BIBO stability
+$$\begin{align}
+\dot{x} &= Ax+Bu\\
+y *= Cx+Du\\
+\Rightarrow Y(s) &= \left(C(SI-A)^{-1}B + D\right)U(s)\\
+&= \left(C\frac{\text{adj}(sI-A)}{\det(sI-A)}B + D\right)U(s)\\
+\end{align}$$
+This is BIBO stable if all poles in $\Re(s) \lt 0$
+This is asymptotically stable if all eigenvalues of $A \in \Re(s) \lt 0$
+Eigenvalues of $A$ = roots of $\det(sI-A) \supseteq$ poles of $G(s)=C(sI-A)^{-1}B+D$
+
+### e.g. 3.5.5: mass-spring
+
+$$\begin{align}
+\dot{x} &= \begin{bmatrix}0&1\\-4&0\end{bmatrix}x + \begin{bmatrix}0\\1\end{bmatrix}u\\
+y &= \begin{bmatrix}1 & 0\end{bmatrix} x
+\end{align}$$
+
+Eigenvalues of $A$ are $\pm 2j \Rightarrow$ the system is not asymptotically stable.
+
+$$\begin{align}
+\frac{Y(s)}{U(s)} &= \begin{bmatrix}1&0\end{bmatrix}\begin{bmatrix}s&1\\4&s\end{bmatrix}^{-1}\begin{bmatrix}0\\1\end{bmatrix}\\
+&=\frac{1}{s^2+4}\\
+&=G(s)
+\end{align}$$
+The system is not BIBO stable based on its poles.
+
+In this example, $C\text{adj}(sI-A)B=1$ and $\det(sI-A)=s^2+4$ are coprime, so eigenvalues of $A$ are the poles of $G$.
+
+## Steady-state gain
+Apply a constant $b$ as input to a system. When we observe the output, the **steady-state gain** of a transfer function $G(s)$ is $\frac{Y_{ss}}{b}$.
+
+**Final Value Theorem (3.6.1)**: Given $F(s)=\mathcal{L}\{f(t)\}$, where $F(s)$ is rational:
+1. If $F(s)$ has all of its poles in $\Re(s) \lt 0$, then $\lim_{t \rightarrow \infty} f(t) = 0$.
+2. If $sF(s)$ has all poles in $\Re(s) \lt 0$, then $\lim_{t \rightarrow \infty} f(t) = \lim_{s \rightarrow 0} sF(s)$
+3. If $sF(s)$ has even one pole with $\Re(s) \ge 0$, then $f(t)$ does not converge.
+
+For example: $F(s) = \frac{1}{s^2}, sF(s) = \frac{1}{s}$. $f(t)=t$, which does not converge.
+
+e.g.:
+
+$f(t)$ | $\lim_{t \Rightarrow \infty} f(t)$ | $F(s)$ | $\lim_{s \rightarrow 0} sF(s)$ | FVT case
+-|-|-|-|-
+$e^{-t}$ | 0 | $\frac{1}{s+1}$ | 0 | 1 or 2
+$1(t)$ | 1 | $\frac{1}{s}$ | 1 | 2
+$t$ | $\infty$ | $\frac{1}{s^2}$ | $\infty$ | 3
+$te^{-t}$ | 0 | $\frac{1}{(s+1)^2}$ | 0 | 1 or 2
+$e^t$ | $\infty$ | $\frac{1}{s-1}$ | 0 | 3
+$\cos{\omega t}$ | N/A | $\frac{s}{s^2 + \omega^2}$ | 0 | 3
+
+**Theorem 3.6.2**: If $G(s)$ is BIBO stable and we input $u(t)=b1(t)$, then the steady state gain $y_{ss}=bG(0)$. This can be proven using the final value theorem.
+
+This is sto say, steady-state gain is *always* $\frac{y_{ss}}{b}=G(0)$ for any $b$.
+
+### e.g. Set-point control
+$\dot{x}=-2x+u$, $y=x$. This gives the transfer function $Y(s)=\frac{1}{d+2}U(s)$. Given a constant reference $r(t)=r_o 1(t)$ where $r_0$ constant, find a control signal $u$ to make $y$ go to $r$.
+
+We want $\lim_{t \rightarrow \infty} y(t) = r_0$.
+
+Try open loop:
+<img src="img/setpointcontrol.png" />
+
+$$\begin{align}
+y_{ss} &= \lim_{t \rightarrow \infty} y(t)\\
+&=^? \lim_{s\rightarrow 0} sC(s)R(s) \\
+&= \lim_{s\rightarrow 0} C(s) \frac{1}{s+2} r_0\\
+\end{align}$$
+
+If $C(s)$ is BIBO stable, then $y_{ss} = \lim_{s \rightarrow 0} C_s \frac{r_0}{s+2} = C(0) \frac{1}{2} r_0$. So, $y_{ss} = r_0 \Leftrightarrow C(0) = 2 = \frac{1}{P(0)}$.
+
+The simplest choice is $C(s) = \frac{1}{P(0)} = 2$, a proportional controller.
+
+## Frequency response
+$Y(s)=G(s)U(s)$ or $y(t)=(g*u)(t)$. Assume $G$ is BIBO stable, and the input signal $u$ is a sinusoid: $u(t) = \cos(\omega t)$. The period is $\frac{2\pi}{\omega}$.
+
+**Theorem 3.7.1**: Assuming $G$ is rational and BIBO stable, then if $u(t)=\cos(\omega t)$, then the steady-state output is $y(t) = A\cos(\omega t + \phi)$. $A=|G(j\omega)|$, and $\phi = \angle G(j\omega)$
+
+### e.g.
+$\dot{x}=-10x+u$, $y=x$. Then $Y(s) = \frac{1}{s+10}U(s) =: G(s)U(s)$. If $u(t)=2\cos(3t+ \frac{\pi}{6})$, what is the steady-state output?
+
+- $A=-10$, so $\det(sI-A)=s+10$. The eigenvalue of $A$ is -10, so the system is asymptotically stable.
+- Because the system is asymptotically stable, which implies it is BIBO stable, which means Theorem 3.7.1 applies.
+- From Theorem 3.7.1, the steady state output is $y(t)=2A\cos(3t + \frac{\pi}{6} + \phi)$.
+
+$A=|G(3j)|=\left|\frac{1}{3j+10}\right|\approx 0.1$
+$\phi = \angle G(3j) = \angle \frac{1}{3j+10} = \angle1 - \angle(3j+10) \approx 0.2915$
+
+Therefore $y(t)=0.2\cos(3t+\frac{\pi}{6}-0.2915)$.
+
+**Definition 3.7.2.** If $G(s) \in \mathbb{R}(s)$ and is BIBO stable, then:
+1. The function $\mathbb{R} \rightarrow \mathbb{C}, \quad \omega \mapsto G(j\omega)$ is the **frequency response**
+2. The function $\mathbb{R} \rightarrow \mathbb{R}, \quad \omega \mapsto |G(j\omega)|$ is the **magnitude response**
+3. The function $\mathbb{R} \rightarrow (-\pi, \pi], \quad \omega \mapsto \angle G(j\omega)$ is the **phase response**
+
+## Graphical representations of frequency response
+- When we graph $G(j\omega)$, we only consider $\omega \ge 0$, so there is no loss of info when $G$ is rational: $|G(j\omega)|=|G(j\omega)|$, and $\angle G(j\omega) = -\angle G(-j\omega)$
+
+### Bode plots
+1. Magnitude plot: $20\log|G(j\omega)|$ vs $\log(\omega)$
+2. Phase plot: $\angle G(j \omega)$ vs $\log(\omega)$
+
+To sketch the Bode plot of any rational transfer function, we only need to know how to sketch four terms:
+1. Pure gain: $G(s)=K$
+2. First-order terms: $G(s) = \tau s \pm 1, \quad \tau \gt 0$
+3. Zeroes at $s=0$: $G(s)=s^n$
+4. Complex conjugate roots: $G(s)=s^2 + 2\zeta \omega_n s + \omega_n^2 = \omega_n^2\left(\frac{s^2}{\omega_n^2} + \frac{2\zeta s}{\omega_n} + 1\right)$
+
+Given a transfer function, we can decompose it into these terms.
+
+### Polar plots
+$\Re(G(j\omega))$ vs $\Im(G(j\omega))$
+
+### e.g. 3.8.5
+$$\begin{align}
+G(s) &= \frac{40s^2(s-2)}{(s+5)(s^2 + 4s+100)}\\
+&= \frac{40s^2(2)\left(\frac{s}{2}-1\right)}{5(100)\left(\frac{3}{5}+1\right)\left(\frac{s^2}{10^2}+\frac{4s}{10}+j\right)}\\
+&= \frac{40(2)}{5(100)} \cdot \frac{s^2(\frac{s}{2}-1)}{(\frac{s}{5}+1)(\frac{s^2}{10^2}+\frac{4s}{10^2}+1)}\\
+\end{align}$$
+
+### e.g. 3.8.6
+To plot the Bode plot, we need:
+$$\begin{align}
+20\log|G(j\omega)|&=20\log\left|\frac{80}{500}\right| + 20\log|(j\omega)^2| + 30\log\left|\frac{j\omega}{2}-1\right|\\
+&=-20\log\left|\frac{j\omega}{5}+1\right| - 20\log\left|\frac{(j\omega)^2}{10^2} + \frac{4}{10^2}j\omega + 1\right|\\
+\\
+\angle G(j\omega)&=\angle\frac{800}{500}+\angle(j\omega)^2 + \angle\frac{j\omega}{2}+1-\angle\frac{j\omega}{5}+1-\angle\left(\frac{(j\omega)^2}{10^2}+\frac{4}{10^2}j\omega + 1\right)\\
+\end{align}$$
+
+### e.g. plot
+For $G(j\omega)=K$:
+
+Polar:
+<img src="img/constpolar.png" />
+
+Bode:
+<img src="img/constbode.png" />
+
+
+For $G(j\omega)=j\tau \omega + 1$ (the transfer function with a zero at $s=\frac{-1}{\tau}$)
+
+Polar:
+<img src="img/firstorderpolar.png" />
+
+Bode:
+
+Approximations for sketching:
+1. For $\omega \lt \frac{1}{\tau}$,  $\Im(G(j\omega)) \approx 0 \Rightarrow \forall \omega \lt \frac{1}{\tau}, \quad 20\log|G(j\omega)| \approx 20\log|1|=0$
+2. For $\omega \ge \frac{1}{\tau}$, $\Re(G) \gt \gt \Im(G) \Rightarrow
+\omega \ge \frac{1}{\tau}, \quad 20\log|G(j\omega)| \approx 20\log|j \tau \omega|$
+3. For $\omega \lt\lt \frac{1}{\tau}$, $\angle G(j\omega)\approx \angle 0j+1 = 0$ ($\omega \lt\lt \frac{1}{\tau}$ means $\omega \le \frac{0.1}{\tau}$)
+4. For $\omega \gt\gt \frac{1}{\tau}$, $\angle G(j\omega)\approx \angle j\omega\tau = \frac{\pi}{2}$ ($\omega \gt\gt \frac{1}{\tau}$ means $\omega \ge \frac{10}{\tau}$)
+5. Linear interpolation between $\frac{0.1}{\tau}$ and $\frac{10}{\tau}$
+
+<img src="img/firstorderbode.png" />
+
+Sub-case: $G(s) = \tau s - 1$ (zero at $s=\frac{1}{\tau}$)
+
+Polar plot:
+<img src="img/firstorderpolarsubcase.png" />
+- From the polar plot, the magnitude Bode plot is unchanged
+- for the phase plot, start at $\pi$ for small $\omega$ and goes to $\frac{\pi}{2}$ as $\omega \rightarrow \infty$
+
+<img src="img/firstordersubcasebode.png" />
+
+e.g. $G(s) = \frac{100}{s+10} = \frac{100}{10} \cdot \frac{1}{\frac{s}{10}+1} = 10 \frac{1}{\frac{s}{10}+1}$
+
+Frequency response: $G(j\omega)=10\frac{1}{\frac{j\omega}{10}+1}$
+Magnitude: $20\log|G(j\omega)|=\underbrace{20\log10}_{A}-\underbrace{20\log\left|\frac{j\omega}{10}+1\right|}_B$
+Phase: $\angle G(j\omega) = \underbrace{\angle 10}_A - \underbrace{\angle \frac{j\omega}{10}+1}_B$
+
+<img src="img/bodeplotex.png" />
+
+The **bandwidth** of the above system is the smallest frequency $\omega_{BW}$ such that:
+$$|G(j\omega_{BW})|=\frac{1}{\sqrt{2}}|G(0)|$$
+In dB: $20\log|G(0)|-20\log|G(j\omega)|=3dB$
+
+From the Bode plot, $\omega_{BW}=1.0 \text{ rad/s}$
+
+e.g. $G(s)=s^n$
+- When $n=1$: $G(j\omega)=j\omega$
+- When $n=2$: $G(j\omega)=-\omega^2$
+- When $n=3$: $G(j\omega)=-j\omega^3$
+- When $n=4$: $G(j\omega)=\omega^4$
+
+<img src="img/spowerofnpolar.png" />
+<img src="img/spowerofnbode.png" />
+
+### e.g. Complex conjugate zeroes
+$$G(s) = \frac{s^2}{\omega_n^2}+\frac{2\zeta}{\omega_n}s + 1, \quad \zeta \in [0,1), \quad \omega_n \ne 0$$
+$$G(j\omega)=\left(1-\frac{\omega^2}{\omega_n^2}\right) + j\cdot 2\zeta \frac{\omega}{\omega_n}$$
+
+<img src="img/complexconjugatezeroes.png" />
+
+Observations:
+- If $\omega \lt\lt |\omega_n|$, $|G(j\omega)| \approx 1$, $\angle G(j\omega) \approx 0$
+- If $\omega \gt\gt |\omega_n|$, $|G(j\omega)| \approx \frac{\omega^2}{\omega_n^2}$, $\angle G(j\omega) \approx 180^{\circ}$
+
+For asymptotic Bode plots of complex conjugate roots, approximate $G(s)$ as two first order terms with roots at $-\omega_n$. i.e., set $\zeta=1$:
+$$\begin{align}
+G(s)&=\frac{s^2}{\omega_n^2}+\frac{2\zeta s}{\omega_n} + 1\\
+&\approx \frac{s^2}{\omega_n^2}+\frac{2s}{\omega_n}+1\\
+&=\left(\frac{s}{\omega_n}+1\right)^2\\
+&= (\tau s + 1)^2, \quad \tau = \frac{1}{\omega_n}\\
+\end{align}$$
+
+<img src="img/complexconjugatezeroesbode.png" />
+
+## Summary
+- definition of asymptotic stability and how to test
+- definition of BIBO stability and how to test
+- relationship between asymptotic stability and BIBO stabilities
+- final value theorem, steady-state gain $G(0)$
+- frequency response physical meaning and how to draw Bode plots
+
+### Domains
+<img src="img/formats.png" />
+
+### State-space models
+$$g(t) = Ce^{At} 1(t) + D \delta(t)$$
+$$G(s) = C(sI-A)^{-1}B+D$$
