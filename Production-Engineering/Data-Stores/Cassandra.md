@@ -12,8 +12,14 @@ No master, all nodes are homogeneous
   - coordinator configuration dictates where the data will live
 - gossip peer-to-peer protocol is used to share information within a cluster
 - partitioner is a hash function that determines which node receives the first replica of a piece of data
-- replication of data is confgiured by a factor and placement strategy
-- snitch knows the network topology and is used to place replicas and chooses the best replica for reading 
+- replication of data is configured by a factor and placement strategy
+- snitch knows the network topology and is used to place replicas and chooses the best replica for reading
 
 ### Data Modelling
 Modelling is different for Cassandra compared to a traditional RDBMS. Since there are no joins, the complexity trade of in Cassandra is knowing about access and query patterns ahead of time. The primary key is a tuple. The first element is the **partition key**. It should be unique, but also is used to determine data locality. The hash of the partition key determines which node and replica the data belongs to. All following elements are clustering columns which specify ordering in the partition.
+
+### [Cassandra and CAP Theorem](https://medium.com/inlocotech/cassandra-cap-theorem-curse-a207ba5657c5)
+theoretically, Cassandra is classified as available and partition tolerant
+- repair system is a requirement for production environments
+- anti-entropy is the process of synchronizing replicas to ensure consistency
+- hinted handoff and read repair also make up cassandra's repair system
