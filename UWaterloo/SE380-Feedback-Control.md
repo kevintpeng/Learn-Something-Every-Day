@@ -591,7 +591,7 @@ Y(s) - \frac{
 
 # Chapter 4: First and Second Order Systems
 The order of a dynamic system is the order of the highest derivative of its governing differential equation.
-- understand relationship between ple locations and time domain behaviour; how do pole locations affect the response of the system?
+- understand relationship between pole locations and time domain behaviour; how do pole locations affect the response of the system?
 - use feedback to change the pole location of a closed loop system
 
 ## First order
@@ -641,6 +641,7 @@ y &= \begin{bmatrix} 1 & 0\end{bmatrix}x\\
 ### e.g.
 <img src="img/secondorderspring.png" />
 
+
 $$\begin{align}
 M \ddot{q} &= u - K_{spring} q - b\dot{q}\\
 \frac{Y(s)}{U(s)} &= \frac{\frac{1}{M}}{s^2 + \frac{b}{M}s + \frac{K_{spring}}{M}}\\
@@ -651,6 +652,9 @@ K &= \frac{1}{K_{spring}}
 \end{align}$$
 
 ### Pole locations
+- there's more to do since there's two poles since it's a second order equation
+- poles will be an expression of $\zeta$ and $\omega_n$, for $s$
+
 From the quadratic formula, find the zeroes of the denominator:
 $$s = -\zeta \omega_n \pm \omega_n \sqrt{\zeta^2 - 1} = \omega_n\left(-\zeta \pm \sqrt{\zeta^2 - 1}\right)$$
 
