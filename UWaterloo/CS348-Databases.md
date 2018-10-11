@@ -36,3 +36,53 @@
 
 example:
 - every boss manages a unique department: $\forall x_1,y_1, x_2, y_2 ,z.EMP(x_1,y_1,z) \land .EMP(x_2,y_2,z) \rightarrow y_1 = y_2$
+
+### [SQL](https://cs.uwaterloo.ca/~gweddell/cs348/lect-SQL-handout.pdf)
+builds on the relational calculus
+- SQL is a standard, has many implementations
+- has three parts: Data Manipulation, Data Definition, Data Control
+
+#### First Order SQL
+Summary:
+- captures all of relational calculus
+- polynomial runtime (PTIME)
+- shortcomings: no aggregation (counting) or recursion (path in graph)
+
+Details:
+- simple $\exists, \land$ queries use `SELECT, FROM, WHERE` to declare
+- `R AS p` defines a tuple variable (correlation) p, with **attribute names** $a_1, a_2, \dots a_n$, similar to relational calculus where we would say $R(p.a_1, p.a_2, \dots, p.a_n)$
+  - `AS` keyword is optional: `SELECT r.publication FROM wrote r`
+  - this is even still equivalent to `SELECT publication FROM wrote`
+- for $\lnot, \lor$ we need set operators `UNION, EXCEPT, INTERSECT`
+  - we can use this to connect queries together, but both queries must return the same signature (be **union-compatible**)
+  - `OR` in the `WHERE` clause looks like `UNION`, but often doesn't cover the empty set case
+  - of course with $\lnot, \exists$ we can form $\forall$ queries now
+- for nested queries (something like $(A \lor B) \land C$) can use the keyword `WITH` to name the results of a child query for use in another query
+  - `WITH` can be omitted by inlining queries `SELECT book.title FROM (SELECT * FROM books) book`
+- `WHERE` subqueries are syntactic sugar that allow you to inline queries that look like predicates, with keywords `IN, SOME, ALL, EXISTS, NOT`
+  - `SELECT title FROM publication WHERE pubid in (SELECT pubid FROM article)`
+- **parametric subqueries** allow queries to depend on (attributes from) the main query 
+  - semantically, subqueries let us say "All x in R s.t. part of x doesn't appear in S"
+
+Example: List all authors who always publish with someone else
+```SQL
+SELECT DISTINCT a1.name 
+FROM author a1, a2 
+WHERE NOT EXISTS (
+  SELECT * FROM publications p, wrote w 
+  WHERE p.pubid == w.publication
+    AND a1.aid = w.author
+    AND a2.aid NOT IN (
+      SELECT author
+      FROM wrote
+      WHERE publication = p.pubid
+        AND author <> a1.aid
+    )
+)
+```
+
+#### Modifying Database
+More SQL syntax for actually modifying state based on first order logic
+
+#### Aggregation
+Extension of first order SQL
