@@ -444,6 +444,7 @@ Linearizing $\dot{x}=f(x,u)$ and $y=h(x,u)$:
 
 We do this to simplify our mathematical model, by finding a good linear approximation at some point, allowing us to solve things about non-linear systems
 - now that our models are linear, we can apply lapace transforms
+- to show that a system is non-linear, show that one of the properites of linearity is not true for the system (in the assignment we show that superposition doesn't hold)
 
 ### e.g. 2.5.5 (Pendulum)
 
