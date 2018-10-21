@@ -218,4 +218,31 @@ C++ object that represents a thread: `_Task`
 - killed by its parent, or parent terminates (both no is micro c++)
 
 ##### 5.11 Divide and Conquer
+- problem can be partitioned, where each unit of work can be performed independently
+- only termination synchronization is required to know when the work is done
 
+##### 5.12 Synchronization
+- necessary for data transmission, busy wait (empty loop) can be used to wait for a flag to be set
+  - Prod/Cons problem can be solved with busy wait implementation
+
+##### 5.13 Communication
+- data can be transferred via pointers if tasks have shared memory
+- distributed systems may transfer over a network (dictated by some protocol)
+
+##### 5.14 Exceptions
+- nonlocal exceptions can be sequential (as seen with coroutines) or concurrent
+  - all concurrent exceptions must be non-local
+  - nonlocal exceptions between a task and a coroutine are the same as between coroutines
+- example is two searching tasks, which resume a nonlocal exception at their partner upon finding the element
+
+##### 5.15 Critical Section
+- atomicity is important for data that is being modified
+  - achievable through mutual exclusion primatives
+  - thread can be interrupted, but no other thread can modify any parts of the object while the multi-step operation is occuring
+- Amdahl's law implies that critical sections of code must be limited to maximize concurreny
+
+##### 5.19 Software Solutions for Mutex
+- Lock algorithms are hard
+
+### Locks
+- spinning and blocking are the two main categories of locks
