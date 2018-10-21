@@ -5,7 +5,7 @@ Course is about classical control; most prevalent, assumes linear and time invar
 - it requires that we have a transfer function
 - when you use feedback, you need to consider the possibility of a system not converging
 
-### Review
+### Summary
 - Complex Numbers
   - Euler's Identity: $e^{j\theta} = \cos(\theta) + j\sin(\theta)$ gives us a way to think about complex numbers in terms of angles
   - Polar form makes it easy to multiply/divide: $|z| = ℝ$ and $arg(z) = \theta$
@@ -28,6 +28,17 @@ Let's plot angle vs. omega. Note that at $\omega = 1, angle(\omega) \rightarrow 
 <img height="300" src="img/angle-vs-omega.png"/>
 
 Notice this is like a bode plot. $f$ is our transfer function, and we've plotted two graphs again $\omega$
+
+In lab 2, we looked at a second order circuit system.
+- we can have second order LTI systems, it just means that the output signal depends on the input y(t) and both the first and second derivative of y(t)
+- feeding the output back as input (closing the loop) decreases steady state gain of the system and damping ratio, and increases the bandwidth frequency and natural frequency
+- closed-loop systems can handle disturbance signals while open-loop cannot
+
+For sketching bode plots, the magnitude plot is on a scale of dB, so $20 \log|G(s)|$ for transfer function G(s). The phase plot is on a scale of degrees. The x axis is on a logarithmic scale. The sketch is called an asymptotic bode plot. We use straight line approximations to draw the plot. 
+- for magnitude, taking the log of a fractional expression allows us to rewrite it as a sum of logs (with negatives for denominator terms)
+- use zeroes and poles to determine where the plot changes, and its coefficient is the slope of the linear approximation
+- bandwidth of the transfer function can be determined by calculating at what frequency (x-axis) the dB drops by 3 from it's initial value
+  - $20 log|G(s)| = K-3$, for some gain of $K$ *(K might be the wrong variable to use here)*
 
 ### [Introduction](http://davepagurek.github.io/SE-Notes/se380/01%20intro.html)
 - u(t) is convention for control systems (control signal), effectively our algorithm
@@ -461,7 +472,7 @@ Transfer function of the system is the ratio $\frac{Y(s)}{U(s)}$ where all Lapla
 
 example: Recall the mass spring damper 
 
-$M\ddot{q} =  u - kq - c(\dot{q})$$
+$M\ddot{q} =  u - kq - c(\dot{q})$
 
 If the damper is nonlinear, then this system doesn't have a transfer function. If $C \dot{q} = b \dot{q}$, b is a constant, then taking the Laplace transform of the differential equation:
 
