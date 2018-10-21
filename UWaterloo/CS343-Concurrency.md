@@ -144,9 +144,23 @@ two types of coroutine languages: stackless and stackful (powerful)
 
 
 ### 5 Concurrency
-- **thread** is sequential a path through a program
-- **process** is a program component, has thread(s)
-- **task** is sometimes referred to as a lightweight process
+- a thread is a path through a program
+  - independent (PC not affected by other threads), sequential (no instructions within the thread are executed in parallel)
+- a process is a program component, which its own thread
+- a task (similar to a process) but lightweight
+  - might share common memory with other tasks
+- parallel execution is when multiple operations occur simultaneously, only on multi-processor systems
+- concurrent execution is any situation with multiple threads executing, simultaneously or with context switches
+
+##### 5.3 Concurrent Hardware
+- task switching can occur at non-deterministic program locations, unlike coroutines
+  - *coroutines control context switches at the program logic level, while tasks are handled below the user-level logic*
+- memory is shared between tasks, so heap-allocated data
+- concurrent execution of threads is possible with separate memories, in distributed systems
+
+##### 5.4 Execution States
+<img src="img/54states.png"/>
+- non-determinism happens between `ready <-> running` states
 
 ##### 5.5 Threading Model
 <img src="img/threading55.png"/>
@@ -169,6 +183,7 @@ three types:
 1 and 2 build on 3.
 
 *It turns out there is no single model for having all concurrent capabilities*
+- to solve all concurrency problems, threads need to be explicit
 
 <img src="img/speedup57.png"/>
 - nonlinear is common, you hit a bottleneck and performace degrades
@@ -183,5 +198,24 @@ three types:
 Requires 3 mechanisms in a programming language
 
 1. creation
-2. synchronization; timing realtionship
+2. synchronization; timing relationships (A happens before B, etc..)
 3. communication; data transmission
+
+<img src="img/58threadgraph.png"/>
+- thread graph represents thread creation, `COBEGIN/COEND` allow us to generate a lattice control flow graph
+- recursion can be used with `COBEGIN` to create dynamic number of threads
+- `START/WAIT` allows threads to be explicitly created and waited on for their result
+
+##### 5.9 Thread Object
+C++ object that represents a thread: `_Task`
+- end of a code block calls delete on all object in its lexical scope
+- `delete` kills the thread, so block-termination kills the thread
+- block termination must wait for al threads to finish executing for semantics to hold
+
+##### 5.10 Termination Synchronization
+- terminates if it finishes normally
+- finishes with error
+- killed by its parent, or parent terminates (both no is micro c++)
+
+##### 5.11 Divide and Conquer
+
