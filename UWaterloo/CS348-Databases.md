@@ -86,3 +86,5 @@ More SQL syntax for actually modifying state based on first order logic
 
 #### Aggregation
 Extension of first order SQL
+- finding a number of tuples (counting), min/max, mapping values over a column
+
