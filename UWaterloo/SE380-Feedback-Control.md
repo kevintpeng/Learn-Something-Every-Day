@@ -13,6 +13,26 @@ Course is about classical control; most prevalent, assumes linear and time invar
   - Complex conjugate, $\bar{z}$ of the denominator for turning division into multiplication
     - $z\bar{z} = |z|^2$
 
+Block Diagrams are the basis of control engineering. Each block represents a function (not like free body diagrams)
+
+Review of Equations:
+- Newton's equations are useful for mechanical/physical systems
+  - translation and rotation
+  - rotational inertia formula: $\tau = I a$, I = moment of inertia
+- Hooke's Law says restoring force from stretch is linearly proportional to the amount stretched 
+- for circuit systems, there KVL and KCL
+  - $v = L \frac{di}{dt}$ for inductors
+  - $i = C \frac{dv}{dt}$ for capacitors
+
+**State-space models** are mathematical expressions of systems
+- state variables (a vector called `x`) are the full set of variables that dictate change in a system
+- we have a vector of inputs `u`
+- composed of state equation + output equation
+  - $\dot{x} = f(x, u) = Ax + Bu$
+  - $y = h(x) = Cx + Du$
+
+One key property of linearity is the **superposition principle**: the net responses caused by multiple stimuli is the sum of the responses caused by each stimuli individually
+
 Consider $f(\omega) = 1 + j\omega \in \mathbb{R} \Rightarrow \mathbb{C}$
 
 1. $\lim_{\omega \rightarrow +-\inf} = +=\inf$ (vertically)
@@ -39,6 +59,22 @@ For sketching bode plots, the magnitude plot is on a scale of dB, so $20 \log|G(
 - use zeroes and poles to determine where the plot changes, and its coefficient is the slope of the linear approximation
 - bandwidth of the transfer function can be determined by calculating at what frequency (x-axis) the dB drops by 3 from it's initial value
   - $20 log|G(s)| = K-3$, for some gain of $K$ *(K might be the wrong variable to use here)*
+
+
+Pole-zero cancellation is if some pole in either the controller C or plant P gets cancelled by the numerator 
+- unstable if Re($\lambda \geq 0$), implying that the feedback system isn't I.O. stable (root always shows up in the characteristic polynomial since $\pi(\lambda) = N_pN_c + D_pD_c = 0 + 0 = 0$)
+  - **it's the naive thing to do, it doesn't work**
+- roots of $\Pi(s) \subseteq$ eigenvalues of $A_{closed}$
+- **internal staility** says with no exogenous inputs, the internal states (x state variables for both blocks) will decay to zero for all inital states (but remember with certain disturbance, we might hit a pole of the plant)
+- internal stability => I.O. stability
+- $\Pi(s)$ is **Hurwitz** if all roots have Re(s) < 0
+  - Routh-Hurwitz criterion is an algebraic test for the characteristic polynomial to be Hurwitz, for the purpose of checking stability without finding its roots
+  - if all real roots have negative real value, then all coefficients of the polynomial must be positive
+  - for complex conjugate roots, expanding (and intuitively) we know that each multiplied together will be a quadratic with all positive coefficients
+- hurwitz huristic tells us quickly whether its not hurwitz (check all coefficients for positivity)
+- routh-hurwitz is stronger, follow table algorithm with X pattern drawing and terminate if any first column value is zero
+- characteristic polynomial is hurwitz iff all elements in 1st column have same sign
+  - if no zeroes in first column, # of sign changes = # of bad roots
 
 ### [Introduction](http://davepagurek.github.io/SE-Notes/se380/01%20intro.html)
 - u(t) is convention for control systems (control signal), effectively our algorithm
