@@ -246,3 +246,15 @@ C++ object that represents a thread: `_Task`
 
 ### Locks
 - spinning and blocking are the two main categories of locks
+
+##### 6.3.3 Barrier
+coordinates a group of tasks performing a concurrent operation sandwiched between sequential code
+- barrier is like a horse race, blocks until all `N` horses are ready before the race starts (gate opens)
+  - more commonly used cyclically
+  - initialize with `N+1` to allow for a coordinator 
+- for synchronization not mutual exclusion
+- `uBarrier`, given as essentially a template to inherit from
+- a thread cannot delete itself, since delete must clean up the task's stack
+
+##### 6.3.4 Semaphore
+Process graph != precedence graph

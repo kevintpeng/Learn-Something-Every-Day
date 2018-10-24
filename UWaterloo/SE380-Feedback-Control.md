@@ -34,7 +34,7 @@ In lab 2, we looked at a second order circuit system.
 - feeding the output back as input (closing the loop) decreases steady state gain of the system and damping ratio, and increases the bandwidth frequency and natural frequency
 - closed-loop systems can handle disturbance signals while open-loop cannot
 
-For sketching bode plots, the magnitude plot is on a scale of dB, so $20 \log|G(s)|$ for transfer function G(s). The phase plot is on a scale of degrees. The x axis is on a logarithmic scale. The sketch is called an asymptotic bode plot. We use straight line approximations to draw the plot. 
+For sketching bode plots, the magnitude plot is on a scale of dB, so $20 \log|G(s)|$ for transfer function G(s). The phase plot is on a scale of degrees. The x axis is on a logarithmic scale. The sketch is called an asymptotic bode plot. We use straight line approximations to draw the plot.
 - for magnitude, taking the log of a fractional expression allows us to rewrite it as a sum of logs (with negatives for denominator terms)
 - use zeroes and poles to determine where the plot changes, and its coefficient is the slope of the linear approximation
 - bandwidth of the transfer function can be determined by calculating at what frequency (x-axis) the dB drops by 3 from it's initial value
@@ -470,7 +470,7 @@ u(t) -> |LTI system| -> y(t)
 
 Transfer function of the system is the ratio $\frac{Y(s)}{U(s)}$ where all Laplace transforms are taken with zero initial conditions
 
-example: Recall the mass spring damper 
+example: Recall the mass spring damper
 
 $M\ddot{q} =  u - kq - c(\dot{q})$
 
@@ -529,7 +529,7 @@ G(s) &= C(sI-A)^{-1}B + D, \quad (sI-A)^{-1} = \frac{\text{adj}(sI-A) \text{   <
 - transfer functions in series can be multiplied together and written as a single block
 
 <img src="img/block237.png" />
-- by linearization, transfer functions in parallel are added 
+- by linearization, transfer functions in parallel are added
 
 
 ```
