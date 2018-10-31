@@ -1,8 +1,70 @@
 # [Concurrency](https://www.student.cs.uwaterloo.ca/~cs343/documents/notes.pdf)
 
+### Summary
+- static multi-level exits are blocks with multiple breaks/gotos
+- dynamic memory allocation uses shared memory on the heap instead of stack
+- dynamic multi-level exits extend normal call/return semantics, allowing control flow to be transferred in the reverse direction of the function call stack, called **nonlocal transfer**
+- traditional approaches to nonlocal transfer are register flags and return codes, golang return unions
+- exception handling is complex control flow that enables nonlocal transfer
+- **static/dynamic** characterizes whether a line in code is known at compile time or not
+  - static call static return is a sequel, catching an exception
+  - static call dynamic return is a routine
+  - dynamic call static return is a termination exception
+  - dynamic call dynamic return is function pointer, or resumption exception
+- **Coroutines** allow control flow to be suspended, enabling more complex control flow graphs
+- **Semi-coroutines** enable traversal up and down the call stack
+- Nonlocal transfer is allowed between coroutines, but only through resumption (too powerful to allow a coroutine to unwind anothers' stack)
+- **Full-coroutines** enable cycles
+- exceptions have polymorphic types, defining a hierarchy
+  - exception truncation can occur, when catching a parent class and down casting from the static type is not possible
+- `finally` is an example of a **catch-any** mechanism
+- an **exception list** can be used to specify throwable/expected exception types
+- destructors are not allowed to raise exceptions, since objects being destroyed during exception handling might cause more exceptions which would require postponing (but stack may be unwound) or dropping the original exception
+- many languages have zero-cost exceptions, which is performant under the assumption that exceptions are rare
+  - performs linear search over possible handlers instead of setting/resetting labels
+- concurrency can often be used to improve performance
+- multiprocessor hardware allows parallelism
+- each execution moves between states: executing, ready, blocked
+- threading model uses abstraction to allow threading to occur at different layers
+  - kernel threads are scheduled by the OS, map to processes, each with their own threads and own scheduling, and the kernel threads could be executing on a virtual machine
+- three types of concurrent systems/language designs: discovery of parallelization, implicit constructs *guided by the programmer*, and explicit constructs declared by the programmer
+- we can measure speed up by $\frac{T_1}{T_c}$, c is the number of CPUs, and fall into four categories: super-linear, linear, sub-linear, non-linear (most common)
+- Amdahl's law gives a way to calculate max speedup over a program by describing a program's percentage of concurrent code
+- concurrency requires **3 mechanisms in a programming language**: creation, synchronization, communication
+- divide and conquer algorithms and be parallelized, and brought together by termination synchronization
+- any communication requires data transfer, which requires one thread to be ready to accept data, which requires synchronization
+- communication mechanisms include shared memory space
+- all concurrent exceptions are nonlocal (otherwise local unwinding could disturb other exception handling instances on other processors) 
+  - made possible by the fact that all tasks/coroutines have their own stack
+- atomicity is a property for instructions, non atomic instructions may require mutual exclusion
+- mutual exclusion is sequential, which affects runtime by Amdahl's law
+- solving the mutual exclusion problem can be described with 5 rules:
+  - **safety:** only one thread can be in the critical section at a time
+  - threads run at nondeterministic speeds
+  - a thread must be in the entry or exit code controlling access in order to prevent other threads from entering
+  - **liveliness:** preventing indefinite postponement or livelock (eventual progress is required)
+  - no **starvation:** a thread must eventually gain access to the critical section
+- busy waiting often affects liveliness and starvation
+- **unfairness** occurs when threads don't come FCFS (FIFO)
+- threads that don't respect fairness are **barging**
+- barging avoidance is a solution that handles and acknolwedges barging in a fair way
+- barging prevention is characteristic of a solution that doesn't allow threads to barge at all
+- looking at software solutions for mutual exclusion: 
+  - simple lock algorithm violates safety
+  - alternating algorithm can block itself out which violates rule three since it is blocking itself without being in the entry/exit code
+  - declaring intent violates liveliness if threads are perfectly in sync
+  - prioritized retraction (one thread doesn't back down) can starve the low priority thread
+- **Dekker's algorithm** alternates priority to prevent starvation
+  - has **unbounded overtaking**, in which one thread could repeatedly reacquire the lock while the other thread sleeps, which is different than starvation because starvation requires the other thread to attempt to acquire the lock
+- **Peterson's Algorithm** has **bounded overtaking**, because the loser doesn't retract their intention (which is allowed because prevention occurs in the entry protocol)
+- for N threads, tournament algorithm can convert any valid 2-thread solution by building a binary tree
+  - has unbounded overtaking, no synchronization between nodes
+- extend prioritized entry to a list of priorities, but has same problem of starvation as the 2-thread prioritized algorithm
+- **N-Thread Bakery (Tickets) Algorithm** 
+
 ### Introduction
 Concurrency is advanced code control flow.
-- one possible control flow style is to use `break`s instead of flag variables, creating a multi-exit loop
+- one possible control flow style--**static multi-level exits**--is to use `break`s instead of flag variables, creating a multi-exit loop
   - no loops on middle exits
 - static exit points known at compile time
 
