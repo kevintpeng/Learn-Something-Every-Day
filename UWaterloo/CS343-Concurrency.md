@@ -320,3 +320,11 @@ coordinates a group of tasks performing a concurrent operation sandwiched betwee
 
 ##### 6.3.4 Semaphore
 Process graph != precedence graph
+
+### 7 Concurrent Errors
+- race conditions occur when missing synchronization or mutual exclusion
+- livelock (consuming CPU), starvation and deadlock are kinds of no-progress concurrent errors
+  - deadlock can be caused by either sync or mutex 
+- synchronization deadlock prevention requires no sync in the program => no communication
+
+

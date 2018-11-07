@@ -88,3 +88,32 @@ More SQL syntax for actually modifying state based on first order logic
 Extension of first order SQL
 - finding a number of tuples (counting), min/max, mapping values over a column
 
+### Application Programming
+We look at C as a language to embed SQL in.
+- declarations allow you to define host variables in order to communicate single values to the programming language
+- stored procedures let you write functions in SQL directly, to be executed on the database instead of client
+- `SQLCA` is the communication area, allows host variables through declarations
+
+Dynamic SQL allows us to execute a string as a SQL statement
+- a statement could return any number of variables, so to handle this we store it in a struct `sqlda`, description area
+- `DESCRIBE stmt INTO sqlda` allows a prepared `stmt` to have its description stored in the SQLDA structure
+
+ODBC's are libraries that allow applications to perform queries without needing preproccessing of code
+- no precompilation, more restrictive, explicit binding of parameters required
+- standardized (but with long specification)
+
+### Data Modeling and Entity-Relationship Model
+**E-R Model** is for designing database schemas, visualized by **E-R diagram**
+- describes in terms of entity, relationships, attributes
+- entities have attributes, and can be related to each other
+- a role name can be used to label the function of an entity set in a relationship set (useful when there are multiple relationships)
+- **constraints** can be defined in the model
+  - existence through primary keys, and dependencies
+  - multiplicity through N:M relationships
+  - subordinate entities are identified through their depency on another, single entity through a many to one relationship
+  - cardinality constraints can be declared, min and max range
+- a number of extensions are considered, like structured attributes, aggregation, specialization, generalization, and disjointness
+
+### Translating E-R models to relational tables
+They seem to map directly to relational tables, different ways to represent each model component
+

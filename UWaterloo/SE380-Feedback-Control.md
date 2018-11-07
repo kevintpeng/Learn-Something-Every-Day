@@ -6,6 +6,7 @@ Course is about classical control; most prevalent, assumes linear and time invar
 - when you use feedback, you need to consider the possibility of a system not converging
 
 ### Summary
+##### Chapter 1 review
 - Complex Numbers
   - Euler's Identity: $e^{j\theta} = \cos(\theta) + j\sin(\theta)$ gives us a way to think about complex numbers in terms of angles
   - Polar form makes it easy to multiply/divide: $|z| = ℝ$ and $arg(z) = \theta$
@@ -24,14 +25,57 @@ Review of Equations:
   - $v = L \frac{di}{dt}$ for inductors
   - $i = C \frac{dv}{dt}$ for capacitors
 
+##### Chapter 2 Modelling
 **State-space models** are mathematical expressions of systems
 - state variables (a vector called `x`) are the full set of variables that dictate change in a system
 - we have a vector of inputs `u`
 - composed of state equation + output equation
   - $\dot{x} = f(x, u) = Ax + Bu$
+    - another equivalent way to write this is as a vector of functions
   - $y = h(x) = Cx + Du$
 
 One key property of linearity is the **superposition principle**: the net responses caused by multiple stimuli is the sum of the responses caused by each stimuli individually
+
+**Linearization** is approximating a nonlinear system, by looking at the system's behaviour near an equilibrium configuration (physical state is at rest). We then calculate the four jacobians, A, B, C and D.
+
+**Transfer functions** exist only for LTI systems, and are expressed in the frequency domain. They tell us how the system responds at different frequencies (which is only possible because we assume time invarance and so the response does not depend on the current time)
+- to find the TF from state space, $\frac{Y(s)}{U(s)} = C(sI - A)Y{-1}B + D$
+- we only look at one sided laplace transforms here (Re(s) > 0)
+- the region of convergence is always in the open right half plane
+
+##### Chapter 3 Linear System Theory
+**Stability**
+- **asymptotic stability** is when state x goes to zero as t approaches infinity forall initial conditions x(0), or the matrix exponential $e^{At} \rightarrow 0$ as $t \rightarrow \inf$
+  - it actually only depends on eigenvalues: if all eigenvalues of A have a negative real part
+- **bounded input** is when $u(t) \leq b$ forall t, b is finite
+- **BIBO stable** if BI => BO
+  - for strictly proper rational transfer functions, BIBO stable iff every pole has negative real value iff the integral of the impulse response is finite
+  - if G(s) is improper, G(s) is not BIBO stable
+  - recall that in the time domain, we can use convolution to calculate response in time domain of applying a transfer function to some input
+- **IO Stable** if there are no roots of the characteristic polynomial that have Re >= 0; Hurwitz 
+  - if some coefficient of the char poly is non-positive, it is not hurwitz => not IO stable
+
+##### Chapter 4 Prototypes
+**Prototype first order system** equation lets us compare transfer functions to a parametric form, allowing us to easily derive properties: everything depends on time constant $\tau$
+- $G(s) = \frac{K}{\tau s + 1}$
+- pole at $s = -\tau$, bandwidth = $\frac{1}{\tau}$, non oscillatory, gain of K, settling time of $4\tau$
+
+Prototype second order system is $G(s) = \frac{K \omega_n}{s^2 + 2 \zeta \omega_n s + \omega_n^2}$
+- introduces concept of damping ratio, which dictates its response graph and whether it is oscillatory or not
+
+**Matrix Exponential** $e^{At}$ is the square matrix form of the taylor series expansion, allowing us to use matrices as exponents
+
+
+##### Chapter 6 Root-Locus
+Want to look at how the poles move in the complex plane as parameters vary
+- root-locus shows us grpahically how the closed loop poles move around the s-plane
+- poles determine properties of a system, and so root-locus is a graphical representation for aiding controller design
+
+##### Chapter 7 PID control
+Two classical PID controllers: error feedback and two degrees-of-freedom
+- error feedback has improper transfer function
+  - first refinement is to replace the derivative term (amplifies high frequency) with a low pass filtered version 
+  - second refinement is to use the two-degree-of-freedom version
 
 Consider $f(\omega) = 1 + j\omega \in \mathbb{R} \Rightarrow \mathbb{C}$
 
