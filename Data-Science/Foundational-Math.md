@@ -34,7 +34,7 @@ AA^-1 = I
   - a basis is linearly independent spanning set of the vector space
   - for set of vectors S, the **span** W is the intersection of all subspaces containing S. then S is a spanning set of W 
 - **eigenspace** for an eigenvalue &lambda; E<sub>&lambda;</sub> is the set of all vectors (eigenvectors) that satisfy 0&#8407; = (I•&lambda; - A)•v&#8407;
-- sparce vectors can be used to optimize storage, reducing storage for dense vectors that are mostly 0s
+- dense vectors can be used to optimize storage, reducing storage for sparse vectors that are mostly 0s
   - [0,0,0,0,1,0,0,0,3] => [(4,1), (8,3)]
 
 ### Probability & Information Theory
