@@ -326,5 +326,16 @@ Process graph != precedence graph
 - livelock (consuming CPU), starvation and deadlock are kinds of no-progress concurrent errors
   - deadlock can be caused by either sync or mutex 
 - synchronization deadlock prevention requires no sync in the program => no communication
+- banker's algorithm, "oracle" process tries all possibilities to determine whether 
 
-
+### 8 Indirect Communication
+- getting help from the compiler to check synchronization correctness 
+- **monitor** is a data type that combines shared data with serialization of its function calls (implicit mutual exclusion)
+- **scheduling** is how a monitor determines order of running tasks
+- external scheduling tasks outside using `_Accept` statements, allowing the programmer to specify which routine will be scheduled next
+  - barging prevention, since producers don't barge in front of other producers and same with consumers
+  - if producer is the acceptor, no other producers enter the shared data until the aceepted routine runs
+- internal scheduling is inside the monitor, using CVs and signal/wait
+  - barging avoidance, daisy chaining programming style ensures FIFO order, even when we use the acceptor "chair" as a stack
+- general implementation, $O(1)$ accept by having multiple queues, one for each routine
+- internal scheduling is harder to use but more powerful: if information is needed from tasks in the entry queue
