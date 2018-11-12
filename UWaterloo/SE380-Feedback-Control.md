@@ -81,7 +81,10 @@ Prototype second order system is $G(s) = \frac{K \omega_n}{s^2 + 2 \zeta \omega_
 ##### Chapter 5 Feedback control theory
 analyzing existing controllers
 - unstable pole-zero cancellation by the controller produces a BIBO stable system but is instable relative to any disturbance
-  - **internal stability** is achieved when the state model for $\dot{x_{cl}$ is asymptotically stable
+  - **internal stability** is achieved when the state model for $\dot{x_{cl} = A_{cl}x_{cl}$ is asymptotically stable
+
+![52acl](./imgs/52Acl.png)
+
 - **IO Stable** if there are no roots of the characteristic polynomial that have Re >= 0; Hurwitz 
   - if some coefficient of the char poly is non-positive, it is not hurwitz => not IO stable
 
