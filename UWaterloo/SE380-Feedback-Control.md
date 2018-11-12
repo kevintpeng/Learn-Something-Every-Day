@@ -70,6 +70,12 @@ One key property of linearity is the **superposition principle**: the net respon
 - the **steady-state gain** is G(0)
 - the **frequency response** is $G(j\omega)$, used for determining the steady state output given a sinusoidal input (see Theorem 3.7.1)
 
+For sketching bode plots, the magnitude plot is on a scale of dB, so $20 \log|G(s)|$ for transfer function G(s). The phase plot is on a scale of degrees. The x axis is on a logarithmic scale. The sketch is called an asymptotic bode plot. We use straight line approximations to draw the plot.
+- for magnitude, taking the log of a fractional expression allows us to rewrite it as a sum of logs (with negatives for denominator terms)
+- use zeroes and poles to determine where the plot changes, and its coefficient is the slope of the linear approximation
+- bandwidth of the transfer function can be determined by calculating at what frequency (x-axis) the dB drops by 3 from it's initial value
+  - $20 log|G(s)| = K-3$, for some gain of $K$ *(K might be the wrong variable to use here)*
+
 ##### Chapter 4 Prototypes
 **Prototype first order system** equation lets us compare transfer functions to a parametric form, allowing us to easily derive properties: everything depends on time constant $\tau$
 - $G(s) = \frac{K}{\tau s + 1}$
@@ -80,60 +86,22 @@ Prototype second order system is $G(s) = \frac{K \omega_n}{s^2 + 2 \zeta \omega_
 
 ##### Chapter 5 Feedback control theory
 analyzing existing controllers
-- unstable pole-zero cancellation by the controller produces a BIBO stable system but is instable relative to any disturbance
-  - **internal stability** is achieved when the state model for $\dot{x_{cl} = A_{cl}x_{cl}$ is asymptotically stable
-
-![52acl](./imgs/52Acl.png)
-
-- **IO Stable** if there are no roots of the characteristic polynomial that have Re >= 0; Hurwitz 
-  - if some coefficient of the char poly is non-positive, it is not hurwitz => not IO stable
-
-##### Chapter 6 Root-Locus
-Want to look at how the poles move in the complex plane as parameters vary
-- root-locus shows us grpahically how the closed loop poles move around the s-plane
-- poles determine properties of a system, and so root-locus is a graphical representation for aiding controller design
-
-##### Chapter 7 PID control
-Two classical PID controllers: error feedback and two degrees-of-freedom
-- error feedback has improper transfer function
-  - first refinement is to replace the derivative term (amplifies high frequency) with a low pass filtered version 
-  - second refinement is to use the two-degree-of-freedom version
-
-Consider $f(\omega) = 1 + j\omega \in \mathbb{R} \Rightarrow \mathbb{C}$
-
-1. $\lim_{\omega \rightarrow +-\inf} = +=\inf$ (vertically)
-2. $f(0) = 1 \in \mathbb{R}$
-3. $f(1) = 1 + j = \sqrt{2} e^{\frac{\pi}{4}j}$
-
-Let's plot magnitude vs. omega. As $\omega \rightarrow \inf$, $angle(z) \rightarrow \frac{\pi}{2}$
-
-<img height="300" src="img/mag-vs-omega.png"/>
-
-Let's plot angle vs. omega. Note that at $\omega = 1, angle(\omega) \rightarrow \frac{\pi}{4}$
-
-<img height="300" src="img/angle-vs-omega.png"/>
-
-Notice this is like a bode plot. $f$ is our transfer function, and we've plotted two graphs again $\omega$
 
 In lab 2, we looked at a second order circuit system.
 - we can have second order LTI systems, it just means that the output signal depends on the input y(t) and both the first and second derivative of y(t)
 - feeding the output back as input (closing the loop) decreases steady state gain of the system and damping ratio, and increases the bandwidth frequency and natural frequency
 - closed-loop systems can handle disturbance signals while open-loop cannot
 
-For sketching bode plots, the magnitude plot is on a scale of dB, so $20 \log|G(s)|$ for transfer function G(s). The phase plot is on a scale of degrees. The x axis is on a logarithmic scale. The sketch is called an asymptotic bode plot. We use straight line approximations to draw the plot.
-- for magnitude, taking the log of a fractional expression allows us to rewrite it as a sum of logs (with negatives for denominator terms)
-- use zeroes and poles to determine where the plot changes, and its coefficient is the slope of the linear approximation
-- bandwidth of the transfer function can be determined by calculating at what frequency (x-axis) the dB drops by 3 from it's initial value
-  - $20 log|G(s)| = K-3$, for some gain of $K$ *(K might be the wrong variable to use here)*
-
-
 Pole-zero cancellation is if some pole in either the controller C or plant P gets cancelled by the numerator 
 - unstable if Re($\lambda \geq 0$), implying that the feedback system isn't I.O. stable (root always shows up in the characteristic polynomial since $\pi(\lambda) = N_pN_c + D_pD_c = 0 + 0 = 0$)
   - **it's the naive thing to do, it doesn't work**
-- roots of $\Pi(s) \subseteq$ eigenvalues of $A_{closed}$
-- **internal staility** says with no exogenous inputs, the internal states (x state variables for both blocks) will decay to zero for all inital states (but remember with certain disturbance, we might hit a pole of the plant)
+- roots of $\pi(s) \subseteq$ eigenvalues of $A_{closed}$
+  - **internal stability** is achieved when the state model for $\dot{x}_{cl} = A_{cl}x_{cl}$ is asymptotically stable
+<img height=50 src="img/52Acl.png"/>
+- **IO Stable** if there are no roots of the characteristic polynomial that have Re >= 0; Hurwitz 
+  - if some coefficient of the char poly is non-positive, it is not hurwitz => not IO stable
 - internal stability => I.O. stability
-- $\Pi(s)$ is **Hurwitz** if all roots have Re(s) < 0
+- $\pi(s)$ is **Hurwitz** if all roots have Re(s) < 0
   - Routh-Hurwitz criterion is an algebraic test for the characteristic polynomial to be Hurwitz, for the purpose of checking stability without finding its roots
   - if all real roots have negative real value, then all coefficients of the polynomial must be positive
   - for complex conjugate roots, expanding (and intuitively) we know that each multiplied together will be a quadratic with all positive coefficients
@@ -141,6 +109,31 @@ Pole-zero cancellation is if some pole in either the controller C or plant P get
 - routh-hurwitz is stronger, follow table algorithm with X pattern drawing and terminate if any first column value is zero
 - characteristic polynomial is hurwitz iff all elements in 1st column have same sign
   - if no zeroes in first column, # of sign changes = # of bad roots
+
+##### Chapter 6 Root-Locus
+Want to look at how the poles move in the complex plane as parameters vary
+- root-locus shows us grpahically how the closed loop poles move around the s-plane
+- poles determine properties of a system, and so root-locus is a graphical representation for aiding controller design
+
+##### Chapter 7 PID control
+PID controllers are popular for their simplicity. Two classical PID controllers: error feedback and two degrees-of-freedom
+- PID controller has three parts: proportional term, integral term, derivative term
+- error feedback has improper transfer function
+  - first refinement is to replace the derivative term (amplifies high frequency) with a low pass filtered version 
+  - second refinement is to use the two-degree-of-freedom version (r and y separately)
+- controllers have the form $\frac{g_2 s^2 + g_1 s + g_0}{s^2 + f_1 s}$
+- $b_0$ in the numerator of the plant cannot be zero, otherwise we have unstable pole-zero cancellation
+- desired characteristic polynomial has a unique solution iff numerator and denominator of the plant are coprime
+- following is a formula for designing a controller, based on desired poles
+<img src="img/714charpoly.png" height=78/>
+
+- another common model for which PID is effective is 1st order + time delay
+  - Pade approximation of time delay $e^{-sT}$, and we get a second order plant
+- if you can adequately model your plant as a second order system, PID is effective
+
+##### Chapter 9 Control design in the frequency domain
+design specs in the frequency domain, sometimes by converting time domain specs
+- margins let us quantify how robust a controller is (tolerent to error)
 
 ### [Introduction](http://davepagurek.github.io/SE-Notes/se380/01%20intro.html)
 - u(t) is convention for control systems (control signal), effectively our algorithm
