@@ -24,6 +24,7 @@ Review of Equations:
 - for circuit systems, there KVL and KCL
   - $v = L \frac{di}{dt}$ for inductors
   - $i = C \frac{dv}{dt}$ for capacitors
+- eigenvectors are vectors whose directions do not change after having a matrix (as a linear mapping) applied to them 
 
 ##### Chapter 2 Modelling
 **State-space models** are mathematical expressions of systems
@@ -44,16 +45,30 @@ One key property of linearity is the **superposition principle**: the net respon
 - the region of convergence is always in the open right half plane
 
 ##### Chapter 3 Linear System Theory
+- matrix exponential describes how we can raise scalars to the the exponent of a matrix, generalizing the taylor series expansion of $e^t$
+  - it is a requirement in order for a time domain response calculation to work out
+- there are tricks to finding eigenvalues by inspection, which may prove useful in the exam
+- $\dot{x} = Ax, x(0)=x_0$ has the unique solution $x(t) = e^{At}x_0$
+  - we also get that $e^{At} = L^{-1}\{(sI - A)^{-1}\}$
+- we are given a full solution in the time domain for a state equation and an initial value (equation 3.5), but are only used through simulation
+
 **Stability**
 - **asymptotic stability** is when state x goes to zero as t approaches infinity forall initial conditions x(0), or the matrix exponential $e^{At} \rightarrow 0$ as $t \rightarrow \inf$
   - it actually only depends on eigenvalues: if all eigenvalues of A have a negative real part
 - **bounded input** is when $u(t) \leq b$ forall t, b is finite
 - **BIBO stable** if BI => BO
-  - for strictly proper rational transfer functions, BIBO stable iff every pole has negative real value iff the integral of the impulse response is finite
+  - for strictly proper rational transfer functions, BIBO stable iff every pole has negative real value iff the integral of the impulse response is finite, iff the integral of the impulse response over 0 to infinity is finite
   - if G(s) is improper, G(s) is not BIBO stable
   - recall that in the time domain, we can use convolution to calculate response in time domain of applying a transfer function to some input
-- **IO Stable** if there are no roots of the characteristic polynomial that have Re >= 0; Hurwitz 
-  - if some coefficient of the char poly is non-positive, it is not hurwitz => not IO stable
+  - a sinusoidal input to a BIBO function produces a sinusoidal output
+- **final value theorem** gives us that **stead-state gain** ratio is reached when a non-varying input is given, and further says that the magnitude of the input does not affect the ratio
+  - 4 cases
+  - all poles Re < 0 implies f(t) -> 0
+  - one pole at 0 => $\lim_{t \rightarrow \inf} f(t) = \lim_{s \rightarrow 0} sF(s)$, r
+  - multiple poles at 0 => diverges
+  - any poles with Re > 0 => diverges
+- the **steady-state gain** is G(0)
+- the **frequency response** is $G(j\omega)$, used for determining the steady state output given a sinusoidal input (see Theorem 3.7.1)
 
 ##### Chapter 4 Prototypes
 **Prototype first order system** equation lets us compare transfer functions to a parametric form, allowing us to easily derive properties: everything depends on time constant $\tau$
@@ -63,12 +78,12 @@ One key property of linearity is the **superposition principle**: the net respon
 Prototype second order system is $G(s) = \frac{K \omega_n}{s^2 + 2 \zeta \omega_n s + \omega_n^2}$
 - introduces concept of damping ratio, which dictates its response graph and whether it is oscillatory or not
 
-**Matrix Exponential** $e^{At}$ is the square matrix form of the taylor series expansion, allowing us to use matrices as exponents
-
 ##### Chapter 5 Feedback control theory
 analyzing existing controllers
 - unstable pole-zero cancellation by the controller produces a BIBO stable system but is instable relative to any disturbance
   - **internal stability** is achieved when the state model for $\dot{x_{cl}$ is asymptotically stable
+- **IO Stable** if there are no roots of the characteristic polynomial that have Re >= 0; Hurwitz 
+  - if some coefficient of the char poly is non-positive, it is not hurwitz => not IO stable
 
 ##### Chapter 6 Root-Locus
 Want to look at how the poles move in the complex plane as parameters vary
