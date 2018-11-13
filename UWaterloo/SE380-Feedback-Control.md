@@ -93,12 +93,13 @@ In lab 2, we looked at a second order circuit system.
 - closed-loop systems can handle disturbance signals while open-loop cannot
 
 Pole-zero cancellation is if some pole in either the controller C or plant P gets cancelled by the numerator 
-- unstable if Re($\lambda \geq 0$), implying that the feedback system isn't I.O. stable (root always shows up in the characteristic polynomial since $\pi(\lambda) = N_pN_c + D_pD_c = 0 + 0 = 0$)
+- unstable if Re($\lambda \geq 0$), implying that the feedback system isn't I.O. stable (root always shows up in the characteristic polynomial since $\pi(\lambda) = N_pN_c + D_pD_c = 0 + 0 = 0$) 
+  - by contrapositive, we know that unstable pole-zero cancellation implies no internally stable
   - **it's the naive thing to do, it doesn't work**
 - roots of $\pi(s) \subseteq$ eigenvalues of $A_{closed}$
   - **internal stability** is achieved when the state model for $\dot{x}_{cl} = A_{cl}x_{cl}$ is asymptotically stable
 <img height=50 src="img/52Acl.png"/>
-- **IO Stable** if there are no roots of the characteristic polynomial that have Re >= 0; Hurwitz 
+- **IO Stable** if all combinations of transfer functions are BIBO stable
   - if some coefficient of the char poly is non-positive, it is not hurwitz => not IO stable
 - internal stability => I.O. stability
 - $\pi(s)$ is **Hurwitz** if all roots have Re(s) < 0
@@ -111,9 +112,11 @@ Pole-zero cancellation is if some pole in either the controller C or plant P get
   - if no zeroes in first column, # of sign changes = # of bad roots
 
 ##### Chapter 6 Root-Locus
-Want to look at how the poles move in the complex plane as parameters vary
+Want to look at how the poles move in the complex plane as parameters vary (in this case K, the gain of the controller)
 - root-locus shows us grpahically how the closed loop poles move around the s-plane
 - poles determine properties of a system, and so root-locus is a graphical representation for aiding controller design
+- want the `Im(s) != 0` for poles for good step response
+- as $K \rightarrow \inf$, the step response has more overshoot and its frequency of oscillation increases
 
 ##### Chapter 7 PID control
 PID controllers are popular for their simplicity. Two classical PID controllers: error feedback and two degrees-of-freedom
