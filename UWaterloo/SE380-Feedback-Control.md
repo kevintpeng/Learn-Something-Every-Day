@@ -149,7 +149,6 @@ PID controllers are popular for their simplicity. Two classical PID controllers:
 
 How to read $K_{gm}$ and $\phi_{pm}$ from a bode plot
 
-<img src="img/84bode.png"/>
 <img src="img/84gain.png"/>
 
 - **gain crossover** is when gain moves from positive to negative; it's the frequency we use to measure $\phi_{pm}$
