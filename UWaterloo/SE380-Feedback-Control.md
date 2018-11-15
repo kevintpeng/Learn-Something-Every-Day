@@ -119,6 +119,11 @@ Want to look at how the poles move in the complex plane as parameters vary (in t
 - want the `Im(s) != 0` for poles for good step response
 - as $K \rightarrow \inf$, the step response has more overshoot and its frequency of oscillation increases
 
+`m` poles tend towards the zeroes, but `n- m` branches tend towards asymptotes (to infinity since they're poles) that form the following patterns:
+
+<img src="img/6rl.png"/>
+- the asymptotes branch from the **centroid**
+
 ##### Chapter 7 PID control
 PID controllers are popular for their simplicity. Two classical PID controllers: error feedback and two degrees-of-freedom
 - PID controller has three parts: proportional term, integral term, derivative term
