@@ -339,3 +339,10 @@ Process graph != precedence graph
   - barging avoidance, daisy chaining programming style ensures FIFO order, even when we use the acceptor "chair" as a stack
 - general implementation, $O(1)$ accept by having multiple queues, one for each routine
 - internal scheduling is harder to use but more powerful: if information is needed from tasks in the entry queue
+- reader and writer problem is revisited with monitors
+- **nested monitor problem** 
+- for monitors, waits always block, signals are lost if there's no one to signal, only one task can exit at a time (serially)
+- **explicit scheduling** is when we use `_Accept` (external) or signal (internal)
+- **implicit scheduling**, selects from calling (C), signalled (W) and singaller (S) queues with various priorities
+- **implicit signal** `waitUntil` lets a task to wait until the conditional expression is true (without explicitly defining conditional variables), wakes everyone up to check their predicate
+
