@@ -107,7 +107,8 @@ Pole-zero cancellation is if some pole in either the controller C or plant P get
   - if all real roots have negative real value, then all coefficients of the polynomial must be positive
   - for complex conjugate roots, expanding (and intuitively) we know that each multiplied together will be a quadratic with all positive coefficients
 - hurwitz huristic tells us quickly whether its not hurwitz (check all coefficients for positivity)
-- routh-hurwitz is stronger, follow table algorithm with X pattern drawing and terminate if any first column value is zero
+- routh-hurwitz is stronger, follow table algorithm with a figure-8 pattern drawing and terminate if any first column value is zero
+  - the array is the leftmost column, we know the number of roots in the right-half plane by the number of sign switches
 - characteristic polynomial is hurwitz iff all elements in 1st column have same sign
   - if no zeroes in first column, # of sign changes = # of bad roots
 
@@ -133,6 +134,22 @@ PID controllers are popular for their simplicity. Two classical PID controllers:
 - another common model for which PID is effective is 1st order + time delay
   - Pade approximation of time delay $e^{-sT}$, and we get a second order plant
 - if you can adequately model your plant as a second order system, PID is effective
+
+##### Chapter 8 Frequency 
+- **margins** tell us how much uncertainty in our approximated model can tolerate, which we use **Nyqust** plots to understand
+  - **gain margin** is determined from $P(s) \times \delta P(s)$, with frequency response, and observing that the magnitude of our uncertainty $\delta P$ multiplies gain of the plant
+  - **phase margin** *seems to work out as addition, so some angle offset based on delta P*
+  - $K_{gm} := max (\{\bar{k} > 1 : \text{ closed-loop stabbility for } K^1 \in [1, \bar{K}\})$
+- a system with big margins has good transient performance, small is close to being unstable meaning its oscillatory and has slow dynamics
+
+How to read $K_{gm}$ and $\phi_{pm}$ from a bode plot
+
+<img src="img/84bode.png"/>
+<img src="img/84gain.png"/>
+
+- **gain crossover** is when gain moves from positive to negative; it's the frequency we use to measure $\phi_{pm}$
+
+Nyqust criterion is based on the priciple of the arguments: a curve in the complex plane and a complex valued function of a complex variable
 
 ##### Chapter 9 Control design in the frequency domain
 design specs in the frequency domain, sometimes by converting time domain specs
