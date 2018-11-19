@@ -144,20 +144,47 @@ PID controllers are popular for their simplicity. Two classical PID controllers:
 - **margins** tell us how much uncertainty in our approximated model can tolerate, which we use **Nyqust** plots to understand
   - **gain margin** is determined from $P(s) \times \delta P(s)$, with frequency response, and observing that the magnitude of our uncertainty $\delta P$ multiplies gain of the plant
   - **phase margin** *seems to work out as addition, so some angle offset based on delta P*
-  - $K_{gm} := max (\{\bar{k} > 1 : \text{ closed-loop stabbility for } K^1 \in [1, \bar{K}\})$
+  - $K_{gm} := max (\{\bar{k} > 1 : \text{ closed-loop stability for } K^1 \in [1, \bar{K}\})$
+- **gain crossover** is when gain moves from positive to negative; it's the frequency we use to measure $\phi_{pm}$
+  - phase margin is amount of phase change required to reach the stability limit (phase as omega -> infinity), measured at the gain crossover frequency
+- gain margin is the amount that the loop gain can change before going unstable, at phase crossover frequency (angle when $L(j\omega) = 180$)
 - a system with big margins has good transient performance, small is close to being unstable meaning its oscillatory and has slow dynamics
 
 How to read $K_{gm}$ and $\phi_{pm}$ from a bode plot
 
 <img src="img/84gain.png"/>
 
-- **gain crossover** is when gain moves from positive to negative; it's the frequency we use to measure $\phi_{pm}$
 
 Nyqust criterion is based on the priciple of the arguments: a curve in the complex plane and a complex valued function of a complex variable
 
 ##### Chapter 9 Control design in the frequency domain
 design specs in the frequency domain, sometimes by converting time domain specs
-- margins let us quantify how robust a controller is (tolerent to error)
+- **margins** let us quantify how robust a controller is (tolerent to error)
+- given time spec, convert to frequency, then bandwidth, then gain crossover spec
+  - given settling time or bandwidth specification
+  - bandwidth corresponds to the poles closest to the imaginary axis
+- looking at the system whose closed loop controller + plant transfer function is the prototype second order equation, we get that the phase margin is a non linear function of damping ratio which we approximate with a linear function $\phi \dot{=} 100 \zeta, \zeta < 0.7$
+  - OS% -> $\zeta_{min} \rightarrow \phi_{phasemargin}^{min}$
+- rule of thumb is that $\omega_{BW} = \omega_{gc}$
+- we have a design method for "nice plants", which are 1 open-loop stable or at worst one pole at s=0 (FVT not divergent), 2 only one set of crossover frequencies (wgc, wpc)
+- **lag controller** are useful for:
+  - increasing phase margin, by lowering the high frequency gain
+  - boost low frequency gain to improve steady-state tracking and disturbance rejection, without affecting the gain margin, phase margin nor frequency behaviour
+  - reduces gain at higher frequencies without reducing it at lower frequencies
+- Lag => PI, Lead => PD, Lead-Lag => PID
+
+Procedure for lag controller design, either given steady state specs (tracking or disturbance rejection) or asked to increase phase margin to bbe greater than or equal to $\phi_{pm}$ desired (from damping ratio/robustness requirements)
+
+1. FVT, choose K (as a part of the controller) to meet tracking spec.
+2. Draw frequency response bode plot (KP(jw))
+3. If we don't meet robustness spec, find desired gain crossover frequency
+4. Shift gain so that the gain crossover happens at the desired frequency
+5. Put the zero far away from gc frequency, $\frac{10}{\alpha T} \leq \omega_{gc}^{des}$
+
+Lead compensation has the same controller block diagram, with $\alpha > 1$
+- increase phase margin by adding phase, while meeting steady-state requirements
+- increase phase while increasing close-loop bandwidth (faster system response)
+- Trick: express lead controller as $C(s) = K \frac{\alpha T s + 1}{ T s + 1} =: \frac{\hat{K}}{\sqrt{\alpha}} \frac{\alpha T s + 1}{ T s + 1}$
 
 ### [Introduction](http://davepagurek.github.io/SE-Notes/se380/01%20intro.html)
 - u(t) is convention for control systems (control signal), effectively our algorithm
