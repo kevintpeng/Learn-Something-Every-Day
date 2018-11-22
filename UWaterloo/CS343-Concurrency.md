@@ -351,3 +351,12 @@ Process graph != precedence graph
 - when a task starts, the thread is already inside the mutual exclusion, which is different from a monitor
   - the thread gets on the chair to open/`_Accept` the door to allow other threads to enter, and then you wake up and examine any changes
 - in a task main, never use `signal`, always `signalBlock`
+- **server-client** can help us get more concurrency (client ships work off to the server)
+  - **internal buffer** 
+- an **administrator** makes no call to another task, only accepts and returns
+  - clients drop off work, administrator delagates work to its fleet of workers
+  - workers can drop off and pick up in one call, or two step with a bench, but always just a single call
+  - how do we return values to clients? 
+  - **tickets** can be used to indentify pieces of work, client comes back with their ticket to retrieve the result
+  - **call-back routine** is a routine called by the server after the result is ready, and the client must poll the indicator until it is set (allowing the server to drop it off immediately)
+  - **futures** provide asynchrony without an explicit protocol
