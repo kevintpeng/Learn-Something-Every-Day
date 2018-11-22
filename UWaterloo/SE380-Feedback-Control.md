@@ -158,6 +158,10 @@ How to read $K_{gm}$ and $\phi_{pm}$ from a bode plot
 Nyqust criterion is based on the priciple of the arguments: a curve in the complex plane and a complex valued function of a complex variable
 
 ##### Chapter 9 Control design in the frequency domain
+- both lead and lag controllers can be used to meet robustness specifications, but we know that bandwidth is tied to gain crossover frequency
+- Lead controller gives a higher $\omega_{gc}$ which is approximately equal to the closed loop bandwidth, so the closed-loop system response will be faster, but if you look at the control effort (like voltage) that you're applying to the controller, it's going to be much higher than a lag controller
+- possible specifications: $\phi_{pm}^{des}$ or steady-state tracking or closed-loop bandwidth given in $\omega_{gc}$
+
 design specs in the frequency domain, sometimes by converting time domain specs
 - **margins** let us quantify how robust a controller is (tolerent to error)
 - given time spec, convert to frequency, then bandwidth, then gain crossover spec
@@ -185,6 +189,11 @@ Lead compensation has the same controller block diagram, with $\alpha > 1$
 - increase phase margin by adding phase, while meeting steady-state requirements
 - increase phase while increasing close-loop bandwidth (faster system response)
 - Trick: express lead controller as $C(s) = K \frac{\alpha T s + 1}{ T s + 1} =: \frac{\hat{K}}{\sqrt{\alpha}} \frac{\alpha T s + 1}{ T s + 1}$
+
+1. ss spec to pick $\hat{K}$, and boost $\hat{K}$ by some guess (like 10dB) to account for magnitude distortion
+2. Draw bode plot of frequency response $\hat{K} P(j \omega)$ 
+3. If we don't meet robustness specs, find how much you need to increase the phase margin by, which determines $\alpha$
+4. Use given design equations to find $\alpha$
 
 ### [Introduction](http://davepagurek.github.io/SE-Notes/se380/01%20intro.html)
 - u(t) is convention for control systems (control signal), effectively our algorithm
