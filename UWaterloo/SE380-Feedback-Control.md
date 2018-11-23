@@ -141,6 +141,9 @@ PID controllers are popular for their simplicity. Two classical PID controllers:
 - if you can adequately model your plant as a second order system, PID is effective
 
 ##### Chapter 8 Frequency 
+**Cauchy's Principle of the argument**: we take some contour $\Gamma_s$ and apply some mapping (rational function). As s travels around our contour, the complex numbers G(s) can be visualized $\Gamma_g$. by taking the angle relative to the zeroes of G, we can plot the change of phase using just $\Gamma_g$. 
+- the number of times $\Gamma_g$ encircles the origin counter-clockwise is proportional to the number of poles and zeroes inside $\Gamma_s$
+
 - **margins** tell us how much uncertainty in our approximated model can tolerate, which we use **Nyqust** plots to understand
   - **gain margin** is determined from $P(s) \times \delta P(s)$, with frequency response, and observing that the magnitude of our uncertainty $\delta P$ multiplies gain of the plant
   - **phase margin** *seems to work out as addition, so some angle offset based on delta P*
