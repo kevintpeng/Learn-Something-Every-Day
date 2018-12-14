@@ -101,3 +101,36 @@ Principles:
   - presenter glues model and view together, replacing the controller
 
 - [examples](https://cs.uwaterloo.ca/~oadesina/slides/) 
+
+### Dependency Injection
+- **inversion of control**; a generic framework calls custom implemented routines
+  - event-driven programming is implemented using IoC: custom code is only concerned with handling events, allowing the event loop to dispatch such events
+- **dependency inversion principle** states that high-level and low-level modules should depend on the same interface 
+  - want to bbe able to substitute different implementations without recompiling 
+- **dependency injection** intends to decouple objects from client code such that the object can be changed to a different one without changing client code
+  - injector has control, it calls the client to inject them
+  - DI is how we acheive dependency inversion; it's some way an object to receive a concrete implementation of a low-level module without coupling the modules whatsoever (constructor or parameter injection)
+  - so we don't want to couple to concretion but instead abstraction (be wary of `new`)
+
+Guice (Juice)
+- constructor injection
+- lets us have compiled jars, connected together dynamically by Guice, allowing us to load different jar file dependencies based on user input at runtime. This means implementation can change without recompilation of the application
+
+Motivation behind DI
+- direct constructor calls in code means we cannot stub with fake objects during testing
+  - it is not modular or testable
+- factories decouple client and implementation classes, allowing proper testability
+  - requires a global variable to hold the mock implementation, so no parallelization and test failure could affect other tests
+  - DI is an alternative, that should reduce boilerplate, and brings visibility to dependencies through a graph
+
+### Checker Framework
+Java static analysis tool. Pluggable type systems all more expressiveness and allows for multiple type systems for differing needs
+- can check for execution of user input
+
+### Hints for Computer system design
+- simplicity; working code is better than fast code
+- don't hide power
+- continuity; keep the API/interface constant
+- hide implementation, plan to replace
+- handle all cases, keep normal and worst case separate
+- for speed, split resources for fairness, and use brute force over questionable invariants

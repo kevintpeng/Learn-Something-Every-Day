@@ -142,7 +142,15 @@ PID controllers are popular for their simplicity. Two classical PID controllers:
 
 ##### Chapter 8 Frequency 
 **Cauchy's Principle of the argument**: we take some contour $\Gamma_s$ and apply some mapping (rational function). As s travels around our contour, the complex numbers G(s) can be visualized $\Gamma_g$. by taking the angle relative to the zeroes of G, we can plot the change of phase using just $\Gamma_g$. 
-- the number of times $\Gamma_g$ encircles the origin counter-clockwise is proportional to the number of poles and zeroes inside $\Gamma_s$
+- the number of times $\Gamma_g$ encircles the origin counter-clockwise is proportional to the number of poles and zeroes inside $\Gamma_s$: poles - zeroes
+- **Nyquist Contour** is $\Gamma_s$ whose radius goes to infinity, so the entire right half plane, where we indent around any poles on the contour to exclude them
+- **Nyquist Plot** of G is $\Gamma_G$ for the nyquist contour
+  - G will have no poles on $\Gamma_s$ iff G has no poles on imag axis and G is proper
+- *we don't care about zeroes, we're not counting encirclements*
+- **Nyquist stability criterion**: assume P, C are proper, PC strictly proper, no unstable pole zero cancellation, `K != 0`, then if the feedback system is I.O. stable (every transfer function is BIBO stable) then the transfer
+- phase margin is how much rotation a nyquist plot can handle before changing the number of encirclements of -1/K
+- gain margin what value K can be increased to until the number of encirclements of -1/K changes
+- **stability margin** is the minimum distance from -1/K to the Nyquist Plot
 
 - **margins** tell us how much uncertainty in our approximated model can tolerate, which we use **Nyqust** plots to understand
   - **gain margin** is determined from $P(s) \times \delta P(s)$, with frequency response, and observing that the magnitude of our uncertainty $\delta P$ multiplies gain of the plant
@@ -159,6 +167,9 @@ How to read $K_{gm}$ and $\phi_{pm}$ from a bode plot
 
 
 Nyqust criterion is based on the priciple of the arguments: a curve in the complex plane and a complex valued function of a complex variable
+
+<img src="img/IMG_6599.png"/>
+<img src="img/IMG_8874.png"/>
 
 ##### Chapter 9 Control design in the frequency domain
 - both lead and lag controllers can be used to meet robustness specifications, but we know that bandwidth is tied to gain crossover frequency

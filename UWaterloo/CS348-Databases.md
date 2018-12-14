@@ -88,32 +88,25 @@ More SQL syntax for actually modifying state based on first order logic
 Extension of first order SQL
 - finding a number of tuples (counting), min/max, mapping values over a column
 
-### Application Programming
-We look at C as a language to embed SQL in.
-- declarations allow you to define host variables in order to communicate single values to the programming language
-- stored procedures let you write functions in SQL directly, to be executed on the database instead of client
-- `SQLCA` is the communication area, allows host variables through declarations
-
-Dynamic SQL allows us to execute a string as a SQL statement
-- a statement could return any number of variables, so to handle this we store it in a struct `sqlda`, description area
-- `DESCRIBE stmt INTO sqlda` allows a prepared `stmt` to have its description stored in the SQLDA structure
-
-ODBC's are libraries that allow applications to perform queries without needing preproccessing of code
-- no precompilation, more restrictive, explicit binding of parameters required
-- standardized (but with long specification)
-
 ### Data Modeling and Entity-Relationship Model
-**E-R Model** is for designing database schemas, visualized by **E-R diagram**
-- describes in terms of entity, relationships, attributes
-- entities have attributes, and can be related to each other
-- a role name can be used to label the function of an entity set in a relationship set (useful when there are multiple relationships)
-- **constraints** can be defined in the model
-  - existence through primary keys, and dependencies
-  - multiplicity through N:M relationships
-  - subordinate entities are identified through their depency on another, single entity through a many to one relationship
-  - cardinality constraints can be declared, min and max range
-- a number of extensions are considered, like structured attributes, aggregation, specialization, generalization, and disjointness
 
-### Translating E-R models to relational tables
-They seem to map directly to relational tables, different ways to represent each model component
+### [Normalization Theory](https://cs.uwaterloo.ca/~gweddell/cs348/lect-FD-handout.pdf)
+- anomalies in schema design lead to violations of transactional consistency
+- functional dependencies let us reason about ways to perform schema decomposition, thereby avoiding anomalies
+- **computeX+(X, F)** is an algorithm for determining which columns can be determined from the key + functional dependency set pair (by continuously adding any attributes to the set of X+ that are determined by elements in X+ currently)
+- a decomposition is dependency preserving if we get some equivalent F' and none of the functional dependencies are interrelational (requires a join)
+- Normalization is the process of decomposing a schema (set of relation schemas), so that it is in some standard form
+- BCNF is the most desirable form, followed by 3NF
+- multivalued dependencies capture anomalies/redundancies not captured by functional dependencies (when X ->> Y, means a set of values for Y is determined instead of a single unique value)
+- a **dependency basis** is a way to partition a relation schema so that we can further decompose schemas with multivalued dependencies, since splitting right-hand sides of dependencies (as in minimal cover) doesn't work for multivalued (because it uniquely defines a large set, the cartesian product of all right-side attributes' values)
+  - breaking down the example for Course-Teacher-Hour-Room-Student-Grade relation, "dependency basis for X = C is R-X = [Y1 = T, Y2 = HR, Y3 = SG] s.t. F |= C ->> Z iff Z - C is a union of some of the partitions of R-X"
+- 5NF is even stronger, using join dependencies, but has no axioms
 
+### Query Execution
+We use relational algebra for implementing query execution
+- all relational calculus queries are representable in relational algebra
+- naive implementations of each operator are intuitive, but slow
+- one optimization is to use indexes
+- calculating the cost of different physical plans can be done using the simple cost model for I/O, using several parameters to estimate relative cost of operations, based on assumptions of uniformity and independence
+
+### Transaction Execution

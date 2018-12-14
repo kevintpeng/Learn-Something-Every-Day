@@ -360,3 +360,12 @@ Process graph != precedence graph
   - **tickets** can be used to indentify pieces of work, client comes back with their ticket to retrieve the result
   - **call-back routine** is a routine called by the server after the result is ready, and the client must poll the indicator until it is set (allowing the server to drop it off immediately)
   - **futures** provide asynchrony without an explicit protocol
+
+### 10 Optimization
+- compiler is the liason between software engineers and vonn neumann machines
+- **eliding** is removal of data/LOC
+- paging algorithms from CS350 are applicable when talking about memory heirarchy between registers, cache and memory
+  - **cache line** 
+- registers are addressable with few bits, memory requires large bytes
+  - **cache coherence** is a hardware protocol ensuring update of duplicate data
+  - eagerly pull information into L1 cache, lazily push them back
