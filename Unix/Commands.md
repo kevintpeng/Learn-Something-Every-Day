@@ -1,5 +1,3 @@
-![debugging](https://qph.ec.quoracdn.net/main-qimg-b09edd5890452b228cd0e36f6f552268)
-
 **`PATH`** determines what binaries are known, colon delimited defining the order of looking for commands
 
 `Shims` are executables that can intercept commands and change arguments, handle the operation, or redirect the operation
