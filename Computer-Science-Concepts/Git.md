@@ -133,9 +133,8 @@ Git is a content-addressable filesystem. Built with a key-value store.
 ### Git Server Protocols
 **Local protocol** is basic, uses another directory on disk as the remote
 
-### Gerrit 
+# Gerrit
 A commit review tool built on git, with workflows analogous to pull-request style with github
-
 - compared to pull-requests, Gerrit does not support multi-commit changes
 - Gerrit is more explicit, adding change-ids, CLI integration through githooks
 - patch sets are git hashes at all points you push to Gerrit, essentially revisions, aiding reviewers to see what's changed since the last review
