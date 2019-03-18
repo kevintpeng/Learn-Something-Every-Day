@@ -6,4 +6,4 @@ Static methods are procedural code. In object-orient programming, mixing in proc
   - once a `new` operator is called directly, that object cannot be mocked in testing
 - the **factory method design pattern** is one common way to avoid this, when instantiating objects in code
   - to be clear, this is where a factory is an object, with an instance method `Create`. Not a static method that acts as a factory
-- **dependency injection** is the pattern used to break static dependencies in objects
+- [**dependency injection**](./Dependency-Injection.md) is the pattern used to break static dependencies in objects
