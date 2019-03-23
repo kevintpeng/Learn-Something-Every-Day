@@ -1,7 +1,7 @@
 # Learn Something Every Day
-I always aim to learn new concepts and ideas that will allow me to grow and have a greater understanding of software. Throughout my career, I hope to grow this repository with summary notes on new topics. The intention of this repository is simply to help me retain all the information that I learn, so take a look into my brain and find some topics to delve into!
+My goal is to consistently learn new concepts and ideas that help me grow and enhance my understanding of software. I hope to develop this repository by adding summary notes on new topics throughout my career. The purpose of this repository is to help me retain all the information I have learned, so take a look into my brain and find some topics to delve into!
 
-I take a lot of summary notes here, but I will often also put my learnings into an [anki deck](https://apps.ankiweb.net/) which is a wonderful way to do spaced repetition learning for long term retention. Taking summary notes in combination with some form of active recollection has worked really well for me and would be my recommendation to anyone looking to always be learning in this fast changing industry.
+I take a lot of summary notes here, but I will often also put my learnings into an [anki deck](https://apps.ankiweb.net/) which is a wonderful way to do spaced repetition learning for long term retention. Taking summary notes in combination with some form of active recollection has worked really well for me and it would be my recommendation to anyone looking to always be learning in this fast changing industry.
 
 ## Interested in Forking?
 Write notes in **Markdown** with embedded **LaTeX.** When you push to `develop`, get CircleCI to render HTML pages using a small Ruby script and Pandoc, and then push the results to a Github Pages branch. The website build process is based on work by [@davepagurek](https://github.com/davepagurek/SE-Notes).
@@ -9,7 +9,7 @@ Write notes in **Markdown** with embedded **LaTeX.** When you push to `develop`,
 ## Setup
 
 ### File structure
-Each folder that contains Markdown files will get its own index in the rendered site. I tend to use one folder per course. Inside a course folder, I also make an `img` directory that just has images I use in my notes that I then reference with a relative path (e.g. `<img src="img/some_image.png" />`).
+Each folder that contains Markdown files will have its own index in the rendered site. I tend to use one folder per course. Inside a course folder, I also make an `img` directory that just has images I use in my notes that I then reference with a relative path (e.g. `<img src="img/some_image.png" />`).
 
 ### Local editing
 I use Vim to edit my files. I use <a href="https://github.com/davepagurek/markdown-preview.vim">my fork of markdown-preview</a> to create a Markdown preview with MathJax support, only refreshed on save. Here's a snippet from my `.vimrc`:
