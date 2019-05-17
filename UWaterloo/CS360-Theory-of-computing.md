@@ -30,3 +30,13 @@
 - epsilon-closure is an extension of NFAs over a set of states, e(R) that is the set of states reachable from states in R using just epsilon transitions
 - using this, we can delta * for NFAs (taking a string as input)
 - a language `A` is regular iff there exists an NFA that accepts all strings in `A`
+
+### 4 [Regular Expressions](https://cs.uwaterloo.ca/~watrous/CS360/Lectures/04.pdf)
+3 regular operations:
+- union of language A and B: w is in either
+- concatenation AB: wx is every combination of w in A then x in B
+- kleene star A * : {empty} u A u AA u AAA ...
+
+If A and B are regular languages, any regular operations on them produce regular languages
+- prove by defining an NFA that uses DFAs for A and B to accept the resultant language
+- proving kleene star acts as a closure does not follow from union and concatenation, because it is an infinite number of operations applied so it needs its own proof
