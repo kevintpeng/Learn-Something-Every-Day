@@ -12,4 +12,11 @@
 - this is **vertical distribution**, mapping layers to tiers
 - **horizontal distribution** is sharding
 - object-base architectures like LLDB's API
-- delegate responsibility of data storage to one layer, allows other layers to scale easily: **data-centered architecture**
+- delegate responsibility of data storage to one layer, allows other layers to scale easily: **data-centered architecture** (ex: web applications)
+- **event-based architecture** (ex: pub-sub), key difference is that this emphasizes async messaging
+- **peer-to-peer** systems, organized processes in an overlay network, because it's routing above layer 3 based on data
+  - "Chord" solves the problem of finding data
+  - compact routing tables, bounded by log n, for n possible peers; protects from change, and bounds the number of peer hops to get to the server
+  - hybrid architecture (bit torrent): client-server serves torrent files, which reference trackers to join a peer-to-peer network
+
+### [Processes](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2559781/View)
