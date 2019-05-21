@@ -3,7 +3,8 @@
 - **Cantor's** theorem: the power set of the natural numbers P(N) is uncountable (since N is an infinite set)
 - any single language is countable because you can map the natural numbers to the infinite set of all possible strings (again, there is a bijection that can be defined)
 - on DFA and NFA equivalence, a language `A` is regular iff there exists an NFA that accepts all strings in `A`
-
+- there are uncountably many languages over sigma, but countably many regular languages
+- **pumping lemma** (for regular languages) tells us that there is always a loop in a DFA for input string whose length is greater or equal to then number of states
 
 ### 1 [Background](https://cs.uwaterloo.ca/~watrous/CS360/Lectures/01.pdf)
 - Computational problems themselves can be viewed as mathematical objects
@@ -40,3 +41,18 @@
 If A and B are regular languages, any regular operations on them produce regular languages
 - prove by defining an NFA that uses DFAs for A and B to accept the resultant language
 - proving kleene star acts as a closure does not follow from union and concatenation, because it is an infinite number of operations applied so it needs its own proof
+
+### 5 [Proving languages to be nonregular](https://cs.uwaterloo.ca/~watrous/CS360/Lectures/05.pdf)
+- **pumping lemma** for regular languages allows us to observe the pigeon hole principle for DFAs: that more inputs than states means that some state was visited more than once.
+  - also, for any string length greater than or equal to n for n states, there must be a loop
+  - formally, for a regular language there is always some point at which all strings longer than or equal to `n` can be written containing a loop in the first n characters
+  
+How to use the pumping lemma:
+1. fix n as any number, we describe the rest of the proof based on any fixed selection of n
+1. define a string towards contradiction, that satisfies the requirements of the pumping lemma
+1. determine what form the loop must take
+1. because the pumping lemma must hold for all number of loops, show that there is a particular number of loops where xy<sup>i</sup>z is not contained in the language which contradicts the third condition of the pumping lemma.
+
+- one example of a nonregular language is closing parentheses
+- one where the number of loops affects the state is not truly a loop
+- one where certain lengths are accepted, but are not cyclic values (exponential, prime)
