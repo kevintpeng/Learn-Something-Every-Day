@@ -20,3 +20,9 @@
   - hybrid architecture (bit torrent): client-server serves torrent files, which reference trackers to join a peer-to-peer network
 
 ### [Processes](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2559781/View)
+
+Java Socket
+- `tcp_nodelay` nagle's algorithm coalesces mulitiple 
+
+### [Communication](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2559782/View)
+- RPC library in Java differ from sockets in that the server does not need to manage threads and accept connections explicitly; abstracting into off-the-shelf server implementation
