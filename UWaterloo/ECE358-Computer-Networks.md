@@ -27,3 +27,30 @@
   - encapsulation: each abstraction wraps around the lower abstraction by adding a header
   - pros: modularization, protection
   - cons: overhead
+
+### Lab
+- **Kendall Notation** is used describe a queue: A/S/C/K/D, or arrival/server processing/count of servers/buffer size/discipline (FIFO)
+  - markovian arrival process follows a poisson distribution (limit as period approaches zero for binomial)
+  
+### [Link Layer](https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2561713/View), layer 2
+- layer-2 packet is frame
+  - header includes MAC address as source/dest
+- data-link layer is responsible for transferring datagrams to physically adjacent nodes
+- implemented across hardware, software and firmware
+
+#### Error detection and correction (EDC)
+- error detection is not 100% reliable, in rare cases
+- **parity** checking detects single bit errors
+- cyclic redundancy check is a checksum algorithm (see [introduction](http://www.sunshine2k.de/articles/coding/crc/understanding_crc.html)
+
+#### Multiple access protocols
+- **collision** when a node receives multiple signals simultaneously
+- **multiple access protocol** is a distributed algorithm that determines how nodes share a channel (using the channel to communicate about channel sharing)
+  - want high utilization and average fairness, with decentralized coordination
+
+Three classes of Media Access Control (MAC) protocols
+- **channel partitioning** to avoid collisions
+  - time-division multi access (TDMA) has fixed slots and each client takes exactly one. Has wasted bandwidth unless all slots are filled
+  - frequency division multiple access (FDMA), same pros/cons as TDMA
+- **random access** allows collisions and recovers
+- **taking turns** ensures high utilization with poor fairness
