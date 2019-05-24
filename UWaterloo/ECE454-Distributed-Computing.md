@@ -26,3 +26,10 @@ Java Socket
 
 ### [Communication](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2559782/View)
 - RPC library in Java differ from sockets in that the server does not need to manage threads and accept connections explicitly; abstracting into off-the-shelf server implementation
+  - client invokes stub, stub sends message through the client os, to be received and unpacked on the server
+  - used for two-way communication (especially when client expects immediate response)
+- RPC's have referential coupling, and stronger temporal coupling
+- Message queues have weaker referential and temporal coupling (hence scalability)
+  - used for one-way communication
+- `telnet` demo: it is a protocol for bidirectional plain text communication
+  - demonstrated high referential and temporal coupling with memcached
