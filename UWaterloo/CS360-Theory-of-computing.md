@@ -56,3 +56,12 @@ How to use the pumping lemma:
 - one example of a nonregular language is closing parentheses
 - one where the number of loops affects the state is not truly a loop
 - one where certain lengths are accepted, but are not cyclic values (exponential, prime)
+
+### 6 [More regular languages](https://cs.uwaterloo.ca/~watrous/CS360/Lectures/06.pdf)
+- reverse is another closure property of regular languages (proven by constructing a reversed NFA, or by reversing a regular expression)
+- symmetric difference of languages is another clousre property
+  - if A is regular, B is nonregular, A ▲ B is nonregular
+- prefix is a closure property, proven by constructing a DFA where the new accepting states are the set of all states q where there's some string v s.t. δ * (q,v) in the original accepting states
+- suffix is a closure property, proven by allowing an epsilon transition to any reachable state
+- substring is a closure property, because it is a prefix of a suffix
+- example proof showing that the language where a single symbol can be skipped can be proven using two copies of the DFA with modifications to the first copy, where there exists epsilon transitions from the first to the second DFA wherever there exists transitions within the first.
