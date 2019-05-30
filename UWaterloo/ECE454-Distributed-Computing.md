@@ -33,3 +33,9 @@ Java Socket
   - used for one-way communication
 - `telnet` demo: it is a protocol for bidirectional plain text communication
   - demonstrated high referential and temporal coupling with memcached
+
+### [Apache Thrift](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2565367/View)
+- analogous to protobuf
+- without service discovery, thrift clients violate distribution transparency, as they require the hostname and port
+- do not share thrift transports, protocols, and client stubs as they are not thread-safe
+- for interface versioning, add optionals with default values
