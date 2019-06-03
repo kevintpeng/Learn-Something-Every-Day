@@ -66,7 +66,7 @@ How to use the pumping lemma:
 - substring is a closure property, because it is a prefix of a suffix
 - example proof showing that the language where a single symbol can be skipped can be proven using two copies of the DFA with modifications to the first copy, where there exists epsilon transitions from the first to the second DFA wherever there exists transitions within the first.
 
-[7 Context-free grammars and languages](https://cs.uwaterloo.ca/~watrous/CS360/Lectures/07.pdf)
+### [7 Context-free grammars and languages](https://cs.uwaterloo.ca/~watrous/CS360/Lectures/07.pdf)
 - CFG `G = (V, Σ, R, S)`, where V is variables, Σ is the alphabet, R is rules, S is start variable
   - rules are of the form `A → w`, A in V, w in (V union Σ) * e.g. S -> 0 S 1, S -> epsilon
 - every CFG generates a language L(G)
