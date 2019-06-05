@@ -5,6 +5,7 @@
   - routing algorithm uses a local forwarding table to select next link
 - **packet-switching** is a method of breaking down a message into packets (a router is a switch in this case)
 - **Store-and-forward** is one method of transmitting packets, where the entire packet must arrive (and checked for integrity) before it can be transmitted to the next link
+- **message-switching** is store-and-forward at a message level
 - if arrival rate exceeds transmission rate for a link, packets will queue and may be dropped
 - **circuit-switching** is an alternative, each user gets dedicated path (each link has multiple edges, or "circuits")
   - provides strong guarantees of performance, but allows less users on the network
