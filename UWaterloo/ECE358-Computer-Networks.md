@@ -5,6 +5,7 @@
   - routing algorithm uses a local forwarding table to select next link
 - **packet-switching** is a method of breaking down a message into packets (a router is a switch in this case)
 - **Store-and-forward** is one method of transmitting packets, where the entire packet must arrive (and checked for integrity) before it can be transmitted to the next link
+- **stop-and-wait** send packet, wait for acknowledgement before continuing
 - **message-switching** is store-and-forward at a message level
 - if arrival rate exceeds transmission rate for a link, packets will queue and may be dropped
 - **circuit-switching** is an alternative, each user gets dedicated path (each link has multiple edges, or "circuits")
@@ -38,11 +39,8 @@
   - header includes MAC address as source/dest
 - data-link layer is responsible for transferring datagrams to physically adjacent nodes
 - implemented across hardware, software and firmware
-
-#### Error detection and correction (EDC)
-- error detection is not 100% reliable, in rare cases
-- **parity** checking detects single bit errors
-- cyclic redundancy check is a checksum algorithm (see [introduction](http://www.sunshine2k.de/articles/coding/crc/understanding_crc.html)
+- **propagation delay** is time to propagate anything (usually distance / near speed of light)
+- **transmission delay** is time to send all data (usually size / bandwidth)
 
 #### Multiple access protocols
 - **collision** when a node receives multiple signals simultaneously
@@ -55,3 +53,21 @@ Three classes of Media Access Control (MAC) protocols
   - frequency division multiple access (FDMA), same pros/cons as TDMA
 - **random access** allows collisions and recovers
 - **taking turns** ensures high utilization with poor fairness
+
+Random Access Protocols
+- **Slotted ALOHA**: TDMA with size equal to frame, assuming all frames of same size, all nodes attempt to send and simultaneous shared slots are collisions and are rejected and attempted again, at some specified probability
+  - requires clock synchronization, collisions + empties = wasted space, low efficiency for high number of nodes
+- **Pure ALOHA**: no slots, higher chance of collision but no synchronization required
+- **Carrier Sense Multiple Access**: listen before transmission, but due to propagation delay, collisions still occur
+- **CSMA/ Collision detection (CSMA/CD)**: detected quickly, aborting transmission early
+  - **exponential backoff** is increasing the wait time between transmissions by incrementing the max range on random number generation exponentially
+- **CSMA/Collision avoidance (CSMA/CA)**: reduces the probability of collision by checking whether the medium is in use
+
+Taking turns
+- **polling** with master inviting nodes to send data: no collision or empty slots, but requires polling, latency, master failure
+- **token passing**: control token passed in a ring. Token single point of failure
+
+#### Error detection and correction (EDC)
+- error detection is not 100% reliable, in rare cases
+- **parity** checking detects single bit errors
+- cyclic redundancy check is a checksum algorithm (see [introduction](http://www.sunshine2k.de/articles/coding/crc/understanding_crc.html)
