@@ -11,7 +11,7 @@ jobs: # a collection of steps
     steps: # a collection of executable commands
       - add_ssh_keys:
           fingerprints:
-            - "57:e7:c8:1b:11:32:fa:58:32:c9:1c:c4:5f:33:eb:09"
+            - "88:93:c6:f1:ed:a2:b5:42:73:01:55:7c:52:4b:00:43"
       - checkout # special step to check out source code to working directory
 
       # Restore bundle cache
@@ -47,7 +47,7 @@ jobs: # a collection of steps
           key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
       - add_ssh_keys:
           fingerprints:
-            - "57:e7:c8:1b:11:32:fa:58:32:c9:1c:c4:5f:33:eb:09"
+            - "88:93:c6:f1:ed:a2:b5:42:73:01:55:7c:52:4b:00:43"
       - run:
           name: Deployment script
           command: ./deploy.sh
