@@ -39,3 +39,9 @@ Java Socket
 - without service discovery, thrift clients violate distribution transparency, as they require the hostname and port
 - do not share thrift transports, protocols, and client stubs as they are not thread-safe
 - for interface versioning, add optionals with default values
+
+### [Hadoop MapReduce](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2571408/View)
+- achieves fault tolerance through restarting tasks, and ensuring that tasks are side-effect free
+
+
+### [Apache Spark](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2575474/View)
