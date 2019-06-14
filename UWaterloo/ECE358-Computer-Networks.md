@@ -42,6 +42,11 @@
 - **propagation delay** is time to propagate anything (usually distance / near speed of light)
 - **transmission delay** is time to send all data (usually size / bandwidth)
 
+#### Error detection and correction (EDC)
+- error detection is not 100% reliable, in rare cases
+- **parity** checking detects single bit errors
+- cyclic redundancy check is a checksum algorithm (see [introduction](http://www.sunshine2k.de/articles/coding/crc/understanding_crc.html)
+
 #### Multiple access protocols
 - **collision** when a node receives multiple signals simultaneously
 - **multiple access protocol** is a distributed algorithm that determines how nodes share a channel (using the channel to communicate about channel sharing)
@@ -67,7 +72,6 @@ Taking turns
 - **polling** with master inviting nodes to send data: no collision or empty slots, but requires polling, latency, master failure
 - **token passing**: control token passed in a ring. Token single point of failure
 
-#### Error detection and correction (EDC)
-- error detection is not 100% reliable, in rare cases
-- **parity** checking detects single bit errors
-- cyclic redundancy check is a checksum algorithm (see [introduction](http://www.sunshine2k.de/articles/coding/crc/understanding_crc.html)
+#### LAN
+- IP address use for network layer forwarding
+- MAC address used locally to get frame from interface-to-interface that are physically connected
