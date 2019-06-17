@@ -75,3 +75,49 @@ Taking turns
 #### LAN
 - IP address use for network layer forwarding
 - MAC address used locally to get frame from interface-to-interface that are physically connected
+  - often MAC address is burning into NIC
+  - administered by IEEE (sections of address space are purchased)
+- MAC address is portable between networks, IP address depends on sub-network (since they are not necessarily unique)
+- **ARP table** is used to map IP address to MAC address
+- a node **broadcasts an ARP query** to all nodes on LAN
+- **Ethernet** encapsulates datagram in an **Ethernet frame**
+  - **preamble**: wakeup, followed by alert, for synchronizing receiver and sender clock rates and mitigate drifts in transmission rate
+  - source + dest MAC addresses
+  - type (IP often, but can also be proprietary like AppleTalk)
+  - CRC check at receiver, as suffix to Ethernet datagram
+- Ethernet is connectionless (no handshaking) and requires higher level protocol to recover from errors
+- **Ethernet switch** stores and forwards Ethernet frames
+  - each switch has a table, mapping dest MAC address to interface
+  - switch is link-layer, and has a learned forwarding table using **flooding** and MAC addresses
+  - **router** is network-layer, and computes forwarding table using routing algorithms and IP addresses
+  - **load balancer** is application-layer routing
+  
+#### WiFi (WLAN)
+- **Basic service set** is the set of all stations that can communicate with each other at physical layer
+- **Independent BSS** is an ad hoc network
+- **Extended service set** (ESS) is like eduroam at UW, a distribute system
+- **Point Coordination Function (PCF)** uses an access point which decides who transmits when
+- **Distributed Coordination Function (DCF)** is a mode of operation of MAC
+  
+### [Network Layer](https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2572927/View)
+- transports segment from host to host, by encapsulating segments into datagrams and delivering segment to the receiving tranport layer
+- **routing** is planning the trip from source to dest
+- **fowarding** is the process of moving packets from router input to another router's output
+
+1. Input port of router:
+  2. physical layer: line termination, bit level reception
+  3. data link layer: Ethernet
+  4. decentralized switching: given dest, use forwarding table to lookup output port (at line speed)
+5. Switching fabrics: transfer packet from input buffer to output buffer (at **switching rate**, multiple of line rate)
+6. Output ports: queuing in datagram buffer
+7. link layer protocol send
+8. physical layer: line termination 
+
+- **memory switching fabric** limited by memory bandwidth (2 bus crossings per datagram)
+- **switching via bus**: shared bus, bus contention (up to 32Gbps bus)
+- **switching via interconnection network** is advanced, uses **crossbar or banyan networks**
+- buffering at output can cause packet loss, recommended to buffer at least round-trip-time in terms of link speed (250ms RTT on 10 Gbps link => 2.5 Gb buffer)
+  - another recommendation is to divide the above by sqrt of N, for N flows
+  
+#### IP Datagram format
+ - version, header length, datagram length, id, flags, fragmentation offset, TTL, upper layer protocol, header checksum, source, dest, options
