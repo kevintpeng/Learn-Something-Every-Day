@@ -1,5 +1,7 @@
 # [ECE 358 Computer Networks](https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2545984/View)
+
 ### [Intro](https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2545984/View)
+
 - **access networks** are provided by telecom operators (residential access, school network, cell tower)
 - **network core** connects service providers, for routing and forwarding
   - routing algorithm uses a local forwarding table to select next link
@@ -15,7 +17,6 @@
   - **internet exchange points** might connect global ISPs or **peering links**
 - content provider networks are private to allow companies to go around Tier 1 (global) ISP
 - `traceroute` unix utility for measuring delay from source to router
-
 - **layering**
   - pros: explicit identification of each piece in the system, specify the relationship between different parts, modularize the system
   - cons: duplicate jobs done at different layers
