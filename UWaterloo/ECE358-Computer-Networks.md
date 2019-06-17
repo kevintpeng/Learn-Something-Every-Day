@@ -46,7 +46,7 @@
 #### Error detection and correction (EDC)
 - error detection is not 100% reliable, in rare cases
 - **parity** checking detects single bit errors
-- cyclic redundancy check is a checksum algorithm (see [introduction](http://www.sunshine2k.de/articles/coding/crc/understanding_crc.html)
+- cyclic redundancy check is a checksum algorithm, that can prevent up to r bit errors in any position, by appending a checksum of length r to the message and using some generator G where |G| = r + 1
 
 #### Multiple access protocols
 - **collision** when a node receives multiple signals simultaneously
@@ -89,9 +89,10 @@ Taking turns
 - Ethernet is connectionless (no handshaking) and requires higher level protocol to recover from errors
 - **Ethernet switch** stores and forwards Ethernet frames
   - each switch has a table, mapping dest MAC address to interface
-  - switch is link-layer, and has a learned forwarding table using **flooding** and MAC addresses
+  - switch is link-layer, and has a learned forwarding switch table using **flooding** and MAC addresses
+  - maps MAC address to interface to reach host (port on machine), with time-to-idle)
   - **router** is network-layer, and computes forwarding table using routing algorithms and IP addresses
-  - **load balancer** is application-layer routing
+- **load balancer** is application-layer routing
   
 #### WiFi (WLAN)
 - **Basic service set** is the set of all stations that can communicate with each other at physical layer
@@ -99,6 +100,18 @@ Taking turns
 - **Extended service set** (ESS) is like eduroam at UW, a distribute system
 - **Point Coordination Function (PCF)** uses an access point which decides who transmits when
 - **Distributed Coordination Function (DCF)** is a mode of operation of MAC
+  - handshaking when frame length >= dotRTSThreshold, since we want to reduce the probability of collision
+  - without-handshake if frame length < dotRTSThreshold
+- one problem with WiFi is the Hidden Terminal Problem, resolved by CSMA/CA collision avoidance
+- second problem is **Exposed Terminal Problem**, where some node does not send in case it collides with a known transmission
+- **WLAN MAC** has `Request To Send` and `Clear To Send` frame types, as control frames for coordinating medium usage.
+- **Access point** converts WiFi frame to Ethernet frame and sends to router
+- Collisions avoided in CSMA/CA using:
+  - physical-level carrier sensing in receiver hardware
+  - virtual carrier sensing (MAC protocol level concept) using **Network Allocation Vector (NAV)** which is a counter used as a heuristic guide to when to transmit
+  - NAV is the max length of time from an RTS of any other node, and counts down by microseconds
+  - can transmit when carrier is absent (as per physical level sensing) and NAV = 0 (nobody nearby is transmitting)
+  
   
 ### [Network Layer](https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2572927/View)
 - transports segment from host to host, by encapsulating segments into datagrams and delivering segment to the receiving tranport layer
