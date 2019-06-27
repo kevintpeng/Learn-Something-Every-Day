@@ -45,3 +45,8 @@ Java Socket
 
 
 ### [Apache Spark](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2575474/View)
+
+### Page Rank
+- damping adjusts rank at each super step by including its rank from a previous superstep as some weight alpha
+  - without, algorithm can oscillate
+- **single source shortest path** 
