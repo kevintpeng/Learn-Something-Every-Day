@@ -46,7 +46,21 @@ Java Socket
 
 ### [Apache Spark](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2575474/View)
 
-### Page Rank
+### Graph processing
+- Google Pregel, master/worker model
+  - **vertex-centric** and stores state per vertex: domain-specific value, list of messages sent to vertex, list of outgoing edges, binary active/inactive state
+- uses the **Bulk Synchronous Parallel Model (BSP)** where computation is synchronous rounds or iterations called **supersteps**
+  - workers execute a function on each vertex using messages as input/signal
+  - execution ends when all workers vote to halt, when they no longer receive any messages
 - damping adjusts rank at each super step by including its rank from a previous superstep as some weight alpha
   - without, algorithm can oscillate
 - **single source shortest path** 
+
+### Consistency and Replication
+- replicating mutable state requires a consistency model to make sense of concurrent read/writes and reason about guarantees
+- **sequential consistency** there is one total order of operations over all processes so that the values read are possible 
+- **causal consistency** is weaker, processes each have their own observed order of ops from other processes
+  - op1 **causally precedes** op2 if op1 comes before op2 on the same process, or op2 reads a value written by op1
+- **linearizability** uses the notion of start and end times to get a sequential total order of ops, where if op1 finishes before op2, it must happen before (stronger guarantee than sequential)
+- **eventual consistency** is extremely weak, all servers will eventually produce the same reads in the absence of new writes 
+- **session guarantees**: successive reads on the same value will always return the same or newer values
