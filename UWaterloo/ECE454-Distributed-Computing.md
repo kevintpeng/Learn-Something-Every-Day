@@ -64,3 +64,8 @@ Java Socket
 - **linearizability** uses the notion of start and end times to get a sequential total order of ops, where if op1 finishes before op2, it must happen before (stronger guarantee than sequential)
 - **eventual consistency** is extremely weak, all servers will eventually produce the same reads in the absence of new writes 
 - **session guarantees**: successive reads on the same value will always return the same or newer values
+
+### [Zookeeper](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2583932/View)
+- bounded write throughput, unbounded read throughput
+- znodes can be created, deleted, `setData, getData(path, watch)`, `Stat exists(path, watch)`, `getChildren(path, watch)`, sync, setACL and getACL
+- data model is hierarchal namespacing like a file system, where data is read/written in its entirety
