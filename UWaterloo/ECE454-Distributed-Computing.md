@@ -69,3 +69,12 @@ Java Socket
 - bounded write throughput, unbounded read throughput
 - znodes can be created, deleted, `setData, getData(path, watch)`, `Stat exists(path, watch)`, `getChildren(path, watch)`, sync, setACL and getACL
 - data model is hierarchal namespacing like a file system, where data is read/written in its entirety
+
+### [Fault Tolerance](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2586424/View)
+- **2 phase commit** has two roles, coordinator and participants, where the result is either a global abort or global commit
+  - unanimous voting
+  - naive implementation can get stuck in ready state for participants (when coordinator dies)
+- we can use timeouts to detect failure (FLP impossibility assumes asynchrony), so consensus here is possible
+- if coordinator fails, participants can make progress as long as it received the decision, or can learn from another participant
+- **distributed checkpoints** enable recovery (using a persistent storage of checkpoints)
+  - what if the coordinator crashes?
