@@ -78,3 +78,20 @@ Java Socket
 - if coordinator fails, participants can make progress as long as it received the decision, or can learn from another participant
 - **distributed checkpoints** enable recovery (using a persistent storage of checkpoints)
   - what if the coordinator crashes?
+
+### Raft
+
+### Kafka
+- pub-sub, real-time stream processing, distributed and replicated storage of messages and streams
+- **topic** is stream of records, stored as partitioned log
+- produces push records to kafka brokers 
+  - can do idempotent delivery to avoid duplicate commits
+- consumer pulls records, each has an offset per topic
+  - **exactly once** semantics achievable by using a consumer to forward records from one topic to another
+  - **auto-commit**
+- **windowing** can be applied to a stream for **windowing streams**
+  - hopping by record
+  - tumbling by groups
+- **changelog streams** are semantically interchangable with tables
+
+### Clocks
