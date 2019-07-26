@@ -95,3 +95,8 @@ Java Socket
 - **changelog streams** are semantically interchangable with tables
 
 ### Clocks
+
+### CAP Principle
+- PACELC: when network **P**artitioned, choose **A**vailability or **C**onsistency, **E**lse choose **L**atency or **C**onsistency
+- Conventional DBs can scale up with memory and storage, and out with read replicas
+- transactions can scale out with data partitions, paxos-based replication
