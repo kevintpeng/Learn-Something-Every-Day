@@ -108,6 +108,20 @@ Eventual is incomparable, since it pertains to liveness
 - **changelog streams** are semantically interchangable with tables
 
 ### Clocks
+- atomic clocks can be out of sync due to laws of physics with respect to relativity
+- **clock skew** is any difference in the tick rate between two clocks
+- **offset** is the time difference between two clocks
+- NTP: used to sync cheap clocks with atomic clocks over a network
+  - theta is the estimated offset based on differences in req vs response time durations
+  - delta is the average transit time for requests
+- **Lamport Clocks** use lamport's definition of "happens before": per process order is preserved, across process sending means sent event happens before received event
+  - logical clocks adjust to preserve the happens before relationship: when receiving an event that happened before, set clock to that + 1
+  - lamport clocks do not properly capture causality (since processes that have not communicated in a while--might have very different clock values)
+  - events are concurrent if neither a happens before b nor b happens before a
+- **Vector Clocks** let you detect causality violations
+  - they hold the number of events per process, on each process based on what it has learned about the other processes in the system
+  - always increment your own counter, and pass the whole vector clock whenever sending a message, and take maxes when receiving a message
+  - so a vector clock represents the state when an event occurs, allowing us to derive a happpens before relationship for two events based on their vector clocks (all clock values must be leq)
 
 ### CAP Principle
 - PACELC: when network **P**artitioned, choose **A**vailability or **C**onsistency, **E**lse choose **L**atency or **C**onsistency
