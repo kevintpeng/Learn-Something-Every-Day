@@ -88,6 +88,11 @@ Eventual is incomparable, since it pertains to liveness
   - what if the coordinator crashes?
 
 ### Raft
+- consensus algorithm aimed at understandability
+- **election safety**: at most one leader can be elected per term
+- **leader append-only**: leader cannot modify log history
+- **log matching**: if two logs contain an entry (same index and term) then it is guaranteed by induction that all previous log entries are identical up to it (this is great for state machines)
+- **leader completeness**: committed log entries can never be lost
 
 ### Kafka
 - pub-sub, real-time stream processing, distributed and replicated storage of messages and streams
