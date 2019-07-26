@@ -65,6 +65,9 @@ Java Socket
 - **eventual consistency** is extremely weak, all servers will eventually produce the same reads in the absence of new writes 
 - **session guarantees**: successive reads on the same value will always return the same or newer values
 
+Causal > sequential > Linearizability
+
+Eventual is incomparable, since it pertains to liveness
 ### [Zookeeper](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2583932/View)
 - bounded write throughput, unbounded read throughput
 - znodes can be created, deleted, `setData, getData(path, watch)`, `Stat exists(path, watch)`, `getChildren(path, watch)`, sync, setACL and getACL
@@ -100,3 +103,19 @@ Java Socket
 - PACELC: when network **P**artitioned, choose **A**vailability or **C**onsistency, **E**lse choose **L**atency or **C**onsistency
 - Conventional DBs can scale up with memory and storage, and out with read replicas
 - transactions can scale out with data partitions, paxos-based replication
+- **hinted-handoff** is required(?) for AP systems to acheive high availability
+- **anti-entropy**
+- **read repair** in **Cassandra** when you get, you send get to all replicas (even with small read quorum) using two types of reqs
+- **direct** fetches the actual data
+- **digest** gets a hash (quick small) for checking
+- third background repair request by coordinator to fix discrepancy, after the get finishes
+
+How to configure Cassandra for Latency vs. Consistency?
+
+### Exam Review
+- types of thrift servers: TSimpleServer, TNonblockingServer...?
+- Kafka
+- Memcached
+- NTP
+  - assume there is always 2ms delay between up and back. How do we change the NTP formula to take this into account?
+- solve hadoop or spark
