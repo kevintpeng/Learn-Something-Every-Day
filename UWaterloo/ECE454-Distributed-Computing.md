@@ -40,6 +40,10 @@ Java Socket
 - do not share thrift transports, protocols, and client stubs as they are not thread-safe
 - for interface versioning, add optionals with default values
 
+### Distributed File Systems
+- NFS is a system for mounting file system remotely, and is configurable to support either remote access or upload/download models
+- different guarantees: unix semantics, session semantics, immutable and transactions
+
 ### [Hadoop MapReduce](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2571408/View)
 - achieves fault tolerance through restarting tasks, and ensuring that tasks are side-effect free
 
@@ -62,12 +66,11 @@ Java Socket
 - **causal consistency** is weaker, processes each have their own observed order of ops from other processes
   - op1 **causally precedes** op2 if op1 comes before op2 on the same process, or op2 reads a value written by op1
 - **linearizability** uses the notion of start and end times to get a sequential total order of ops, where if op1 finishes before op2, it must happen before (stronger guarantee than sequential)
+- Linearizability (strongest) subset of sequential subset of causal
 - **eventual consistency** is extremely weak, all servers will eventually produce the same reads in the absence of new writes 
+  - eventual consistency is incomparable to sequential/causal/linearizable, since it pertains to liveness instead of safety
 - **session guarantees**: successive reads on the same value will always return the same or newer values
 
-Causal > sequential > Linearizability
-
-Eventual is incomparable, since it pertains to liveness
 
 ### [Zookeeper](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2583932/View)
 - bounded write throughput, unbounded read throughput
