@@ -119,3 +119,10 @@ How to configure Cassandra for Latency vs. Consistency?
 - NTP
   - assume there is always 2ms delay between up and back. How do we change the NTP formula to take this into account?
 - solve hadoop or spark
+- Q10 very important:
+  - one-way given, round-trip used
+  - Majority includes self
+  - ALL: parallel so max
+- RPC performance: client or server could be limiters, take the min and consider both
+  - client: throughput/thread x # of threads
+  - server
