@@ -59,6 +59,7 @@ Java Socket
 - damping adjusts rank at each super step by including its rank from a previous superstep as some weight alpha
   - without, algorithm can oscillate
 - **single source shortest path** 
+- **GraphX** is a component of Spark for graphs, adding **property graphs**, a directed multigraph
 
 ### Consistency and Replication
 - replicating mutable state requires a consistency model to make sense of concurrent read/writes and reason about guarantees
@@ -70,7 +71,6 @@ Java Socket
 - **eventual consistency** is extremely weak, all servers will eventually produce the same reads in the absence of new writes 
   - eventual consistency is incomparable to sequential/causal/linearizable, since it pertains to liveness instead of safety
 - **session guarantees**: successive reads on the same value will always return the same or newer values
-
 
 ### [Zookeeper](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2583932/View)
 - bounded write throughput, unbounded read throughput
@@ -145,7 +145,9 @@ How to configure Cassandra for Latency vs. Consistency?
 - Memcached
 - NTP
   - assume there is always 2ms delay between up and back. How do we change the NTP formula to take this into account?
-- solve hadoop or spark
+  - 2c: x must be greater than or equal to 3. The event e2 could have happened on either A or C. 
+- * Q4: solve hadoop or spark
+- Q5: 
 - Q10 very important:
   - one-way given, round-trip used
   - Majority includes self
