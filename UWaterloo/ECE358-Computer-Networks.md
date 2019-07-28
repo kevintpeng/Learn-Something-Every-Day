@@ -135,3 +135,11 @@ Taking turns
   
 #### IP Datagram format
  - version, header length, datagram length, id, flags, fragmentation offset, TTL, upper layer protocol, header checksum, source, dest, options
+ - **header checksum procedure**: sender sums all 16-bit blocks, add the carry to the one's digit, take the 1's complement. 
+   - This works because we're picking a value to inject into the header so that the sum of all 16-bit blocks comes out to zero when repeating the calculation on the receiver
+ - Network links are assigned a **Max transfer size** (MTU)
+   - IP header size is 20 bytes, which consumes part of the MTU
+   - fragmentation breaks a datagram into several, only to be reassembled at the destination
+   - frag flag set for all but the last fragment, and offset in units of 8 bytes
+   
+#### IP Addresses
