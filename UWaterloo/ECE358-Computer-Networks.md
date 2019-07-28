@@ -143,3 +143,27 @@ Taking turns
    - frag flag set for all but the last fragment, and offset in units of 8 bytes
    
 #### IP Addresses
+- Layer 2 switches do not have IP addresses, end-devices have one and routers can have multiple (one for each physical interface)
+- the first (network ID) and last (broadcast) address in a subnetwork should not be mapped to a physical node
+- to allocate a range of addresses for some amount of computers, round up to the nearest power of two or assign multiple address ranges
+- a **routing table** maps addresses that match some net + mask to next hop, choosing the entry that matches the longest prefix
+  - send an error over ICMP if there is no match
+- a host is given an IP address by a sysadmin (`rc.config`) or through **Dynamic Host Configuration Protocol** (DHCP)
+- DHCP (IP level protocol): discover, offer, req, ACK
+  - used by client to discover its own IP address, the first hop router and the DNS server
+- **Network Address Translation** let's a local network use a single address from the outside world's perspective
+  - router makes use of ports to local network addresses over its single public IP address
+  - NAT is controversial since a router is at network layer 3 but requires use of ports at transport layer 4 to operate
+
+#### Routing Algorithms
+- **Distance Vector** algorithm: maintain estimate cost from self to every other node in the system
+  - in RIP, maintain a copy of each neighbour's distance vector
+  - when periodically receiving neighbour's distance vector, update self's distance vector using Bellman-Ford equation (fancy way of saying take the min for each element)
+  - immediately propagate when a shorter path is found (good new travels fast)
+- **two-node instability problem** arises if a node X goes down, A and B both know they can't route to X anymore, so they forward back and forth to each other forever
+  - **split horizon** is a solution where if B thinks it found a path to X through A, it doesn't propagate this to A
+  - **poisoned reverse** is when A detects a broken link to X, then when trying to find a path through B, it tells B that (X,A) link is broken
+- **Routing Information Protocol** can be implemented with distance vectors using hops as metric, max 15 hops, DVs advertised every 30s, list up to 25 destination subnets
+  - kill link if no advertisement in 180s, invalidate any routes that use that link, immediately advertise change to neighbours and await response
+  - **poison reverse** used to prevent loops (with "infinite distance" as max + 1 so 16)
+- **Open Shortest Path First** (as in open-source)
