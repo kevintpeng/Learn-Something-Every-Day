@@ -167,3 +167,14 @@ Taking turns
   - kill link if no advertisement in 180s, invalidate any routes that use that link, immediately advertise change to neighbours and await response
   - **poison reverse** used to prevent loops (with "infinite distance" as max + 1 so 16)
 - **Open Shortest Path First** (as in open-source)
+  - advertisement carries one entry per neighbour, and floods to entire Automated System, directly over IP instead of UDP
+  - cost is inverse of link speed instead of hops
+  - each router learns complete topology of network
+  - Dijsktra's algorithm can be used to calculate distances, where at each iteration of the loop we add the vertex that has minimum cost to the set of known vertices, and recompute cost of all other nodes adjacent to the recently added vertex
+- **Border Gateway Protocol** glues the internet together, connecting Automated Systems together and working to set the external destinations of a forwarding table
+  - eBGP obtain subnet reachability from neighbour AS (think external)
+  - iBGP propagate reachability info internally to the AS
+  - BGP messages: OPEN, UPDATE, KEEPALIVE, NOTIFICATION
+  - **BGP session** between two peers exchange messages over TCP advertising paths to different destinations through a **path vector**, with attributes **AS-PATH** the AS list through which the advertisment has passed and **NEXT-HOP** the specific internal AS next
+  - **policies** can be set on import and export which accept or decline advertised routes (prefix + attributes), or give preference between two routes
+  
