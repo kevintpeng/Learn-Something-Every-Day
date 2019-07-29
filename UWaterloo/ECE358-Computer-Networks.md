@@ -192,3 +192,6 @@ Taking turns
 - **go-back-N** is a pipelined protocol, where the sender rolls back to any unack'd packet
 - **selective repeat** is a pipelined protocol, where the sender resends only unack'd packets and the receiver buffers while waiting for missed packets
   - window size affects performance, and correctness and must be chosen carefully
+- **TCP** is connection oriented, where sender/receiver states are initialized through a handshake
+  - full duplex, pipelined, flow controlled, reliable
+  
