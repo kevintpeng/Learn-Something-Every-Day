@@ -178,3 +178,17 @@ Taking turns
   - **BGP session** between two peers exchange messages over TCP advertising paths to different destinations through a **path vector**, with attributes **AS-PATH** the AS list through which the advertisment has passed and **NEXT-HOP** the specific internal AS next
   - **policies** can be set on import and export which accept or decline advertised routes (prefix + attributes), or give preference between two routes
   
+### [Transport Layer](https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2583577/View)
+- provides **logical communication** between processes
+- port numbers are used to address other programs (like the case for sockets)
+  - MAC addr for 1-hop communication, IP addr for multi-hop, ports for app-to-app
+- 2^16 UDP and TCP ports (consumed separately, and on a per-machine basis)
+- **reserved ports** in the lower 1000s like port 443, and **Free ports** beyond for user-applications
+- **User Datagram Protocol** is a bare bones transport protocol for high performance, since it is **connectionless**
+  - no handshaking, each UDP segment is handled independently, and reliability would be acheivable only being added at the application layer
+  - no congestion control: UDP can be blasted
+- **stop-and-wait** is a naive implementation for UDP data integrity
+  - must always ack, even for duplicate packets (because the first ack might have dropped)
+- **go-back-N** is a pipelined protocol, where the sender rolls back to any unack'd packet
+- **selective repeat** is a pipelined protocol, where the sender resends only unack'd packets and the receiver buffers while waiting for missed packets
+  - window size affects performance, and correctness and must be chosen carefully
