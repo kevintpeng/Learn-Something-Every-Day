@@ -194,4 +194,13 @@ Taking turns
   - window size affects performance, and correctness and must be chosen carefully
 - **TCP** is connection oriented, where sender/receiver states are initialized through a handshake
   - full duplex, pipelined, flow controlled, reliable
-  
+- **flow control** allows receiver to control sender, using `rwnd` (receiver window) to limit the amount of in-flight data that could be buffered
+- TCP connections are established through SYN, SYN+ACK, ACK handshake and closed with FIN, ACK, FIN, ACK
+- **network-assisted congestion control** takes feedback as end system from router
+- **end-to-end congestion control**, inferred from end-system observed loss or delay
+  - sender increases transmission rate until loss occurs, linearly increasing `cwnd` (congestion window size) by `MSS` for every ack until loss detected, and multiplicatively decreasing it on failure
+  - sender takes min(`cwnd`, `rwnd`), noting that rwnd is often very very large
+  - TCP send rate is roughly `cwnd/RTT` bytes/sec (round trip time)
+- slow send threshold is when the `cwnd` stops increasing exponentially and switches to linear
+- **TCP Tahoe** sets the cwnd to 1 and `ssthresh` to `cwnd/2` upon detecting congestion
+- **TCP Reno** differentiates congestion detection scenarios between loss due to timeout and loss observed by triple ACKs, and sets `cwnd = cwnd/2` instead of 1 in this case
