@@ -71,6 +71,7 @@ Java Socket
 - **eventual consistency** is extremely weak, all servers will eventually produce the same reads in the absence of new writes 
   - eventual consistency is incomparable to sequential/causal/linearizable, since it pertains to liveness instead of safety
 - **session guarantees**: successive reads on the same value will always return the same or newer values
+- TODO https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2582344/View
 
 ### [Zookeeper](https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2583932/View)
 - bounded write throughput, unbounded read throughput
