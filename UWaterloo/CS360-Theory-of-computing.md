@@ -2,12 +2,20 @@
 ### Summary
 - **Cantor's** theorem: the power set of the natural numbers P(N) is uncountable (since N is an infinite set)
 - any single language is countable because you can map the natural numbers to the infinite set of all possible strings (again, there is a bijection that can be defined)
-- on DFA and NFA equivalence, a language `A` is regular iff there exists an NFA that accepts all strings in `A`
+- on Deterministic Finite Automata and Non-deterministic Finite Automata equivalence, a language `A` is regular iff there exists an NFA that accepts all strings in `A`
 - there are uncountably many languages over sigma, but countably many regular languages
 - **pumping lemma** (for regular languages) tells us that there is always a loop in a DFA for input string whose length is greater or equal to then number of states
+- context-free languages always have a pushdown automata and a context free grammar that represent them, which with the addition of a stack makes the behaviour of each state depend on what's on the top of the stack
 - **pumping lemma for context-free grammars** works on parse trees, and says that after the parse tree has a certain height, then there must be some path from the root to leaf that has more nodes than states, and thus we get a loop
+- Deterministic stack machines are an interesting alternative and equivalent computing model to the turing machine, extending pushdown automata with a second stack gives them the ability to perform universal computation
+  - we can encode anything as strings including DSMs themselves, so we can describe problems as sets of DSMs that solve those problems under given constraints
 - **semi-decidable** languages are a subset of undecidable languages that have machines that describe them that are guaranteed to terminate when reading a string that must be accepted
+  - there are non-semidecidable languages like DIAG, the language of all DSMs that do not accept themselves, which paradoxically cannot accept or reject itself
 - for languages described by turing machines and deterministic stack machines, there is no fundamental syntactic structure to determine whether the language is infinite or not (whether a loop exists)
+- **NP** is the set of languages/problems that have a polynomial-time verifier
+- **NP complete** languages are the hardest in NP, since it is NP hard (anything in NP reduces to it) while still being in NP
+- **time-hierarchy theorem** gives us that if f(x) = o(g(x)), then DTIME(f) is a proper subset of DTIME(g)
+  - **DTIME(f)** is the set of languages that have a DSM whose running time satisfies O(f) deterministically (and NTIME for nondeterministically)
 
 ### 1 [Background](https://cs.uwaterloo.ca/~watrous/CS360/Lectures/01.pdf)
 - Computational problems themselves can be viewed as mathematical objects
@@ -171,6 +179,7 @@ TODO read this lecture more closely
 - for semidecidable languages, union, concat, intersection, kleen star, prefix, suffix, substring are closure properties
   - not closed under negation
 - for any infinite semidecidable language, there exists a subset that is an infinite decidable languages
+- semidecidable languages are precisely the set of languages which correspond to the range of computable functions
 
 ### [19 Time-bounded Computations](https://cs.uwaterloo.ca/~watrous/CS360/Lectures/19.pdf)
 - **time constructable** is used to define functions that are--informally--not theoretically malliciously constructed, in other words practically useful
