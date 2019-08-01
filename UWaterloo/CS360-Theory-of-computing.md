@@ -174,9 +174,19 @@ TODO read this lecture more closely
 
 ### [19 Time-bounded Computations](https://cs.uwaterloo.ca/~watrous/CS360/Lectures/19.pdf)
 - **time constructable** is used to define functions that are--informally--not theoretically malliciously constructed, in other words practically useful
+- **DTIME(f)** is the set of languages that have a DSM whose running time satisfies f deterministically
 - **time hierarchy theorem** is useful for showing that some class of problems is a strict subset of another
 - P is the class of all problems computable in polynomial time
 - EXP is exponential
 - CFG-simulation related computations are polynomial time
 
 ### [20 NP, Polynomial-Time Mapping Reductions](https://cs.uwaterloo.ca/~watrous/CS360/Lectures/20.pdf)
+- **polynomially bounded time-constructable functions** is the fancy way of saying a useful function that has polynomial runtime
+- A language is in NP if there is some polynomial time verifier
+- another approach is to think of NP as polynomial-time nondeterministic computation, NTIME(f)
+- P is a subset of NP subset of EXP
+  - if A in P, then A itself is a verifier so it's also in NP
+- A **polynomial-time reduces** to BB if there is some polynomial-time computable function s.t. `w in A iff f(w) in B`
+- B is **NP-hard** if A polynomial-time reduces to B for every language A in NP (harder than or in NP)
+- B is **NP-complete** if B is NP-hard and in NP (the hardest NP problems, that are still in NP)
+- NP != DTIME(2^n)
