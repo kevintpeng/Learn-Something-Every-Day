@@ -59,3 +59,7 @@ Part of requests and responses, contains fields defining the operating parameter
 - 504, Gateway Timeout
 
 [source](https://www.w3.org/Protocols/rfc2616/rfc2616.html)
+
+## HTTP/2
+2015 revision of the protocol, provided improvements to network efficiency and enabled real-time communication through long-lived connections
+- streams enable multiple concurrent conversations over a single connection
