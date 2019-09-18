@@ -13,10 +13,21 @@
 - GLFW is an open source library for creating windows, contexts and surfaces (for OpenGL and Vulkan)
 
 ### 1. Instance and Physical Devices
+- specify what physical device/GPU
+- query for VRAM and other properties
 
 ### 2. Logical Device
+- logical device is where declare what physical device features you'll be using
+- declare which queue families will be used
+  - a `VkQueue` takes a sequence of commands to execute possibly asynchronously with other VkQueues
+  - queue families are subsets of commands which allow certain kinds of optimization 
 
 ### 3. Window Surface and swap chain
+- necessary for on-screen rendering
+- abstraction between vulkan and the native windowing system
+- swap chain allows for incremental rendering, so that only completely rendered images are ever shown
+  - the frame is eventually shown depending on present mode (such as double buffering vsync)
+  - synchronizes the presentation of images to the refresh rate of the screen
 
 ### 4. Frame buffers
 
@@ -27,3 +38,6 @@
 ### 7. Command pools and buffers
 
 ### 8. main loop
+
+### [Vulkan Layers](https://renderdoc.org/vulkan-layer-guide.html)
+- the application talks to the loader, which deals with enumerating & validating layers requested
