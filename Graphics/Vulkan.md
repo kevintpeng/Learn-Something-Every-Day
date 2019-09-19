@@ -56,3 +56,6 @@
 ### [Vulkan Layers](https://renderdoc.org/vulkan-layer-guide.html)
 - the application talks to the loader, which deals with enumerating & validating layers requested
 - validation layers can be added for simple error handling, acting as interceptors between the application and driver
+- loader dispatches functions to the appropriate sequence of layers
+
+![diagram](https://renderdoc.org/instance_call_chain.png)
