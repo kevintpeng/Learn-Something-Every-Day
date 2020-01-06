@@ -1,0 +1,10 @@
+- A **primative** is not a **power**
+- P<sub>2</sub> means the set of all primatives over the alphabet of length 2: {0,1}
+- `x Ш y` means shuffle, as in shuffling a deck (interleave)
+- lexicographic order is defined for same length strings
+- **radix order** sorts first by length then lexicographical
+- z is **purely periodic** if z = x^omega for some finite x
+- z is **ultimately periodic** if the suffix is purely periodic
+- x and y are **conjugates** if x is a cyclic shift of y
+- x is a **border** of y if x is not empty, x != y, x is prefix and suffix of y "entaglement"
+- Lyndon-Schutzenberger 1st theorem, the alphalpha theorem
