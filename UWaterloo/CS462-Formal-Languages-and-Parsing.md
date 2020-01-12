@@ -7,4 +7,4 @@
 - z is **ultimately periodic** if the suffix is purely periodic
 - x and y are **conjugates** if x is a cyclic shift of y
 - x is a **border** of y if x is not empty, x != y, x is prefix and suffix of y "entaglement"
-- Lyndon-Schutzenberger 1st theorem, the alphalpha theorem
+- Lyndon-Schutzenberger 1st theorem, the "alfalfa" theorem
