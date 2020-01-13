@@ -8,3 +8,5 @@
 - x and y are **conjugates** if x is a cyclic shift of y
 - x is a **border** of y if x is not empty, x != y, x is prefix and suffix of y "entaglement"
 - Lyndon-Schutzenberger 1st theorem, the "alfalfa" theorem
+- can not avoid squares over a finite alphabet
+- a morphism is a map from one alphabet to another, preserving concatenation
