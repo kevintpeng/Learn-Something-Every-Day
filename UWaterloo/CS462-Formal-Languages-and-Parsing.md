@@ -1,3 +1,4 @@
+### Combinatorics on Word: Definitions
 - A **primative** is not a **power**
 - P<sub>2</sub> means the set of all primatives over the alphabet of length 2: {0,1}
 - `x Ш y` means shuffle, as in shuffling a deck (interleave)
@@ -10,3 +11,6 @@
 - Lyndon-Schutzenberger 1st theorem, the "alfalfa" theorem
 - can not avoid squares over a finite alphabet
 - a morphism is a map from one alphabet to another, preserving concatenation
+
+Proof tricks:
+- pigeon hole principle is useful for showing eventual repetition in infinite strings 
