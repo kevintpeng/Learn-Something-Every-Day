@@ -3,3 +3,4 @@
   - a grammar is LL1 iff |predict(A,a)| <= 1 for all A,a
   - more generally, this class of parsers is referred to as LL(k), where k = 1 in this case
 - LR is a bottom-up parser
+  - a **viable prefix** is a string of symbols that expands to a prefix of a valid sentence
