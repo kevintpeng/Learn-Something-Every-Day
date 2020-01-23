@@ -1,7 +1,7 @@
 # [CS462 Formal Languages and Parsing](https://www.student.cs.uwaterloo.ca/~cs462/)
 
 ### Combinatorics on Word: Definitions
-- A **primative** is not a **power**
+- A **primative** `x` and **power** `w` form the word `w = x^k` for integer `k`
 - P<sub>2</sub> means the set of all primatives over the alphabet of length 2: {0,1}
 - `x Ш y` means shuffle, as in shuffling a deck (interleave)
 - lexicographic order is defined for same length strings
