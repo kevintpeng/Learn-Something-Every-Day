@@ -13,6 +13,11 @@
 - Lyndon-Schutzenberger 1st theorem, the "alfalfa" theorem
 - can not avoid squares over a finite alphabet
 - a **morphism** is a map from one alphabet to another, preserving concatenation
+- if every subword of an infinite word appears at least twice, then every subword appears infinitely many times
+- if every subword appears infinitely many times, the infinite word is **recurrent**
+- thue-morse sequence is recurrent because any subword is from position i to j, and for the binary representation of `j`, you can always find the same subword ending at `11j` 
+  - another way to think about this is the complementary construction. complement of complement gets you the original string back at a later position
+  - ![thue-morse](https://upload.wikimedia.org/wikipedia/commons/f/f1/Morse-Thue_sequence.gif)
 
 Proof tricks:
 - pigeon hole principle is useful for showing eventual repetition in infinite strings 
