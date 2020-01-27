@@ -38,6 +38,7 @@ Proof tricks:
   - "substitution by regular languages" means regularity is preserved during substitution.
 - Theorem: substitution preserves regularity. Prove by induction on the regular expression operators.
 - **inverse morphism** on a language L is, given a morphism, the set of all words that when the morphism is applied to them, they result in a word in L
+- **transducer** is a generalization of the mealy machine which transforms input to a new output, which has finite states, nondeterministic transitions, and each transition takes some input and produce output of possibly a different alphabet
 
 Proof tricks:
 - for induction, always construct the problem recursively. Then make sure during the induction step, we apply it to pieces recursively.
