@@ -43,3 +43,14 @@ Proof tricks:
 Proof tricks:
 - for induction, always construct the problem recursively. Then make sure during the induction step, we apply it to pieces recursively.
 - start with reprentations of an object (regular language represented by DFA, NFA, etc) and modify it to reach an answer
+
+### 3.8 Automata, graphs and boolean matrices
+A transition in a NFA can be represented using an **incidence matrix**: a boolean matrix where for a given input character `a in Sigma, Ma[i][j] = 1` if there is a transition from state `i` to state `j` on character `a`, or `delta(qi, a) = qj`. (we use `AND` instead of multiply, `OR` instead of addition).
+
+If you multiply matrices, we end up "following paths" along the NFA. `Ma x Mb` gives us the incidence matrix for word `w = ab`.
+
+We learned from algos cs240 that there are more effective implementations of matrix multiplication than the naive `O(n^3)`. This gives us a more efficient computation for NFA simulation.
+
+There are a finite number of possible matrices, even after infinite operations on them since each state can only be 0 or 1.
+
+**Proof trick:** construct a second DFA from the original, using tuples of matrices as the states (this works because there are finitely many possible incidence matrices). Define the final states using a sort of "query" on all states that satisfy some property, enabling traversal from the initial state (row 0) to final states in the original DFA.
