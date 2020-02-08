@@ -54,3 +54,12 @@ We learned from algos cs240 that there are more effective implementations of mat
 There are a finite number of possible matrices, even after infinite operations on them since each state can only be 0 or 1.
 
 **Proof trick:** construct a second DFA from the original, using tuples of matrices as the states (this works because there are finitely many possible incidence matrices). Define the final states using a sort of "query" on all states that satisfy some property, enabling traversal from the initial state (row 0) to final states in the original DFA.
+
+### 3.9 Myhill-Nerode theorem
+The following are equivalent:
+
+1. `L` is regular
+2. `L` can be written as the union some of the equivalence classes of `E`, where `E` is a right-invariant (`xRy => xzRyz` `x,y in S, forall z in S`) equivalence relation with finite index
+  - an equivalence relation `R` partitions a set into disjoint subsets of "equal" things (equivalence class)
+  - index is the number of classes
+3. Let `R`<sub>L</sub> be the Myhill-Nerode equivalence relation. Then `R`<sub>L</sub> is of finite index.
