@@ -59,7 +59,15 @@ There are a finite number of possible matrices, even after infinite operations o
 The following are equivalent:
 
 1. `L` is regular
-2. `L` can be written as the union some of the equivalence classes of `E`, where `E` is a right-invariant (`xRy => xzRyz` `x,y in S, forall z in S`) equivalence relation with finite index
+2. `L` can be written as the union some of the equivalence classes (indistinguishable) of `E`, where `E` is a right-invariant (`xRy => xzRyz` `x,y in S, forall z in S`) equivalence relation with finite index
   - an equivalence relation `R` partitions a set into disjoint subsets of "equal" things (equivalence class)
+    - `R1` is a **refinement** of `R2` if `R1 subset of R2`
   - index is the number of classes
-3. Let `R`<sub>L</sub> be the Myhill-Nerode equivalence relation. Then `R`<sub>L</sub> is of finite index.
+3. `R`<sub>L</sub> is of finite index.
+  - **Myhill-Nerode equivalence relation** is a right-invariant relation `R`<sub>L</sub>, s.t. if `xz in `language L iff `yz in L` 
+  - if L is the union of any right-invarant equivalence relation E's equivalence classes, then E is a refinement of `R`<sub>L</sub>
+
+### 3.10 Minimization of finite automata
+Myhill-Nerode theorem allows minimal DFAs to be constructed from the Myhill-Nerode equivalence relation
+
+Naively, enumerate all pairs of states. "Mark" all pairs that are immediately distinguishable (one's a final state, the other isn't). Run for n iterations, marking new pairs along the way. Any unmarked states after n iterations yields the equivalence classes.
