@@ -81,3 +81,6 @@ Naively, enumerate all pairs of states. "Mark" all pairs that are immediately di
     - proof using contradiction on minimality, using division-free subsequences
 - a **minimal element** has nothing less than or equal to it except itself
 - the set of minimal elements is finite (though hard to find in some cases, like powers of 2 in base 10)
+
+## 4 Context-free grammars
+- recall pushdown-automata. `∂(q,a,A)` is of the form `(p, 𝛾)` where A is the current top of stack, and `𝛾` is a string that replaces `A`. Input accepted if at final state or stack is empty, where stack starts with some unique Z0.
