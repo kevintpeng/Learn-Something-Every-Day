@@ -71,3 +71,13 @@ The following are equivalent:
 Myhill-Nerode theorem allows minimal DFAs to be constructed from the Myhill-Nerode equivalence relation
 
 Naively, enumerate all pairs of states. "Mark" all pairs that are immediately distinguishable (one's a final state, the other isn't). Run for n iterations, marking new pairs along the way. Any unmarked states after n iterations yields the equivalence classes.
+
+### 3.12 Partial Order
+- subword (contiguous, `x S y`) is one natural partial ordering on strings, and subsequence (`a | b`) is another
+- if `R` is a partial ordering, then if `a R b` or `b R a`, then `a` and `b` are comparable (otherwise incomparable)
+- **antichain** is a set of pairwise incomparable elements
+  - subword can have infinite antichains (for ex. `a b^n a`)
+  - subsequence has no infinite antichains
+    - proof using contradiction on minimality, using division-free subsequences
+- a **minimal element** has nothing less than or equal to it except itself
+- the set of minimal elements is finite (though hard to find in some cases, like powers of 2 in base 10)
