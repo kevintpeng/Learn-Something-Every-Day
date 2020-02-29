@@ -72,6 +72,14 @@ Myhill-Nerode theorem allows minimal DFAs to be constructed from the Myhill-Nero
 
 Naively, enumerate all pairs of states. "Mark" all pairs that are immediately distinguishable (one's a final state, the other isn't). Run for n iterations, marking new pairs along the way. Any unmarked states after n iterations yields the equivalence classes.
 
+### 3.11 State complexity
+- `sc(L)` is the minimum number of states in a DFA that accepts regular language `L`
+- `sc(L1 n L2) <= sc(L1) x sc(L2)`. This can be seen by forming a DFA whose states are pairs, one state from `L1` and one from `L2`. The upper bound case can be formulated using `L1` = number of 0s in the string `= 0 mod n`, and `L2` is number of 1s in the string `= 0 mod m`
+- NFAs are harder since the minimal NFA is not unique
+- we can find lower bounds if we construct the problem in a way that we can apply known theorems to it
+  - if the shortest string accepted by L is of length `n`, then `nsc(L) >= n+1`. Prove using pigeon hole principle to show some state is repeated, and pumping lemma idea to remove a cycle to find a shorter string.
+  - if you can find `n` words under the following constraints, then you can show that `nsc(L) >= n`: split each of the `n` words into a pair--some non-overlapping prefix-suffix pair--then show that for all choices of two of pairs, if you swap the prefixes, then at least one of the words is not in L.
+
 ### 3.12 Partial Order
 - subword (contiguous, `x S y`) is one natural partial ordering on strings, and subsequence (`a | b`) is another
 - if `R` is a partial ordering, then if `a R b` or `b R a`, then `a` and `b` are comparable (otherwise incomparable)
