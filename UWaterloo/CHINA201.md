@@ -18,3 +18,9 @@ hao means finished, as resultative complement.
 x + 来 + x + 去。 Back and forth.
 - 游来游去。
 - 走来走去。
+
+### Lesson 20
+
+又 VS。再
+- 又 is for again in the past
+- 再 is for will happen again in the future
