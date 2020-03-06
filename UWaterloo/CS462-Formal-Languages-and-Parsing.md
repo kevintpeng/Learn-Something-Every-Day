@@ -92,3 +92,4 @@ Naively, enumerate all pairs of states. "Mark" all pairs that are immediately di
 
 ## 4 Context-free grammars
 - recall pushdown-automata. `∂(q,a,A)` is of the form `(p, 𝛾)` where A is the current top of stack, and `𝛾` is a string that replaces `A`. Input accepted if at final state or stack is empty, where stack starts with some unique Z0.
+- CFL closed under union, concat, kleene star, substitution (of symbol for a CFL) and therefore morphisms, inverse morphisms
