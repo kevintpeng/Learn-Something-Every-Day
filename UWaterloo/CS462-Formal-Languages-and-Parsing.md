@@ -95,7 +95,24 @@ Naively, enumerate all pairs of states. "Mark" all pairs that are immediately di
 - CFL closed under union, concat, kleene star, substitution (of symbol for a CFL) and therefore morphisms, inverse morphisms
 - recall the pumping lemma for context free languages. If a language is context free, then we can always find some pumping length such that all strings in the language greater than the pumping length must posess structural properties.
 - to show that a language is NOT context free, we assume some `n` exists. Then construct a string in `L` greater than any choice of pumping length `n` (so it must depend on `n`). Then we show that it does not hold the correct structural properties of a CFL.
+
+### 4.3 Ogden's Lemma
 - **Ogden's Lemma** is a generalization of the pumping lemma for context free grammars. Similarly, we have a pumping length, based on some `n = d^{k+1}` where `d` is the max length of an production rule's right side (the max number of possible children for each vertex in the parse tree) and `k+1` for `k` variables to satisfy the height requirement to arrive at the pigeon hole principle argument. The difference here is that we can mark symbols in a string.
 - **proof-trick:** factorial trick `n! + n` gives us a way to trap any `a^n` (decomposed as `a^{ij} a^k`) to be equal to `a^{n! + n}` for some i, for any choice of j,k.
+
+### 4.2 & 4.6 Parikh's Theorem
 - all unary CFLs are regular. We can rewrite any unary CFL as the union of a finite number of regular languages, where the finite number is based on the number of rules and the size of them.
 - Parikh's theorem generalizes this to certain CFLs over any alphabet.
+- linear and semi-linear are general properties of sets.
+- **linear** sets of numbers can built using any `r` coefficients (finite?), and saying that any number in that linear set can be constructed using the some of these `r` coefficients multiplied by `r` other integers.
+  - this is generalized in this course as a linear set of k-tuples, described by `r` coefficients (which need be `k`-tuples)
+- **semi-linear** sets are described as the union over a finite number of linear sets.
+  - I thought about whether semi-linear sets can be re-described using the constraints of linear sets. You can't. As as geometric example, if you have `r = 1` and `k = 2`, then this plots out some line in 2D space. If you take the union of two lines in 2D space, you get an X shape (or parallel lines). But if you tried to represent this with `r = 2`, you would end up describing a grid of points.
+- finally, **Parikh's map** `ψ(w)` applies these ideas to formal languages. It maps a string to a `k-tuple` where `k = |∑|`, counting the occurences of each letter in some string. It maps a language to the set of `k-tuples` that represent strings in the language.
+- if L is a CFL, then ψ(L) is a semilinear set of `k-tuples`.
+- if X is semilinear, than there exists a regular language L so that `ψ(L) = X`
+  - any finite set of strings can be mapped to a semilinear set by, for each word in the finite set, setting each to the "y-intercept" and have all 0 coefficients then taking the union of all.
+  
+*so all in all, if L is a CFL, then there exists some regular language R s.t. ψ(L) = ψ(R)*
+
+*so I guess we think about Parikh's theorem as a way to count things. It's kinda just saying if you forget about the order, we're just looking at patterns in the counting of each letter.*
