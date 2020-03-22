@@ -116,3 +116,9 @@ Naively, enumerate all pairs of states. "Mark" all pairs that are immediately di
 *so all in all, if L is a CFL, then there exists some regular language R s.t. ψ(L) = ψ(R)*
 
 *so I guess we think about Parikh's theorem as a way to count things. It's kinda just saying if you forget about the order, we're just looking at patterns in the counting of each letter.*
+
+### 5 Parsing and recognition
+CYK is a dynamic programming approach to parsing in O(n^3). Practically, large programs require better runtimes, so we use more restricted grammars to achieve these runtimes.
+- first convert grammar to CNF, then we construct an `n x n` DP table for some string `w` of length `n` to which we want to find a parse tree for.
+  - each entry at `CYK[i][j]` is the list of nonterminals that derive the substring `w[i..j]`
+  - each table entry can be computed in `O(n)` by finding all rules which derrive any of `CYK[i][k] x CYK[k][j]` 
