@@ -122,3 +122,5 @@ CYK is a dynamic programming approach to parsing in O(n^3). Practically, large p
 - first convert grammar to CNF, then we construct an `n x n` DP table for some string `w` of length `n` to which we want to find a parse tree for.
   - each entry at `CYK[i][j]` is the list of nonterminals that derive the substring `w[i..j]`
   - each table entry can be computed in `O(n)` by finding all rules which derrive any of `CYK[i][k] x CYK[k][j]` 
+
+Earley's Method has worst case O(n^3), but runs in O(n^2) for unambiguous and O(n) for LR(1)
