@@ -124,3 +124,9 @@ CYK is a dynamic programming approach to parsing in O(n^3). Practically, large p
   - each table entry can be computed in `O(n)` by finding all rules which derrive any of `CYK[i][k] x CYK[k][j]` 
 
 Earley's Method has worst case O(n^3), but runs in O(n^2) for unambiguous and O(n) for LR(1)
+- again, first convert to Chomsky Normal Form `A -> α . β`, where we add a dot to mark "everything before this point has been derived, AKA has a parse tree"
+- bottom-up parsing algorithm, using a table to store intermediate results
+- each table entry `M[i][j]` is a set of production rules `A -> α . β` where `α` is a nonterminal that expands to a derivation of `w`<sub>i,j</sub> (substring from i to j) and also the start symbol `S` derives `w`<sub>0,i</sub>` . A`
+- the subword that is derived by the some nonterminal is a **handle**. At each step of the algorithm, a handle is replaced by a nonterminal based on some production rule.
+- for some grammars, there are multiple handles for a partially parsed word, but LR(0) grammars are defined so that there is only ever one handle. This is how LR(0) grammars are parsable in linear time. From cs444, we think about this as representable as a DFA, so it has linear runtime.
+
