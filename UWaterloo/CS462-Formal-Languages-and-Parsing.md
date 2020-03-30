@@ -137,3 +137,14 @@ be computed by a finite automaton."
 - the Knuth NFA's language is the set of all viable prefixes, and states are the different items (production rules augmented with the dot . )
   - the Knuth NFA is also used to define the set of valid items for every viable prefix (and a valid item is used to replace some handle with a nonterminal).
   - we say an item `A -> α . β` is valid for a viable prefix if there is a (rightmost) derivation (from the start symbol) `S derives δαβw` and `δα` is a viable prefix from the Knuth NFA (where δ,α,β, are terminals or non terminals and w is a subword).
+
+## Turing Machines
+- 01010101010... is a "simple" string because we can describe a pattern for it
+- random digits could be seen as "complex", or without pattern
+- complexity and randomness are inherently linked
+- Kolmogorov Complexity of a string `C(x)` is the shortest program `P` on input `i` that prints `x` and halts
+  - if `C(x)` is large, `x` is hard to describe
+  - could think of Kolmogorov as encoding or compression (from storage perspective) to recover `x`
+  - Kolmogorov complexity is upper bounded by `O(x)` since you can just input `x` and print it
+- by pigeon hole principle, there are incompressible or random strings (since for length `n`, there are `2^n` strings, but only `2^n - 1` shorter representations, like counting nodes in a binary tree `2^(n-1) + 2^(n-2) + ... 4 + 2+ 1`)
+- Kolmogorov complexity is uncomputable
