@@ -1,1 +1,3 @@
-[Black Sicilian](https://lichess.org/Wzv19IhK/black#45): Missed Queen Trap. Should have calculated their options better.
+- [White London](https://lichess.org/DLDK9AGI/white#18): Knight on c3 exchange, needed to force bishop takes first
+- [White London](https://lichess.org/DLDK9AGI/white#12): missed tactic for two pawns
+- [Black Sicilian](https://lichess.org/Wzv19IhK/black#45): Missed Queen Trap. Should have calculated their options better.
