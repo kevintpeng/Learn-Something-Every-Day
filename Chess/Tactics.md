@@ -1,3 +1,5 @@
+- [Black QID](https://lichess.org/zdPoan3B/black#19): need to consider prophylactic moves. These are especially hard to find, as you can often weaken your position doing so.
+- [White London](https://lichess.org/5p2EyS1u/white#23): bad trade. Needs deeper calculation, particularly evaluating hanging pieces.
 - [White London](https://lichess.org/DLDK9AGI/white#18): Knight on c3 exchange, needed to force bishop takes first to avoid king-rook fork
 - [White London](https://lichess.org/DLDK9AGI/white#12): missed tactic for two pawns
 - [Black Sicilian](https://lichess.org/Wzv19IhK/black#45): Missed Queen Trap. Should have calculated their options better.
