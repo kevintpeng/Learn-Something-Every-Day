@@ -7,6 +7,7 @@
 - [White London](https://lichess.org/1oMjdrdd/white#32): pre-emptive defensive move, weakening king pawn structure. 
 
 ### Opening Ideas
+- [Black QID](https://lichess.org/0DqPASJa/black#15): need to watch for light-squared bishop attack, blocking with knight has been problematic over a few games.
 - [White London](https://lichess.org/0qIMkeTT/white#18): in this game, black tries to push an early queenside attack, we miss the move a3 shutting it down. We would be up a pawn, convert the a pawn to a more central pawn, and recapture the space advantage on the queenside with good dynamic play on the kingside.
 - [Black Closed Sicilian](https://lichess.org/7xso3TZU/black#11): wins two pawns and keeps them passed. Notice that Ne4 here opens up the fork on f2 if Queens exchange.
 - [Black Sicilian](https://lichess.org/edD1VVlL/black#9): 4th rank queen forks.
