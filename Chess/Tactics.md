@@ -1,3 +1,7 @@
+- [Black Najdorf](https://lichess.org/VzFLEeER/black#23): left solo defender under attack, leading to a remove-the-defender tactic ([another lossed pawn same game](https://lichess.org/VzFLEeER/black#35))
+- [Black Najdorf](https://lichess.org/VzFLEeER/black#67): Missed mate-in-1 threat, breaking fork.
+- [Black Najdorf](https://lichess.org/VzFLEeER/black#21): Missed hanging pawn into queen trap.
+- [White London](https://lichess.org/9K625gIF/white#48): Missed mate-in-1 threat. Chose to perpetual a potentially winning game, should have looked for tactical possibilities. There was a forcing mate here.
 - [Black QID](https://lichess.org/zdPoan3B/black#19): need to consider prophylactic moves. These are especially hard to find, as you can often weaken your position doing so.
 - [White London](https://lichess.org/5p2EyS1u/white#23): bad trade. Needs deeper calculation, particularly evaluating hanging pieces.
 - [White London](https://lichess.org/DLDK9AGI/white#18): Knight on c3 exchange, needed to force bishop takes first to avoid king-rook fork
