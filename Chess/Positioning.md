@@ -12,6 +12,7 @@
 - [Black Najdorf](https://lichess.org/fyOLhLih/black#15): the b5 pawn push can be dangerous if played too early, since it leaves the rook on a8 exposed on the diagonal. This is especially a dangerous Najdorf line after 6.Be3 (English attack).
 - [White London](https://lichess.org/xth1RrDs/white#32): need to castle before launching the attack, otherwise kingside pawns are too weak.
 - [White London](https://lichess.org/ZEHo5GSo/white#12): double attack + pin tactic
+- [White London](https://lichess.org/XabOt7HN/white#16): should avoid the three separated pawn chains. It's better to try to open the h-file instead of the g-file with an isolated h-pawn.
 - [Black QID](https://lichess.org/0DqPASJa/black#15): need to watch for light-squared bishop attack, blocking with knight has been problematic over a few games.
 - [White London](https://lichess.org/0qIMkeTT/white#18): in this game, black tries to push an early queenside attack, we miss the move a3 shutting it down. We would be up a pawn, convert the a pawn to a more central pawn, and recapture the space advantage on the queenside with good dynamic play on the kingside.
 - [Black Closed Sicilian](https://lichess.org/7xso3TZU/black#11): wins two pawns and keeps them passed. Notice that Ne4 here opens up the fork on f2 if Queens exchange.
