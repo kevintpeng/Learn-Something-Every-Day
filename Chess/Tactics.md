@@ -1,3 +1,10 @@
+- [Discovered attack](https://lichess.org/Vwywg4s8/white#50) winning a passed pawn.
+- [Check with discovered attack](https://lichess.org/C3AepJD6/white#43): need to consider unprotected queen as part of defense
+- [Fork threat causes bishop to hang](https://lichess.org/fyOLhLih/black#24)
+- [X-Ray](https://lichess.org/xth1RrDs/white#34): left rook attacked by x-ray
+- [Mating threat](https://lichess.org/dxsNAjna/black#31): Mate against dislodged king's middle pawn.
+- [En Passant](https://lichess.org/fo8DQuBU/white#24) into hanging a bunch of pawns.
+- [Desperado](https://lichess.org/S8SM2OBp/black#48) and [another Desperado](https://lichess.org/ZEHo5GSo/white#30)
 - [Black Najdorf](https://lichess.org/VzFLEeER/black#23): left solo defender under attack, leading to a remove-the-defender tactic ([another lossed pawn same game](https://lichess.org/VzFLEeER/black#35))
 - [Black Najdorf](https://lichess.org/VzFLEeER/black#67): Missed mate-in-1 threat, breaking fork.
 - [Black Najdorf](https://lichess.org/VzFLEeER/black#21): Missed hanging pawn into queen trap.

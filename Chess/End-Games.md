@@ -1,3 +1,7 @@
+### Late Game ideas
+- [Pinning a bishop to a rook with a rook](https://lichess.org/dxsNAjna/black#55): locks two pieces down, as long as you don't leave a minor piece unprotected for the rook to attack.
+- [Missed Winning end Game](https://lichess.org/dxsNAjna/black#99): against doubled pawn, could pin the front double pawn so it can't be used as a defender.
+
 ### Put up a stronger defense late game
 - [White London](https://lichess.org/dQOTA67N/white#40): had lead of two pawns, and a protected passed pawn. Was looking for a tactic here, should have been looking to hold and trade down.
 - [Missed Winning End Game](https://lichess.org/rKQDvg7l/white#54): should take the 3vs2 queen side pawns, double pawns are enough to stop the advancing pawns
