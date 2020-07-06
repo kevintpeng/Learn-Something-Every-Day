@@ -1,3 +1,4 @@
+# End Games 
 ### Late Game ideas
 - [Pinning a bishop to a rook with a rook](https://lichess.org/dxsNAjna/black#55): locks two pieces down, as long as you don't leave a minor piece unprotected for the rook to attack.
 - [Missed Winning end Game](https://lichess.org/dxsNAjna/black#99): against doubled pawn, could pin the front double pawn so it can't be used as a defender.

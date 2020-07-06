@@ -1,3 +1,5 @@
+# Tactics
+- [X-Ray](https://lichess.org/imC2jNGd/white#47) extra attacker.
 - [Discovered attack](https://lichess.org/Vwywg4s8/white#50) winning a passed pawn.
 - [Check with discovered attack](https://lichess.org/C3AepJD6/white#43): need to consider unprotected queen as part of defense
 - [Fork threat causes bishop to hang](https://lichess.org/fyOLhLih/black#24)

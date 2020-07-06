@@ -1,3 +1,5 @@
+# Positioning
+
 ### Recognize Positions Where Progress Cannot Be Made Quickly
 - [White London](https://lichess.org/0b5UX0Yr/white#36): should have traded off material after being up so much. No need to keep pushing attack and just solidify position instead.
 - [White London](https://lichess.org/cyeP8QBB/white#32): did not recognize position where enemy could not make progress. Here you should move all your pieces to their optimal positions instead of worrying about pushing tempo.
