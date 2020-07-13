@@ -10,6 +10,7 @@
 - [White London](https://lichess.org/1oMjdrdd/white#32): pre-emptive defensive move, weakening king pawn structure. 
 
 ### Opening Ideas
+- [White London](https://lichess.org/20jo57L9/white#14): free kings pawn if they try to take your kingside dark bishop in the early game
 - [White against Philidor d6](https://lichess.org/tlloOW1i/white#8): early mating threat after dxe5.
 - [Black Najdorf](https://lichess.org/fyOLhLih/black#15): the b5 pawn push can be dangerous if played too early, since it leaves the rook on a8 exposed on the diagonal. This is especially a dangerous Najdorf line after 6.Be3 (English attack).
 - [White London](https://lichess.org/xth1RrDs/white#32): need to castle before launching the attack, otherwise kingside pawns are too weak.
