@@ -14,6 +14,7 @@
 - [White London](https://lichess.org/7Ngh12Kp/white#12): need to watch out for opening the g-file when recapturing knight.
 - [White London vs KID](https://lichess.org/1cPN468z/white#19): need to watch out for Bxh6+.
 - [White London](https://lichess.org/1XYcNlXs/white#18): a c4 push (deep pawn chain), should not have been attempted to be broken with an e4 pawn break. Instead, play Qb2 in this position pinning the pawn to the unguarded bishop.
+- [White London](https://lichess.org/20jo57L9/white#14): free kings pawn if they try to take your kingside dark bishop in the early game
 - [White against Philidor d6](https://lichess.org/tlloOW1i/white#8): early mating threat after dxe5.
 - [Black Najdorf](https://lichess.org/fyOLhLih/black#15): the b5 pawn push can be dangerous if played too early, since it leaves the rook on a8 exposed on the diagonal. This is especially a dangerous Najdorf line after 6.Be3 (English attack).
 - [White London](https://lichess.org/xth1RrDs/white#32): need to castle before launching the attack, otherwise kingside pawns are too weak.
