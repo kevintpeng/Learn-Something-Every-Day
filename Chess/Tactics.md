@@ -1,4 +1,5 @@
 # Tactics
+- [Late game, always watch for pieces on the same coloured squares against minor pieces](https://lichess.org/L9g4l4Wu/black#62)
 - [X-Ray](https://lichess.org/imC2jNGd/white#47) extra attacker.
 - [Discovered attack](https://lichess.org/Vwywg4s8/white#50) winning a passed pawn.
 - [Check with discovered attack](https://lichess.org/C3AepJD6/white#43): need to consider unprotected queen as part of defense
@@ -16,3 +17,6 @@
 - [White London](https://lichess.org/DLDK9AGI/white#18): Knight on c3 exchange, needed to force bishop takes first to avoid king-rook fork
 - [White London](https://lichess.org/DLDK9AGI/white#12): missed tactic for two pawns
 - [Black Sicilian](https://lichess.org/Wzv19IhK/black#45): Missed Queen Trap. Should have calculated their options better.
+
+### Attacking Ideas
+- [White London vs KID](https://lichess.org/1cPN468z/white#42): need to watch out for queen trades after sacrificing material.

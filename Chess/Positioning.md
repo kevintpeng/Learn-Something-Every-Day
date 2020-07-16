@@ -10,6 +10,10 @@
 - [White London](https://lichess.org/1oMjdrdd/white#32): pre-emptive defensive move, weakening king pawn structure. 
 
 ### Opening Ideas
+- [White London](https://lichess.org/WAK7JgCL/white#20): trading on the outpost results in a pawn occupying the square which makes fills the hole in their position. Instead, the hole needs to be used later for long term positioning of the knight.
+- [White London](https://lichess.org/7Ngh12Kp/white#12): need to watch out for opening the g-file when recapturing knight.
+- [White London vs KID](https://lichess.org/1cPN468z/white#19): need to watch out for Bxh6+.
+- [White London](https://lichess.org/1XYcNlXs/white#18): a c4 push (deep pawn chain), should not have been attempted to be broken with an e4 pawn break. Instead, play Qb2 in this position pinning the pawn to the unguarded bishop.
 - [White against Philidor d6](https://lichess.org/tlloOW1i/white#8): early mating threat after dxe5.
 - [Black Najdorf](https://lichess.org/fyOLhLih/black#15): the b5 pawn push can be dangerous if played too early, since it leaves the rook on a8 exposed on the diagonal. This is especially a dangerous Najdorf line after 6.Be3 (English attack).
 - [White London](https://lichess.org/xth1RrDs/white#32): need to castle before launching the attack, otherwise kingside pawns are too weak.
@@ -22,6 +26,8 @@
 - [White London](https://lichess.org/xXfmHl63/white#10): often times, blocking the queen attack on b2 with our queen is fine
 
 ### Attacking Ideas
+- [Black's King is stuck in the middle](https://lichess.org/rfRwsTAu/white#48), so we should open up the position now.
+- [Lost a lot of tempo with weak, non-threatening or developing moves](https://lichess.org/1Cv8wk7J/black#31)
 - [Missing g-pawn](https://lichess.org/tlloOW1i/white#43): need to watch out for Rg6 forcing the king into the corner.
 - [White London](https://lichess.org/xth1RrDs/white#26): pushing to c5 is usually a strategic inaccuracy because it is vulnurable to pawn breaks along the chain and leaves holes in the b-file. In this game I think it's good because it blocks the enemy queen making the queenside attack more effective, and the queenside attack is good this game due to the queenside castle. Queenside castle is considerably weaker since the corner pawn is exposed by default. In this case the king was trapped if our queen could get to a8.
 
