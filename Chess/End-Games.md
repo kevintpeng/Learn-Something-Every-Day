@@ -1,5 +1,6 @@
 # End Games 
 ### Late Game ideas
+- [2vs1 pawn ending](https://lichess.org/2UlPxH5d/black#84): defender should try to force backwards pawn, simplifying to 1 v 1 passed pawns. If the attacker with two pawns can force an exchange, then it simplifies to a single passed pawn for the attacker. The defender wants to force a backwards pawn as far up the board as possible.
 - [Pinning a bishop to a rook with a rook](https://lichess.org/dxsNAjna/black#55): locks two pieces down, as long as you don't leave a minor piece unprotected for the rook to attack.
 - [Missed Winning end Game](https://lichess.org/dxsNAjna/black#99): against doubled pawn, could pin the front double pawn so it can't be used as a defender.
 

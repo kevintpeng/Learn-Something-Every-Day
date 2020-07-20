@@ -1,4 +1,6 @@
 # Tactics
+- [Black Sicilian discovered double attack](https://lichess.org/oJGReb46/black#27)
+- [Watch out for hanging b-pawn into captured rook](https://lichess.org/J6hzSMDe/white#22)
 - [Late game, always watch for pieces on the same coloured squares against minor pieces](https://lichess.org/L9g4l4Wu/black#62)
 - [X-Ray](https://lichess.org/imC2jNGd/white#47) extra attacker.
 - [Discovered attack](https://lichess.org/Vwywg4s8/white#50) winning a passed pawn.
