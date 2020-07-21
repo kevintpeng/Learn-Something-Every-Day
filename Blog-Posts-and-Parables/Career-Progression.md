@@ -1,3 +1,8 @@
+### [So Good They Can't Ignore You](https://www.amazon.ca/Good-They-Cant-Ignore-You/dp/1455509124)
+- Craftsman vs. Passion. "Career capital" can lead to better working conditions
+- Winner takes-all vs. Auction markets
+- to avoid stagnation, schedule deliberate practice. Doing the activity a lot is not enough to achieve constant improvement. Seek challenges to push your boundary of comfort.
+
 ### [Being a senior Engineer](http://www.kitchensoap.com/2012/10/25/on-being-a-senior-engineer/)
 - engineering maturity is more than technical growth, and is highly correlative to one's willingness to work with others, empathetically and selflessly
 - giving and receiving criticism is vital for thriving in engineering, but is a fine-line between baseless complaints and assertive and constructive critique
