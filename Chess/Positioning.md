@@ -1,6 +1,7 @@
 # Positioning
 
 ### Recognize Positions Where Progress Cannot Be Made Quickly
+- [Black](https://lichess.org/editor/rnbq1rk1/pp2ppbp/3p1np1/2pP4/2P5/2N2NP1/PP2PPBP/R1BQK2R_b_Qq_-_0_1) the position is closed, so there are no tactics available in the next few moves. When this is the case, we have time to place our pieces in their best locations, so think about multiple move sequences to reposition pieces, in this case Na6-Nc7 to support the b5 pawn push. Another example is playing [white in the caro-kann](https://lichess.org/rfRwsTAu/white#14) style setup (or other where you take both center pawn squares), where our queenside knight can journey to the kingside, where it can attack f5 and threaten to turn it into an outpost.
 - [White London](https://lichess.org/0b5UX0Yr/white#36): should have traded off material after being up so much. No need to keep pushing attack and just solidify position instead.
 - [White London](https://lichess.org/cyeP8QBB/white#32): did not recognize position where enemy could not make progress. Here you should move all your pieces to their optimal positions instead of worrying about pushing tempo.
 - [White London](https://lichess.org/rKQDvg7l/white#16): in London, eyes on the e5 square as an outpost for the knight. Here missed opportunity to block dark-squared bishop, or exchange, winning the bishop pair. Knight can't take first because it leads to a minor piece fork.
