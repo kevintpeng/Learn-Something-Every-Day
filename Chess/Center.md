@@ -1,0 +1,2 @@
+# Controlling the Center
+Very important principle of chess. The center is the key focus of all openings either directly in the form of seizing it or indirectly by applying pressure on it. Once held, a player can convert it into a flexible attack where we can either attack the kingside, queenside or center of the board. A player who controls the center can often apply enough pressure to achieve these positions where the opponent has very few options because they have so many areas of the board to defend at once.
