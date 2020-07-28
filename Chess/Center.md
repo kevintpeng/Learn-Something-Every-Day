@@ -7,3 +7,8 @@ Very important principle of chess. The center is the key focus of all openings e
 - knights in the center allow them to control the entire board.
 - 4th rank bishops are at their strongest, claiming 7 squares of space in the enemy half.
 - rarely, the queen can be strong in the middle if there are no good tempo-gaining development moves for the opponent.
+
+### Putting Pawns in the Center
+Pawns in the center is the classical idea of controlling the center. Without the right fortification, pawns in the center are targets. This is the idea behind fiachettos and the Sicilian defenses. But if allowed, a strong pawn center results in a massive space advantage and lead in development through tempo gaining pushes. With a large pawn center, first you need to defend it. Then you can aim to control squares in front of the pawns to prepare breaks. For example, knights in the center can defend the d-pawn and prepare an e-pawn break. 
+
+When you have a pawn center advantage, the best way to convert it is to push the pawns further, which is only possible if you can gain a lead in development and properly control the squares in the center. Otherwise you can almost always at least convert it to a lead in space through pushing minor pieces.
