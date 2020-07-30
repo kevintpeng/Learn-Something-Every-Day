@@ -12,3 +12,6 @@ Very important principle of chess. The center is the key focus of all openings e
 Pawns in the center is the classical idea of controlling the center. Without the right fortification, pawns in the center are targets. This is the idea behind fiachettos and the Sicilian defenses. But if allowed, a strong pawn center results in a massive space advantage and lead in development through tempo gaining pushes. With a large pawn center, first you need to defend it. Then you can aim to control squares in front of the pawns to prepare breaks. For example, knights in the center can defend the d-pawn and prepare an e-pawn break. 
 
 When you have a pawn center advantage, the best way to convert it is to push the pawns further, which is only possible if you can gain a lead in development and properly control the squares in the center. Otherwise you can almost always at least convert it to a lead in space through pushing minor pieces.
+
+### Analysis
+- [White London](https://lichess.org/Gf8gvpek/white#18) bad pawn break. It activates the opposing rook by giving them a rook on the semi open d-file. After the exchange, black can develop the knight with tempo on the bishop. I think we don't have enough development advantage to exploit the pawn break.
