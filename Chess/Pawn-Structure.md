@@ -1,6 +1,12 @@
 # Pawn Structure
 One of the five elements of chess, they form the basis of where pieces want to reside, and further dictate where attacks should happen.
 
+### Creating weaknesses
+- [white can trade the bishop pair for a weak d-pawn](https://lichess.org/analysis/rnbqkb1r/pp1ppp1p/5np1/2p5/2P5/1P6/PB1PPPPP/RN1QKBNR_w_KQkq_-_0_1) by capturing the f6 knight. White loses the bishop pair, and spends a tempo to create a permanent backwards central pawn. To convert this position, control the square in front of the backwards pawn so that it cannot advance and be traded off.
+
+### Holes
+A hole is a square that cannot be controlled by your pawns due missing or pushed pawns on both sides of the square. A hole often serves as a dangerous square if the enemy is allowed to occupy it safely with a minor piece. A hole can be defended a maximum of three times by minor pieces (two knights and one bishop), and the attacker generally wants to avoid recapturing on the hole with a pawn and thereby filling it. So it follows that an attacker can only use the hole if they have more minor pieces eyeing it down that the defender.
+
 ### Minority Attack
 Term for a plan involving an exchange of pawns in favour of the side with fewer. The idea is to trade in order to create either a backwards pawn or an isolated pawn.
 

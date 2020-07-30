@@ -1,4 +1,7 @@
 # Tactics
+- [White London](https://lichess.org/analysis/2r2rk1/pp3ppp/5n2/8/1QB1Pqb1/1N6/PP3PPP/R3R1K1_b_-_-_0_1): there are lots of ideas of light-squared bishop checks with discovery, in the london system
+- [White London](https://lichess.org/oAiPLP6x/white#26): again, forks with the e-pawn are possible.
+- [White London](https://lichess.org/oAiPLP6x/white#17): black and fork the bishop and knight with the e-pawn
 - [Black Sicilian discovered double attack](https://lichess.org/oJGReb46/black#27)
 - [Watch out for hanging b-pawn into captured rook](https://lichess.org/J6hzSMDe/white#22)
 - [Late game, always watch for pieces on the same coloured squares against minor pieces](https://lichess.org/L9g4l4Wu/black#62)
