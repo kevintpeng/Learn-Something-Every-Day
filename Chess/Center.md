@@ -13,5 +13,11 @@ Pawns in the center is the classical idea of controlling the center. Without the
 
 When you have a pawn center advantage, the best way to convert it is to push the pawns further, which is only possible if you can gain a lead in development and properly control the squares in the center. Otherwise you can almost always at least convert it to a lead in space through pushing minor pieces.
 
+### When Central pawns become a weakness
+- when a pawn center is overextended it can be challenged by wing pawns, forcing the bad trade of side pawns for central pawns.
+  - a crumbled center can be disadvantageous since you invest tempo in pushing them, and it is especially devastating if king safety was sacrificed for central control
+- if you cannot remove the center pawns (especially if there are too many centralized pawns) you may be able freeze the center using blockades to close the position. This can be advantageous since often the advancing side has many pieces defending the pawns so they would need to relocate to convert them from defenders to attackers. 
+  - it becomes very difficult to make use of center holes in a closed game forcing the player with the center to make plays in the wings.
+
 ### Analysis
 - [White London](https://lichess.org/Gf8gvpek/white#18) bad pawn break. It activates the opposing rook by giving them a rook on the semi open d-file. After the exchange, black can develop the knight with tempo on the bishop. I think we don't have enough development advantage to exploit the pawn break. I think the reason this is a +2.0 position is because of black's weak king safety after castling long. Since the center is locked up, we can push on the wing and attack faster than black can.
