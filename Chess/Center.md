@@ -20,7 +20,7 @@ When you have a pawn center advantage, the best way to convert it is to push the
   - it becomes very difficult to make use of center holes in a closed game forcing the player with the center to make plays in the wings.
 - if trying to remove a pawn center, think about removing the most advanced pawn
   - if there are three pawns at the same rank, think about targeting the middle one since the only way to support it with other pawns is to push it which may result in a fixed closed center.
-
+- if you're defending against a large pawn center with no space (and especially if their king is in the middle still as a result) do anything including pawn sacrifices to break it open!
 ### Closed Positions
 - closing a position is done by blockading pawns, either with your own pawns or with other pieces. It is a good strategy to close the center as a defender if you cannot remove a large attacking pawn center
   - closing a position can give you time to catch up in development and king safety 
