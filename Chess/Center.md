@@ -20,5 +20,14 @@ When you have a pawn center advantage, the best way to convert it is to push the
   - it becomes very difficult to make use of center holes in a closed game forcing the player with the center to make plays in the wings.
 - if trying to remove a pawn center, think about removing the most advanced pawn
   - if there are three pawns at the same rank, think about targeting the middle one since the only way to support it with other pawns is to push it which may result in a fixed closed center.
+
+### Closed Positions
+- closing a position is done by blockading pawns, either with your own pawns or with other pieces. It is a good strategy to close the center as a defender if you cannot remove a large attacking pawn center
+  - closing a position can give you time to catch up in development and king safety 
+- with closed centers, typically you will make plays on the sides instead, and seek to exploit holes in the position
+- if you have a lead in development or king safety, you can seek to open the center, which is done by removing pawns of either player to create open files and diagonals.
+- you almost never want to use a pawn break unless you have more active pieces to convert the new open position into an advantage for you
+  - always consider central pawn pushes, they require careful timing but usually have some good time to do it
+
 ### Analysis
 - [White London](https://lichess.org/Gf8gvpek/white#18) bad pawn break. It activates the opposing rook by giving them a rook on the semi open d-file. After the exchange, black can develop the knight with tempo on the bishop. I think we don't have enough development advantage to exploit the pawn break. I think the reason this is a +2.0 position is because of black's weak king safety after castling long. Since the center is locked up, we can push on the wing and attack faster than black can.
