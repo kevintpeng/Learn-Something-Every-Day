@@ -8,3 +8,8 @@
 
 ### Anti-Sicilian
 - the main line that avoids the Najdorf is Nc3, called the closed sicilian. One idea is to transition to a king-side fianchetto, which controls the center
+
+### General Sicilian ideas as black
+- [b5 mid game "gambit"](https://lichess.org/analysis/r2r2k1/p2bbpp1/2nppn1p/qp6/4PP1B/2NB1N2/PPPQ2PP/1K1R3R%20w%20-%20-%200%2014), to also open the b-file for a queenside attack, can generate some initiative for black
+  - in a position with opposite side castles, a fast attack/initiative is a more important imbalance than material
+  - it is important not to give up initiative if you have a g6 or h6 pawn
