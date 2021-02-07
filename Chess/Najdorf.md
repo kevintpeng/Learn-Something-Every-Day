@@ -2,7 +2,9 @@
 - idea is to protect the king from any future queenside attacks, and this buys us a lot of time to develop before needing to castle
 
 ### [What to do with the e-pawn](https://www.youtube.com/watch?v=6zQCI0G5CaM&t=1s&ab_channel=ChessCoachAndras)
-- e5 is the goal, to control the center, but we cannot allow white to play Nc5, which attacks our weak backward d6 pawn and g7 pawn
+- [e5 push to the center](https://lichess.org/analysis/rnbqkb1r/pp3ppp/3p1n2/4p3/3NP3/2N5/PPP2PPP/R1BQKB1R_w_KQkq_-_0_1) is ideal for controlling the center. The ideal is d5 & e5. But a pre-emptive e5 push can be met with Bb5+ with no good blocking move
+  - if you block with Bd7, you lose the light squared bishop and then the d5 square becomes an outpost for the knight (good knight bad bishop)
+- but we cannot allow white to play Nf5, which attacks our weak backward d6 pawn and g7 pawn
   - d5 can sometimes counter an early Nc5, thereby undermining it by attacking the defender and attacking the knight with our bishop
 - whites Bg5 and Bc4 prevent us from playing e5, because white can immediately respond with Nc5
 
