@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Daemon</title>
+</head>
+<body>
+
+<h2 id="sysv">SysV</h2>
+<p>Runs scripts in <code>/etc/init.d</code></p>
+<h3 id="runlevels">runlevels</h3>
+<p>Part of SystemV, in <code>/etc/rc.d/</code>, based on the distro you have folders or files defining each runlevel</p>
+<ul>
+<li>
+<code>rc</code> for "run commands" defines what is run at each runlevel</li>
+<li>a runlevel is the point at which the system is entered, or the level at which the user begins accessing the computer</li>
+<li>1 is low-level, 5 is high-level for GUIs</li>
+</ul>
+<h3 id="systemd">Systemd</h3>
+<p><code>systemd</code> is a suite of basic building blocks for service management.</p>
+<ul>
+<li>runs as PID 1 and starts the rest of the system</li>
+<li>
+<code>/usr/lib/systemd</code> holds configurations</li>
+</ul>
+<p><img src="http://core0.staticworld.net/images/article/2014/10/systemd-diagram-100528171-orig.png" alt="systemd diagram"></p>
+<h3 id="upstart">Upstart</h3>
+<p>Used on Ubuntu by default</p>
+<h3 id="launchd">Launchd</h3>
+<p>Used on macOS</p>
+<p><a href="http://www.tuicool.com/articles/qy2EJz3">TODO</a></p>
+<h3 id="runit----todo">runit -- <a href="http://rubyists.github.io/2011/05/02/runit-for-ruby-and-everything-else.html">TODO</a>
+</h3>
+<p>is an init scheme for unix-like operating systems.</p>
+<ul>
+<li>initializes and supervises processes throughout the os</li>
+<li>features parallelization of the start up of system services</li>
+<li>is an init daemon, it is the acestor of all other processes (since it is the first process started during booting</li>
+</ul>
+<h1 id="daemon">Daemon</h1>          <a href="index.html">Back to Unix</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#runlevels">runlevels</a></li>
+<li><a href="#systemd">Systemd</a></li>
+<li><a href="#upstart">Upstart</a></li>
+<li><a href="#launchd">Launchd</a></li>
+<li>
+<a href="#runit----todo">runit -- </a><a href="http://rubyists.github.io/2011/05/02/runit-for-ruby-and-everything-else.html">TODO</a>
+</li>
+</ul>
+</div>
+<ul>
+<li>a program that runs as a background process, not under direct control of an interactive user</li>
+<li>usually, parent process of a daemon is the <code>init</code> process<ul>
+<li>created by forking a child process and immediately exiting, causing init to adopt it as a child process</li>
+<li>also created directly by init</li>
+</ul>
+</li>
+</ul>
+<h3 id="systemd-unit-files----source">systemd Unit Files -- <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">source</a>
+</h3>
+<p><code>.service</code> files, in <code>/usr/lib/systemd/system/</code> have unit types:</p>
+<ul>
+<li>
+<code>simple</code> does not block on start process, becoming "active" immediately after forking off the first process<ul><li>hard to debug errors</li></ul>
+</li>
+<li>
+<code>oneshot</code> blocks on start operation until the first process exits. The status is reported as "activating"<ul><li>once start process completes, "activating" transitions straight to "inactive"</li></ul>
+</li>
+<li>
+<code>forking</code>, process configured with <code>ExecStart=</code> will call <code>fork()</code> as part of its startup. <code>PIDFile=</code> is used so that systemd can identify the main process of the daemon</li>
+<li>
+<code>Environment=</code> specifies variables accessible by <code>Exec</code> commands</li>
+<li>
+<code>ExecStart=</code> specifies exactly one command with arguments that is run when the service is started</li>
+</ul>
+<p>Basic service:</p>
+<pre><code>[Unit]
+Description=Foo
+
+[Service]
+ExecStart=/usr/sbin/foo-daemon</code></pre>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

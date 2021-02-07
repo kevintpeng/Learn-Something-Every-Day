@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>glob</title>
+</head>
+<body>
+
+<h1 id="glob">glob</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<p>Specifies sets of filenames using wildcard characters. Used in unix terminal for specifying groups of files. Notably used in <code>.gitignore</code>.</p>
+<p>Glob patterns are anchored at either end, <code>a*</code> would match <code>at</code> but not <code>cat</code> since the pattern is anchored on the left by the <code>a</code>.</p>
+<table>
+<thead><tr class="header">
+<th><strong>Wildcard</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Example</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>*</code></td>
+<td>matches anything</td>
+<td>*.txt =&gt; [README.txt, anytextfile.txt ...]</td>
+</tr>
+<tr class="even">
+<td><code>?</code></td>
+<td>matches a single character</td>
+<td>?at =&gt; [cat, bat, sat...]</td>
+</tr>
+<tr class="odd">
+<td><code>[abc]</code></td>
+<td>matches one of given characters</td>
+<td>[CB]at =&gt; [Cat, Bat]</td>
+</tr>
+<tr class="even">
+<td><code>[a-z]</code></td>
+<td>matches one char in range</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>[!abc]</code></td>
+<td>matches one char not in given</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>[!a-z]`</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>in some cases (gitignore) you can start patterns with a foward slash <code>/</code> to avoid recursivity</li>
+<li>end a pattern with <code>/</code> to match directories</li>
+</ul>
+<p>Example of gitignore:</p>
+<pre><code># no .a files
+*.a
+
+# but do track lib.a, even though you're ignoring .a files above
+!lib.a
+
+# only ignore the TODO file in the current directory, not subdir/TODO
+/TODO
+
+# ignore all files in the build/ directory
+build/
+
+# ignore doc/notes.txt, but not doc/server/arch.txt
+doc/*.txt
+
+# ignore all .pdf files in the doc/ directory
+doc/**/*.pdf</code></pre>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

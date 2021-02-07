@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Debugging and Profiling</title>
+</head>
+<body>
+
+<h1 id="debugging-and-profiling">Debugging and Profiling</h1>          <a href="index.html">Back to Languages/go</a>
+<div id="TOC">
+
+<ul><li><a href="#profiling-and-benchmarking">Profiling and Benchmarking</a></li></ul>
+</div>
+<p><a href="https://github.com/go-delve/delve/tree/master/Documentation/cli">dlv</a> is a good golang debugger</p>
+<ul>
+<li>
+<code>b</code> to set breakpoints</li>
+<li>
+<code>c</code> to continue</li>
+<li>
+<code>n</code> to step over</li>
+<li>
+<code>s</code> to step</li>
+<li>
+<code>call</code> to call function</li>
+<li>
+<code>print</code> to check state</li>
+</ul>
+<h3 id="profiling-and-benchmarking">Profiling and Benchmarking</h3>
+<p>Profiling is determining which methods are called and for how long.</p>
+<p>Benchmarking compares two pieces of code and score each's relative performance.</p>
+<p>golang has a built-in profiler. When profiling a go test, you can simply pass additional parameters</p>
+<ul><li>
+<code>test.cpuprofile &lt;filepath&gt;</code> which will tell us where the cpu is spending cycles and time, but is not full tracing where it would tell us how much time is spent in each function.</li></ul>
+<p>view the output with <code>go tool pprof --text cprof</code>, adding output type <code>--text</code>, <code>--web</code> or <code>--list=funcname</code></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

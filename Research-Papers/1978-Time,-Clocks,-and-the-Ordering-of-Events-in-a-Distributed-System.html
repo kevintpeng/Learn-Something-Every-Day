@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Time, Clocks, and the Ordering of Events in a Distributed System 1978</title>
+</head>
+<body>
+
+<h3 id="summary">Summary</h3>
+<p>Physical clocks can be imprecise for the sake of total ordering across multiple processes</p>
+<ul>
+<li>Logical clocks abstract the idea of ordering away from physical time, by assigning a number to an event for the purpose of ordering</li>
+<li>the clock condition states that for sequential events, where <code>a</code> happens before <code>b</code>, then the clock function <code>C</code> should yield <code>C(a) &lt; C(b)</code>, which in implementation requires that the logical clock be incremented between events</li>
+</ul>
+<h1 id="time-clocks-and-the-ordering-of-events-in-a-distributed-system-1978"><a href="http://amturing.acm.org/p558-lamport.pdf">Time, Clocks, and the Ordering of Events in a Distributed System 1978</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul><li><a href="#lamports-logical-clocks">Lamport's Logical Clocks</a></li></ul>
+</div>
+<h1 id="distributedsystems">distributedsystems</h1>
+<p>A system is distributed if the message transmission delay is non negligable relative to the time between events in a single process</p>
+<ul>
+<li>In distributed systems, the concept of an event happening before another one is partial ordering</li>
+<li>paper examines a distributed algorithm for synchronizing a system of logical clocks for totally ordering events</li>
+<li>sometimes precise ordering cannot be determined, and is thus partial ordering</li>
+<li>concept of time and "happened before" to us is based on physical time and physical clocks, but in a system it may be more beneficial to care about observed</li>
+<li>we define a system as a collection of processes, each with a sequence of a priori totally ordered event</li>
+<li>notationally, <code>-&gt;</code> is relation between two events in a system, where <code>a -&gt; b</code> means a happend before b<ul>
+<li>intuitively, this means that <code>a</code> causally affects event <code>b</code>
+</li>
+<li>two events are concurrent if they cannot causally affect each other, denoted by <code>a -|-&gt; b</code>, concurrency is commutative</li>
+<li>physically, it is intuitive that <code>a -|-&gt; a</code>, reflexive, since it doesn't make sense if an event can happen before itself</li>
+<li>
+<code>-&gt;</code> can be thought of as an irreflexive <code>-|-&gt;</code>
+</li>
+</ul>
+</li>
+<li>even if phyically event <code>a</code> on process A happens before event <code>b</code> on process B, they can be effectively concurrent when A doesn't know what B did until later<ul><li>effectively, since they didn't communcative, we can think intuitively that they had no causal effect on on another</li></ul>
+</li>
+</ul>
+<h3 id="lamports-logical-clocks">Lamport's Logical Clocks</h3>
+<p>Abstractly, a clock doesn't need to be physical. We represent it as C(x) which is a function that assigns a number to an event, <code>x</code></p>
+<ul>
+<li>for multiple processes, each P<sub>i</sub> has a clock C<sub>i</sub>, then C(a) = C<sub>i</sub>(a) for event <code>a</code> in process P<sub>i</sub>
+</li>
+<li>
+<strong>Clock condition</strong> states <code>if a -&gt; b then C(a) &lt; C(b)</code> (implication because partial ordering exists and events could be concurrent, even when C(a) ≠ C(b))<ul><li>holds only if during message transmission, a is sending event and b is recieving event, if <code>a -&gt; b</code> from Pi to Pj, then C<sub>i</sub>(a) &lt; C<sub>j</sub>(b)</li></ul>
+</li>
+<li>for an implementation of such a system with correct logical clocks, we must satisfy the clock condition</li>
+</ul>
+<ol>
+<li>each process P<sub>i</sub> must increment C<sub>i</sub> between any successive events</li>
+<li>if event <code>a</code> is a message sent by P<sub>i</sub> with a timestamp = C<sub>i</sub>(a), then recieving event <code>b</code> on process P<sub>j</sub> must set its clock C<sub>j</sub> greater than C<sub>i</sub>(a)</li>
+</ol>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

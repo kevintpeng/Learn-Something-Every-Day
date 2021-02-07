@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Bundler</title>
+</head>
+<body>
+
+<h1 id="bundler">Bundler</h1>          <a href="index.html">Back to Web-Dev</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#gemfile-gemfile.lock----source">Gemfile + Gemfile.lock -- </a><a href="http://bundler.io/gemfile.html">source</a>
+</li>
+<li>
+<a href="#bundle-install----source"><code>bundle install</code> -- </a><a href="http://bundler.io/v1.12/man/bundle-install.1.html">source</a>
+</li>
+<li><a href="#conservative-updating">Conservative Updating</a></li>
+<li><a href="#tracing-a-bundle-install">Tracing a <code>bundle install</code></a></li>
+<li><a href="#gemstash">Gemstash</a></li>
+<li><a href="#gem-in-a-box">Gem in a box</a></li>
+</ul>
+</div>
+<p>Ruby dependency manager. Uses Gemfiles. <code>gem install bundler</code>. Example of Gemfile:</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">source <span class="st">'https://rubygems.org</span>
+<span class="st">gem '</span>nokogiri<span class="st">'</span>
+<span class="st">gem '</span>rack<span class="st">', '</span>~&gt;<span class="fl">1.1</span><span class="st">'</span>
+<span class="st">gem '</span>rspec<span class="st">', :require =&gt; '</span>spec<span class="st">'</span></code></pre></div>
+<p>Then inside app, <code>require 'rubygems'</code> and <code>require 'bundler/setup'</code></p>
+<ul>
+<li>
+<code>bundle exec</code> runs an executable that comes with a gem in your bundle</li>
+<li>bundler stores gems (in development) in the default location of the machine</li>
+<li>in <code>--deployment</code>, it installs unique to the app (defaults to <code>vender/cache</code>)<ul><li><code>bundle show &lt;gemname&gt;</code></li></ul>
+</li>
+</ul>
+<h3 id="gemfile-gemfile.lock----source">Gemfile + Gemfile.lock -- <a href="http://bundler.io/gemfile.html">source</a>
+</h3>
+<p><code>source 'https://rubygems.org'</code> defines which upstream to pull gems from.</p>
+<ul><li>
+<code>Gemfile.lock</code> makes your application a single package of both your own and third-party code<ul><li>snapshot of last time everything worked, important to commit to repos for consistency across multiple machines</li></ul>
+</li></ul>
+<h3 id="bundle-install----source">
+<code>bundle install</code> -- <a href="http://bundler.io/v1.12/man/bundle-install.1.html">source</a>
+</h3>
+<p>Installs gems specified in the Gemfile.</p>
+<ul>
+<li>if <code>Gemfile.lock</code> does not exist, Bundler will fetch all remotes sources and resolve dependencies, installing needed gems</li>
+<li>if it does exist, and <code>Gemfile</code> is unchanged, Bundler fetches all remote sources and uses dependencies specified in <code>Gemfile.lock</code>
+</li>
+<li>If <code>Gemfile.lock</code> exists, and <code>Gemfile</code> is changed, <code>Gemfile.lock</code> is used for all unchanged gems, and will re-resolve the dependencies of gems that you did update</li>
+<li>never <code>sudo bundle install</code>, several steps are user dependent</li>
+</ul>
+<h3 id="conservative-updating">Conservative Updating</h3>
+<p>As safety, bundler will not automatically update a gem whose dependency versions conflict with the <code>Gemfile.lock</code>. This means if gem A and B depend of C, when A is updated, requiring a new version of C, B will never break from this, at worst failing loudly.</p>
+<ul>
+<li>first <code>bundle install</code>, which guarantees unchanged gems will remain untouched by the system</li>
+<li>then <code>bundle update &lt;gemname&gt;</code> if <code>bundle install</code> cannot update it</li>
+</ul>
+<h3 id="tracing-a-bundle-install">Tracing a <code>bundle install</code>
+</h3>
+<ol>
+<li><a href="https://github.com/bundler/bundler/blob/master/exe/bundle">executable <code>bundle</code></a></li>
+<li><a href="https://github.com/bundler/bundler/blob/master/lib/bundler.rb">requires bundler</a></li>
+<li>
+<a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/cli/install.rb">requires cli, passed to install command</a><ul><li><a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/cli/install.rb#L102">sets options, then calls <code>#install</code></a></li></ul>
+</li>
+<li>
+<a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer.rb">Installer.install</a><ul>
+<li>inherits <a href="https://github.com/bundler/bundler/blob/be5e3b3c9b5c85700c01026843a77bef75fbed6a/lib/bundler/environment.rb">environment</a>
+</li>
+<li>
+<a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer.rb#L183">resolve_if_need</a> decides what dependencies are needed, all calculated locally</li>
+<li>calls <a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer.rb#L152">install</a>
+</li>
+<li><a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer.rb#L171">install in parallel</a></li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb">ParallelInstaller.call</a><ul>
+<li>creates a <a href="https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L73">new ParallelInstaller object</a>
+</li>
+<li><a href="https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L81"><code>call</code> on object</a></li>
+<li>
+<a href="https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L119">enqueue specs</a> selects all gems that don't have dependencies, enqueues each spec</li>
+<li>
+<a href="https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L103">batch installs with process_specs</a>, by dequeuing from worker_pool</li>
+</ul>
+</li>
+<li>Builds a <a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb">pool of Workers</a><ul>
+<li>defines <a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb#L28">threads</a> as workers, constantly <a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb#L56">proccessing the request queue</a>
+</li>
+<li>requests are processed by <a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/worker.rb#L60">lambda func</a>, to be exact, <a href="https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L89">this lambda func</a> defined earlier. We pass it a spec object and worker ID</li>
+<li>this calls <a href="https://github.com/bundler/bundler/blob/e6be7ee66f06cc60b2952ad6ce698d3302283101/lib/bundler/installer/parallel_installer.rb#L92"><code>install_from_spec</code></a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer/gem_installer.rb">Gem installer is called</a><ul>
+<li>calls <a href="https://github.com/bundler/bundler/blob/dfdeb0f89e7e88fcdfd001da089f09af3a77d2b4/lib/bundler/installer/gem_installer.rb#L57"><code>install</code> or <code>install_with_settings</code></a>
+</li>
+<li>calls <a href="https://github.com/bundler/bundler/blob/cc4df62a4707281fc657101a93710c63ed957a70/lib/bundler/source/path/installer.rb#L26">post install on the gem</a>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="gemstash">Gemstash</h3>
+<p>a cache for remote servers (including rubygems.org) and a private gem source. By default, it is a local cache.</p>
+<ul>
+<li>if bundler is being run across multiple servers, could it could improve speed</li>
+<li>especially if same set of gems are used across multiple machines</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Tell Bundler that you want Gemstash to find gems:</span>
+<span class="ex">bundle</span> config mirror.https://rubygems.org http://localhost:9292
+
+<span class="co"># set Bundler to fallback to rubygems.org</span>
+<span class="ex">bundle</span> config mirror.https://rubygems.org.fallback_timeout true
+<span class="ex">bundle</span> config mirror.https://rubygems.org.fallback_timeout 3</code></pre></div>
+<p>Gemstash lives is <code>~/.gemstash</code>, stores cached &amp; private gems</p>
+<ul><li>by default, uses SQLite to store details</li></ul>
+<h3 id="gem-in-a-box">Gem in a box</h3>
+<p>Another gem caching solution, older than gemstash, more of a gem server than a cache. Uses <a href="https://github.com/PierreRambaud/gemirro">gemirro</a>, as a dependency for creating a RubyGems mirror.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

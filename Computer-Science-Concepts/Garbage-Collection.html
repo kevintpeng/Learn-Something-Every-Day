@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Garbage Collection</title>
+</head>
+<body>
+
+<h1 id="garbage-collection">Garbage Collection</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#reference-counter">Reference Counter</a></li>
+<li><a href="#mark-and-sweep">Mark and Sweep</a></li>
+<li><a href="#generations">Generations</a></li>
+<li><a href="#incremental">Incremental</a></li>
+</ul>
+</div>
+<p>Garbage collection is the process of freeing unused memory from the heap. Many programming languages have an implemented garbage collector. Interpreted languages assign most objects to the heap, and thus need garbage collection.</p>
+<h2 id="reference-counter">Reference Counter</h2>
+<p>Garbage collector keeps a reference counter to each allocated object. If the counter hits zero, the program has no access to the memory anymore so it frees the object. Adds a constant time overhead to each reference operation.</p>
+<p>Memory leaks happen in circular referencing (such as two way linked-lists) where the program has no reference to a set of nodes, but the nodes are still referencing each other so the memory is never freed.</p>
+<h2 id="mark-and-sweep">Mark and Sweep</h2>
+<p>Unreferenced objects are not reclaimed immediately. Instead, garbage accumulates until GC detects high memory usage. Then it marks all objects that have references, then sweeps through the entire heap, deleting unreferenced objects.</p>
+<p>This method can cause programs to use a lot of memory. Also the sweeping algorithm is blocking, which can be disadvantageous for asynchronous programs.</p>
+<h2 id="generations">Generations</h2>
+<p>Garbage collector uses segments called generations for objects. New objects go in generation 0. Mark and sweep is applied, and surviving objects get promoted to the next generation. Older generations are not swept as often, as it is presumed that the objects are less likely to need freeing.</p>
+<h2 id="incremental">Incremental</h2>
+<p>Incremental GC algorithm is used in Ruby 2.2. It splits the sweeping process into several fine-grained processes, reducing the one long pause into smaller pauses over time.</p>
+<p>Total time of garbage collection is not reduced using incremental garbage collection, but rather it aims from consistent performance from programs and is better for programs with concurrency.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

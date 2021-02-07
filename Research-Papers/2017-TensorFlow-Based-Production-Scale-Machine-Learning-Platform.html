@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>TensorFlow Extended</title>
+</head>
+<body>
+
+<h1 id="tensorflow-extended"><a href="http://www.kdd.org/kdd2017/papers/view/tfx-a-tensorflow-based-production-scale-machine-learning-platform">TensorFlow Extended</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul><li><a href="#takeaways">Takeaways</a></li></ul>
+</div>
+<p>TFX is Google's platform for machine learning</p>
+<ul><li>models are described in TensorFlow</li></ul>
+<p>The platform aims for reliability, automated data validation, respecting data errors</p>
+<ul>
+<li>user defined schemas allow for data validation, making assertions about data quality (types, presence, valency/range of values) and throwing errors appropriately</li>
+<li>anomaly detection is important for data quality, based on defined schemas or potentially inferred</li>
+<li>it's important that users feel like data isn't missing and that it's relevant</li>
+<li>providing statistics on features is important for users to be able to understand their data before using it (geolocation heat map, histograms, standard deviation, etc...)</li>
+</ul>
+<p>Model validation is ensuring that the model shipped to production is safe and has desired prediction quality</p>
+<ul>
+<li>should not crash, consume too many resources</li>
+<li>human-facing metrics from A/B testing is effective for large changes, but is costly and takes time</li>
+<li><p>machine</p></li>
+<li><p>Google Play was a use case, continuous model training improved install rates due to recency and relevance of the model</p></li>
+</ul>
+<h3 id="takeaways">Takeaways</h3>
+<ul>
+<li>data transformations must be applied consistently to both to pipeline data and online data (going directly to the trained model)</li>
+<li>continuous model training allows more up to date predictions</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

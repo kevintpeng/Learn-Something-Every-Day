@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>JIT Compilation</title>
+</head>
+<body>
+
+<h1 id="jit-compilation">JIT Compilation</h1>          <a href="index.html">Back to Languages</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#bytecode-optimization">Bytecode &amp; Optimization</a></li>
+<li><a href="#javascript-jit-compilation">Javascript JIT Compilation</a></li>
+<li><a href="#late-binding-in-dynamic-languages">Late Binding in Dynamic Languages</a></li>
+</ul>
+</div>
+<p>Also known as dynamic translation, is compilation done during execution, at run time rather than prior to execution</p>
+<ul>
+<li>combinations of ahead-of-time compilation and interpretation</li>
+<li>purpose is to reap the speed benefits of compilation and flexibility of interpretation</li>
+<li>allows for adaptive optimization<ul>
+<li>dynamic recompilation (dynarec) can tailor the generated code to reflect the program's run-time environment and optimize based on information not available ahead of time</li>
+<li>often very useful when running machine code designed for a different architecture (think emulators for games)</li>
+<li>some processor running code designed for a simple processor might be able to make use of special instructions that can perform multiple simple instructions in one cycle</li>
+<li>adaptive optimization is useful for repetitive tasks, recompiling + running new code is faster than running old code</li>
+</ul>
+</li>
+<li>JIT compilation is suited for dynamic programming languages, where it can handle late bound data types, and enforce typing guarantees</li>
+<li>JIT compilation in theory can surpass static compilation performance, since it can perform optimizations at runtime</li>
+</ul>
+<h3 id="bytecode-optimization">Bytecode &amp; Optimization</h3>
+<p>Bytecode is an intermediate representation of source code, for the purpose of portability across platforms</p>
+<ul>
+<li>JIT compiler handles the bytecode on a particular computer architecture, converting to machine code and optimizing for the system<ul><li>optimizes traditional use of bytecode, run on an interpreted virtual machines (like the classic JVM)</li></ul>
+</li>
+<li>JIT compilation is relatively quick because high level code is already converted to bytecode</li>
+</ul>
+<p>Optimizations:</p>
+<ol>
+<li>targeted CPU optimizations are possible for JIT compilers, while they are impractical for static compilers</li>
+<li>systems can optimize based on statics while running in the environment<ul><li>example: JVM uses primarily an interpreter, but monitors frequently used bytecode and optimizes it</li></ul>
+</li>
+<li>Inling replaces a function call site with the function body<ul><li>inlining reduces speed at the cost of space, and can be detrimental if it consumes too much of the instruction cache</li></ul>
+</li>
+<li>bytecode systems can more easily rearrange executed code for better cache use</li>
+</ol>
+<h3 id="javascript-jit-compilation">Javascript JIT Compilation</h3>
+<p>Safari and Chrome do JIT compilation for JS, using bytecode</p>
+<ul>
+<li>JIT is better for long running programs, but historically JavaScript on the web was typically small snippits of logic, so interpretation was a simple solution</li>
+<li>Google Maps was one big influences of browser optimizations, and promoted long-running apps (where JIT compilation overhead is negligable for JS code/functions that are called hundreds of times)</li>
+<li>V8 JavaScript Engine compiles directly to native machine code (used in chrome)</li>
+</ul>
+<h3 id="late-binding-in-dynamic-languages">Late Binding in Dynamic Languages</h3>
+<p>Programming mechanism where method calls are looked up by name at runtime</p>
+<ul>
+<li>language doesn't guarantee existance of method so late binding cannot bind to a particular slot on the virtual method table</li>
+<li>late binding is popularized by OOP</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

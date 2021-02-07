@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>HTTP</title>
+</head>
+<body>
+
+<h1 id="http">HTTP</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#idempotency">Idempotency</a></li>
+<li><a href="#http-verbs">HTTP Verbs</a></li>
+</ul>
+</div>
+<p>HTTP is a protocol for serving web pages. A HTTP server takes HTTP requests in the form of a verb and a URI. <a href="REST.md">RESTful APIs</a> describes a convention for how HTTP verbs should be used and how URLs should be formatted.</p>
+<h3 id="idempotency">Idempotency</h3>
+<p>Idempotence is a mathematical property for operations, that can be applied multiple times without changing the result. In HTTP, this describes the ability to send requests to the pipeline multiple times without side effects (like creating multiple records).</p>
+<p>Examples of idemopotent operations: listing (GET) domains, query (GET) items, delete (DELETE) a domain, update (PUT) attributes ...</p>
+<p>Examples of non-idempotent requests: create (POST) a domain, create (POST) an attribute</p>
+<h3 id="http-verbs">HTTP Verbs</h3>
+<ul>
+<li>
+<strong>GET</strong>: Only function is to send information back to the client. Should be repeatable without side effects (Idempotence).</li>
+<li>
+<strong>POST</strong>: Does operation with side effects. Not repeatable.</li>
+<li>
+<strong>DELETE</strong>: Only function for destructive operations (non repeatable).</li>
+<li>
+<strong>PUT</strong>: function to modify an object and update it.</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

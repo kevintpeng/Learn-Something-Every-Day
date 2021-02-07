@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Swift</title>
+</head>
+<body>
+
+<h1 id="swift">Swift</h1>          <a href="index.html">Back to Languages</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#type-safety-and-inference">Type Safety and Inference</a></li>
+<li><a href="#numeric-literals">Numeric Literals</a></li>
+<li><a href="#type-aliases">Type Aliases</a></li>
+<li><a href="#booleans">Booleans</a></li>
+<li><a href="#tuples">Tuples</a></li>
+<li><a href="#optionals">Optionals</a></li>
+<li><a href="#optional-binding">Optional Binding</a></li>
+<li><a href="#implicitly-unwrapped-optionals">Implicitly Unwrapped Optionals</a></li>
+<li><a href="#error-handling">Error Handling</a></li>
+<li><a href="#strings">Strings</a></li>
+<li><a href="#collection-types">Collection Types</a></li>
+<li><a href="#function-definition">Function Definition</a></li>
+<li><a href="#closures">Closures</a></li>
+<li><a href="#capturing-values">Capturing Values</a></li>
+<li><a href="#autoclosures">Autoclosures</a></li>
+<li><a href="#enumerations">Enumerations</a></li>
+<li><a href="#classes-and-structures">Classes and Structures</a></li>
+</ul>
+</div>
+<ul>
+<li><code>println("Hello World")</code></li>
+<li><code>print("Hello")</code></li>
+<li>
+<code>let myConst = 42</code>, <code>var myVar = 50</code>
+</li>
+<li>Type can be explicit or inferred: <code>let implicitD = 70.0</code>, <code>let explicitD: Double = 70</code>
+</li>
+<li>arrays as expected (with <code>var</code>)</li>
+<li>dictionary: <code>var dict = ["A": "value1", "B": "value2"]</code>
+</li>
+</ul>
+<p>Control FLow</p>
+<pre class="swift"><code>for score in myArray {
+  if score &gt; 50 {
+    // asdf
+  } else {
+    // something else
+  }
+}</code></pre>
+<ul>
+<li>an optional value either contains a value or <code>nil</code>. Write a question mark after the type to mark as optional</li>
+<li><code>var optionalString: String? = "Hello"</code></li>
+<li><code>for (key, val) in myDict {}</code></li>
+<li>ranges can be defined as: <code>for i in 1..5</code>
+</li>
+</ul>
+<h3 id="type-safety-and-inference">Type Safety and Inference</h3>
+<p>Swift is a type-safe language. Encourages you to be clear about hte type of values your code can work with.</p>
+<ul>
+<li>it performs type checks when compiling code, flagging mis-matched types as errors</li>
+<li>type inference enables a compiler to deduce the type of an expression automatically when it compiles<ul><li>Duck typing</li></ul>
+</li>
+<li>Swift always chooses double over float</li>
+</ul>
+<h3 id="numeric-literals">Numeric Literals</h3>
+<ul>
+<li>Integers can be declared as: decimal, binary (<code>0b</code> prefix), octal (<code>0o</code>), hexadecimal (<code>0x</code>), all stored the same, as Ints</li>
+<li>
+<code>1.25e2</code> is <code>125.0</code>
+</li>
+<li>
+<code>Int</code> by default unless optimizing performance or memory usage</li>
+<li>
+<code>UInt8</code>, <code>Int8</code> are available, among others</li>
+<li>type cast, using <code>UInt16(some_other_num)</code>
+</li>
+<li>decimals are truncated</li>
+</ul>
+<h3 id="type-aliases">Type Aliases</h3>
+<p><code>typealias AudioSample = UInt16</code> can be used for more context in code.</p>
+<h3 id="booleans">Booleans</h3>
+<p><code>Bool</code>s can only be <code>true</code> or <code>false</code>. Type safety prevents non-Boolean values from being used for conditionals.</p>
+<h3 id="tuples">Tuples</h3>
+<p>Tuples group multiple values into a single compound value. Tuples types can be any permutation of any number of different types:</p>
+<pre class="swift"><code>let http404Error = (404, "Not Found")
+// http404Error is of type (Int, String), and equals (404, "Not Found")
+
+// now decompose the tuple into two constants
+let (statusCode, statusMessage) = http404Error</code></pre>
+<h3 id="optionals">Optionals</h3>
+<p>Use optionals in situations where a value may be absent. It says there is a value, and it equals x, or there isn't a value at all.</p>
+<pre class="swift"><code>let possibleNumber = "123"
+let convertedNumber = Int(possibleNumber) 
+// then convertedNumber is inferred to be an `Int?` type</code></pre>
+<ul><li>an optional can be of its base type or <code>nil</code>
+</li></ul>
+<h3 id="optional-binding">Optional Binding</h3>
+<p>Used to find out whether an optional contains a value, and if so, make it available as a temp const/var:</p>
+<pre class="swift"><code>if let actualNumber = Int(possibleNumber) {
+    print("\"\(possibleNumber)\" has an integer value of \(actualNumber)")
+} else { // ...</code></pre>
+<h3 id="implicitly-unwrapped-optionals">Implicitly Unwrapped Optionals</h3>
+<p>If after some logic, an optional may be guaranteed to have a value. At this point, it is useful to remove the need to check and unwrap the optional's value every time.</p>
+<ul><li>An optional is implicitly unwrapped by declaring <code>String!</code>. Gives the permission to unwrap optionals automatically</li></ul>
+<h3 id="error-handling">Error Handling</h3>
+<p>Optionals communicate success through having a value, or <code>nil</code>. Functions communicate through erros.</p>
+<ul>
+<li><code>func canThrowAnError() throws {}</code></li>
+<li>if a func can throw an error, you prepend <code>try</code> before calling a function, followed by <code>catch</code>
+</li>
+<li>
+<code>catch Error.MyTypeOfError {}</code> for specific cases</li>
+</ul>
+<h3 id="strings">Strings</h3>
+<ul>
+<li>strings are mutable if <code>var</code>s</li>
+<li>strings are value types, value is copied when passed to a function</li>
+<li>string interpolation: <code>"\(muliplier) times 2.5 is \(Double(multiplier)*2.5)"</code>
+</li>
+<li>strings are unicode</li>
+</ul>
+<h3 id="collection-types">Collection Types</h3>
+<p>Arrays, Sets, Dictionaries. Collections are mutable; able to add, remove, change items in a collection.</p>
+<ul>
+<li>
+<code>Array&lt;Element&gt;</code> can be shortened as <code>[Element]</code>.<ul>
+<li>empty initializer: <code>[Element]()</code>
+</li>
+<li>
+<code>.enumerate()</code> method iterates over an array, returning a tuple composed of the <code>(index, value)</code>
+</li>
+</ul>
+</li>
+<li>Sets store unordered, distinct values of the same type: <code>Set&lt;String&gt;</code><ul>
+<li>sets must be explicitly declared, otherwise they default to arrays</li>
+<li>sets can be sorted, intersected, XORed, unioned, subtracted and determine equality, subset/superset relationships</li>
+</ul>
+</li>
+<li>
+<code>Dictionary&lt;Key, Value&gt;</code> can be shorthanded as <code>[Key: Value]</code><ul><li><code>var namesOfInts = [String: Int]()</code></li></ul>
+</li>
+</ul>
+<h3 id="function-definition">Function Definition</h3>
+<p><code>func sayHello(personName: String) -&gt; String {}</code> (return val is optional, can return tuples). Example:</p>
+<pre class="swift"><code>let bounds = minMax([8, -6, 2, 109, 3, 71])
+print("min is \(bounds.min) and max is \(bounds.max)")
+// Prints "min is -6 and max is 109"</code></pre>
+<ul><li>external parameter names let you specify names of parameters when they're called, much like an options hash in ruby<br>
+```swift</li></ul>
+<p>func sayHello(to person: String, and anotherPerson: String) -&gt; String {<br>
+return "Hello (person) and (anotherPerson)!"<br>
+}<br>
+print(sayHello(to: "Bill", and: "Ted"))<br>
+<code>- you can assign default parameter values: `func someFunction(parameterWithDefault: Int = 12)` - a function can take an arbitrary number of parameters: `func arithmeticMean(numbers: Double...) -&gt; Double {`, where `numbers` is a list of doubles - every function has a *function type*, like `(Int, Int) -&gt; Int`   - `var mathFunc: (Int, Int) -&gt; Int = addTwoInts`; then call `mathFunc(2, 3)` &gt;&gt;&gt; `5`   - you can pass functions as parameters - functions can be return types:</code>swift<br>
+func chooseStepFunction(backwards: Bool) -&gt; (Int) -&gt; Int {<br>
+return backwards ? stepBackward : stepForward<br>
+}<br>
+```</p>
+<h3 id="closures">Closures</h3>
+<p>a self contained block of functionality that can be passed around in your code.</p>
+<ul>
+<li>closures are similar to lambdas in other languages</li>
+<li>capture and store references to any costants and variables from the context in which they are defined</li>
+<li>known as <strong>closing over</strong> those constants and variables</li>
+<li>global functions are closures that have a name and do not capture any values</li>
+<li>nested functions are closures that have a name and capture values from their enclosing function</li>
+<li>
+<p>closure expressions are unnamed closures that can capture values from their surrounding context</p>
+<pre class="swift"><code>reversed = names.sort({ (s1: String, s2: String) -&gt; Bool in
+  return s1 &gt; s2
+})</code></pre>
+</li>
+</ul>
+<h3 id="capturing-values">Capturing Values</h3>
+<p>A closure captures values around it. It can be referenced outside of the original scope to modify those values, even if the scope doesn't exist anymore.</p>
+<pre class="swift"><code>func makeIncrementer(forIncrement amount: Int) -&gt; () -&gt; Int {
+    var runningTotal = 0
+    func incrementer() -&gt; Int {
+        runningTotal += amount
+        return runningTotal
+    }
+    return incrementer
+}</code></pre>
+<h3 id="autoclosures">Autoclosures</h3>
+<p>a closure that is automatically created to wrap an expression being passes as an argument.</p>
+<h3 id="enumerations">Enumerations</h3>
+<p>An enumerator defines a common type for a group of related values, and gives type safety.</p>
+<ul>
+<li>
+<p>assigns a related name to a set of integer values</p>
+<pre class="swift"><code>enum CompassPoint {
+  case North
+  case South
+  case East
+  case West
+}</code></pre>
+</li>
+<li><p>defines <code>CompassPoint.West</code>, then use switch statements with <code>case .North:</code> as conditionals</p></li>
+</ul>
+<h3 id="classes-and-structures">Classes and Structures</h3>
+<p>Flexible constructs that are the building blocks for code. Swift does not require you to create separate interface</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Compilation</title>
+</head>
+<body>
+
+<h1 id="compilation">Compilation</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul><li>
+<a href="#lexical-analysis">Lexical Analysis</a><ul><li><a href="#lexer-generator">Lexer Generator</a></li></ul>
+</li></ul>
+</div>
+<p>Source code -&gt; Lexical Analysis -&gt; Parsing -&gt; Semantic Analysis</p>
+<h2 id="lexical-analysis">Lexical Analysis</h2>
+<p>Lexicon is the vocabulary of a language. Lexical analysis is the process of separating a stream of characters into tokens, performed by a <strong>lexer</strong>. <strong>Tokens</strong> are any defined words for a programming language</p>
+<ul>
+<li>scans one character at a time, look ahead character determine what kind of token to read and when it ends</li>
+<li>this get trickier though, because reading an <code>i</code> doesn't tell us if it's <code>if</code> or an identifier</li>
+</ul>
+<h3 id="lexer-generator">Lexer Generator</h3>
+<ul><li>
+<strong>lexer generator</strong> creates a more efficient tokenizer automatically from a lexical specification<ul>
+<li>input to the lexer generator description of the tokens, priority and action</li>
+<li>outputs a lexer, matching the spec and efficient in linear time</li>
+</ul>
+</li></ul>
+<p>How do we break text up into tokens and tokenize efficiently in O(1)? Regular Expressions!</p>
+<ul>
+<li>programming languages can often be described with regular expressions<ul>
+<li>Regular expression R describes a set of strings <code>L(R)</code>: L is the language defined by R</li>
+<li>we can define each token with a regex</li>
+</ul>
+</li>
+<li>Lexer generators support abbreviations (like aliases) that are not recursive</li>
+<li>Regex alone aren't enough; need rule for choosing<ul><li>often longest matching token wins, and ties resolved by priority</li></ul>
+</li>
+</ul>
+<p>Spec:</p>
+<ul>
+<li>input to lexer generator a list of regex in order of priority, with associated action for each Regex (generates appropriate kind of token)</li>
+<li>outputs a program that reads an inputs stream and tokenizes, reporting lexical errors</li>
+<li>
+<a href="http://www.antlr.org/">ANTLR</a> is a powerful parser generator, with a specialized language for describing lexer grammar</li>
+<li>Lexer states allow conditioning on lexer state, helping with long tokens like multiline comments</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

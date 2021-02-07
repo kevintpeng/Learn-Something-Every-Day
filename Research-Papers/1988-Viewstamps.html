@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Viewstamp Replication</title>
+</head>
+<body>
+
+<h1 id="viewstamp-replication"><a href="http://www.cs.princeton.edu/courses/archive/fall09/cos518/papers/viewstamped.pdf">Viewstamp Replication</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#protocol-overview">protocol overview</a></li>
+<li><a href="#details">details</a></li>
+<li><a href="#changing-views-in-failure">changing views in failure</a></li>
+<li><a href="#papers-architecture">Paper's architecture</a></li>
+</ul>
+</div>
+<p>The original paper is a bit confusing, <a href="http://pmg.csail.mit.edu/papers/vr-revisited.pdf">this offers a more concrete explanation of implementation details</a>.</p>
+<p>In the paper, a <strong>view</strong> is a set of members and a leader (called a primary). Each event within a view has a unique logical timestamp. A <strong>viewstamp</strong> is the tuple of view id with some timestamp and used to detect lost information</p>
+<ul>
+<li>uses the "primary copy technique", where everything is computed on a primary node, and replicated for the purpose of failover</li>
+<li>a <strong>view change</strong> occurs if the primary is separated from the cluster, where a new primary is assigned</li>
+<li>paper has different protocols for replication depending on state, one when membership and leadership is stable, one otherwise</li>
+<li><em>during a view change, some actions from the old view might be lost in the new view, and we use viewstamps to decide whether to commit or abort an action</em></li>
+</ul>
+<h3 id="protocol-overview">protocol overview</h3>
+<p>It differs from Paxos in that it is a replication protocol, not consensus</p>
+<ul>
+<li>a primary replica handles ordering of client requests, all other replicas are backups</li>
+<li>failure is handled by allowing the primary to change, changing through a sequence of <strong>views</strong><ul><li>so we need the view change protocol</li></ul>
+</li>
+<li>the goal is that the next view should reflect all client operations that were executed in an earlier view, so the current view cannot execute changes without ensuring that the backups can retain it<ul>
+<li>so the primary must wait until <code>f+1</code> replicas have acknowledged the request</li>
+<li>each request is a <strong>quorum</strong>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="details">details</h3>
+<p>Identity of the primary is encoded in the viewstamp (the totally ordered view number part)</p>
+<ul>
+<li>primary is chosen by round robin, ordering replicas by IP address</li>
+<li>clients have a viewstamped replication proxy</li>
+</ul>
+<h4 id="without-failure">without failure</h4>
+<p>Every message sent from one replica to another contains the current view number</p>
+<ul>
+<li>if behind, message is dropped</li>
+<li>if ahead, transfer its state to the receiver before processing</li>
+</ul>
+<p>Each replica holds some state:</p>
+<ul>
+<li>configuration is a sorted list of <code>2f + 1</code> IP addresses</li>
+<li>replica number is the index of the replica itself</li>
+<li>log contains the ordered list of requests that have been received</li>
+<li>client-table tracks the most recent requests from all clients, important for ensuring execution of requests</li>
+<li>current status {normal, view-change, recovering}</li>
+</ul>
+<p>As a part of state, there's a bunch of numbers:</p>
+<ul>
+<li>view-number is the totally ordered identifier for the current view, incremented through view changes</li>
+<li>op-number is assigned to the most recently received request</li>
+<li>commit-number is the most recently commited op-number</li>
+</ul>
+<ol>
+<li>client sends request to primary, <request operation client-id request-number></request>
+</li>
+<li>primary receives request, and looks up the client in its client table. If request number is strictly larger than the last from the client, then it's processed.</li>
+<li>primary increments the op-number (logical timestamp) and adds it to the log. It updates the client table. Now it proceeds with 2PC to its other replicas <prepare view-number message op-number commit-number></prepare>
+</li>
+<li>backups receive prepare, add the request to a priority queue, and once the all preceding requests are added to its log, it adds the new request and finally replies PREPAREOK to the primary</li>
+<li>primary waits until it has received <code>f</code>, and then can increase the commit number to the op-number of the committed request and can send the requested operation to the service and send a reply to the client</li>
+<li>backups learn of the commit through the next prepare or a timeout possibly, they finish all operations (maybe through state transfer) and then they send the operation up to the service layer without notifying the client (primary has done this already)</li>
+</ol>
+<h3 id="changing-views-in-failure">changing views in failure</h3>
+<p>primary should be sending prepare, and if not commit, messages regularily to replicas. Because of round robin, there's no leader election and all replicas know which replica is the new primary</p>
+<h3 id="papers-architecture">Paper's architecture</h3>
+<ul>
+<li>a cohort is a single logical entity, with several underlying replica modules of some primary module</li>
+<li>in their architecture, any module running is replicated, one is the primary which processes two-phase commits, and others are simply backups and endpoints</li>
+<li>a view is a set of sets (cohorts) of replicas, one cohort is a primary</li>
+<li>viewstamps let you state guarantees that the cohort's state reflects only events that occur logically at or before the viewstamp</li>
+<li>lifetime of a system is divided into <strong>epochs</strong>, which are subdivided into <strong>views</strong><ul><li>changes to epochs are administrative, changes to views are due to failure</li></ul>
+</li>
+<li>there are four protocols for the algorithm: normal operation, view changes, recovery for crashed replicas and reconfiguration for epoch changes</li>
+<li>ensures availability beyond some number <code>f</code> of failed replicas, by using a protocol that does not need to check <code>f</code> replicas</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

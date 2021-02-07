@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Markov Chain</title>
+</head>
+<body>
+
+<h1 id="markov-chain">Markov Chain</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#some-probablity-theory">Some Probablity Theory</a></li>
+<li><a href="#a-famous-example">A Famous Example</a></li>
+<li><a href="#markov-chains">Markov Chains</a></li>
+<li><a href="#formal-definition">Formal Definition</a></li>
+</ul>
+</div>
+<p>To understand Markov Chain, need some probability theory background:</p>
+<h2 id="some-probablity-theory">Some Probablity Theory</h2>
+<ul>
+<li>
+<strong>A random variable</strong> is a variable whose value varies based on randomness.</li>
+<li>A <strong>stochastic process</strong> (random process) represents the evolution of a system of random variables over time.</li>
+<li>
+<strong>Memorylessness</strong> is a property that describes a statistical distribution. It says that the probability of an outcome is independent of its current state. The probability of a customer walking into a store is memoryless, because it does not increase because of elapsing time. Probability of an engine breaking in the next 500 km is NOT memoryless, since an engine that's driven 200000km already is more likely to break than a new one.</li>
+<li>
+<strong>The Markov property</strong> is the memoryless property of a stochastic process.</li>
+<li>A <strong>Markov chain</strong> is the process with the Markov property. Often, a Markov Chain is used to model a series of states, whose next state is solely dependent on the current state and not any previous states.</li>
+</ul>
+<h2 id="a-famous-example">A Famous Example</h2>
+<p>Drunkard's Walk is a Markov Chain, where you randomly walk +1 or -1 on a number line with equal (0.5) probability. It does not depend on how you got to the current number, the probability of +1 or -1 is always equal.</p>
+<h2 id="markov-chains">Markov Chains</h2>
+<p>Set of states, which transition betweens states based on stochastic probability. For a game of snakes and ladders, you can build a <code>n x n</code> transition matrix, for n states. Must my memoryless to create an accurate model.</p>
+<h2 id="formal-definition">Formal Definition</h2>
+<p>A Markov chain is a sequence of random variables X1, X2, X3 ... with the Markov property (the probability of moving to the next state depends only on the present state and not previous states):</p>
+<pre><code>Pr(Xn+1 = x | X1 = x1, X2 = x2, ..., Xn = xn) = Pr(Xn+1 = x | Xn = xn)
+In other words, state n+1 is only dependent on state n</code></pre>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

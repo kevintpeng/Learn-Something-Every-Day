@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Time Series Databases -- source</title>
+</head>
+<body>
+
+<h1 id="time-series-databases----source">Time Series Databases -- <a href="http://jmoiron.net/blog/thoughts-on-timeseries-databases/">source</a>
+</h1>          <a href="index.html">Back to Production-Engineering/Data-Stores</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#performance-characteristics">Performance Characteristics</a></li>
+<li><a href="#language-api-design">Language &amp; API Design</a></li>
+<li>
+<a href="#log-structured-merge-tree-optimizing-writes----source">Log-structured merge-tree: Optimizing Writes -- </a><a href="https://en.wikipedia.org/wiki/Log-structured_merge-tree">source</a>
+</li>
+</ul>
+</div>
+<p>Time series modelling is important as data sets grow</p>
+<ul>
+<li>a series is identified by a source name/ID<ul>
+<li>consists of a sequence of {timestamp, value}</li>
+<li>ordered by timestamp, using high-precision Unix timestamp tupled with a float</li>
+</ul>
+</li>
+<li>time series databases should be optimized for lots of writes (think 99% of operations)</li>
+<li>writes are generally sequential appends</li>
+<li>bulk deletes for a metric</li>
+<li>updates are rare</li>
+<li>data can be immutable in general, since writes are usually for recent timestamps and generally do not change<ul><li>think preserving history of time series</li></ul>
+</li>
+<li>data reads are generally sequential</li>
+<li>concurrent reads are common</li>
+</ul>
+<h3 id="performance-characteristics">Performance Characteristics</h3>
+<ul>
+<li>distributed by design (not encouraging sharding)<ul><li>fault-tolerance and high availability</li></ul>
+</li>
+<li>send the query to the data</li>
+<li>each node should aim for efficiency</li>
+<li>able to take advantage of powerful hardware (lots of RAM, many CPU cores); no single writer systems</li>
+<li>fast and consistent, no stalls freezes</li>
+<li>we need non-blocking backups for failovers</li>
+<li>auto scaling without downtime/locking</li>
+<li>compressibility of data</li>
+</ul>
+<h3 id="language-api-design">Language &amp; API Design</h3>
+<p>Want to avoid some legacy of SQL</p>
+<ul>
+<li>SQL tables are fixed width and grow downwards<ul><li>cannot span rows without doing a JOIN</li></ul>
+</li>
+<li>in time-series, rows are series identified by primary key and grow sideways</li>
+<li>language should permit a GROUP BY functionality both vertically (between metrics) and horizontally (over time)<ul>
+<li>both rows and columns are addressable by keys instead of literal identifiers</li>
+<li>strict equality and ranges</li>
+</ul>
+</li>
+<li>should support server-side processing for expressions, aggregate functions<ul>
+<li>resampling into time resolutions different from the storage resolution (apply averaging transformations to simplify data)</li>
+<li>time series expressions (sum, division, ordering, ranking, limiting)</li>
+</ul>
+</li>
+<li>times series query language should be designed for analytics</li>
+<li>tagging events (name=value pairs), to individual time series points, which can help for more efficient queries related to the tag at the given time (think tailored filtering)</li>
+</ul>
+<h3 id="log-structured-merge-tree-optimizing-writes----source">Log-structured merge-tree: Optimizing Writes -- <a href="https://en.wikipedia.org/wiki/Log-structured_merge-tree">source</a>
+</h3>
+<p>A time-series database should be well optimized for reads (usability) and writes (for scalability)</p>
+<ul>
+<li>cannot use sql-like indexed collection (key, timestamp, value) rows, because then you have to query across all rows at worst</li>
+<li>TODO</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#defer">Defer</a></li>
+<li><a href="#panic-recover">Panic &amp; Recover</a></li>
+</ul>
+</div>
+<h3 id="defer">Defer</h3>
+<ol>
+<li>A deferred function's arguments are evaluated when the defer statement is evaluated.</li>
+<li>Deferred function calls are executed in Last In First Out order after the surrounding function returns (stack).</li>
+<li>Deferred functions may read and assign to the returning function's named return values.</li>
+</ol>
+<h3 id="panic-recover">Panic &amp; Recover</h3>
+<ul>
+<li>Panic is a builtin function that stops flow, and starts panicking.</li>
+<li>Recover is only useful in deferred function, captures value given to panick and returns to regular flow.</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

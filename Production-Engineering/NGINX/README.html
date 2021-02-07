@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>NGINX</title>
+</head>
+<body>
+
+<h1 id="nginx">NGINX</h1>          <a href="index.html">Back to Production-Engineering/NGINX</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#proxying">Proxying</a></li>
+<li><a href="#basics">Basics</a></li>
+<li><a href="#block-selection">Block Selection</a></li>
+<li><a href="#general-common-mistakes">General (Common Mistakes)</a></li>
+<li><a href="#defaults">defaults</a></li>
+</ul>
+</div>
+<p>General purpose web server. Uses asynchronous event-driven approach to handling requests. Can handle high volumes of connections, with low memory footprint.</p>
+<p>Nginx is often set up as a reverse proxy solution, scaling infrastructures or passing requests to other servers not designed to handle large client loads.</p>
+<h3 id="proxying">Proxying</h3>
+<p>Nginx is designed to handle many concurrent connections.</p>
+<ul>
+<li>ideal point of contacts for clients</li>
+<li>can pass requests to many backend servers to handle the bulk of work<ul><li>distributes load across infrastructure</li></ul>
+</li>
+<li>allows for adding and taking down servers as needed (cost, maintainance)</li>
+</ul>
+<p>Proxying is accomplished by passing requests to other servers for actual processing, which relays back through Nginx to the client.</p>
+<ul>
+<li>the servers that recieve proxied requests are called upstream servers</li>
+<li>can proxy requests to servers using http(s), FastCGI, memcached protocols through separate sets of directives for each type of proxy</li>
+</ul>
+<h3 id="basics">Basics</h3>
+<ul>
+<li>has one master process, several worker processes</li>
+<li>master reads and evaluated configuration (from conf file), maintains worker processes</li>
+<li>workers process requests</li>
+<li>start nginx from the binary, <code>nginx -s signal</code> where signals are<ul><li>
+<code>stop</code> fast shutdown, <code>quit</code> graceful shutdown, <code>reload</code> conf, <code>reopen</code> log files</li></ul>
+</li>
+<li>nginx <strong>conf file structure</strong> consists of modules which are controlled by directives, specified in the configuration file<ul>
+<li>the top of the tree structure defines "contexts", containing configuration separated by their area of concern</li>
+<li>each context contains simple directives or directive blocks<ul>
+<li>any directive existing outside of a context block is said to be in the main context, inherited by all contexts</li>
+<li>simple directives consist of name and parameters, space delimited, end with <code>;</code>
+</li>
+</ul>
+</li>
+<li>
+<code>event</code> context sets global options that affect how Nginx handles connections</li>
+<li>
+<code>http</code> context holds all configuration regarding http connections (as a web server/reverse proxy)</li>
+<li>
+<code>server</code> context is declared within the <code>http</code> context</li>
+<li>
+<code>location</code> contexts are nested in <code>server</code>, catch subsets of traffic and directs it to the proper files to be served</li>
+</ul>
+</li>
+<li>nginx can server static content, through request processing<ul>
+<li>
+<code>/data/www</code> contains html files and other assets</li>
+<li>requires setting up a <code>server</code> block inside the <code>http</code> block</li>
+<li>the conf file may include several <code>server</code> blocks, distinguished by ports (<code>listen</code>, default 80) and <code>server_name</code> (domain name)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code>http{
+  server {
+    location / {
+        root /data/www;
+    }
+
+    location /images/ {
+        root /data;
+    }
+  }
+}</code></pre>
+<h3 id="block-selection">Block Selection</h3>
+<p>Nginx uses blocks to build hierarchical configuration structure.</p>
+<ul>
+<li>server blocks define virtual servers used to handle requests</li>
+<li>location blocks live in server blocks, and define how Nginx handles requests for different resources and URIs</li>
+</ul>
+<h4 id="server-blocks">server blocks</h4>
+<p>Nginx determines which server block to use with <code>listen</code> and <code>server_name</code></p>
+<ul>
+<li>
+<code>listen</code> directive can be set to an IP address/port combo, lone IP address with default port 80, lone port listening to every interface on that port, or the path to a unix socket</li>
+<li>
+<code>server_name</code> directive is only evaluated if it needs to distinguish between server blocks that match the same level of specificity in the <code>listen</code> directive<ul><li>checks the host header for the server name</li></ul>
+</li>
+</ul>
+<h4 id="location-blocks">location blocks</h4>
+<p>location directives look like: <code>location &lt;optional_modifier&gt; &lt;location_match&gt; {}</code></p>
+<ul>
+<li>location match above defines what Nginx should check the request URI against</li>
+<li>the modifiers cause the associated block to be interpreted differently<ul>
+<li>
+<strong>(none)</strong> the location is interpreted as a <em>prefix</em> match, matched against the beginning of the request URI</li>
+<li>
+<code>=</code>, the location match will be considered if matching exactly</li>
+<li>
+<code>~</code>, the location will be interpreted as a regex</li>
+<li>
+<code>~*</code>, case-insensitive regex</li>
+<li>
+<code>^~</code>, if selected as the best non-regular expression match, regex matching will not take place (modifies the specific prefix-matching location context have precedence over regular expression locations)</li>
+</ul>
+</li>
+</ul>
+<h4 id="how-nginx-chooses-location-block">how Nginx chooses location block</h4>
+<p>Nginx evaluates the possible location contexts by comparing the request URI to each of the locations.</p>
+<ul>
+<li>begins by checking all prefix-based location matches</li>
+<li>first, looks for an exact match (<code>=</code>), if found, it is used immediately</li>
+<li>If no exact, evaluates non-exact prefixes (longest matching prefix)<ul>
+<li>if the longest matching prefix location has <code>^~</code> modifier, then Nginx will immediately use that location</li>
+<li>otherwise, it stores the longest one and moves onto comparing regex locations</li>
+</ul>
+</li>
+<li>the first regex location that matches the request URI is immediately selected to serve</li>
+<li>if no regex locations are matched, then the longest prefix match is served</li>
+</ul>
+<p><a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms">source</a></p>
+<h3 id="general-common-mistakes">General (Common Mistakes)</h3>
+<ul>
+<li>never use <code>Chmod 777</code>. On web-servers, this give anyone rwx permissions on all files</li>
+<li>don't use <code>root</code> directive inside a location block</li>
+<li>avoid multiple index directives (put <code>index</code> under <code>http</code> block)</li>
+<li>avoid the <code>if</code> directive inside a location context<ul><li>
+<p>the only safe things inside if in location context are <code>return</code> and <code>rewrite</code></p>
+<pre><code>if ($something) {
+    return 418;
+}</code></pre>
+</li></ul>
+</li>
+<li>don't do <code>if($host ... )</code>, inefficient, checks host header for every request<ul><li>user <code>server_name</code> directive to differentiate responses based on the Host header</li></ul>
+</li>
+<li>don't use <code>if</code> to check files, use <code>try_file</code> directive<ul><li>
+<code>try_files $uri $uri/ /index.html;</code> check <code>$uri</code>, then <code>$uri/</code>, otherwise use <code>/index.html</code>
+</li></ul>
+</li>
+<li>regex can be taxing computationally in <code>rewrites</code><ul>
+<li>BAD: <code>rewrite ^/(.*)$ http://example.com/$1 permanent;</code>
+</li>
+<li>GOOD: <code>rewrite ^ http://example.com$request_uri? permanent;</code>
+</li>
+<li>BETTER: <code>return 301 http://example.com$request_uri;</code>
+</li>
+</ul>
+</li>
+<li>do not use hostname in the <code>listen</code> directive, use known IP addresses if possible instead</li>
+</ul>
+<p><a href="https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/">source</a></p>
+<h3 id="defaults">defaults</h3>
+<ul>
+<li>
+<code>/etc/nginx/mime.types</code> holds media types (derrived from Multipurpose internet mail extensions)</li>
+<li>
+<code>default_type</code> directive defines what to send when you have no file extensions</li>
+<li>
+<a href="http://nginx.org/en/docs/ngx_core_module.html">core module</a><ul>
+<li>
+<code>user</code> directive defines user and group credentials used by worker processes</li>
+<li>
+<code>debug_connection</code> directive enables debugging log for a given client</li>
+<li>
+<code>error_log</code> defines path and severity</li>
+<li>
+<code>sendfile</code><br>
+<a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching">source</a>
+</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>CS138 UWaterloo, Introduction to Data Abstraction and Implementation</title>
+</head>
+<body>
+
+<h1 id="cs138-uwaterloo-introduction-to-data-abstraction-and-implementation">CS138 UWaterloo, Introduction to Data Abstraction and Implementation</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#some-history">Some History</a></li>
+<li><a href="#file-permissions">File Permissions:</a></li>
+<li><a href="#memory-model">Memory Model</a></li>
+<li><a href="#data-structures">Data Structures</a></li>
+<li>
+<a href="#hashing"></a><a href="../Computer-Science-Concepts/Hashing.md">Hashing</a>
+</li>
+<li>
+<a href="#object-oriented-programming"></a><a href="../Computer-Science-Concepts/Object%20Oriented%20Principles.md">Object Oriented Programming</a>
+</li>
+<li>
+<a href="#c"></a><a href="../Languages/C++.md">C++</a>
+</li>
+<li><a href="#review">Review</a></li>
+</ul>
+</div>
+<h3 id="some-history">Some History</h3>
+<p>Unix and C developed in 1970s at Bell Labs/AT&amp;T</p>
+<p>Linux 1990s open source</p>
+<h3 id="file-permissions">File Permissions:</h3>
+<p>Each file/directory has three sets of permissions: userID, unix group, everyone else with r,w,x</p>
+<p>First is d (directory) or - (file)</p>
+<p><code>chgrp</code> changes group name, <code>chmod</code> changes permissions</p>
+<p>(0--- 1--x 2-w- 3-wx 4r-- 5r-x 6rw- 7rwx)</p>
+<p>Timeline: FORTRAN, COBOL, C, C++, Java …</p>
+<h3 id="memory-model">Memory Model</h3>
+<p>Run-time Stack: manages the storage needed locally for each function call</p>
+<p>Heap: freestore for dynamically allocated objects (new, malloc)</p>
+<h3 id="data-structures">Data Structures</h3>
+<p>struct instances: <code>strctName s;</code> direct instantiation on run-time stack (doesn’t work for passing around linked structures)</p>
+<p><code>strctName* sPtr = new strctName;</code> dynamic instantiation, on the heap until deleted</p>
+<p><strong>Abstract data type (ADT)</strong>: mathematical structure with well defined behavior (operations)</p>
+<ul><li>signature describes params, pre-cond specifies assumptions before operation, post-condition describes effect of operation</li></ul>
+<p><strong>Adapter:</strong> implementing one ADT with another, unifying the API</p>
+<p><strong>Linked List:</strong> nodes to implement a sequence</p>
+<p><strong>Stack:</strong> ordered data container, LIFO</p>
+<p><strong>Queue:</strong> FIFO</p>
+<p><strong>Deque</strong>: double ended queue (combination of stack and queue)</p>
+<p><strong>Priority Queue:</strong> a queue of objects with an integer priority attribute. usually implemented as a list-of-lists (good for lots of elements, few priorities) or a <strong>heap</strong>, its a binary tree, s.t. for each node, its children have lesser value than itself (better for lots of priorities)<br>
+- for N elements, and K distinct priorities<br>
+- heaps have insert of O(log n)<br>
+- heaps delete of O(log n)<br>
+- LOL insert of O(K)</p>
+<p><strong>Binary Tree:</strong> each node has two children</p>
+<p><strong>Binary Search Tree:</strong> each left child is less than the node, each right child is greater</p>
+<p>lookup traverses, insert does lookup and adds where it should be</p>
+<p>inorder traversal is DFS, print using recursion</p>
+<p>deleting, only complex if 2 children: replace node with largest in left or smallest in right</p>
+<p><strong>Sequence:</strong> abstract data type, container of elements indexed by a set of contiguous integers</p>
+<ul><li>known as vectors or lists</li></ul>
+<p><strong>Dictionary:</strong> ADT, collection of ordered pairs of form key =&gt; val</p>
+<p><code>include &lt;map&gt;</code> gives access to <code>map&lt;string, int&gt; m</code></p>
+<p><strong>Hash Table:</strong> vector of k buckets, <code>vector&lt;studentRecord&gt; hashTable(k)</code></p>
+<p><strong>Hash Function:</strong> takes key value, calculates its index</p>
+<h3 id="hashing"><a href="../Computer-Science-Concepts/Hashing.md">Hashing</a></h3>
+<h3 id="object-oriented-programming"><a href="../Computer-Science-Concepts/Object%20Oriented%20Principles.md">Object Oriented Programming</a></h3>
+<h3 id="c"><a href="../Languages/C++.md">C++</a></h3>
+<h3 id="review">Review</h3>
+<ul>
+<li>sequence containers: <code>vector, deque, list</code>
+</li>
+<li>container adapters: <code>stack, queue, priority queue</code>
+</li>
+<li>order associative containers: <code>sets, maps</code>
+</li>
+<li><p>unordered associative containers: <code>unordered_set, unordered_map</code></p></li>
+<li>vector<t>: [], at, back, push_back, pop_back</t>
+</li>
+<li>deque<t>: [], at, back, push_back, pop_back, front, push_front, pop_front</t>
+</li>
+<li>list<t>: back, push_back, pop_back, front, push_front, pop_front, sort, merge, reverse, splice</t>
+</li>
+<li>set<t>: find, count</t>
+</li>
+<li>map<t t>: [], at, find, count</t>
+</li>
+<li><p>Other ADTS: stack, queue, priority queue, bitset</p></li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

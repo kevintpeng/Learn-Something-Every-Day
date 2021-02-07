@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Machine Learning Basics</title>
+</head>
+<body>
+
+<h3 id="summary">Summary</h3>
+<p>Machine learning is applied statistics, for the purpose of predicting outcomes for unseen experiences by extrapolating from a set of experiences.</p>
+<ul>
+<li>goal is to minimize generalization error, error incurred when running a model on new testing data, a model that was trained exclusively on a training data set</li>
+<li>overfitting and underfitting are undesirable outcomes of model training, and happen when the capacity of a model is not optimal<ul><li>overfitting is controlled by restricting the hypothesis space, dictating the model's capacity</li></ul>
+</li>
+<li>in regressions, we have a fixed parameter (weighting) vector</li>
+<li>non-parametric models allow for extreme fitting of data, with a non-fixed parametric vector</li>
+<li>the no free lunch theorem states that the average performance of all classification algorithms over all data sets is equal</li>
+<li>to design a learning algorithm, regularizers are used to specify preference of kinds of functions learned, controlling capacity</li>
+<li>regularization is any modification to the learning algorithm with the intent of reducing generalization error, not training error</li>
+</ul>
+<h1 id="machine-learning-basics">Machine Learning Basics</h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#linear-regression-example">Linear Regression Example</a></li>
+<li><a href="#capacity-overfitting-and-underfitting">Capacity, Overfitting and Underfitting</a></li>
+<li><a href="#the-no-free-lunch-theorem">The No Free Lunch Theorem</a></li>
+<li><a href="#regularization">Regularization</a></li>
+<li><a href="#hyperparameters">Hyperparameters</a></li>
+<li><a href="#estimators-bias-variance">Estimators, Bias, Variance</a></li>
+<li><a href="#maximum-likelihood-estimation">Maximum Likelihood Estimation</a></li>
+<li><a href="#supervised-learning">Supervised Learning</a></li>
+</ul>
+</div>
+<p>Machine learning is a form of applied statistics, with a lesser emphasis on confidence and greater on statistical estimates.</p>
+<ul>
+<li>Formally, learning is improving a performance measure P, by learning from experience E with respect to some class of tasks T</li>
+<li>in a formal sense, learning is not a task, it is our means of attaining the ability to perform a task</li>
+<li>
+<strong>tasks</strong> describe how we should process examples, vectors of quantitative features<ul>
+<li>Classification: specifying one of <code>k</code> categories some input belongs to</li>
+<li>Classification with missing input: for n inputs, we will need 2^n functions to be learned, for every combination of inputs</li>
+<li>Regression: based on numeric input, learn a function that can predict outputs outside of the examples</li>
+<li>Transcription: observe realtively unstructured data, and transcribe it into discrete textual form</li>
+<li>Machine Translation: language translation (like English to French)</li>
+<li>Structured Output: any task with vector output (superset of transcription and machine translation)</li>
+<li>Anomaly Detection: program sifts through a set of events and flags them as being unusual</li>
+<li>Synthesis: generating new examples, based on the training set</li>
+<li>Imputation of Missing Values: fill in missing inputs</li>
+<li>Denoising: for some corrupted example x, and clean example y, find the conditional probability distribution p(y|x)</li>
+<li>Density estimation (PMF estimation): determine general clustering in a probability mass function</li>
+</ul>
+</li>
+<li>
+<strong>performance measure</strong> is a quantitative measure for an algorithm for success of task T<ul><li>generally test how well it performs on data it hasn't seen, so the test set</li></ul>
+</li>
+<li>
+<strong>experience</strong> is often the dataset, containing features, and in the case of supervised learning it contains annotations with labels or targets</li>
+</ul>
+<h3 id="linear-regression-example">Linear Regression Example</h3>
+<p>Simple algorithm for solving a regression problem, to predict some scaler y from input vector x in Rn: y = w<sup>T</sup>x, w is a vector n parameters</p>
+<ul>
+<li>w is simply the weights of each xi feature</li>
+<li>set aside a design matrix X<sup>(test)</sup> of m examples with a corresponding target vector y<sup>(test)</sup> containing correct values of y, not used for training but as performance measure P<ul>
+<li>common performance measure is based on the sum of squared deviation</li>
+<li>this is minimized when the sum of squared differences function's gradient is 0</li>
+<li>Mean Square Error is a function of the sum of square differences</li>
+<li>MSE<sub>test</sub> =. 1/m • ∑(ŷ<sup>(test)</sup> - y<sup>(test)</sup>)<sup>2</sup> from 1 to i</li>
+</ul>
+</li>
+<li>we want improve weights w to minimize MSE<sub>test</sub>, by minimizing MSE<sub>train</sub>
+</li>
+<li>solve for ∇<sub>w</sub>MSE<sub>train</sub> = 0 the <strong>normal equations</strong>
+</li>
+</ul>
+<p>Normal Equation is an analytical solution to the linear regression problem, using a least-squares cost function</p>
+<ul>
+<li>starting with: MSE<sub>test</sub> =. 1/m • ∑(ŷ<sup>(test)</sup> - y<sup>(test)</sup>)<sup>2</sup> from 1 to i</li>
+<li>∇<sub>w</sub>MSE<sub>train</sub> = 0</li>
+<li>∇<sub>w</sub> 1/m • ∑(ŷ<sup>(test)</sup> - y<sup>(test)</sup>)<sup>2</sup> = 0</li>
+<li>∇<sub>w</sub> ∑(ŷ<sup>(test)</sup> - y<sup>(test)</sup>)<sup>2</sup> = 0</li>
+<li>y<sup>(test)</sup> = w<sup>T</sup>x is our prediction or hypothesis function for x</li>
+<li>∇<sub>w</sub> ∑(w<sup>T</sup>x - y<sup>(test)</sup>)<sup>2</sup> = 0<ul>
+<li>X, the design matrix replaces our summation term, since it represents the m rows of n+1 features, +1 for the intercept</li>
+<li>use transposed matrix multiplaction (essentially squaring each</li>
+</ul>
+</li>
+</ul>
+<h3 id="capacity-overfitting-and-underfitting">Capacity, Overfitting and Underfitting</h3>
+<p>In machine learning, we want to perform new tasks unseen before, this is called generalization</p>
+<ul>
+<li>one goal is to minimize generalization error, or test error</li>
+<li>
+<strong>generalization error</strong> is the expected value of the error for inputs, based on a distribution similar to what real inputs will be</li>
+<li>estimate generaliation error with a test set</li>
+<li>in linear regression, training error is minimized, but we actually care about test error, however you cannot use the test error to affect the result of training since the test error is not part of the training set</li>
+<li>in statistical learning theory, arbitrary collection of examples doesn't allow us to make any adjustments, but assuming data is collected over some probability distribution (data generating process)<ul><li>theoretically, we can follow the i.i.d assumption: independent identically distributed draws</li></ul>
+</li>
+<li>therefore the test and the train examples are from the same data generating distribution, p<sub>data</sub><ul><li>expected train error = expected test error</li></ul>
+</li>
+<li>in practice, splitting the sets and minimizing the training error almost certainly means that expected test error ≥ expected train error<ul>
+<li>we want to reduce training error and reduce the gap between training and test error</li>
+<li>correspond to underfitting and overfitting, and can be mitigated with <strong>capacity</strong>
+</li>
+</ul>
+</li>
+<li>a models capacity is generally it's ability to fit many functions</li>
+<li>high capacity corresponds to overfitting, low to underfitting</li>
+<li>one way to control capacity is to restrict the <strong>hypothesis space</strong><ul>
+<li>linear regression models are restricted to the set of linear functions</li>
+<li>by introducing an <code>x^2</code> term into the linear regression equation ŷ = b + w1x + w2x<sup>2</sup> increases the model capacity (increased using more features, x^2, and their corresponding parameters w2)</li>
+<li>machine learning algorithms work best when they correspond to the appropriate capacity for the true complexity of the task</li>
+</ul>
+</li>
+<li>in statistical learning theory, model capacity is quantified by the <strong>Vapnik-Chervonenkis (VC) dimension</strong><ul><li>measure capacity of binary classifiers</li></ul>
+</li>
+<li>VC dimension is the largest possible value of <code>m</code> for which there exists a training set of m different x points that the classifier can label arbitrarily</li>
+<li>simpler functions are more likely to generalize (have small difference between training and test error), still need to have sufficient complexity to keep training error low</li>
+</ul>
+<p><strong>Non-parametric</strong> models allow for high capacity (well fit models)</p>
+<ul>
+<li>non-parametric models are not necessarily bounded by a function (often describe non-practical algorithms)</li>
+<li>linear regression has a fixed length vector of weights, while the nearest neighbour regression (non-parametric) uses X, the training matrix and y, the target vector of corresponding values to each point<ul><li>model looks up the closest training entry to the test point x, and returns the regression target</li></ul>
+</li>
+<li>non-parametric learning algorithms can be constructed through nested parametric learning algorithms<ul><li>outer algorithm, for learning the number of parameters needed for the inner regression algorithm</li></ul>
+</li>
+<li>error in mapping x to y can be seen as inherently stochastic or deterministic with non-considered variables<ul><li>the error in a "perfect model" for a given distribution incurs <strong>Bayes error</strong>
+</li></ul>
+</li>
+<li>for non-parametric models, the generalization error decreases with more examples until it reaches the best possible error</li>
+<li>any fixed-parameter model without enough capacity will bound itself to a value greater than Bayes error</li>
+</ul>
+<h3 id="the-no-free-lunch-theorem">The No Free Lunch Theorem</h3>
+<p>Logically, inferring general rules of a limited set of examples in not valid</p>
+<ul>
+<li>learning theory claims that algorithms can generalize well from a finite training set<ul><li>must have information about every member of the set, otherwise you can't get something from nothing</li></ul>
+</li>
+<li>learning is based on probabilistic rules rather than logical reasoning</li>
+<li>no free lunch states that every classification algorithm has the same average error over the set of all tasks<ul><li>no learning algorithm is inherently better than any other, without information and assumptions</li></ul>
+</li>
+<li>important to understand distributions that are relevant to real world experiences and algorithms that work well on data drawn from these data generating distributions</li>
+</ul>
+<h3 id="regularization">Regularization</h3>
+<p>The no free lunch theorem implies that the algorithm must be designed well for a task, the only way so far is by changing its capacity (thus affecting the hypothesis space)</p>
+<ul>
+<li>can have more granularity in algorithm design by introducing more kinds of function to the hypothesis space</li>
+<li>modify what we're trying to minimize, by summing the MSE with a criterion, which is pre-defined by the user (λ would control the preference for a preferred function)</li>
+<li>weight decay is an example, where we minimize J(w), second term is just λ • L<sup>2</sup> norm: <img src="https://jules2689.github.io/gitcdn/images/website/images/latex/b6a77b551b69539fabd97852217d9ad8.png" alt="latex image" height="24px">
+</li>
+</ul>
+<!---
+```latex
+J(w) = MSE_{train} + \lambda w^{T}w
+```
+---><ul>
+<li>result is a weighted tradeoff between fitting the training data and being small</li>
+<li>generally, we can regularize a model that learns function f(x;θ) by adding a penalty called a <strong>regularizer</strong> to the cost function<ul><li>in weight decay, the regularizer Ω(w) = w<sup>T</sup>w</li></ul>
+</li>
+<li>exclusion from the hypothesis space is infinite preference against it</li>
+<li>to design a learning algorithm, regularizers are used to specify preference of kinds of functions learned, controlling capacity</li>
+<li>regularization is any modification to the learning algorithm with the intent of reducing generalization error, not training error</li>
+</ul>
+<h3 id="hyperparameters">Hyperparameters</h3>
+<p>A hyperparameter is not learned by the algorithm, it is predefined like the capacity in a polynomial regression or λ in weight decay</p>
+<ul>
+<li>often parameters that are not easy to optimize (capacity learned from any training set will result in the highest possible capacity, resulting in overfitting)</li>
+<li>a validation set can be formed (partition of the test dataset) to train hyperparameters (over iterations?)<ul><li>after validation set optimizes hyperparameters, generalization error may be estimated with the test set</li></ul>
+</li>
+<li>cross-validation is the use of all examples in the training and test sets</li>
+<li>k-fold cross-validation partitions the dataset into k non-overlapping subsets, and iterate through each subset as the single test subset, and average the test error across k trials</li>
+<li>when dataset <code>D</code> is too small for simple train/test split to yield accurate estimation of generalization error (mean loss on a small test has high variance)</li>
+</ul>
+<h3 id="estimators-bias-variance">Estimators, Bias, Variance</h3>
+<p><strong>Point Estimation</strong> attempts to provide the single best prediction</p>
+<ul>
+<li>generally predicting a parameter (or vector of them) e.g. the weights in linear regression</li>
+<li>θ-hat is used to denote an estimator for a parameter θ</li>
+<li>point estimators is just a function of the data, <img src="https://jules2689.github.io/gitcdn/images/website/images/latex/8567979de1a48c174f1140d9f17bd337.png" alt="latex image" height="24px" valign="middle">
+</li>
+</ul>
+<!---
+```latex
+\hat{\theta}_m = g(x^{(1)},...,x^{(m)})
+```
+---><ul><li>
+<strong>Consistency</strong> formally describes the probabilistic convergence of a point estimate to the actual value</li></ul>
+<h3 id="maximum-likelihood-estimation">Maximum Likelihood Estimation</h3>
+<ul>
+<li>
+<strong>Maximum Likelihood Estimation</strong> helps to formally derive what a good estimator function is for a models<ul>
+<li>we have an unknown distribution, and some sample</li>
+<li>likelihood of a specific sample coming up is the product of the individual probabilities of each event in the sample</li>
+<li>now we want to estimate any θ, some parameter of the unknown distribution; let's do the mean</li>
+<li>then θ-hat is our estimate of θ and it is the selected value of θ for the unknown distribution that <em>maximizes the probability</em> of our sample coming up</li>
+</ul>
+</li>
+<li>
+<strong>KL Divergence</strong> is a measure of non-symmetry between two probability distributions<ul><li>Kullback-Leibler divergence</li></ul>
+</li>
+</ul>
+<p><em>The MLE can be simplified to finding θ that maximizes the average log likelihood of each event in our sample, the training data.</em></p>
+<p>In ML, the MLE is used to minimize dissimilarity between the empircal distribution of the training set, and the model distribution, as measured by the KL divergence</p>
+<h4 id="conditional-log-likelihood-and-mse">Conditional Log-Likelihood and MSE</h4>
+<h3 id="supervised-learning">Supervised Learning</h3>
+<p>Association of some input with some output</p>
+<ul>
+<li>human often acts as "supervisor" annotating data</li>
+<li>many supervised learning algorithms are <strong>probabilistic</strong> estimating a probability distribution</li>
+<li>using MLE to find best parameter vector</li>
+</ul>
+<p>We can generalize linear regression to the classification scenario by defining different families of probability distributions</p>
+<ul>
+<li>in binary classification, we have class 0 and class 1, and combined the probability distributions for both classes should sum to 1 for all domain values<ul><li><em>since they sum to 1, we only calculate one distribution</em></li></ul>
+</li>
+<li>logistical regression: squash a linear regression into the range (0,1) using a logistic sigmoid, and interpret as probability<ul><li>logistic regression is hard, linear regression has optimal weight parameters for its function since there is a closed-form solution</li></ul>
+</li>
+<li>in logistic regression, we must search for optimal weights by maximizing the log-likelihood funciton, or minimize the negative log-likelihood with gradient descent<ul><li>applies generally to almost all supervised learning problems</li></ul>
+</li>
+</ul>
+<h4 id="support-vector-machines">Support Vector Machines</h4>
+<p>Similar to logistic regression, also driven by linear funcition w<sup>T</sup>x + b (weighted vector funciton)</p>
+<ul>
+<li>the goal is similar to logistic regression: find a hyperplane that divides a dataset into two classes</li>
+<li>support vectors are the data points nearest to the hyperplane, if removed would alter the position of the dividing hyperplane<ul><li>margins are the magnitude of the support vectors, and we want to maximize the margins if possible</li></ul>
+</li>
+<li>while logistic regression provides probabilities, SVMs predict one class for positive output values, and other for negative</li>
+</ul>
+<p><img src="http://www.eric-kim.net/eric-kim-net/posts/1/imgs/linsep_svm_linear.png" height="200"></p>
+<p>Often data doesn't divide nicely. We can approach this by mapping data into a higher dimension:<br>
+<img src="http://66.media.tumblr.com/9bffea56372d28d2a30f80557451e824/tumblr_inline_o9aabehtqP1u37g00_540.png" height="200"><img src="http://www.eric-kim.net/eric-kim-net/posts/1/imgs/data_2d_to_3d.png" height="200"></p>
+<ul>
+<li>
+<strong>kernel trick</strong> is used to accomplish this -- <a href="http://www.eric-kim.net/eric-kim-net/posts/1/kernel_trick.html">source</a><ul>
+<li>applying kernels to improve classification results</li>
+<li>kernel K(v,w) is a function K: R<sup>N</sup>, R<sup>N</sup> -&gt; R computing the dot product between v and w</li>
+</ul>
+</li>
+<li>so a linear SVM finds a hyperplane that best separates data points called the <strong>decision boundary</strong>
+</li>
+<li>in most datasets, a linear decision boundary cannot be found in the original feature space/dimensionality</li>
+<li>the challenge in training a linear SVM classifier in finding a decision boundary is that we must apply a good transformation to map the dataset to a higher dimension</li>
+</ul>
+<p>We define φ to be a transformation function that maps the dataset X to a higher dimensionality dataset X' (think R2 to R3 as shown above)</p>
+<ul>
+<li>want to train a linear SVM on transformed dataset X' to get a classifier f<sub>SVM</sub><ul><li>after training, during testing, every new example x will first be transformed to x' = φ(x)</li></ul>
+</li>
+<li>so the output is a label for the class. In otherwords f<sub>SVM</sub>(φ(x)) = f<sub>SVM</sub>(x') in {0,1} for a binary classification problem</li>
+<li>can achieve nonlinear SVMs by applying linear SVMs in higher dimensions</li>
+<li>this is very simple to understand, but it is also computationally expensive to perform</li>
+<li>we can apply different transformations, one example is a polynomial kernel, and this one maps from R2 -&gt; R5, and by simply transforming the input before performing a linear SVM is extremely expensive in high dimensions</li>
+</ul>
+<p>It turns out that SVMs only compute pair-wise dot products and thus we don't need to always work in a higher dimensional space during training/testing</p>
+<ul>
+<li>during the training, the optimization problem only uses pair-wise dot products of examples</li>
+<li>there exists a closed form method to compute dot products in higher dimensions without needing to transform the vectors in the dataset</li>
+<li>
+<strong>kernel functions</strong> let us compute this<ul>
+<li>we can implicitly transform datasets to higher dimensional R<sup>M</sup> faster and without extra memory</li>
+<li>in other words, instead of pre-processing data input, then performing dot products, the kernel function can replace dot products and be applied to un-transformed vectors with the same effect</li>
+<li>the intuition behind this is that the kernel function K can effectively perform a dot product while working exclusively in R<sup>N</sup>
+</li>
+</ul>
+</li>
+<li>different kernels, or kernel functions, exist to perform dot products in different dimensions with different transformations<ul>
+<li>the chosen dimensional transform is important for finding an effective decision boundary</li>
+<li>selecting the correct kernel for a task requires a lot of hyperparameter tuning for the model to get good performance</li>
+<li>
+<strong>K-Fold Cross Validation</strong> is a technique that might help</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>API</title>
+</head>
+<body>
+
+<h1 id="api">API</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#good-api-design">Good API Design</a></li>
+<li><a href="#developing-an-api">Developing an API</a></li>
+<li><a href="#method-naming">Method Naming</a></li>
+<li><a href="#principle-of-least-astonishment">Principle of Least Astonishment</a></li>
+</ul>
+</div>
+<p>Application-Programming Interface (API) describes the set of methods, tools, routines and protocols set out by a library, package, or software applicaiton. An API for the Java Math library describes the method names and their parameters like <code>Math.pow(int, int)</code>.</p>
+<h2 id="good-api-design">Good API Design</h2>
+<ul>
+<li>should be easy to learn and use</li>
+<li>hard to misuse</li>
+<li>easy to evolve</li>
+<li>Simplicity is better for early API design.</li>
+</ul>
+<p><strong>Once an API is in use, it is hard to make drastic changes without breaking existing code.</strong></p>
+<h2 id="developing-an-api">Developing an API</h2>
+<ul>
+<li>get feedback frequently</li>
+<li>aim to displease everyone equally (aim for generalized design)</li>
+<li>API should be as small as possible (<strong>when in doubt, leave it out</strong>)</li>
+<li>powerful with least conceptual weight</li>
+<li>separate implementation from functionality (so algorithms can be potentially optimized in future)</li>
+<li>minimize accessibility of everything, making as many methods and fields private as possible</li>
+<li>consider performance consequences of API design decisions (mutability)</li>
+<li>Avoid mutability when possible, for simplicity and thread-safety</li>
+<li><strong>Dont make the client do anything the module could do</strong></li>
+<li><ul><li>avoids <em>Boilerplate</em> code which is unncessarily repeated code.</li></ul></li>
+</ul>
+<h2 id="method-naming">Method Naming</h2>
+<ul>
+<li>should be consistent (remove vs delete)</li>
+<li>self explanitory (avoid cryptic abbreviations)</li>
+<li>use consistent parameter ordering across methods</li>
+</ul>
+<h2 id="principle-of-least-astonishment">Principle of Least Astonishment</h2>
+<p>"API elements should not do 'surprising' things". When overloading methods, the new implementation should conceptually do the same thing. Avoids lots of errors for programmers using your API.</p>
+<p><a href="https://www.youtube.com/watch?v=aAb7hSCtvGw&amp;feature=youtu.be">Google Tech Talks from Josh Bloch, Java API designer</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

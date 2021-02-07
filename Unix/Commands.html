@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#curl">curl</a></li>
+<li><a href="#nc">nc</a></li>
+<li><a href="#ssh">ssh</a></li>
+<li><a href="#man">man</a></li>
+<li><a href="#touch-a-b-c"><code>touch a b c</code></a></li>
+<li><a href="#echo">echo</a></li>
+<li><a href="#source">source</a></li>
+<li><a href="#builtin">builtin</a></li>
+<li><a href="#find">Find</a></li>
+</ul>
+</div>
+<p><strong><code>PATH</code></strong> determines what binaries are known, colon delimited defining the order of looking for commands</p>
+<p><code>Shims</code> are executables that can intercept commands and change arguments, handle the operation, or redirect the operation</p>
+<h3 id="curl">curl</h3>
+<p>Tool for transferring data from or onto a server, can use almost all protocols</p>
+<h3 id="nc">nc</h3>
+<p>Netcat is a computer networking utility for reading and writing to network connections using TCP or UDP</p>
+<ul>
+<li>used as a dependable backend</li>
+<li>
+<code>nc -l 9292</code> opens a port at 9292</li>
+</ul>
+<h3 id="ssh">ssh</h3>
+<p>For logging into remote machines. <code>ssh hostname</code></p>
+<ul><li>connects and logs into the specified <em>hostname</em>
+</li></ul>
+<h3 id="man">man</h3>
+<p>Manual pages for any command line tool. <code>man some-command</code> pulls up help info about a command.</p>
+<h3 id="touch-a-b-c"><code>touch a b c</code></h3>
+<p>Creates or updates last write date of files a, b and c.</p>
+<h3 id="echo">echo</h3>
+<p>Echo is a print cmd to standard output. Takes arguments and prints them delimited by spaces. alternatively, can take a literal string using quotes.</p>
+<pre><code>$ echo Some      Test
+Some Test
+$ echo "Some      Test"
+Some      Test</code></pre>
+<h3 id="source">source</h3>
+<p>Evaluates the file (could be a shell script for example) following the command, as a list of commands, executed in current context.</p>
+<h3 id="builtin">builtin</h3>
+<p>builtin commands are contained within the shell itself. Does not invoke another program.</p>
+<h3 id="find">Find</h3>
+<p>For finding files. Allows user to execute other commands on them. In the following cmd, <code>pattern</code> describes a glob pattern for finding files:</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="fu">find</span> . -name <span class="st">"pattern"</span> -print</code></pre></div>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Software Testing</title>
+</head>
+<body>
+
+<h1 id="software-testing"><a href="https://ece.uwaterloo.ca/~lintan/courses/testing/">Software Testing</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li>
+<a href="#fault-error-failure"></a><a href="https://bitbucket.org/lintan/testing18/raw/b93cad84c4bf15eb63cefa1d4f77678163311ea4/03-FaultErrorFailure.pdf">Fault, Error, Failure</a>
+</li>
+<li><a href="#structural-coverage">Structural Coverage</a></li>
+<li><a href="#cfg">CFG</a></li>
+<li><a href="#concurrent-programs">Concurrent Programs</a></li>
+</ul>
+</div>
+<p><a href="https://piazza.com/class/ja1fsztq51yi9">piazza</a>, <a href="https://learn.uwaterloo.ca/d2l/le/content/359316/Home?itemIdentifier=TOC">learn</a></p>
+<h3 id="summary">Summary</h3>
+<ul>
+<li>design test subsets</li>
+<li>
+<strong>daikon</strong> is invariant-based bug detection using patterns dynamically</li>
+</ul>
+<h3 id="fault-error-failure"><a href="https://bitbucket.org/lintan/testing18/raw/b93cad84c4bf15eb63cefa1d4f77678163311ea4/03-FaultErrorFailure.pdf">Fault, Error, Failure</a></h3>
+<ul>
+<li>Fault == Bug, incorrect code</li>
+<li>Error is incorrect, unobserved state</li>
+<li>Failure is externally incorrect behaviour</li>
+<li>program counter is the instruction that has been executed</li>
+<li>an error is the first state where it does not follow specification</li>
+</ul>
+<p>Program must be RIP for a failure to occur: Reachable, incorrect state, propagates to output</p>
+<p>Avoidance, Detection (testing), Tolerance (redundancy)</p>
+<h3 id="structural-coverage">Structural Coverage</h3>
+<p>Static Testing at compile time involves review through code inspection (code review)</p>
+<p>Dynamic Testing includes black and white box testing</p>
+<p>Need testing critera to define coverage</p>
+<ul>
+<li>test case is fed into a program, many is a test set<ul><li>prefix and postfix values as specification</li></ul>
+</li>
+<li>measuring test set effectiveness depends on use case/criteria</li>
+<li>
+<strong>coverage</strong>: given set of test requirements <code>TR</code> for a coverage criterion <code>C</code>, a test set <code>T</code> satisfies <code>C</code> iff forall <code>tr</code> in <code>TR</code>, exists some <code>t</code> in <code>T</code> s.t. <code>t</code> satisfies <code>tr</code>
+</li>
+<li>coverage level helps us evaluate effectiveness of a test set, helps to find infeasible test requirements</li>
+</ul>
+<p><strong>Subsumption</strong>: a test criterion C1 subsumes C2 iff forall test sets that satisfy C1 also satisfy C2. In other words, A subsumes B if it's a strictly weaker coverage criterion</p>
+<ul>
+<li>edge coverage subsumes node coverage</li>
+<li>branch coverage subsumes statement (node) coverage</li>
+</ul>
+<p>Buffer overflow is a common security vulnerability, and occurs when input overruns a buffer's boundary and overwrites adjacent memory.</p>
+<p>Graph Theory Review highlights:</p>
+<ul>
+<li>simple path</li>
+<li>
+<strong>test path</strong> is a path that starts and ends at two specific nodes</li>
+<li>paths in CFG are based on syntax, may not correspond to semantically (something that's always false could still be a path)<ul>
+<li>syntactically vs. semantically reachable nodes</li>
+<li>semantic reachability is undecidable (NP complete)</li>
+</ul>
+</li>
+</ul>
+<p>When talking about node or edges in a graph G in <strong>coverage criterion</strong>, generally syntactically reachable</p>
+<p><strong>Single Entry Single Exit graphs:</strong> Type of control flow graph where all test paths start at a single node and end at another</p>
+<p>we have some mapping <code>pathG</code> from our test cases to test paths</p>
+<ul><li>test case can be funciton input, test path is the code conditional flow based on input</li></ul>
+<p><strong>Node Coverage</strong>: forall nodes in reachG[N0], our TR specifies some requirement to visit node n</p>
+<p><strong>Edge Coverage:</strong> all reachable paths of length 1 are required to be visited based on our TR (includes the 0 edges case too)</p>
+<ul><li>Edge coverage =&gt; Node coverage</li></ul>
+<p><strong>Edge Pair Coverage</strong>:** TR contains each reachable path of length up to and including 2, in G.</p>
+<p><strong>Simple Path</strong> has no duplicate nodes except possibly at its ends</p>
+<ul><li>no internal loop, bound their length</li></ul>
+<p><strong>Prime Path</strong> is simple and does not appear as a subpath of any other simple path</p>
+<ul>
+<li>prime path coverage if TR contains each prime path in G</li>
+<li>Complete path coverage contains all paths in G</li>
+<li>Specified Path coverage contains a specified set S of paths</li>
+<li><em>will need to find all prime paths</em></li>
+</ul>
+<p>Test paths are not a subset of Prime Paths</p>
+<h3 id="cfg">CFG</h3>
+<h3 id="concurrent-programs">Concurrent Programs</h3>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

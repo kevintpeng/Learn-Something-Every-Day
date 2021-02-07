@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li>
+<a href="#this-job-is-too-hard"></a><a href="https://www.youtube.com/watch?v=gCQfFXSHSxw">This Job is Too Hard</a>
+</li>
+<li>
+<a href="#feature-store-architecture"></a><a href="https://medium.com/intuitionmachine/google-and-ubers-best-practices-for-deep-learning-58488a8899b6">Feature Store Architecture</a>
+</li>
+</ul>
+</div>
+<h3 id="this-job-is-too-hard"><a href="https://www.youtube.com/watch?v=gCQfFXSHSxw">This Job is Too Hard</a></h3>
+<ul>
+<li>we should aim for a single source of truth for things like ports<ul><li>bring together docker, kubernetes, packer</li></ul>
+</li>
+<li>Configuration <code>yaml</code> becomes Turing complete, maybe we can build a programming language for configurations</li>
+<li>language idiomatic cloud; cloud configuration will be built into languages as a feature</li>
+</ul>
+<h3 id="feature-store-architecture"><a href="https://medium.com/intuitionmachine/google-and-ubers-best-practices-for-deep-learning-58488a8899b6">Feature Store Architecture</a></h3>
+<p>Need a system that manages reliable, reproducible pipelines for training and prediction data</p>
+<ul><li>many technologies, including Samza, distributed stream processing implemented with Kafka and YARN</li></ul>
+<p><a href="https://eng.uber.com/michelangelo/">uber's system</a> supports deep learning and other machine learning methods</p>
+<ul>
+<li>makes distinction of "online vs offline" data</li>
+<li>feature stores are hubs for data that has been extracted and transformed into a usable format, reusable across projects</li>
+<li>offline is useful for batch model training and prediction jobs</li>
+<li>the online feature store is for performant access patterns on precomputed features (aggregate features like averages over time periods)<ul>
+<li>online allows for low latency reads at prediction time</li>
+<li>batch precompute is good for historical features moving from offline feature store to the online cassandra feature store</li>
+<li>near real-time compute comes in directly through kafka, processed by Samza to generate the aggregate feature and eventually written back to the offline feature store</li>
+<li><em>so I think the purpose of the online feature store is so that models can fetch the current "state" for a user, in order to make predictions, while the offline store is for batching up training data to generate models in the first place</em></li>
+</ul>
+</li>
+<li>training is performed in YARN or Mesos<ul><li><em>I think by doing all the training with offline data, this doesn't enable certain classes of algorithms to be implemented, Recurrent neural networks come to mind</em></li></ul>
+</li>
+<li>trained models a stored in a cassandra cluster (versioned with performance and evaluation, and meta data)</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

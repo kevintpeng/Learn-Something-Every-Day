@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>ECE124: Digital Circuits and Systems</title>
+</head>
+<body>
+
+<h1 id="ece124-digital-circuits-and-systems">ECE124: Digital Circuits and Systems</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#combinational-logic">4 Combinational Logic</a></li>
+<li><a href="#synchronous-sequential-circuits">5 Synchronous Sequential Circuits</a></li>
+<li><a href="#design-analysis-of-synchronous-sequential-circuits">5.5 Design &amp; Analysis of Synchronous Sequential Circuits</a></li>
+<li><a href="#register-counters">6 Register &amp; Counters</a></li>
+<li><a href="#memory-and-programmable-logic">7 Memory and Programmable Logic</a></li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<h4 id="pre-midterm-combinational-circuits-part-1">Pre Midterm: Combinational Circuits (Part 1)</h4>
+<ul>
+<li>boolean algebra</li>
+<li>switching algebra</li>
+<li>k-maps</li>
+</ul>
+<h4 id="post-midterm-sequential-systems-part-2">Post Midterm: Sequential Systems (Part 2)</h4>
+<ul>
+<li>edge-triggered vs latch-triggered (gated)</li>
+<li>flip-flops store data since outputs feed into inputs</li>
+</ul>
+<h5 id="simplification">Simplification</h5>
+<ul>
+<li>num of gates</li>
+<li>num of levels of logic</li>
+<li>num of states &amp; # of flip-flops</li>
+</ul>
+<h5 id="analysis-and-design-of-synchronous-sequential-systems">Analysis and Design of Synchronous Sequential Systems</h5>
+<p>Start with informal specification of desired system</p>
+<ol>
+<li>Formalize system with state diagram. Reduce state diagram by merging equivilant states. State Assignment.</li>
+<li>State Table.<ul>
+<li>add flip-flop inputs, referring to the excitation table</li>
+<li>Draw K-maps for flip-flop inputs &amp; system outputs</li>
+</ul>
+</li>
+<li>Draw circuit diagram</li>
+</ol>
+<h5 id="resistors-and-counters">Resistors and Counters</h5>
+<ul>
+<li>Shift registers<ul>
+<li>serial adder</li>
+<li>multiplexer add functionality</li>
+</ul>
+</li>
+<li>Counters<ul>
+<li>ripple counters (no clock)</li>
+<li>synchronous counters</li>
+</ul>
+</li>
+</ul>
+<h5 id="memory-programmable-logic-devices">Memory &amp; Programmable logic devices</h5>
+<ul>
+<li>Read Only Memory has fixed AND array and programmable OR array</li>
+<li>Programmable array logic</li>
+<li>fixed OR array &amp; programmable AND array</li>
+<li>Programmable Logic Arrays (PLA) both arrays programmable</li>
+</ul>
+<p>Notes are for post midterm material.</p>
+<h2 id="combinational-logic">4 Combinational Logic</h2>
+<p>A circuit whose outputs are Boolean functions of its inputs is a <strong>combinational circuit</strong>.</p>
+<ul>
+<li>to analyze, label all gate outputs</li>
+<li>write down truth table</li>
+<li>write boolean expressions for gate outputs in terms of inputs and simplify</li>
+<li>draw diagram</li>
+</ul>
+<p>For speed, use 2-level implementations, for minimization, use simplified expressions.</p>
+<p><strong>Half Adders</strong> sum two inputs and has two outputs, S (sum, with XOR gate) and C (carry, with AND gate).</p>
+<p><strong>Full Adder</strong> sums three inputs. Implemented with two half adders and an AND gate.</p>
+<p><strong>Decoders</strong> can, for example, take 3 inputs to 8 outputs, with 8 AND gates.</p>
+<p><strong>Encoders</strong> take 8 inputs and binary representation of the selected input in terms of three outputs (z = d1 + d3 + d5 + d7, y = d2 + d3 + d5 + d7, x = d4 + d5 + d6 + d7).</p>
+<p><strong>Multiplexers</strong> are switches that connect selected inputs to their outputs. Can be used to implement any function of n variables with a 2^(n-1)-to-one-line multiplexer.</p>
+<h2 id="synchronous-sequential-circuits">5 Synchronous Sequential Circuits</h2>
+<p><strong>Sequential Circuits</strong> contain memory elements. Mealy machine output depends on inputs AND the state of memory elements. Moore machines' outputs depend only on the current state. Uses circuit feedback. A circuit that is a loop with two NOT gates (using feedback) holds two steady states Q and Q'.</p>
+<ul>
+<li>SR latch is implemented with two NOR gates, S=1 sets, R=1 resets (Set Reset Latch).</li>
+<li>D latch (Data latch) stores the value of D</li>
+</ul>
+<p><strong>Flip-Flops</strong> use "edge-triggered" enabler inputs to allow time for the combinational logic outputs to reach their correct values, simultaneously. These are <em>sequential</em> using the <em>clock</em> signal.</p>
+<p><strong>Positive edge triggering</strong> enables when the signal goes from 0 to 1. <strong>Negative edge triggering</strong> enables when the signal goes from 1 to 0.</p>
+<ul>
+<li>JK flip-flop are SR latches that are edge triggered with the ability to toggle when J=K=1. The characteristic equation is <code>A(t+1) = J•A'(t) + K'•A(t)</code>. Sets for J, resets for K.</li>
+<li>T flip-flop toggles current memory value.<ul><li>both implemented with D latches</li></ul>
+</li>
+</ul>
+<p>Characteristic tables are truth tables where outputs can be written as state prior to triggering as Q(t) and after triggering as Q(t+1). Same with characteristic equations.</p>
+<p>Flip flops having timings:</p>
+<ul>
+<li>
+<strong>Setup</strong> time is before the clock edge change, where the inputs to the FF must not change</li>
+<li>
+<strong>Hold</strong> time is right after the clock edge where the inputs must not change</li>
+<li>
+<strong>Clock to output time</strong> is the total time after the clock edge needed for flip flop to produce a stable output</li>
+</ul>
+<h2 id="design-analysis-of-synchronous-sequential-circuits">5.5 Design &amp; Analysis of Synchronous Sequential Circuits</h2>
+<p>Clock driven circuits with memory elements.</p>
+<p>One design procedure, given state diagram or state specifications:</p>
+<ol>
+<li>Write/Find Table for output and next state based on input and current state.</li>
+<li>Assigning binary codes to states (important for determining # of flip flops)</li>
+<li>excitation table for flip flops (can extend the state table)</li>
+<li>Using k-maps, find equations for the flip flop gate inputs and equations for function outputs</li>
+<li>draw circuit from equations</li>
+</ol>
+<p>If given circuit:</p>
+<ol>
+<li>write equations</li>
+<li>Assign states based on flip flops</li>
+<li>Derrive a state table</li>
+</ol>
+<ul>
+<li>state equations<ul>
+<li>input equations (for flip flop inputs), with current state of flip flops</li>
+<li>characteristic equations of flip-flops (for A(t+1))</li>
+<li>output equations, with functions of present state and inputs</li>
+<li>use K-maps if difficult to get equations</li>
+</ul>
+</li>
+<li>state table (tabular form of equations, with Present State, Inputs, Next State)</li>
+<li>see below</li>
+<li>state diagram (graphical representation of table)<ul>
+<li>mealy diagrams have states (with just identifier), whose path's have inputs and outputs (in/out)</li>
+<li>moore machine diagrams have outputs dependent on the state (state identifier/output) and change state based on input (paths just have input)</li>
+</ul>
+</li>
+</ul>
+<p><strong>State Assignment</strong> is identifying each state as a binary string. These binary strings represent each flip flop that stores a bit:</p>
+<table>
+<thead><tr class="header">
+<th>State</th>
+<th>Binary</th>
+<th>Gray Code</th>
+<th>One-Hot</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>a</td>
+<td>000</td>
+<td>000</td>
+<td>00001</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td>001</td>
+<td>001</td>
+<td>00010</td>
+</tr>
+<tr class="odd">
+<td>c</td>
+<td>010</td>
+<td>011</td>
+<td>00100</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td>011</td>
+<td>010</td>
+<td>01000</td>
+</tr>
+<tr class="odd">
+<td>e</td>
+<td>100</td>
+<td>110</td>
+<td>10000</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Gray code useful if system cycles through its states in sequence (only one flip-flop changes state at a time).</li>
+<li>One-Hot requires as many flip-flops as states but simplifies next-state and output combinational logic.</li>
+</ul>
+<p><strong>Excitation Tables</strong> are convinient for JK and T flip-flops. They show <em>how to drive desired state transitions</em>. For JK flip-flops:</p>
+<table>
+<thead><tr class="header">
+<th>Q(t)</th>
+<th>Q(t+1)</th>
+<th>J</th>
+<th>K</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>X</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>X</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>JK flip-flop implementation:</p>
+<p><img src="http://sub.allaboutcircuits.com/images/04196.png" alt="JK Flip Flop"></p>
+<p><strong>Excitation Tables are very important for circuit analysis. They are the core tool for reasoning out a circuit's state diagram.</strong> In more complex excitation tables, header might look like:</p>
+<table>
+<thead><tr class="header">
+<th>Present State, Inputs</th>
+<th>Next state, Flip flop inputs</th>
+</tr></thead>
+<tbody></tbody>
+</table>
+<p>Or inputs can be moved into the header to make the table shorter:</p>
+<table>
+<thead><tr class="header">
+<th>Present state</th>
+<th>Next State</th>
+<th>based on X</th>
+<th>Output Z</th>
+<th>based on X</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td>X=0</td>
+<td>X=1</td>
+<td>X=0</td>
+<td>X=1</td>
+</tr></tbody>
+</table>
+<p><strong>States can be reduced by merging states with the same outputs (based on input) or if they are equivalent by the property of state equivalence:</strong></p>
+<ul>
+<li>
+<strong>Property of state equivalence</strong> says that two states are equivalent if for every possible input combination, they give the same output and next states that are equivalent.</li>
+<li>if two rows are the same in a state table, then they are <em>equivalent</em>
+</li>
+<li>if two state point to each other for some input and are the same otherwise, then they can be <em>merged</em>
+</li>
+</ul>
+<h2 id="register-counters">6 Register &amp; Counters</h2>
+<p><strong>Registers</strong> are a collection of flip-flops that store a collection of bits.</p>
+<p><strong>Counters</strong> a class of registers that cycle through predetermined state sequences.</p>
+<p><strong>Parallel Loading</strong> allows a circuit to load all information simultaneously (and synchronously using a clock) into the register. n-bit register with parallel load can be implemented with n 2-to-one multiplexers, that choose between read/write (load), and n D flip-flops which store the n bits.</p>
+<p><strong>Shift Registers</strong> shift information to neighbouring cells. With two (first takes input from itself, second also takes input from first), <strong>serial transfer</strong> can be done to copy information from one register to another.</p>
+<p><strong>Universal Shift Register</strong> can shift both ways, implemented using 4 4x1 MUX for state selection and a 4 bit register. (states 3: parallel inputs, 2: shift left, 1: shift right, 0: read/hold)</p>
+<p><strong>Ripple Counters</strong> use negative edge triggered T flip-flops whose outputs feed into the next flip-flop's clock input. All T inputs are set by input <code>LOGIC</code>. They are non synchronous and use the clock input to ripple instead.</p>
+<p><strong>Synchronous Counters</strong> use T flip flops, clock driven. A given flip flop will toggle if all previous values are 1. Counter can also be implemented with parallel load, allowing counter to be set to a value.</p>
+<p><strong>Bi-directional counters</strong> use T flip-flops. Flip flop will toggle if all previous flip flops are 1 and going up, or if all previous flip flops are 0 and going down.</p>
+<p><strong>Counters with parallel load</strong> can be implemented with JK flip flops.</p>
+<h2 id="memory-and-programmable-logic">7 Memory and Programmable Logic</h2>
+<ul>
+<li>
+<strong>Memory</strong> stores information in groups of bits called <strong>words</strong>
+</li>
+<li>
+<strong>Processing Unit</strong> tranfers words into registers</li>
+<li>
+<strong>Read only memory (ROM)</strong> are programmable logic devices (PLD)</li>
+<li>
+<strong>Random Access Memory (RAM)</strong> directly access any part of memory</li>
+<li>
+<strong>Static RAM</strong> latches store bits -&gt; faster, requires more space</li>
+<li>
+<strong>Dynamic RAM</strong> stores electronically</li>
+</ul>
+<p><strong>Memory decoding</strong> is converting address lines to appropriate select inputs for an array of binary cells. For a <strong>binary cell</strong>, SR latch with input, select, read/write mode and output. For a selected cell:</p>
+<ul>
+<li>if r/w=1 (then read), S=0 R=0 so latch holds, then read Binary Cell's output.</li>
+<li>if r/w=0 (then write), S=input, R=input', writes to Binary Cell and output value isn't used.</li>
+</ul>
+<p><strong>Error detection and correction</strong> is used to increase reliability of memory.</p>
+<p><strong>Hamming Code</strong> defines parity conditions. When checking parity, set an associated "check bit" to 0 if parity is correct, 1 otherwise.</p>
+<p><strong>ROM</strong> element has k inputs (address) for 2^k • n bits of ROM and n outputs.</p>
+<p>AND arrays and OR arrays operate on rows of inputs depending on the address line. An array is programmed by blowing all fuses in the array except for those crossed out with X's, denoting an intact fuse. <strong>Programmable Logic Device (PLD)</strong> have 3 types:</p>
+<ul>
+<li>Programmable read-only memory (PROM), inputs -&gt; fixed AND array (decoder) -&gt; programmable OR array -&gt; Outputs</li>
+<li>for sum of minterms</li>
+<li>Programmable array logic (PAL), inputs -&gt; programmable AND array -&gt; fixed OR array -&gt; Outputs</li>
+<li>AND gates are programmed to provide the product terms for boolean functions</li>
+<li>Programmable logic arrays (PLA), inputs -&gt; programmable AND array -&gt; programmable OR array -&gt; Outputs</li>
+</ul>
+<p>For a PLA, each input goes through a buffer-inverter gate (triange with two outputs one is inverted, output synchronously), the AND array has 2n columns for n inputs, and k rows (the AND gates) for k product terms. The intersections marked with X's are used for a product term. Each OR gate going vertically in the second array sums the product terms marked with X's to define a function.</p>
+<p>PLA Programming table, for F1 = AB + AC and F2 = AC + A'B'C':</p>
+<table>
+<thead><tr class="header">
+<th>Product term</th>
+<th>Inputs</th>
+<th>Output Functions</th>
+</tr></thead>
+<tbody></tbody>
+</table>
+<table>
+<thead><tr class="header">
+<th>term</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>F1</th>
+<th>F2</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>AB</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>AC</td>
+<td>1</td>
+<td>-</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>A'B'C'</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

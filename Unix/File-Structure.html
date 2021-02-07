@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Unix File Structure</title>
+</head>
+<body>
+
+<h1 id="unix-file-structure">Unix File Structure</h1>          <a href="index.html">Back to Unix</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#bin"><code>/bin</code></a></li>
+<li><a href="#boot"><code>/boot</code></a></li>
+<li><a href="#etc"><code>/etc</code></a></li>
+<li><a href="#dev"><code>/dev</code></a></li>
+<li><a href="#home"><code>/home</code></a></li>
+<li><a href="#lib"><code>lib</code></a></li>
+<li><a href="#media"><code>/media</code></a></li>
+<li><a href="#opt"><code>/opt</code></a></li>
+<li><a href="#proc"><code>/proc</code></a></li>
+<li><a href="#root"><code>/root</code></a></li>
+<li><a href="#sbin"><code>/sbin</code></a></li>
+<li><a href="#usr"><code>/usr</code></a></li>
+<li><a href="#var"><code>/var</code></a></li>
+</ul>
+</div>
+<p>Single rooted tree at <code>/</code>. Instead of separate trees (as with disk partitioning), volumes can be <em>mounted</em> on a directory. Two-disk setups used to be common, with first disk with startup programs and second mounted as <code>/usr</code>.</p>
+<h3 id="bin"><code>/bin</code></h3>
+<p>Contains binaries, including fundamental utilities like <code>ls</code> and <code>cp</code> used to mount <code>/usr</code>. This is loaded in the $PATH which exposes these binaries as commands from your shell.</p>
+<h3 id="boot"><code>/boot</code></h3>
+<p>Contains files required for booting process</p>
+<h3 id="etc"><code>/etc</code></h3>
+<p>System-wide configuration files and system databases.</p>
+<h3 id="dev"><code>/dev</code></h3>
+<p>Location of special or device files. Files here can represent external devices like speakers, or data volumes.</p>
+<ul>
+<li>contains partitions of hard drives (hd1, hd2). Representing devices as files means that we can write data to a file and it is consumed by the device, the speaker file will play sound if you write text into it.</li>
+<li>
+<code>fdisk -l</code> shows disk devices and their partitions<ul>
+<li>for manipulating disk partition tables</li>
+<li>
+<code>sda</code> for example might be partitioned into <code>sda1</code>, <code>sda2</code>, etc</li>
+</ul>
+</li>
+<li>
+<code>df</code> shows disk space by volume on the system</li>
+<li>
+<code>lsblk</code> (list block) shows name, type and mountpoint for all available block devices <em>which is probably the same as the output of fdisk -l; it excludes RAM disks</em>
+</li>
+</ul>
+<h3 id="home"><code>/home</code></h3>
+<p>Contains user home directories. OSX useds <code>/Users</code> instead.</p>
+<h3 id="lib"><code>lib</code></h3>
+<p>Contains shared libraries needed by programs in <code>/bin</code></p>
+<h3 id="media"><code>/media</code></h3>
+<p>Default mount point for removable devices</p>
+<h3 id="opt"><code>/opt</code></h3>
+<p>Locally installed software.</p>
+<h3 id="proc"><code>/proc</code></h3>
+<p>procfs virtual filesystem showing informaiton about processes as files</p>
+<h3 id="root"><code>/root</code></h3>
+<p>Home directory for superuser "root".</p>
+<h3 id="sbin"><code>/sbin</code></h3>
+<p>System binaries, containing fundamental utilities like <code>init</code> for start, maintain, and recovery of system.</p>
+<h3 id="usr"><code>/usr</code></h3>
+<p>User file system. Holds executables , libraries, shared resources not system critical.</p>
+<ul>
+<li>
+<code>/include</code> stores development header files.</li>
+<li>
+<code>/lib</code> stores required libraries and data files for programs stored in <code>/usr</code>
+</li>
+<li>
+<code>local</code> custom programs or files</li>
+</ul>
+<h3 id="var"><code>/var</code></h3>
+<p>Variable, place for files that change often.</p>
+<ul>
+<li>
+<code>/log</code> contains system log files</li>
+<li>
+<code>/tmp</code> directory for temporary files which should be preserved between system reboots</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#coefficient-of-determination">Coefficient of Determination</a></li>
+<li><a href="#ordinary-least-squares-ols">Ordinary Least Squares (OLS)</a></li>
+<li><a href="#generalized-linear-model">Generalized Linear Model</a></li>
+<li><a href="#ridge-regression">Ridge Regression</a></li>
+<li>
+<a href="#least-angle-regression"></a><a href="../Research-Papers/2003%20Least%20Angle%20Regression.md">Least Angle Regression</a>
+</li>
+<li><a href="#logistic-regression">Logistic Regression</a></li>
+</ul>
+</div>
+<h3 id="coefficient-of-determination">Coefficient of Determination</h3>
+<p><code>R^2</code> indicates the proportion of variance in the dependent variable that is predictable from the independent variable</p>
+<ul>
+<li>is very high when the line is fit well</li>
+<li>
+<code>r^2</code> is the square of the sample correlation coefficient</li>
+<li>r = 0.7, r^2 = 0.49 implying 49% of variability in x is caused by variability in y, so 51% is unaccounted for</li>
+</ul>
+<h3 id="ordinary-least-squares-ols">Ordinary Least Squares (OLS)</h3>
+<p>Method for estimates unknown parameters in linear regression</p>
+<ul><li>dataset is n observations {yi, xi}, i from 1 to n, where yi is a scaler value corresponding to some vector x:<ul>
+<li>yi = xi<sup>T</sup>β + εi</li>
+<li>then Y = Xβ + ε; β is p x 1 vector, X is n x p matrix, Y and ε are n x 1 vectors</li>
+</ul>
+</li></ul>
+<h3 id="generalized-linear-model">Generalized Linear Model</h3>
+<p>for p-dimensional fector function <code>y-hat(w,x) = w0 + w1x1 + ... + wpxp</code>, w = (w1,...,wp) are coefficients and w0 is the intercept</p>
+<ul>
+<li>linear regression fits a line (linear model) to minimize the sum of squares between observations</li>
+<li>computes using SVD of X, then for <code>n</code> p-dimensional vectors (n x p matrix), ordinary least squares is O(np^2)</li>
+</ul>
+<h3 id="ridge-regression">Ridge Regression</h3>
+<p>Ridge regression imposes a penalty on Ordinary Least Squares, introducing a ridge coefficient which minimizes the residual sum of squares</p>
+<ul><li>shrinkage is when a fitted relationship performs less well on a new data set</li></ul>
+<h3 id="least-angle-regression"><a href="../Research-Papers/2003%20Least%20Angle%20Regression.md">Least Angle Regression</a></h3>
+<p>Regression algorithm for high-dimensional data</p>
+<ul><li>numerically efficient when p &gt;&gt; n, for n x p matrix or n p-dimensional vectors</li></ul>
+<h3 id="logistic-regression">Logistic Regression</h3>
+<p>Linear model for classification rather than regression. Can be used for binary, or multinomial logistic regression</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

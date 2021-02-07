@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Dimensionality Reduction</title>
+</head>
+<body>
+
+<h1 id="dimensionality-reduction">Dimensionality Reduction</h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#principal-axis-theorem">Principal Axis Theorem</a></li>
+<li><a href="#pca-principal-component-analysis">PCA, principal component analysis</a></li>
+</ul>
+</div>
+<p>MNIST is a computer vision dataset, classic example is the set of handwritten digits</p>
+<ul>
+<li>digit can be represented as a point in 784-dimensional space</li>
+<li>MNIST digits intuitively live in a lower dimensional subspace than 784</li>
+<li>goal of dimensionality reduction is to think of other ways to encode information in lower dimensions, losing only irrelevent information -- <a href="http://colah.github.io/posts/2014-10-Visualizing-MNIST/">source</a>
+</li>
+</ul>
+<h3 id="principal-axis-theorem">Principal Axis Theorem</h3>
+<p>Motivation:</p>
+<ul>
+<li>x^2/9 + y^2/25 = 1 defines an elipse</li>
+<li>x^2/9 - y^2/25 = 1 is a hyperbola</li>
+<li>with cross terms, 5x^2 + 8xy + 5y^2 = 1, it is not obvious whether it's elipse or hyperbola</li>
+<li>through completing the square, a special case of matrix diagonalization</li>
+</ul>
+<h3 id="pca-principal-component-analysis">PCA, principal component analysis</h3>
+<p>applying orthogonal tranformations to convert a set of correlated variables into a set of linearly uncorrelated variables, called principle components</p>
+<ul>
+<li>orthogonal transformations preserve euclidean distance between points, so in 2&amp;3-dimensional euclidean space, rotations, reflections or improper rotations (combination)</li>
+<li>number of principle components is less than or equal to number of original variables</li>
+</ul>
+<p>Covariance is a measure of joint variability of two random variables</p>
+<ul>
+<li>covariance is positive when there is a positive correlation between variables</li>
+<li>variance is the average squared deviation of one variable</li>
+<li>covariance is the average product of deviations in two variables</li>
+<li>covXY = σxy = E[(X - μx)(Y - μy)]</li>
+<li>covariance is in units obtained by multiplying the units of X and Y</li>
+<li>correlation is normalized, dimensionless version of covariance</li>
+<li>covariance matrix is holds covariance for every combination of variables</li>
+<li>joint probability distribution describes a composition of multiple random variables, bivariate or multivariate distributions</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

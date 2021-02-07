@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Port (computer networking)</title>
+</head>
+<body>
+
+<h1 id="port-computer-networking">Port (computer networking)</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#common-ports">Common ports</a></li>
+<li><a href="#opening-tcp-ports">Opening TCP ports</a></li>
+<li><a href="#port-forwarding">Port Forwarding</a></li>
+</ul>
+</div>
+<p>Always associated with an IP address of the host and the protocol type of the communication. A port is an endpoint of communication in an OS.</p>
+<ul>
+<li>Port is identified by a 16 bit number (0 to 65535).</li>
+<li>Ports are ncessary for the client-server model of applications.</li>
+</ul>
+<h3 id="common-ports">Common ports</h3>
+<ul>
+<li>21: FTP</li>
+<li>22: SSH</li>
+<li>53: DNS service</li>
+<li>80: HTTP</li>
+<li>110: Post Office Protocol (POP3, email)</li>
+<li>443: HTTP Secure</li>
+<li>
+<code>$ less /etc/services/</code> shows a list of well-known TCP and UDP port numbers</li>
+</ul>
+<h3 id="opening-tcp-ports">Opening TCP ports</h3>
+<ul>
+<li>
+<code>nc</code> is netcat utility, used for anything TCP/UDP</li>
+<li>opens TCP connections, send UDP packets, listen on arbitrary TCP or UDP ports, port scanning, deal with IPv4 and IPv6</li>
+<li>
+<code>nc -l 5000</code> opens port 5000</li>
+</ul>
+<h3 id="port-forwarding">Port Forwarding</h3>
+<p>An application of NAT (essentially IP remapping), that redirects a communication request from one address and port number combination to another, as packets pass through a router.</p>
+<ul>
+<li>most commonly used to make a service on a host that resides on a private network (behind a router) available to hosts on the opposite side of the gateway</li>
+<li>done by remapping the destination IP address and port num to an internal host</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

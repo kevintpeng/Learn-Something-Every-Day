@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>SSL/TLS Termination</title>
+</head>
+<body>
+
+<h1 id="ssltls-termination">SSL/TLS Termination</h1>          <a href="index.html">Back to Networking</a>
+<p>Is a proxy server that is used to handle incoming TLS connections, decrypting the TLS and passing on unencrypted requests to other servers. This reduces the load on the upstream servers by not having to handle decryption and encryption.</p>
+<ul>
+<li>Apache HTTP server, HAProxy, NGINX, Squid can all act as SSL termination proxies</li>
+<li>ssl can be terminated at the load balancer level if the connection to the upstream (data centers or cloud servers) is very trustworthy</li>
+<li>this <a href="http://security.stackexchange.com/questions/30403/should-ssl-be-terminated-at-a-load-balancer">source</a> mentions that ssl should be terminated at the load balancer because it offers a centralized place to correct SSL attacks, reducing termination complexity</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>NoSQL</title>
+</head>
+<body>
+
+<h1 id="nosql">NoSQL</h1>          <a href="index.html">Back to Production-Engineering/Data-Stores</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#database-normalization">Database Normalization</a></li>
+<li><a href="#modelling-data">Modelling Data</a></li>
+<li><a href="#object-oriented-design-to-databases">Object Oriented Design to Databases</a></li>
+<li><a href="#one-to-many-relationships">One to Many relationships</a></li>
+<li><a href="#many-to-many">Many to Many</a></li>
+</ul>
+</div>
+<p>DB architectural design, opposed to SQL. The main advantage of NoSQL over SQL is that it can model data in different ways than a relational model, which can improve performance. A disadvantage is that NoSQL can result in very complicated data models</p>
+<ul>
+<li>can store structured or unstructured data, not requiring a predefined schema for data</li>
+<li>while SQL databases require migrations for schema changes, NoSQL schemas can interate dynamically</li>
+<li>strong for graph stores and document databases</li>
+<li>can handle wide column stores, optimized for large queries and joins</li>
+<li>SQL databases scale vertically, to ensure validations across data and for cross table joins</li>
+<li>NoSQL auto-shard nicely by scaling horizontally with more servers</li>
+<li>NoSQL is inherently less structured than SQL, storing information in only two columns, key and value</li>
+</ul>
+<h3 id="database-normalization">Database Normalization</h3>
+<p>In relational databases, it is the process of organizing columns and tables to reduce data redundancy. If multiple Books have the same genre, create a new table Genres with a row Sci-fi where genre attribute of the book points to this row.</p>
+<h3 id="modelling-data">Modelling Data</h3>
+<p>OO, we use classes and objects. In relational DBs, we use tables</p>
+<p>Denormalization separates data into documents, of similar data</p>
+<ul>
+<li>a document like a book is a hash of keys and values which can be saved into a collection of books<ul>
+<li>something like genre, is stored as an array rather than a relation</li>
+<li>this is structured with a multi-key index rather than a second table</li>
+</ul>
+</li>
+<li>represented with high level entities with nested attributes</li>
+<li>RDBMS use tables of rows, while NoSQL uses collections of documents</li>
+<li>consider how data will be manipulated, and what the access patterns will be like (read/write ratios ...)</li>
+<li>no joins</li>
+</ul>
+<h3 id="object-oriented-design-to-databases">Object Oriented Design to Databases</h3>
+<ul><li>mapping an OO modelled data, for example an inheritance tree, to RDBMS can end up being modelled as a shapes table, with each row having a shape type with some attributes that may be unique to that type of shape<ul>
+<li>lots of columns with lots of <code>nil</code> data, very inefficient</li>
+<li>in NoSQL, query planner will overlook documents that are missing an attribute being queried through a <code>find</code>
+</li>
+<li>sparce indexes exclude documents without the indexed key</li>
+</ul>
+</li></ul>
+<h3 id="one-to-many-relationships">One to Many relationships</h3>
+<p>Ownership pattern determines which model we should use</p>
+<ul>
+<li>Embedded Arrays in documents hold keys for related documents<ul>
+<li>slice subsets of arrays</li>
+<li>uses foreign keys</li>
+</ul>
+</li>
+<li>Embedded trees nest documents<ul>
+<li>more performance, since documents are nested directly inside</li>
+<li>harder to search, and hard to fetch partial results (must fetch all comments then filters)</li>
+</ul>
+</li>
+<li>Normalized approach using multiple collections (creating<ul><li>results in more subqueries (loses data locality)</li></ul>
+</li>
+</ul>
+<h3 id="many-to-many">Many to Many</h3>
+<p>Relational needs a 3rd join table (again less performant)</p>
+<p>NoSQL, we can do one-sided where all categories are stored in embedded arrays in products</p>
+<h1 id="cassandra">Cassandra</h1>
+<p>Distributed NoSQL DB.</p>
+<ul>
+<li>distributed, so no single point of failure</li>
+<li>
+<strong>gossip protocol</strong> is used</li>
+<li>data is indexed with a memtable</li>
+<li>writes are fairly cheap, and indexes greatly improve reads at the cost of writes-</li>
+</ul>
+<p>Distributed database for managing large amounts of structured data</p>
+<ul>
+<li>lives across multiple servers</li>
+<li>provides highly available (resilient to outage), no single point of failure</li>
+<li>provides a solution to distributing data across data centers and availability zones</li>
+<li>uses a masterless "ring" design</li>
+<li>doesn't have to use sharded architecture or master-slave models</li>
+<li>because there is no master, and no single point of failure, it is truely continuous in uptime</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>doesn't handle transactions (local nor XA (aka 2 phase commit) )</li>
+<li>this implies inconsistent indexing</li>
+<li>actions are not totally ordered</li>
+<li>data is structured around the queries made to the database, so it doesn't handle ad hoc queries well</li>
+</ul>
+<h3 id="gossip-protocol">Gossip Protocol</h3>
+<p>Communications protocol for spreading new information</p>
+<ul>
+<li>through periodic, pairwise, inter-process interactions, nodes spread information in a robust way</li>
+<li>information exchanged during interactions is bounded</li>
+<li>
+<code>broadcast_address</code> facilitates node to node interaction, for the purpose of peer discovery within the cluster (uses a public address)</li>
+<li>
+<code>listen_address</code> is for gossip, and is the address that Cassandra binds to</li>
+</ul>
+<h3 id="durability-through-storage----todo-source">Durability through Storage -- <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf">TODO source</a>
+</h3>
+<p>Writes first to the CommitLog, and then to the Memtable, overflowing into disk as an SSTable</p>
+<ul>
+<li>fsync synchronizes file's in-core state with a storage device</li>
+<li>durability is achieved through fsync, flushing the write-back cache to disk (ECE 222)</li>
+<li>commitlog is append-only which obviates the need for random seeking<ul>
+<li>CommitLogAllocator manages CommitLogSegment instances (each being a file on disk, with a sequence of serialized RowMutation objects)</li>
+<li>commitlog_sync can be periodic or batch which dictates how fsync to disk is called</li>
+</ul>
+</li>
+</ul>
+<h3 id="data-distribution">Data distribution</h3>
+<p>It is important to spread data across the cluster uniformly</p>
+<ul>
+<li>data location is chosen based on the hash of its primary key</li>
+<li>primary keys is used to fetch data from a table, a simpke key uses a single column (just user id)</li>
+<li>a composite/compound key is generated from more columns (group and user id)<ul>
+<li>a compound key is broken into the <em>partition key</em> (the value of the first part of the arguments)</li>
+<li>
+<em>cluster key</em> is the rest of the arguments</li>
+<li>this concept more abstractly describes how the data locality is distributed in the Cassandra Cluster<ul>
+<li>partion key describes which node will hold respective data</li>
+<li>cluster key organizes information on the node</li>
+</ul>
+</li>
+<li>this is logically broken down based on what queries will look like</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

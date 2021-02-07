@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>2018 Performance analysis of cloud applications</title>
+</head>
+<body>
+
+<h1 id="performance-analysis-of-cloud-applications"><a href="https://www.usenix.org/conference/nsdi18/presentation/ardelean">2018 Performance analysis of cloud applications</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#methodology-for-live-testing">Methodology for live testing</a></li>
+<li><a href="#statistics-and-experiments">Statistics and experiments</a></li>
+<li><a href="#measuring-performance">Measuring Performance</a></li>
+<li><a href="#bursty-tracing">Bursty Tracing</a></li>
+</ul>
+</div>
+<p>Stated that the only way to analyze production performance is using live production systems. In this paper, Google looks at Gmail performance</p>
+<ul>
+<li>looking at request patterns with respect to time, you can find cyclical patterns in user activity based on what kind of app you are running</li>
+<li>load can be composed of user activity and one-off events like recoveries, jobs, deploys</li>
+</ul>
+<h3 id="methodology-for-live-testing">Methodology for live testing</h3>
+<p>Users are partitioned randomly, one test and one control</p>
+<ul>
+<li>A/B testing is common for UI changes</li>
+<li>A/A testing is used to measure statistical deviation in user partitions (without necessarily rolling out new features between the two partitions)</li>
+</ul>
+<h3 id="statistics-and-experiments">Statistics and experiments</h3>
+<p>Must make assumptions clear when using statistics and scrutinize the experiment to enure that assumptions (like event independence) are not violated</p>
+<h3 id="measuring-performance">Measuring Performance</h3>
+<p>Before determining how to make an app faster, we must understand why it's slow or expensive</p>
+<p><strong>temporal context</strong> of a request can be used to find out what else was running at the time</p>
+<p><strong>operation context</strong> tells you how a request ran (what parameters, maybe what other calls are madE)</p>
+<p>We need a method for tracing the context of these events. <em>it seems temporal context may be as easy as timestamps when estimating?</em> More accurately, we might require coordination between layers</p>
+<h3 id="bursty-tracing">Bursty Tracing</h3>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>SWF</title>
+</head>
+<body>
+
+<h1 id="swf">SWF</h1>          <a href="index.html">Back to AWS</a>
+<p><strong>Simple Workflow Service</strong> gives you control of coordinating tasks done by applications</p>
+<ul>
+<li>this is multi-step background jobs, like handling an online order</li>
+<li>SWF facilitates these workflows with many tasks (Lambda, activity tasks, decision tasks)</li>
+<li>
+<strong>actors</strong> are just their term for processes owned by SWF that are the different components of the entire system<ul>
+<li>
+<strong>decider</strong> uses the history log of tasks performed to determine which task to run next</li>
+<li>the decider can choose to complete, cancel, or fail an open workflow execution</li>
+<li>
+<strong>workflow starter</strong> instantiates a workflow with an empty history</li>
+</ul>
+</li>
+<li>deciders and activity workers communicate using long polling</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

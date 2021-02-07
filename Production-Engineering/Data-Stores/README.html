@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Database Systems</title>
+</head>
+<body>
+
+<h1 id="database-systems">Database Systems</h1>          <a href="index.html">Back to Production-Engineering/Data-Stores</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#acid-properties-of-transactions----source">ACID Properties of Transactions -- </a><a href="https://en.wikipedia.org/wiki/ACID">source</a>
+</li>
+<li><a href="#firebase-realtime-database">Firebase Realtime Database</a></li>
+</ul>
+</div>
+<h3 id="acid-properties-of-transactions----source">ACID Properties of Transactions -- <a href="https://en.wikipedia.org/wiki/ACID">source</a>
+</h3>
+<p>These are properties of database <strong>transactions</strong>. Transactions are used in transactional databases, which describe most relational database management systems. Necessary design where sequence of data is important, and for critical operations.</p>
+<ul>
+<li>
+<strong>atomicity</strong> requires each transaction be "all or nothing" (occurs in whole or not at all)</li>
+<li>generally implemented with some mechanism that indicates which transactions have started and finished</li>
+<li>Operating systems use <code>open(2)</code> and <code>flock(2)</code>
+</li>
+<li>
+<strong>consistency</strong> ensures that any transaction will bring the database to a valid state based on set rules</li>
+<li>
+<strong>isolation</strong> ensures that concurrent operations should act as if they were executed serially (one after another)</li>
+<li>
+<strong>durability</strong> ensures that commited transactions remain in the database even in the event of failure</li>
+</ul>
+<h2 id="firebase-realtime-database">Firebase Realtime Database</h2>
+<p>Stores and syncs data in a NoSQL cloud database. Data <em>syncs across all clients in realtime</em>, by pushing data to clients when changes are made to the database.</p>
+<ul>
+<li>allows you to build server-less apps</li>
+<li>offers offline support</li>
+<li>can be used to store remote config, that pushes to services when changed</li>
+</ul>
+<p>Firebase's database store information as JSON objects; it's a JSON Tree.</p>
+<ul>
+<li>no tables or records</li>
+<li>Firebase Storage (component of firebase) stores files</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

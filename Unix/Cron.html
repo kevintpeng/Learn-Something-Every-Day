@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Cron</title>
+</head>
+<body>
+
+<h1 id="cron">Cron</h1>          <a href="index.html">Back to Unix</a>
+<p>Cron is a unix utility for scheduling scripts. Cron can be used via <code>crontab</code> or found in <code>/etc</code> folders with <code>hourly</code>, <code>daily</code>,<code>weekly</code>, <code>monthly</code> suffixes.</p>
+<p>To setup, run <code>crontab -e</code> to edit a user's crontab.</p>
+<p>Set the task time to some time where your computer is likely on and connected to internet. For example: <code>00 20 * * * sh Please-My-Friends/please-my-friends.sh</code>. This will run the shell script at 8:00pm every day.</p>
+<p>crontabs use the following syntax:</p>
+<p><code>m h dom mon dow cmd</code> (minute, hour, day of month, month, day of week, command)</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

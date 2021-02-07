@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Bloom Filter</title>
+</head>
+<body>
+
+<h1 id="bloom-filter"><a href="https://en.wikipedia.org/wiki/Bloom_filter">Bloom Filter</a></h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<p>Probabilistic data structure for estimating set membership</p>
+<ul>
+<li>returns "probably in set" or "definitely not in set" (no false negatives)</li>
+<li>
+<em>Empty Bloom Filter</em> is a bit array of size <code>m</code>, with <code>k</code> hash functions of uniform distribution, <code>k</code> &lt;&lt; <code>m</code>, but based on the intended false positive rate</li>
+<li>to add, pass element through each hash function and set bits to 1</li>
+<li>to query, an element is passed through each k hash functions, and if mapped to any 0s, it is definitely not in the set</li>
+<li>if all bits are 1, then it is either in the set (since it would have been added) or it is a false positive (all k bits are by chance set to 1)</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

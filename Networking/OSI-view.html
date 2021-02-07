@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>OSI Model</title>
+</head>
+<body>
+
+<h1 id="osi-model">OSI Model</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#application-upper-layer-data">5-7 Application &amp; Upper Layer Data</a></li>
+<li><a href="#transport">4 Transport</a></li>
+<li><a href="#network">3 Network</a></li>
+<li><a href="#data-link">2 Data Link</a></li>
+<li><a href="#physical">1 Physical</a></li>
+</ul>
+</div>
+<p>It is a view of networking that breaks down the layers of abstraction. Essentially, several layers of conventions on how to wrap data with metadata and the protocols for unwrapping.</p>
+<h3 id="application-upper-layer-data">5-7 Application &amp; Upper Layer Data</h3>
+<p>These are the highest level of abstraction, generally deal with encryption &amp; compression</p>
+<ul>
+<li>HTTP, HTTPS, FTP, SSH</li>
+<li>BGP, for modifying route tables (poisoning or adding routes)</li>
+</ul>
+<p>At 6, SSL/TLS, ASCII, JPG</p>
+<h3 id="transport">4 Transport</h3>
+<p>TCP, UDP sends Segment datagrams</p>
+<ul>
+<li>these are protocols that work on the assumption that messages make it to the right computer</li>
+<li>this layer exists for data integrity, where TCP further extends this to ensuring data is received</li>
+<li>includes ports</li>
+</ul>
+<h3 id="network">3 Network</h3>
+<p>IPv4, IPv6, ICMP.</p>
+<ul>
+<li>Packet datagrams</li>
+<li>this is where routing is handled, route tables and rules</li>
+<li>ICMP is used for pings, traceroute<ul>
+<li>diagnostics, error messages or control messages to provide feedback about the control environment</li>
+<li>it could be done with IP packets, but would have required more length for each packet</li>
+</ul>
+</li>
+</ul>
+<h3 id="data-link">2 Data Link</h3>
+<p>Ethernet protocol, WiFi protocol, amongst others. Each frame wraps informations around each data payload. This layer's responsibility is making a connection and ensuring error free transfer</p>
+<ul><li>ARP is a protocol for discovering MAC address associated with an IPv4 address (or other layer 3 address)</li></ul>
+<h3 id="physical">1 Physical</h3>
+<p>Bits over cables. Electrical specs.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

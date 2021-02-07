@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Network Debugging</title>
+</head>
+<body>
+
+<h1 id="network-debugging">Network Debugging</h1>          <a href="index.html">Back to Networking</a>
+<p>Summarizing some of my thought process, first determine what layer the issue is happening in. Probably layer 7 (HTTP, DNS, or other protocols), layer 4 (transport layer TCP UDP), or layer 3 (network layer IPv4, ICMP). Always describe the problem in a sentence.</p>
+<ul>
+<li>
+<strong>HTTP and DNS layer 7 issues</strong><ul>
+<li>
+<code>nslookup</code> and <code>ping</code> can be useful for debugging layer 7 DNS issues, <code>traceroute</code> lets you trace the DNS lookup</li>
+<li>
+<code>/etc/resolv.conf</code> contents generally dictate what nameservers will be used and with what domain suffixes during DNS lookup</li>
+<li>
+<code>/etc/hosts</code> can locally alias certain address to records</li>
+<li>
+<code>curl -v</code> is useful for checking HTTP response headers and body</li>
+</ul>
+</li>
+<li>
+<strong>tcp udp layer 4 issues</strong><ul>
+<li>wireshark can be very useful for catching issues here, like which requests are being sent and where</li>
+<li>
+<code>netstat -tulpn</code> can be useful for whitebox testing to see if a machine is listening on the right port</li>
+</ul>
+</li>
+<li>
+<strong>routing layer 3 issues</strong><ul>
+<li>ICMP is a protocol, doesn't have port abstraction<ul><li>protocol used by layer 3 debugging tools</li></ul>
+</li>
+<li>
+<code>ifconfig</code> is used for information about network interfaces</li>
+<li>
+<code>ping</code> of course is an easy way to see if a hostname or address is discoverable</li>
+<li>
+<code>route</code> will display the routing table</li>
+<li>
+<code>bridge link show</code> can be used to display</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

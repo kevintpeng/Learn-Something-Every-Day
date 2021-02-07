@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Amazon Simple Storage Service</title>
+</head>
+<body>
+
+<h1 id="amazon-simple-storage-service">Amazon Simple Storage Service</h1>          <a href="index.html">Back to AWS</a>
+<div id="TOC">
+
+<ul><li><a href="#storage-classes">Storage Classes</a></li></ul>
+</div>
+<p>Object storage system. <strong>Object storage</strong> is a managed at a higher level of abstraction (application level) than file and block storage (operating system level). In its design, it abstracts away file system limitations and has baked in durability through replication and scalability in terms of handling requests</p>
+<ul>
+<li>uses HTTP API for reading and writing data</li>
+<li>storage format is as files in buckets, where the bucket name is globally unique and files are identified with a user defined key (file name)</li>
+<li>have a unique URL to be accessed from the API</li>
+<li>each object has data and metadata</li>
+<li>can store any data, and is treated simply as a stream of bytes</li>
+<li>has many use cases, including backups and archives, blob storage, media storage</li>
+<li>durability SLA is whether the data will still persist in the future, while availability SLA is whether the data is currently accessible</li>
+</ul>
+<h3 id="storage-classes">Storage Classes</h3>
+<ul>
+<li>Standard, fast, durable and available</li>
+<li>Standard-IA (Infrequent Access), higher latency, still fast, durable and available</li>
+<li>Reduced Redundancy Storage (RRS), lower redundancy but cheaper</li>
+<li>Glacier is very cheap, but has 3-5 hour access time SLA</li>
+<li>life-cycle policies allow data to automatically change storage class type based on access patterns</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

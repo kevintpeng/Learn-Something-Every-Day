@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>CS444 Compilers</title>
+</head>
+<body>
+
+<h1 id="cs444-compilers">CS444 Compilers</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#scanning-and-parsing">Scanning and Parsing</a></li>
+<li><a href="#code-generation-data-layouts">Code Generation: Data layouts</a></li>
+</ul>
+</div>
+<h3 id="scanning-and-parsing">Scanning and Parsing</h3>
+<ul>
+<li>LL(1) is a top-down parser which finds a parse tree or rejects some input. The goal is a linear time algorithm.<ul>
+<li>a grammar is LL1 iff |predict(A,a)| &lt;= 1 for all A,a</li>
+<li>more generally, this class of parsers is referred to as LL(k), where k = 1 in this case</li>
+</ul>
+</li>
+<li>LR is a bottom-up parser, AKA a shift-reduce parser<ul><li>a <strong>viable prefix</strong> is a string of symbols that expands to a prefix of a valid sentence</li></ul>
+</li>
+<li>SLR(1) is same parser as LR(1), but they check viable prefix <code>Beta A alpha</code> differently</li>
+</ul>
+<h3 id="code-generation-data-layouts">Code Generation: Data layouts</h3>
+<h4 id="object-layouts">Object Layouts</h4>
+<p>We have object layouts and also class layouts for holding instance vs static parts.</p>
+<p>An object has to layout two parts:</p>
+<ul>
+<li>type tag/class data<ul>
+<li>includes static fields, method implementation addresses and subtype testing data</li>
+<li>we need to implement dynamic dispatch for polymorphism</li>
+<li>use superclass as a prefix of the object layout for all subclasses</li>
+</ul>
+</li>
+<li>for subtype testing:<ul>
+<li>for single inheritance, we can use a DFA algorithm to precompute intervals, then we get constant time comparison where if one interval is fully contained in another interval, its a subtype</li>
+<li>for multi-inheritance, use a 2D boolean array to store all type pairs and mark subtype relationships</li>
+</ul>
+</li>
+<li>instance fields</li>
+</ul>
+<h4 id="class-layouts">Class Layouts</h4>
+<p>Class layouts will follow the same principle: superclasses are a prefix of all subclasses</p>
+<ul><li>each method is a part of the class layout. It is a pointer to the implementation (start address of instructions for jumps)<ul><li>it must be a pointer so that the data layout is the same, but the implementation can be overridden by choosing a different address</li></ul>
+</li></ul>
+<p>Classes that implement an interface complicate this. Multiple implementation requires a generic runtime lookup solution, that does not depend on the prefix-layout idea.</p>
+<ul>
+<li>selector indexed table is a naive 2D array, really good time (small constant)</li>
+<li>hash table, more efficient for space (no empty entries)</li>
+</ul>
+<h4 id="arrays">Arrays</h4>
+<p>For arrays, java arrays are a subtype of <code>Object</code></p>
+<ul>
+<li>need vtable (like class layouts)</li>
+<li>subtype testing</li>
+<li>length</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

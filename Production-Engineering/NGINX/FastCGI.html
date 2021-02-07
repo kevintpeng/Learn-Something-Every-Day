@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>FastCGI</title>
+</head>
+<body>
+
+<h1 id="fastcgi">FastCGI</h1>          <a href="index.html">Back to Production-Engineering/NGINX</a>
+<div id="TOC">
+
+<ul><li><a href="#fastcgi-is-a-cluster-of-workers-that-processes-requests-from-nginx">FastCGI is a cluster of workers that processes requests from NGINX</a></li></ul>
+</div>
+<p>Variation of <a href="../../Networking/CGI.md">Common Gateway Interface</a>, aimed to reduce overhead associated with interfacing the web server and CGI programs. Allows the server to handle more requests.</p>
+<ul>
+<li>instead of creating a new process for each request, FastCGI uses persistent processes to handle many requests each<ul>
+<li>processes are owned by the FastCGI server rather than the web server</li>
+<li>avoids process creation/termination overhead</li>
+</ul>
+</li>
+<li>for a request, web server sends env information and the page request to a FastCGI process via sockets or TCP</li>
+<li>in NGINX, the <code>fastcgi_cache</code> and <code>proxy_cache</code> directives have the same end behaviour, with different backend protocols</li>
+</ul>
+<h3 id="fastcgi-is-a-cluster-of-workers-that-processes-requests-from-nginx">FastCGI is a cluster of workers that processes requests from NGINX</h3>
+<p><img src="https://cdn.deliciousbrains.com/content/uploads/2016/02/02100522/ashleys-server-architecture.svg" alt="diagram"></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

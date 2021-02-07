@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Remote Procedure Call</title>
+</head>
+<body>
+
+<h1 id="remote-procedure-call">Remote Procedure Call</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul><li><a href="#grpc">gRPC</a></li></ul>
+</div>
+<ul>
+<li>request-response protocol, allowing execution of a function in a different address space</li>
+<li>form of IPC, but enables distributed applications to communicate as if they're local</li>
+</ul>
+<h3 id="grpc">gRPC</h3>
+<ul>
+<li>framework, which can use protocol buffers as its interface definition language</li>
+<li>server also runs a gRPC server process, to handle calls, and run functions based on defined interfaces<ul><li>from <code>.proto</code> files, protoc (compiler) can generate language specific data-access classes</li></ul>
+</li>
+<li>gRPC supports unary function input/ouputs, or streamed which handles a sequence of messages</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

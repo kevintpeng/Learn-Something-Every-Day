@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Data Structures and Data Management</title>
+</head>
+<body>
+
+<h1 id="data-structures-and-data-management"><a href="https://www.student.cs.uwaterloo.ca/~cs240/s17/">Data Structures and Data Management</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li>
+<a href="#introduction"></a><a href="https://www.student.cs.uwaterloo.ca/~cs240/s17/modules/module01-2up.pdf">Introduction</a>
+</li>
+<li>
+<a href="#priority-queue"></a><a href="https://www.student.cs.uwaterloo.ca/~cs240/s17/modules/module02-2up.pdf">Priority Queue</a>
+</li>
+</ul>
+</div>
+<ul><li>storing, accessing, performing operations on large collections of data</li></ul>
+<h3 id="summary">Summary</h3>
+<ul><li>for exists proofs, we can keep using the properties of inequalities to simplify the statement</li></ul>
+<h3 id="introduction"><a href="https://www.student.cs.uwaterloo.ca/~cs240/s17/modules/module01-2up.pdf">Introduction</a></h3>
+<h4 id="problem">Problem</h4>
+<p>Given a problem instance I (input) find a solution (output with correct answer) in finite time with Size(I)</p>
+<p>Example:</p>
+<ul>
+<li>Problem: multiply two matricies</li>
+<li>Instance: Two matrix inputs</li>
+<li>Solution: One output matrix</li>
+</ul>
+<p>Running Time Simplifications</p>
+<p>Matrix multiplcation performs in n<sup>2</sup>(n+n-1) time or O(n<sup>3</sup>) in naive implementation</p>
+<ul>
+<li>Strassen's Algorithm n<sup>log2(7)</sup>
+</li>
+<li>Le Gall n<sup>2.37</sup>
+</li>
+</ul>
+<p>Order notation:</p>
+<ul>
+<li>f(n) in O(g(n)) if exists constants c &gt; 0 and n<sub>0</sub> &gt; 0 s.t. 0 ≤ f(n) ≤ c g(n) forall n ≥ n<sub>0</sub>
+</li>
+<li>O describes the set of functions asymptotically upper bounded by function g</li>
+<li>Ω describes the set of functions asymptotically lower bounded by a function g</li>
+<li>Θ describes the set of functions asymptotically equal to g</li>
+<li>o is describes functions strictly less than g</li>
+<li>ω is strictly greater than g</li>
+<li>
+<code>c</code> offsets a transformation of the function, while <code>n0</code> describes the "sufficiently large" factor during comparison</li>
+</ul>
+<p>"Best Case &amp; Worst Case" refer to instances of inputs into the algorithm, but this has nothing to do with upper/lower bounds. Lets look at a contrived example:</p>
+<ul><li>best and worst cases can have a range; suppose we introduce a probabilistic, nondeterministic factor (contrieved example in class)</li></ul>
+<p>Proof: first derive an appropriate c and n<sub>0</sub>, then show that desired relationship holds for all n ≥ n<sub>0</sub></p>
+<ul>
+<li>0≤2n2+3n+11≤cn2 foralln≥n0.</li>
+<li>exists some c &gt; 0, and n0 &gt; 0 s.t. 2n<sup>2</sup> + 3n + 11 ≤ cn<sup>2</sup>
+</li>
+<li>n<sup>2</sup> ≥ n forall n ≥ 1</li>
+</ul>
+<p>Prove that 2010n2 + 1388n ∈ o(n3) from first principles.</p>
+<ul>
+<li>if 2010n<sup>2</sup> + 1388n in O(n<sup>3</sup>), then forall constants c &gt; 0, exists n0 &gt; 0 s.t. 2010n<sup>2</sup> + 1388n &lt; cn<sup>3</sup> forall n ≥ n0</li>
+<li><em>now we can simplify the expression by subbing n squared for n</em></li>
+<li>2010n<sup>2</sup> + 1388n<sup>2</sup> &lt; cn<sup>3</sup>
+</li>
+<li>3398n<sup>2</sup> &lt; cn<sup>3</sup> for n ≥ 1</li>
+<li>3398 &lt; cn, n ≥ 1</li>
+<li>n0 &gt; 3398/c, c &gt; 0</li>
+<li>n0 = 3398/c + 1, <em>since n ≥ 1</em>
+</li>
+<li><em>now prove for n ≥ n0</em></li>
+<li>3398 &lt; cn</li>
+<li>let n = n0 + k, k ≥ 0</li>
+<li>3398 &lt; c(3398/c + 1) +ck</li>
+<li>3398 &lt; 3398 + c + ck</li>
+<li>0 &lt; 1+k, <em>since k ≥ 0, we can set k = 0</em>
+</li>
+<li>0 &lt; 1, <em>therefore true</em>
+</li>
+</ul>
+<p>Now let's compare two implementations of exponentiation:</p>
+<pre><code>Bruteforce(b,x) we iteratively call ret *= b x times
+Squaring(b,x) we recursively call ExpSquaring(b*b, x/2) or b*ExpSquaring(b*b, (x-1)/2)
+
+we see that Tb(x) = x, and Te(x) = {3log2(x), 4log2(x)</code></pre>
+<h4 id="loop-analysis">Loop Analysis</h4>
+<p>Start from inner-most loop, and use Θ-bounds throughout to obtain a θ-bound for the complexity of the algorithm</p>
+<ul>
+<li>identify elementary operations of θ(1)</li>
+<li>complexity of loop is expressed as the sum of complexities at each iteration</li>
+<li>use maximum rules whenever to simplify: that is O(f(n) + g(n)) = O(max{f(n), g(n)})</li>
+</ul>
+<h3 id="priority-queue"><a href="https://www.student.cs.uwaterloo.ca/~cs240/s17/modules/module02-2up.pdf">Priority Queue</a></h3>
+<p>Priority Queue is an ADT with a collection of items (associated with a priority)</p>
+<ul>
+<li>insert: with tagged priority</li>
+<li>deleteMax: remove the item with highest priority</li>
+</ul>
+<p><strong>Heaps</strong> are a type of binary tree. A <strong>max-heap</strong> has additional properties:</p>
+<ul>
+<li>heaps are balanced &amp; left justified</li>
+<li>heap-order proerty says that any node's children have equal or lower priority</li>
+<li>since the height of a heap is Θ(log n), then insertion and deletion operations are also O(log n)</li>
+<li>our insert will simply add the element in the last slot, then "bubble up"</li>
+<li>our delete will shift the last element into the first slot, then perform swaps again by "bubble down"</li>
+</ul>
+<h1 id="sorting-and-randomization">Sorting and Randomization</h1>
+<ul>
+<li>kth element in the array in not easy; we need to manipulate to get it</li>
+<li>for a given element, it is easy to find it's index if the array was sorted in O(n)</li>
+<li>quick select uses this intuition; pick a pivot, and restructure the array by partitioning, then the pivot is in it's correct place<ul>
+<li>assuming all n! permutations are equally likely, average cost is the sum of costs for all permutations, divided by n!</li>
+<li>T(n,k) is the average cost for selecting the kth item from size n</li>
+<li>general case: i is the index of our pivot in a sorted array, (n-1)! are the total number of possible positions once we've selected our i. throwing away i+1 elements after partitioning</li>
+<li>below, we've described below as<br>
+<img width="696" alt="screen shot 2017-05-25 at 10 12 25 am" src="https://cloud.githubusercontent.com/assets/7998752/26453725/b9a3b52c-4132-11e7-8cc6-a746d643de26.png">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="randomized-algorithms">Randomized algorithms</h3>
+<ul>
+<li>relies on some random numbers, from a PRNG, a deterministic program that uses a true random seed<ul><li>the goal is to have a uniform distribution over our desired range, while making the period of repetition large enough that it is negligable</li></ul>
+</li>
+<li>basic example: Von Neumann 1946 "Middle squared method", takes a seed of 4 digits, squares it, pad/truncate to get an 8 digit, then return</li>
+<li><em>the motivation is that we don't have control over input (bad instances), but we can control the random numbers, to shift the probability distribution from what we can't control</em></li>
+</ul>
+<p>Average vs expected running time</p>
+<ul>
+<li>the <strong>Expected running time</strong> of a randomized algorithm for a particular input I is the "expected" value of T(I,R)<ul><li>for T, calculate the sum of T(I,R) • Pr[R] (think weighted average) and assuming uniform distribution of R, we get simply the mean runtime across all R</li></ul>
+</li>
+<li>the motivation behind randomized quickselect is that we have a very small chance of sorting an array by shuffling (2/n!)<ul>
+<li>first idea: <em>sorted arrays are worst case for quickselect since we select element 1 and never have a left partition, so O(n^2)</em>
+</li>
+<li>second idea: randomize the pivot, by choosing a random pivot</li>
+</ul>
+</li>
+<li>Worst-case linear time partitioning called "medians-of-five" for pivot select. Partition into groups of five, find each median and take the median of medians, then we can say in Θ(n) run time the number that is highly probable to be close to the actual median<ul><li>mutually recursive, and can be shown to be θ(n) notice they call each other recursively</li></ul>
+</li>
+</ul>
+<h3 id="sorting">Sorting</h3>
+<p>Comparison sorts are lower bounded at Ω(n log n)</p>
+<ul>
+<li>decision trees</li>
+<li>HeapSort is the only fast algorithm with O(1) space</li>
+<li>QuickSort is often the fastest</li>
+<li>CountSort and RadixSort can achieve o(n log n)</li>
+</ul>
+<p>Radix Sort</p>
+<ul>
+<li>R is the base, m is the number of digits, then we can represent x = x0 R^0 + ... + x<sub>m-1</sub>R<sup>n-1</sup>
+</li>
+<li>MSD (most significat digit), bucket based on digit and apply a sorting algorithm to sort each bucket</li>
+<li>LSD (least), bucket again based on the least significant digit, and use a <em>stable sort</em>, otherwise lose previous work done on lesser digits<ul>
+<li>can be written iteratively,</li>
+<li>runningtime of LSD: Θ(m(n+R))</li>
+<li>space used Θ(n+R): array B for n and array I and C for indicies and counts</li>
+</ul>
+</li>
+</ul>
+<p><em>Quick Sort vs Merge Sort, quick sort has a slower worst-case, but under expected case, they are comparable. But quick sort retains order and is an in place sorting algorithm</em></p>
+<p>Tail call elimination can be done using loops to reduce the number of stack frames, and optimized further by only recurising on the smaller partition</p>
+<p><em>Tutorial</em>: if A is a partial sorted array where n^k elements are already sorted, 0 &lt; k &lt; 1, then we can sort the remaining elements in Θ(n) time. First use merge-sort in Θ(n^k log (n^k)) = Θ(kn^k log n) = Θ(n^k logn) in o(n) since log n is smaller than n^c for any c &gt; 0 and since k &lt; 1.</p>
+<p>Consider Stooge Sort: partition sort by thirds. The sort A1 U A2, sort A2 U A3, then finally resort A1 U A2. By the algorithm, we know the recurrence is</p>
+<p>T(n) =</p>
+<ul>
+<li>Θ(1) if n=1 or n=2</li>
+<li>3T(2n/3) + Θ(1) if n ≥ 3<ul><li>three sub problems, of size 2n/3</li></ul>
+</li>
+<li>simplifies to 3^k T((2/3)^kn) + d•3^i, i from 0 to k-1</li>
+<li>we need log base (2/3)^k n = 1, 3/2 n = K recurences to reach the base case</li>
+<li>3^k T(1) + d(3^k - 1/2)</li>
+<li>Θ(3^k) or ~ O(n^2.71)</li>
+</ul>
+<p>Consider Bogo sort. We want the expected case running time. To do so, take a probabilistic approach: <code>T(n) = 1cn + (1/n!)d + (1-1/n!)T(n)</code>. Note that this is a probabilistic analysis, so each coefficient is just a probability. 1cn is 100% chance to shuffle n object and check n objects if they're sorted.</p>
+<ul>
+<li>T(n) = cn + (1/n!)d + (1 - 1/n!)T(n)</li>
+<li>T(n) = n!(cn) + d</li>
+<li>T(n) in Θ(n•n!)</li>
+</ul>
+<h3 id="dictionary-adt">Dictionary ADT</h3>
+<h3 id="tries">Tries</h3>
+<p>Tries, or Radix Tree, are a dictionary for strings. The basic trie is for binary strings and is thus a binary string.</p>
+<p>Compressed Tries (Patricia Tries) store extra information at each node. They store which bit position the next strings differ at, allowing us to encode strings with idential portions very efficiently.</p>
+<h3 id="skip-list">Skip List</h3>
+<p>Inserting into a skip-list, we can use RNG to determine the height, based on a binary string seed.</p>
+<ul>
+<li>each height has 1/2^h probability of occurring</li>
+<li>SkipSearch(L, x) returns an element before the element x</li>
+</ul>
+<p>We can make modifications to a linked list to optimize search times</p>
+<ul>
+<li>transpose huristic swaps searched element 1 closer to the front</li>
+<li>move to front moves searched elements directly to the front</li>
+</ul>
+<h3 id="midterm">Midterm</h3>
+<ul>
+<li>first principles runtimes</li>
+<li>AVL Insert O(log n), Delete O(log n)<ul><li>know rotations</li></ul>
+</li>
+<li>Dictionary tricks for linked lists (move to front and transpose)</li>
+<li>Heap Insert O(log n), Delete-Max O(log n), Heapify O(n)</li>
+<li>Heapsort, Mergesort, Quicksort</li>
+<li>quickselect expected O(n), count sort O(n + R), radix sort O(m(n+R))</li>
+</ul>
+<h2 id="multi-dimensional-data">Multi-dimensional Data</h2>
+<p>d-dimensional data, with <strong>aspects</strong>/coordinates</p>
+<ul>
+<li>operations insert, delete, rage-search query</li>
+<li>for range searches, we could either use a sorted tree or a binary search tree; O(log n + k), k is number of inside nodes</li>
+<li>d-dimensional dictionaries can be squashed to a single dimension, but range searches on single aspects are lost</li>
+<li>
+<strong>partition trees</strong> has <code>n</code> leaves, one for each item, and each internal node corresponds to a region</li>
+<li>
+<strong>Quadtrees</strong> are partition trees, where each node corresponds to a square in the cartesian plane, the root of which contains all<ul>
+<li>each node has 4 children, the 4 subquadrants of the given square</li>
+<li>points on split lines belong to left and bottom</li>
+<li>can be used for compression, image processing</li>
+</ul>
+</li>
+<li>
+<strong>kd-trees</strong> aim to optimize what quadtrees do, by splitting each region in half by the median using alternating vertical and horizontal lines using the median to split equally<ul>
+<li>usually pretty balanced, so building takes O(n log n)</li>
+<li>by convention when building the binary tree, above in grid is left, below is right</li>
+<li>range search operation: O(# nodes on boundary + output)</li>
+</ul>
+</li>
+<li>
+<strong>range trees</strong> are trees of trees for points, built by sorting x and with each node having an associated tree sorted on y<ul>
+<li>associated tree holds the same subtree as the node sorted on x, but it instead is sorted by y</li>
+<li>insert: <code>log n</code> for x coordinate lookup, then for each <code>log n</code> parent, insert into each associated tree in <code>log n</code> time for y</li>
+</ul>
+</li>
+</ul>
+<h3 id="pattern-matching">Pattern Matching</h3>
+<p>DFAs give us a nice representation of how we can reuse information about the state of what we've matched thus far. Refer to cs241 notes for details.</p>
+<p><strong>KMP</strong> matches left to right, and shifts the pattern upon a bad match based on the largest prefix of our pattern that is a suffix of what we've matched so far.</p>
+<ul>
+<li>build a <strong>failure array</strong> during preprocessing, which acts as an easy lookup for what the most efficient shift would be (and this simply implements DFAs in practice)</li>
+<li>runtime is Θ(m) to build failure array and Θ(n) to run KMP, where <code>m</code> is the length of the pattern and <code>n</code> is the string length<ul><li>note there is no more than <code>2n</code> iterations of either algorithm because the worst case is that each element is iterated by both the right and left iterators as we walk along string <code>T</code>
+</li></ul>
+</li>
+</ul>
+<p><strong>Boyer-Moore</strong> is reverse order searching (right to left)</p>
+<ul>
+<li>we move the pattern left to right as usual, but when checking the pattern, we'll go right to left</li>
+<li>the goal is to shift the pattern as much as possible when mismatches occur</li>
+<li>
+<strong>bad character jumps</strong> skip the entire pattern length if it finds a character in string <code>T</code> not in P</li>
+<li>
+<strong>good suffix jump</strong> let's us shift P right to align with the next leftmost occurence of the suffix (not including the bad match character)</li>
+<li>Good suffix array is what we build during preprocessing of the pattern</li>
+</ul>
+<p>We have to build two extra data structures to perform BM: Last occurence function and good suffix array</p>
+<ul>
+<li>for <strong>good suffix array</strong>, at each <code>i</code> of the array, where <code>i</code> represents the <code>m-i</code> length suffix, we want to find the rightmost occurrence (the next occurrence) of the suffix that we've correctly matched so far</li>
+<li><em>recall in BM, we're iterating from right to left when checking the pattern, so it makes sense we want the rightmost occurence of the right suffix</em></li>
+<li><em>for the implementation, we choose element at <code>i</code> to represent the next index of the pattern that shares the same suffix, excluding <code>P[i]</code>, the <code>i</code>th character of our pattern, because when we mismatch, we can reuse the matched suffix and shift the pattern to check the next portion of the pattern that's different but share some suffix</em></li>
+</ul>
+<p><strong>Rabin-Karp Fingerprint</strong> uses hashing to compare our pattern to a substring (think hashing to check if your downloaded file is correct)</p>
+<ul>
+<li>after hash values are equal, do a full string comparison to guarantee correctness</li>
+<li>run time is Θ(mn), since it's possible that each n characters causes a hash collision, follwed by <code>m</code> iterations through the length of the pattern to verify that it is not a correct match</li>
+<li>in practice, our runtime is O(m + n), iterate through our match to check correctness and iterate through <code>n</code> characters to find substring</li>
+</ul>
+<p>What if we want to search many patterns on the same text? Then preprocess text <code>T</code></p>
+<ul><li>use a trie that stores all suffixes of text <code>T</code> called a <strong>suffix trie</strong><ul><li>side note, not all substring, but instead only suffixes, so the last letter of our text is in every suffix</li></ul>
+</li></ul>
+<p><img width="1066" alt="screen shot 2017-07-13 at 11 02 17 am" src="https://user-images.githubusercontent.com/7998752/28172880-d7e22150-67ba-11e7-9e17-a5ff761999cd.png"></p>
+<h3 id="compression">Compression</h3>
+<p>Transmission and storage of data</p>
+<ul>
+<li>source text S, coded text <code>C</code>, each with their own alphabet <code>∑</code>
+</li>
+<li>judge encoding schemes by speed, reliability (error correcting), security/encryption, size</li>
+<li>compression ratio |C| log ∑<sub>C</sub> / |S| log |∑<sub>S</sub>|</li>
+<li>logical compression only applies to certain domains</li>
+<li>ASCII is a character encoding</li>
+<li>
+<strong>prefix-free</strong> is when no string in an alphabet is a prefix of another<ul><li>important since we can do decoding with a dictionary resulting in a sort of "short circuiting"</li></ul>
+</li>
+<li>
+<strong>Huffman coding</strong>, each character of ∑ is a leaf of the trie<ul><li>uses <strong>static dictionary</strong> which doesn't change for the entire encoding decoding</li></ul>
+</li>
+<li>
+<strong>run-length encoding</strong> is a variable-length code with fixed decoding dictionary (not explicitly stored)<ul><li>blocks of 0s and 1s are <strong>runs</strong>
+</li></ul>
+</li>
+<li>
+<strong>prefix-free integer encoding</strong> has some leading number of 0s followed by the binary representation of a number<ul>
+<li>this scheme is prefix free since we have uniquely defined each number by adding leading 0s</li>
+<li>number of 0s is the length of <code>k</code> in binary <code>- 1</code>
+</li>
+</ul>
+</li>
+<li>
+<strong>Adaptive Dictionaries</strong> in contrast to static, starts out with a usually fixed dictionary (set of characters like UTF) but after writing the <code>i</code>th character to output, both encoder and decoder update D<sub>i</sub> to D<sub>i+1</sub><ul>
+<li>Huffman and RLE make use of physical characteristics like repeated single characters</li>
+<li>in certain domains of text, there are very common substrings (think html tags)</li>
+</ul>
+</li>
+<li>
+<strong>Lempl-Ziv</strong> is a family of adaptive compression algorithms<ul>
+<li>each character in the code corresponds to exactly a character or substring</li>
+<li>GIF uses LZW</li>
+</ul>
+</li>
+<li>
+<strong>LZW</strong> is fixed width encoding using <code>k</code> bits<ul>
+<li>store decoding dictionary with 2^k entries (the number of possible permutations)</li>
+<li>first |∑s| entries are for each single character</li>
+<li>encoding algorithm: <em>walk through text <code>S</code>, populating the remainder of dictionary by gradually adding new substrings based on the longest token that we've seen so far, appended with the first mismatch, creating a new substring in our dictionary</em>
+</li>
+<li>decoding: same idea, build dictionary while reading strings <em>and this seems to work well since both sides are deterministic, and doesn't involve explicitly storing the dictionary with the text</em><ul><li>in the case that the decoder is one step behind encoder, s = s<sub>prev</sub> + s<sub>prev</sub>[0]</li></ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="text-transformation">Text Transformation</h3>
+<p>Preprocessing our text so that we can make better use of compression algorithms</p>
+<ul><li>move to front huristic</li></ul>
+<p><strong>Burrows-Wheeler Transform</strong> is a compression technique, that reorders the characters in the text, to be more easily compressible with Move To Front</p>
+<ul>
+<li>is a <strong>block compression</strong> method</li>
+<li>BWT, followed by MTF, RLE and Huffman is the algorithm for <code>bzip2</code>
+</li>
+<li>a <strong>cyclic shift</strong> is shifting all characters some <code>i</code> distance, and wrapping back to the start past index n</li>
+</ul>
+<p>Encoding for BWT:</p>
+<ol>
+<li>place all cyclic shifts (or rotations) of S in a list L (n^2 size list)</li>
+<li>Sort the strings in L lexicographically (alphabetically, $ is last)</li>
+<li>Make a list C, of last characters of each string in L</li>
+</ol>
+<p>Decoding for BWT, given string C from encoding:</p>
+<ol>
+<li>make an array A of tuples (C[i],i)</li>
+<li>Sort A by the characters ($ is first, same characters are sorted by their i increasing) into array N</li>
+<li>set j to index of $ in C</li>
+<li>recursively set j to N[j] (kind of a linked list structure) and build output string S appending C[j] to S</li>
+</ol>
+<p>The reason this works well is because sorting all possible rotations will group any repeated substrings together in the encoding phase, for list L. It happens that the last character of each rotation will correspond to the first character of exactly another rotation, and since we've sorted it, all occurences of some substring in the text gets grouped together. This happens not only for the first letter of the substring, but also each subportion of repeated characters will have its characters grouped together.</p>
+<p>It's pretty remarkable that the output is simple and deterministically reversable through decoding. We can think of the inverse as, at any iteration of our decoding, we can treat the last column as the letter that preceeds some prefix of a rotation. Since we have all possible rotations, at every step of the recursion, we can always place each letter of C at the start of the corresponding string and resort. This gives us a new list of reordered, possible prefixes that must all exist because of the property of rotations. Our decoding algorithm is just a restricted set of instructions to perform this.</p>
+<h3 id="memory">Memory</h3>
+<p>2-3 Trees are better than AVL trees since loading pages is expensive, and AVL trees do the Θ(log n) page loads</p>
+<ul>
+<li>binary search tree structure, but with the possibility of two keys and three children at an internal node</li>
+<li>leaves don't store keys, and are assigned NIL</li>
+<li>insertion follows a sort of bubble up process<ul><li>find the lowest internal node where the new key can be added to, then if we have three keys, push the middle up, recursively</li></ul>
+</li>
+<li>structurally, for each node, we have k keys and k+1 children (so 2 keys, 3 children or 1 key, 2 children, so that we can do lookups at the k+1 positions between the keys), and all leaves need to be at the bottom layer (so the trees always balanced)</li>
+<li>deletion has a bunch of cases, but generally we first swap the KVP with its successor recursively, until the key is a leaf (before the NIL layer)<ul>
+<li>case 1, the leaf is a 2-node, in which case we simply delete the key which leaves behind a 1-node<br>
+ - case 2, if 1-node, we leave an empty node which is unbalanced, so we want to rotate (or "transfer") such that the result is still balanced while preserving structure. Deletion of a child of a 2-node means we do a sort of partial rotation. But transfer only works for <strong>immediate</strong> siblings (adjacent). If not sibling, we merge down from the parent.</li>
+<li>case 3, 1-node deletes one of its children, then merge the whole subtree into a 2-node. Then the parent is an empty node, so merge one parent down. This may result in recursive merge calls down.</li>
+</ul>
+</li>
+</ul>
+<p><strong>B-Trees</strong> is a generalization of 2-3 trees. An (a,b)-tree of order M:</p>
+<ul>
+<li>each internal node has at least <code>a</code> children (<strong>except the root</strong> which can have at least two children), and at most <code>b</code> children</li>
+<li>same structural properties, for k keys, k+1 children</li>
+<li>B-tree of order M is a (ceil(M/2),M)-tree</li>
+<li>lower bound for height of a B-tree is Θ((log n)/(log M)), analyzing number of nodes and number of KVP per node</li>
+<li>in external memory, we want to use a B-tree of order M, s.t. an M-node fits in a page (with 32 byte values, M = 10.5 ~= 10)<ul><li>in this case, we only load Θ(logn/logM) instead of Θ(logn) as is the case in AVL trees</li></ul>
+</li>
+</ul>
+<p>Hashing in external memory may result in lots of disk transfers since data is often scattered. This gets worse when we use things like cuckoo hashing</p>
+<ul>
+<li>with linear probing, cache misses result in hash table accesses being in the same page</li>
+<li>
+<strong>exendible hashing</strong> is similar to B-trees with height 1 and max size S at the leaves</li>
+<li>the <strong>directory</strong> stored in memory is based on the first α digits, which hashes to 2^L possible keys and we store the first d digits of the hash key for the directory<ul><li>key prefixes in directory point to blocks of S items (think pages in external memory)</li></ul>
+</li>
+<li>blocks are shared, so that every block stores a local depth kB ≤ d, which says how many digits are shared amongst all keys in the block<ul>
+<li>hash values agree on leading kB bits</li>
+<li>2^(d-kB) directory entries point to the given block B</li>
+</ul>
+</li>
+<li>so again, we specify <code>S</code>, the max size of each block, and <code>d</code>, the size of key prefixes in our directory, then the directory entries point us to blocks. When the number of keys in a block exceeds <code>S</code>, the block needs to be split</li>
+<li>insertion, put in corresponding block unless block is full, starting with one block. Then we split B into two blocks when the keys in the block B exceed <code>S</code>. Separate according to kB+1, and split on 0 vs 1<ul><li>if the block is full and kB = d, perform a directory grow, where we double the directory size (d += 1)</li></ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Resilient Distributed Datasets 2012</title>
+</head>
+<body>
+
+<h1 id="resilient-distributed-datasets-2012"><a href="http://www-bcf.usc.edu/~minlanyu/teach/csci599-fall12/papers/nsdi_spark.pdf">Resilient Distributed Datasets 2012</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#rdd-abstraction">RDD Abstraction</a></li>
+<li><a href="#spark-programming-interface">Spark Programming Interface</a></li>
+<li><a href="#fine-grained-vs-coarse-grained">Fine Grained vs Coarse Grained</a></li>
+<li><a href="#rdd-vs-dsm">RDD vs DSM</a></li>
+<li><a href="#spark">Spark</a></li>
+<li><a href="#representation-of-resillient-distributed-datasets">Representation of Resillient Distributed Datasets</a></li>
+<li><a href="#implementation">Implementation</a></li>
+</ul>
+</div>
+<h1 id="distributedsystems">distributedsystems</h1>
+<p>A distributed memory abstraction for performing in memory computations, on a large cluster. It only allows batch transformations on the whole dataset (coarse-grained), but</p>
+<ul>
+<li>uses in memory operations, improving performace by orders of magnitude</li>
+<li>handles iterative algorithms better and provides interactive data mining</li>
+<li>RDDs provide a restricted form of shared memory (like RAM, for efficient transfer of data between processes)</li>
+<li>RDDs let scientists leverage distributed memory, useful for retaining data during intermediate operation<ul>
+<li>very important that the datasets provide reuse of data for iterative machine learning and graph algorithms (<a href="./1998%20Pagerank.md">PageRank</a>, K-mean clustering, logistical regression)</li>
+<li>no needing to setup an external storage system (which would need lots of disk writes, data serialization and data replication)</li>
+</ul>
+</li>
+<li>RDDs provide a general abstraction for this, not specific to any particular algorithm, allowing for efficient data persistance</li>
+<li>main challenge in designing RDDs is defining a storage interface for efficient fault tolerence<ul>
+<li>fault tolerence is always a space trade off (and making data-intensive workflows more expensive)</li>
+<li>implemented with data replication or logging linage across servers</li>
+<li>the RDD must be able to recompute lost partitions, derived from other RDDs</li>
+</ul>
+</li>
+<li>Spark has an implementation of RDDs, providing a programmatic interface for querying large datasets</li>
+</ul>
+<h3 id="rdd-abstraction">RDD Abstraction</h3>
+<p>An RDD is a read-only partitioned collection of records</p>
+<ul>
+<li>partitions are used to cluster similar data together, for read optimization</li>
+<li>only created using deterministic operations (transformations) on data in stable storage or on data in other RDDs<ul><li>map, filter, join</li></ul>
+</li>
+<li>RDDs don't have to be materialized (for ex. in memory) at all times, as long as they can be deterministicly recomputed from other datasets, to recompute its partitions</li>
+<li>users have fine-grained control over how an RDD is persisted and partitioned (records stored in different parts of memory or different computers entirely)<ul><li>for ex. data being joined from two different RDD's can have elements grouped together by whatever key they're being joined by, using hash-partitioning</li></ul>
+</li>
+</ul>
+<h3 id="spark-programming-interface">Spark Programming Interface</h3>
+<p>Spark allows programmers to create RDD objects from stable storage, then apply methods on the objects (transformations, returning another RDD, or actions, returning a value)</p>
+<ul>
+<li>Like DryadLINQ (API that it's inspired by), Spark computes RDDs lazily, waiting until it's used in an action so that it can pipeline transformations (apply transformations in parallel with stages)</li>
+<li>persist can be called on RDD objects to have them persist in RAM (and disk as needed)<ul><li>priority can be specified for determining spillover into disk</li></ul>
+</li>
+<li>note that this RAM and disk is shared acrossed nodes in an underlying implementation of a data store (HDFS, Cassandra, etc...)</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">lines</span> = spark.textFile(<span class="st">"hdfs://..."</span>)        <span class="co"># defines RDD, not in RAM</span>
+<span class="ex">errors</span> = line.filter(_.startsWith(<span class="st">"ERROR"</span>)) <span class="co"># derives RDD from lines RDD, not in RAM</span>
+<span class="ex">errors.persist</span>() <span class="co"># reduced dataset, so now stores RDD in RAM, greatly increasing future computation </span></code></pre></div>
+<h3 id="fine-grained-vs-coarse-grained">Fine Grained vs Coarse Grained</h3>
+<ul>
+<li>fine grained control over read and write operations describe operations that can apply to single records or subsets</li>
+<li>coarse grained reads/writes describe general functions across a dataset</li>
+</ul>
+<h3 id="rdd-vs-dsm">RDD vs DSM</h3>
+<p>Distributed Shared Memory is a very general abstraction, so harder to optimize and make fault-tolerent</p>
+<ul>
+<li>RDDs form a directed acyclic graph of transformations (the linage graph), which can be used to recompute the RDD</li>
+<li>changing any element of the original dataset breaks the deterministic nature of this process<ul><li>ex. on a dataset, one transformation could be <code>get subset by index</code>, and altering the underlying data will require the whole dataset to be recomputed. An RDD cannot be created with a fine grained operation like this</li></ul>
+</li>
+<li>RDDs can only be created using coarse grained transformations, DSMs let you read/write any address</li>
+<li>RDDs do not need checkpointing as they can recover through lineage<ul><li>only the failed partition needs to be recomputed (no need to roll back the whole program)</li></ul>
+</li>
+<li>RDDs are not useful for systems with asynchronous, fine-grained updates to the underlying dataset</li>
+</ul>
+<h3 id="spark">Spark</h3>
+<p>Spark provides an abstraction over RDDs, written in scala for static typing and interactive use</p>
+<ul>
+<li>driver program connects to a cluster of workers, each which can store partitions in RAM</li>
+<li>Partitioner class holds partitioning configurations</li>
+<li>spark has transformations and actions, some that take other closures to apply to the RDD object</li>
+</ul>
+<h3 id="representation-of-resillient-distributed-datasets">Representation of Resillient Distributed Datasets</h3>
+<p>Important to capture the concept of the linage graph of a RDD through its formalized definition. This is achieved through a simple graph representation, without needing extra logic in the schedule for each one</p>
+<ul>
+<li>RDDs are composed of a set of dependent parent RDDs, a set of atomic partitions, a function of its parents for computing the dataset, a set of metadata for partitioning scheme and data placement</li>
+<li>RDD dependencies can be classified as narrow if a parent partition is accessed by onl one child partition or wide if by multiple children partitions<ul>
+<li>narrow parent RDDs allow for pipelined execution</li>
+<li>joins are wide <em>unless hash-partitioned</em>
+</li>
+<li>recovery from a failure mode is very efficient for narrow dependencies since only lost parent partitions need to be computed</li>
+</ul>
+</li>
+</ul>
+<h3 id="implementation">Implementation</h3>
+<p>Spark is built in Scala, on Mesos cluster manager; a distributed kernel, built at a different layer of abstraction, for handelling a large distributed system</p>
+<ul><li>each spark program runs its own mesos program, with a master and workers (mesos handles resources between applications)</li></ul>
+<h4 id="job-scheduler">Job Scheduler</h4>
+<p>Assigns tasks based on data locality, which works very well for narrow RDDs</p>
+<ul>
+<li>for wide RDDs, parents are materialized to simplify fault tolerence protocol</li>
+<li>if any task fails, it is re-run on another node given that it's parent is available</li>
+<li>tasks are resubmitted to recompute any missing partitions</li>
+</ul>
+<h4 id="interpreter-integration">Interpreter Integration</h4>
+<p>Scala's interactive interpreter works by compiling each line of input as a class and invoking a function on it. Each object, for ex. <code>Line1</code>, includes a singleton object containing the lines variables and functions.</p>
+<ul>
+<li>Spark adds Class Shipping; serving the bytecode via HTTP</li>
+<li>Spark modifies code generation; passes the environment for the closure (singleton object) so that workers can access variables and functions corresponding to the bytecode</li>
+</ul>
+<h4 id="memory-management">Memory Management</h4>
+<p>RDDs can be stored as unserialized Java objects, serialized data in memory and serialized on disk</p>
+<ul>
+<li>by default to manage memory, uses LRU eviction policy<ul>
+<li>do not evict if memory belongs to the same RDD that is asking to be stored</li>
+<li>transformations will run over the entire dataset, resulting in expensive overlow to disk on all writes</li>
+<li>must constrain eviction, to prevent cyclical eviction (with no cache hits)</li>
+</ul>
+</li>
+<li>again, users can define persistent priority</li>
+</ul>
+<h4 id="checkpointing">Checkpointing</h4>
+<p>Lineage graphs can always be used to recompute lost data, but is time consuming for large jobs</p>
+<ul>
+<li>RDDs can be checkpointed into stable storage</li>
+<li>with wide transformations, a full recomputation may be required</li>
+<li>read only nature of RDDs make them simple to checkpoint relative to other DMSs</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

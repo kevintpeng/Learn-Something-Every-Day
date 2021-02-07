@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Serverless computing: economic and architectural impact</title>
+</head>
+<body>
+
+<h1 id="serverless-computing-economic-and-architectural-impact"><a href="https://blog.acolyer.org/2017/10/19/serverless-computing-economic-and-architectural-impact/">Serverless computing: economic and architectural impact</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<p>Serverless is a "next-gen" platform as a service model where the service provider handles capacity planning, task scheduling, and operating the cluster. Clients send functions to be executed and pay only for the duration of execution</p>
+<ul>
+<li>further, the application developer, in the example of a webserver, need not handle socket listening and task dispatching and are only responsible for the logic of processing an event</li>
+<li>AWS lambda runs containers, and manages creation and deletion<ul><li>containers are tried to be reused for subsequent function calls (since creation can have latency times in the seconds)</li></ul>
+</li>
+<li>economic benefit comes from jobs that need to only run periodically need not reserve resources while idle</li>
+<li>one implication is that implicit trust between sequential requests is lost (no gatekeeper so everything request must be authenticated)<ul><li>increased latency for traditional design, and requires a different concept of distributed authentication</li></ul>
+</li>
+<li>serverless architecture removes economic incentives for bundling logic into single applications</li>
+<li>running multiple versions has no extra cost in serverless architecture since the number of requests remains the same</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

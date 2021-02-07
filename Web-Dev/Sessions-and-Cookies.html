@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Session</title>
+</head>
+<body>
+
+<h1 id="session">Session</h1>          <a href="index.html">Back to Web-Dev</a>
+<ul>
+<li>session for each user, which you can store small amounts of data, persisting between requests</li>
+<li>session is only available in the controller and view, with access to a number of storage mechanisms<ul>
+<li>
+<code>ActionDispatch::Session::CookieStore</code>, stores everything on the client</li>
+<li>
+<code>ActionDispatch::Session::CacheStore</code>, data in the Rails cache</li>
+<li>
+<code>ActionDispatch::Session::ActiveRecordStore</code>, stores the data in a database</li>
+</ul>
+</li>
+<li>all sessions use a cookie to store a unique ID for each session</li>
+<li>
+<code>session[:myKey] = val</code> adds a value to the sessions hash</li>
+</ul>
+<h1 id="cookies">Cookies</h1>
+<ul>
+<li>Applications store small amounts of data on the client, persisting across requests and even sessions</li>
+<li><code>cookies[:myKey] = val</code></li>
+<li><code>cookies.encrypted[:expiration_date] = Date.tomorrow</code></li>
+</ul>
+<p><a href="http://guides.rubyonrails.org/action_controller_overview.html#session">source</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

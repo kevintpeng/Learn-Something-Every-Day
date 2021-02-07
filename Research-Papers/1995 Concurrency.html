@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>1995 Are Safe Concurrent Libraries Possible?</title>
+</head>
+<body>
+
+<h1 id="are-safe-concurrent-libraries-possible"><a href="https://plg.uwaterloo.ca/~usystem/pub/uSystem/LibraryApproach.pdf">1995 Are Safe Concurrent Libraries Possible?</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<ul>
+<li>code generation that are correct for sequential programs may have incorrect semantics for concurrent programs</li>
+<li>solutions that make correctness guarantees state potentially unreasonable requirements for the library designer and end programmer<ul>
+<li>by forbidding optimization, performance gains are lessened, which is often the reason for concurrency in the first place</li>
+<li>requiring explicit deactivation of optimizations requires deep knowledge of the compiler, its optimizations, and may result is wildly different behaviour and correctness guarantees depending on the compiler implementation</li>
+</ul>
+</li>
+<li>the conclusion of this paper is that concurrency is a linguistic feature that affects code generation</li>
+</ul>
+<ol>
+<li>compiler loads variables into a register, then data modification doesn't get written back to the variable as needed and other threads won't see the changes<ul><li>Dekker's and Petersons' algorthims (software solutions) use assignment</li></ul>
+</li>
+<li>compiler might reorder instructions for optimization, which may cause reordering at the boundaries of critical sections<ul><li>requires explicit language facilities (<code>volatile</code>) or concurrency constructs to disable optimization</li></ul>
+</li>
+<li>instruction substitution (for multiple) can turn atomic operations into non-atomic operations</li>
+</ol>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

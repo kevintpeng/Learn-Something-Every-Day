@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#linear-algebra-review">Linear Algebra Review</a></li>
+<li><a href="#probability-information-theory">Probability &amp; Information Theory</a></li>
+<li><a href="#logistic-regression">Logistic Regression</a></li>
+<li><a href="#numeric-computation">Numeric Computation</a></li>
+</ul>
+</div>
+<h3 id="linear-algebra-review">Linear Algebra Review</h3>
+<ul>
+<li>Matrix multiplcation AB = C, is every column of A, dotted with every row of B</li>
+<li>Identity Matrix is related to the inverse Matrix: if Ax = b then Ix = A<sup>-1</sup>b, so A is invertible iff exists <img src="https://jules2689.github.io/gitcdn/images/website/images/latex/c2794d6f83ba5c9cd16fda2eca1ef699.png" height="14">
+</li>
+</ul>
+<!---
+```latex
+AA^-1 = I
+```
+---><ul>
+<li>A is invertible iff it has exactly one solution for every value of b</li>
+<li>span of a set of vectors is the set of all points obtainable by linear combinations of the original vectors</li>
+<li>linear dependence occurs when a vector in a set can be described as a linear combination of other vectors in the set</li>
+<li>
+<strong>norms</strong> are used to measure the size of vectors; norms are functions that:<ul>
+<li>f(x) = 0 =&gt; x = 0</li>
+<li>f(x + y) ≤ f(x) + f(y)</li>
+<li>forall a . f(ax) = |a|f(x)</li>
+</ul>
+</li>
+<li>L<sup>p</sup> norm = (∑|xi|<sup>p</sup>)<sup>1/p</sup><ul><li>notice that for p = 2, we get euclidean distance. So L<sup>2</sup> is the euclidean norm</li></ul>
+</li>
+<li>L<sup>1</sup> norm is better for machine learning, since it grows linearly near the origin (good to discriminate between c exactly zero and close to)</li>
+<li>Symmetric Matrices: A = A<sup>T</sup>
+</li>
+<li>Orthogonal Matrices: AA<sup>T</sup> = I</li>
+<li>a <strong>linear transformation</strong><ul>
+<li>is analogous to a linear function in one dimension</li>
+<li>representable by a vector field</li>
+</ul>
+</li>
+<li>decomposition is useful in math, like prime factorization</li>
+<li>
+<strong>eigendecomposition</strong> is breaking a matrix into eigenvectors and eigenvalues<ul>
+<li>eigenvector is defined by Av = λv, so the vector's direction is unchanged through matrix multiplication</li>
+<li>eigenvectors can be rescaled to any vector sv for s ≠ 0, so we look for unit eigenvectors</li>
+</ul>
+</li>
+<li>let V be the concatenation of eigenvectors for A as columns. Then A = Vdiag(&amp;lambda)V<sup>-1</sup>
+</li>
+<li>
+<strong>determinant</strong> of a matrix can be thought of as the expansive multiplicative factor<ul><li>equal to the product of all the eigenvalues</li></ul>
+</li>
+<li>a <strong>basis</strong> of a vector space is a set of vectors that are linearly independent, and can express any vector in the vector space as a linear combination of the basis vectors. We can represent a set of vectors as a matrix<ul>
+<li>a basis is linearly independent spanning set of the vector space</li>
+<li>for set of vectors S, the <strong>span</strong> W is the intersection of all subspaces containing S. then S is a spanning set of W</li>
+</ul>
+</li>
+<li>
+<strong>eigenspace</strong> for an eigenvalue λ E<sub>λ</sub> is the set of all vectors (eigenvectors) that satisfy 0⃗ = (I•λ - A)•v⃗</li>
+<li>dense vectors can be used to optimize storage, reducing storage for sparse vectors that are mostly 0s<ul><li>[0,0,0,0,1,0,0,0,3] =&gt; [(4,1), (8,3)]</li></ul>
+</li>
+</ul>
+<h3 id="probability-information-theory">Probability &amp; Information Theory</h3>
+<ul>
+<li>Marginal Probability is the distribution over a subset of variables (denominator is the summation of individual probabilities in the subset)<ul>
+<li>different than conditional probability in that it is not contingent on a value of a variable</li>
+<li>for continuous probabilities, we use an integral</li>
+</ul>
+</li>
+<li>Chain Rule: P(a,b,c) = P(A|b,c)P(b,c) = P(A|b,c)P(b|c)P(c)</li>
+<li>x,y are conditionally independent if conditional probabilities given z P(x,y|z) = P(x|z)P(y|z)</li>
+<li>Bernoulli Distribution φ ∈ [0,1], the probability a variable is equal to 1</li>
+<li>important sometimes to have a sharp point at x = 0, with exponential distribution or adjusted to some point μ using laplace distribution</li>
+<li>Structured Probabilistic Model plots multiple variables on the same graph<ul><li>factorization of distribution into smaller distributions, dependent on less variables</li></ul>
+</li>
+<li>KL Divergence or information difference is asymmetric difference between two distributions P and Q; q * = argmin<sub>q</sub>D<sub>KL</sub>(q||p)<ul><li>KL Divergence from P to Q, D<sub>KL</sub>(P||Q) is the amount of information lost when Q is used to approximate P</li></ul>
+</li>
+<li>can draw an undirected graph over random variables, showing how the probability distributions can be factored</li>
+</ul>
+<p>Information Theory revolves around quantifying how much information is in a signal</p>
+<h3 id="logistic-regression">Logistic Regression</h3>
+<p>Regression model where the dependent variable is categorical</p>
+<ul>
+<li>includes binary dependent variables</li>
+<li>multinomial logistic regression if more than two categories</li>
+<li>ordinal logistical regression</li>
+<li>logistic functions take real input and output a result between 0 and 1 (interpreted as probability)</li>
+<li>standard logistic function S(t) = σ(t) = <code>1/(1 + e^-t)</code> ∈ (0,1), a type of <em>sigmoid function</em>
+</li>
+</ul>
+<h3 id="numeric-computation">Numeric Computation</h3>
+<p>Overflow and Underflow are two problems when represented infinitely many real numbers with finite bit strings</p>
+<ul>
+<li>exponential expressions can easily overflow or underflow</li>
+<li>softmax = exp(xi)/∑(exp(xj), which can evaluate to 0 very easily with small numerators, and log softmax to -infinity</li>
+<li>stablization is important to avoid these rounding errors</li>
+</ul>
+<p>Conditioning refers to how quickly a function changes with respect to small changes to input</p>
+<ul><li>poor conditioning occurs when a function's output can be greatly effected by input rounding errors</li></ul>
+<p>Most learning algorithms involve optimization, specifically minimization of functions</p>
+<ul>
+<li>notationally, <code>*</code> denotes minimization, so x<sup><code>*</code></sup> = arg min f(x)</li>
+<li>minimization occurs on functions of single output (may be a vector function)</li>
+<li>gradiant of f at point x (for vector x), the vector containing all partial derivatives: ∇<sub>x</sub>f(x)</li>
+<li>critical points in multi-dimensions are where all partial derivatives are 0 in the gradient</li>
+<li>directional derivative with respect to <code>a</code> is f(x + <code>a</code>u)</li>
+<li>gradiant descent is the process of finding the directional derivative at each step that minimizes the vector function the most</li>
+<li>min ||u|| ||∇f(x)|| cosθ</li>
+<li>gradient descent proposes a new point x' = x - ∈∇f(x), ∈ is the learning rate</li>
+<li>evaluated iteratively evaluating f(x - - ∈∇f(x)), and ∈ can be determined by trying multiple &amp;sin; values and picking the smallest result (line search)</li>
+<li>gradients are a generalization of the concept of derivatives, for vector functions</li>
+<li>Jacobian is a generalization of the gradient, for vector-valued functions</li>
+</ul>
+<p><strong>Jacobian Matrix</strong> J corresponds to a function. It contains all partial derivatives of a vector field: J<sub>i,j</sub> = ∂/∂xj • f(x)<sub>i</sub>, where f(x)<sub>i</sub> denotes the ith output as a function of the vector x (we can think of a vector field as a <em>vector of vector functions</em>)</p>
+<ul>
+<li>second derivatives are important to determine curvature of the function<ul><li>can be used to determine dead ends (linear functions) or divergence</li></ul>
+</li>
+<li>
+<strong>Hessian Matrix</strong> is the Jacobian of the gradient (gradient is a vector of vector functions, a vector field for a given point)</li>
+<li>forall points where all partial derivatives are continuous, the differential operation is commutative, so H<sub>i,j</sub> = H<sub>j,i</sub> and therefore the Hessian matrix is symmetric (true for nearly all points in most fields)</li>
+<li>since the Hessian Matrix is real and symmetric, it can be decomposed into an orthogonal basis of eigenvectors</li>
+<li>second derivative in a direction d⃗, d⃗ is a unit vector, we use the Hessian matrix, and its eigenvectors, with the result being some weighted average of all eigenvalues (depending on its proximity to each corresponding eigenvector), and since the eigenvalues describe orthogonal eigenspaces, we can weight from 0 to 1 for each eigenvalue based on the angle between d⃗ and their corresponding eigenvectors<ul>
+<li>if d⃗ is an eigenvector, than the second derivative is its eigenvalues</li>
+<li>the second derivative is bounded by the largest and smallest eigenvalues</li>
+</ul>
+</li>
+<li>the directional second derivative tells us how well we can expect a gradient descent step to perform</li>
+<li>we approximate f with the second order taylor polynomial: f(x) = f(x0) + (x - x0)<sup>T</sup>∇<sub>x0</sub>f(x) + 1/2(x - x0)<sup>T</sup>H<sub>x0</sub>(x - x0)</li>
+<li>second derivative tells us whether it's a saddle point, or local max/min</li>
+<li>
+<strong>Newton's method</strong> can improve time, in that it can converge in less iterations that gradient descent<ul><li>based on second order taylor series expansion to approximate f(x), then repeatedly jumping to the approximation's minimum</li></ul>
+</li>
+<li>gradient descent is a first-order optimization while Newton's method using the Hessian is a second-order optimization algorithm</li>
+<li>Newton's method can converge on a saddle point very easily, as the first and second directional derivatives are 0</li>
+<li>
+<strong>Convex optimization</strong> provides more guarantees than regular optimization, by only working with convex functions, strongly restricted<ul><li>convex functions have positive Hessians everywhere, since there are no saddle points and any local mins are global mins</li></ul>
+</li>
+<li>Lipschitz continuous functions have their rate of change bounded by a Lipschitz constant L: forall x, y . |f(x)-f(y)| ≤ L |x-y|<ul><li>useful for bounding gradient descent's learning rate, for better accuracy</li></ul>
+</li>
+<li>
+<strong>Constrained Optimization</strong> operates on a subset of a function domain<ul>
+<li>often simply modify gradient descent, taking constraint into account</li>
+<li>apply gradient descent, then project the value into the set of feasible points S</li>
+<li>more sophisticated, phrase the problem as an unconstrained one</li>
+</ul>
+</li>
+<li>KKT provides a general solution for constrained optimization, by introducing a new function called <strong>generalized Lagrangian</strong><ul>
+<li>describe the constrained set S in terms of <code>n</code> equalities, g<sup>(i)</sup>(x)=0, and inequalities h<sup>(j)</sup>(x)≤0</li>
+<li>introduce variable coefficients λ<sub>i</sub> and a<sub>j</sub> corresponding to each constraint</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

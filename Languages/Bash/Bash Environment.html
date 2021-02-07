@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Environment</title>
+</head>
+<body>
+
+<h1 id="environment">Environment</h1>          <a href="index.html">Back to Languages/Bash</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#shell-initialization-files">Shell initialization files</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#shell-expansion">Shell Expansion</a></li>
+</ul>
+</div>
+<h3 id="shell-initialization-files">Shell initialization files</h3>
+<ul>
+<li>
+<code>/etc/profile</code> is systemwide bash profile</li>
+<li>
+<code>/etc/bashrc</code> has bash-specific configurations (so does <code>zshrc</code>)</li>
+<li>
+<code>~/bash_profile</code> user specific config</li>
+<li>
+<code>~/bashrc</code> read after system wide bashrc, aliases and stuff</li>
+</ul>
+<h3 id="variables">Variables</h3>
+<ul>
+<li>Global/Environment varaibles are available in all shells, display with <code>env</code> command.</li>
+<li>Local/Shell variables are available in the current shell, display with <code>set</code> command.<br>
+- <code>set -e</code> sets a bash <a href="./%22Strict%22%20mode.md">option</a>
+</li>
+<li>
+<code>MYVAR="Hello"</code> defines a local variable in the current shell</li>
+<li>
+<code>export MYVAR</code> adds it to <em>environment</em> variables which allows child processes to have access, using the bash <code>export</code> builtin</li>
+</ul>
+<h3 id="shell-expansion">Shell Expansion</h3>
+<p>A command is first tokenized, then one of 8 expansions is performed on each token, followed by quote removal.</p>
+<ul>
+<li>
+<strong>brace expansion</strong> generates a set of strings (first expansion)<br>
+- <code>sp{el, il, al}l</code> =&gt; <code>spell spill spall</code> (prefixes and postfixes to each option)</li>
+<li>
+<strong>tilde expansion</strong> expands to the <code>$HOME</code> path</li>
+<li>
+<strong>parameter expansion</strong> with <code>$</code> replaces an expression with its value<ul>
+<li>for <code>${PARAMETER}</code>, the value of "PARAMETER" is substituted</li>
+<li>braces are required when PARAMETER is follwed by a char, not part of the var name: <code>"plural: ${WORD}s"</code>
+</li>
+</ul>
+</li>
+<li>
+<strong>command substitution</strong> substitutes the output of a command with <code>$(command)</code> or backticks</li>
+<li>
+<strong>arithmetic expansion</strong> treats expression as double quotes, and after expansions, evaluates numerically: <code>$(( EXPRESSION ))</code><ul><li>
+<code>$[ EXPRESSION ]</code> performs calculation, no expansion?, no tests</li></ul>
+</li>
+<li>lastly, performs word splitting on expansions, then file name expansion with glob patterns</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

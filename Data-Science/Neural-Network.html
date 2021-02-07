@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Artificial neural network</title>
+</head>
+<body>
+
+<h1 id="artificial-neural-network">Artificial neural network</h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul><li>
+<a href="#imagenet-classification-with-deep-convolutional-neural-networks"></a><a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf">ImageNet classification with deep convolutional neural networks</a>
+</li></ul>
+</div>
+<p>Artificial neural networks (ANNs) are simple mathematical models defining <code>f: X -&gt; Y</code> or a distribution over X or both X and Y</p>
+<p>Uses a connectionism model, based on modelling mental phenomena using interconnected units. Neural Networks are a computational approach based on a collection of neural units connected by axons.</p>
+<ul>
+<li>each neural unit holds a function of all of it's inputs, whose output is propagated to other neural units</li>
+<li>typically consist of multiple layers or a cube design where signal path traverses from front to back</li>
+<li>in connectionist models, networks change over time</li>
+</ul>
+<p><a href="https://ujjwalkarn.me/2016/08/09/quick-intro-neural-networks/">source</a></p>
+<p>A single neuron takes input from other nodes and computes an output</p>
+<ul>
+<li>inputs have associated weights for relative importance</li>
+<li>the node applies a function f to the weighted sums + b (bias)</li>
+<li>f is a non-linear Activation Function<ul>
+<li>purpose is to introduce non-linearity into the output of a neuron</li>
+<li>most real world data is non-linear, so this is needed for representation</li>
+</ul>
+</li>
+<li>Sigmoid: takes real-valued input and squashes into a range between 0 and 1</li>
+<li>tanh: real -&gt; [-1,1]</li>
+<li>ReLU: Rectified Linear Unit is f(x) = max(0,x), threshold at 0</li>
+</ul>
+<p><a href="http://stackoverflow.com/questions/2480650/role-of-bias-in-neural-networks">Bias</a> lets you shift the activation function left or right, which may be critical for success</p>
+<ul><li>without bias, an activation function can only change in steepness, while bias lets you represent more real world trends in data</li></ul>
+<p><img src="http://natekohl.net/media/sigmoid-scale.png" height="200" alt="adjusting weighting"> vs. <img src="http://natekohl.net/media/sigmoid-shift.png" height="200" alt="adjusting bias"></p>
+<p><strong>Feedforward Neural Networks</strong> are the simplest type of NN</p>
+<ul>
+<li>neurons arranged in layers, and nodes between layers have connections and associated weights</li>
+<li>nodes are typed based on which layer they're in: input, hidden, or output</li>
+<li>feedforward, information <em>only moves in one direction</em>- no cycles</li>
+<li>single layer perceptron has no hidden layers, while multi layer perceptron (MLP) has one or more</li>
+<li>MLPs learn through the <strong>Backpropagation algorithm</strong><ul>
+<li>one way NNs are trained</li>
+<li>supervised, learning from mistakes</li>
+<li>initially all edge weights are random</li>
+<li>for every input, the output is compared to the desired one, and error is propagated back to the previous layer</li>
+</ul>
+</li>
+</ul>
+<h1 id="convolutional-neural-networks">Convolutional Neural Networks</h1>
+<p><a href="https://ujjwalkarn.me/2016/08/11/intuitive-explanation-convnets/">source</a></p>
+<p>A category of Neural Networks, effective in image recognition and classification</p>
+<ul><li>tagging scene recognition, object recognition, NLP sentence classification</li></ul>
+<p>Feed-forward neural network: connections between units are acyclic, and is unidirectional</p>
+<ul>
+<li>individual neurons respond to stimuli in a restricted region of space known as the receptive field</li>
+<li>overlap between receptive fields of neruons are the visual field</li>
+<li>convolution is the operation on two first class functions <code>f</code> and <code>g</code> to produce a third function<ul><li>modified version of one of the original functions, giving the integral of pointwise multiplication of the two functions</li></ul>
+</li>
+</ul>
+<h3 id="imagenet-classification-with-deep-convolutional-neural-networks"><a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf">ImageNet classification with deep convolutional neural networks</a></h3>
+<p>CNN's capacity can be controlled by varying their depth and breadth (layers), and make strong assumptions with less needed connections</p>
+<ul>
+<li>faster to train since less connections, theoretical "best-performance" is only slightly worse dispite less connections</li>
+<li>ImageNet challenge is to create a classifier that determines which object is in the image</li>
+<li>in this implementation, they use ReLU instead of tanh for activiation functions (since it has 10x performance)<ul>
+<li>multiple GPUs, each handling different convolutional layers</li>
+<li>local response normalization</li>
+<li>overlapping pooling</li>
+</ul>
+</li>
+</ul>
+<p>Maxout networks are designed to work with dropout networks</p>
+<ul><li>dropout is like training an exponential number of networks</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

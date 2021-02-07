@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Foundations of Data Science</title>
+</head>
+<body>
+
+<h1 id="foundations-of-data-science"><a href="https://www.cs.cornell.edu/jeh/book2016June9.pdf">Foundations of Data Science</a></h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#background">Background</a></li>
+<li>
+<a href="#high-dimensional-space">2: High-Dimensional Space</a><ul><li><a href="#eigendecomposition-of-a-matrix">Eigendecomposition of a Matrix</a></li></ul>
+</li>
+<li><a href="#best-fit-subspaces-svd">3: Best Fit Subspaces &amp; SVD</a></li>
+</ul>
+</div>
+<h3 id="background">Background</h3>
+<ul>
+<li>Truncated Taylor series: if the Taylor series exists, then you can truncate it at any n-th derivative term, and there exists some real value z as input to the derivative to complete it, f(x) = f(0) + f'(z)x</li>
+<li>
+<code>1+x ≤ e^x</code> forall real x. Proving inequalities a ≤ b is usually done by showing that b -a is non-negative</li>
+<li>Gamma function, for a &gt; 0, Γ(a) = 0∫∞(x^(a-1)•e^(-x)dx)</li>
+<li>Indicator Variable is either 0 or 1 to indicate the presence of some quantity</li>
+<li>Variance is the average squared deviation from the expected value</li>
+<li>covariance between xi and xj is the average product their deviations</li>
+<li>bounds on tail probability, for non-negative random variables: <code>P(x &gt; a) ≤ E(x)/a</code>
+</li>
+<li>for symmetric matrix A, the number of eigenvalues including multiplicity equals dimension(A)</li>
+<li>m x n matrix A<sup>T</sup> is the transpose of the n x m matrix A (columns become rows)</li>
+<li>an orthogonal matrix Q is square, with orthonormal unit vectors for rows and columns<ul><li>Q<sup>T</sup>Q = I, so Q<sup>T</sup> = Q<sup>-1</sup>
+</li></ul>
+</li>
+<li>conjugate transpose of a matrix, A * is the transpose of A and then taking the complex conjugate of all entries</li>
+<li>Real Spectral Theorem: let A be a real symmetric matrix, then<ul>
+<li>the <code>n</code> eigenvalues are real, as are the components of the corresponding <code>n</code> eigenvectors</li>
+<li>(spectral decomposition) A is orthogonally diagonalizable; A = VDV<sup>T</sup> where V is the matrix with columns |vi| = 1 and D is a diagonal matrix</li>
+</ul>
+</li>
+<li>A is symmetric &lt;=&gt; A is orthogonally diagonalizable</li>
+</ul>
+<h2 id="high-dimensional-space">2: High-Dimensional Space</h2>
+<p>Starting off with some simple high-dimensional intuition:</p>
+<ul>
+<li>for X ~ N(0,1), X is a coordinate of some d-dimensional vector, then as d -&gt; infinity, the volume of the unit ball (all vectors <strong>x</strong> s.t. |<strong>x</strong>| ≤ 1) -&gt; 0<ul><li>this is intuitive because for |<strong>x</strong>| to be ≤ 1, the sum of its squared components must be ≤ 1, and since they are normally distributed, we know that for large d, the sum of squared x coordinates will almost surely exceed 1</li></ul>
+</li>
+<li>for a set of n points in d-dimensions, also with normally distributed coordinates, as d -&gt; infinity, the distance between each of the points approaches the same value<ul>
+<li>this is essentially saying that the sum of d independent squared differences approaches a uniform value as d approaches infinity</li>
+<li>and the <em>law of large numbers</em> states that: P(|(x1 + ... + xn)/n - E(x)| ≥ ε) ≤ Var(x)/n•ε<sup>2</sup>
+</li>
+<li>this is a bound of sample mean, for set of X ~ N(μ, σ^2), where we think of ε to be error<ul><li>law of large numbers inequality is proved by Markov's inequality and Chebyshev's inequality</li></ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Markov's inequality:</strong> P( X ≥ α) ≤ E(X)/α</li>
+<li>
+<strong>Chebyshev's inequality:</strong> P(|Y-E(Y)| ≥ α) ≤ Var(Y)/α^2</li>
+</ul>
+<h4 id="properties-of-the-unit-ball">Properties of the Unit Ball</h4>
+<p>for a unit ball of d-dimensions, volume -&gt; 0 as d -&gt; infinity.</p>
+<ul>
+<li>most of the volume is concentrated near the outer annulus width of 1/d</li>
+<li>by shrinking some d-dimensional ball radius by factor f, we reduce the volume by a factor of f^d</li>
+</ul>
+<h4 id="random-projection-and-johnson-lindenstrauss-lemma">Random Projection and Johnson Lindenstrauss Lemma</h4>
+<p>The nearest Neighbour Problem is an example of a problem that benefits from dimension reduction with projection <code>f: R^d -&gt; R^k</code> k &lt;&lt; d</p>
+<ul>
+<li>basis of random projection: take k random d-dimensional vectors, u1, ..., uk, then f(v) = (u1 • v, ..., uk • v)<ul>
+<li>show that |f(v)| ~= k^(1/2) * |v| with high probability</li>
+<li>f(v1 - v2) = f(v1) - f(v2), allowing us to approximate distance between d-dimension points in k-dimensions</li>
+<li>note that ui's are not orthogonal, and not necessarily unit length</li>
+</ul>
+</li>
+<li>then Random Projection Theorem bounds the probability that the random projection deviates from the expected value by a factor of ε<ul><li>it follows that the probability that the projection length differs substantially is exponentially small with respect to k</li></ul>
+</li>
+<li>Johnson Lindenstrauss Lemma bounds the distance between f(vi) and f(vj) is between 0 and k^(1/2) with high probability</li>
+</ul>
+<h3 id="eigendecomposition-of-a-matrix">Eigendecomposition of a Matrix</h3>
+<p>Recall an Eigenvector of a linear mapping is a non-zero vector that does not change direction after the mapping is applied</p>
+<ul>
+<li>v is an eigenvector of T if T(v) = λv (scalar multiple)</li>
+<li>λ is the eigenvalue</li>
+</ul>
+<h2 id="best-fit-subspaces-svd">3: Best Fit Subspaces &amp; SVD</h2>
+<p>Singular Value Decomposition of a matrix is finding the best-fitting k-dim subspace (k is a natural number)</p>
+<ul>
+<li>minimizing the sum of squared perpendicular distances of points to the subspace</li>
+<li>equivalent to maximizing the sum of squared lengths of projections onto the subspace</li>
+</ul>
+<p>The best fitting subspace algorithm:</p>
+<ol>
+<li>start with special case, 1-dim line of best fit; line through the origin</li>
+<li>perform <code>k</code> applications of the best fitting line algorithm, where in the <code>i</code>th iteration, we find the best fitting line <strong>perpendicular</strong> to each of the <code>i-1</code> lines</li>
+</ol>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

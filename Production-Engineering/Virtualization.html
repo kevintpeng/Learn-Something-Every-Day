@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Virtualization</title>
+</head>
+<body>
+
+<h1 id="virtualization">Virtualization</h1>          <a href="index.html">Back to Production-Engineering</a>
+<div id="TOC">
+
+<ul><li><a href="#hypervisor">Hypervisor</a></li></ul>
+</div>
+<h3 id="hypervisor">Hypervisor</h3>
+<p>KVM and Xen are two highly relevant hypervisors. A hypervisor is software, firmware or hardware that creates and runs virtual machines as guests on a host machine. The hypervisor manages the execution of the guest OS's and the virtualized hardware exposed.</p>
+<ul>
+<li>Xen hypervisor is type-1, runs atop the hardware directly</li>
+<li>Virtualbox is a type-2 hypervisorthat runs on an OS as an application</li>
+<li>KVM blurs the lines between type-1 and type-2 b acting as a type-1 with a type-2-like interface for the user</li>
+</ul>
+<p><strong>full virtualization</strong> is where guest operating systems are unaware of each other and hypervisor directly interfaces with hardware resources.</p>
+<ul>
+<li>this offers the best abstraction in terms of isolation and security</li>
+<li>typically slower due to emulation involved</li>
+</ul>
+<p><strong>paravirtualization</strong> is where guest operating systems are aware of each other, allowing guest OS's to communicate with the hypervisor.</p>
+<ul>
+<li>efficient virtualization</li>
+<li>requires the guest os to be configured to interact with the para virtualization interfaces</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

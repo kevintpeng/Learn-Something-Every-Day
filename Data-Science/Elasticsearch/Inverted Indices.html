@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul><li><a href="#inverted-indexes">Inverted Indexes</a></li></ul>
+</div>
+<h3 id="inverted-indexes">Inverted Indexes</h3>
+<p><strong>Inverted Index</strong> is a data structure, implemented by Lucene, and is leveraged as the lowest abstraction in Elasticsearch for building up the search engine as a whole</p>
+<ul>
+<li>maps terms to documents containing the term</li>
+<li>can use this data structure to form boolean predicate queries using AND/OR to intersect/union results</li>
+<li>prefixes and suffixes are much faster to search; terms are stored in a tree allowing us to narrow a set of terms down in O(log n) time (range search algorithm probably) while arbitrary substring requires O(n) operation across all terms</li>
+<li>when building the indexes, we must consider search speed, compactness and build time</li>
+</ul>
+<p>An elasticsearch index is made of up one or more shards, each of which is a wrapper over an individual lucene index made up of index segments</p>
+<ul><li>lots of layers of abstraction, each exposing a different interface to handle searches over the data</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

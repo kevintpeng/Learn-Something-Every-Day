@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Processes</title>
+</head>
+<body>
+
+<h1 id="processes">Processes</h1>          <a href="index.html">Back to Unix</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#anonymous-pipe">Anonymous Pipe</a></li>
+<li><a href="#file-descriptors">File Descriptors</a></li>
+</ul>
+</div>
+<p>Processes have ids, PIDs. Processes can spawn other decendents, who inherit the environment variables of their parent process.</p>
+<ul><li>sub processes can change variables, but do not effect their parent</li></ul>
+<p><a href="http://blog.honeybadger.io/ruby-guide-environment-variables/">source</a></p>
+<ul>
+<li>when program is executed, a special environment is created for it, containing everything it needs to run</li>
+<li>when a command is issued, a new process is started</li>
+<li>OS tracks rpocesses with five digit ID (pid)</li>
+<li>
+<strong>Foreground Processes</strong> take input from keyboard and output to screen (think commands)</li>
+<li>
+<strong>Background Processes</strong> run in background, you can run other commands while they're running</li>
+<li>each unix process has pid and <em>parent process id</em> (ppid), run <code>ps -f</code> for info</li>
+<li>when a child ps is killed, SIGCHLD is sent to the parent (for it to create a new ps or act)</li>
+<li>
+<strong>Daemon Processes</strong> are system-related background processes, have no controlling terminal</li>
+</ul>
+<h3 id="anonymous-pipe">Anonymous Pipe</h3>
+<p>An anonymous pipe is a one-way FIFO channel for communication between processes.</p>
+<ul><li>typically a parent program opens anonymous pipes, spawns child processes that inherit other ends of the pipes<ul><li>or creates several processes and arranges them in a pipeline</li></ul>
+</li></ul>
+<h3 id="file-descriptors">File Descriptors</h3>
+<p>A <strong>handle</strong> is just an abstract reference to some resource outside the scope of your software (think like accessing memory in a database or from the OS). A <strong>File Descriptor</strong> is a type of handle</p>
+<h4 id="inode">inode</h4>
+<p>Data structure that describes a filesystem object (file/directory), with metadata attributes, disk block location as well as the object's data</p>
+<ul><li>must include size in bytes, device ID (containing inode), user ID of owner, group ID, file permissions mode, timestamp for last modified &amp; accessed, link count for number of hard links</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

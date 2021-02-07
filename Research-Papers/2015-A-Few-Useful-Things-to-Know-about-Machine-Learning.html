@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Useful Things to Know about Machine Learning</title>
+</head>
+<body>
+
+<h1 id="useful-things-to-know-about-machine-learning"><a href="http://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf">Useful Things to Know about Machine Learning</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<p>The fundamental goal of machine learning is to construct a function that can generalize beyond examples in the training data</p>
+<ul>
+<li>a learning problem can abstractly be broken down into three components: Representation Evaluation Optimization<ul><li>components can be combined in order to find a fit learning algorithm for some use case</li></ul>
+</li>
+<li>error in learning can be categorized as bias or variance<ul>
+<li>bias is tightly producing the wrong results consistently, this is a result of overfitting</li>
+<li>variance is producing results that are close to correct, but with low accuracy</li>
+<li>Overfitting - the learner should perform equally against testing data and new data, otherwise it is overfit</li>
+</ul>
+</li>
+<li>every learner must have underlying assumptions and knowledge of the data, because no learner can generalize beyond the training data for random boolean functions<ul><li>
+<em>No free lunch theorem</em> implies that a learning algorithms can't beat random guessing for random vector functions</li></ul>
+</li>
+<li>Multi testing problem - so many hypotheses tests that it is statistically probable that there are anomalies<ul><li>this can be mitigated by applying weighting to account for high volumes of hypothesis tests</li></ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

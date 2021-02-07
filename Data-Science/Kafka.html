@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Kafka</title>
+</head>
+<body>
+
+<h1 id="kafka">Kafka</h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#guarantees">Guarantees</a></li>
+<li><a href="#infrastructure">Infrastructure</a></li>
+</ul>
+</div>
+<p>Kafka is a streaming platform. It's a queue with a lot of features. Queues in infrastructure have a lot of benefits. They enable services to be decoupled, and holds in transit messages if services fail. Kafka is a queue that allows multiple consumers of the same data (without the need for multiple queues). This also means it can be the centralized feed for all data being produced.</p>
+<p>Kafka is publish-subscribe messaging system. Messages come from some set of producers, stored into partitions called topics. Abstractly, Kafka is a append-only log which can be read from by consumers at some offset.</p>
+<p>Each topic can have multiple subscribers, each with their own client ID with an associated cursor for how much of the topic it has consumed so far. This means that multiple subscribers will each get a copy of the published messages.</p>
+<p>Kafka is for realtime streaming systems:</p>
+<ul>
+<li>data pipelines, for moving data between systems</li>
+<li>applications that transform or react to stream data</li>
+</ul>
+<p>In addition to a producer API and Consumer API:</p>
+<ul>
+<li>stream API consumes an input stream from topic(s) and produces an output stream to other topics</li>
+<li>connector API, <em>essentially a library of producer or consumer implementations to connect Kafka to other common systems</em>
+</li>
+</ul>
+<h3 id="guarantees">Guarantees</h3>
+<ul>
+<li>Guarantees messages sent by producers will be appended with order preserved.</li>
+<li>all data is preserved on every replica of a topic</li>
+</ul>
+<h3 id="infrastructure">Infrastructure</h3>
+<p>Kafka is a cluster that can span regions. <strong>Consumer groups</strong> are logical consumers that generalize the tradeoffs between queuing and pub-sub models. They allow multiple subscribers and also allow processing to scale horizontally.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

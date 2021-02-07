@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>HTTP Secure</title>
+</head>
+<body>
+
+<h1 id="http-secure">HTTP Secure</h1>          <a href="index.html">Back to Networking</a>
+<p>Extra layer of encryption, using SSL/TLS</p>
+<ul>
+<li>protects the url, query params, headers, cookies</li>
+<li>address (hostname) and port are a part of the TCP protocols and cannot protect the disclosure of these</li>
+<li>only the server is usually authenticated, through the client examining the server's certificate<ul>
+<li>the public key certificate proves ownership of a public key (so that you know the server that's able to decrypt your messages is exactly who you think they are)</li>
+<li>cert contains which DNS names are a part of the cert, expiry date, issuer, and of course the public key for encryption</li>
+</ul>
+</li>
+<li>a <strong>certificate authority</strong> is an entity that issues certs<ul>
+<li>browsers come with a set of CA certs to automatically trust</li>
+<li>operating systems have a list of available trusted root certs</li>
+</ul>
+</li>
+</ul>
+<p>Looking at wikipedia as an example, we see <code>Issued by: GlobalSign Organization Validation CA</code></p>
+<p>The issuer in this case is an <strong>intermediate certificate authority</strong></p>
+<p>The intermediate certificate authorities are owned by the <strong>root certificate authority</strong>. These are trusted using some other mechanism, such as secure physical distribution.</p>
+<p>This forms a <strong>chain of trust</strong> from a certificate chain.</p>
+<p><strong>P12 cert</strong> is a file format for storing multiple cryptographic objects, or simply one private key and its associated certificate chain</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

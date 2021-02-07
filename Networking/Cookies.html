@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Cookie -- source</title>
+</head>
+<body>
+
+<h1 id="cookie----source">Cookie -- <a href="http://www.tcpipguide.com/free/t_HTTPStateManagementUsingCookies.htm">source</a>
+</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul><li><a href="#issues">Issues</a></li></ul>
+</div>
+<p>HTTP is entirely stateless. Each time a server receives a request from a client, it processes the request, sends response, and forgets about the request.</p>
+<ul>
+<li>the intended use of HTTP has shifted to require knowledge of state, no longer just for resource retrieval</li>
+<li>
+<strong>state management</strong> stores the state of a client session across multiple HTTP transactions</li>
+<li>cookies store small amounts of data (username, pass, things like shopping carts)</li>
+</ul>
+<h3 id="issues">Issues</h3>
+<ul>
+<li>Sensitive information: messages for cookies that store passwords could be intercepted</li>
+<li>Misuse: any server can set cookies, can be misused for tracking purposes</li>
+<li>Third-Party Unintentional cookies: site <code>A</code> can retrieve content from <code>B</code> (like an image) and <code>B</code> can put a cookie on your computer</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

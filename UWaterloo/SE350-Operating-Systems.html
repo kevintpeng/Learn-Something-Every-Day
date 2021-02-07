@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Operating Systems</title>
+</head>
+<body>
+
+<h1 id="operating-systems">Operating Systems</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#chapter-1">Chapter 1</a><ul>
+<li>
+<a href="#overview"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/372772/viewContent/2065318/View">Overview</a>
+</li>
+<li><a href="#context-switching">Context Switching</a></li>
+<li><a href="#scheduler">Scheduler</a></li>
+<li><a href="#multiprogramming">Multiprogramming</a></li>
+</ul>
+</li>
+<li>
+<a href="#chapter-2">Chapter 2</a><ul><li><a href="#operating-system">Operating System</a></li></ul>
+</li>
+<li>
+<a href="#chapter-3">Chapter 3</a><ul><li><a href="#how-does-the-os-manage-processes">How does the OS manage processes</a></li></ul>
+</li>
+</ul>
+</div>
+<ul>
+<li>
+<p><a href="https://learn.uwaterloo.ca/d2l/le/content/372772/Home">learn</a></p>
+<h3 id="summary">Summary</h3>OS provides abstraction</li>
+<li><p>often a cost vs. complexity tradeoff</p></li>
+</ul>
+<p>OS must handling running many processes, uses ISR's &amp; context switches to handle multiple processes</p>
+<p>Requires scheduling to determine which processes run with what order and frequency</p>
+<h2 id="chapter-1">Chapter 1</h2>
+<h3 id="overview"><a href="https://learn.uwaterloo.ca/d2l/le/content/372772/viewContent/2065318/View">Overview</a></h3>
+<ul>
+<li>OS is an abstraction the enbles the use of hardware</li>
+<li>CPUs, Memory, I/O modules, timers, interrupt controller, system bus</li>
+<li>Processing Unit has<ul>
+<li>
+<strong>Memory Address Register (MAR)</strong> address for read/write</li>
+<li>
+<strong>Memory Buffer Register</strong> (MBR) contains data</li>
+<li>I/O address + buffer registers</li>
+</ul>
+</li>
+</ul>
+<p>User-visible registers (1 to 64 depending on architecture)</p>
+<ul>
+<li>compilers control them</li>
+<li>
+<strong>data registers</strong> store data</li>
+<li>
+<strong>address register</strong> points to memory</li>
+<li>invisible registers<ul>
+<li>program counter cannot be directly modified by the user</li>
+<li>Instruction register is invisible (the instruction itself)</li>
+<li>Program status word contains status information, like coditions, exit codes, flags</li>
+</ul>
+</li>
+</ul>
+<h4 id="interupts-for-peripherals-isrs">Interupts for Peripherals (ISRs)</h4>
+<ul>
+<li>non blocking solution</li>
+<li>processor checks for interrupt, store snapshot on stack and execute interrupt handler<ul><li>simple model just disables interrupts while running a handler</li></ul>
+</li>
+<li>lean ISR vs heavy ISR gives you control of what state need be preserved (lean specifies registers to preserve)</li>
+</ul>
+<p>Interrupts are mechanically similar to multiprogramming</p>
+<ul><li>ISR jumps with a fresh start, but instead you push the registers onto the control stack and ???</li></ul>
+<p>How do you handle interrupts during an ISR?</p>
+<ol><li>You can disable interrupts to stop nested interrupts</li></ol>
+<ul><li>instead use a queue</li></ul>
+<ol><li>You could have multiple interrupts going on, with priority (this gets into scheduling algorithms)</li></ol>
+<p>ARM fast interrupts for sequential interrupt processing uses a single jump instead of jumping back to user program before next interrupt.</p>
+<ul><li>can cause unexpected behaviour, hard to debug becuase it doesn't have to jump back</li></ul>
+<h3 id="context-switching">Context Switching</h3>
+<p>OS creates an abstraction, running processes; instances of executing programs. Its context consists of registers, vars, program counter)</p>
+<ul>
+<li>Multiprogramming environment has independent sequential processes, only one is active at once</li>
+<li>OS keeps processes in a process table (Process Control Block)</li>
+<li>a <strong>context switch</strong> or task switch is switching the CPU from one process to another<ul>
+<li>
+<strong>context</strong> is the contents of the CPU's registers and PC at any point</li>
+<li>consists of suspension of one process and resuming of another</li>
+</ul>
+</li>
+</ul>
+<p>Context switch steps:</p>
+<ol>
+<li>Save context of CPU</li>
+<li>Schedule next process for execution</li>
+<li>Load new context of CPU</li>
+</ol>
+<p>Embedded Parallel Operating System (EPOS) for labs</p>
+<h3 id="scheduler">Scheduler</h3>
+<p><strong>scheduler</strong> decides which process to run at a certain time &amp; how long it runs</p>
+<ul><li>part of OS process management subsystem<ul><li>executes scheduling algorithm</li></ul>
+</li></ul>
+<h4 id="scheduling-algorithm">Scheduling algorithm</h4>
+<ul>
+<li>consists of job queue, ready queue, CPU, and I/O waiting queue</li>
+<li>scheduling decision is made when new process is created, process exits, a process gets blocked, or an I/O interrupt occurs</li>
+</ul>
+<p>3 types of scheduling algorithms (high level categories)</p>
+<ul><li>all need some sort of fairness, balance, and policy enforcement</li></ul>
+<ol><li>batch (payroll)</li></ol>
+<ul>
+<li>max trhoughput</li>
+<li>keep CPU busy</li>
+</ul>
+<ol><li>realtime (deadlines)</li></ol>
+<ul><li>meet deadlines, predictibly</li></ul>
+<ol><li>interactive (desktop)</li></ol>
+<ul><li>respond to requests quickly</li></ul>
+<p><strong>Preemptive scheduling</strong> is the act of interrupting a task with a context switch, with the intention to resume later</p>
+<h4 id="algorithms">Algorithms</h4>
+<p>Round robin uses timer interrupts</p>
+<ul>
+<li>time too short is expensive for context switches, too long might not be fair</li>
+<li>preemptive</li>
+</ul>
+<p>Priority scheduling runs processes in priority (static or dynamic)</p>
+<ul>
+<li>extends priority class</li>
+<li>non-preemptive, but may use round robin for tiebreaking priority</li>
+</ul>
+<p>First come first server (will extend priority)</p>
+<h4 id="implementation">Implementation</h4>
+<p>Traditionally implemented with a hiearchy of abstract Scheduler classes</p>
+<ul><li>class can be specialized</li></ul>
+<p>EPOS instead uses composition? to detach scheduling policy and data structure mechanism and criteria</p>
+<ul><li>so it has a thread object (process execution instance), criterion, schedluer mechanism (queue for example)</li></ul>
+<p><img src="/assets/epos_scheduling_uml.png" alt="epos uml"></p>
+<h3 id="multiprogramming">Multiprogramming</h3>
+<p>More than one program to execute</p>
+<ul>
+<li>same mechanism for ISR, but instead is used to switch between programs depending on priority</li>
+<li>
+<strong>busy waiting</strong> is basically polling of a status register<ul><li>important for systems that need extremely low latency (skips context switch)</li></ul>
+</li>
+<li>interrupt-driven waits for an interrupt from I/O module</li>
+</ul>
+<h2 id="chapter-2">Chapter 2</h2>
+<h3 id="operating-system">Operating System</h3>
+<p>A program that controls execution of other programs to help them by acting as a standard interface between application and hardware</p>
+<ul>
+<li>convenience, efficiency, ability to evolve</li>
+<li>we have layers so that programmers can focus on their specific layer (application layer) without worrying about lower level things like file systems</li>
+<li>provide services, things like <code>ulimit -a</code>
+</li>
+</ul>
+<p><code>ulimit</code> controls limitations within the shell and its forked processes</p>
+<p>The OS manages computer resources. <strong>Kernel</strong> is the portion of OS that is in main memory, containing frequently used functions.</p>
+<p><code>/procs/</code> demo</p>
+<ul>
+<li>bunch of pid directories, with some info about the processes</li>
+<li>
+<p>nucleus</p>
+<h3 id="processes">Processes</h3>
+</li>
+</ul>
+<p><strong>Virtual Memory</strong> uses swap disk of some form (alternative memory medium) to create the illusion of more memory</p>
+<ul><li>abstraction that you put between</li></ul>
+<p><strong>Paging</strong></p>
+<h2 id="chapter-3">Chapter 3</h2>
+<p>How OS deals with processes, first understanding of states of processes and how to manage them.</p>
+<p>Uniprocessor interleaves execution of processes, while multiprocessor has parallel execution of processes</p>
+<h3 id="how-does-the-os-manage-processes">How does the OS manage processes</h3>
+<p>A process is a program in execution, a unit activity with a sequence of instructions, and state</p>
+<ul><li>executable program, associated data, and execution of the program</li></ul>
+<p>Process elements include PID, state, priority, memory pointers (shared memory blocks), context data (PSW, counter, registers), I/O status info, accounting info (process time, time limit, threads)</p>
+<p><strong>Process Control Block</strong> is the data structure that contains the process elements</p>
+<ul>
+<li>allows support for multiple processes</li>
+<li>should not allow users to manipulate the process control block</li>
+</ul>
+<p>For sharing CPU, a single processor system works as follows: task switcher triggers after timeout (quantum size, say after for example 6 instructions) or after I/O request, switch to dispatcher that switches processes</p>
+<p><img src="/assets/se350_single_processor_trace.png" alt="trace"></p>
+<p>Longer quantum size means less wasted cycles on dispatcher, but lower responsiveness (longer wait time till first instruction for processes scheduled later)</p>
+<p><strong>Two state process model</strong> says a process is either running or not running</p>
+<ul><li>naively, we can use a queue for round robin scheduling</li></ul>
+<p>Processes are terminated if</p>
+<ul>
+<li>completes normally</li>
+<li>time limit exceeds (<code>ulimit</code>)</li>
+<li>memory unavailable</li>
+<li>error (bounds, protection, arithmetic, I/O)</li>
+<li>deadlock, resulting in the OS killing it</li>
+<li>parent termination</li>
+</ul>
+<p>Core dump</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Operating Systems</title>
+</head>
+<body>
+
+<h1 id="operating-systems"><a href="https://www.student.cs.uwaterloo.ca/~cs350/W18/reading.html">Operating Systems</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#threads">Threads</a></li>
+<li><a href="#synchronization">Synchronization</a></li>
+<li><a href="#processes">Processes</a></li>
+<li><a href="#multiprocessing">Multiprocessing</a></li>
+<li><a href="#a-note-on-page-faults">A note on Page faults</a></li>
+<li><a href="#virtual-memory">Virtual Memory</a></li>
+</ul>
+</div>
+<h3 id="summary">Summary</h3>
+<ul>
+<li>Lock for achieving mutual exclusion<ul><li>spinlocks vs locks that block</li></ul>
+</li>
+<li>for blocking, threads sleep on wait channels</li>
+<li>Semaphores for resource tracking</li>
+<li>conditional variables when we need to wait</li>
+<li>virtual memory is important for isolation of processes and their security</li>
+<li>page tables are fast + handle fragmenting, but extremely space inefficent (since page tables could be larger than the actual amount used in the address space)<ul><li>kernel manages MMU registers on context switches, manages page tables, handles exceptions raised (for writes/loads outside of address space), and MMU translates addresses and throws exceptions</li></ul>
+</li>
+</ul>
+<h3 id="intro">Intro</h3>
+<p>Three views of an OS:</p>
+<ul>
+<li>application (services)<ul>
+<li>provides an execution environment, with interfaces for network, storage, I/O</li>
+<li>isolates different programs running</li>
+</ul>
+</li>
+<li>system (problems)<ul><li>OS manages hardware, allocates resources among programs</li></ul>
+</li>
+<li>implementation, it's a concurrent real-time program</li>
+<li>
+<strong>kernel</strong> is the part of the OS that responds to system calls, interrupts, and exceptions</li>
+</ul>
+<h3 id="threads">Threads</h3>
+<ul><li>All threads share access to the program's global vars and heap</li></ul>
+<p>Threads expose parallelism, enabling faster program execution and better processor utilization through less blocking</p>
+<ul>
+<li>conceptually, each thread has its own private register contents and stack</li>
+<li>implemented either through multiple processors, or timesharing (context switches)</li>
+</ul>
+<p><strong>preemption</strong> is forcing a running thread to stop so that another thread has a chance to run, accomplished using interrupts (maybe a timer based)</p>
+<ul>
+<li>need an interrupt handler at some memory location (subroutine)</li>
+<li>scheduling <strong>quantum</strong> is the upper bound for the run duration of a thread, tradeoff between responsiveness and fairness</li>
+</ul>
+<h3 id="synchronization">Synchronization</h3>
+<p>Critical section is some portion of memory shared between threads</p>
+<ul>
+<li>bunch of interesting race condition examples</li>
+<li>can be fixed by forcing mutual exclusion of critical sections of code</li>
+<li>a simple spin lock blocks until the lock is free</li>
+</ul>
+<p>Hardware-specific synchronization instruction, <code>xchg</code> provides a way to test and set a lock in a sing atomic operation (instead of multiple)</p>
+<p>OS/161 has locks which block instead of spinning</p>
+<ul><li>blocked threads are put in a wait queue (not part of the ready list)</li></ul>
+<p><strong>Wait channels</strong> are used to implement thread blocking</p>
+<ul>
+<li>
+<code>wchan_sleep</code> blocks a thread, and causes a context switch like <code>thread_yield</code>
+</li>
+<li>
+<code>wchan_wake</code> unblocks a thread sleeping on a certain (or any) wait channel</li>
+</ul>
+<p>Semaphore keeps track of how many resources are available</p>
+<ul>
+<li>"P a semaphore" is asking for a resource, acquire, procure</li>
+<li>"V" is return,</li>
+<li>binary semaphore can be used as a lock to provide mutual exclusion<ul><li>not equivalent because a binary semaphore can be released by anyone, lock cannot</li></ul>
+</li>
+<li>bounded buffer can be built with two semaphores, with a read/write lock when adding and removing</li>
+<li>barrier semaphore is built as follows: each piece of work V(semaphore) after it finishes, producer loops n times for n workers, P(semaphore) n times</li>
+<li>condition variable works in conjunction with a lock and has a wait channel<ul>
+<li>mug in a bar example, for safely releasing a lock for the purpose of satisfying a condition</li>
+<li>signal, one blocked thread on the signaled condition is unblocked</li>
+<li>broadcast, wakes everyone waiting on the condition<ul><li>each wait channel is for one resource only</li></ul>
+</li>
+<li>wait, releases the lock, waits and then reacquires the lock</li>
+</ul>
+</li>
+</ul>
+<p><code>c++  // like lock acquire implementation?  wait(lock * my_lock, cv * my_cv)    ???    ???    lock_release(lock)    wchannel_sleep(cv -&gt; )    lock_acquire(lock)</code></p>
+<ul><li>HOARE, signaling thread goes to sleep, woke thread immediately run, good for responsiveness</li></ul>
+<p>Bounded Buffer can be written with locks and CVs</p>
+<ul><li>producer lock, while loops to <code>cv.wait(notfull, mutex)</code>, then insert item and <code>cv.signal(notempty, mutex)</code>, unlock</li></ul>
+<p>CV implementation, 1 lock and 4 CV for assignment 1. Don't use timers. Use pressure-plate like behaviour for fairness. Let <code>k</code> more cars or if the intersection clears, switch.</p>
+<p>If you own the lock that you try to acquire, you get a deadlock</p>
+<ul>
+<li>deadlocks happen as a result of use of synchronization primatives (programmers fault)<ul><li>one or more threads are stuck</li></ul>
+</li>
+<li>another common example, two threads try to acquire multiple resources in varying order across threads</li>
+</ul>
+<p>2 techniques for prevention</p>
+<ul><li>
+<strong>no hold and wait</strong> says you need to acquire all your resources at once, don't sleep while acquiring resources<ul><li>new lock to implement this, try-acquire<ul>
+<li>take lock and return true if available</li>
+<li>else return false</li>
+</ul>
+</li></ul>
+</li></ul>
+<p>acquire(A)<br>
+while(!try_acquire(B)<br>
+release(A)<br>
+acquire(A)<br>
+// now guaranteed to have A and B</p>
+<p>Not great because context switch isnt guaranteed, and we are spinning</p>
+<p><strong>Resource ordering</strong>, assign all resources a unique number and then you must acquire resources in strictly increasing order</p>
+<p>Suppose that a threaded program has N queues of items. The program needs to support an operation called Transfer i,j). Each call to Transfer will transfer a single item from the ith queue to the jth queue, unless there is nothing in the queue, in which case the call will not affect the queues. The program will have multiple concurrent threads, each of which may call Transfer zero or more times. How would you use locks to ensure that Transfer operations are atomic? Specifically, how many locks would you use, what would each lock protect, and when would the locks be acquired and released to ensure that transfers are atomic?</p>
+<ul><li>tl;dr: N queues, implement a concurrent transfer function, n locks with resource ordering, supports N/2 transfers concurrently</li></ul>
+<h3 id="processes">Processes</h3>
+<p>a process is the environment created to run a program in</p>
+<p>a process has an array of threads, data, files</p>
+<p>kernel abstracts physical ram as virtual memory, remaps addresses to 0, so every process is isolated and each thinks it is the only thing running; <strong>processes dont talk to each other</strong></p>
+<ul>
+<li>kernel keeps track of processes in a table, with what state theyre in currently</li>
+<li>states = {READY, RUNNING, BLOCKED, ZOMBIE}</li>
+</ul>
+<p><strong>process management calls</strong>: creation, destruction, synchronization, attribute management</p>
+<ul>
+<li>fork, execv</li>
+<li>waitpid lets us wait for another process to terminate</li>
+</ul>
+<p>fork Creates an identical clone, child, returns 0 if its the child</p>
+<p>exit terminates, stores a final message (status code) and turns the process into a zombie</p>
+<p>waitpid makes process go to sleep until process with pid terminates, can omly be called on children</p>
+<h3 id="multiprocessing">Multiprocessing</h3>
+<p>You need synchronization around the global parts of sys4 implementation</p>
+<ul>
+<li>you can have an interrupt while running in the kernel</li>
+<li>practice working through user + kernel stack state for a scenario<ul>
+<li>all trap frames + kernel code is on the kernel stack</li>
+<li>user stack lives in the address space of the process</li>
+<li>kernel stack does not; elsewhere, only the kernel knows about it</li>
+</ul>
+</li>
+</ul>
+<p>System calls to implement:</p>
+<ol><li>pid_t fork<ul>
+<li>create process structure</li>
+<li><code>struct proc p = kmalloc</code></li>
+<li>set all fields</li>
+<li>fork is a clone, so address space is the same. So create new address space (allocate memory) <code>memcopy</code>-like thing<ul><li>loaded, same size</li></ul>
+</li>
+<li>assign PID AFTER you know it's allocated (it's unique)<ul><li>edit process structure to include pid</li></ul>
+</li>
+<li>pick a unique id (counter maybe, or use address with conversion to unsigned)</li>
+<li>add parent/child relationship (either part of the struct or global)</li>
+<li>now we need a thread; needs to be a new thread. So use thread fork with a parameter to tell it to attach it to<ul><li>
+<code>proc_create_runprogram()</code> to setup process<ul><li>it can fail if there's no memory, or other things, so check return value to make sure it didn't fail</li></ul>
+</li></ul>
+</li>
+<li>create and copy address space <code>as_copy()</code>, pass it old and new address spaces, then it allocates memory and copy it from the parent<ul><li>if it failed, return appropriate error code</li></ul>
+</li>
+<li>
+<code>thread_fork()</code> creates new thread, need entry point function to setup kernel stack so that it can return to user mode ..?</li>
+</ul>
+</li></ol>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="co">// entry point</span>
+entrypt( <span class="dt">void</span> *tf, <span class="dt">unsigned</span> <span class="dt">long</span> ) {
+  <span class="co">// take parent's trap frame and put it on the kernel stack</span>
+  <span class="kw">struct</span> trapframe t = *tf;
+  <span class="co">// setup return value for fork, which need to go in the trap frame for that thread</span>
+  t.tf.v0 = <span class="dv">0</span>
+  t.tf.a3 = ...
+  t.tf.pc += <span class="dv">4</span> <span class="co">// program counter</span>
+  mips_usermode <span class="co">// fake the return from the exception</span></code></pre></div>
+<ul><li>parent process could destroy it's trap frame before the child reads it</li></ul>
+<ol>
+<li>parent could have to wait until the child is finished (but it's slow)</li>
+<li><p>copy the parent's trap frame to the heap, and pass it to the child (so no synchronization issue)</p></li>
+<li>waitpid<ul>
+<li>is this one of my children? no? then return error code</li>
+<li>else if it's a zombie, read child's exit status and destroy it</li>
+<li>else, wait channel (/ lock + cv) on the child<ul>
+<li>every process needs to have one of these, so wait on the child's cv</li>
+<li>now when child calls exit, it deletes address space and stuff, then checks if parent is sleeping and wake them up</li>
+<li>now the child must be a zombie</li>
+<li>if child's parent is dead (zombie/non-existant), then delete yourself instead of becoming a zombie because no one can waitpid on your child</li>
+<li>if a parent exits without calling waitpid, it has to check it's children and delete all zombies</li>
+</ul>
+</li>
+<li>exit code says why this process died</li>
+</ul>
+</li>
+</ol>
+<h3 id="a-note-on-page-faults">A note on Page faults</h3>
+<p>If the kernel panics on a page fault, it's just telling you you're getting a segfault: doing something with memory you're not allowed to do</p>
+<ul>
+<li>epc (program counter) &gt;= 0x8000 0000 implies bug in kernel code<ul><li>&lt;= 0x8000 0000 implies that error is noticed by user proc implies stack or address space is setup wrong</li></ul>
+</li>
+<li>virtual address is either a load (read) or store (write)<ul>
+<li>if the address is a low like 0x4 implies dereferencing/writing to NULL</li>
+<li>if really high like 0xdeadbeef implies reading/writing memory that's already been freed</li>
+<li>other, could be anything but typically it's an array out of bounds error</li>
+</ul>
+</li>
+<li>really bizarre behaviour implies overwriting important data like program info or constants</li>
+</ul>
+<h3 id="virtual-memory">Virtual Memory</h3>
+<p>Warning: Do hex math on exam</p>
+<p>In our address space, code starts at 0, followed by data. Data grows up. Stack starts on the far right and grows right.</p>
+<p>In OS-161, stack is set by OS.</p>
+<p>Each process has an address space. OS allocates some ram for the process based on its request (code + data size). Core map is a data structure that is used to track memory that's used vs. free. Each address space is mapped with respect to 0, and uses fake addresses.</p>
+<p>Aside: modern operating systems randomize position of code, data, stack and heap to hide any information about the process structure itself</p>
+<p><strong>Address Translation</strong>: performed by the hardware by the MMU. Every time there's a context switch, the kernel tells the MMU how to translate instruction addresses. We have three goals</p>
+<ul>
+<li>transparency: for any scheme, the process must not know of the scheme</li>
+<li>efficiency: time &amp; space (table vs. two vars)</li>
+<li>protection: true isolation</li>
+</ul>
+<p><strong>Dynamic Relocation</strong>: most efficient scheme in both time and space.</p>
+<ul>
+<li>find contiguous memory block to assign a process. Then subtract the beginning address from each address (offset)<ul><li>store the limit (size of block), and hold the limit and offset in the kernel</li></ul>
+</li>
+<li>if virtual address v &gt;= Limit, throw EXCEPTION, else p &lt;- v + Relocation</li>
+<li>requires contiguous memory regions, leading to <em>external fragmentation</em>
+</li>
+</ul>
+<p><strong>Paging</strong>: divide memory into small segments (frames or physical pages). Now we can request ANY frames</p>
+<ul>
+<li>fixes problem on fragmentation, but requires a page table<ul>
+<li>exhaustive list, with an entry for each page, whose value</li>
+<li>MMU doesn't know how much was allocated, so it has to look it up to see if it's <code>valid?</code>
+</li>
+</ul>
+</li>
+<li>page table is fixed size, regardless of the addressing space size</li>
+</ul>
+<pre><code>V -&gt; virtual addr
+PGSIZE = page size = frame size
+PG# = V / PGSIZE
+OFFSET = V % PGSIZE
+FRAME# = lookup(PG#)
+PHYSADDR = FRAME# x FRAMESIZE + OFFSET
+         = FRAME# x PGSIZE + OFFSET
+         = first address of page + offset into page
+#OF_PGS = VMemSize / PGSIZE (not virtual address size)
+     = 2^16 / 2^12 
+     = 2^4 pages
+#BITSPERPG = log (#OF_PGS) (these are bits to address pages)
+           = log (2^4)
+           = 4
+#OFFRAMES = PhysMemSize / FRAMESIZE
+BITSPERFRAME = log (#OFFRAMES)
+BITSFOROFFSET = log (PGSIZE)</code></pre>
+<p>practice:</p>
+<pre><code>a) bitsforoffset = 16
+pages = 2^16
+b) bitsforpageaddr = 16
+c) 48
+
+Vmemsize = 2^16
+Physmemsize = 2^18
+pagesize = 2^12
+pages = 2^4
+pageaddrbits = 4
+
+phys = framesize x frame# + offset
+phys = 2^12 * 0x26 + 2c
+     = 0x900 * 0x26 + 2c
+     = 
+
+page# = 0x1
+frame# = 0x26
+
+0x1502C
+0x32800
+0x14024</code></pre>
+<p>so the format of the solution for "given v find p using page tables": first calculate <code>b</code>, the # of bits needed for the page address, take the first <code>b</code> bits of <code>v</code> and lookup in our page table to get <code>f</code> the frame number. Finally "append" them together.</p>
+<h4 id="translation-look-aside-buffer">Translation Look-aside Buffer</h4>
+<p>Page table lookups are slow. The idea is, when an address needs to translated, check the cache before leaving the CPU to memory. Improves performance, especially on sequential reads (like programs, arrays, etc...)</p>
+<ul>
+<li>in hardware managed TLB, MMU picks up exceptions</li>
+<li>in software, the kernel will handle exceptions, fetching pages, TLB eviction, and re-execution</li>
+<li>MIPS TLB entries are 64 bits: first 20 bits for page #, 6 bits for PID, first 20 bits of lower word is frame #</li>
+</ul>
+<p>Page fault is when the TLB does not have the page cached already so it throws an exception to be handled by the kernel (as in software managed tlbs)</p>
+<ol>
+<li>If TLB is full, perform eviction</li>
+<li>Else load the page into cache</li>
+<li>Update PTE present bit</li>
+<li>Return from exception and retry memory access</li>
+</ol>
+<p>We want to try to limit page faults. This can be done by</p>
+<ol>
+<li>Having a good cache eviction algorithm (round robin skip method)</li>
+<li>Prefetch relevant pages</li>
+<li>Limit number of processes to prevent cycling cache evicitons</li>
+</ol>
+<p>What is the clock replacement algorithm for cache eviction?<br>
+Modified round robin heuristic with a skip bit. Every time a page table entry is used, set the skip bit to 1. When evicting, round robin and skip any tlb entries that have a value 1, zeroing it as it’s passed. Evict the first 0.</p>
+<h4 id="segmentation">Segmentation</h4>
+<p>So far, been putting entire address space of each process in memory (with a large space between the stack and the heap).</p>
+<ul>
+<li>dynamic relocation is not flexible for large address spaces (needs contiguous space)</li>
+<li>instead of having a single offset and size register, segmentation says to have multiple, in some implementation</li>
+<li>each segment is just a contiguous portion of the address space</li>
+<li>canonically, we have 3 segements based on logical separation; code, stack, heap</li>
+<li>then we can design it so that only USED memory ends up in physical memory (in contrast to having the entire address space allocated in physical addresses)</li>
+<li>a <strong>segmentation fault</strong> occurs when attempting to reference an address that is not a part of any segment</li>
+<li>logical segments is nice conceptually, but in practice we need an implementation that easily knows which segmenet an address belongs to (without checking if it's part of the stack vs. the heap)</li>
+<li>simple approach is to use the top few bits to splice an address space into multiple segments<ul><li><em>note these segments are visible to the user, since they're segmented based on their virtual addresses</em></li></ul>
+</li>
+<li>there's an implicit approach too; PC addresses are probably from the text segment, addresses based off of the stack or base pointer are the stack segment, everything else is heap</li>
+<li>
+<strong>segment tables</strong> are another approach allowing more fine-grained segmentation, simple scheme for a dynamic number of segments, lookup segment number in the table to get the size and start of the segment, and perform checks and throws address exceptions accordingly</li>
+</ul>
+<h4 id="address-spaces">Address Spaces</h4>
+<p>Modern OS's use on demand leaves them on disk, and only load frames into memory the exact moment it's needed. Downside, everytime you address something that's not in RAM, you need to fetch it from disk (slow process)</p>
+<p>Executable and linking format (ELF) files</p>
+<ul><li>
+<code>cs350-objdump</code>, load elf function reads header, which contains all information you need to know about a program (code segment, virtual memory address, offset, rodata / read only data / constants)</li></ul>
+<p>50 / 50 split between user and kernel</p>
+<ul>
+<li>user space: kuseg</li>
+<li>kseg0: does not use TLB or paging for address translation, but is cached</li>
+<li>kseg1: does not use TLB or paging for address translation, not cached since it's for device registers which are semantically volatile</li>
+<li>kseg2 not used</li>
+<li>exam question: based on fault address, what happened?</li>
+</ul>
+<p>In OS161/MIPS, given a physical address, it could have come from 3 possible spots: kuseg, kseg0, or kseg1</p>
+<h4 id="scheduling">Scheduling</h4>
+<p>Scheduling is a problem of ordering jobs based on parameters like arrival time, duration/size, priority. Simple approaches include round robin and shortest job. Pre-emption can be used so that jobs don’t have to run in one pass, they can be stopped in between. This allows for round robin with a runtime, or longest time remaining. In the context of operating systems, jobs are processes, and often processes do not have a known duration. Jobs can also be blocked when doing CPU scheduling.</p>
+<p>CFS (linux completely fair scheduler) is a weighted scheduling system that tries to balance process runtimes based on weight which is semantically a process’ priority. At any time, the amount of effective CPU time a process gets should be approximately it’s percentage of the total weight of all jobs (job weight/ sum of all weights). We measure this will virtual runtime, which can be calculated as the actual runtime * all weights / job weight, and CFS will attempt to have equal virtual runtime across all processes.</p>
+<p>This is implemented in two possible ways.</p>
+<ol>
+<li>Shared queue. Requires mutual exclusion, so contention increases as we have more cores requesting work. But should maintain fairness extremely well.</li>
+<li>Separate per-core queues. Scales better as we won’t have cores waiting on the locked queue for work. However, load imbalance is very possible and requires periodic rebalancing. This is called thread migration.</li>
+</ol>
+<h4 id="hardware-devices">Hardware Devices</h4>
+<p>What are device registers vs device drivers?</p>
+<p>Device drivers are the kernel code that interacts with hardware devices.</p>
+<p>Device registers are either status or command, (read/write) and act as an interface for sending and receiving information from a hardware device.</p>
+<ol>
+<li>Memory mapped IO. Each register has a physical memory address</li>
+<li>Special I/O Instructions, in x86 <code>in</code> and <code>out</code>
+</li>
+</ol>
+<p>Current time status registers<br>
+Restart-on-expiry command<br>
+Countdown status+command<br>
+Beep command</p>
+<p>Data transfer to/from devices is facilitated by a data buffer. Two options for transferring to or from this buffer</p>
+<ol>
+<li>Program controlled, cpu transfers bytes but blocks cpu</li>
+<li>Direct Memory Access, CPU initiates, device controller does the transfer and notifies completion via an interrupt.</li>
+</ol>
+<p>Went over disks. Old hard drives had spinning disks for large data storage. Disks are divided into tracks and have blocks/sectors on each track. Disks use a mechanical head the seeks across tracks while the disk spins. We want to minimize seek time (time for head to move across tracks), rotational latency (how fast the disk spins and how much it has to rotate to line up the starting block) and finally transfer time (time taken to spin through number of sequential blocks). In practice, software can only optimize seek time.</p>
+<p>What is the elevator algorithm for disk head scheduling?<br>
+Always seek in one direction (either inwards or outwards) until there are no more read requests in the given direction, then go the other direction. In this way, read/write operations are batched, with a maximum latency guarantee of two full end to end seeks, preventing starvation.</p>
+<h4 id="file-systems">File Systems</h4>
+<p>Interface:</p>
+<ol>
+<li>Open(filepath, option), returns a file descriptor for the file at file path. The file descriptor is unique (per process) and is stored in a process’ file descriptor table. This might create a new file depending on the options passed in.</li>
+<li>Close(descriptor), invalidates a valid file descriptor.</li>
+<li>Read(fd, length, options), performs sequential read for a file corresponding to the descriptor provided, of length specified by the parameter.</li>
+<li>Write “”</li>
+<li>lseek(fd, size, offset, option)?</li>
+<li>Meta-data like chmod</li>
+</ol>
+<p>Persistent data structures:</p>
+<ol>
+<li>File data</li>
+<li>I-nodes</li>
+<li>Links + directories</li>
+</ol>
+<p>Directories are special case of files. They have an i-number and an i-node.<br>
+Directories use hard links to the files in it. A hard link is a mapping from a pathname to an i-number. I numbers are unique, pathnames are not. Once all hard links are deleted, the file is effectively deleted too. Hard links cannot be made to directories in order to prevent cycles in file system structure.</p>
+<p>Very Simple File System (VSFS) is an implementation of the logical file system. It uses I nodes to store file meta data. An i-node is a fixed size, 256 bytes, containing file size, number of data blocks, and up to 12 pointers to data blocks (either direct or with some degree of indirection depending on the implementation of the file system, we covered double and triple). VSFS has all the i-nodes at the start of the file system in addition to the superblock, i-node bit map and the data block bitmap. Bitmaps are a simple block of binary data that corresponds to which data/i-node locations are in use vs free. This is for fast lookup (constant time) for finding free I-nodes or data blocks. Finally, the superblock holds all the file system information like i-node capacity and location of the i-node table.</p>
+<p>A file system might observe power failure or unexpected shutdown, and use be tolerant to such failure. Two options to do so are,</p>
+<ol>
+<li>Special purpose restoration tools that look for inconsistencies in expected data structures and tries to fix them.</li>
+<li>Journaling file system operations and replaying journals during crash recovery.</li>
+</ol>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

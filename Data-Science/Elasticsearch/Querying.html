@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#elasticsearch-query-dsl">Elasticsearch Query DSL</a></li>
+<li><a href="#query-score-algorithm">Query Score Algorithm</a></li>
+</ul>
+</div>
+<h3 id="elasticsearch-query-dsl">Elasticsearch Query DSL</h3>
+<ul>
+<li>Leaf query clauses look for a particular value in a field</li>
+<li>Compound query clauses wrap other leaf or compound queries</li>
+<li><p>behaviour of a query clause depends on if it used in <em>query context</em> or <em>filter context</em></p></li>
+<li>
+<strong>Query context</strong> describes "How well does this document match this query clause"<ul>
+<li>bool decides whether or not it should match</li>
+<li>then assigns a <code>_score</code> representing how well the document matches, relatively</li>
+</ul>
+</li>
+<li><p>in <strong>Filter context</strong>, a query clause describes "does this document match this query clause?"</p></li>
+</ul>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html">source</a></p>
+<h3 id="query-score-algorithm">Query Score Algorithm</h3>
+<p>Relevance is the score of each document, represented by a positive float called <code>_score</code></p>
+<ul>
+<li>calculated depending on the type of query clause</li>
+<li>a <code>fuzzy</code> query might determine the <code>_score</code> by calculating how similar the spelling of the found word is</li>
+<li>algorithm known as <strong>term frequency/inverse document frequency</strong>, TF/IDF<ul>
+<li>Term Frequency is how often the term appears in a field</li>
+<li>Inverse document frequency, how often does each term appear in the index, more often, the less relevant<ul><li>common terms have lower weight</li></ul>
+</li>
+<li>Field-length norm, how long is the field, the longer the less likely a word in the field will be relevant</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/controlling-relevance.html">source</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

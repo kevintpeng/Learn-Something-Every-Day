@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Vulkan</title>
+</head>
+<body>
+
+<h1 id="vulkan"><a href="https://vulkan-tutorial.com">Vulkan</a></h1>          <a href="index.html">Back to Graphics</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#intro-to-gpu"></a><a href="https://www.cs.cmu.edu/afs/cs/academic/class/15462-f11/www/lec_slides/lec19.pdf">Intro to GPU</a>
+</li>
+<li><a href="#setup">1 Setup</a></li>
+<li><a href="#rendering-and-presentation">2 Rendering and Presentation</a></li>
+<li><a href="#graphics-pipeline">3 Graphics Pipeline</a></li>
+<li><a href="#drawing">4 Drawing</a></li>
+<li>
+<a href="#vulkan-layers"></a><a href="https://renderdoc.org/vulkan-layer-guide.html">Vulkan Layers</a>
+</li>
+</ul>
+</div>
+<h3 id="intro-to-gpu"><a href="https://www.cs.cmu.edu/afs/cs/academic/class/15462-f11/www/lec_slides/lec19.pdf">Intro to GPU</a></h3>
+<ul>
+<li>graphics pipeline abstractly handles vertices, resterization, fragment processing (shading) and outputs an image</li>
+<li>fundamentally, the shader programming model uses independent fragment, which can be executed in parallel and out of order (think distributed systems/functional)</li>
+<li>Arithmetic Logic Unit (ALU) in every GPU core</li>
+<li>amortize instruction management overhead by sharing instruction stream between all ALUs<ul><li>
+<strong>SIMD</strong> (Single Instruction Multiple Data) processing</li></ul>
+</li>
+<li>since we have more fragments than ALUs, interleave processing to avoid stalls (dependencies on CPU or load times of textures)</li>
+</ul>
+<h3 id="setup">1 Setup</h3>
+<h4 id="instance-and-physical-devices">Instance and Physical Devices</h4>
+<ul>
+<li>specify what physical device/GPU</li>
+<li>query for VRAM and other properties</li>
+</ul>
+<h4 id="logical-device">Logical Device</h4>
+<ul>
+<li>logical device is where declare what physical device features you'll be using</li>
+<li>declare which queue families will be used<ul>
+<li>a <code>VkQueue</code> takes a sequence of commands to execute possibly asynchronously with other VkQueues</li>
+<li>queue families are subsets of commands which allow certain kinds of optimization</li>
+</ul>
+</li>
+</ul>
+<h3 id="rendering-and-presentation">2 Rendering and Presentation</h3>
+<h4 id="window-surface">Window Surface</h4>
+<ul>
+<li>GLFW is an open source library for creating windows, contexts and surfaces (for OpenGL and Vulkan)</li>
+<li>necessary for on-screen rendering</li>
+<li>abstraction between vulkan and the native windowing system</li>
+</ul>
+<h4 id="swap-chain">Swap Chain</h4>
+<ul>
+<li>swap chain allows for incremental rendering, so that only completely rendered images are ever shown<ul>
+<li>the frame is eventually shown depending on present mode (such as double buffering vsync)</li>
+<li>synchronizes the presentation of images to the refresh rate of the screen</li>
+<li>three key configurations: surface format (colours), presentation mode (present condition), extent (resolution)</li>
+</ul>
+</li>
+<li>image view objects are stored in the swap chain, and expose the interface for modifying images</li>
+</ul>
+<h3 id="graphics-pipeline">3 Graphics Pipeline</h3>
+<ul>
+<li>performs sequence of operations that take vertices and textures and produces pixels in the render targets</li>
+<li>vertex shaders, tessellation, rasterization, fragment shaders</li>
+<li>all shader code in Vulkan is specified in SPIR-V bytecode (compiled from GLSL or HLSL)<ul><li>makes it easier to write compilers from intermediate format bytecode to GPU instruction sets</li></ul>
+</li>
+<li>a <a href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkShaderModule.html">VkShaderModule</a> contains shader code<ul><li>assigned a shader stage in the graphics pipeline</li></ul>
+</li>
+<li>input assembly describes what kind of geometry (think surfaces/lines) to interpret from the vertices given</li>
+<li>viewports describe the portion of the image to shown</li>
+<li>scissor cuts/crops the image</li>
+<li>Render Passes specifies the type of image we want to draw<ul><li>attachments are resources like input data, VkImageView objects represent attachments</li></ul>
+</li>
+</ul>
+<h3 id="drawing">4 Drawing</h3>
+<ul>
+<li>framebuffers, one for each swap chain image</li>
+<li>commands are drawing ops and memory transfers, and are recorded into a command buffer<ul>
+<li>command pool manages memory used by command buffers</li>
+<li>each framebuffer (corresponding to a swap chain image) gets a command buffer too</li>
+</ul>
+</li>
+<li>we begin render pass, bind the pipeline, vkCmdDraw, end render pass, end command buffer</li>
+<li>semaphores are used to count the number of ready-to-display images</li>
+</ul>
+<h3 id="vulkan-layers"><a href="https://renderdoc.org/vulkan-layer-guide.html">Vulkan Layers</a></h3>
+<ul>
+<li>the application talks to the loader, which deals with enumerating &amp; validating layers requested</li>
+<li>validation layers can be added for simple error handling, acting as interceptors between the application and driver</li>
+<li>loader dispatches functions to the appropriate sequence of layers</li>
+</ul>
+<p><img src="https://renderdoc.org/instance_call_chain.png" alt="diagram"></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

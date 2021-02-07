@@ -1,0 +1,702 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>CS442: Programming Languages Principles</title>
+</head>
+<body>
+
+<h1 id="cs442-programming-languages-principles"><a href="https://cs.uwaterloo.ca/~plragde/442/slides/">CS442: Programming Languages Principles</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#intro">1 Intro</a></li>
+<li><a href="#logic-review-arithmetic">2 Logic Review &amp; Arithmetic</a></li>
+<li><a href="#untyped-lambda-calculus">3 Untyped Lambda Calculus</a></li>
+<li><a href="#programming-in-lambda-calculus">Programming in Lambda Calculus</a></li>
+<li><a href="#ocaml">4 OCaml</a></li>
+<li><a href="#types">5 Types</a></li>
+<li><a href="#extension-to-lambda-calculus">6 Extension to Lambda Calculus</a></li>
+<li><a href="#type-inference">7 Type Inference</a></li>
+<li><a href="#haskell-and-laziness">8 Haskell and Laziness</a></li>
+<li><a href="#types-in-haskell">9 Types in Haskell</a></li>
+<li><a href="#higher-order-polymorphism-system-f">Higher-order Polymorphism: System F</a></li>
+</ul>
+</div>
+<h3 id="summary">Summary</h3>
+<p>Untyped Boolean Expressions</p>
+<ul>
+<li>recursive grammar with terminals as true, false and nonterminal conditional statements</li>
+<li>can be simply extended to untyped arithmetic expressions, with the notion of successor/predecessor of some constant 0</li>
+<li>we learned that grammars formally define some syntax for a language but ultimately we must assign some semantic system to the syntax to get meaning</li>
+<li>operational semantics use a sort of "iterative simplification" called small-step, using an abstract machine which is essentially a state machine</li>
+</ul>
+<p>Untyped Lambda Calculus</p>
+<ul>
+<li>3 grammar production rules, other definitions follow based on the three possible</li>
+<li>helps to formalize substitution, through a-equiv and B-red<ul>
+<li>during substitution, we have to worry about variable capture (free variable getting bound)</li>
+<li><code>BV[x] = empty, BV[λx.t] = BV[t] u {x}, BV[t1 t2] = BV[t1] u BV[t2]</code></li>
+<li>for the def of substitution, the four obvious cases, and modify to 1. not substitute for bound vars and 2. change of var to avoid variable capture</li>
+</ul>
+</li>
+<li>church-rosser theorem says that normal forms are unique, but getting there can be any path in a "diamond" shape of possibilites (based on order of operations)</li>
+<li>standardization theorem, reducing leftmost outermost redex will find a normal form if it exists<ul><li>NOR, normal order reduction (and is deterministic, unlike full beta reduction)</li></ul>
+</li>
+</ul>
+<p>Recursion</p>
+<ul>
+<li>use some tricks to make recursion a finite substitution, we do this under normal order reduction and also under call-by-value</li>
+<li>we use combinators, in this case the Y combinator, to make recursion work</li>
+</ul>
+<p>Types</p>
+<ul>
+<li>we studied type inference which, instead of dynamically evaluating expressions and checking their type, looks at their parse tree before hand and infers types</li>
+<li>strong normalization theorem says every reduction of well-typed terms is of finite length<ul><li>basically says in the simply typed lambda calculus system, infinite expressions aren't well typed in the first place, suggesting the system is weak</li></ul>
+</li>
+<li>we use type variables as placeholders for uninterpreted types</li>
+<li>type inference of a term is assigning appropriate variables to subterms, and trying to find a set of substitutions, sigma, that makes the term well-typed</li>
+<li>eventually, all variables will have a concrete type based on constraints defined in the program (like variables in an if condition must make the condition of type boolean)</li>
+<li>if there are still free variables in the final type for the expression, then the expression is ALMOST polymorphic<ul><li>problem is, without changes, its first application will cause it to be specialized based on the constraints of the type we substituted in</li></ul>
+</li>
+<li>we introduce let-polymorphism where we can substitute a full copy of the polymorphic expression every time we use it, so that its set of type varialbles are only constrained in its specific application, and doesn't affect other applications (due to alpha renaming)</li>
+</ul>
+<p>Haskell and Laziness</p>
+<ul>
+<li>laziness in haskell makes it so that it only evaluates parts of an expression that are required to return the result</li>
+<li>
+<code>take 1 $ quicksort</code> would be worst case O(n^2) since it has to complete the full algorithm in worst case because quickselect might not find the first element till the algorithm completes</li>
+<li>
+<code>take 1 $ mergesort</code> is worst case O(n) because it only needs to run a single iteration of the algorithm, grabbing the first element from each subarray and recursively grabbing the smaller of its two children</li>
+</ul>
+<p>Typeclasses in Haskell</p>
+<ul>
+<li>basically like java interfaces</li>
+<li>Eq is a typeclass that defines the notion of equality, and we write <code>deriving Eq</code> at the end of a <code>data</code> definition to include default definitions of structural equality for a data type</li>
+<li>other typeclasses include Ord, Show, Functor, Applicative, Monad</li>
+</ul>
+<p><a href="http://learnyouahaskell.com/a-fistful-of-monads">Monads</a></p>
+<ul>
+<li>this is a hard topic, but monads in haskell let you program in a way that looks imperative but are actually still functional</li>
+<li>Monads let you chain functions together. They are types that implement <code>&gt;&gt;=</code> operator ("bind") which is just a fancy operator for chaining, much like a semi colon in C</li>
+<li>
+<a href="https://stackoverflow.com/questions/28139259/why-do-we-need-monads">why do we need them?</a>, well sometimes we want functions to be able to return more than one type and would use a type like an optional (in haskell called "Maybe"): <code>Just Number | Nothing</code>
+</li>
+<li>this is easy to implement, but we would need to REIMPLEMENT any functions that we want this to happen in</li>
+<li>this is fine for a single function, but for an expression that is function composition like f(g(h(x))), each of the functions needs to be reimplemented</li>
+<li>monads let us define how to handle breaking down and passing around values of our new type (in this case <code>Number | Nothing</code>) without needing to redefine every function in a composition expression</li>
+<li>it does this by defining our type as a monad, which overrides the <code>&gt;&gt;=</code> operator that allows us to chain functions together while handling the new optional type</li>
+</ul>
+<p>More fundamentally, we first learn about Functors and Applicatives, and Monads are just more expressive Applicative Functors which are just more expressive Functors.</p>
+<ul>
+<li>a functor is typeclass that describes types that implements fmap, which is just a generic implementation of map (lists are functors, but we can apply the same concept to optionals or other recursive structures like Trees)</li>
+<li>functor type constructors must always be of the form <code>(a -&gt; b)</code> or more specifically <code>(a -&gt; f a)</code>
+</li>
+<li>functors must obey laws about mapping<ul>
+<li>
+<code>fmap id (f a) = f a</code>, identity function should still work</li>
+<li>
+<code>fmap (x . y) (f a) = fmap x $ fmap y (f a)</code>, composition is chaining</li>
+</ul>
+</li>
+<li>Applicative is a typeclass that describes types that implement <code>pure</code> and <code>&lt;*&gt;</code>, which allows us to apply functions that have been wrapped in the functor, like <code>f (a -&gt; b)</code>.</li>
+<li>allows us to take normal functions and wrap them in the functor using <code>pure</code>
+</li>
+<li>allows us to curry functions using <code>&lt;*&gt;</code>
+</li>
+<li>allows us to apply normal binary functions to two functors</li>
+<li>makes our lists, Maybes, functors in general more useful</li>
+<li>Monad is a type class that describes types that implement the interface <code>return</code> (same as <code>pure</code>), <code>&gt;&gt;=</code> bind operator, <code>&gt;&gt;</code>, and <code>fail</code>, but we mostly care about bind</li>
+<li>Monads enable a more expressive style of programming by allowing functions to be chained, and short circuit</li>
+<li>we get <code>do</code> notation as syntactic sugar for this</li>
+<li>this concept of "chaining" is important, because it let's us do things beyond just chaining applications together. For example, the <code>Maybe</code> monad let's us check and handle possible failure, the list monad let's us handle non-determinism by running a function on all possiblilites</li>
+</ul>
+<h3 id="intro">1 Intro</h3>
+<p>Expressivity, meaning, guarantees, implementation</p>
+<p>parantheses based syntax facilitates metaprogramming</p>
+<ul>
+<li>core language can be extended using marcos rewritten at "compile time"</li>
+<li>racket macro system is world class, allows hygiene to be bent through controlled manipulation of the source's abstract syntax tree</li>
+</ul>
+<p>A truly minimal subset of racket: lambda abstraction &amp; function application</p>
+<h4 id="mutation-in-racket">Mutation in Racket</h4>
+<p><strong>mutation</strong> is changing the value bound to a name, or stored in a data structure (think variable)</p>
+<ul>
+<li>used sparingly in scheme and racket</li>
+<li>why not mutation? <strong>referential transparaency</strong>, expressions may be replaced with one of equal value</li>
+<li>mutation is occasionally useful for expressivity or efficiency, but <strong>complicates the substitution model</strong>
+</li>
+<li>
+<code>box</code> provides an intermediate mutation mechanism, and is a racket value that contains a racket value</li>
+</ul>
+<h4 id="more-notes-on-racket"><a href="https://cs.uwaterloo.ca/~plragde/tyr/">More notes on Racket</a></h4>
+<ul>
+<li>lambdas/closures refer to any variable in lexical scope</li>
+<li>lists are immutable</li>
+<li>has separate mutable list type</li>
+<li>module system is sophisticated becausae it must deal with <strong>multi-phase macro expansion</strong>
+</li>
+</ul>
+<h3 id="logic-review-arithmetic">2 Logic Review &amp; Arithmetic</h3>
+<p>Propositions are variables, with logical connectives</p>
+<p><code>Γ |- α</code> means “From the set of propositions Γ, we can prove the proposition α. Inference rules have their syntax, see notes.</p>
+<h4 id="untyped-boolean-expressions">Untyped Boolean Expressions</h4>
+<p>Can be described with production rules as a grammar, with term simplifying to true, false, or conditionals</p>
+<ul><li>terms are really trees, that expand to the AST</li></ul>
+<p>Prove a property P by structural induction on the parse tree</p>
+<p>Need meaning to our language:</p>
+<ul>
+<li>Denotational semantics: associate terms with math objects</li>
+<li>Axiomatic semantics: ?</li>
+<li>Operational semantics: evaluation of boolean expression is defined by computation of an abstract machine<ul>
+<li>transition function says how to reduce a term, and its machine code is a term</li>
+<li>we can say that a term's meaning is the final state that the machine reaches when started with t as its initial state (small-step style of operational semantics)</li>
+</ul>
+</li>
+<li>if elimination is deterministic; the relation is actually a partial function (some x have at most 1 value)<ul><li><code>if t -&gt; t' and t -&gt; t", then t' = t"</code></li></ul>
+</li>
+<li>term t is in <strong>normal form</strong> if there is no <code>t' s.t. t -&gt; t'</code> (only <code>true</code> and <code>false</code> in our system)</li>
+<li>and <code>if t is in normal form, then t is a value</code>
+</li>
+<li><code>forall terms t, there is a normal form t' s.t. t -&gt;* t'</code></li>
+</ul>
+<h4 id="untyped-arithmetic-expressions">Untyped Arithmetic Expressions</h4>
+<p>In our definition of this, a number is either 0 or a successor of a number</p>
+<ul><li>this can be expressed with 4 rules; t ::=</li></ul>
+<ol>
+<li>0</li>
+<li>successor t</li>
+<li>predecessor t</li>
+<li>iszero t</li>
+</ol>
+<p>In our definition, we have term's normal forms that aren't values, e.g. <code>succ true</code></p>
+<ul><li>these are called <strong>stuck</strong>, a notion of run-time error</li></ul>
+<h3 id="untyped-lambda-calculus">3 Untyped Lambda Calculus</h3>
+<p>OCaml is kind of lot's of syntactic sugar atop lambda calculus</p>
+<p>First order logic (forall, exists), there is no procedure for deciding statements. Church proved this, needing to first define what a procedure is.</p>
+<ul><li>lambda calculus helps us formalize reduction by substitution and scope<ul>
+<li>helps prove properties</li>
+<li>proofs generalize well</li>
+</ul>
+</li></ul>
+<p>3 grammar rules in lambda calculus (ambiguously)</p>
+<ul>
+<li>any variable is a term</li>
+<li>a term can be formed with a lambda, its parameter, dot (syntactic separator), and another term t</li>
+<li>terms can be a function application; f(x), (f x)<ul><li>left-associative, parathesize to the left conventionally</li></ul>
+</li>
+</ul>
+<p><em>note concrete syntax tree is just more implementation details</em></p>
+<p><em>formalizing abstract lambda definition is tricky, out of scope</em></p>
+<p><em>truth is a semantic notion, proof is a syntactic notion, and we want to manipulate to prove.</em></p>
+<p>Abstractions extend as far right as possible</p>
+<p>Purely, functions only have one parameter, so functions of multiple parameters must return a function lambda of n -1 parameters. <strong>curried functions</strong></p>
+<p><code>λx.t</code>, we call x <strong>a binder</strong> whose scope does not extend beyond t</p>
+<ul><li>
+<code>λx.λx.x</code> parsed <code>λx.(λx.x)</code> is a function that ignores its argument and returns the identity function</li></ul>
+<p><code>λx.y</code>, <code>y</code> is free because it is not bound</p>
+<p>We can recursively define the set of bound variables of an expression because the grammar is recursive:</p>
+<ol>
+<li>BV[x] = empty</li>
+<li>BV[ λx.t ] = BV[t] u {x}</li>
+<li>BV[ t t ] = BV[t1] u BV[t2]</li>
+</ol>
+<p><em>notice this is just our three grammar rules</em></p>
+<p>A variable can be both free and bound if there are multiple occurences in different scopes</p>
+<ul>
+<li>name of a binder does not matter, so we need to formalize substitution</li>
+<li>
+<code>[x|-&gt; t2] t1</code> indicates substituting t2 for x in t1<ul><li>we can now define step relation in lambda calculus</li></ul>
+</li>
+<li>example, <code>(λx.zx)y</code> should simplify to <code>zy</code><ul><li>this desire is formalized as <code>(λx.t1)t2 -&gt; [x |-&gt; t2] t1</code>
+</li></ul>
+</li>
+</ul>
+<p>Substitution rule gotchas</p>
+<ol>
+<li>we need a case that doesn't touch bound variables</li>
+<li>if our term substitution <code>s</code> contains free variables, they must not be bound by a lambda after substitution<ul>
+<li>inadvertent capture of free variables</li>
+<li>solved with change of variables to a "fresh variable"</li>
+</ul>
+</li>
+</ol>
+<p>This definition of substitution gives us <strong>alpha equivalence</strong>, <code>=a</code></p>
+<ul><li>so long as y isn't a free variable, <code>λx.t =a</code>
+</li></ul>
+<p>β-reduction is <code>(λx.t1) t2 -&gt;β [x |-&gt; t2] t1</code>, <em>notice it just says passing a function an argument is equivalent to substitution in its term</em></p>
+<ul>
+<li>
+<strong>redex</strong> (beta reducable expression), is a subterm of the form <code>(λx.t1) t2</code>, a function application<ul><li>several reduction strategies</li></ul>
+</li>
+<li>
+<strong>full beta reduciton</strong> allows reduction of any redex, we lose determinacy</li>
+</ul>
+<p>Two redecies:</p>
+<pre><code>(λx.(λy.x)z)w
+    1-------
+2------------
+
+If redex 1 first:
+(λy.w)z
+
+If 2:
+(λx.x)w
+
+But they're the same</code></pre>
+<p><em>The rules for full beta reduction says perform any beta reduction in the expression you want</em></p>
+<p><strong>Confluence</strong>, not every term has a normal form:</p>
+<p><code>(λx.xx)(λx.xx)</code> one step beta reduces to itself (since <code>x = (λx.xx)</code>, for x x)</p>
+<ul>
+<li>confluence theorem roughly says that if you can beta reduce divergently, you can bring them back together to a unique normal form<ul><li>normal forms are unique is a consequence of the confluence theorem</li></ul>
+</li>
+<li>diamond property doesn't hold (some operations simplify the number of steps taken, but doesn't affect normal form still)<ul>
+<li>instead we need to define a form of parallel reduciton, where the diamond property holds</li>
+<li>finally show that the multi-step relation (transitive closure) for parallel beta reduction is equivalent to full beta-reduction</li>
+</ul>
+</li>
+</ul>
+<p><code>(λz.w)((λy.yy)(λy.yy))</code> can reduce forever if we try to first reduce the argument, or reduce in one step if we reduce the lambda.</p>
+<p><strong>Standardizaiton Theorem</strong> says the repeatedly reducing the leftmost outermost redex will find a normal form if it exists. It's called <strong>normal order reduction</strong> and is deterministic, unlike full beta reduction in general.</p>
+<pre><code>(λz.w)((λy.yy)(λy.yy))
+       1-------------
+2---------------------
+2 is the outermost (in this case also leftmost)</code></pre>
+<p><strong>Call by name</strong> is like normal order, but does not reduce in the body of abstractions</p>
+<ul><li>this avoids variable capture but is inefficient</li></ul>
+<p>Haskell is lazy eval version of call-by-name, call-by-need</p>
+<p><strong>Call-by-value</strong> strict and eager, is leftmost, innermost</p>
+<ul><li>first, substitute values</li></ul>
+<h3 id="programming-in-lambda-calculus">Programming in Lambda Calculus</h3>
+<p>We use symbols to represent familiar notions.</p>
+<p>To use conditionals, if B then T else F, we can say if some complex statement B simplifies to <code>λx.λy.x</code> it's true, and <code>λx.λy.y</code> is false</p>
+<p>cons consumes two arguments,<br>
+f and r, and produces a function<br>
+consuming a message. This function<br>
+produced represents a list, where<br>
+based on a sort of control bool<br>
+that we pass into it, returns either<br>
+first or rest of the list,<br>
+recursively defining a list as we<br>
+know it.</p>
+<p><a href="https://cs.uwaterloo.ca/~plragde/442/slides/03-untyped-lambda.pdf"><strong>Natural Numbers</strong> p 60</a></p>
+<ul>
+<li>idea: code up by eliminator</li>
+<li>Church numerals</li>
+<li>3 is something that does something 3 times<ul><li>"apply s to z, n times"</li></ul>
+</li>
+</ul>
+<p>test:</p>
+<pre><code>λ</code></pre>
+<p><strong>General Recursion</strong> p 64</p>
+<ul><li>
+<code>?</code> needs to be something that produces <code>fact</code>, let's stick a variable there and call it <code>r</code>, and stick a <code>lambda r</code> at the start</li></ul>
+<p>x = f(x), then x is a fixed point of f, nothing happens</p>
+<p>for pfact, we need to compute the fixed point (<code>fact</code>) of <code>pfact</code></p>
+<p>suppose <code>fact = Y pfact</code>, then</p>
+<pre><code>fact = pfact fact 
+fact = Y pfact
+Y f = f (Y f)</code></pre>
+<p>forall f.</p>
+<p>Can't substitute pfact into r because the function signature would be wrong in the recursive call</p>
+<p>we end up with this cool definition of <code>pfact'</code> (protofactorial) which when applied to itself, produces <code>pfact' pfact'</code> as a recursive call</p>
+<p>finally, rearranging</p>
+<p>Y combinator doesn't work with call by value?</p>
+<pre><code>Y = λf. (
+Y g = (λr.g(r r))(λr.g(r r)) // call by value FORCES (r r) to evaluate first
+// normal order reduction DOES work though</code></pre>
+<p>We have to stop this evaluation</p>
+<ul>
+<li>call by value doesn't reduce in the body of an abstraction</li>
+<li>let's wrap it in an abstraction: <code>(r r) = λx.(r r) x</code>, now it needs to be applied before it get's reduced<ul>
+<li>this can be used equivilently, but SYNTACTICALLY it is different</li>
+<li>
+<code>f</code> replaced with <code>λx.f x</code> is called η-expansion</li>
+</ul>
+</li>
+<li>Normal Order Reduction and call-by-value are two lazy ways to perform reduction</li>
+</ul>
+<p>variables? we take out λ. ??? well we re-introduce some combinators. <em>These give us ways to still represent functions I guess?</em></p>
+<h4 id="de-bruijn-brown-indices-p-74">de Bruijn (brown) indices p 74</h4>
+<p>replace terms with numbers based on their function call DEPTH</p>
+<ul>
+<li>this is "lexical depth relative to its binding occurrence", <em>binding occurrence is where λx appears</em>
+</li>
+<li>sometimes indices need to be shifted?</li>
+</ul>
+<h3 id="ocaml">4 OCaml</h3>
+<p>Meta language, for theorem provers. It was supposed to be used to express a proof and mechanical step through it to verify</p>
+<ul>
+<li>talked about syntax, ocaml has type inference, but we can explicitly state types</li>
+<li>user-defined types with algebraic datatype definition is pretty cool, playing cards example<ul>
+<li>can't just <code>|</code>-together types, each disjunct needs to have a constructor defined for it (prevents type ambiguity)<ul>
+<li>unambiguous types is what makes static type inferencing work</li>
+<li>so we get things like <code>type iors = Int of int | String of string;;</code>, where <code>Int</code> is an arbitrarily named constructor, so it acts as a label so we can distiguish <code>Int 6</code> as an <code>: iors = 6</code> vs <code>6</code> is an <code>: int = 6</code>
+</li>
+</ul>
+</li>
+<li>constructors are not subtypes</li>
+</ul>
+</li>
+<li>types that look the same are not</li>
+<li>option type: <code>type 'a option = None | Some of 'a</code>
+</li>
+<li>records: <code>let p = {x = 5 ; y = 2};;</code>
+</li>
+<li>file by default exports its function definitions, <code>Stack.pop</code>
+</li>
+<li>interface is used to check, not infer</li>
+</ul>
+<h3 id="types">5 Types</h3>
+<p>Look at the parse tree of the expression rather than dynamic evaluation of the expression</p>
+<ul>
+<li>can distinguish stuck expressions from valid ones</li>
+<li>
+<code>t:T</code> is pronounced "t has type T"</li>
+<li>if <code>t</code> is typable, then its type is unique and there is only one derivation<ul><li>terms can make <strong>progress</strong> and preserve types</li></ul>
+</li>
+<li>progress says if <code>t:T</code>, then either <code>t</code> is a value or there is some <code>t'</code> s.t. <code>t-&gt;t'</code>
+</li>
+<li>preservation says if <code>t:T</code> and <code>t-&gt;t'</code>, then <code>t':T</code>
+</li>
+<li>progress + preservation is type safety</li>
+<li>
+<strong>strong normalization theorem</strong> says: every reduction of every well-typed term in the simply-typed lambda calculus is of finite length<ul><li>suggests that simply-typed lambda calc is a weak model of computation</li></ul>
+</li>
+</ul>
+<h3 id="extension-to-lambda-calculus">6 Extension to Lambda Calculus</h3>
+<p>Type rules for sum types:</p>
+<ul>
+<li>figuring out how to type an element of a subtype (like Int+Bool) isn't straight foward<ul><li>OCaml requires unique constructors as we say to fix this</li></ul>
+</li>
+<li>inject left (<code>inl</code>) and right (<code>inr</code>) to express which side the type satisfies</li>
+<li>
+<code>inl 5 as Nat+Bool</code> is an annotation to help the type checker figure out what type it is</li>
+</ul>
+<p>General Recursion</p>
+<pre><code>pfact r n = if n == 0 then 
+            else n * r r (n - 1)</code></pre>
+<h3 id="type-inference">7 Type Inference</h3>
+<ul>
+<li>type inference treats uninterpreted types as type variables,</li>
+<li>we introduce type substitutions, sigma, which is a map from type variables {A, B, ...} to types {Nat, Bool}<ul>
+<li>descend into terms, and substitute</li>
+<li>we'll borrow composition notation from other courses: (f o g) x = f ( g x ), this is two sets of substitution for mappings in both f and g</li>
+</ul>
+</li>
+<li>formally then, <strong>type inference</strong> is given context and a term (GAMMA, t), finding some solution (sigma substitution, output type T) s.t. substitution applied to GAMMA infers that term t is of type T<ul><li>think about sigma as a set of values with types, they may not substitute ALL variables as in algebra we still might have unknowns after substituting one variable.</li></ul>
+</li>
+</ul>
+<p>so let's look at typing currently untyped terms.</p>
+<p>λx:A.λy:B.x has an obvious return type A</p>
+<p>λx.λy.y x is not typable, you need to substitute before you can type the expression (in other words, there's lots of possible types?)</p>
+<p><strong>Algorithms</strong> work by structural recursion on the term t.</p>
+<ol>
+<li>recursively find substitutions that types subterms, then add it as a result of the relationship between subterms.</li>
+<li>accumulate <strong>constraints</strong>, equations involving variables, then solve the system of equations. In practice, easier to prove and optimize and extend</li>
+</ol>
+<h4 id="algorithm-w">Algorithm W</h4>
+<p>Consumes the context and term, and produces the inferred type and the set of substitutions</p>
+<p>given an untyped term t, annotate each abstraction var x, with a fresh type variable X, and record teh association x:X in context GAMMA</p>
+<p>We need three inference rules to do this, one for each possible way t can be formed</p>
+<ol>
+<li>if t is just a var, all we can do is look it up in GAMMA</li>
+<li>abstraction. We want to show that it has some form of X -&gt; T (X is a type variable, T is some concrete type). By doing so, we don't add anything to our substitution map sigma. That only happens in application (where substitution intuitively happens)</li>
+<li>application. we want to show that application has some type T, GAMMA |- t1 t2 : T. We need as premises the fact that t1 is some mapping for a types (T' -&gt; T) for some substitution sigma1, and ALSO that t2 is of type T' with some other substitution sigma2 so that the expression is well typed.</li>
+</ol>
+<ul>
+<li>interestingly, we need to use information from the first inference on t1 in order to type t2. We have to apply sigma1 to GAMMA context in our second expression when inferring t2.</li>
+<li>write this as an algebraic equation, T1 = T2 -&gt; X, where X is fresh. Again this is just saying that t1 : T1 must be abstraction, a mapping of one type to another. Then we must infer X by solving the equation. Taking these two expressions and making an equation is <strong>unification</strong>, saying they're the same. The <strong>unifier</strong> is the substitution that solve it such that <code>sigma T1 = sigma T2</code>
+</li>
+</ul>
+<h4 id="constraint-based-type-inference">Constraint-based type inference</h4>
+<p>First accumulates type constraints and then finds substitutions that satisfy them.</p>
+<ul><li>A constraint set C is a set of equations {Si = Ti}</li></ul>
+<ol>
+<li>for variables, no constraints</li>
+<li>for abstractions, annotation is in the context</li>
+<li>for application, simpler because we don't need this substitution as we go. Instead, we throw everything in C instead of sigma, and accumulate all type relations with equations.</li>
+</ol>
+<p>Now we need to solve the system of equations. A solution for a problem (Γ, t, S, C) is a pair (σ, T) such that<br>
+σ unifies C and σS = T</p>
+<p>We want <strong>soundness</strong> and <strong>completeness</strong> as properties</p>
+<ul>
+<li>soundness, if we get a solution, it's correct</li>
+<li>completeness, if there's an answer, this approach finds it</li>
+</ul>
+<h5 id="solving-constraint-set">Solving Constraint Set</h5>
+<p>Recursive definition of the <code>unify()</code> operation, where unify in the context of constraint-based type inference is the operation of solving a system of equations</p>
+<ul>
+<li>unify will take a set of constraints, and return the set of substitutions</li>
+<li>a <strong>principal unifier</strong> is less general than any other unifier</li>
+<li>theroem 22.4.5.3 says <code>unify(C)</code> will produce the principal unfier, the best one</li>
+</ul>
+<h4 id="polymorphism">Polymorphism</h4>
+<p>Problem arises now when we use polymorphic functions. Applying them to data, they get specialized.</p>
+<p>Let-polymorphism uses type reconstruction as above, and generalizes it to provide a simple form of polymorphism.</p>
+<ul>
+<li>idea 1: perform substitution (expensive)</li>
+<li>idea 2: type <code>id</code> as forall X. X -&gt; X<ul>
+<li>quantifiers are all internal</li>
+<li>quantifiers are only permitted at the top of a type expression</li>
+<li>we say a type variable occurs free in a type environment Γ if it is not quantified there.</li>
+<li>Quantifier elimination just says if a var is in the env Γ, then immediately substitute with a fresh variable</li>
+</ul>
+</li>
+</ul>
+<h3 id="haskell-and-laziness">8 Haskell and Laziness</h3>
+<p><code>take 1 $ qsort</code> will be worst case O(n^2)</p>
+<p><code>take 1 $ msort</code> will be worst case O(n) because it will lazily only look at the first element of each subproblem, and O(m log n) for <code>take m</code> since we just need to find replacements to the element we removed from the possible smallest elements, one at each height for each iteration</p>
+<pre><code>foldr c b [] = b
+foldr c b (x:xs) = c x (foldr c b xs)</code></pre>
+<p>looking at space complexity:</p>
+<pre><code>foldr (+) 0 [1,2,3,...,n]
+1 + (2 + (3 + (... + (n + 0))))
+      O(n) space</code></pre>
+<p>but foldl is tail recursive (using tail call optimization) in an eager language:</p>
+<pre><code>foldl (+) 0 [1,2,3,...,n]
+((((0 + 1) + 2) + 3) + ... + n)
+    O(1) space in eagar
+    O(n) space in lazy</code></pre>
+<h3 id="types-in-haskell">9 Types in Haskell</h3>
+<p>Type classes in Haskell offer a<br>
+controlled approach to "ad hoc overloading".</p>
+<p>we want one particular name to mean different things in different contexts</p>
+<ul>
+<li>provide simple solution with enough generality that these type classes can be used for a bunch of different things</li>
+<li>can create an instance of a type class (take certain function signatures, and write something that implements the same signature)</li>
+</ul>
+<h4 id="some-basic-classes">Some basic classes</h4>
+<h5 id="eq"><code>Eq</code></h5>
+<p><code>Eq</code> are types with the notion of equality</p>
+<ul><li>
+<code>`==`</code>and<code>`/=`</code> operators</li></ul>
+<p><code>deriving</code> keyword gives you default behaviour.</p>
+<pre><code>data Btree a =
+  Empty
+| Node (Btree a) a (Btree a)
+  deriving Eq</code></pre>
+<p>This is the obvious structural equality.</p>
+<p>We can also define non-default equality be explicitly defining our own equality.</p>
+<pre><code>data First = Pair Int Int
+instance Eq First where
+(Pair x _) == (Pair y _) = (x==y)
+(Pair 1 3) == (Pair 2 3)
+&gt; False
+(Pair 1 3) == (Pair 1 4)
+&gt; True</code></pre>
+<h5 id="ord"><code>Ord</code></h5>
+<p>Inherits from Eq, specifies <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, default defn of <code>min</code> and <code>max</code>, <code>compare</code></p>
+<pre><code>msort :: (Ord a) =&gt; [a] -&gt; [a]
+
+can be read as, msort has type list to list s.t. a derives Ord
+more generally:
+fcn-name :: constraints =&gt; type signature</code></pre>
+<h5 id="show"><code>Show</code></h5>
+<p>specifies the method <code>show :: a -&gt; String</code> and <code>read :: String -&gt; a</code> which is a simple parser (crazy cool)</p>
+<h4 id="implementaiton-of-type-classes">Implementaiton of type classes</h4>
+<p>Simply a dictionary of operators to their function signatures</p>
+<p>Code defining Num:</p>
+<pre><code>class Num a where
+  (+), (*) :: a -&gt; a -&gt; a
+  negate :: a -&gt; a</code></pre>
+<p>Then under the hood, the compiler conceptually creates the following:</p>
+<pre><code>data NumDict a
+= MkND (a -&gt; a -&gt; a)
+       (a -&gt; a -&gt; a)
+       (a -&gt; a)
+plus  (MkND p _ _) = p
+times (MkND _ t _) = t
+neg  (MkND _ _ n) = n</code></pre>
+<p>Again, it's really just a hidden dictionary.</p>
+<h4 id="more-useful-type-classes"><a href="http://learnyouahaskell.com/functors-applicative-functors-and-monoids">More Useful Type Classes</a></h4>
+<p>Haskell's purity, higher order functions, and parameterized algebraic data types let us implement polymorphism at a "higher level" than any other language. Type classes alow us to describe behavior of types. Again, in the previous section we have type classes like <code>Eq</code> that describe classes that can perform equaltiy checks. Here are more powerful type classes.</p>
+<ol><li>Monoid in math is a set with an identity and an associative (bracketable any way) binary operation<ul>
+<li>integers with 0 and <code>+</code>
+</li>
+<li>list with <code>[]</code> and <code>++</code> (more generalizable, so more useful)</li>
+</ul>
+</li></ol>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Monoid</span> a <span class="kw">where</span>
+<span class="ot">  mempty ::</span> a
+<span class="ot">  mappend ::</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a
+<span class="ot">  mconcat ::</span> [a] <span class="ot">-&gt;</span> a
+  mconcat <span class="fu">=</span> foldr mappend mempty</code></pre></div>
+<ol><li>The functor class is motivated by the awkward use of <code>Maybe</code>, and can be used for lists. It can be used ot represent higher-order concepts like lists. Broadly, functors are things that can be mapped over, and this is reflected by the definition which simply provides an interface for <code>fmap</code>
+</li></ol>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="kw">where</span>
+<span class="ot">  fmap ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b
+
+<span class="co">{- notice there is no default implementation of fmap -}</span>
+<span class="co">{- also notice that f is not a concrete type that holds a value, </span>
+<span class="co">   but rather a type constructor that takes one type as the parameter -}</span>
+
+<span class="kw">instance</span> <span class="dt">Functor</span> [] <span class="kw">where</span>  
+    fmap <span class="fu">=</span> map  
+
+<span class="co">{- the type signature for map is: -}</span>
+map<span class="ot"> ::</span> ( a <span class="ot">-&gt;</span> b ) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]
+
+<span class="co">{- so the above instance of list above is correct! where: -}</span>
+f <span class="fu">=</span> []
+
+<span class="kw">instance</span> <span class="dt">Functor</span> <span class="dt">Maybe</span> <span class="kw">where</span>
+  fmap _ <span class="dt">Nothing</span> <span class="fu">=</span> <span class="dt">Nothing</span>
+  fmap g (<span class="dt">Just</span> a) <span class="fu">=</span> <span class="dt">Just</span> (g a) <span class="co">{- unwrap and wrap again in another Just -}</span></code></pre></div>
+<ol><li>Kinds help us handle two arguments?<ul>
+<li>Kind of bool (or other concrete type) is <code>*</code>. think of it as a type constant, type constructor with 0 arguments</li>
+<li>Kind of Maybe and [] (or other single argument type constructors) is <code>* =&gt; *</code>
+</li>
+<li>
+<code>,</code> and <code>-&gt;</code> have kind <code>* =&gt; * =&gt; *</code>
+</li>
+<li>notice they have the wrong type to be a functor (too many arguments) so we need to provide the first arugment</li>
+</ul>
+</li></ol>
+<p>In class example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Functor</span> ((<span class="ot">-&gt;</span>) r) <span class="kw">where</span>
+  fmap <span class="fu">=</span> (<span class="fu">.</span>)
+
+now we have f makes an r <span class="ot">-&gt;</span> <span class="fu">?</span>
+from above,
+fmap<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b
+so when f <span class="fu">=</span> ((<span class="ot">-&gt;</span>) r),
+
+(a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (r <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> (r <span class="ot">-&gt;</span> b)
+   f           g
+
+composition<span class="fu">?</span></code></pre></div>
+<p>Another "more useful" example:</p>
+<pre><code>instance Functor ((,) w) where
+  fmap f (w,a) = (w, f a)
+</code></pre>
+<p>Still kind of weird and limited, since we only have one argument functors. If you want to partially apply a function to the second argument, then we can simply wrap it in some <code>newtype</code> that flips the arguments and overrides the <code>fmap</code> definition to unswap accordingly.</p>
+<p>Functor laws:</p>
+<pre><code>fmap id = id
+fmap (g . h) = fmap g . fmap h</code></pre>
+<ol><li>The <strong>Applicative class</strong> has less power than monads by design</li></ol>
+<pre><code>class Functor f =&gt; Applicative f where
+  pure :: a -&gt; f a
+  (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
+<ul>
+<li>
+<code>&lt;*&gt;</code> pronounced "applied" maybe?</li>
+<li>Recall function application <code>($) :: (a -&gt; b) -&gt; a -&gt; b</code>
+</li>
+<li>notice that <code>applied</code> is very close to the actual application operator</li>
+<li>
+<code>Maybe</code>, <code>[]</code>, <code>((-&gt;) r)</code> and <code>((,) w)</code> are all instances of <code>Applicative</code>
+</li>
+<li>Applicative f has kind <code>* =&gt; *</code>
+</li>
+</ul>
+<p>Looking at an example of <code>Maybe</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Applicative</span> <span class="dt">Maybe</span> <span class="kw">where</span>
+  pure <span class="fu">=</span> <span class="dt">Just</span>                       <span class="co">{- implementing Applicative interface -}</span>
+  <span class="dt">Nothing</span> <span class="fu">&lt;*&gt;</span> _ <span class="fu">=</span> <span class="dt">Nothing</span>
+  _ <span class="fu">&lt;*&gt;</span> <span class="dt">Nothing</span> <span class="fu">=</span> <span class="dt">Nothing</span>
+  (<span class="dt">Just</span> f) <span class="fu">&lt;*&gt;</span> (<span class="dt">Just</span> y) <span class="fu">=</span> <span class="dt">Just</span> (f y)
+
+fmap (<span class="fu">+</span>) (<span class="dt">Just</span> <span class="dv">2</span>) <span class="fu">&lt;*&gt;</span> (<span class="dt">Just</span> <span class="dv">3</span>)
+<span class="fu">&gt;</span> <span class="dt">Just</span> <span class="dv">5</span>
+(<span class="fu">+</span>) <span class="fu">&lt;$&gt;</span> (<span class="dt">Just</span> <span class="dv">2</span>) <span class="fu">&lt;*&gt;</span> (<span class="dt">Just</span> <span class="dv">3</span>)
+<span class="fu">&gt;</span> <span class="dt">Just</span> <span class="dv">5</span>
+pure (<span class="fu">+</span>) <span class="fu">&lt;*&gt;</span> (<span class="dt">Just</span> <span class="dv">2</span>) <span class="fu">&lt;*&gt;</span> (<span class="dt">Just</span> <span class="dv">3</span>)
+<span class="fu">&gt;</span> <span class="dt">Just</span> <span class="dv">5</span></code></pre></div>
+<p>So notice we're "lifting" things into <code>Maybe</code>, kind of just general definitions of operators that let us perform optional things within the <code>Maybe</code> type</p>
+<ul><li>
+<code>pure</code> lifts a function up, making it a <code>Maybe</code> compatible function by writing <code>pure f &lt;*&gt;</code> instead of <code>f &lt;$&gt;</code>
+</li></ul>
+<h4 id="revisiting-the-monad-class">Revisiting the Monad class</h4>
+<p>Again, monads are more powerful than applicatives:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Applicative</span> m <span class="ot">=&gt;</span> <span class="dt">Monad</span> m <span class="kw">where</span>
+<span class="ot">  (=&lt;&lt;) ::</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> m a <span class="ot">-&gt;</span> m b <span class="co">{- produces a value in the context m, from a value a in context m -}</span>
+<span class="ot">  (&gt;&gt;=) ::</span> m a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> m b <span class="co">{- reversed arguments -}</span>
+<span class="ot">  (&gt;&gt;) ::</span> m a <span class="ot">-&gt;</span> m b <span class="ot">-&gt;</span> m b
+  m <span class="fu">&gt;&gt;</span> n <span class="fu">=</span> m <span class="fu">&gt;&gt;=</span> \_ <span class="ot">-&gt;</span> n
+<span class="ot">  fail ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> m a
+  fail s <span class="fu">=</span> error s</code></pre></div>
+<p>looking at IO example:</p>
+<h3 id="higher-order-polymorphism-system-f">Higher-order Polymorphism: System F</h3>
+<p>There are varieties of polymorphism, we studied let-polymorphism</p>
+<ul>
+<li>
+<strong>polymorphism</strong> is a term referring to a range of language mechanics that enable code to be more easily reused</li>
+<li>we can substitute a full copy of the polymorphic expression every time we use it, so that its set of type varialbles are only constrained in its specific application, and doesn't affect other applications (due to alpha renaming)</li>
+</ul>
+<pre><code>  gamma |- [x |-&gt; t1] t2 : T2
+------------------------------- T-LetPoly simple
+gamma |- let x = t1 in t2 : T2</code></pre>
+<p>But we can pass garbage into the value for x and if it's not used in t2, it won't be type checked, so we need to add the extra premise to check this:</p>
+<pre><code>gamma |- [x |-&gt; t1] t2 : T2    gamma |- t1 : T1
+-----------------------------------------------
+       gamma |- let x = t1 in t2 : T2</code></pre>
+<p>Let-polymorphism only allows top level let-bindings, "disallows functions that take polymorphic values as arguments"?</p>
+<p>System F introduce quantifiers. <code>(lambda X.t)[T] -&gt; [X |-&gt; T]t</code> is a type application. The pair of a type application and type abstraction forms a redex analogous to normal app-abs pairs.</p>
+<ul>
+<li>the forall quantifier lets us type the identity function, <code>id id :: forall X.X -&gt; X</code>
+</li>
+<li>we could not type <code>lambda x.x x</code> in the simple typed calculus but we can in System F</li>
+<li>the core intermediate language of GHC is based on System F</li>
+<li>GHC core is explicitly typed</li>
+</ul>
+<h4 id="theorems">Theorems</h4>
+<p>Type checking is still simple structural recursion, so progress and preservation theorems apply.</p>
+<ul>
+<li>type inference is undecidable</li>
+<li><em>still useful in practice using a subset of it</em></li>
+</ul>
+<h4 id="programming">Programming</h4>
+<p>We need to still encode booleans and integers to make it useful. <em>We use these encodings to allow us to leverage structural properties of the simple definition of our language, while making it expressive using these encodings</em></p>
+<p>Again, a boolean is <code>lambda x. lambda y. x :: X -&gt; X -&gt; X</code>. This can be expressed instead as <code>forall X . X -&gt; X -&gt; X</code> in system F.</p>
+<p>Natural numbers consume a successor and zero: <code>Nat :: forall X . (X -&gt; X) -&gt; X -&gt; X</code>, where <code>X-&gt;X</code> is the type of a successor.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Graphs</title>
+</head>
+<body>
+
+<h1 id="graphs">Graphs</h1>          <a href="index.html">Back to Math-CS</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#classifications">Classifications</a></li>
+<li><a href="#important-concepts">Important Concepts</a></li>
+<li><a href="#subgraphs-and-connectivity">Subgraphs and Connectivity</a></li>
+<li><a href="#kinds-of-graphs">Kinds of Graphs</a></li>
+<li>
+<a href="#eulerian-graphs">Eulerian Graphs</a><ul>
+<li><a href="#graph-colouring">Graph Colouring</a></li>
+<li><a href="#bipartite-graphs-and-matchings">Bipartite graphs and matchings</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>A graph G is an ordered pair (V,E) where V is a set and E is a set of two element subsets of V.</p>
+<pre><code>E ⊆ { {x,y}: x,y in V, x≠y }
+
+Typical data structure: { {A, B, C, D}, { {A,B}, {B,C}, {A,D} } }
+                            Vertices      Edges connecting nodes</code></pre>
+<p>A graph can be <strong>directed</strong> or <strong>undirected</strong>. In a <strong>directed</strong> graph, an edge (v1, v2) is not the same as (v2, v1) since the edge is directed from 1-&gt;2.</p>
+<p>Graphs are the most pervasive abstraction in CS. They model networks of transportation, the world wide web, PageRank.</p>
+<h3 id="classifications">Classifications</h3>
+<h5 id="cliques">Cliques</h5>
+<p>A graph on n vertices where every pair of vertices is connected is called an <em>n-clique</em>, denoted by Kn. Kn = (V, E) where V = {1, 2, ..., n} and E = { {i,j}: 1 ≤ i ≤ j ≤ n}. The number of edges in Kn is nC2 (number of two vertex combinations).</p>
+<h5 id="paths">Paths</h5>
+<p>Two endpoints with one linear path connecting all vertices. A path on n vertices, denoted by Pn, is the graph Pn = (V, E) where V={1,2...,n} and E = { {i,i+1}: 1 ≤ i ≤ n-1 }. The total number of edges is n-1.</p>
+<h5 id="cycles">Cycles</h5>
+<p>A path with connected endpoints. A cycle on n ≥ 3 vertices the graph Cn = (V, E) where V = {1, 2, ..., n} and E = { {i,i+1}: 1 ≤ i ≤ n-1} ∪ { {1,n}}. The number of edges in Cn is n.</p>
+<h3 id="important-concepts">Important Concepts</h3>
+<h5 id="graph-isomorphism">Graph isomorphism</h5>
+<p>Formal concept for classifying graph types. Two graphs G = (V, E) and G' = (V', E') are said to be isomorphic if there exists a bijection f: V -&gt; V' s.t.<br>
+<code>{x,y} in E iff {f(x), f(y)} in E'</code></p>
+<h5 id="size">Size</h5>
+<p>The number of edges in a graph. The size of an n-vertex graph is bounded by nC2 (the n-clique).</p>
+<h5 id="degree">Degree</h5>
+<p>The degree or valency of a vertex v in a graph G = (V, E) denoted by dG(v) is the number of neighbors of v in G:<br>
+<code>dG(v) = |{u in V: {v,u} in E}|</code><br>
+A graph where every vertex has degree k is a <strong>k-regular</strong> and a graph is <strong>regular</strong> if it is k-regular for some k.</p>
+<p><strong>The handshake lemma</strong> says the number of people at a cocktail party who shake hands with an odd number of others is even. Formally, <em>the number of odd-degree vertices in a graph is even.</em></p>
+<h5 id="geodesic-distance">Geodesic distance</h5>
+<p>A <strong>distance</strong> between two vertices in a graph is the number of edges in the shortest path (also called the graph geodesic).</p>
+<h5 id="eccentricity-of-a-vertex">Eccentricity of a vertex</h5>
+<p>epsilon(v) of vertex v is the greatest geodesic distance between v and its furthest vertex in G.</p>
+<h5 id="radius">Radius</h5>
+<p>A radius r of a graph is the minimum eccentricity of any vertex.</p>
+<h5 id="diameter">Diameter</h5>
+<p>A diameter d of a graph is the maximum eccentricity of any vertex. Algorithm to compute: find shortest path for all vertices, take the max.</p>
+<h3 id="subgraphs-and-connectivity">Subgraphs and Connectivity</h3>
+<ul>
+<li>A graph G' = (V', E') is a subgraph of G iff V' is a subset of V and E' is a subset of E.</li>
+<li>A graph G' = (V', E') is an induced subgraph of G iff V' is a subset of V and E' = { {u,v} in E: u,v in V'}<ul><li>subset of vertices, different edges</li></ul>
+</li>
+</ul>
+<h2 id="kinds-of-graphs">Kinds of Graphs</h2>
+<h4 id="directed-graph">Directed Graph</h4>
+<p>A simple, unweighted directed graph G is an ordered pair (V,E) where V is a set and E is a set of <strong>ordered pairs</strong> from V.</p>
+<pre><code>  E is a subset of {(x,y):x,y in V, x ≠ y}</code></pre>
+<p>A Directed graph does not have the notion of <em>degree</em>. Instead, <em>indegree</em> and <em>outdegree</em> of a vertex v in G, defined as |{u in V: (u,v) in E}| and |{u in V: (v,u) in E}| respectively.</p>
+<h4 id="multi-edges-and-self-loops-non-simple">Multi-edges and Self-loops (non simple)</h4>
+<p>Multiple edges between the same pair of vertices (this makes the collection of edges a <strong>multiset</strong>). A <strong>self-loop</strong> is an edge to and from a single vertex.</p>
+<h4 id="weighted">Weighted</h4>
+<p>Numerical weights are associated to edges. Good for modeling physical networks.</p>
+<h2 id="eulerian-graphs">Eulerian Graphs</h2>
+<p>A <em>tour</em> of G traces every edge exactly once: walk T = (v1,e1,v2,e2,...,vn,en,vn+1) s.t. ei ≠ ej for all e in T.</p>
+<p>A tour is <strong>Eulerian</strong> if vn+1 = v1, V(T)=V and E(T)=E. An Eulerian tour traverses all edges and ends where it started.</p>
+<p>A graph is <strong>Eulerian</strong> iff it has a Eulerian tour.</p>
+<p>Theorem: A graph is Eulerian iff it is connected and each vertex has an even degree. (Every vertex must have an exiting edge for every entering edge)</p>
+<p>Psudo-proof: if graph is eulerian, then every vertex must be entered and exited, therefore even number of edges. if even edges, then prove v1=vn+1 (ends where it starts) and n = |E|</p>
+<h3 id="graph-colouring">Graph Colouring</h3>
+<p>Example: A network requires users that are close to have different wavelengths to prevent interference. Users can be modeled as vertices, connected by an edge if close. A <em>colouring</em> of this graph G is an assignment of colours to vertices s.t. no two adjacent vertices have the same colour.</p>
+<p>The example is restated as, <em>what is the minimum number of colours needed for a colouring of G.</em></p>
+<p>A <strong>k-colouring</strong> of G is a function c:V-&gt;{1,2,...,k}, s.t. if {v,u} in E, then c(v) ≠ c(u). The smallest k in Naturals for which a k-colouring of G exists is called the <strong>chromatic number</strong> of G.</p>
+<p>If k-colouring of G exists, the graph is <strong>k-colourable</strong>.</p>
+<p>Proposition: If the degree of every vertex in a graph G is at most k, then the chromatic number of G is at most k+1.</p>
+<p>Proof by induction on number of vertices. For one vertex, one colour is needed. Assume hypothesis. For a graph with n vertices, with chromatic number k. Add one vertex and you get chromatic number of at most k+1.</p>
+<h3 id="bipartite-graphs-and-matchings">Bipartite graphs and matchings</h3>
+<p>A bipartite graph can be partitioned into two parts s.t. edges of the graph only go between the two parts, but not inside a part (think domain to codomain or red-black tree).</p>
+<p>A graph G is said to be <strong>bipartite</strong> iff there exists U ⊆ V s.t. <code>E ⊆ { {u,u'}:u in U and u' in V \ U}</code></p>
+<p>The sets U and V \ U are called the <strong>classes</strong> of G.</p>
+<p>A <strong>complete bipartite</strong> graph Km,n is a graph with ALL possible edges between the two classes. <code>Km,n = (V,E) s.t V={1,2,...,m+n} and E={ {i,j}: 1 ≤ i ≤ m, m+1 ≤ j ≤ m+n}</code></p>
+<p>Another way to state the definition is a bipartite graph is 2-colourable.</p>
+<p>Proposition: A graph is bipartite iff it contains no cycle of odd length. (cycle must end on same side)</p>
+<p>Given a bipartite graph G=(V,E), a <strong>matching</strong> B in G is a set of disjoint edges.</p>
+<p>Theorem: A bipartite graph W=(V,E) wtih classes B and G has a <strong>perfect matching</strong> iff |B|=|G| and</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

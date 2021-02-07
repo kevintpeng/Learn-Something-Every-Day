@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul><li><a href="#running-bash-from-ruby">Running bash from ruby</a></li></ul>
+</div>
+<h3 id="running-bash-from-ruby">Running bash from ruby</h3>
+<h4 id="exec"><code>exec</code></h4>
+<p>By using <code>Kernal#exec</code>, the ruby process is replaced by a process invoked by <code>exec</code>. By using exec, the command is subject to shell expansion.</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">exec <span class="st">"echo hello world"</span> <span class="co"># will print hello world</span>
+exec {<span class="st">"myvar"</span>=&gt;<span class="st">"value"</span>}, <span class="st">"echo $myvar"</span> <span class="co"># passes myvar as an environment variable</span></code></pre></div>
+<p>??? Behind the scenes, process tree: some ruby process with <code>PID=3</code> will call <code>exec</code>, branches into two ruby processes (PID 3 and 4). In process 3, returns 4, in process 4 returns 0. Process 4 will turn into a bash process and process 3, still ruby, will wait for the output of process 4.</p>
+<h4 id="system"><code>system</code></h4>
+<p><code>system</code> method calls a system program, parsing the passed string as a command. returns true or false depending on system program exit code. Uses <code>STDIN</code>, <code>STDOUT</code>, and <code>STDERR</code> objects of the Ruby program to automatically print. Has another side effect of changing the global var <code>$?</code> which is set to a <code>Process:Status</code> object (includes PID and exit status).</p>
+<h4 id="backticks">backticks</h4>
+<p>call a system program and <strong>return its output</strong>.</p>
+<p><img src="http://i.stack.imgur.com/1Vuvp.png" alt="graphic"></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

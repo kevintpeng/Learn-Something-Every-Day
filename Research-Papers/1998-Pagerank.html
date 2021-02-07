@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>PageRank 1998</title>
+</head>
+<body>
+
+<h1 id="pagerank-1998"><a href="http://ilpubs.stanford.edu:8090/422/1/1999-66.pdf">PageRank 1998</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<p>An algorithm, the basis of Google, that ranks relative importance of web pages based on traffic and connectivity on the graph. One major consideration of this study is that web pages are free from quality control and are influenced by profit seeking ventures.</p>
+<ul>
+<li>we represent the internet as a graph of pages (nodes) and directed edges (links)</li>
+<li>forward links are known for a given page, but total number of backlinks (citations) cannot be guaranteed since we might have not crawled all possible pages</li>
+<li>total backlinks in a good estimator of importance in academia but not as reliable for the web</li>
+<li>PageRank <em>weighs the rank of its backlinks</em> based on the sum of the ranks of the backlinks</li>
+</ul>
+<p>Simplified PageRank: Rank <code>R(u) = c • ∑ R(v)/Nv</code>, v in Bu where</p>
+<ul>
+<li>c is a constant &lt; 1 (bounds the sum of all ranks)</li>
+<li>Nu = |Fu|</li>
+<li>Bu is the backlinks for <code>u</code> and Fu is the forward links for <code>u</code>
+</li>
+</ul>
+<p>Recall Matrix multiplication of A•x, x in R<sup>n</sup> and A is <code>m x n</code> is defined as the dot product of x with each m rows of A.</p>
+<p>Another formalization in Linear Algebra: let A be a square matrix of dimensionality = to number of pages</p>
+<ul><li>A<sub>u,v</sub> = { 1/Nu if edge from u to v, else 0 }</li></ul>
+<p>Cycles within the graph will result in a feedback loop affecting pagerank, but it is shown that the estimated pagerank determined at each iteration of the algorithm converges in log n iterations.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

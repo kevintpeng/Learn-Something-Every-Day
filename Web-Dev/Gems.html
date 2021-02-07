@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Gems</title>
+</head>
+<body>
+
+<h1 id="gems">Gems</h1>          <a href="index.html">Back to Web-Dev</a>
+<div id="TOC">
+
+<ul><li>
+<a href="#rubygems">RubyGems</a><ul>
+<li><a href="#basics">Basics</a></li>
+<li>
+<a href="#file-inclusion----source">File inclusion -- </a><a href="http://stackoverflow.com/questions/804297/when-to-use-require-load-or-autoload-in-ruby">source</a>
+</li>
+<li>
+<a href="#when-to-use-gems----source">When to use Gems -- </a><a href="https://robots.thoughtbot.com/to-gem-or-not-to-gem">source</a>
+</li>
+</ul>
+</li></ul>
+</div>
+<p>Have a name, version, platform. Platform describes CPU architecture, OS or os versions.</p>
+<ul>
+<li>
+<code>lib/</code> contains code for the gem</li>
+<li><code>test/</code></li>
+<li>
+<code>Rakefile</code> uses rake to automate tests, perform tasks</li>
+<li>
+<code>bin/</code> collection of executable files</li>
+<li>
+<code>.gemspec</code> file contains information about the gem, test info, platform, version number, author's name + email</li>
+</ul>
+<h2 id="rubygems">RubyGems</h2>
+<p>Package management framework for Ruby, <code>gem</code> is the cli.</p>
+<ul>
+<li>
+<code>gem fetch gemname &amp;&amp; gem unpack gemname</code> allows you to audit a gem's content without installation.</li>
+<li>
+<code>gem build mygem.gemspec</code> builds a gem that you create or modify into a <code>.gem</code> file, which can be installed locally</li>
+<li>
+<code>gem install mygem</code> installs a gem from rubygems server or locally</li>
+<li>
+<code>gem push mygem-1.0.0.gem</code> pushes to rubygems.org</li>
+</ul>
+<p>Monkey Patching a gem:</p>
+<ul>
+<li>
+<code>git clone</code>, update gem version in gemspec</li>
+<li><code>gem build &lt;gemfile&gt;</code></li>
+<li>
+<p><code>gem install ./&lt;gemname&gt;.gem</code></p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">gem <span class="st">'&lt;mygem&gt;'</span>, <span class="st">'=1.0.7'</span>
+require <span class="st">'&lt;mygem&gt;'</span>     </code></pre></div>RubyGems modifies Ruby load path, controlling how Ruby code is found by the <code>require</code> statement.</li>
+<li><p>adds lib's directory to Ruby <code>$LOAD_PATH</code></p></li>
+</ul>
+<h3 id="basics">Basics</h3>
+<p>RubyGems modifies your Ruby load path, controlling how code is found by the <code>require</code> statement</p>
+<ul><li>
+<code>require</code> a gem, places the gem's <code>lib</code> directory onto your <code>$LOAD_PATH</code>
+</li></ul>
+<h3 id="file-inclusion----source">File inclusion -- <a href="http://stackoverflow.com/questions/804297/when-to-use-require-load-or-autoload-in-ruby">source</a>
+</h3>
+<ul><li>structuring of projects generally needs some sort of file inclusion<ul>
+<li>
+<code>require</code> is preferred in almost all cases. <code>load</code> will re-load code every time, inefficient</li>
+<li>
+<code>autoload</code> is deprecated, some dependencies monkeypatch classes, meaning code behaviour can differ depending on what dependencies are loaded at the time (terrible to debug), however it makes sense for speed purposes with files in a gem</li>
+<li>
+<code>require_relative</code> indicates a file path that is relative to the current file offering a good solution to loading project code</li>
+<li>
+<code>require</code> is more for loading installed code, accessible by the whole system</li>
+</ul>
+</li></ul>
+<h3 id="when-to-use-gems----source">When to use Gems -- <a href="https://robots.thoughtbot.com/to-gem-or-not-to-gem">source</a>
+</h3>
+<ul>
+<li>examine code quality, structure, tests, code coverage, maintainence</li>
+<li>adding gems to a project adds liabilities</li>
+<li>adds complexity, especially with DSLs</li>
+<li>Beneficially add knowledge, quicker integration, edge case handling</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

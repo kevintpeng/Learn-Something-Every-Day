@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Containers</title>
+</head>
+<body>
+
+<h1 id="containers">Containers</h1>          <a href="index.html">Back to AWS</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#ecs-ec2-container-service">ECS (EC2 Container Service)</a></li>
+<li><a href="#aws-fargate">AWS Fargate</a></li>
+<li><a href="#eks-elastic-kubernetes-service">EKS (Elastic Kubernetes Service?)</a></li>
+</ul>
+</div>
+<h3 id="ecs-ec2-container-service">ECS (EC2 Container Service)</h3>
+<p>Let's you run, stop and manage docker containers on a managed cluster of EC2 instances</p>
+<ul>
+<li>
+<strong>ECR (EC2 Container Registry</strong> manages custom docker images<ul><li>provides IAM resource-level control</li></ul>
+</li>
+<li>still responsible for the availability, capacity and maintenance of the underlying infrastructure<ul><li>spin up EC2 instances and run tasks on top</li></ul>
+</li>
+<li>ECS task definition includes the image, cpu and memory requirements, launch type (infrastructure)</li>
+<li>ECS service</li>
+</ul>
+<h3 id="aws-fargate">AWS Fargate</h3>
+<p>Analogous to EC2, but they give you a container instead of a VM</p>
+<ul>
+<li>per-second billing, useful for tasks</li>
+<li>this is the AWS managed solution</li>
+</ul>
+<h3 id="eks-elastic-kubernetes-service">EKS (Elastic Kubernetes Service?)</h3>
+<p>Is managed kubernetes, with built-in AWS integrations</p>
+<ul>
+<li>multi-AZ control plane</li>
+<li><em>looks really easy to provision a cluster and start running pods</em></li>
+<li>similar to ECS in that you still ultimately own the infrastructure, in this case the kubernetes cluster<ul>
+<li>AWS manages and deploys the Kubernetes masters and management infrastructure</li>
+<li>you just add worker nodes and connect them</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

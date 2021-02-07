@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Bazel</title>
+</head>
+<body>
+
+<h1 id="bazel"><a href="https://docs.bazel.build/versions/master/build-ref.html">Bazel</a></h1>          <a href="index.html">Back to Production-Engineering</a>
+<ul>
+<li>BUILD files define packages, units of software to be built and referenced</li>
+<li>targets are individual elements in a package, usually files or rules<ul><li>can be hidden or made public</li></ul>
+</li>
+<li>labels are prefixed with <code>//</code> and reference a target<ul><li>can be read as <code>//package/name:target-name</code>, or if name == target-name then it can be omitted</li></ul>
+</li>
+<li>rules define a relationship between input and output files<ul>
+<li>
+<code>cc_binary</code> or <code>go_binary</code> are examples of build rules</li>
+<li>name is the target, and deps are targets that this depends on</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

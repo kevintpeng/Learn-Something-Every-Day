@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Vuforia</title>
+</head>
+<body>
+
+<h1 id="vuforia">Vuforia</h1>          <a href="index.html">Back to Production-Engineering</a>
+<p>Augmented Reality platform, for computer vision.</p>
+<ul><li>includes text, object, cylinder, box, and image recognition</li></ul>
+<p>Vec2F, 2D vector of float items</p>
+<p><strong>Pose</strong> is the combination of position and orientation information.<br>
+Pose estimation can be done through analytic or geometric methods:</p>
+<ul>
+<li>camera mapping is known (since it projects 3D onto a 2D image)</li>
+<li>the camera's image is a known function</li>
+<li><p>the set of control points (corners) on the object (target) are used to solve the pose transformation from a set of equations which relates the 3D coordinates of the points with their 2D image coordinates</p></li>
+<li>
+<a href="https://developer.vuforia.com/library/sites/default/api/java/classcom_1_1vuforia_1_1Trackable.html">Trackable</a><ul><li>
+<a href="https://developer.vuforia.com/library/sites/default/api/java/classcom_1_1vuforia_1_1ObjectTarget.html">ObjectTarget</a><ul><li>
+<a href="https://developer.vuforia.com/library/sites/default/api/java/classcom_1_1vuforia_1_1ImageTarget.html">ImageTarget</a>; flat target, inherited from ObjectTarget</li></ul>
+</li></ul>
+</li>
+<li><a href="https://developer.vuforia.com/library/sites/default/api/java/classcom_1_1vuforia_1_1Marker.html#details">Marker</a></li>
+<li><p><a href="https://developer.vuforia.com/library/sites/default/api/java/classcom_1_1vuforia_1_1Renderer.html#details">Renderer</a></p></li>
+</ul>
+<h1 id="rajawali">Rajawali</h1>
+<p>Rajawali is a 3D engine for rendering and lighting. Vuforia will be the computer vision to detect where objects should render, Rajawali handles rendering.</p>
+<p><strong>Attenuation</strong> is the gradual loss of intensity. Rajawali's <a href="https://github.com/Rajawali/Rajawali/tree/master/rajawali/src/main/java/org/rajawali3d/lights">light</a> classes provide different types of light sources. Light sources should be relative to the image target.</p>
+<p>Android sensor will give overall lighting of the scene:</p>
+<ul><li>
+<a href="http://stackoverflow.com/questions/4738294/android-detect-brightness-amount-of-light-in-phones-surroundings-using-the-c">Android Light Sensor</a> Integration</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

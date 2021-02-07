@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>DNS Resource Records</title>
+</head>
+<body>
+
+<h1 id="dns-resource-records">DNS Resource Records</h1>          <a href="index.html">Back to Networking</a>
+<p>There are many types of DNS record types (<a href="https://en.wikipedia.org/wiki/List_of_DNS_record_types">source</a>). These are all specified in a <a href="https://github.com/kevintpeng/Learn-Something-Everyday/blob/master/Networking/Subdomains%20and%20DNS%20Zones.md">DNS zone</a> file, which ultimately resolves domain names to ip addresses or other types of records:</p>
+<ul>
+<li>
+<strong>SOA</strong>: Start of Authority, mandatory in all zone files, it identifies DNS information about the domain like the name of the DNS server, version, default TTL</li>
+<li>
+<strong>A:</strong> Address Record, returns a 32-bit IPv4 address</li>
+<li>
+<strong>AAAA:</strong> IPv6 Address Record, returns a 128-bit IPv6 address</li>
+<li>
+<strong>CNAME:</strong> Canonical Name Record, aliases one name to another, the DNS lookup will continue by retrying with the new name</li>
+<li>
+<strong>NS:</strong> Name Server Record, delegates a DNS zone to use instead of the current DNS zone</li>
+<li>
+<strong>MX:</strong> Mail Exchange Record, maps a domain name to a list of message transfer agents for that domain</li>
+<li>
+<strong>TXT</strong>: Text Record, plain text, often used to carry data (like a basic api)</li>
+<li>
+<strong>PTR</strong>: Reverse DNS record, takes IP address and returns DNS record</li>
+</ul>
+<p>TTL (time to live) is another field in the DNS zone file, which specifies how long a caching server should serve the record from its cache rather than from the nameserver again.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

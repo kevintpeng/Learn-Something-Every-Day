@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>How to use interfaces</title>
+</head>
+<body>
+
+<h1 id="how-to-use-interfaces">How to use interfaces</h1>          <a href="index.html">Back to Languages/go</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#its-methods">Its methods</a></li>
+<li><a href="#the-interface-type">The <code>interface{}</code> type</a></li>
+<li><a href="#the-interface-value-method-table">The interface value &amp; method table</a></li>
+<li><a href="#pointers-and-interfaces">Pointers and Interfaces</a></li>
+</ul>
+</div>
+<p>An interface is two things: a set of methods and also a type.</p>
+<ul>
+<li>interfaces let you use <a href="../Duck%20Typing.md">duck typing</a> like in a purely dynamic language like Ruby but still have the compiler catch obvious mistakes like passing an <code>int</code> where an object with a <code>Read</code> method was expected</li>
+<li>interfaces also have dynamic type checking in addition to static<ul>
+<li>
+<strong>Type assertions</strong> provide access to an interface value's underlying concrete value. <code>t, ok := i.(T)</code> asserts the interface value <code>i</code> holds concrete type <code>T</code>, assigns it to <code>t</code> and returns a boolean to <code>ok</code> (Where T can be the type of interface you are trying to assert).</li>
+<li>omitting the <code>ok</code> return causes it to <code>panic</code> if not type <code>T</code>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="its-methods">Its methods</h3>
+<p>A core concept of Go's type system is that instead of designing our abstractions in terms of what data a type can hold, <strong>abstractions are designed in terms of what actions a type can execute.</strong></p>
+<ul>
+<li>
+<code>type Animal interface { ... }</code> describes the actions (methods) the type <code>Animal</code> can perform</li>
+<li>when creating a type, you do not explicitly state that the type is an implementation of some <code>interface</code>, it is determined automatically at compile time<ul><li>a <code>type</code> can then implement mulitple <code>interfaces</code>
+</li></ul>
+</li>
+</ul>
+<h3 id="the-interface-type">The <code>interface{}</code> type</h3>
+<p><code>interface{}</code> type is <em>the empty interface</em>. It has no methods, so <strong>all types implement the empty interface</strong>.</p>
+<ul><li>if you write a function that takes an <code>interface{}</code> value as a parameter, it can take any value, assigning not its original type but an <code>interface{}</code> type<ul><li>
+<code>func DoSomething(v interface{}) {...}</code> (performs a type conversion, <code>DoSomething(5)</code> converts <code>int</code> to <code>interface{}</code>
+</li></ul>
+</li></ul>
+<h3 id="the-interface-value-method-table">The interface value &amp; method table</h3>
+<p>An interface value is constructed of two words of data</p>
+<ul>
+<li>one points to a method table for the value's underlying type</li>
+<li>one points to the actual data being held by that value ( a copy of it )</li>
+</ul>
+<p>The method table or interface table, is some metadata about the types involved and a list of function pointers.</p>
+<ul>
+<li>the interface table corresponds to the interface type, not the dynamic type<ul><li>table is not the implementor, it is the method signatures for the interface type itself</li></ul>
+</li>
+<li>the interface table <strong>must be computed at runtime</strong> because of dynamic type conversions<ul><li>isn't reasonable to precompute all possible method tables<ul><li>too many (interface type, concrete type) pairs</li></ul>
+</li></ul>
+</li>
+<li>compiler generates a type description for each concrete type, which contains a list of methods implemented<ul><li>at runtime, interface type's method table is compared to concrete type's method table to compute the interface's method table</li></ul>
+</li>
+</ul>
+<h3 id="pointers-and-interfaces">Pointers and Interfaces</h3>
+<p>An interface definition does not explicitly state whether an implementor should implement the interface using a pointer reciever or value reciever</p>
+<ul>
+<li>for an interface value, its underlying (concrete) type could be a pointer (and go won't complain)<ul><li>A method signature for an implementor could change from <code>func (c Cat) Speak() string</code> to a Cat pointer: <code>func (c *Cat) Speak() string</code> and would still be a valid implementor (potentially leading to bugs)<ul><li>this would then only work if called by <code>&amp;Cat.Speak()</code>
+</li></ul>
+</li></ul>
+</li>
+<li>interestingly, <code>&amp;Dog.Speak()</code> works the same as <code>Dog.Speak()</code> if <code>Speak</code> had a value receiver<ul><li>doesn't work the other way around, so when calling methods on an interface value, a pointer to a concrete type is more flexible<ul>
+<li>this is true since a pointer that is passed to a method with a non pointer parameter can dereference the pointer that is passed to get the right type to work with</li>
+<li>note a function <code>func (t T)MyMethod(s string)</code> is of type <code>func(T, string)</code>: method recievers (<code>T</code>) are passed into the function by value like any other pass by value call</li>
+</ul>
+</li></ul>
+</li>
+</ul>
+<p><a href="http://jordanorelli.com/post/32665860244/how-to-use-interfaces-in-go">source</a></p>
+<p><a href="http://research.swtch.com/interfaces">source</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

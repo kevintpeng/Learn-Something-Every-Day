@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Regular Expressions</title>
+</head>
+<body>
+
+<h1 id="regular-expressions">Regular Expressions</h1>          <a href="index.html">Back to Languages</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#theory">Theory</a></li>
+<li><a href="#in-practice">In Practice</a></li>
+</ul>
+</div>
+<h3 id="theory">Theory</h3>
+<p>A regular expression is a series of characters that define a search pattern.</p>
+<ul>
+<li>a <strong>formal language</strong> is a set of strings of symbols that may be constrained by rules<ul>
+<li>the alphabet of a formal language is the (often finite) set of symbols and letters that can form strings</li>
+<li>in complexity theory, decision problems are formal languages and complexity classes are sets of formal languages</li>
+</ul>
+</li>
+<li>a <strong>regular language</strong> is a formal language that can be expressed with regular expressions<ul><li>many formal languages cannot be expressed as regular expressions</li></ul>
+</li>
+</ul>
+<h3 id="in-practice">In Practice</h3>
+<ul>
+<li>Start with ^ and end with $ to match the whole string to the regex.</li>
+<li>Since usually trying to match for a string S, not find substring R in S, we use the /^<em>regex</em>$/ method to apply it to the <em>whole</em> string</li>
+<li>
+<em>regex</em>{3,} will match three or more times</li>
+<li>
+<code>\b</code> is a word boundary (before first \w in matched string, between a \w and \W, after last \w)<br>
+- <code>/\bis\b/</code> would match "This <strong>is</strong> cool", not "Th<strong>is</strong> is cool" because it needs to start at a word boundary</li>
+<li>
+<code>?</code> after any quantifier (<code>*?</code>, <code>{1,5}?</code> etc...) is <em>Lazy</em> quantifier (no ? is called greedy). Lazy matches as few as possible</li>
+<li>
+<code>()</code> capturing and <code>(?: )</code> non-capturing used to group part of the regex and apply quantifiers.</li>
+<li>
+<code>\1</code>, <code>\2</code> match the first and second capturing groups again (references). <code>(\w)(\w)\w\2\1</code> will match any 5 letter palindrome</li>
+<li>backreferencing to a capturing group that matches nothing is different from backreferencing to a capturing group that did not participate in the match.<br>
+- Matches nothing: <code>(b?)o\1</code> matches "o" where b? matches nothing so \1 doesn't either<br>
+- Doesn't participate: <code>(b)?o\1</code> fails to match "o" for most flavors (except JavaScript). (b) is optional, o matches, \1 references a group that did not participate so backreference fails (\1 has nothing to reference).</li>
+<li>Fowardreferencing is using backreferences before grouping, and it is evaluated after the group is matched.</li>
+<li>Branch reset groups <code>(?|regex)</code> is used to choose on from multiple possible capturing groups and assigns it to one given group number<ul><li>
+<code>(x)(?|(a)|(bc)|(def))\2</code> matches <code>xaa</code>, <code>xbcbc</code>, or <code>xdefdef</code>, each assigned to number <code>2</code>
+</li></ul>
+</li>
+</ul>
+<p><a href="http://www.regular-expressions.info/refadv.html">source</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

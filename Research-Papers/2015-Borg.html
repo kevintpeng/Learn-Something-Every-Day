@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Large-scale cluster management at Google with Borg</title>
+</head>
+<body>
+
+<h1 id="large-scale-cluster-management-at-google-with-borg"><a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43438.pdf">Large-scale cluster management at Google with Borg</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<p>orchestration software system, for managing clusters of machines for performing tasks and jobs.</p>
+<ul>
+<li>provides a system for allocating resources for future tasks, and setting priorities in the case of running out of resources</li>
+<li>each borg cell has a borgmaster and a separate scheduler (for 10k+ machines)<ul><li>Borg master acts as a single process, but is backed up using replication, where information is kept with Paxos</li></ul>
+</li>
+<li>Borgmaster receives jobs and tasks in a priority queue, which is asynchronously read by the scheduler</li>
+<li><a href="https://pdfs.semanticscholar.org/17af/beaad2aea3189cec58939f76718cd97d30fe.pdf?_ga=2.218917593.1326100776.1504734464-95379282.1504734464">scheduling algorithm</a></li>
+<li>borglets are local agents on every machine, that start and stop tasks on machines, used for monitoring uptime and statistics, and expose HTTP endpoint</li>
+<li>the borgmaster scheme scales through being distributed, implementing priority score caching, and randomization of which machines to score (only scoring a subset)</li>
+<li>jobs in borg were inflexible (especially for multi-job semantics), so kubernetes organizes by pods using labels -- arbitrary key value pairs that users attach to any object, to allow sets of pods to be references</li>
+<li>kubernetes has one ip address per pod (instead of machine), avoiding port conflicts and management</li>
+<li>linux namespaces are the kernel feature that facilitate containerization and allow single IP addresses for each pod</li>
+<li>pods are an extension of allocs, achieving the similar idea of assigned resources (useful for the logsaver pattern, with a side process for web server logs)</li>
+<li>the Kubernetes architecture improves upon borg, breaking the master into an API server responsible for processing requests and the cluster management logic into micro-services (including replication controller and node controllers)</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

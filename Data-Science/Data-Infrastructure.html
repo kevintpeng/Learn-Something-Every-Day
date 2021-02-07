@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Introduction to Technologies</title>
+</head>
+<body>
+
+<h1 id="introduction-to-technologies">Introduction to Technologies</h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#spark-and-the-resilient-distributed-dataset-rdd">Spark and the Resilient Distributed Dataset (RDD)</a></li>
+<li><a href="#background-oltp-olap">Background: OLTP OLAP</a></li>
+<li><a href="#spark-task-distribution-optimiation">Spark Task Distribution Optimiation</a></li>
+<li><a href="#setup">Setup</a></li>
+</ul>
+</div>
+<p>Very fast in-memory data processing framework, ~100x faster than Hadoop</p>
+<ul>
+<li>Hadoop writes everything to disk, while spark is in-memory</li>
+<li>multi-step processing is slow with lots of disk writes</li>
+<li>Hadoop has lots of boilerplate code, and requires libraries to reduce its verbosity</li>
+<li>Hadoop has HBase, running on top of HDFS, with everything replicated on each node<ul><li>is best suited for analytics on data lakes</li></ul>
+</li>
+<li>Cassandra offers performance over HBase (which is only designed for data lake use cases)</li>
+</ul>
+<h3 id="spark-and-the-resilient-distributed-dataset-rdd">Spark and the Resilient Distributed Dataset (RDD)</h3>
+<ul><li>Spark with its SQL query API provides a comfortable interface for distributed analysis<ul>
+<li>Spark API is designed after the RDD abstracting out the data (ignoring the underlying implementation, potentially across many machines) into a signle enumerable data structure</li>
+<li>RDD works through chaining together a series of transformations in a functional style</li>
+</ul>
+</li></ul>
+<p>Transformations and Actions are the two functions types</p>
+<ul>
+<li>Transformations change state of the dataset</li>
+<li>Actions extract information from the datase</li>
+</ul>
+<h3 id="background-oltp-olap">Background: OLTP OLAP</h3>
+<p>transactional OLTP and analytical OLAP describe the intent of some data system</p>
+<ul>
+<li>OLTP uses INSERT, UPDATE, DELETE and has high volume of trnasactions</li>
+<li>OLAP has few transactions, but many queries<ul>
+<li>more complex queries with aggregations</li>
+<li>OLAP databases hold aggregates, historical data, with multi-dimensional schemas</li>
+</ul>
+</li>
+<li>OLAP often uses star-schema (or other multi-dimensional schemas)<ul>
+<li>simply, a schema (represented as a graph) composed of <em>Dimension Tables</em> and <em>Fact Tables</em> as the nodes, connected by edges describing the dimensionality of a Fact Table</li>
+<li>each dimension is represented with a 1-D table</li>
+<li>Fact Table holds <code>n</code> keys relating each dimension to a table</li>
+<li>the Fact Table describes a <code>cube</code>, some hypercube of n-dimensional coordinates, where each coordinate is decribed some some tuple of values in a 1-D Dimension table</li>
+</ul>
+</li>
+</ul>
+<h3 id="spark-task-distribution-optimiation">Spark Task Distribution Optimiation</h3>
+<p>Important to partition data for optimized performance</p>
+<ul>
+<li>order of operations is critical</li>
+<li>data should be partitioned with a lower bound of 2 times the number of cores</li>
+<li>any task should be at least 100ms to warrent distribution</li>
+</ul>
+<h3 id="setup">Setup</h3>
+<p>```<br>
+curl -o ~/Downloads/spark-2.1.0-bin-hadoop2.7.tgz <a href="http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz" class="uri">http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Terraform</title>
+</head>
+<body>
+
+<h1 id="terraform">Terraform</h1>          <a href="index.html">Back to Production-Engineering</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#provisioner">Provisioner</a></li>
+<li><a href="#state">State</a></li>
+</ul>
+</div>
+<p>Infrastructure as code. Orchestration tool for building, changing, versioning infrastructure.</p>
+<ul>
+<li>works declaratively <em>(similar to Ansible in that you don't necessarily tell it how to get to the specified state)</em>
+</li>
+<li><em>differs from Ansible in that it has a focus on the orchestration part of instances compared to configuration</em></li>
+<li>
+<strong>infrastructure as code</strong> is a main goal, much like many of these dev-ops tools</li>
+<li>
+<strong>execution plan</strong>, generates steps of how to get to desired state</li>
+<li>
+<strong>resource graph</strong> is a DAG of dependencies, allows parallelization <em>(looks like spark)</em>
+</li>
+<li>
+<strong>user data</strong> is a configuration that allows shell execution after hardware is provisioned<ul><li>useful for configurations that need to be dynamic</li></ul>
+</li>
+<li>terraform provisions resources, defined in <code>.tf</code> files, from possibly multiple providers like digital ocean and aws</li>
+</ul>
+<h3 id="provisioner">Provisioner</h3>
+<p>Used to execute scripts on a local or remote machines, a part of resource creation or destruction</p>
+<ul><li>a failed provisioner caused a <strong>tainted</strong> resource status<ul><li>terraform cannot reason about what exact state a resource failed in, so it will destroy and recreate upon <code>terraform apply</code>
+</li></ul>
+</li></ul>
+<h3 id="state">State</h3>
+<p>Terraform uses state to map real world resources to your intended configurations</p>
+<ul><li>uses state to track metadata like dependencies</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

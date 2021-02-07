@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#chapter-3-interest-and-equivalence">Chapter 3: Interest and Equivalence</a></li>
+<li><a href="#chapter-4-equivalence-of-repeated-cash-flows">Chapter 4: Equivalence of Repeated Cash Flows</a></li>
+<li><a href="#chapter-5-present-worth-analysis">Chapter 5: Present Worth Analysis</a></li>
+<li><a href="#chapter-8-risk">Chapter 8: Risk</a></li>
+<li><a href="#chapter-6-choosing-a-discount-rate">Chapter 6: Choosing a discount rate</a></li>
+<li><a href="#chapter-15-minimum-attractive-rate-of-return-marr">Chapter 15: Minimum Attractive Rate of Return (MARR)</a></li>
+</ul>
+</div>
+<h3 id="chapter-3-interest-and-equivalence">Chapter 3: Interest and Equivalence</h3>
+<p>tl;dr money at different times should be valued at different ratios, based on interest rates that compound</p>
+<pre><code>
+              ↑ F=172,220
+1965          |
+--------------- 2013
+|
+↓ P=18
+
+F = P(F|P,i,N), F|P mean F given P
+F = 18(1+i)^48
+solving for i, we get 21% annual ROR over 50 years, or Return on Revenue</code></pre>
+<p><strong>Nominal</strong> is the stated interest rate, agnostic of compounding period (sometimes called APR)</p>
+<ul><li>12% compounded monthly refers to the nominal rate, but is actually <strong>Effectively</strong> 12.68%</li></ul>
+<p>Annuity starts not at payment period 0 but at 1.</p>
+<ul><li>P<sub>1</sub> = A(P given A, i, N)<ul>
+<li>multiplying (1+i)<sup>n</sup> is (F/P,i,N)</li>
+<li>multiply by 1/(1+i)^n is (P/F,i,N)</li>
+</ul>
+</li></ul>
+<h3 id="chapter-4-equivalence-of-repeated-cash-flows">Chapter 4: Equivalence of Repeated Cash Flows</h3>
+<p>For uniform series over time, to calculate future amount:</p>
+<p><img width="449" alt="screen shot 2017-05-30 at 11 07 28 pm" src="https://cloud.githubusercontent.com/assets/7998752/26614184/d629a0cc-458c-11e7-9a84-ea0f84119caa.png"></p>
+<p>For uniform series calculating its present value (considering compounding interest):</p>
+<p><img width="424" alt="screen shot 2017-05-30 at 11 08 19 pm" src="https://cloud.githubusercontent.com/assets/7998752/26614195/e4bd599e-458c-11e7-92b7-188104538876.png"></p>
+<p><img width="382" alt="screen shot 2017-05-30 at 11 08 44 pm" src="https://cloud.githubusercontent.com/assets/7998752/26614208/f4466da6-458c-11e7-8571-7b68232d3970.png"></p>
+<p><img width="517" alt="screen shot 2017-05-30 at 11 09 07 pm" src="https://cloud.githubusercontent.com/assets/7998752/26614229/03d360a8-458d-11e7-8cd9-894712fe2ac4.png"></p>
+<h3 id="chapter-5-present-worth-analysis">Chapter 5: Present Worth Analysis</h3>
+<p>One way of comparing things is with present worth analysis</p>
+<ul>
+<li>
+<strong>independent alternatives</strong> are the cash flows of each alternative not relating</li>
+<li>
+<strong>mutually exclusive alternatives</strong> choose only one out of many</li>
+<li>
+<strong>present worth analysis</strong> is evaluating mutually exlcusive alternatives at the present time<ul><li>net present worth = PW(benefit) - PW(cost)</li></ul>
+</li>
+</ul>
+<h3 id="chapter-8-risk">Chapter 8: Risk</h3>
+<p>Average, Sqr, Varp, Stdevp, Frequency, Count, Ln</p>
+<p>Three risk characteristics of financial assets</p>
+<ul>
+<li>
+<strong>Horizon</strong>, how long it takes to get money</li>
+<li>
+<strong>Safety</strong> is there guarantee?</li>
+<li>
+<strong>Liquidity</strong> how easy it is to sell the asset</li>
+</ul>
+<p><strong>Ex-ante</strong> is the expected return of an investment</p>
+<ul><li>on a bond, we already know what to expect, so you can simply calculate ex-ante</li></ul>
+<p><strong>Ex-post</strong> is a measure of past performance</p>
+<ul>
+<li>actual return realized upon sale of the asset</li>
+<li>will be the same as ex-ante if you sell at bond maturity date</li>
+</ul>
+<h3 id="chapter-6-choosing-a-discount-rate">Chapter 6: Choosing a discount rate</h3>
+<p>We used net present value and internal rate of return</p>
+<ul>
+<li>for <strong>discounting</strong>,<br>
+</li>
+<li>Weighted average cost of capital (WACC) is the funding cost for many corporate projects</li>
+</ul>
+<p><img width="641" alt="screen shot 2017-07-12 at 1 33 04 pm" src="https://user-images.githubusercontent.com/7998752/28131059-b697443a-6706-11e7-98cd-4f2c16f90ae6.png"></p>
+<h3 id="chapter-15-minimum-attractive-rate-of-return-marr">Chapter 15: Minimum Attractive Rate of Return (MARR)</h3>
+<p>Assumed interested rate was given so far, but in practice we compute different rates or MARR</p>
+<ul>
+<li>
+<strong>closed end</strong> mutual funds IPO on stock market and there's a fixed number</li>
+<li>
+<strong>open end</strong> mutual funds have an unlimited number of units, but must have a reserve for "redemption"<ul><li>redemption has a fee</li></ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

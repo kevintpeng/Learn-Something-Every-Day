@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul><li><a href="#sets">Sets</a></li></ul>
+</div>
+<h2 id="sets">Sets</h2>
+<p>A <em>set</em> is an unordered colleciton of distinct objects. The objects in a set are <em>elements</em> or <em>members</em>.</p>
+<p>Fields like the Natural numbers, Integers or Real numbers are all sets defined like {0,1,2, ...}.</p>
+<h4 id="operations">Operations</h4>
+<ul>
+<li>Union. A ∪ B = {x : x in A or x in B}</li>
+<li>Intersection. A ∩ B = {x : x in A and x in B}</li>
+<li>Difference. A \ B = {x : x in A and ¬ in B}</li>
+<li>Can be extended to multiple sets (like large sum notation ∑)</li>
+<li>Cardinality |A| is the <em>size</em> of A, number of elements.</li>
+<li>Subset. A ⊆ B = { for all x in A, x in B}</li>
+</ul>
+<p>Two sets are disjoint if they share no elements, or whose intersection is the empty set ø. A family of sets is pairwise disjoint if for any two sets A and B are disjoint.</p>
+<h4 id="notation">Notation</h4>
+<p>For sets A and B, A x B is a cartesian product, with the identity |A x B| = |A||B| (actually like a product of sets). Can be extended to say B^A to mean the set of all functions that map from A-&gt;B: { f: A -&gt; B }</p>
+<p>So the total number of possible functions is |B| possibilities |A| times for each element <code>a</code> in A. So <code>|B^A| = |B|^|A|</code></p>
+<p>R^2 is the two dimensional space (from linear algebra), or the set of all tuples of real numbers. This can be re-written as <code>R^{0,1}</code>. That is, the set of functions that map <code>0</code> or <code>1</code> to two Real numbers respectively. (3.14, -5) could be represented as f(0) = 3.14, f(1) = -5, f in R^2.</p>
+<h5 id="set-of-all-subsets">Set of All Subsets</h5>
+<p><strong>The power set</strong> of A is the set of all subsets, denoted by <code>2^A</code>. It can be thought of as <code>{0,1}^A</code>, the set of all functions that map an element a in A to either 1 or 0. That is, for every element <code>a</code> in A, we can either include it or exclude it, giving us 2 possiblities per element and 2^|A| subsets in total. Useful as a filter: f(a) = { 1 if a is allowed by f, 0 if not } where <code>2^A</code> is the set of all subsets of A. This also works nicely with cardinality: |2^A| = 2^|A|</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

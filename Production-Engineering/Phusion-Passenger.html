@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Phusion Passenger</title>
+</head>
+<body>
+
+<h1 id="phusion-passenger">Phusion Passenger</h1>          <a href="index.html">Back to Production-Engineering</a>
+<p>Phusion Passenger is an app server that integrates directly into web servers Apache and NGINX. Instead of starting a process or cluster for the app and configuring static/reverse proxy, the only step is to specify location of Ruby app's 'public' directory (convention over configuration).</p>
+<ul>
+<li>Dynamically adjusts the number of processes based on traffic</li>
+<li>Good for streaming workloads and workloads that involve HTTP API calls (Unicorn is bad for these)<ul><li>because of hybrid I/O model</li></ul>
+</li>
+<li>automated rolling restarts without scripting</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Intro to Statistics</title>
+</head>
+<body>
+
+<h1 id="intro-to-statistics">Intro to Statistics</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary:</a></li>
+<li>
+<a href="#notes">Notes</a><ul>
+<li><a href="#central-tendency">Central Tendency</a></li>
+<li><a href="#measure-of-dispersion">Measure of Dispersion</a></li>
+<li><a href="#measure-of-skewness">Measure of Skewness</a></li>
+<li><a href="#measure-of-association">Measure of Association</a></li>
+<li><a href="#graphical-summaries-of-data-sets">Graphical Summaries of Data Sets</a></li>
+<li><a href="#statistical-inference">Statistical Inference</a></li>
+<li><a href="#theory-of-probability">Theory of Probability</a></li>
+<li><a href="#counting-rules">Counting Rules</a></li>
+<li><a href="#random-variable-distribution">Random Variable Distribution</a></li>
+<li><a href="#cumulative-distribution-function">Cumulative Distribution Function</a></li>
+<li><a href="#discrete-distributions">Discrete Distributions</a></li>
+<li><a href="#continuous-distributions">Continuous Distributions</a></li>
+<li><a href="#normal-distribution">Normal Distribution</a></li>
+<li><a href="#distribution-of-the-sample-mean">Distribution of the Sample Mean</a></li>
+<li><a href="#exponential">Exponential</a></li>
+<li><a href="#statistical-inference-1">Statistical Inference</a></li>
+<li><a href="#interval-estimation-what-values-of--are-reasonable">Interval Estimation (What values of θ are reasonable?)</a></li>
+<li><a href="#chi-squared-distribution">Chi-Squared Distribution</a></li>
+<li><a href="#students-t-distribution">Student's T-Distribution</a></li>
+<li><a href="#prediction-intervals-constructing-confidence-interval-for-next-element">Prediction Intervals (Constructing Confidence Interval for next element)</a></li>
+<li><a href="#hypothesis-testing-is--reasonable">Hypothesis Testing (Is θ reasonable?)</a></li>
+<li><a href="#hypothesis-testing-steps">Hypothesis Testing Steps:</a></li>
+<li><a href="#hypothesis-testing-for-different-distributions">Hypothesis Testing for different distributions</a></li>
+<li><a href="#equality-of-two-means">Equality of two means:</a></li>
+<li><a href="#simple-linear-regression-model">Simple Linear Regression Model</a></li>
+<li><a href="#method-of-least-squares">Method of Least Squares</a></li>
+<li><a href="#two-population-problem">Two Population Problem</a></li>
+<li><a href="#regression">Regression</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary:</h2>
+<p><strong>Data Summaries</strong></p>
+<ul>
+<li>Discrete, continuous, categorical, ordinal</li>
+<li>units, variables, attributes, summarizing data</li>
+<li>center, variability, symmetry, skewness, measuring association between two variables</li>
+<li>summarizing algebraically and graphically<ul>
+<li>sample mean, mode, median &amp; variability (5 num summary)</li>
+<li>IQR = Q3 - Q1, Range = Max - min, s^2 = 1/(n-1)∑(yi-y-bar)^2 sample variance</li>
+<li>kurtosis = 3 for normal</li>
+<li>measure of Association, relative risk</li>
+<li>sample correlation coefficient r<sub>xy</sub> = ∑(xi - x-bar)(yi - y-bar)/(∑(xi-x-bar)^2•(yi - y-bar)^2)</li>
+<li>histogram, box and whisker, whiskers are Q3 + 1.5•IQR</li>
+</ul>
+</li>
+</ul>
+<p><strong>Conditional Probability</strong>:</p>
+<ul><li>Bayes Theorem: <code>P(Bi|A) = P(A|Bi)*P(Bi)/∑(P(A|Bj)*P(Bj))</code>
+</li></ul>
+<p><strong>Counting Rules:</strong></p>
+<ul>
+<li>Permutations: <code>nPr = n!/(n-r)!</code>
+</li>
+<li>Combinations: <code>nCr = nPr/r!</code>; <em>like permutation formula without the r! permutations for each set of r values</em>
+</li>
+</ul>
+<p><strong>Random Distributions:</strong></p>
+<p><em>Discrete:</em></p>
+<ul>
+<li>Binomial: P of r successes in n bernouli trials: <code>P(X = r) = nCr • p^r • (1-p)^(n-r)</code>; <em>there are nCr combinations of exactly r successes in n trials</em><ul>
+<li>Y ~ Bin(n, θ)</li>
+<li>E(X) = nθ</li>
+<li>V(X) = nθ(1-θ)</li>
+</ul>
+</li>
+<li>Hyper-Geometric: P of r successes without replacement: P(X = r) = <sup>n</sup>C<sub>r</sub> • <sup>N-n</sup>C<sub>n-r</sub> / <sup>N</sup>C<sub>r</sub>; <em>we calculate what percent of all outcomes have r successes and n-r failures, for n</em>
+</li>
+<li>Geometric: probability of k-1 failures before a success, for bernouli trials: <code>P(X = k) = (1-p)^(k-1)•p</code>
+</li>
+<li>Negative Binomial: P of k failures before x successes</li>
+<li>Poisson: models number of event occurences in a time interval: <code>P(X=k) = &amp;lambda;^k•e^-&amp;lambda;/k!</code>; λ is E(X) and Var(X)</li>
+</ul>
+<p><em>Continuous</em>:</p>
+<ul>
+<li>Normal<ul>
+<li>Z ~ N(0,1)</li>
+<li>Y ~ N(μ, σ^2)</li>
+<li>Yi...Yn ~ N(μ, σ^2), then Y-bar ~ N(μ, σ^2/n),</li>
+</ul>
+</li>
+<li>Exponential: the time before an occurence of an event (time between events in poisson)</li>
+<li>Chi Square: distribution for the sum of a set of squared normally distributed r.v. It is a function of degrees of freedom v, and always has a mean of v and variance of 2v<ul>
+<li>if df =1, X^2 = Z^2</li>
+<li>if df = 2, X^2 = Exp(2)<br>
+if df ≥50, X^2 ~ N(k, 2k)</li>
+</ul>
+</li>
+<li>Student's T Distribution is the ratio between two independent r.v.s T = Z/W; <em>Z is normal and W is Chi-Square</em>. T has k degrees of freedom, and as k -&gt; infinity, T -&gt; Z<ul><li>Symmetric, and if df is large, T ~ Z</li></ul>
+</li>
+</ul>
+<p><strong>Sampling Distribution</strong>:</p>
+<ul>
+<li>samples are a subset of the population, used to infer properties of the population. x-bar is a specific sample mean, s^2 is a sample's variance, while X-bar and S^2 (note the capitals) are the mean and variance of a generalized random sample</li>
+<li>since a statistic is a random variable that depends only on the observed sample, it has a distribution, the <strong>sampling distribution</strong> (but remember the population's mean and variance are constant and unknown)</li>
+<li>sampling distributions of X-bar and S^2 enable us to make inferences about the population parameters μ and σ^2.</li>
+<li>Central Limit Theorem: For Z = X-bar - μ/(σ/n<sup>1/2</sup>), as n -&gt; infinity then the distribution approaches the standard normal n(0,1). Applies for large n ≥ 30, or for sample distributions whose original distribution is close to normal</li>
+<li>if a population is normally distributed, we can calculate the sample variance S^2: Chi^2 = (n-1)•S^2/σ^2, degrees of freedom v = n-1</li>
+</ul>
+<p><strong>Point Estimation</strong>:<br>
+Find θ-hat. L(θ, y1...yn) = P(Y1 = y1, Y2 = y2, ... Yn = yn)</p>
+<p><strong>Maximal Likelihood Estimate</strong>:</p>
+<ul>
+<li>purpose is to estimate θ for an instance of a distribution</li>
+<li>take a sample of population for a known probability distribution</li>
+<li>construct a likelihood function: L(θ) = Πf(yi)</li>
+<li>use the log likelihood function and find its max for θ-hat</li>
+<li>θ-hat is the MLE if θ-hat maximizes L(θ or l(θ)<ul>
+<li>Binomial θ-hat = y/n, y is num of successes</li>
+<li>Poisson = y-bar</li>
+<li>exponential = y-bar</li>
+<li>normal μ-hat = y-bar, and σ-hat = (1/n ∑(yi-y-bar)^2)^(1/2)</li>
+</ul>
+</li>
+</ul>
+<p>By extension, Invariance Property states for θ-hat as the MLE of θ, under mild conditions g(θ-hat) is the MLE of g(θ) forall cont. function g</p>
+<p><strong>Interval Estimation</strong>:</p>
+<ul>
+<li>using relative likelihood, the 100p% <strong>likelihood interval</strong> for θ says that for 0 ≤ p ≤ 1, the 10% likelihood interval (p = 0.1•100 = 10%) says that any θ in this interval is at least 10% of L(θ-hat). <em>It's the interval of all θ values that are at least p% of the optimal value</em>
+</li>
+<li>the x <strong>confidence interval</strong> says that x% of all samples we choose will compute a theoretical confidence interval that contains the actual unknown parameter.<ul>
+<li>with known σ, then by Central Limit Theorem, Z = X-bar - μ/(σ/n<sup>1/2</sup>), and μ<sub>X-bar</sub> = μ and σ<sub>X-bar</sub> = σ/n^(1/2) we can construct a confidence interval for μ by subbing in our value for Z, using the z-table to compute the probability, then isolating X-bar to find the interval.</li>
+<li>with unknown population σ, a random sample from a normal distribution has a sample distribution of T = X-bar - μ/(S/n^(1/2)), with n-1 degrees of freedom. S is the sample standard deviation. Now we use the t-table to calculate the to find the bounds of the interval given a desired probability of confidence, then isolate for the parameter.</li>
+<li>by convention, for any population distribution, a sample n ≥ 30, we can replace σ with s and the confidence interval x-bar ± z * • s/n^(1/2) can be used, z * is the z-table value that gives us the desired confidence probability</li>
+<li><em>the x% confidence interval says with x% confidence that the difference between the sample mean and the actual mean will not exceed the interval bounds z<sub>a/2</sub>•σ/n<sup>1/2</sup></em></li>
+</ul>
+</li>
+</ul>
+<p><strong>Confidence Intervals</strong>:</p>
+<ul>
+<li>Binomial: CI: θ-hat ± Z * • (θ-hat(1-θ-hat)/n)^(1/2), n ≥(Z * / l)^2 • 1/y, l = MOE</li>
+<li>Normal: CI for μ y-bar ± Z * σ / (n)^(1/2) if σ is known. y-bar ± t * • s / (n)^(1/2) where df = n-1 for σ unknown</li>
+<li>Normal: CI for σ^2 [(n-1)s] ???</li>
+<li>Poisson: y-bar ± Z * (y-bar/n)^(1/2)</li>
+<li>Relationship between LI and CI = -2log(l(θ)/L(θ) ~ X^2 ???</li>
+<li>95% CI is e^(-z^2/2) LI</li>
+</ul>
+<p><strong>Goodness of Fit Tests</strong>: X1...Xn ~ f(xi; θ's)</p>
+<ol>
+<li>construct frequency tables for intervals</li>
+<li>calculate the MLE for each of the θ's</li>
+<li>compute an estimated probability for each range in the frequency table: Pi = integral a to b of 1/θ-hat • e^(-x/θhat)dx</li>
+<li>Calculate expected frequencies ei = n•Pi</li>
+<li>Compute λ = 2 ∑ yi • log(yi/ei)</li>
+<li>p-value = P(Λ ≥ λ) ~ X<sup>2</sup><sub>n-k-1</sub>: n = categories, k = parameters</li>
+</ol>
+<h2 id="notes">Notes</h2>
+<h3 id="central-tendency">Central Tendency</h3>
+<p>the degree of clustering of values of a statistical distribution</p>
+<ul>
+<li>arithmetic mean is <code>(1/n)∑(yi)</code> for 1 ≤ i ≤ n</li>
+<li>median or geometric mean is <code>(y1•y2•...•yn)^(1/n)</code>
+</li>
+<li>harmonic mean is the reciprocal of the arithmetic mean of the reciprocals</li>
+<li>For any two #s, AM ≥ GM ≥ HM</li>
+<li>median is the middle element of a set</li>
+<li>Quartiles is splitting data into four equal parts</li>
+<li>Percentiles break data in to 100 parts</li>
+<li>Mode is the element of maximum frequency</li>
+</ul>
+<h3 id="measure-of-dispersion">Measure of Dispersion</h3>
+<ul>
+<li>Range = Max - min</li>
+<li>Inter-Quartile Range (IQR) = Q3 - Q1 (where Q1=25%, Q2=50%, Q3=75%)</li>
+<li>Variance = <code>σ^2</code>, the average of the squared deviations from the mean<ul><li>for mean ȳ, <code>σ^2 = (1/(n-1)) ∑ (yi - ȳ)^2</code>
+</li></ul>
+</li>
+<li>Standard deviation <code>σ</code> = positive square root of the variance</li>
+<li>for some transformation of the form <code>yi = a + bxi</code>, variance = <code>b^2 • var(x)</code>, sd(y) = <code>|b|•sd(x)</code>
+</li>
+</ul>
+<h3 id="measure-of-skewness">Measure of Skewness</h3>
+<pre><code>SKEWNESS = Mean - Median
+         = (1/n) ∑ (yi - ȳ)^3
+         = (1/n) [∑ (yi - ȳ)^2]^(3/2)</code></pre>
+<ul>
+<li>
+<strong>Kurtosis</strong> is the measure of frequency of extreme observations, compared to a normal distribution</li>
+<li>
+<code>K = some nast formula</code>, the fourth standardized moment<ul>
+<li>ASIDE, a standardized moment of a probability distribution is a measure of the shape of a set of points</li>
+<li>the n-th moment of a continuous function ƒ(x) about a value <code>c</code> is <code>µn = ∫(x-c)^n • ƒ(x) dx</code>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="measure-of-association">Measure of Association</h3>
+<ul>
+<li>bivariate data is data that is dependent on two variables</li>
+<li>sample correlation coefficient quantifies the degree at which two variables are correlated<ul><li>r ~= 0 shows no linear relationship, while |r| ~= 1 shows strong linear relationship</li></ul>
+</li>
+</ul>
+<h3 id="graphical-summaries-of-data-sets">Graphical Summaries of Data Sets</h3>
+<p>identifies distribution from which your sample is drawn, so you apply the right model</p>
+<ul>
+<li>Relative Frequency Histogram</li>
+<li>Density Histogram, the height is chosen s.t. the relative freqency of the bin = area of the corresponding rectangle in the histogram (accounts well for variable bin widths)<ul><li>relative freqency is <code>frequency of each bin/total sample size</code>
+</li></ul>
+</li>
+<li>Empirical cumulative distribution function, ƒ(y) = <code># of observations ≤ y/Total # of observations</code><ul><li>plots an upwards staircase</li></ul>
+</li>
+<li>Box and Whiser Plot plots quaritles</li>
+<li>five num summary = {min, Q1, Q2, Q3, max}</li>
+<li>quartiles are calculated with <code>(n+1) * percentile</code>, averaging its neighbours for non integer values</li>
+<li>outliers are numbers outside of <code>Q3 + 1.5 * IQR</code> and <code>Q1 - 1.5 * IQR</code>
+</li>
+<li>left skewed if distribution function has a left slope (right vise versa)</li>
+</ul>
+<h3 id="statistical-inference">Statistical Inference</h3>
+<ul>
+<li>Descriptive Statistics describe the properties of the data</li>
+<li>Statistical inference is analyzing the properties</li>
+<li>Three major types of inference problems<ul>
+<li>Estimation: using sample of a population to estimate unknowns</li>
+<li>Hypothesis Testing: drawing samples from a population to test if a hypothesis is reasonable</li>
+<li>Prediction Problems: predicting future value based on past data (time series analysis)</li>
+</ul>
+</li>
+<li>statistical modelling is the identification of the distribution from which your data set and unknown are related</li>
+</ul>
+<h3 id="theory-of-probability">Theory of Probability</h3>
+<ul>
+<li>Random experiment, whose outcomes are uncertain<ul>
+<li>S or Omega = Sample Space, the set of all possible outcomes (equally likely)</li>
+<li>event A is a subset of S</li>
+</ul>
+</li>
+<li>simple event is one with only one outcome</li>
+</ul>
+<p>Rules of Probability:</p>
+<ul>
+<li>Fi is the empty set, P(omega) = 1, P(Fi) = 0</li>
+<li>if A is a subset of B, P(A) &lt;= P(B)</li>
+<li>A and B are mutually exclusive if both events cannot occur simultaneously (intersection of A and B = Fi)</li>
+<li>A and B are EXHAUSTIVE events if at least one of them have to happen (P(A union B) = P(Omega))</li>
+<li>complement of P(Ac) = 1 - P(A)</li>
+<li><code>P(A u B) = P(A) + P(B) - P(A intersection B)</code></li>
+<li>Bayes Theorem: <code>P(Bi|A) = P(A|Bi)*P(Bi)/∑(P(A|Bj)*P(Bj))</code><ul><li>denominator is the sum of intersections of A with all events in the event space. This works because B1...Bk are exhaustive AND mutually exclusive</li></ul>
+</li>
+</ul>
+<h3 id="counting-rules">Counting Rules</h3>
+<ul>
+<li>Addition/OR: p or q -&gt; p + q # of outcomes</li>
+<li>Multiplication/AND Rule: p and q -&gt; p * q ways</li>
+<li>Permutation Rule: arrange r objects from n objects without repetition, <code>nPr = n!/(n-r)!</code>
+</li>
+<li><p>Combination Rule: permutations, without order, <code>nCr = n!/r!/(n-r)!</code></p></li>
+<li>Conditional Probability, the probability of an event given the simultaneous occurrence of another event: <code>P(A|B) = P(A n B)/P(B)</code>
+</li>
+<li>Statistical independence, A and B are independent if <code>P(A|B) = P(A)</code><ul>
+<li>two mutually exclusive events of non-zero probability CANNOT be independent</li>
+<li>for two independent events, the probability of them simultaneously ocurring is the product of their probabilities</li>
+</ul>
+</li>
+</ul>
+<h3 id="random-variable-distribution">Random Variable Distribution</h3>
+<p>A random variable Y is a function that assigns a number ot each outcome of a random experiment</p>
+<ul>
+<li>
+<code>Y : omega -&gt; Reals</code> is a map from sample space to real line<ul><li>two coin flips, {HH, HT, TH, TT} -&gt; {2, 1, 1, 0}</li></ul>
+</li>
+<li>Random Variables: Y, X. Outcomes: y, x. Then X is said to be a discrete random variable if x takes integer values only, or continuous if the range is Real</li>
+<li>the distribution function of x: <code>f(x) = P(X=x)</code>, probability that r.v. X takes on the value of x<ul><li>probability mass function is a function that gives the probability that a discrete random variable is exactly equal to some value</li></ul>
+</li>
+<li>a distribution table for the random variable x is the set of all possible values of x, with their probabilities (charting the distribution function)<ul>
+<li>
+<code>E(x) = μ</code>, mean. <code>Var(x) = σ^2</code> variance</li>
+<li>variance is the average of the squared deviations from the mean, or <code>E(Y - E(Y))^2 = sumof (yi - mean)^2 * f(yi)</code>
+</li>
+</ul>
+</li>
+<li>a discrete random variable can take infinite values (flip a coin until heads)</li>
+<li>linearity of expectation is the property that the expected value of the sum of random variables is equal to the sum of individual expected values, regardless of whether they are independent (think weighted average)<ul><li>Y = a + b * X, then E(Y) = a + b * E(X) and V(Y) = b^2 * Var(X)</li></ul>
+</li>
+</ul>
+<h3 id="cumulative-distribution-function">Cumulative Distribution Function</h3>
+<ul><li>let Y be a r.v. The C.D.F of Y is given by <code>F(y) = P(Y &lt;= y) forall y</code><ul>
+<li>remember CDF is the step function for discrete distributions, a piecewise definied function</li>
+<li>probability/distribution function and CDF are two ways to represent some distribution of data</li>
+<li><code>f(y) = F(y) - F(y-1)</code></li>
+</ul>
+</li></ul>
+<h3 id="discrete-distributions">Discrete Distributions</h3>
+<ul>
+<li>Uniform Discrete Distribution<ul><li>
+<code>Omega = {1,2,...,n}</code>, <code>f(y) = P(Y=y) = 1/n forall y</code>. That is, all yi in Sample Space have the same probabilities</li></ul>
+</li>
+<li>Hypergeometric Distribution, describes the probability of r successes in n draws without replacement from a finite population size N that contains exactly R successes, where each draw is either a success or failure<ul><li><code>P(X=r) = R choose r * (N-R) choose (n-r) / N choose n</code></li></ul>
+</li>
+<li>Binomial Distribution is same, but with replacement. The probability is the same for each trial</li>
+<li>Geometric/Negative Binomial distribution is # of failures before 1st success</li>
+<li>X ~ Poi(mew), Poisson distribution, x follows a Poisson distribution with mean mew if x = 0,1,2,3,....<ul>
+<li>P(X = x) = f(x) = e^(-mew) * mew^x / x!</li>
+<li>approximation to a binomial probabilities, limit of a binomial distribution, lim n-&gt;infinity, lim p -&gt; 0, np = mew</li>
+<li>Binomial(n,p) -&gt; Poi(mew)</li>
+</ul>
+</li>
+</ul>
+<h3 id="continuous-distributions">Continuous Distributions</h3>
+<p>X is said to be a continuous random variable if X takes values in an interval [a,b], a ≠ b</p>
+<ul>
+<li>for any continuous distribution X, P(X=c) = 0 forall c</li>
+<li>F is called the cumulative distribution of x if F(x) = P(X=x) forall x</li>
+<li>probability density function, P(a ≤ x ≤ b) = a∫b f(x)dx (the area under the curve is the probability of the region<ul>
+<li>it's just calculus. Now we're dealing with regions instead of discrete values</li>
+<li>∫f(x) = 1, total area is 1</li>
+</ul>
+</li>
+<li>uniform distribution: X ~ Uni[a,b] if f(x) = { 1/(b-a) if a ≤ x ≤ b else 0 }<ul><li>constant function on the interval [a,b]</li></ul>
+</li>
+</ul>
+<h3 id="normal-distribution">Normal Distribution</h3>
+<p>A random variable Z is called a standard normal distribution if</p>
+<ol>
+<li>Z takes values (-infinity, +infinity)</li>
+<li>f(Z) = bell curve formula</li>
+<li>Z ~ N(0,1) where (mean, variance); maximum at zero, and symmetric around 0<ul><li>P(1 ≤ z ≤ 2) = P(-2 ≤ z ≤ -1), property of symmetry</li></ul>
+</li>
+</ol>
+<ul>
+<li>for normal distribution, F(x) is the z-score for x, the probability of P(z ≤ x)</li>
+<li>100th percentile is all data, 1st is lowest 1%</li>
+</ul>
+<p>Theorem: Any normal problem, you can convert to a Z-problem; If X ~ Normal with mean µ and variance σ^2, then <code>X-µ/σ = Z ~ N(0,1)</code>, where sigma is standard deviation, not variance; These are just transformations on the normal distribution</p>
+<p>Some applications:</p>
+<ol>
+<li>given mew, sigma and a value A, find the probabilities P(x ≤ A) = ?</li>
+<li>given mew, sigma and probability, find the value: P(x≤A) = 0.9 find A</li>
+<li>Given probabilities and values, we are asked to find mew and sigma (using standardization)</li>
+</ol>
+<h3 id="distribution-of-the-sample-mean">Distribution of the Sample Mean</h3>
+<p>Theorem: If x1, x2, ..., xn are independent normally distributed random variables with mean mew and variance sigma squared, then mean of x = ( x1 + x2 + ... + xn ) / n</p>
+<p>Theorem: If X ~ N(µ1, sig1^2) and Y ~ N(µ2, sig2^2), then aX + bY ~ N(a•µ1 + b•µ2, a^2•sig1^2 + b^2•sig2^2)</p>
+<p>x ~ N(80, 64) weight of canadians. 20 canadians get on an elevators, whats the probability it will break:</p>
+<ul>
+<li>Find P((x1 + x2 + ... + x20)/n ≥ 1000/20) = P(x bar ≥ 50)</li>
+<li>x bar ~ N(80, 64/20)</li>
+</ul>
+<p>Central Limit Theorem: Suppose x1 ... xn have a mean µ and variance sig^2 (not necessarily normal). For x bar = the mean of any independent random variables, then if n is large, x bar ~apprx. N(µ, sig^2/n)</p>
+<ul>
+<li>if we have a large enough sample size, the sample means are normally distributed regardless of the original distribution</li>
+<li>arbitrarily, we'll call n ≥ 30 LARGE</li>
+</ul>
+<h3 id="exponential">Exponential</h3>
+<p>X is said to follow an exponential distribution with mean µ, <code>X ~ Exp(µ)</code> if X takes values between 0 and infinity and the density function of X <code>f(x) = (1/µ)•e^(-X/µ)</code>, X &gt; 0</p>
+<ul>
+<li>looks right skewed</li>
+<li>CDF of the exponential <code>F(x) = Pr(X≤x) = 1 - e^(-x/µ)</code><ul><li>since CDF is integral of density function, from min to infinity, and integral from min to infinity is 1 forall f(x)</li></ul>
+</li>
+</ul>
+<h3 id="statistical-inference-1">Statistical Inference</h3>
+<p>Toss coin 100 times</p>
+<ul>
+<li>P(X ≥ 60) = 1000C60•0.5^60•(1-0.5)^40</li>
+<li>statistical inference is using a sample to predict population values</li>
+<li>Target population theta = unknown attribute of population (mean, proportion, variance, etc...)</li>
+<li>a statistical model is the identification of the random variables from which your sample is drawn from; {y1, ..., yn} subset of population<ul><li>before using a model for analysis, check the model to see if it looks normal (check skewness and kurtosis)</li></ul>
+</li>
+<li>Y ~ Geom(theta): yi = 1 if true with probabily theta, 0 if false with probability 1-theta</li>
+<li>so P(Yi = yi) = theta^(y1-1)•(1-theta)</li>
+<li>Likelihood Estimation: plug in two values that we're comparing into the density functions, take the greater of the two</li>
+<li><p>the maximum Likelihood Estimate (MLE) is that value of theta that maximizes L(theta). we call this theta-hat</p></li>
+<li>def: A Q-Q plot is a graph (z(α), y(α)) where z(α) = αth quartile of z ~ N(0,1)</li>
+<li>theta-hat = "most likely" value of theta that generated your sample</li>
+<li>def: let Y1, ... Yn are independent random variables with distribution function f(y, theta)</li>
+<li>def: theta-hat is the Maximum Likelihood Estimate of theta if theta-hat maximizes L(theta)</li>
+<li>if theta-hat maximizes L(theta), it must maximize l(theta) = log L(theta)</li>
+<li><p>the log-likelihood function l(theta) = log L(theta)</p></li>
+</ul>
+<p>There are two general methods of interval estimation:</p>
+<ul>
+<li>relative likelihood function R(theta) (Likelihood interval)<ul>
+<li>R(theta) = L(theta)/L(theta-hat) , theta-hat is the MLE</li>
+<li>LOG RELATIVE LIKELIHOOD FUNCTION: gamma(theta) = log R(theta) = log L(theta) - log L(theta-hat)</li>
+</ul>
+</li>
+<li>sampling distributions (confidence interval)</li>
+</ul>
+<p>θ is unknown parameter of interest for a population.</p>
+<ul>
+<li>
+<code>{y1, ..., yn}</code> is independently drawn sample from this population</li>
+<li>θ-hat is most likely value of theta that generated the sample</li>
+<li>def: let Y1, ... Yn are independent random variables with distribution function f(y, theta)<ul><li>L(θ) = product of the distribution function evaluated at all sample points Π f(yi, θ) for 1 ≤ i ≤ n</li></ul>
+</li>
+<li>the MLE (maximal likelihood estimate) is simply the max of the likelihood function L<ul>
+<li><em>we can use the loglikelihood for computational convenience. The log of a product becomes a summation.</em></li>
+<li>recall for two-var functions, the first-order condition for extrema is when <code>∂ℓ/∂x = 0 and ∂ℓ/∂y = 0</code>
+</li>
+</ul>
+</li>
+</ul>
+<p>For finding the MLE of θ for a Uniform Distribution, for Y from [0, θ], <em>intuitively it is double the mean of the sample.</em></p>
+<ul>
+<li>density function f = 1/(b-a) = 1/θ</li>
+<li>distribution function f(y) = 1/θ if 0 ≤ y ≤ θ else 0</li>
+<li>we define L(θ) to be the product of f(yi) at each sample point, so L(θ) = 1/θ^n, if all yi [0, θ]</li>
+</ul>
+<p><em>We can think of the likelihood function simply as the probability that a given sample happens, plotted as a function of some unknown parameter, θ which the distribution function depends on. It tells us how likely a sample is for a given distribution.</em></p>
+<p>Invariance Property Theorem: If θ-hat is the MLE for θ, then for non-extreme values, g(θ-hat) is the MLE for g(θ) for any continuous function g</p>
+<h3 id="interval-estimation-what-values-of--are-reasonable">Interval Estimation (What values of θ are reasonable?)</h3>
+<p>Same problem setup as finding the MLE, given a sample from a large population, find an interval [l, u] which contains θ with "high probability"</p>
+<p>For the MLE, find one # which represents our best guess θ-hat. We can create an interval near θ-hat of values that we deem plausible in some sense.</p>
+<p>For interval estimation, we can use relative likelihood function R(θ) or Likelihood interval through sampling distribution</p>
+<ul>
+<li>def: R(θ) = L(θ)/L(θ-hat)</li>
+<li>def: Log relative likelihood function γ(θ) = log R(θ) = log L(θ) - log L(θ-hat)</li>
+<li>def: 100•p% likelihood interval for θ = {θ : R(θ) ≥ p }, p on interval (0,1)<ul><li><em>the higher the value, the narrower the interval because 100% likelihood is essentially a point</em></li></ul>
+</li>
+<li>by our convention, θ in 50% = very plausible. &amp;theta in 10% - 50% = plausible, &amp;theta in 1% - 10% = implausible, θ not in 1% = very implausible</li>
+</ul>
+<p><em>By extension, we can use a continuous region to find θ for a specified percent certainty (since the likelihood function is a probability density function)</em></p>
+<p>Estimates can be thought of as an outcomes of some r.v. that needs to be identified to construct intervals. We can use a sample {y1...yn} to estimate the interval [L,U] s.t. the interval [L,U] contains θ with high probability</p>
+<ul>
+<li>[L,U] with random variables is the <strong>coverage interval</strong>
+</li>
+<li>[l,u] as functions of the sample is the <strong>confidence interval</strong> (by subbing the mean in place of r.v. in the coverage interval). This gives us an interval for which θ has a 95% likelihood of being in (or whatever % you want to calculate)</li>
+</ul>
+<p>To calculate the confidence interval,</p>
+<ul>
+<li>find the pivotal quantity, with the pivotal distribution.</li>
+<li>Use the pivotal distribution to find end points of the interval.</li>
+<li>construct the coverage interval</li>
+<li>use the data to construct the confidence interval</li>
+</ul>
+<h3 id="chi-squared-distribution">Chi-Squared Distribution</h3>
+<p>A random variable W follows Chi-Squared Distribution with degrees of freedom <code>k</code> where <code>k</code> is a positive integer W ~ Χ<sub>k</sub>^2 if W = z<sub>1</sub><sup>2</sup> + ... + z<sub>k</sub><sup>2</sup> where z<sub>i</sub> ~ N(0,1) for independent r.v.</p>
+<ul>
+<li>if W ~X<sub>k</sub><sup>2</sup>, it takes values between 0 and &amp;infinity;</li>
+<li>E(W) = k; V(W) = 2k</li>
+<li>For k &gt; 2, Chi-Squared distribution is not symmetric but right skewed</li>
+<li>if W<sub>1</sub> ~ X<sub>k1</sub>^2 and W<sub>2</sub> ~ X<sub>k2</sub>^2 and w1 and w2 are independent, then w1 + w2 ~ X<sub>k1 + k2</sub>^2</li>
+</ul>
+<h3 id="students-t-distribution">Student's T-Distribution</h3>
+<p>Can be used to estimate the mean of a normal distribution where the standard deviation is unknown.</p>
+<p>Def: Let T be a r.v. T is said to follow a student's T-distribution with k degrees of freedom, T ~ T(k) if T is a ratio of two indep r.v.s T = Z/W</p>
+<ul><li>T-distribution looks like Normal but with more extreme obs</li></ul>
+<h3 id="prediction-intervals-constructing-confidence-interval-for-next-element">Prediction Intervals (Constructing Confidence Interval for next element)</h3>
+<p>Also called time-series analysis/forecasting. n historical observations Y1, ..., Yn from a Normal population with mean &amp;mew; and s.d. σ. We want to find an interval [a,b] based on data sample containing Y<sub>n+1</sub> with a high degree of confidence. <em>Predict the next element</em></p>
+<ul>
+<li>ex: predict the quality of future job candidates</li>
+<li><em>we can only do this if yi is independent random variable, only works for complete independence, not for stocks. Forcasting often requires model fitting.</em></li>
+</ul>
+<p>Model: Y1,...Yn ~ N(μ, σ^2). Y<sub>n+1</sub> = ?</p>
+<ul>
+<li>Yn+1 ~ N(μ, σ^2)</li>
+<li>Yn-mean ~ N(μ, σ^2/n) from properties of normal<ul><li>recall two normal dist can be summed and multiplied</li></ul>
+</li>
+<li><em>anytime you replace σ by its estimator s, replace z distribution with T.</em></li>
+</ul>
+<h3 id="hypothesis-testing-is--reasonable">Hypothesis Testing (Is θ reasonable?)</h3>
+<p>Def: A statement made about attributes of a population. Null Hypothesis is current belief H<sub>o</sub>. Alternate hypothesis for measuring evidence for/against H<sub>o</sub></p>
+<ul>
+<li>Setup: Ho = θ = θo; two-sided alternate hypothesis H1 ≠</li>
+<li>objective: draw sample from population and calculate if H0 or H1 is "reasonable"</li>
+</ul>
+<h3 id="hypothesis-testing-steps">Hypothesis Testing Steps:</h3>
+<ol>
+<li>construct the discrepancy measure D. D is a random variable that measures how much the data disagrees with H<sub>o</sub><ul>
+<li>D ≥ 0, where D = 0 is the best evidence to support the null hypothesis H<sub>o</sub>
+</li>
+<li>D's distribution is known</li>
+</ul>
+</li>
+<li>calculate the value d (outcome from our sample)</li>
+<li>The p-value: P(D ≥ d); p-value is determining how unusual the sample is, assuming the null hypothesis is true. If p-value is 1%, then only 1% of samples have this outcome, or more likely, the null hypothesis is wrong.</li>
+</ol>
+<p>Suppose we want to deterimine if a coin is fair. Ho: θ = 0.5, H1: θ ≠ 0.5. Then D = |Y - 50| if Y is the number of successes out of 100 trials. d, for some sample, is computed and then we solve for p-value P(D ≥ d).</p>
+<p>We are heavily in favour of the null hypothesis. So our conventions state:</p>
+<ul>
+<li>p-value ≥ 0.1 =&gt; no evidence against null hypothesis</li>
+<li>5% ≤ p-value ≤ 10% =&gt; weak evidence against H0</li>
+<li>1% ≤ p-value &lt; 5% =&gt; evidence against H0</li>
+<li>p-value &lt; 1% =&gt; strong evidence against H0</li>
+</ul>
+<p>Type I error: Convicting innocient, Type II: Acquilting guilty people</p>
+<h3 id="hypothesis-testing-for-different-distributions">Hypothesis Testing for different distributions</h3>
+<p>Concentrate on two sided test</p>
+<p>yi ~ f(yi, θ), i = 1...n, yi's independent r.v, θ is unknown parameter, {y1...yn} is sample</p>
+<p>We want to determine whether H0: θ = θ0 or H1: θ ≠ θ0</p>
+<p>For normal problem, recall Y-bar - μ/s/n^(1/2) ~ Tn-1</p>
+<ul><li>construct the test statistic, D = |Y-bar - (48)/s/n^(1/2)|, so D ~ Tn-1 by the properties of the test statistic?</li></ul>
+<p>For Binomial Problem,</p>
+<ul><li>D = |θ~ - θ0/(θ(1-θ0)/n)^(1/2)|</li></ul>
+<p>For Poisson,</p>
+<ul><li>D = |Y-bar - μ0/(μ0(1-θ0)/n)^(1/2)| (-&gt; Z)</li></ul>
+<p>Relationship between CI and Hypothesis testing: If θ<sub>o</sub> belongs to the 100q% C.I, the p-value of the test (H0: θ = θ0, H1: ≠) will be greater than 1 - q</p>
+<p>For large samples, we can construct tests for parameters using the <strong>Likelihood Ratio Test</strong></p>
+<ol>
+<li>Λ(θ) ~ X<sub>1</sub><sup>2</sup>, Λ is a special case of D for hypothesis testing. It applies to all distributions and can be thought of as <em>general case</em>
+</li>
+<li>Calculate λ(θ0) = -2log(L(θ0)/L(θ-hat)</li>
+<li>Calculate p-value P(A ≥ λ) = P(X1^2 ≥ λ) = P(Z^2 ≥ λ)</li>
+</ol>
+<h3 id="equality-of-two-means">Equality of two means:</h3>
+<ul>
+<li><h2 id="matched-pair---look-at-differences-test-to-see-if-the-difference-is-0">matched pair -&gt; look at differences, test to see if the difference is 0</h2></li>
+<li>unmatched -&gt; Y and X, check H0: β = 0</li>
+</ul>
+<h3 id="simple-linear-regression-model">Simple Linear Regression Model</h3>
+<p>We make some assumptions:</p>
+<ol>
+<li>Given our x, Y's are normally distributed</li>
+<li>E(Yi) = α + β•Xi (the average of the Yi's are a linear function of the X's)</li>
+<li>V(Yi) = σ^2 is independent of the value of X (doesn't change with respect to X)</li>
+</ol>
+<p>Regression is represented with a deterministic part and random part.</p>
+<ul>
+<li>Yi ~ N(α + β • xi, σ^2) then</li>
+<li>Yi = α +β•Xi + Ri, R- ~ N(0, σ^2)</li>
+<li>and so Yi = μ + Ri</li>
+<li>df = n - # of unknowns in the deterministic part of the model</li>
+<li>now given a data set of tupled (x,y)s,</li>
+<li>we know the distribution for Yi is normal, so find the MLEs using multivariate calc on Yi (these final equations are on the formula sheet)</li>
+</ul>
+<p>X = given constants, X is the regressor which helps explain Y</p>
+<ol>
+<li>Y = r.v., mean depends on x in a linear function E(Y) = α + βx, unknown constants</li>
+<li>Y's are all normally distributed (Gaussian REgression Model)</li>
+<li>Var(Yi) = σ^2, independent of X -&gt; Homoscedasticity</li>
+</ol>
+<p>The population means are a linear function of X</p>
+<p>Yi ~ N(α + βxi, σ^2), i = 1...n and Yi's independent</p>
+<h3 id="method-of-least-squares">Method of Least Squares</h3>
+<p>Method of fitting an estimated regression line to the data</p>
+<ul>
+<li>a <strong>residual</strong> is essentially an error in the fit of the model y-bar = b0 + b1•x<ul><li>ei = yi -y-bar is the residual for i = 1...n</li></ul>
+</li>
+<li>the least squares method minimizes the sum of the squares of the residuals</li>
+</ul>
+<p>We get some equations to help us find α-hat, β-hat, σ-hat and s.</p>
+<p>Sxx is the sum of the residuals for x^2, Syy for y^2 and Sxy for x•y</p>
+<p>we get s = Residual standard, the error of the regression model, measuring the amount of variability of Y that cannot be explained by X.</p>
+<p>No we can do hypothesis testing for α and β. Take β for example, if we want to HT for β we're testing for existance of a linear relationship between Y and X. H0: β = β0</p>
+<p>Residuals r<sub>x</sub>-hat = Residual = yi - α-hat - β-hat•xi</p>
+<ul><li>if our model is correct, r<sub>i</sub>-hat's act like N(0, σ^2)</li></ul>
+<p>Goodness of fit tests:<br>
+Given X1...Xn, check if Xi ~ f(ni;θ)</p>
+<ul>
+<li>assume distribution, calculate λ</li>
+<li>divide data into groups, find expected frequency of groups given observed frequencies</li>
+</ul>
+<pre><code>Test variable independence, construct observed and expected tables
+   S    NS        S    NS
+L 40    60   100  
+R 50    50   100
+  90    110  200</code></pre>
+<h3 id="two-population-problem">Two Population Problem</h3>
+<p>Two different populations, check if their means are equal</p>
+<ul>
+<li>we have matched with tuples for samples, and unmatched for two sets</li>
+<li>for matched, H0: μ1 = μ2, and yi = bi - ai<ul><li>then Yi ~ N(μ, σ^2)</li></ul>
+</li>
+</ul>
+<h3 id="regression">Regression</h3>
+<p>Y = α + βx + R, R ~ N(0, σ^2)</p>
+<ol><li>α-hat, β-hat, σ-hat, Se<ul><li>see picture for solving these</li></ul>
+</li></ol>
+<p><em>you can apply the regression method for unmatched by setting one outcome to 1 and other to 0</em></p>
+<p>QUIZ</p>
+<ol>
+<li><p>(n-1)S^2/σ^2 ~ X^2<sub>n-1</sub></p></li>
+<li><p>use pivotal quantity for normal, isolate y-bar, sigma is known</p></li>
+</ol>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Domain Name System</title>
+</head>
+<body>
+
+<h1 id="domain-name-system">Domain Name System</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#resolution">Resolution</a></li>
+<li><a href="#nslookup"><code>nslookup</code></a></li>
+<li><a href="#resolv.conf"><code>resolv.conf</code></a></li>
+<li><a href="#round-robin-dns">Round Robin DNS</a></li>
+<li><a href="#errors">Errors</a></li>
+</ul>
+</div>
+<ul>
+<li>A <strong>hostname</strong> is a label assigned to a device connected to a computer network, nicknames for IP addresses.</li>
+<li>if a computer were a telephone, then the IP address is the phone number and the DNS methodology is the phone book, while a DNS record to find a computer might be similar to using your first and last name to look up your phone number</li>
+<li>DNS is hierarchical system, where <code>.com</code>, <code>.org</code>, <code>.ca</code>, are examples of <strong>TLDs (Top-Level Domains)</strong>
+</li>
+<li>there are <a href="./DNS%20Resource%20Records.md">different kinds of dns records</a>
+</li>
+<li>
+<strong>name servers</strong> are designated for translating domain names to IP addresses<ul>
+<li>these are hierarchical much like FQDNs themselves</li>
+<li>authoritative name servers give answers to queries about domains under their control, and otherwise redirect requests</li>
+<li>the <strong>zone file</strong> lives on the name server and is used to identify which IP address should be contacted</li>
+</ul>
+</li>
+<li>DNS primarily uses UDP because the client will know to retry with TCP if needed, and UDP is reliable enough while its simplicity is well suited for DNS</li>
+</ul>
+<h3 id="resolution">Resolution</h3>
+<ol>
+<li>
+<code>/etc/hosts</code> to see if it has that domain name locally</li>
+<li>checks DNS cache (client-side)</li>
+<li>contact ICANN root DNS server</li>
+<li>redirects to TLD servers</li>
+<li>redirects to Domain-level name servers</li>
+<li>domain-level server can return the proper IP address</li>
+</ol>
+<h3 id="nslookup"><code>nslookup</code></h3>
+<p>Tool for making queries to name servers, which uses <code>resolv.conf</code> for its name servers</p>
+<h3 id="resolv.conf"><code>resolv.conf</code></h3>
+<p>File used to configure the system's DNS resolver</p>
+<ul>
+<li>resolving is the process of determining the IP address from a domain name</li>
+<li>a DNS resolver is responsible for initiating and sequencing queries that lead to the right resource (translation of domain name into IP address)</li>
+<li>an individual DNS query may be non-recursive, recursive, iterative, combinations of these</li>
+<li>when DHCP is used, it is usually updated with <code>resolvconf</code> utility</li>
+<li>
+<code>nameserver</code> directive determines the IP address of a name server</li>
+<li>
+<code>search</code> and <code>domain</code> directives help to resolve short hostnames by suffixing domains during resolution</li>
+<li>note that <code>etc/hosts</code> is used for local machine customization that acts as an override to this</li>
+</ul>
+<h3 id="round-robin-dns">Round Robin DNS</h3>
+<p>A DNS server can respond with a list of A records (host names) and then the client should use each with equal frequency, client side load balancing</p>
+<h3 id="errors">Errors</h3>
+<ul>
+<li>
+<code>NXDOMAIN</code> means that the domain name is not known by the DNS server</li>
+<li>
+<code>SERVFAIL</code> says the FQDN exists but the authoritative name servers are not responding</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

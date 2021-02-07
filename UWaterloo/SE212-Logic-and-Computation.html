@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#introduction-propositional-logic-and-proof-theories">Introduction: Propositional Logic, and Proof Theories</a></li>
+<li>
+<a href="#predicate-logic">Predicate Logic</a><ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#formalizing-english">Formalizing English</a></li>
+<li><a href="#semantics">Semantics</a></li>
+<li><a href="#natural-deduction">Natural Deduction</a></li>
+</ul>
+</li>
+<li>
+<a href="#theories">Theories</a><ul>
+<li><a href="#hidden-premises">Hidden Premises</a></li>
+<li><a href="#predicate-logic-with-equality">Predicate Logic with Equality</a></li>
+<li><a href="#theory-of-arithmetic">Theory of Arithmetic</a></li>
+</ul>
+</li>
+<li>
+<a href="#sets">Sets</a><ul>
+<li><a href="#set-functions">Set Functions</a></li>
+<li><a href="#proofs-in-set-theory">Proofs in Set Theory</a></li>
+<li><a href="#relations">Relations</a></li>
+<li><a href="#proofs-in-relations">Proofs in relations</a></li>
+</ul>
+</li>
+<li><a href="#z-specification">Z Specification</a></li>
+<li>
+<a href="#program-correctness">Program Correctness</a><ul>
+<li><a href="#programming-language">Programming Language</a></li>
+<li><a href="#proof-rules">Proof Rules</a></li>
+<li><a href="#arrays">Arrays</a></li>
+<li><a href="#functions-and-procedures">Functions and Procedures</a></li>
+<li><a href="#logical-variable-introduction">Logical Variable Introduction</a></li>
+<li><a href="#recursive-functions">Recursive Functions</a></li>
+<li><a href="#termination">Termination</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="introduction-propositional-logic-and-proof-theories">Introduction: Propositional Logic, and Proof Theories</h2>
+<p>Propositional logic uses terms that are either true or false, or a composition of terms</p>
+<ul>
+<li>Prime propositions cannot be decomposed further, used to build compound propositions</li>
+<li>a formula is <strong>satisfiable</strong> if there exists a boolean valuation of <code>True</code>
+</li>
+<li>tautology's are true for all boolean valuations, contradictions are always false, a contingent formula is neither</li>
+<li>a set of formulas is <strong>consistant</strong> if there exists a boolean valuation so that they are all true</li>
+<li>proof theories are used in place of truth tables to show things like logicial implications</li>
+<li>a sound proof theory means any correct use of rules forms a correct argument</li>
+<li>a complete proof theory means that any problem that follows the constraints of a proof theory is provable using the rules</li>
+<li>(ECE124) Conjunctive Normal Form and Disjunctive Normal Form are simple ways of expressing a formula (only ANDs and ORs)</li>
+<li>
+<strong>Natural Deduction</strong> is a proof theory where we prove a set of formulas entails another formula (and we often assume that the premises are consistent)<ul>
+<li>an argument is invalid if for some boolean valuation, the premises are true and the conclusion is false</li>
+<li><em>proving negated statements is really wierd, you can disprove other parts and join them together with and_i</em></li>
+</ul>
+</li>
+<li>
+<strong>Transformational Proof</strong> uses <code>&lt;-&gt;</code>, a composition of logically equivalent statements to "transform" the premise into the conclusion<ul><li><em>you can prove the arguments both ways</em></li></ul>
+</li>
+<li>
+<strong>Semantic Tableaux</strong> is another proof theory, which proves arguments by disproving the negation of the conclusion. You start with the premises and the negation of the conclusion, then form a tree to essential show there is no possible boolean valuation where the premises entail the negation of the conclusion (meaning the argument never invalid, and thus always valid)<ul><li>we aim to branch the tableaux on connectives like <code>and</code> where you have two possibilities, and aim to close each branch with contradictions</li></ul>
+</li>
+<li>Semantic Tableau is a tree of boolean valuations for a conjunction of formulas at the root<ul>
+<li>by looking at the leaves of the tree, you can prove validity</li>
+<li>generally or statements branch, because naturally they are satisfied by two cases</li>
+<li>a branch is closed if P and !P appear on the path from the root to the leaf</li>
+</ul>
+</li>
+</ul>
+<h2 id="predicate-logic">Predicate Logic</h2>
+<ul>
+<li>predicate logic is a set of symbolic formal systems, much more semantically rich system than propositional logic, and can be reduced to propositional logic</li>
+<li>predicate logic introduces quantifiers, universal (forall) and existential (there exists)</li>
+<li>predicate is a symbol denoting the meaning of a relationship between two or more values</li>
+<li>a constant is a symbol denoting a particular value</li>
+<li>a predicate applied to arguments has a truth value and can be used as a prime proposition in propositional logic</li>
+<li>functions</li>
+</ul>
+<h3 id="syntax">Syntax</h3>
+<ul>
+<li>Alphabet: the syntax of predicate logic consists of:<ul><li>constants (Keivn, true, false, propositional symbols), variables (x,y), function symbols (<code>father</code>), logical connectives, predicate symbols (<code>&gt;</code>), quantifiers, punctuation, brackets</li></ul>
+</li>
+<li>terms are: constant, variable, function with arguements</li>
+<li>Well formed formulas have truth values</li>
+<li>!(forall x . P(x)) &lt;-&gt; exists x . !P(x)</li>
+<li>the scope quantifier is the subformula over which the quantifier applies in the given formula<ul>
+<li>a variable is bound to the closest quantifier to the left of its name</li>
+<li>an occurrance of a variable is bound if it falls within the scope of a quantifier for that variable</li>
+<li>a free variable is not defined within the scope of hte quantifier</li>
+<li>a wff is closed if it contains no free variables (all formulas in this class are closed)</li>
+</ul>
+</li>
+</ul>
+<h3 id="formalizing-english">Formalizing English</h3>
+<p>Logical Connectives -&gt; Quantifiers -&gt; Constants -&gt; Functions -&gt; Predicates</p>
+<ul>
+<li>Types are a set of values describing the possible values of a variable (important for functions)</li>
+<li>Typing rules for predicate logic: Bool is a special type, all constants have a type T1<ul>
+<li>each n-ary function has a type g : T1 x T2 x ... x Tn -&gt; Ret (takes n different types and returns value of type Ret)</li>
+<li>each n-ary predicate has a type: P : T1 x T2 x ... x Tn -&gt; Bool</li>
+</ul>
+</li>
+<li>a formula is well-typed if it obeys the contraints of the respective function/predicate definitions</li>
+<li>Type inference can be done on formulas to figure out if their typing is consistent</li>
+<li>
+<code>Forall x : Person . Forall y : Person</code> can be simplified as <code>Forall x,y : Person</code>
+</li>
+</ul>
+<h3 id="semantics">Semantics</h3>
+<ul>
+<li>semantics map propositional formulas to truth values in the set Tr = { T, F }</li>
+<li>Boolean valuation determines hte truth value associated</li>
+<li>in predicate logic, there's more things to break down, in order to get the meaning of a formula<ul>
+<li>in addition to a truth table, use a domain of discourse D</li>
+<li>terms of predicate logic map to values in the domain</li>
+<li>well formed formulas of predicate logic map to truth values</li>
+</ul>
+</li>
+<li>the meaning of a predicate logic formula by using an interpretation:<ol>
+<li>a non-empty domain, a set of distinct values</li>
+<li>constants map to a value in the domain, functions map to a total function (mapping from domain to domain), predicates take arguments from domain and returns values of Tr</li>
+<li>universally quantified variables must be T fro all substitutions of a value in the domain, existential must be true for some value on the domain</li>
+<li>logical connectives have the same meaning as in propositional logic</li>
+</ol>
+</li>
+<li>When solving for a problem in predicate logic, we need to define a domain and an interpretation, that is what domain, set of values can a variable take on, and what is the truth value for each predicate on each element of the domain<ul>
+<li>generally we expand our domain large enough to disprove a statement</li>
+<li>exists unrolls to disjunction of domain; forall unrolls to conjunction of domain</li>
+</ul>
+</li>
+<li>to determine validity using the semantics, if the domain is finite, we can try all interpretations (all possible functions and predicate valuations). But we also have to check INFINTE domains, so to prove, we have to use proof theory.</li>
+</ul>
+<h3 id="natural-deduction">Natural Deduction</h3>
+<p>We extend the rules used in predicate logic, with ones able to handle quantifiers</p>
+<ul>
+<li>Forall elimination: if a formula P is true for all values x, then t can be any term and P[t/x] is concluded, where we define P[t/x] to be the formula obtained by replacing every free occurrence of variable x <strong>IN</strong> formula P with t.</li>
+<li>variable capture during substitution is when a free variable becomes bound</li>
+<li>"t is free for x in P" if in P, no free x's occur within the scope of Forall w or exists w for any var w occurring in t<ul><li>you can substitute a var x for a formula as long as the formula doesn't contain x as a free variable within it</li></ul>
+</li>
+<li>whenever we use P[t/x], t must be free for x in P</li>
+<li>If t is not free for x in P, then variable capture would occur<ul><li>in the substitution of t for x, no free variables in t should be captured</li></ul>
+</li>
+<li>Exists introduction: If P is true for some value, then there exists a value for which P is true<ul>
+<li>choose a line of the proof to be term t, replace it with x and bound it by Exists x .</li>
+<li>all occurences of t do not need to be replaced</li>
+<li>you have to choose t that does not contain bounded variables</li>
+<li>avoid introducing x that is already free in the formula, since you might bound a free variable during substitution</li>
+</ul>
+</li>
+<li>unknown variables have restricted set of values that satisfy the formula (<code>exists x . P(x)</code>)</li>
+<li>genuine variables satisfy the formula for all x (<code>forall x . x + x = 2x</code>)</li>
+<li>Forall introduction: for every xg (generalized) if a formula is true for some unconstrained value, then it's true for all values<ul><li>xg must be a genuine variable and <strong>not used on any previous line of the proof</strong>
+</li></ul>
+</li>
+<li>exists elimination: if the formula is true for some value, using an unknown variable xu, we derive that formula Q holds (not containing xu), then Q holds</li>
+<li>Natural deduction is sound (proves only valid arguments) and complete (any valid argument is provable with ND)</li>
+<li>Semantic tableaux is used to show a set of formulas is inconsistent, where each branch represents a conjunction of the set of formulas at the root can be satisfied<ul><li>the goal being to close all branches of the tree by creating valid contradictions</li></ul>
+</li>
+<li>universal instantiation (forall nb): forall x . P(x) non branches to P(t) for term t, t is free for x in P</li>
+<li>existential quantification: exists x . P(x) non branches to P(yu) where yu is a constant or unknown var, not a free variable in the tableau so far</li>
+</ul>
+<h2 id="theories">Theories</h2>
+<h3 id="hidden-premises">Hidden Premises</h3>
+<p>north_of(Ottawa, Toronto) and north_of(Toronto, Waterloo), therefore north_of(Ottawa, Waterloo)</p>
+<ul><li>north_of is implied to be transitive: <code>forall x,y,z . north_of(x,y) &amp; north_of(y,z) =&gt; north_of(x,z)</code>
+</li></ul>
+<p>An <strong>enthymeme</strong> is an argument that contains a hidden premise</p>
+<ul><li>hidden premises are environmental assumptions</li></ul>
+<p>A theory is a set of statements we want to make about some phenomenon</p>
+<ul>
+<li>a set of axioms about specific constants, function, and predicate symbols</li>
+<li>also defined as the set of all theorems provable from those axioms (called the closure)</li>
+<li>we include the axioms as premises</li>
+<li>we can use multiple theories together</li>
+<li>an interpretation in which all axioms of the theory are true is called a <strong>model of the theory</strong>
+</li>
+<li>need theories to capture facts about environment so we show that software has certain behaviour within an environment</li>
+<li>theories can be general math, or constructed for an environment</li>
+</ul>
+<h3 id="predicate-logic-with-equality">Predicate Logic with Equality</h3>
+<ul>
+<li>proof rules so far are not dependent on context</li>
+<li>some statements can be equivalent if for example nouns refer to the same thing</li>
+<li>use <code>=</code> for equality predicate, a binary infix predicate whose arguments are terms <code>a = b</code><ul><li>for formula equality use <code>&lt;=&gt;</code>, logical equivalence</li></ul>
+</li>
+<li>equality is symmetric and transitive</li>
+<li>Leibniz's Law: If <code>t1 = t2</code> is a theorem, then so is <code>P[t1/x] &lt;=&gt; P[t2/x]</code><ul><li><em>substitute equals for equals</em></li></ul>
+</li>
+<li>
+<strong>normal interpretations</strong> of <code>=</code> symbol is treating it as equality on the values of the domain. All interpretations are normal in this course</li>
+</ul>
+<h3 id="theory-of-arithmetic">Theory of Arithmetic</h3>
+<p>Recall Theories are a set of axioms about constants, functions and predicate symbols; built on logic.</p>
+<ul>
+<li>Theory of Arithmetic contains constants (0), functions (+,x, suc/++), predicates (&lt;)</li>
+<li>
+<p>Peano's Axioms stating natural number distinctness:</p>
+<ol>
+<li>0 is not a successor: forall n . !(suc(n) = 0)</li>
+<li>successors are distinct: forall x . forall y . (suc(x) = suc(y)) =&gt; (x = y)</li>
+<li>0 is the identity of addition: forall m . m + 0 = m</li>
+<li>forall m,n . m + suc(n) = suc(m+n)</li>
+<li>forall n . n x 0 = 0</li>
+<li>forall m,n . m x suc(n) = m x n + m</li>
+<li>induction: forall P . P(0) &amp; (forall k . P(k) =&gt; P(suc(k))) =&gt; forall n . P(n)</li>
+</ol>
+</li>
+<li>
+<strong>recursive functions</strong> are defined in terms of itself and certain terminating clauses<ul><li>its value for 0 and value for n in terms of n-1</li></ul>
+</li>
+<li><h3 id="satisfiable-modulo-theories">Satisfiable Modulo Theories</h3></li>
+<li>efficient and fully automatic analysis of the satisfiability of a formula in first order logic with theories</li>
+<li><p>basic method is to map a problem in predicate logic to equivalent problem in prop logic and let SAT solver analyze</p></li>
+</ul>
+<h2 id="sets">Sets</h2>
+<p>Distinct elements, unordered collection. Has predicates <code>element of</code>.</p>
+<ul>
+<li>Definitions; Set enumeration: list of items <code>{a, b, c}</code>
+</li>
+<li>Set Comprehension: predicates <code>{ x | x in N and x ≤ 9}</code>
+</li>
+</ul>
+<p>Axioms:</p>
+<ul>
+<li>types can be written using sets</li>
+<li>set comprehension is equivalent to element of</li>
+<li>all x are not element of the empty set</li>
+<li>set equality</li>
+<li>proper subset</li>
+<li>power set P is the set of all subsets B of a set D</li>
+</ul>
+<h3 id="set-functions">Set Functions</h3>
+<ul>
+<li>set union and intersection</li>
+<li>absolute complement</li>
+<li>set difference</li>
+<li>generalized set operations on multiple sets (think functions like summations ∑)</li>
+</ul>
+<p>Derrived Laws of Set Theory:</p>
+<ul>
+<li>intersection and union are commutative, associative, distributive, De Morgan's Law</li>
+<li>empty set identities, universal set identities</li>
+</ul>
+<h3 id="proofs-in-set-theory">Proofs in Set Theory</h3>
+<p>There's a whole bunch of rules, see slides for TP and ND extensions. George uses <code>by sets % then the rule</code></p>
+<p>Russell's Paradox: if a set can contain sets as elements, can it contain itself?</p>
+<ul><li>he created type theory: for example, arrange sets of sets in levels and refer to all objects with a predicate if they are at the same level (type)</li></ul>
+<h3 id="relations">Relations</h3>
+<ul>
+<li>def: tuple is a list of csv</li>
+<li>def: cartesian product A x B is the set of all pairs of the form (a,b)</li>
+<li>def: relation is a subset of the cartesian product of two or more sets<ul><li>binary relation is a set of pairs (in other words, specifically 2D)</li></ul>
+</li>
+<li>recall set membership and unary predicates express the same info</li>
+<li>similarily, relations and multi-arity predicates expresses the same info</li>
+<li>all functions on sets can be applied to relations</li>
+<li>for binary Relation <code>R : D &lt;-&gt; B</code>, dom R = {x : D | exists y : B . (x,y) in R}, ran R = {y : B | exists x : D . (x,y) in R}</li>
+</ul>
+<h3 id="proofs-in-relations">Proofs in relations</h3>
+<ul>
+<li>for TP, axioms stated as <code>|= A &lt;=&gt; B</code> can be used as law <code>A &lt;-&gt; B</code> in a TP step</li>
+<li>set equality A = B is proved by stating x in A &lt;-&gt; x in B, or by starting with A and ending with B (proving A &lt;-&gt; B)</li>
+<li>
+<strong>inverse relation</strong> is swapping domain and range of R: R<sup>~</sup> = { (b,a) . a : D, b : B | (a,b) in R}</li>
+<li>the <strong>identity relation</strong> of a set is pairing every element of the domain with itself; R : id(B) = {(a,a) | a in B}</li>
+<li>
+<strong>relation composition</strong> is "R followed by S": R ; S = {(a,c) . a in A, c in C | (a,b) in R &amp; (b,c) in S}<ul><li>composition is associative, <code>(R;S)~ = R~;S~</code>, <code>id(dom R) sube R;R~</code>, <code>id(dom R);R = R</code>
+</li></ul>
+</li>
+<li>
+<strong>iteration</strong> for creating counts of the same element: R<sup>0</sup> = id(D), R<sup>n</sup> = R;R<sup>n-1</sup><ul><li>it follows that R<sup>n+m</sup> = R<sup>n</sup> ; R<sup>m</sup> and R<sup>n•m</sup> = (R<sup>n</sup>)<sup>m</sup><br>
+</li></ul>
+</li>
+<li>
+<strong>relational image</strong> R(|S|) = {y : B | exists x : D . x in S &amp; (x,y) in R}</li>
+</ul>
+<p>Can create new binary relations from subsets of existing relations by restricting or subtracting domain or range.</p>
+<ul><li>S &lt;| R triangle is domain restriction for relation R and set S; {(x,y) x:D, y:B | (x,y) in R &amp; y in S}, &lt;-| triangle with strike is domain subtraction, triangles pointing right are for range</li></ul>
+<p>Relational overriding R ⊕ S = ((dom S) &lt;-| R) u S</p>
+<h2 id="z-specification">Z Specification</h2>
+<p>Formal specification language</p>
+<ul>
+<li>we define types, functions (or other compound types), constants</li>
+<li>relation <code>f: A &lt;-&gt; B means f in ℙ(A x B)</code>
+</li>
+<li>partial functions are generalized functions where the domain on f may include all, some or none of A</li>
+<li>function space is a set of functions</li>
+</ul>
+<h2 id="program-correctness">Program Correctness</h2>
+<p>Show that program has correct behaviour. A <strong>spec</strong> describes desired output for input.</p>
+<p><strong>Formal Verification</strong> describe in logic the spec for code, verified with proof theory. Important for critical software, helps to find bugs and "tests for ALL inputs".</p>
+<h3 id="programming-language">Programming Language</h3>
+<p>We will verify imperative (seq of commands), sequential (no concurrency) and transformational programs (guarantees output and termination).</p>
+<ul>
+<li>assignment <code>V := E</code>, assigns result of expression to v</li>
+<li>imperative programs manipulate states, where state is the value of vars at a given time</li>
+</ul>
+<p>Spec consists of pre and postcondition</p>
+<ul>
+<li>postcondition is a wff about the final state</li>
+<li>precondition before the program starts</li>
+</ul>
+<p>Triples are assertions <code>assert(P); C; assert(Q);</code></p>
+<ul>
+<li>
+<code>|=par</code> is partial correctness, which says for a triple, <strong>if C terminates</strong> then Q is the final state</li>
+<li>
+<code>|=tot</code> is total correctness, which guarantees termination</li>
+<li>proof theories for programs are often sound but are not complete by Godel's completeness theorem</li>
+</ul>
+<h3 id="proof-rules">Proof Rules</h3>
+<p>We add rules to state whether commands in our programming language satisfy some precondition and post condition, given a set of premises and a conclusion consisting of a triple</p>
+<ul>
+<li>
+<strong>assignment</strong> says, with no premises, that <code>assert(P[E/var]); var := E; assert(P)</code>
+</li>
+<li>
+<strong>composition</strong> of proofs: commands are sequential if the postcondition of A is the precondition of B<ul>
+<li>like in TP, this composition of steps is how we form step by step proofs assert(A); c1; assert(B); c2; ... assert(F) |= assert(A); C; assert(F)</li>
+<li>these are annotated programs, they require every assertion except the precondition to be proven</li>
+</ul>
+</li>
+<li>
+<strong>implied</strong> proof rule says P' |- P, assert(P); C; assert(Q) and Q |- Q', then by implied, assert(P'); C; assert(Q'); where we must prove the <strong>verification conditions</strong> (VCs) P' |- P and Q |- Q' separately</li>
+<li>
+<strong>derived assignment</strong>: if P |- Q[E/Var] then assert(P); Var := E; assert(Q). We prove the premise using ND as a verification condition</li>
+<li>
+<strong>one-armed conditionals</strong>: assert(P); if(B) C; assert(Q). we need to handle two cases, boolean B true and boolean B false. For B is true, assert(P &amp; B); C; assert(Q), for B is false, prove with ND the verification condition P &amp; !B |- Q</li>
+<li>
+<strong>two-armed conditional:</strong> no VCs, rule states that if the triples P &amp; B and P &amp; !B lead to Q, then the triple P leads to Q with the if else statement holds<ul><li>modified lets us work backwards, if assert(P1); C1; assert(Q); and assert(P2); C2; assert(Q); then assert((B =&gt; P1) &amp; (!B =&gt; P2)); if(B) C1; else C2; assert(Q)</li></ul>
+</li>
+</ul>
+<h3 id="arrays">Arrays</h3>
+<p>Function mapping indicies to values starting at 0 or 1</p>
+<ul>
+<li>for assignment to arrays, use relational overriding (+)</li>
+<li>
+<strong>assingment</strong>: assert(P[B (+) {(i,e)} / B); B[i] := e; assert(P);</li>
+</ul>
+<h3 id="functions-and-procedures">Functions and Procedures</h3>
+<p>Formal parameters are the indentifiers, while actual parameters are the values passed during the function call</p>
+<ul>
+<li>the name of the return value is always ret</li>
+<li>return is always the last statement</li>
+<li>functions do not alter global variables or parameter values</li>
+</ul>
+<p>Procedures can change parameters and global variables</p>
+<ul><li>
+<strong>procedure rule</strong>:<ul>
+<li>premise: assert(R); C; assert(S)</li>
+<li>assert(H &amp; R[a1/x1,...an/xn]); p(a1...an); assert(H &amp; S[a1/x1,...an/xn]);</li>
+<li>
+<p>H must not include any variables that are altered by C, procedure body</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">assert</span>(P);
+<span class="ex">assert</span>(H <span class="kw">&amp;</span> <span class="ex">R</span>[a1/x1, a2/x2]); <span class="co"># implied (VC i)</span>
+<span class="ex">p</span>(a1, a2);
+<span class="ex">assert</span>(H <span class="kw">&amp;</span> <span class="ex">S</span>[a1/x1, a2/x2]); <span class="co"># Procedure</span>
+<span class="ex">assert</span>(Q);                   <span class="co"># implied (VC j)</span></code></pre></div>
+</li>
+</ul>
+</li></ul>
+<h3 id="logical-variable-introduction">Logical Variable Introduction</h3>
+<p>For any any assertion with a variable, we can introduce a sort of temporary variable (that is currently not used) to represent a value at a given state.</p>
+<p><strong>Rule: Log Var Intro</strong>, P(w), then P(w0) &amp; w = W0</p>
+<h3 id="recursive-functions">Recursive Functions</h3>
+<p>We use induction in the correctness proofs of recursive functions</p>
+<ol>
+<li>base case, function satisfies its spec where there are no recursive calls</li>
+<li>induction step, assuming it satisfies its spec for all calls to the function, then it satisfies its spec</li>
+</ol>
+<p><strong>Look through the examples!!!</strong> around slide 200</p>
+<h3 id="termination">Termination</h3>
+<p>A non terminating while loop or a non-terminating function or procedure recursion</p>
+<ul><li>partial correctness does not check termination</li></ul>
+<p>To show termination, we identify an integer expression involving the variables of the loop condition that</p>
+<ol>
+<li>is guaranteed to be non-negative</li>
+<li>decreases with every iteration</li>
+<li>makes the loop's guard become false as it approaches 0</li>
+</ol>
+<p>This expression is called the variant or bounding function.</p>
+<p>For recursion, show there is a section of the function that does not make recursive calls and is entered as the bounding function approaches 0</p>
+<p>The <strong>Decision problem</strong> is a subset of problems which have yes/no answers</p>
+<p><strong>Unsolvable (undecidable) problems:</strong> decison problems for which no algorithm exists to solve</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#congruence">Congruence</a></li>
+<li><a href="#linear-congruences">Linear Congruences</a></li>
+<li><a href="#relating-everything">Relating Everything</a></li>
+</ul>
+</div>
+<h2 id="congruence">Congruence</h2>
+<p>Definition: Let a,b be integers, n is a Natural number. Then a is congruent to b modulo n iff n | (a-b).</p>
+<p><em>Or "b is the remainder when you do integer division of a % n".</em></p>
+<p><em>Then if a ≡ 0 (mod m) then n divides a.</em></p>
+<h4 id="congruence-is-an-equivalence-relation-cer">Congruence is an Equivalence Relation (CER)</h4>
+<p>Let n be Natural. Let a,b,c be Integers. Then</p>
+<ul>
+<li>a ≡ a (mod n)</li>
+<li>a ≡ b (mod n) =&gt; b ≡ a (mod n)</li>
+<li>(Transitivity) a ≡ b (mod n) and b ≡ c (mod n) =&gt; a ≡ c (mod n)</li>
+</ul>
+<h4 id="properties-of-congruence-pc">Properties of Congruence (PC)</h4>
+<p>If a ≡ a' (mod m) and b ≡ b' (mod m) then</p>
+<ol>
+<li>a + b ≡ a' + b' (mod m)</li>
+<li>a - b ≡ a' - b' (mod m)</li>
+<li>ab ≡ a'b' (mod m)</li>
+<li>If a ≡ b (mod m) then a^k ≡ b^k (mod m)</li>
+</ol>
+<p><em>The past two theorems basically state that a ≡ b is a "kind of" equality between a and b in modulus m.</em></p>
+<h4 id="congruence-and-division-cd">Congruence and Division (CD)</h4>
+<p>If ac ≡ bc (mod m) and gcd(m,c) = 1, then a ≡ b (mod m)</p>
+<p><em>This is stating that if gcd(m,c)=1, then c is unique in modulus m.</em></p>
+<h4 id="congruent-iff-same-remainder-cisr">Congruent iff Same Remainder (CISR)</h4>
+<p>a ≡ b (mod m) iff a and b have the same remainder when divided by m.</p>
+<p><em>States the property of the modulus operator <code>%</code></em></p>
+<h2 id="linear-congruences">Linear Congruences</h2>
+<p><em>Solving linear equations in modulo m. Some linear congruences have no solution, dependent on their gcd.</em></p>
+<h4 id="linear-congruence-theorem-1-lct-1">Linear Congruence Theorem 1 (LCT 1)</h4>
+<p>Let gcd(a,m) = d ≥ 1. The equation ax ≡ c (mod m) has a solution iff d | c.<br>
+If x0 is a solution, the complete solution is x ≡ x0 (mod m/d)</p>
+<p><em>If the coefficient of x divides m, then x is multiplied by 0 and has no solution when c is not congruent to 0.</em></p>
+<p><em>There are d solutions modulo m. When gcd(a,m)≠1, then the range (set of possible values of ax) is restricted (less than m).</em></p>
+<h2 id="relating-everything">Relating Everything</h2>
+<p>(GCD CT) If <code>ax + by = d</code> has a soltuion, and d is a positive common divisor of a and b, then <code>gcd(a,b)=d</code>.</p>
+<p>Reversing, we know that if (EEA) <code>gcd(a,b)=d</code>, then there is a solution to <code>ax + by = d</code> that can be computed with EEA. <code>ax + by = d</code> is a linear diophantine equation. Extending this, <code>ax + by = c</code> has a solution iff <code>d|c</code>. This can be expanded to describe a class of solutions: <code>x0 + (b/d)n, y0 - (a/d)n</code>.</p>
+<p><em>gcd is a restricting factor in solutions to LDE.</em> This extends to linear congruences, since linear congruences are another way to express LDEs. LCT1 and 2 show the number of possible solutions to any linear congruence equation.</p>
+<h4 id="fermats-little-theorem">Fermat's Little Theorem</h4>
+<p>If p is prime, p doesn't divide a, then <code>a^(p-1) ≡ 1 (mod p)</code></p>
+<p><em>Integral for reducing complex exponential expressions in a prime modulus</em></p>
+<p>For remainder of 3141^2001 divided by 17, 3141 ≡ 13 (mod 17). By FlT, <code>a^16 ≡ 1 (mod 17)</code>.</p>
+<ul>
+<li>3141^2001 ≡ 13^2001 (mod 17)</li>
+<li>13^2001 = (13^125)^16 • 13</li>
+<li>13^2001 ≡ (1)^16•13 (mod 17)</li>
+</ul>
+<h4 id="chinese-remainder-theorem">Chinese Remainder Theorem</h4>
+<p><em>For solving simultaneous congruences.</em></p>
+<p>If gcd(m1,m2) = 1, then for any a1, a2, there exists a solution to the simultaneous congruences</p>
+<ul>
+<li>n ≡ a1 (mod m1)</li>
+<li>n ≡ a2 (mod m2)</li>
+</ul>
+<p>If n = n0 is one solution, the complete solution is n ≡ n0 (mod m1•m2)</p>
+<p>To solve, show hypothesis first. Then expand one congruence using definition. Sub into the other congruence equation to get a linear congruence.</p>
+<h4 id="splitting-modulus">Splitting Modulus</h4>
+<p><em>Special case of simultaneous congruences where n is congruent to the same thing in different moduluses.</em></p>
+<p><em>Can also be used to simplify polynomial congruences, by splitting the mod and applying FlT.</em></p>
+<p>If p and q are coprime, then (<code>x ≡ a (mod p)</code> and <code>x ≡ a (mod q)</code> ) iff <code>x ≡ a (mod pq)</code></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

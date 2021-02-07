@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Content Delivery Network</title>
+</head>
+<body>
+
+<h1 id="content-delivery-network">Content Delivery Network</h1>          <a href="index.html">Back to Production-Engineering</a>
+<div id="TOC">
+
+<ul><li><a href="#fastly-caching">Fastly Caching</a></li></ul>
+</div>
+<p>CDN describes Globally distributed network of proxy servers, deployed in multiple data centers.</p>
+<ul>
+<li>serves content to end-users</li>
+<li>should be more reliable, better performance</li>
+<li>serve web objects, media files, live streaming media ...</li>
+<li>web caches are used at various points throughout the CDN</li>
+</ul>
+<p>Akamai, Fastly are CDN providers.</p>
+<h3 id="fastly-caching">Fastly Caching</h3>
+<ul>
+<li>once a piece of content has been generated, shouldn't need to be generated again</li>
+<li>stores a copy in a cache</li>
+<li>caching machines should be optimized for serving small files quickly</li>
+<li>a <strong>cache miss</strong> is when content is not cached yet, CDNs should minimize number of cache misses</li>
+<li>effective at caching small static resources (CSS, images, JS)</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

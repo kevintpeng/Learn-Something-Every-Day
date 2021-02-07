@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Asymptotic Notation</title>
+</head>
+<body>
+
+<h1 id="asymptotic-notation">Asymptotic Notation</h1>          <a href="index.html">Back to Math-CS</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#big-o">Big O</a></li>
+<li><a href="#omega">Omega</a></li>
+<li><a href="#theta">Theta</a></li>
+</ul>
+</div>
+<p>Describes algorithm efficiency in terms of their "main terms".</p>
+<p>For functions f,g: N-&gt;R,</p>
+<h3 id="big-o">Big O</h3>
+<p>f(n) = O( g(n) ) iff there exists a positive constant c in Reals and a constant n0 in Naturals s.t. |f(n)| ≤ c|g(n)| for all n ≥ n0.<br>
+- There's a constant c that makes g(n) grow as fast as any given f(n)<br>
+- <em>the function is at most growing at the rate of g(n),</em> <strong>could be of lower order</strong></p>
+<h3 id="omega">Omega</h3>
+<p>f(n) = Ω( g(n) ) iff g(n) = O( f(n) )<br>
+- c•g(n) ≤ |f(n)|<br>
+- <em>the function is at minimum growing as fast as g(n), could be of</em> <strong>higher order</strong></p>
+<h3 id="theta">Theta</h3>
+<p>f(n) = Θ( g(n) ) iff f(n) = O(g(n)) and f(n) = Ω(g(n)).<br>
+- if f(n) = Θ(n), linear, there exists c1 and c2 s.t. c1•n ≤ f(n) ≤ c2•n for all n ≥ n0.<br>
+- <strong>f must be exactly the order of g</strong></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

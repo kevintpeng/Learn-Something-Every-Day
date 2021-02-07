@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#akka">Akka</a></li>
+<li><a href="#wire-protocol">Wire protocol</a></li>
+<li><a href="#spark">Spark</a></li>
+<li><a href="#why-spark-akka">Why Spark &amp; Akka?</a></li>
+<li><a href="#data-ingestion">Data Ingestion</a></li>
+<li><a href="#scala-optimization-machine-speed">Scala optimization (Machine speed)</a></li>
+</ul>
+</div>
+<h3 id="akka">Akka</h3>
+<p>Akka is a toolkit, for distribution, state, protocols</p>
+<p>Actors are simple high level abstractions for async message-driven programming</p>
+<ul>
+<li>very light weight event-driven processes</li>
+<li>actors systems span multiple JVMs</li>
+<li>state changes experienced by actors can be persisted when the actor is restarted</li>
+</ul>
+<p>Akka cluster has good testing, for mocking requests and testing faults</p>
+<h3 id="wire-protocol">Wire protocol</h3>
+<p>Abstractly a way of getting data from point to point, often for distributed object protocols</p>
+<ul>
+<li>A wire protocol is needed if more than one application needs to interoperate</li>
+<li>common way to represent information at the application level</li>
+</ul>
+<h3 id="spark">Spark</h3>
+<p>General purpose cluter computing system. Provides an API centered on a data structured called the resilient distributed dataset</p>
+<ul>
+<li>readonly multiset (generalization of set, without element uniqueness)</li>
+<li>opposes MapReduce cluster restrictions of linearity of dataflow<ul>
+<li>spark's RDDs function as a "working set" for distributed programs, adding restricted form of distributed memory</li>
+<li>facilitates</li>
+</ul>
+</li>
+</ul>
+<h3 id="why-spark-akka">Why Spark &amp; Akka?</h3>
+<p>Spark is supposed to be stateless. Spark sends data out to get processed. Akka cluster gives us a separate asynchronous control channel</p>
+<ul>
+<li>columnar ingestion is stateful</li>
+<li>async messaging</li>
+</ul>
+<h3 id="data-ingestion">Data Ingestion</h3>
+<p>Handled by a hash to nodes</p>
+<ul><li>Row source actors</li></ul>
+<p>One actor holds state</p>
+<p>Backpressure?</p>
+<p>Monix/Reactive Streams?</p>
+<p>Kamon Tracing - builtin for Akka actors</p>
+<p>Scalactic</p>
+<h3 id="scala-optimization-machine-speed">Scala optimization (Machine speed)</h3>
+<p>Dont' serialize, don't allocate, don't copy</p>
+<ul>
+<li>serialization is conversion of objects to byte streams</li>
+<li>spark inmemory columnstore faster than cassandra</li>
+</ul>
+<p>Binary data: cannot rely on static types and standard serialization mechanisms (protobuff)</p>
+<ul><li>deserialization generates lots of object allocations</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

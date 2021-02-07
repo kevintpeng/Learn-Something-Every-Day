@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>NGINX Proxying</title>
+</head>
+<body>
+
+<h1 id="nginx-proxying">NGINX Proxying</h1>          <a href="index.html">Back to Production-Engineering/NGINX</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#buffers">Buffers</a></li>
+<li><a href="#outgoing-ip-address">Outgoing IP Address</a></li>
+</ul>
+</div>
+<ul>
+<li>used to distribute the load among several servers, seamlessly show content from different websites, pass a request for processing to application servers over protocols other than HTTP</li>
+<li>when NGINX proxies a request, it sends the request to a specified proxied server, fetches response and sends it back to the client</li>
+<li>NGINX runs on the <em>proxy server</em> and can redirect to other <em>proxied servers</em>, including public domains and web pages</li>
+</ul>
+<p>Proxying involves handing off a request to a single server with http, known as a generic "proxy pass" handled by the <code>proxy_pass</code> directive.</p>
+<ul>
+<li>the <code>ngx_http_proxy_module</code> allows passing requests to another server</li>
+<li>
+<code>proxy_pass</code> sets the protocol and address of a proxied server, directive in <code>location</code> context</li>
+<li>
+<code>proxy_set_header &lt;Attribute&gt; &lt;value&gt;;</code> sets values for <a href="../../Networking/HTTP.md">header fields</a> as seen by the proxied server (you can set to empty string to hide them)</li>
+<li>
+<code>proxy_redirect</code> will modify the "Location" response header based on specified prefixed string matching<ul><li>
+<code>proxy_redirect http://localhost:8000/two/ http://frontend/one/</code> will rewrite the string “Location: <a href="http://localhost:8000/two/some/uri/" class="uri">http://localhost:8000/two/some/uri/</a>” to “Location: <a href="http://frontend/one/some/uri/" class="uri">http://frontend/one/some/uri/</a>”.</li></ul>
+</li>
+</ul>
+<h3 id="buffers">Buffers</h3>
+<ul>
+<li>NGINX buffers responses from proxied servers</li>
+<li>a response is stored in the internal buffers, not sent to client until the whole response is recieved</li>
+<li>buffering optimizes performance with slow clients, can waste proxied server time if the response is passed from NGINX to the client synchronously</li>
+<li>controlled by <code>proxy_buffers</code> directive. It is the number of buffers allocated for a request</li>
+<li>having no buffering is desirable for fast clients that need to recieve response as soon as possible</li>
+</ul>
+<h3 id="outgoing-ip-address">Outgoing IP Address</h3>
+<p>Useful if the proxy server has several network interfaces and proxied servers accept connections from particular IP networks or address ranges</p>
+<ul>
+<li>
+<code>proxy_bind</code> directive specifies IP address of the necessary network interface</li>
+<li>can use IP address of the network interface that accepted the request: <code>proxy_bind $server_addr</code>
+</li>
+<li>
+<code>transparent</code> parameter allows outgoing connections to originate from a non-local IP address, like the real client IP: <code>proxy_bind $remote_addr transparent;</code> (run nginx worker processes with superuser)</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

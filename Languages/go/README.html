@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Go</title>
+</head>
+<body>
+
+<h1 id="go">Go</h1>          <a href="index.html">Back to Languages/go</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#packages">Packages</a></li>
+<li><a href="#flow-control">Flow Control</a></li>
+<li>
+<a href="#methods">Methods</a><ul><li>
+<a href="#interfaces"></a><a href="./Interfaces.md">Interfaces</a>
+</li></ul>
+</li>
+<li>
+<a href="#concurrency"></a><a href="./Concurrency.md">Concurrency</a>
+</li>
+<li><a href="#assorted-go-functions">Assorted Go Functions</a></li>
+</ul>
+</div>
+<p>Go is a portable language, well catered for small tasks. In comparison to ruby, go has less overhead for simple low level tasks. Go is good for concurency.</p>
+<ul>
+<li>Go is a C-like language, also comparable to Java</li>
+<li>Go programmers keep all code in a workspace</li>
+<li>A workspace contains many version control repos</li>
+<li>each repo contains ≥ 1 packages</li>
+<li>each package consists of ≥ 1 go source files in a single directory</li>
+<li>path to a package's directory determines its import path</li>
+</ul>
+<h2 id="packages">Packages</h2>
+<p>Every go project is made up of packages. Prgrams start running in package <code>main</code>. The package name is same as last element of the import path (<code>math/rand</code> has <code>package rand</code>).</p>
+<p>Individual statement: <code>import "fmt"</code>. Factored import statement:</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> (
+  <span class="st">"fmt"</span> <span class="co">// formatted I/O package</span>
+  <span class="st">"math/rand"</span>
+)
+<span class="kw">func</span> main() {
+<span class="co">// ...</span>
+}</code></pre></div>
+<ul>
+<li>
+<code>fmt.Printf()</code> prints without line break</li>
+<li>
+<code>fmt.Println()</code> prints, followed by a line break</li>
+</ul>
+<h4 id="exported-names">Exported names</h4>
+<p>A name is exported if it <strong>begins with a capital letter</strong>. <code>Pi</code> is exported from the <code>math</code> package.</p>
+<p>When importing a package, only exported names are accessible. <code>fmt.Println(math.Pi)</code>.</p>
+<h4 id="functions">Functions</h4>
+<ul><li>
+<p>type comes after the variable name</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">func</span> add(x <span class="dt">int</span>, y <span class="dt">int</span>) <span class="dt">int</span> {
+<span class="kw">return</span> x + y
+}</code></pre></div>
+</li></ul>
+<p>A function can return multiple results, comma delimited.</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">func</span> swap(x, y <span class="dt">string</span>) (<span class="dt">string</span>, <span class="dt">string</span>) {
+  <span class="kw">return</span> y, x
+}</code></pre></div>
+<p>Return values can be named, and treated as variables in the return specification on the function.</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">func</span> div10(sum <span class="dt">int</span>) (x, y <span class="dt">int</span>) {
+  x = sum /<span class="dv">10</span>
+  y = sum - x*<span class="dv">10</span>
+  <span class="kw">return</span> <span class="co">// "naked" return, returns the current values of x and y</span>
+}
+<span class="co">// div10(52) =&gt; 5 2</span></code></pre></div>
+<h4 id="variables">Variables</h4>
+<p><code>var</code> statement declares a list of variables, type is last.</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">var</span> c, python, java <span class="dt">bool</span>
+
+<span class="kw">func</span> main() {
+  <span class="kw">var</span> i <span class="dt">int</span>
+  fmt.Println(i, c, python, java) <span class="co">// prints 0 false false false</span>
+}</code></pre></div>
+<p>An initializer assigns values: <code>var i, j = 1, 2</code> (notice type can be omitted). <code>:=</code> is the short assignment statement, used in place of <code>var</code> with implicit type declaration (only available within the scope of a func).</p>
+<h5 id="variable-types">Variable Types</h5>
+<p><code>bool</code>, <code>string</code>, <code>int</code>, <code>int8</code>, <code>int16</code>, <code>int32</code>, <code>int64</code>, <code>float32</code>, <code>float64</code> (only specify size of ints in specific uses). Zero values are assigned when there is no explicit value given:</p>
+<ul>
+<li>
+<code>0</code> for numerics</li>
+<li>
+<code>false</code> for bool</li>
+<li>
+<code>""</code> empty string for strings</li>
+</ul>
+<p>When declaring a variable without specifying type, type is inferred based on right side value.</p>
+<p>A <strong>constant</strong> is decared like variables, but with <code>const</code> keyword instead of <code>var</code>. Cannot use <code>:=</code> for constant declaration.</p>
+<h5 id="pointers">Pointers</h5>
+<ul>
+<li>Pointers hold the memory address of the variable. <code>var p *int</code>.</li>
+<li>The type <code>*T</code> is a pointer to a <code>T</code> value.</li>
+<li>The zero value is <code>nil</code>.<br>
+</li>
+<li>The operator <code>&amp;</code> generates a pointer to its operand.</li>
+<li>No C-like pointer arithmetic</li>
+</ul>
+<h5 id="structs">Structs</h5>
+<p>collection of fields.</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">type</span> Vertex <span class="kw">struct</span> {
+  X <span class="dt">int</span>
+  Y <span class="dt">int</span>
+}</code></pre></div>
+<ul>
+<li>
+<code>.</code> is used to access struct fields. <code>v := Vertex{1, 2}</code> <code>v.X = 4</code><ul><li>When accessing a field, we could have struct pointer <code>p</code> and dereference <code>(*p).X</code> but syntactic sugar allows <code>p.X</code>
+</li></ul>
+</li>
+<li>
+<p>A struct literal denotes a newly allocated struct value by listing the values of its fields.</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">var</span> (
+v1 = Vertex{<span class="dv">1</span>, <span class="dv">2</span>}  <span class="co">// has type Vertex</span>
+v2 = Vertex{X: <span class="dv">1</span>}  <span class="co">// Y:0 is implicit</span>
+v3 = Vertex{}      <span class="co">// X:0 and Y:0</span>
+p  = &amp;Vertex{<span class="dv">1</span>, <span class="dv">2</span>} <span class="co">// has type *Vertex</span>
+)</code></pre></div>
+</li>
+</ul>
+<h5 id="arrays">Arrays</h5>
+<p><code>[n]T</code> is an array of <code>n</code> values of type <code>T</code></p>
+<ul>
+<li><code>var a [10]int</code></li>
+<li>accessed using <code>a[1]</code>
+</li>
+<li>arrays are not resizable</li>
+<li>Slicing an array with <code>[]T</code> creates a slice, dynamically sized view into the elements of an array.<ul><li>
+<code>var s []int = primes[1:4]</code> =&gt; [3 5 7]</li></ul>
+</li>
+<li>slices do not store memory, they reference an array</li>
+<li>a slice literal is like an array literal without the length<ul>
+<li><code>[]bool{true, false, true}</code></li>
+<li>slice bounds can be omitted: <code>s = a[3:]</code> excludes the first 3 elements</li>
+<li>
+<code>len(s)</code> returns current number of elements in slice, <code>cap(s)</code> returns length of array that the slice is referencing</li>
+</ul>
+</li>
+<li>
+<code>range</code> in <code>for</code> loop iterates over a slice or a map<ul><li>
+<code>for i, v := range pow {}</code> where <code>i</code> is the index, <code>v</code> is a copy of each element</li></ul>
+</li>
+</ul>
+<h5 id="map">Map</h5>
+<p>maps keys to values. Zero value of a map is <code>nil</code>. A <code>nil</code> map has no keys, keys cannot be added.</p>
+<ul><li>
+<p><code>m = make(map[string]Vertex)</code> maps "strings" =&gt; a Vertex struct, if Vertex is defined somewhere</p>
+<pre><code>m["Bell Labs"] = Vertex{
+40.68433, -74.39967,
+}</code></pre>
+</li></ul>
+<p>A map literal can be defined like <code>var m = map[string]string { "hello": "world", "other": "string" }</code></p>
+<ul>
+<li>
+<p>If the top-level type is just a type name (like a Vertex struct), it can be omitted from elements of the literal:</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">var</span> m = <span class="kw">map</span>[<span class="dt">string</span>]Vertex{
+<span class="st">"Bell Labs"</span>: {<span class="dv">40</span><span class="fl">.68433</span>, -<span class="dv">74</span><span class="fl">.39967</span>},
+<span class="st">"Google"</span>:    {<span class="dv">37</span><span class="fl">.42202</span>, -<span class="dv">122</span><span class="fl">.08408</span>},
+}</code></pre></div>
+</li>
+<li>
+<code>m[key] = elem</code> updates/inserts</li>
+<li>
+<code>elem = m[key]</code> retrieves</li>
+<li><code>delete(m, key)</code></li>
+<li>
+<code>elem, ok = m[key]</code>, if <code>key</code> is in <code>m</code>, then the variable <code>ok</code> is assigned <code>true</code><ul><li>if <code>elem</code> or <code>ok</code> are not yet defined, use short declaration form: <code>elem, ok := m[key]</code>
+</li></ul>
+</li>
+</ul>
+<h5 id="function-values">Function Values</h5>
+<p>Functions are values too, and are able to be passed around like other values. <code>func compute(fn func(int, int) int) int {}</code></p>
+<ul><li>functions may be closures. A closure is a function value that references variables outside of its body.</li></ul>
+<h2 id="flow-control">Flow Control</h2>
+<h4 id="for">For</h4>
+<p><code>for</code> is the only looping construct. <code>for i := 0; i &lt; 10; i++ {}</code>. This also works: <code>for ; i &lt; 10 ; {}</code> (some optional fields). Also <code>for i &lt; 10 {}</code>. <code>for {}</code> is infinite loop.</p>
+<h4 id="if">If</h4>
+<p><code>if i &lt; 0 {}</code> braces around condition are optional. <code>if {} else {}</code>. You can use the short assignment statement in the if condition to assign a test value to a variable: <code>if v := math.Pow(x,n); v &lt; lim { ... }</code> where v is now accessible within the if block.</p>
+<h4 id="switch">Switch</h4>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">switch</span> os := runtime.GOOS; os {
+  <span class="kw">case</span> <span class="st">"darwin"</span>:
+    fmt.Println(<span class="st">"OS X"</span>)
+  <span class="kw">default</span>:
+    fmt.Printf(<span class="st">"%s."</span>, os)
+}</code></pre></div>
+<p>Switch statement breaks after a case succeeds, read top to bottom.</p>
+<h4 id="defer">Defer</h4>
+<p><code>defer fmt.Println("world")</code> prints "world" when the func returns. Deferred function calls are pushed onto a stack.</p>
+<h2 id="methods">Methods</h2>
+<p>Go has no classes. You can define methods on types. A method is a function with a special <strong>reciever</strong> argument.</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">func</span> (v Vertex) Abs() <span class="dt">float64</span> { <span class="co">// the method Abs has a reciever type Vertex</span>
+  <span class="kw">return</span> math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+v := Vertex{<span class="dv">3</span>, <span class="dv">4</span>}
+v.Abs() <span class="co">// 5</span></code></pre></div>
+<p>A method is just a function that implicitly passes some reciever argument as the first parameter. Notice the difference between calling <code>v.Abs()</code> and <code>Abs(v)</code>.</p>
+<ul>
+<li>methods can be declared on non-struct types too</li>
+<li>methods can be declared with <em>pointer recievers</em> allowing a method to mutate the value<ul>
+<li>methods with pointer recievers can take either a value or a pointer (syntactic sugar, recieving <code>v.Scale(5)</code> as <code>(&amp;v).Scale(5)</code>)</li>
+<li>
+<p>note that methods with value recievers can also take pointers</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">func</span> (v *Vertex) Scale(f <span class="dt">float64</span>) {
+v.X = v.X * f
+v.Y = v.Y * f
+}
+<span class="co">// ...</span>
+v := Vertex{<span class="dv">3</span>, <span class="dv">4</span>}
+v.Scale(<span class="dv">2</span>)
+p := &amp;Vertex{<span class="dv">4</span>, <span class="dv">3</span>}
+p.Scale(<span class="dv">3</span>)</code></pre></div>
+</li>
+</ul>
+</li>
+<li>Using pointer recievers is more efficient, does not copy large structs for example.</li>
+<li>Allows methods to mutate values passed</li>
+</ul>
+<h3 id="interfaces"><a href="./Interfaces.md">Interfaces</a></h3>
+<p><em>Interface type</em> is a set of method signatures</p>
+<ul>
+<li>A value of interface type can hold any value that implements those methods.</li>
+<li>interface restricts the methods available for any value passed, defines an API for their use</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">type</span> Abser <span class="kw">interface</span> {
+  Abs() <span class="dt">float64</span>
+}
+<span class="kw">type</span> MyFloat <span class="dt">float64</span>
+<span class="kw">func</span> (f MyFloat) Abs() <span class="dt">float64</span> { <span class="co">//...</span>
+
+<span class="kw">var</span> a Abser
+f := MyFloat(-math.Sqrt2)
+a = f  <span class="co">// a MyFloat implements Abser</span>
+a.Abs() <span class="co">// runs f.Abs()</span></code></pre></div>
+<p>A type implements an interface by implementing its methods in the signature.</p>
+<ul>
+<li>you don't need to explicitly declare that some type <code>T</code> will implement interface <code>I</code> for method <code>M</code>
+</li>
+<li>interface values can be thought of as a tuple of a value and a type<ul>
+<li>interface holds a value of a specific type</li>
+<li>If the concrete type in the interface itself is nil, method will be called with a nil reciever</li>
+</ul>
+</li>
+</ul>
+<h4 id="deal-with-interface-types">Deal with Interface Types</h4>
+<p><strong>Type assertions</strong> provide access to an interface value's underlying concrete value. <code>t, ok := i.(T)</code> asserts the interface value <code>i</code> holds concrete type <code>T</code>, assigns it to <code>t</code> and returns a boolean to <code>ok</code>.</p>
+<ul><li>omitting the <code>ok</code> return causes it to panic if not type <code>T</code>
+</li></ul>
+<p><strong>Type Switches</strong> permit several type assertions with a switch-case statement.</p>
+<h2 id="concurrency"><a href="./Concurrency.md">Concurrency</a></h2>
+<p><a href="https://www.youtube.com/watch?v=cN_DpYBzKso">talk on concurrency</a>. Concurrency and parallelism are not the same! Concurrency is a way to build things, a composition of independently executing things like functions (interacting processes). Parallelism is about execution, doing a lot of things at once. Concurrency is about structure, dealing with lots at once.</p>
+<p>Analogy: Gophers are move books from one pile to another. Two Gophers can complete different tasks (one loads books, one moves them), this is called the concurrent composition of processes. It is only parallel if they work simultaneously.</p>
+<p>The whole process can be redesigned, to have gophers do different tasks. This is improving performance by adding a concurrent procedure to the existing design. Each task does not necessarily have to run in parallel, but the parallelism of the whole process becomes a free variable to manipulate.</p>
+<h4 id="goroutines">Goroutines</h4>
+<p>A <em>goroutine</em> is a thread managed by the Go runtime. <code>go f(x, y, z)</code> starts a gorountine that runs <code>f</code>.</p>
+<ul><li>evaluation of <code>f</code> happens in the current goroutine and execution of <code>f</code> happens in the new goroutine</li></ul>
+<h4 id="channels">Channels</h4>
+<p>Channels are typed conduit through which you send and recieve values with the channel operator <code>&lt;-</code>. Allows communication between goroutines.</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go">ch &lt;- v    <span class="co">// sends v to channel ch</span>
+v := &lt;-ch  <span class="co">// recieves ch and assign value to v</span></code></pre></div>
+<p>To create a channel, <code>ch := make(chan int)</code></p>
+<p>Channels by default, send and recieve, block until the other side is ready, allowing goroutines to synchronize without explicit locks or condition variables.</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go">c := <span class="bu">make</span>(<span class="kw">chan</span> <span class="dt">int</span>) <span class="co">// makes a channel for integers</span>
+<span class="kw">go</span> sum(s[:<span class="bu">len</span>(s)/<span class="dv">2</span>], c) <span class="co">// 17</span>
+<span class="kw">go</span> sum(s[<span class="bu">len</span>(s)/<span class="dv">2</span>:], c) <span class="co">// -5</span>
+x, y := &lt;-c, &lt;-c <span class="co">// receive from c</span>
+
+fmt.Println(x, y, x+y) <span class="co">// -5 17 12</span></code></pre></div>
+<p>Channels can be <em>buffered</em>, with buffer length as the second argument to <code>make</code> to initialize a buffered channel: <code>ch := make(chan string, 100)</code>. Sends to a buffered channel become blocked with the buffer is full. Recieves become blocked when the buffer is empty.</p>
+<h5 id="range-and-close">Range and Close</h5>
+<p>A sender can <code>close(ch)</code> a channel to indicate no more values will be sent. Recievers can test whether a channel has been cloesd by assigning a second parameter to the recieve expression. <code>v, ok := &lt;-ch</code>, <code>ok</code> will be false if there are no more values to recieve.</p>
+<p><code>for i := range c</code> recieves values from channel until it's closed. Closing is only necessary when the reciever must be told there are no more values coming, as in a <code>range</code> loop.</p>
+<h4 id="select">Select</h4>
+<p>Like a switch, but decision is based on ability to communicate rather than equal values. Chooses which channel to recieve from.</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">select</span> {
+<span class="kw">case</span> c &lt;- x:
+  <span class="co">// ...</span>
+<span class="kw">case</span> &lt;- quit:
+  <span class="co">// ... where quit is some goroutine</span>
+<span class="kw">default</span>:
+  <span class="co">// recieve from c would block</span>
+}</code></pre></div>
+<h2 id="assorted-go-functions">Assorted Go Functions</h2>
+<p><code>func make(Type, size IntegerType) Type</code></p>
+<ul><li>allocates and initializes an object of type <code>slice</code>, <code>map</code> or <code>chan</code>.<ul>
+<li>size of slice is capacity</li>
+<li>size of map is initial memory allocation</li>
+<li>size of channel is buffer capacity</li>
+</ul>
+</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

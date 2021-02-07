@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Sockets</title>
+</head>
+<body>
+
+<h1 id="sockets">Sockets</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#unix-domain-sockets-ipc">Unix Domain Sockets (IPC)</a></li>
+<li><a href="#ip-sockets-tcpip">IP Sockets (TCP/IP)</a></li>
+</ul>
+</div>
+<p>A connection, between two endpoints, each with an IP address and a port</p>
+<p><code>netstat</code> is a utility that useful for viewing socket information.</p>
+<ul>
+<li>lists both <code>unix</code> and <code>tcp/udp</code> sockets</li>
+<li>
+<code>LISTEN</code> means a socket is accepting connections</li>
+<li>
+<code>ESTABLISHED</code> means connection is made and data is flowing</li>
+</ul>
+<h3 id="unix-domain-sockets-ipc">Unix Domain Sockets (IPC)</h3>
+<p>Inter-process communication (IPC) mechanism.</p>
+<ul><li>know that they're running on the same machine, so they can omit checks otherwise done by TCP/IP sockets like NAT routing</li></ul>
+<h3 id="ip-sockets-tcpip">IP Sockets (TCP/IP)</h3>
+<p>Mechanism enabling inter-process communication over the network (or same computer using the loopback interface, localhost)</p>
+<ul><li>more overhead as they require multiple steps for the TCP protocol</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

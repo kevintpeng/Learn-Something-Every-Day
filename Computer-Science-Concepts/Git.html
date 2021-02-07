@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Git</title>
+</head>
+<body>
+
+<h1 id="git">Git</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#architechture">Architechture</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#git-ignore">Git Ignore</a></li>
+<li><a href="#repository-history">Repository History</a></li>
+<li><a href="#undoing-changes">Undoing Changes</a></li>
+<li><a href="#git-remote">Git Remote</a></li>
+<li>
+<a href="#git-branching">Git Branching</a><ul>
+<li><a href="#basic-merge-conflict">Basic Merge Conflict</a></li>
+<li><a href="#remote-branches">Remote Branches</a></li>
+<li><a href="#rebasing">Rebasing</a></li>
+</ul>
+</li>
+<li>
+<a href="#github-config">GitHub Config</a><ul>
+<li>
+<a href="#subprojects----source">Subprojects -- </a><a href="https://git.wiki.kernel.org/index.php/SubprojectSupport">source</a>
+</li>
+<li><a href="#git-objects">Git Objects</a></li>
+<li><a href="#git-server-protocols">Git Server Protocols</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Git is a version control system.</p>
+<h2 id="architechture">Architechture</h2>
+<p>Git has local and remote repositories, branches, staging, commits (HEAD).</p>
+<h2 id="commands">Commands</h2>
+<ul>
+<li>
+<code>git init</code> creates new repository</li>
+<li>
+<code>git add -A</code> stages all changes</li>
+<li>
+<code>git commit -m "message"</code> commits staged changes to repository</li>
+<li>
+<code>git status</code> checks stage</li>
+<li>
+<code>git reset HEAD filename</code> to unstage file from HEAD pointer</li>
+<li>
+<code>git rm filename</code> removes a file from tracked files in repository</li>
+<li>
+<code>git mv file_from file_to</code> renaming a file and keeping its metadata (otherwise VCS has no idea that the file previously existed under another name)</li>
+<li>
+<code>git clone https://repo.com</code> clones a remote repository to local</li>
+<li>
+<code>git checkout branchname</code> creates or checks out existing branch</li>
+</ul>
+<h2 id="git-ignore">Git Ignore</h2>
+<p><code>.gitignore</code> uses <a href="Glob%20Patterns.md">glob</a> patterns to describe patterns in filenames. <code>#</code> denotes comments.</p>
+<h2 id="repository-history">Repository History</h2>
+<p><code>git log</code> shows the commit history, reverse chronological order. <code>--stat</code> shows abbreviated stats for each commit. <code>--pretty</code> and <code>--oneline</code> can be used to reformat <code>git log</code>. <code>--pretty=format:"%h - %an, %ar : %s"</code> prints a string for each commit:</p>
+<pre><code>ca82a6d - Scott Chacon, 6 years ago : changed the version number
+085bb3b - Scott Chacon, 6 years ago : removed unnecessary test
+a11bef0 - Scott Chacon, 6 years ago : first commit</code></pre>
+<p>More options:</p>
+<pre><code>$ git log --pretty=format:"%h %s" --graph
+* 2d3acf9 ignore errors from SIGCHLD on trap
+*  5e3ee11 Merge branch 'master' of git://github.com/dustin/grit
+|\
+| * 420eac9 Added a method for getting the current branch.
+* | 30e367c timeout code and tests
+* | 5a09431 add timeout protection to grit
+* | e1193f8 support for heads with slashes in them
+|/
+* d6016bc require time for xmlschema
+*  11d191e Merge branch 'defunkt' into local</code></pre>
+<h2 id="undoing-changes">Undoing Changes</h2>
+<p><a href="http://sethrobertson.github.io/GitFixUm/fixup.html">Interesting link for help</a>.</p>
+<p><code>git commit --amend</code> will add changes to the previous commit (second, new commit overwrites first).</p>
+<p><code>git reset HEAD &lt;filename&gt;</code> unstages a file.</p>
+<p><code>git reset HEAD~1</code> unstages last commit.</p>
+<p><code>git reset --hard HEAD~1</code> removes commit along with all changes, removes it from history too.</p>
+<h2 id="git-remote">Git Remote</h2>
+<p>Manages remote connections, for pushing and pulling code changes between your local repository and a central repository hosted on sites like GitHub and BitBucket.</p>
+<pre class="shell"><code>$ git remote add origin https://github.com/user/repo.git
+# Set a new remote named origin (origin is also the default name for remote connection after being cloned)
+
+$ git remote -v
+# Verify new  and existing remotes
+origin  https://github.com/user/repo.git (fetch)
+origin  https://github.com/user/repo.git (push)
+
+$ git remote show origin
+# displays branches</code></pre>
+<ul>
+<li>
+<code>git fetch origin</code> fetches any changes in the server since you last fetched. It does not automatically merge.</li>
+<li>
+<code>git pull origin</code> fetches and merges from the remote branch to current branch.</li>
+<li>
+<code>git push origin master</code> pushes your changes to the origin repo from the <code>master</code> branch</li>
+</ul>
+<h2 id="git-branching">Git Branching</h2>
+<ul>
+<li>
+<code>git branch testing</code> creates a new "testing" branch.</li>
+<li>
+<code>git checkout testing</code> switches branches (moves <code>HEAD</code> to point to <code>testing</code> branch)<br>
+-<code>HEAD</code> points to the current working branch</li>
+<li>from <code>master</code>, <code>git merge &lt;branch&gt;</code> merges changes from a branch into the master.</li>
+</ul>
+<h3 id="basic-merge-conflict">Basic Merge Conflict</h3>
+<p>Git doesn't automatically create new commit, it pauses the process. <code>git mergetool</code> or <code>git opendiff</code></p>
+<h3 id="remote-branches">Remote Branches</h3>
+<p>Remote references are pointers to remote repositories, including branches. <code>git ls-remote &lt;remote&gt;</code> shows all remote references. Remote-tracking branches are references to the state of remote branches, of the form <code>(remote)/(branch)</code>.</p>
+<p>When pushing a local branch, it needs to be pushed to a remote that you have access to. <code>git push origin serverfix</code> pushing the local serverfix branch to the remote serverfix branch.</p>
+<p>Checking out a local branch from a remote-tracking branch automatically creates a "tracking branch" which follows an "upstream branch". <code>git pull</code> from a tracking branch with fetch from the upstream remote branch. <code>git clone</code> automatically sets up <code>master</code> as a tracking branch that tracks <code>origin/master</code>.</p>
+<p><code>git checkout --track origin/serverfix</code> will create a local tracking branch called serverfix, that tracks <code>origin/serverfix</code> as its upstream.</p>
+<p><code>git branch -u origin/serverfix</code> sets the current branch's upstream.</p>
+<h3 id="rebasing">Rebasing</h3>
+<p><code>merge</code> and <code>rebase</code> integrate changes from one branch to another. Rebasing is "rewinding" a branch, and "replaying" each commit one by one in the master branch, starting with their common ancestor:</p>
+<pre><code>$ git checkout experiment
+$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: added staged command
+# Now do a fast-forward merge
+$ git checkout master
+$ git merge experiment</code></pre>
+<p>Makes a cleaner history, especially for open source projects which you don't maintain.</p>
+<p><a href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request">rebase a PR</a></p>
+<h2 id="github-config">GitHub Config</h2>
+<p>On a somewhat unrelated note, here is GitHub configurations:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> config --global core.editor <span class="st">"your editor"</span>
+<span class="fu">git</span> config --global color.ui true
+<span class="fu">git</span> config --global user.name <span class="st">"YOUR NAME"</span>
+<span class="fu">git</span> config --global user.email <span class="st">"YOUR@EMAIL.com"</span>
+<span class="fu">ssh-keygen</span> -t rsa -C <span class="st">"YOUR@EMAIL.com"</span></code></pre></div>
+<p>Input your account values. Then go <a href="https://github.com/settings/ssh">to github ssh</a> and click new SSH key.</p>
+<p>Copy the output of <code>cat ~/.ssh/id_rsa.pub</code> and paste on GitHub.</p>
+<p><a href="https://git-scm.com/doc">source</a></p>
+<h3 id="subprojects----source">Subprojects -- <a href="https://git.wiki.kernel.org/index.php/SubprojectSupport">source</a>
+</h3>
+<ul>
+<li>
+<strong>Submodules</strong> provide fixed references from the superproject to subprojects<ul>
+<li>good for shared code between superprojects, or separation of maintainers</li>
+<li>creates separation for git efficiency</li>
+</ul>
+</li>
+<li>
+<strong>Subtrees</strong> cause subproject repos to be imported with its full history</li>
+<li>
+<strong>Wrappers</strong> which provide multi-repo management functionality</li>
+</ul>
+<h3 id="git-objects">Git Objects</h3>
+<p>Git is a content-addressable filesystem. Built with a key-value store.</p>
+<h3 id="git-server-protocols">Git Server Protocols</h3>
+<p><strong>Local protocol</strong> is basic, uses another directory on disk as the remote</p>
+<h1 id="gerrit">Gerrit</h1>
+<p>A commit review tool built on git, with workflows analogous to pull-request style with github</p>
+<ul>
+<li>compared to pull-requests, Gerrit does not support multi-commit changes</li>
+<li>Gerrit is more explicit, adding change-ids, CLI integration through githooks</li>
+<li>patch sets are git hashes at all points you push to Gerrit, essentially revisions, aiding reviewers to see what's changed since the last review</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

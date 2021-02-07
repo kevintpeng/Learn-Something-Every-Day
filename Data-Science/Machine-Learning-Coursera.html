@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>1 Classes of Problems in Machine Learning</title>
+</head>
+<body>
+
+<p><a href="https://www.coursera.org/learn/machine-learning/">Source</a></p>
+<h1 id="classes-of-problems-in-machine-learning">1 Classes of Problems in Machine Learning</h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#supervised-learning">Supervised Learning</a></li>
+<li><a href="#unsupervised-learning">Unsupervised Learning</a></li>
+<li><a href="#linear-regression-one-var">Linear Regression One Var</a></li>
+<li><a href="#gradient-descent">Gradient Descent</a></li>
+</ul>
+</div>
+<ul>
+<li>Evolved from AI, new capability for computers</li>
+<li>Database mining (web click data, medical records, biology, engineering)</li>
+<li>Robotics, handwriting recognition, self-customizing programs</li>
+</ul>
+<p><strong>Formal Definition</strong>: program learns from experience E with respect to class of tasks T and performance measure P, if performance (P) at tasks in T improve with experience (E)</p>
+<h2 id="supervised-learning">Supervised Learning</h2>
+<ul>
+<li>Given data set, with intended output, produce right answer</li>
+<li>Regression problem, output of continuous values</li>
+<li>Linear approximation and taylor polynomial</li>
+<li>Classification problem, determine probability of a discrete valued output (0,1)</li>
+</ul>
+<h2 id="unsupervised-learning">Unsupervised Learning</h2>
+<ul>
+<li>Given data set, not necessarily with knowledge of the data, find some structure to data (clustering of data)</li>
+<li>Algorithm will discover conclusive information and structure from data</li>
+<li>Ex: Cocktail party algorithm, takes audio inputs of two speakers, separate to independent files</li>
+<li>Ex: group people with similar genetics together in clusters</li>
+<li>Octave is a language tailored well to Machine Learning.</li>
+</ul>
+<h2 id="linear-regression-one-var">Linear Regression One Var</h2>
+<p>In regression problems, given input variables, try to find a continuous expected result function</p>
+<ul>
+<li>univariate linear regression is used to predict a single output value y from single input x</li>
+<li>supervised learning, we have an idea of what input/output should be</li>
+<li>
+<strong>Hypothesis function</strong> is of the form of linear approximation: <code>ŷ = h.theta(x) = theta0 + theta1•x</code><ul><li>based on random guesses and iterations, the hypothesis function fits itself to the training data</li></ul>
+</li>
+<li>
+<strong>Cost Function</strong> measures the accuracy of our hypothesis function<ul>
+<li>use squared error function, or <em>mean squared error</em> function <code>J(theta0, theta1) = (1/2)•x̄</code>, where <code>x̄</code> is the mean squared error</li>
+<li>we define error as <code>ŷi-yi</code>, square each difference and take the mean of these</li>
+<li>since we're calculating the distance from hypothesis to actual values, we want euclidean distance</li>
+<li>sum of squares has the nice property of punishing overestimation and underestimation equally</li>
+<li>squaring function can be differentiated, yielding linear forms which can be used for optimization</li>
+<li>sum of squares is a convex cost function, guaranteeing a global min for convergence</li>
+<li>absolute value functions are non differentiable, so sum of squares is superior</li>
+</ul>
+</li>
+</ul>
+<h2 id="gradient-descent">Gradient Descent</h2>
+<p>Recall that the gradient vector <code>∇f = (fx, fy)</code> is like a derrivative for a field (fx = ∂f/∂x)</p>
+<ul>
+<li>if we graph the hypothesis function based on its fields theta0 and theta1 (graphing the cost function as a function of the parameter estimates)<ul><li>that is, if we tested all possible inputs for theta0 and theta1 in a constrained x-y region, plotting the resulting cost function on the z-axis, we get 3D curve that we can find the local min of using constrained optimization</li></ul>
+</li>
+<li>
+<strong>gradient descent</strong> is recursively finding the derivative at some point, following the tangent line's slope down closer to the min<ul>
+<li><em>reminds me of applying <a href="https://en.wikipedia.org/wiki/Newton%27s_method_in_optimization">Newton's method</a> for approximating the absolute minimum</em></li>
+<li>the size of each step is determined by the <em>learning rate</em>, related to the parameter α</li>
+<li>repeat until convergence: θ<sub>j</sub> := θ<sub>j</sub> - α•∂/∂θ<sub>j</sub> • J(theta0,theta1)</li>
+</ul>
+</li>
+<li>α is the learning rate, too low is slow and too high results in divergence</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

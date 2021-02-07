@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Rewrite Module</title>
+</head>
+<body>
+
+<h1 id="rewrite-module">Rewrite Module</h1>          <a href="index.html">Back to Production-Engineering/NGINX</a>
+<p>Used to change request URI using regexs, return redirects, conditional configurations. Processed in the following order:</p>
+<ul>
+<li>first, directives of this module that are specified in the server context are executed sequentially</li>
+<li>then each location is searched based on a request URI<ul>
+<li>directives of the rewrite module in the location context are executed sequentially</li>
+<li>the loop is repeated if a request URI was rewritten</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

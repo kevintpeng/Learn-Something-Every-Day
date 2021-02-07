@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Amazon Elastic Compute Cloud</title>
+</head>
+<body>
+
+<h1 id="amazon-elastic-compute-cloud">Amazon Elastic Compute Cloud</h1>          <a href="index.html">Back to AWS</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#scripting">Scripting</a></li>
+<li>
+<a href="#block-device-mapping"></a><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html">Block Device Mapping</a>
+</li>
+</ul>
+</div>
+<p>Compute is the amount of resources (Memory, CPU, Network Performance, Storage) required to fulfill a workload. EC2 is Amazon's offering for compute. There are many flavors that offer different combinations of resources optimized for different kinds of tasks.</p>
+<ul>
+<li>
+<strong>Amazon Machine Images (AMI)</strong> are the initial state for EC2 instances (snapshot of computer state)</li>
+<li>security groups act as a firewall for inbound (and outbound) network traffic</li>
+<li>storage is ephemeral unless an Elastic Block Storage Volume (EBS) is mounted</li>
+<li>three instance types: on-demand, reserved and spot</li>
+<li>spot instances are cheapest and are purchased based on highest bidding customers, which means machines can be shut down at any time based on market demand</li>
+<li>
+<strong>placement groups</strong> are logical groups of instances that allow for co-location within availability zones to reduce network latency</li>
+<li>
+<strong>Elastic Block Store</strong> provides persistent block storage, which is useful for durability where instance storage isn't sufficient<ul>
+<li>magnetic volumes are cheapest</li>
+<li>general-purpose SSD which accumulates I/O operations per second (IOPS) credits when inactive and otherwise are slightly rate limited for cost efficiency</li>
+<li>provisioned IOPS SSDs allow you to specify I/O requirements and pay for what you need</li>
+<li>EBS contends for some of the network throughput for an instance, and I imagine that I/O operations have significantly higher latency than on instance storage while costing more</li>
+</ul>
+</li>
+<li>Amazon EBS-optimized instances ensure additional dedicated network capacity for the EBS I/O</li>
+</ul>
+<h3 id="scripting">Scripting</h3>
+<p><code>user data</code> is a configurable parameter that allows execution of scripts or configuration tasks</p>
+<ul>
+<li>two types are shell scripts and cloud-init directives</li>
+<li>cloud-init is a tool across many linux distributions for automating config and setup alongside AMIs or as a part of AMIs</li>
+</ul>
+<h3 id="block-device-mapping"><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html">Block Device Mapping</a></h3>
+<p>Each system has an associated root device volume (EBS or instance store). Block device mapping allows additional EBS or instances store volumes to be attached to the system on launch.</p>
+<ul><li>a <strong>block device</strong> is a OS-level concept</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

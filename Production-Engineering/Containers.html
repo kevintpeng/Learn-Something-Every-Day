@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Operating-system-level virtualization</title>
+</head>
+<body>
+
+<h1 id="operating-system-level-virtualization">Operating-system-level virtualization</h1>          <a href="index.html">Back to Production-Engineering</a>
+<p>OS level virtualization is a method for making multiple user-spaces on top of an existing kernel. The purpose is to create isolation between possibly distrusting processes from different users, allowing multiple applications to be consolidated onto a single system. Instances, called containers, may look like a real computer to the process. Hardware capabilities and files are isolated too. Many kernels has resource management capabilites that limit the impact of one container's resource use on another. Furthermore, cluster management systems can provide a "resource quality of service" which can describe how strong a guarantee it wishes to make to each different process based on importance.</p>
+<p>OS level virtualization, in contrast to hardware virtualization, only needs to create user-spaces while leveraging the host's kernel and architecture. Hardware virtualization is a full emulation of hardware features like instruction sets, interrupts and memory access. As a result, OS level virtualization is much faster as it has little to no overhead and uses the normal system call interface. Both aim to achieve isolation and thus have the same benefits as a result. One limitation of OS level virtualization is that the container must run on an OS that uses the same kernel as the host. Windows and linux OS's are not compatible for example.</p>
+<p>Overall, isolation from containers enables better use of resources, reducing wasted resources on idle processes and allowing bare metal hosts to divide its resources among many applications in a controlled and isolated environment.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

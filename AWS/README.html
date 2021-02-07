@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>AWS</title>
+</head>
+<body>
+
+<h1 id="aws">AWS</h1>          <a href="index.html">Back to AWS</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li>
+<a href="#security"></a><a href="./Security.md">Security</a>
+</li>
+<li><a href="#deploying-on-compute-services">Deploying on Compute Services</a></li>
+</ul>
+</div>
+<h3 id="overview">Overview</h3>
+<p>Amazon's cloud computing platform, allows faster turn around time on ideation to execution for server infrastructure and eliminates a large capital expense of setting up one's own hardware</p>
+<ul><li>provided in many regions worldwide, each broken down by availability zones</li></ul>
+<h4 id="compute-and-networking-services">Compute and Networking Services</h4>
+<ul>
+<li>
+<a href="./EC2.md"><strong>Elastic Cloud Compute (EC2)</strong></a> provides resizable virtual computer that pull from a massive pool of compute resources</li>
+<li>
+<strong>AWS Lambda</strong> is a back-end compute platform that runs on EC2, that is administrated by Amazon</li>
+<li>
+<a href="./Scaling%20Up.md"><strong>Auto scaling</strong></a> allows EC2 capacity to be automatically increased or decreased based on logic defined by the owner</li>
+<li>
+<strong>Elastic Load Balancer (ELB)</strong> offers traffic distribution over a set of EC2 instances</li>
+<li>
+<strong>Elastic Beanstalk</strong> is a full feature platform for running web applications in AWS, without needing to deal with the infrastructure</li>
+<li>
+<a href="./VPC.md"><strong>Amazon Virtual Private Cloud (Amazon VPC)</strong></a> allows you to provision a logically isolated section of AWS cloud, with configurable subnets and route tables</li>
+<li>
+<strong>Amazon Direct Connect</strong> provides a network path to connect on-premise hardware directly to the VPC through a VPN which may reduce latency compared to an over-the-internet solution</li>
+<li>
+<a href="./Route%2053.md"><strong>Route 53</strong></a> is a DNS web service allowing you to purchase and manage domains</li>
+</ul>
+<h4 id="storage-and-content-delivery">Storage and Content Delivery</h4>
+<ul>
+<li>
+<a href="./S3.md"><strong>Amazon Simple Storage Service (S3)</strong></a> is a cost effective object storage system</li>
+<li>
+<strong>Amazon Glacier</strong> is an <em>extremely</em> low cost storage system, optimized for infrequent access</li>
+<li>
+<a href="./EBS.md"><strong>Elastic Block Storage (EBS)</strong></a> offers persistent storage volumes to be mounted on EC2 instances</li>
+<li>
+<strong>AWS Storage Gateway</strong> facilitates connections between on-premise applications and AWS storage infrastructure and provides a cache<ul>
+<li>three configurations: gateway-cached volumes, gateway-stored volumes and gateway-virtual tape libraries</li>
+<li>gateway-cache volumes allow you to expand local storage capacity using S3 for up to 1 PB of data/gateway</li>
+<li>gateway-stored volumes allow you to back up local storage onto S3</li>
+<li>gateway virtual tape libraries are for archiving data</li>
+</ul>
+</li>
+<li>
+<strong>Amazon Cloudfront</strong> is a CDN service<ul>
+<li>useful for globally distributed consumers of some AWS resource, uses geo-location to route users to the closest cache; edge location</li>
+<li>cache eviction can be forced, otherwise it depends on the TTL for objects<ul><li>caches can be configured to invalidate certain old records (based on Time To Live), but asset versioning at the API level is best practice</li></ul>
+</li>
+<li>not for single location users</li>
+<li>optimized to work with S3 objects and EC2 or ELB</li>
+<li>can be used for dynamic content, with multiple origins, and can be configured for different cache behavior as needed</li>
+</ul>
+</li>
+<li>
+<strong>AWS Direct Connect</strong> establishes a direct private connection between a datacenter and AWS, without going over the internet</li>
+</ul>
+<h4 id="database-services">Database Services</h4>
+<ul>
+<li><strong>Amazon Relational Database Service (RDS)</strong></li>
+<li>
+<strong>Amazon DynamoDB</strong> NoSQL offering, document and key value storage</li>
+<li>
+<strong>Redshift</strong> is a data warehousing offering, columnar storage (like tableau) with SQL interface</li>
+<li>
+<a href="./ElastiCache.md"><strong>ElastiCache</strong></a> provides managed deployments of Memcached or Redis</li>
+</ul>
+<h4 id="data-services">Data Services</h4>
+<ul>
+<li>
+<strong>Amazon Kinesis Analytics</strong> consumes and processes stream data with SQL</li>
+<li>
+<strong>Amazon Kinesis Stream</strong> is made up of shards, each of which can consume up to 1000 PUTS/s and scales linearly<ul>
+<li>manually provisioned capacity</li>
+<li>data is loaded using HTTPS, Kinesis Client Library, Kinesis Producer Library and the Kinesis Agent</li>
+<li>by default, available in a stream for 24 hours, configurable up to 7 days</li>
+</ul>
+</li>
+<li>
+<strong>Amazon Kinesis Firehose</strong> captures and loads streaming data into S3 and Redshift<ul><li>automatically meets load demands</li></ul>
+</li>
+</ul>
+<h4 id="management-services">Management Services</h4>
+<ul>
+<li>
+<strong>CloudWatch</strong> is a general monitoring service which collects metrics, log files, and sets alarms</li>
+<li>
+<strong>CloudFormation</strong> is a tool for provisioning hardware, as declared through a json interface</li>
+<li>
+<strong>CloudTrail</strong> is a service that tracks AWS API calls and ties them to users (API callers)</li>
+<li>
+<strong>AWS Config</strong> is useful for compliance and asserting that configurations are in place to meet regulations (as defined by config rules)</li>
+<li>
+<strong>AWS Trusted Advisor</strong> automatically makes recommendations on cost, security, and performance on your whole AWS environment</li>
+<li>
+<strong>EC2 Systems Manager</strong> is for applying OS patches, OS configurations and running commands across many machines</li>
+<li>
+<strong>Amazon Inspector</strong> looks at EC2 instances for common issues and security vulnerabilities</li>
+</ul>
+<h4 id="identity-management"><a href="./IAM.md">Identity Management</a></h4>
+<ul><li>
+<strong>Amazon Identity Access Management (Amazon IAM)</strong> controls permissions for AWS<ul>
+<li>
+<strong>Amazon KMS (key management system)</strong> can create and manage keys</li>
+<li>can rotate keys</li>
+</ul>
+</li></ul>
+<h3 id="security"><a href="./Security.md">Security</a></h3>
+<ul>
+<li>
+<strong>AWS Directory Services</strong> is a managed offering of Microsoft AD, Simple AD and AD connector<ul><li>AD uses LDAP (Lightweight Directory Access Protocol), which handles authentication and identity management</li></ul>
+</li>
+<li><strong>Key Management Service (KMS)</strong></li>
+</ul>
+<h3 id="deploying-on-compute-services">Deploying on Compute Services</h3>
+<p><strong>Auto-scaling groups</strong> is a collection of EC2 instances <em>(kinda like kubernetes controllers)</em></p>
+<ul>
+<li>provides mechanism for replication</li>
+<li>provides auto-healing via http endpoints or using an ELB</li>
+</ul>
+<p><strong>Launch Configuration</strong> is a template for ASG's to use</p>
+<ul><li>uses AMI (Amazon Machine Image) as snapshot to build off of</li></ul>
+<p><strong>Elastic Load Balancer (ELB)</strong> is a proxy that can be used as a network load balancer</p>
+<ul>
+<li>can be used for health checks</li>
+<li>health checks typically used to determine which EC2 instance to route to</li>
+<li>can be used for single endpoint health checks too, with customizable parameters</li>
+<li>ASG can rely on ELB health checks to determine when to recreate an instance</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

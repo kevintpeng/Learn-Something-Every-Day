@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>NGINX Caching</title>
+</head>
+<body>
+
+<h1 id="nginx-caching">NGINX Caching</h1>          <a href="index.html">Back to Production-Engineering/NGINX</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#splitting-a-cache">Splitting a Cache</a></li>
+<li><a href="#http-headers">HTTP Headers</a></li>
+</ul>
+</div>
+<ul>
+<li>to enable caching, <code>proxy_cache_path</code> directive at the top level of <code>http</code> context<ul>
+<li>takes first parameter, local filesystem path for cached content</li>
+<li>second parameter, <code>keys_zone</code> defines the name and size of the shared memory zone, used to store metadata about cached items</li>
+<li><code>proxy_cache_path /data/nginx/cache keys_zone=one:10m;</code></li>
+</ul>
+</li>
+<li>
+<code>proxy_cache</code> directive in the context for which you want to cache server responses, specifying zone name</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">proxy_cache_path</span> /path/to/cache levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m
+                 <span class="va">use_temp_path=</span>off;
+
+<span class="ex">server</span> {
+    <span class="co"># ...</span>
+    <span class="ex">location</span> / {
+        <span class="ex">proxy_cache</span> my_cache<span class="kw">;</span>
+        <span class="ex">proxy_cache_lock</span> on<span class="kw">;</span>
+
+        <span class="ex">proxy_pass</span> http://my_upstream<span class="kw">;</span>
+    }
+}</code></pre></div>
+<p>In location context:</p>
+<ul>
+<li>
+<code>proxy_cache_revalidate on;</code> instructs nginx to use conditional GET requests when refreshing content from origin if client requests a resource that is cached but expired by the cache control headers, then nginx uses the If-Modified-Since field in the header of the GET</li>
+<li>
+<code>proxy_cache_min_uses 3;</code> number of requests before nginx caches the request</li>
+<li>
+<code>proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;</code> determines when stale content should be served (<a href="http://serverfault.com/questions/752838/nginx-use-proxy-cache-if-backend-is-down">see SO question</a>)<ul>
+<li>the <code>updating</code> parameter instructs nginx to deliver stale content while an update is being downloaded from the upstream server (avoids multiple requests to the upstream server)</li>
+<li>
+<code>error</code> permits using stale cached responses if the proxied server cannot be selected</li>
+</ul>
+</li>
+<li>
+<code>proxy_cache_lock on/off;</code> only allows one request at a time to populate a new cache element (according to <code>proxy_cache_key</code>). All cache 'MISS' will wait for the first request to be satisfied, then pull from the cache<ul><li>can be used to minimize the number of accesses to proxied servers, reducing load</li></ul>
+</li>
+<li>
+<code>proxy_next_stream</code> directive defines a failover upstream server to request to (has exact same parameters as <code>use_stale</code>)</li>
+</ul>
+<h3 id="splitting-a-cache">Splitting a Cache</h3>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">proxy_cache_path</span> /path/to/hdd1 levels=1:2 keys_zone=my_cache_hdd1:10m max_size=10g 
+                 <span class="va">inactive=</span>60m <span class="va">use_temp_path=</span>off;
+<span class="ex">proxy_cache_path</span> /path/to/hdd2 levels=1:2 keys_zone=my_cache_hdd2:10m max_size=10g 
+                 <span class="va">inactive=</span>60m <span class="va">use_temp_path=</span>off;
+
+<span class="ex">split_clients</span> <span class="va">$request_uri</span> <span class="va">$my_cache</span> {
+              <span class="ex">50%</span>          “my_cache_hdd1”<span class="kw">;</span>
+              <span class="ex">50%</span>          “my_cache_hdd2”<span class="kw">;</span>
+}
+
+<span class="ex">server</span> {
+    <span class="co"># ...</span>
+    <span class="ex">location</span> / {
+        <span class="ex">proxy_cache</span> <span class="va">$my_cache</span><span class="kw">;</span>
+        <span class="ex">proxy_pass</span> http://my_upstream<span class="kw">;</span>
+    }
+}</code></pre></div>
+<h3 id="http-headers">HTTP Headers</h3>
+<p><code>add_header X-Cache-Status $upstream_cache_status;</code> adds the cache status in the response:</p>
+<ul>
+<li>
+<code>MISS</code> not cached</li>
+<li>
+<code>BYPASS</code> response was fetched from origin instead of cache</li>
+<li>
+<code>EXPIRED</code> the entry in the cache has expired, responds with the origin server content</li>
+<li>
+<code>STALE</code> origin was not responding, so content was served based on <code>proxy_cache_use_stale</code> configurations</li>
+<li>
+<code>UPDATING</code> stale because proxy is updating <code>proxy_cache_use_stale updating</code>
+</li>
+<li>
+<code>REVALIDATED</code> the <code>proxy_cache_revalidate</code> directive was enabled and verified that content was valid</li>
+<li><p><code>HIT</code></p></li>
+<li>Nginx respects <code>Cache-Control</code> headers from the origin server by default</li>
+<li>does not cache Private, No-Cache, No-Store, or responses with a <code>Set-Cookie</code> header</li>
+<li><p>also only caches <code>GET</code> and <code>HEAD</code> requests from clients</p></li>
+</ul>
+<p><a href="https://www.nginx.com/blog/nginx-caching-guide/">source</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

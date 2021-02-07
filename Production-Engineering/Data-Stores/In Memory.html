@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>In-memory Data Stores</title>
+</head>
+<body>
+
+<h1 id="in-memory-data-stores">In-memory Data Stores</h1>          <a href="index.html">Back to Production-Engineering/Data-Stores</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#redis">Redis</a><ul><li><a href="#advantages-of-redis">Advantages of Redis</a></li></ul>
+</li>
+<li>
+<a href="#memcached">Memcached</a><ul>
+<li><a href="#what-is-it-made-up-of">What is it made up of</a></li>
+<li><a href="#memcached-vs-redis">Memcached vs Redis</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="redis">Redis</h2>
+<p>Redis is a data store, useful for simplifying a system, increasing responsiveness, and capable of working in addition to other SQL and NoSQL servers.</p>
+<p>Redis is a data structures server, using key-value storage format (like hashes) with support for different types of values. Redis can hold more complex data structures than regular key-value stores.</p>
+<h3 id="advantages-of-redis">Advantages of Redis</h3>
+<ul>
+<li>It doesn't have to replace elements of the current tech stack, it can be <strong>added to the current stack</strong>.</li>
+<li>Disk persistent memory makes data retrieval much faster than SQL and NoSQL data stores.</li>
+</ul>
+<p><a href="http://oldblog.antirez.com/post/take-advantage-of-redis-adding-it-to-your-stack.html">source</a></p>
+<h2 id="memcached">Memcached</h2>
+<p>Memory object caching system.</p>
+<ul>
+<li>speeds up dynamic web applications<ul><li>lightening database loads</li></ul>
+</li>
+<li>in-memory key-value store for small database and api calls, or page rendering</li>
+<li>allows you to make better use of available cache space from multiple web servers<ul><li>done by combining the cache size of multiple servers into one combined cache</li></ul>
+</li>
+</ul>
+<p><img src="https://memcached.org/memcached-usage.png" alt="diagram"></p>
+<h3 id="what-is-it-made-up-of">What is it made up of</h3>
+<ul>
+<li>client software, which is given a list of available memcached servers</li>
+<li>client-based hashing algorithm which chooses a server based on the "key"</li>
+<li>server software, stores values with their keys into a hash table</li>
+<li>LRU (algorithm), which determines when to discard old memory</li>
+</ul>
+<p>Half server, half client logic</p>
+<ul>
+<li>clients choose which server to read and write from</li>
+<li>servers manage storage and implement LRU</li>
+<li>servers are unaware of each other</li>
+</ul>
+<h3 id="memcached-vs-redis">Memcached vs Redis</h3>
+<p>Both in memory key/val lookup tables, for high speed/availability.</p>
+<ul>
+<li>both cluster, add in memory objects without needing to reference a data store</li>
+<li>comparable access speeds</li>
+<li>past a single instance, they have different deployed and scaled architectures</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

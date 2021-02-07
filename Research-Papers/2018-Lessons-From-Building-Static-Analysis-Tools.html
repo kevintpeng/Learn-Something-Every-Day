@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>2018 Lessons from Building Static Analysis Tools at Google</title>
+</head>
+<body>
+
+<h1 id="lessons-from-building-static-analysis-tools-at-google"><a href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/3198e114c4b70702b27e6d88de2c92734c9ac4c0.pdf">2018 Lessons from Building Static Analysis Tools at Google</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#problem">Problem:</a></li>
+<li><a href="#solution">Solution:</a></li>
+<li><a href="#issues">Issues:</a></li>
+<li><a href="#my-thoughts-on-the-article">My thoughts on the article:</a></li>
+</ul>
+</div>
+<h3 id="problem">Problem:</h3>
+<p>The motivation is that software bugs can be costly. They enumerated the "goto error" and other prolific bugs that unfolded at Google, as examples where static analysis could have avoided the costly errors. Static analysis is relatively cheap compared to dynamically running code, for the purpose of finding simple bugs. Bugs also often have a greater impact than simply downtime and financial opportunity cost. They can affect customer trust in software, and decrease usage rates.</p>
+<h3 id="solution">Solution:</h3>
+<p>Static analysis tools are a subset of developer tools, for the purpose of checking for bugs in source code. Static analysis is run on source code (statically, so just looking at the text and not running it in a dynamic environment).</p>
+<h3 id="issues">Issues:</h3>
+<p>False positives in static analysis can lose developer trust in the system. They found that developers were already reluctant to use such tools, and that any false positives negatively affected perception of the tool. Developers were more receptive to potential false positives when presented them as warnings in code review. Up to 10% false positives were tolerable by devlopers, in warnings from code review.</p>
+<p>It was found that developer satisfaction with the tool was the most important criteria for success. Some key takeaways are:</p>
+<ul>
+<li>static analysis authors should focus on developer feedback</li>
+<li>workflow integration is key for adoption<ul><li>checks as compiler time errors, for important errors</li></ul>
+</li>
+<li>scale by crowdsourcing anaylsis development</li>
+</ul>
+<h3 id="my-thoughts-on-the-article">My thoughts on the article:</h3>
+<p>I like how they applied the scientific process to how they iterate, by collecting data and reviewing feedback and surveys. They also heavily emphasized the importantace of customer market fit and satisfaction, even for internal tools. This is an important takeaway for me. It's very easy for internal tools teams to not have product managers and worry less about customer feedback, when in fact it is the most important aspect of building tools.</p>
+<p>Under the assumption of correctness, glazing over technical implementation details, the high level message here is that developer tools need to be effective in communicating their output, and integration into developer's workflow is key. A tool that is hard to understand is detrimental to productivity.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

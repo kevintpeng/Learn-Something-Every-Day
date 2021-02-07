@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Dynamic Programming -- source</title>
+</head>
+<body>
+
+<h1 id="dynamic-programming----source">Dynamic Programming -- <a href="https://people.eecs.berkeley.edu/~vazirani/algorithms/chap6.pdf">source</a>
+</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul><li><a href="#subset-sum-problem">Subset sum problem</a></li></ul>
+</div>
+<ul>
+<li>in directed acyclic graphs can be <em>linearized</em>: ordered in an array</li>
+<li>if we want to minimize distance in a weighted graph, and both A and B point to C, then <code>dist(C) = min{dist(A) + AC, dist(B) + BC}</code>
+</li>
+<li>solving a collection of subproblems, <code>{dist(u) : u in V}</code> from left to right</li>
+<li>dynamic programming is breaking a problem into solving subproblems, and using previous subproblems to solve later subproblems</li>
+<li>longest increasing subsequence problem (not necessarily consecutive) can be solved using DP<ul>
+<li>construct a graph, with directed edges between each node whenever possible, forming a dag</li>
+<li>now find longest path in dag, and track previous node and backtrack for the actual subsequence</li>
+</ul>
+</li>
+<li>edit distance: the cost of the best possible alignment between two strings<ul>
+<li>minimum edits (insertion, deletion, replacement)</li>
+<li>our subproblem will be finding the edit distance between a prefix of s1 and s2</li>
+</ul>
+</li>
+</ul>
+<h2 id="subset-sum-problem">Subset sum problem</h2>
+<ul><li>NP complete problem; is there a subset whose sum is 0?</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

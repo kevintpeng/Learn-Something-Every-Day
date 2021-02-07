@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Byzantine Quorum Systems</title>
+</head>
+<body>
+
+<h1 id="byzantine-quorum-systems"><a href="http://pmg.csail.mit.edu/papers/osdi99.pdf">Byzantine Quorum Systems</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul><li><a href="#impossible-sometimes">Impossible sometimes</a></li></ul>
+</div>
+<p><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/The-Byzantine-Generals-Problem.pdf">Byzantine Generals' Problem</a> is an agreement problem, where armies surround a city and must decide to attack or retreat, with the presence of traitorous generals.</p>
+<ul>
+<li>the algorithm must allow (A) all loyal generals to agree upon the same plan of action, and (B) guarantee that a small number of traitors cannot cause the loyal generals to adopt a bad plan</li>
+<li>if it's formalized as V(i) is some information for the <code>i th</code> general, then we achieve the desired results by having all loyal generals use the same method for combining and using a robust method to do so</li>
+</ul>
+<p>For A, we need</p>
+<ol>
+<li>every loyal general to obtain the same information. <em>Can't use value obtained directly from the <code>i th</code> general, otherwise he could send different values to different loyal generals</em>
+</li>
+<li>if <code>i th</code> general is loyal, then the value he sends must be used by every loyal general as v(i).</li>
+</ol>
+<h3 id="impossible-sometimes">Impossible sometimes</h3>
+<p>Turns out the Byzantine Generals Problem is not solvable unless more than 2/3 of the generals are loyal</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

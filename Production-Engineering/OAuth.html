@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>OAuth -- source</title>
+</head>
+<body>
+
+<h1 id="oauth----source">OAuth -- <a href="https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth">source</a>
+</h1>          <a href="index.html">Back to Production-Engineering</a>
+<ul>
+<li>open standard for auth, for gaining "secure delegated access"<ul><li>an example is using facebook to login</li></ul>
+</li>
+<li>instead of using several username-passcode pairs, OAuth enables SSO, where you have just one username-passcode to access several independent systems</li>
+<li>public and confidential clients: confidential are applications that are trusted to store secrets. i.e. not a binary with encoded secrets distributed over the app store<ul><li>an example of a confidential client is a server running some api</li></ul>
+</li>
+<li>access tokens are short lived OAuth tokens in order to access the resource server</li>
+<li>refresh tokens are long lived (days, years) which can be revoked, and should be stored on a confidential client</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

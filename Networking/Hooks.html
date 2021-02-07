@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Hooks</title>
+</head>
+<body>
+
+<h1 id="hooks">Hooks</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#callback">Callback</a></li>
+<li><a href="#webhooks">Webhooks</a></li>
+</ul>
+</div>
+<p>Hooking describes a range of techniques for altering behaviour of some software component by intercepting function calls, message or events passed between software components.</p>
+<ul>
+<li>debugging</li>
+<li>extending functionality</li>
+<li>intercepting hardware events (mouse clicks)</li>
+</ul>
+<h3 id="callback">Callback</h3>
+<p>A callback is a piece of executable code passed as an argument to be called back later.</p>
+<ul>
+<li>implemented as subroutines, lambda expressions, function pointers</li>
+<li>synchronous callbacks called in the function code</li>
+<li>deferred callbacks called after the function returns</li>
+</ul>
+<h3 id="webhooks">Webhooks</h3>
+<p>A method of augmenting or altering the behaviour of a web page using callbacks.</p>
+<ul>
+<li>"user-defined HTTP callbacks"</li>
+<li>often triggered by some event (pushing code to a repo), comment posting...</li>
+<li>upon event, the source site makes an HTTP request to the URI configured for the webhook<ul>
+<li>with github, webhooks allow you to build or set up integrations around events</li>
+<li>updated external trackers, trigger CI builds, update backup mirror, deploy to production</li>
+<li>webhook can be installed on an organization or repo</li>
+</ul>
+</li>
+<li>
+<a href="https://developer.github.com/webhooks/#events">github</a> has a list of events that can trigger webhooks</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

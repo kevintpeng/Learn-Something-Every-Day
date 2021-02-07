@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Chef</title>
+</head>
+<body>
+
+<h1 id="chef">Chef</h1>          <a href="index.html">Back to Production-Engineering/Chef</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#background">Background</a></li>
+<li><a href="#workstations-developer-tools-knife">Workstations (developer tools, <code>knife</code>)</a></li>
+<li><a href="#chef-repo">chef-repo</a></li>
+<li><a href="#nodes-and-chef-clients">Nodes and Chef Clients</a></li>
+<li><a href="#chef-server">Chef Server</a></li>
+<li><a href="#cookbooks">Cookbooks</a></li>
+<li><a href="#policy">Policy</a></li>
+<li><a href="#roles">Roles</a></li>
+<li><a href="#attributes">Attributes</a></li>
+<li><a href="#environment">Environment</a></li>
+</ul>
+</div>
+<p>A configuration management tool in Ruby and Erlang.</p>
+<ul>
+<li>uses a ruby-based DSL for writing system configuration "recipes"</li>
+<li>streamlines the task of configuring and maintaining a company's servers</li>
+<li>automates how applications are configured, deployed, managed</li>
+<li>integrates with cloud-based platforms (Amazon EC2, Google Cloud, OpenStack, Microsoft Azure)<ul><li>used to automatically provision new machines</li></ul>
+</li>
+<li>provides abstraction to make reasoning about infrastructure easier</li>
+</ul>
+<p>TL;DR, chef configures and provisions nodes (a network of machines known to the chef server) on a chef-client run, by building a run-list (from roles and recipes, to bring the node to the desired state) and a set of attributes to check the node's state (defined by the node, cookbooks and roles).</p>
+<h3 id="background">Background</h3>
+<ul>
+<li>virtualization and containers are two technologies that have changed how infrastructure is deployed and managed<ul><li>Containers allow a single machine to host many working configurations.</li></ul>
+</li>
+<li>both improve scale and ease of deployment (in theory)</li>
+<li>both provide encapsulation as a service, which creates consistent environments across many machines</li>
+<li>with cloud computing and NFV, both enable rapid deployment of services and applications to match demand</li>
+</ul>
+<h4 id="provisioning-configuration">Provisioning != Configuration</h4>
+<ul>
+<li>Provisioning is a set of actions to prepare a server with appropriate systems and software (OS, image)<ul><li>is the creation of machines, or building docker images for containers (Packer builds any infrastructure image type with chef-client as the provisioner)<br>
+</li></ul>
+</li>
+<li>Configuration is setting up application specific dependencies and structure<ul><li>example: a load balancer needs to know which pool of servers to select from, what IP address to use so clients can connect</li></ul>
+</li>
+</ul>
+<h3 id="workstations-developer-tools-knife">Workstations (developer tools, <code>knife</code>)</h3>
+<p>Chef Development kit bundles all tools together, for setting up a developer environment.</p>
+<ul>
+<li>Knife is a cli that provides an interface between a local chef-repo and the chef server<ul>
+<li>manages nodes, cookbooks, roles, stores of JSON data, environments, cloud resources</li>
+<li>interacts with the chef server uning the same REST API as the chef-client</li>
+</ul>
+</li>
+<li>the chef-repo is the repository structure in which cookbooks are created and stored</li>
+<li>
+<code>knife.rb</code> file is used to tspecify the chef-repo-specific (company specific?) configuration details for knife</li>
+<li>
+<code>metadata.rb</code> is in every cookbook, specifies info to the chef server<ul><li>cookbook name, maintainer, semver, description</li></ul>
+</li>
+</ul>
+<h3 id="chef-repo">chef-repo</h3>
+<p>Master repo of all cookbooks, roles, data bags, environments, config files for clients, workstations, and servers. <code>knife</code> loads data to the chef server from the chef-repo.</p>
+<p><code>Cooker</code> runs on the Chef Server, and modifies this structure, by handling interaction with the chef server (automatic uploading cookbooks, roles and data bags). It creates separate chef environments for each branch.</p>
+<p>Sub-directories:</p>
+<ul>
+<li>
+<code>.chef/</code>, hidden directory stores validation key files and <code>knife.rb</code>
+</li>
+<li>
+<code>cookbooks/</code>, contains cookbooks (custom or upstream)<ul>
+<li>upstream cookbooks can be managed with <a href="https://github.com/applicationsonline/librarian-chef">librarian</a>
+</li>
+<li>
+<code>Cheffile</code> contains all upstream cookbooks to be vendored</li>
+</ul>
+</li>
+<li>
+<code>data_bags/</code>, stores json data, keys, iv, ciphers</li>
+<li>
+<code>roles/</code>, stores files that define the roles that are available to the chef server<ul><li>defines a pattern or process that exists across nodes</li></ul>
+</li>
+</ul>
+<h3 id="nodes-and-chef-clients">Nodes and Chef Clients</h3>
+<ul>
+<li>A node is any machine --physical or virtual --that is under management by Chef</li>
+<li>chef-client is installed on every node<ul>
+<li>chef-client performs configuration tasks specified by run-list, to bring the node to an expected state</li>
+<li>chef-client will pull configuration data from Chef server while running</li>
+</ul>
+</li>
+<li>types of nodes include physical servers, cloud-based nodes, virtual machines, containers (virtualization, allowing a single OS to host many working configurations)</li>
+<li>Ohai is a tool that detects attributes on a node (platform details, network usage, memory, CPU, kernel, host names...)</li>
+</ul>
+<h4 id="chef-client-run">chef-client Run</h4>
+<p>A series of steps taken by the chef-client when it is <strong>configuring</strong> a node.</p>
+<p><img src="https://docs.chef.io/_images/chef_run.png" alt="chef run diagram"></p>
+<ul>
+<li>chef client gets process configuration data from <code>client.rb</code> on the node, then gets node config data from Ohai<ul><li>
+<code>node_name</code> attribute is important in client.rb</li></ul>
+</li>
+<li>Authenticate to the Chef Server using an RSA private key and the chef server api<ul><li>name of node is required for authentication</li></ul>
+</li>
+<li>Get and rebuild the node object; gets node object from the chef server, if first chef-client run for the node, there will not be a node to pull down from the chef server</li>
+<li>Expand the run-list; compiles a full list of roles and recipes that will be applied to the node (run-list is stored in each node object's JSON file, grouped under <code>run_list</code>
+</li>
+<li>Sync cookbooks; chef-client asks chef server for list of all cookbook files needed, compares to cached cookbook files currently on the node and updates as necessary</li>
+<li>chef-client identifies each resource (smallest unit of configuration) in the node object</li>
+</ul>
+<h4 id="run-list">Run-list</h4>
+<p>The run-list defines all of the info necessary for Chef to configure a node into the desired state</p>
+<ul>
+<li>it is an ordered list of <strong>roles and/or recipes</strong> that need to be run</li>
+<li>always specific to the node which it runs</li>
+<li>stored as a part of the node object on the chef server</li>
+</ul>
+<h4 id="node-object">Node Object</h4>
+<p>For the chef-client, two important aspects of nodes are groups of attributes and run-lists.</p>
+<ul>
+<li>the node object consists of the run-list and node attributes</li>
+<li>JSON file stored on the Chef server</li>
+<li>chef-client gets a copy of the node object from the chef server, on each chef-client run, then places an updated copy back on the server after the run</li>
+</ul>
+<h3 id="chef-server">Chef Server</h3>
+<ul>
+<li>Server acts as a hub of information</li>
+<li>cookbooks and policy settings are uploaded by workstations</li>
+<li>chef-client accesses server from the node it's installed on<ul>
+<li>gets config data</li>
+<li>uploads run data</li>
+</ul>
+</li>
+</ul>
+<h3 id="cookbooks">Cookbooks</h3>
+<p>A fundamental unit of configuration and policy distribution. Defines a scenario (specific application for example) and contains everything required to support it. Cookbooks are combined in the configuration process</p>
+<ul>
+<li>attributes can be defined in a cookbook, used to override default settings on a node<ul><li>when cookbooks are loaded during a chef-client run, these attributes are compared to the attributes present in the node</li></ul>
+</li>
+<li>recipes are the most fundamental configuration element within the organization<ul>
+<li>a collection of resources<ul>
+<li>
+<strong>resources</strong> are statements of configuration policy, describing state, declaring steps to reach said state, specifies a resource type (package, template, service), lists additional details</li>
+<li>grouped into recipes, which describe working configurations</li>
+</ul>
+</li>
+<li>must be stored in a cookbook</li>
+<li>may depend on other recipes</li>
+<li>must be added to the run-list before it can be used by the chef-client</li>
+</ul>
+</li>
+</ul>
+<h3 id="policy">Policy</h3>
+<p>Policy maps operational requirements, process, and workflow to settings and objects stored on the Chef server:</p>
+<ul>
+<li>
+<strong>Roles</strong> define server types (web server, database server)</li>
+<li>
+<strong>Environments</strong> define process (dev, staging, production)</li>
+<li>
+<strong>Data Bags</strong> can hold passwords, user account data, sensitive items (nodes must authenticate with the correct SSL certificate)</li>
+<li>Cookbooks</li>
+</ul>
+<h3 id="roles">Roles</h3>
+<p>A role is some set of basic configurations that may be applied to similar servers, playing a similar "role".</p>
+<ul>
+<li>describes what a machine is supposed to do, what responsibilities and settings it has</li>
+<li>roles can be combined on one machine</li>
+</ul>
+<p>Roles use the ruby DSL (a bunch of methods with parameters):</p>
+<pre><code>name "web_server"
+description "A role to configure our front-line web servers"
+run_list "recipe[apt]", "recipe[nginx]"</code></pre>
+<ul>
+<li>base recipes and cookbooks are often used to configure the bare minimum on all nodes</li>
+<li>reference recipes <code>'recipe[&lt;cookbook&gt;::&lt;recipe&gt;]'</code>
+</li>
+<li>references base roles as <code>'role[base]'</code> or if nested <code>/roles/base/packages.rb</code>, use <code>'role[base--packages]'</code>
+</li>
+</ul>
+<h3 id="attributes">Attributes</h3>
+<p>Used by the chef-client to understand</p>
+<ul>
+<li>the current state of the node</li>
+<li>what state the node was at the end of the previous chef-client run</li>
+<li>what the state of the node should be at the end of the current chef-client run</li>
+</ul>
+<p>during every chef-client run, the chef client builds attribute list, defined by:</p>
+<ul>
+<li>the state of the node itself</li>
+<li>cookbooks can define attributes in attribute files or through recipes</li>
+<li>roles and environments define attributes</li>
+<li>data about the node from Ohai</li>
+<li>the node object that was saved to the chef server, on the previous chef-client run</li>
+<li>the rebuilt node object on the current chef-client run</li>
+</ul>
+<h3 id="environment">Environment</h3>
+<p>Taken care of by Cooker, but in regular setup, found in <code>/environments</code></p>
+<ul>
+<li>also in ruby DSL, defines name, desc, cookbook versions, override attributes ...</li>
+<li>environments are set for a node</li>
+</ul>
+<p><a href="./Setup.md">Read setup next</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

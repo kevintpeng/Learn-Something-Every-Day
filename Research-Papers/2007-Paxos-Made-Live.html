@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Paxos Made Live - An Engineering Perspective</title>
+</head>
+<body>
+
+<h1 id="paxos-made-live---an-engineering-perspective"><a href="https://static.googleusercontent.com/media/research.google.com/en//archive/paxos_made_live.pdf">Paxos Made Live - An Engineering Perspective</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<p>Paxos is an algorithm for achieving concensus on a single value in the face of failure due to properties of distributed systems. The basic algorithm is used to manage a single value, while in practice <strong>multi-paxos</strong> is more practical for systems to track multiple (possibly sequential) values</p>
+<ul>
+<li>each instance of paxos has three phases: election of coordinator, broadcasting the value on an accept message, and sending commit messages once consensus is reached</li>
+<li>consensus is reached if a majority of replicas acknowledge an accept message, and a majority guarantees that even if any minority of nodes crashes at a time, at least one node will hold the new committed value</li>
+<li>paxos can possibly have multiple nodes who think that their the coordinator, and so coordinators have ordered numbers to determine who is newer and replicas must promise not to accept requests from older coordinators</li>
+<li>during election, if a replica wants to be coordinator, it must send a propose message to which a majority must promise not</li>
+<li>once consensus is reached, every future coordinator must select the same value to be committed to guarantee continued agreement</li>
+<li>in the response to an agree message, replicas respond to the coordinator with an agreed upon value if consensus has been reached, and because of properties of majorities, it is guaranteed that at least one replica in the current majority was a part of the previous majority that reached consensus</li>
+</ul>
+<p>An implementation of paxos is hundreds of times longer than its psudocode, due to the need of optimizations and features needed to be production ready</p>
+<ul>
+<li>
+<strong>disk corruption</strong> on a replica could lead to a violation of promises made to other nodes<ul><li>needs checksums to verify corruption and markers to distinguish failure and corruption</li></ul>
+</li>
+<li><strong>master leases</strong></li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

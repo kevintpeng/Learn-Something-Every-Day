@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>C++</title>
+</head>
+<body>
+
+<h1 id="c">C++</h1>          <a href="index.html">Back to Languages</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#structs-and-classes">Structs and Classes</a></li>
+<li><a href="#templates">Templates</a></li>
+<li><a href="#vectors">Vectors</a></li>
+<li><a href="#c-map">C++ map</a></li>
+<li><a href="#iterators">Iterators</a></li>
+<li><a href="#algorithms">Algorithms</a></li>
+<li><a href="#reference-parameters">Reference parameters</a></li>
+<li><a href="#dynamic-arrays-new">Dynamic Arrays, <code>new</code></a></li>
+<li><a href="#object-oriented-programming">Object-Oriented Programming</a></li>
+</ul>
+</div>
+<h3 id="structs-and-classes">Structs and Classes</h3>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="kw">struct</span> Coord {
+    <span class="dt">int</span> x,y;
+};
+Coord a; <span class="co">// struct is allocated on the run-time STACK</span>
+a.x = <span class="dv">3</span>; 
+Coord* p; <span class="co">// dynamic instantiation of struct through pointer, on the HEAP.</span>
+p-&gt;x = <span class="dv">4</span>; <span class="co">// pointer attribute</span>
+<span class="kw">delete</span> p; <span class="co">// will persist until explicitly deleted</span></code></pre></div>
+<h3 id="templates">Templates</h3>
+<p>C++ <em>templates</em> are the C++ language mechanism that can be used to implement <em>generic</em> functions and classes. Templates are expanded at compile-time. Vector<int> is an example where vector the defined container for any generic type. The Standard Template Library (STL) provides containers, algorithms, iterators and enables functional programming.</int></p>
+<h4 id="function-template">Function Template</h4>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="kw">template</span>&lt;<span class="kw">class</span> type&gt; ret-type func-name(parameter list){
+    <span class="co">//body</span>
+}</code></pre></div>
+<p>Type generic swap function:</p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;
+<span class="dt">void</span> mySwap(T &amp;x, T &amp;y){
+    <span class="at">const</span> T temp = x;
+    x=y;
+    y=temp;
+}</code></pre></div>
+<h4 id="class-template">Class Template</h4>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="kw">template</span>&lt;<span class="kw">typename</span> type&gt; 
+<span class="kw">class</span> <span class="kw">class</span>-name {
+    <span class="co">// class content</span>
+};</code></pre></div>
+<h3 id="vectors">Vectors</h3>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp">string v;
+vector&lt;string&gt; s1;
+s1.push_back(<span class="st">"alpha"</span>); <span class="co">// puts element at the end</span>
+s1.pop_back(v); <span class="co">// deletes last element, assigns to string v (optional)</span>
+s1.insert(<span class="st">"beta"</span>); <span class="co">// inserts element</span></code></pre></div>
+<h3 id="c-map">C++ map</h3>
+<p><code>map</code> data type implements the idea of a dictionary. <code>map</code>, <code>multipmap</code>, <code>set</code>, <code>multiset</code> are ordered containers.</p>
+<p><code>map&lt;T1, T2&gt; m;</code>,</p>
+<ul>
+<li>where T1 is the <em>key field</em> which must support the <code>&lt;</code> operator (therefore it must be a <em>strict weak ordering</em>, anti-reflexive, anti-symmetric, transitive)</li>
+<li>T2 is the <em>value field</em>, can be anything</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="co">//records number of times each word appears</span>
+map&lt;string, <span class="dt">int</span>&gt; m;
+string token;
+<span class="cf">while</span>(cin &gt;&gt; token){
+    m[token]++;
+}
+m.erase(<span class="st">"the"</span>); <span class="co">// deletes a key</span></code></pre></div>
+<p>C++11 added unsorted versions, <code>unordered_map, unordered_multimap</code>...</p>
+<h3 id="iterators">Iterators</h3>
+<p>A fundamental design pattern, for iterating through a data structure.</p>
+<p>If <code>c</code> is a <code>vector, deque, list, set, etc...</code> then</p>
+<ul>
+<li>
+<code>c.begin</code> returns ptr to first</li>
+<li>
+<code>c.end</code> returns ptr to <em>one beyond the last element</em><br>
+- so that you can say <code>while(i != c.end)</code>
+</li>
+<li>
+<code>++</code> is defined to iterate to next element, given a ptr</li>
+<li>
+<code>c.rbegin</code> returns ptr to last</li>
+<li>
+<code>c.rend</code> returns ptr to <em>one before the first element</em>
+</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp">vector&lt;string&gt;::const_iterator   vi = v.begin;
+map&lt;<span class="dt">int</span>, string&gt;::iterator       mi = mymap.begin();
+list&lt;Figure*&gt;::reverse_iterator  li = scene.rbegin();
+\  This is the type, iterator /</code></pre></div>
+<p>Application using for loop:</p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="cf">for</span>(map&lt;string, <span class="dt">int</span>&gt;::const_iterator i = m.begin(); i != m.end(); i++) {
+    cout &lt;&lt; i-&gt;first &lt;&lt; i-&gt;second &lt;&lt; endl; <span class="co">// first is key, second is val</span>
+}</code></pre></div>
+<h3 id="algorithms">Algorithms</h3>
+<p><code>f(iter1, iter2, arg1, arg2)</code></p>
+<ul>
+<li><code>find</code></li>
+<li><code>count</code></li>
+<li><code>for_each</code></li>
+<li><code>next_permutation</code></li>
+</ul>
+<h3 id="reference-parameters">Reference parameters</h3>
+<p>Regular parameter passing is call-by-value. C++ can pass a reference without passing a pointer itself:</p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="dt">void</span> swap(<span class="dt">int</span>&amp; x, <span class="dt">int</span>&amp; y);</code></pre></div>
+<p>Reference Parameters vs. Pointers</p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="co">// Common usage</span>
+<span class="dt">void</span> GiveRaise1 (Employee e, <span class="dt">int</span> raise) {} <span class="co">// created on stack</span>
+<span class="dt">void</span> GiveRaise3 (Employee &amp;e, <span class="dt">int</span> &amp;raise) {} <span class="co">// references to objects, changes propagate back</span>
+<span class="dt">void</span> GiveRaise4 (<span class="at">const</span> Employee &amp;e) {} <span class="co">// e references a constant object</span>
+
+<span class="co">// Uncommon</span>
+<span class="dt">void</span> GiveRaise2 (<span class="at">const</span> Employee e, <span class="at">const</span> <span class="dt">int</span> raise) {} <span class="co">// created on stack, may not be changed</span>
+<span class="dt">void</span> GiveRaise5 (Employee *e) {} <span class="co">// pointer to employee obj, copy of a pointer on the stack</span>
+<span class="dt">void</span> GiveRaise6 (<span class="at">const</span> Employee *e) {} <span class="co">// pointer to const Employee</span>
+<span class="dt">void</span> GiveRaise7 (Employee *<span class="at">const</span> e) {} <span class="co">// pointer can't point to new obj, Employee can be changed</span>
+<span class="dt">void</span> GiveRaise8 (<span class="at">const</span> Employee *<span class="at">const</span> e) {} <span class="co">// const pointer to const obj</span></code></pre></div>
+<h3 id="dynamic-arrays-new">Dynamic Arrays, <code>new</code>
+</h3>
+<p>Statically</p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="at">const</span> <span class="dt">int</span> N = <span class="dv">5</span>;
+<span class="dt">int</span> A[N]; <span class="co">// legal</span>
+<span class="dt">int</span> m; cin &gt;&gt; m;
+<span class="dt">int</span> B[m]; <span class="co">// illegal, size is not known at compile time</span></code></pre></div>
+<p>Dynamically (C++ Only) using <code>new</code></p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp">cin &gt;&gt; N;
+<span class="dt">int</span> * A = <span class="kw">new</span> <span class="dt">int</span>[N];</code></pre></div>
+<h3 id="object-oriented-programming">Object-Oriented Programming</h3>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp">Balloon b;
+Balloon *pb = <span class="kw">new</span> Balloon;
+<span class="kw">class</span> Balloon : <span class="kw">public</span> ParentClass{     <span class="co">// class declaration, with parent, in .h file</span>
+    <span class="kw">public</span>:
+        Balloon(); <span class="co">// constructor</span>
+        Balloon(string colour); <span class="co">// constructor with parameter</span>
+        Balloon(<span class="at">const</span> Balloon &amp; b); <span class="co">// Copy constructor, overrides how obj is copied</span>
+        <span class="kw">virtual</span> ~Balloon();     <span class="co">// allows for redefinition in derived classes</span>
+        <span class="kw">virtual</span> speak() <span class="at">const</span> = <span class="dv">0</span>;
+        string getColour() <span class="at">const</span> ; <span class="co">// constant method, cannot change object</span>
+        <span class="dt">void</span> setColour(string c);
+        <span class="at">static</span> balloon_counter; <span class="co">// class variable</span>
+    <span class="kw">private</span>:
+        string colour;
+};
+<span class="co">// Method definitions, in .cc file</span>
+Balloon::Balloon () {
+    <span class="kw">this</span>-&gt;colour = “clear”;
+}
+Balloon::Balloon (string colour){
+    <span class="kw">this</span>-&gt;colour = colour;
+}
+Balloon::Balloon(string colour) : ParentClass(), colour(colour) {}     
+<span class="co">// shorthand syntax, stops double instantiation of object parameters, calls parent constructor</span>
+
+Balloon::~Balloon (){
+    cerr &lt;&lt; <span class="st">"Deleted!"</span>;
+}     <span class="co">// destructor</span></code></pre></div>
+<p><strong>Rule of 3</strong> states that for the copy ctor, dtor, or <code>=</code> operator, if any need to be manually implemented, then all 3 should be overridden.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

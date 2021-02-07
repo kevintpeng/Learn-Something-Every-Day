@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Amazon Virtual Private Cloud</title>
+</head>
+<body>
+
+<h1 id="amazon-virtual-private-cloud">Amazon Virtual Private Cloud</h1>          <a href="index.html">Back to AWS</a>
+<p>On EC2, you can deploy to the EC2 classic network or a custom VPC.</p>
+<p><strong>A VPC</strong> is a logically isolated section of AWS with its own IP address range. It consists of subnets, route tables, security groups</p>
+<ul>
+<li>subnets are segments of the VPC's address range (written as CIDR) that live entirely in a single availability zone</li>
+<li>a <strong>route table</strong> is a logical construct within the VPC, which direct outbound traffic from ec2 instances<ul>
+<li>VPN's have a default one to modify</li>
+<li>each subnets must be associated with a route table, defaulting to the main route table</li>
+</ul>
+</li>
+<li>
+<strong>internet gateways</strong> enable communication between instances in a VPC and the internet<ul>
+<li>by pointing a subnet's route table to an attached internet gateway,</li>
+<li>a subnet is considered public if it has a route to the internet</li>
+<li>the internet gateway logically provides 1-to-1 mapping from some public IP address to the instances VPC-internal private IP address using NAT</li>
+</ul>
+</li>
+<li>
+<strong>DHCP</strong> (Dynamic Host Configuration Protocol) is a standard for passing configuration over TCP/IP networks<ul>
+<li>each VPC has an <strong>option set</strong> of values that can be configured for a VPC like domain-name-servers, domain-name, ntp-servers</li>
+<li>enables DNS for instances that need to communicate over the VPC's IGW</li>
+</ul>
+</li>
+<li>
+<strong>elastic IP addresses (EIP)</strong> are a pool of static public IP addresses in each region that are available to pull from and assign to resources<ul><li>EIPs are acquired and assigned to a VPC</li></ul>
+</li>
+<li>
+<strong>elastic network interfaces (EINs)</strong> is a virtual network interface</li>
+<li>
+<strong>endpoints</strong> in VPCs allow direct connections to other AWS services without going over the internet<ul>
+<li>basic route table setups will route AWS service traffic through an IGW</li>
+<li>with endpoints, you can specify a VPC-endpoint as a target for S3 destined requests</li>
+</ul>
+</li>
+<li>
+<strong>peering</strong> connections allow traffic to flow between two VPCs<ul>
+<li>peering is 1-to-1 and non-transitive</li>
+<li>peering must happen within the same region (US oregon for example)</li>
+</ul>
+</li>
+<li>
+<strong>security groups</strong> control inbound and outbound traffic based on protocol and port<ul><li>security groups are stateful, meaning responses to in/outbound traffic doesn't need to follow rules</li></ul>
+</li>
+<li>
+<strong>access control lists (ACLs)</strong> are stateless firewalls for controlling in/outbound traffic for subnets<ul>
+<li>subnet level security where SGs are instance level</li>
+<li>allow deny rules</li>
+<li>rule order is short circuited</li>
+</ul>
+</li>
+<li>
+<strong>NAT instances and gateways</strong> allow instances in private subnets to have access to the internet<ul><li>this is because source IP of requests will be private and need to be public</li></ul>
+</li>
+<li>NAT instances are AMIs that are instantiates and assigned a public IP which all requests proxied through it will have their private IP translated to the instance's public IP</li>
+<li>NAT gateways are amazon managed resources designed to operate just like a NAT instance but with builtin availability<ul><li>both are intended to allow outbound but not inbound requests</li></ul>
+</li>
+<li>
+<strong>VPGs</strong> (virtual private gateways) is the AWS side of a VPN connection, allowing VPCs to be an extension of a data center</li>
+<li>
+<strong>CGW</strong> (customer gateway) is the client side/data center side of the VPN connection, which establishes the VPN tunnel</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

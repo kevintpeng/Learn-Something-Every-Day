@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>A Short Introduction to Boosting</title>
+</head>
+<body>
+
+<h1 id="a-short-introduction-to-boosting"><a href="https://cseweb.ucsd.edu/~yfreund/papers/IntroToBoosting.pdf">A Short Introduction to Boosting</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<h1 id="datascience">datascience</h1>
+<p>Boosting is a general method of producing a very accurate prediction rule by combining inaccurate rough rules</p>
+<ul>
+<li>boosting Probably approximately correct learning models (PAC)<ul><li>PAC models find efficient functions, bound to polynomial time/space with respect to the example size</li></ul>
+</li>
+<li>AdaBoost: takes a set of (xi, yi) ... (xm,ym), xi in domain/instance space X and labels yi in set Y<ul>
+<li>simple case is Y = {-1, 1}, binary categorization</li>
+<li>weak learner should find a weak hypothesis ht: X -&gt; {-1, 1}, that best fits for weight distribution Dt</li>
+<li>goodness of a weak hypothesis is measured by error: εt = ∑ of i:ht(xi)≠yi Dt(i), or the probability that for some i, ht(xi) ≠ yi</li>
+<li>initial weight is 1/m (uniform distribution)</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

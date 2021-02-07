@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Indexing</title>
+</head>
+<body>
+
+<h1 id="indexing">Indexing</h1>          <a href="index.html">Back to Production-Engineering/Data-Stores</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#non-clustered">Non-clustered</a></li>
+<li><a href="#clustered">Clustered</a></li>
+<li><a href="#clusters">Clusters</a></li>
+</ul>
+</div>
+<p>Optimize read time, aiming for sub-linear time efficiency at the cost of extra write time</p>
+<ul>
+<li>done so by constructing an index data-structure whose implementation varies based on what operations we want to optimize</li>
+<li>important for validations on uniqueness and other database constraints<ul><li>corresponding index is created implicitly for constraints</li></ul>
+</li>
+</ul>
+<h3 id="non-clustered">Non-clustered</h3>
+<p>Physical order of rows is not preserved, but the index specifies logical ordering</p>
+<ul>
+<li>indexed columns are typically non-primary keys, used for JOIN, WHERE and ORDER BY</li>
+<li>index tree holds index keys in sorted order, with pointers to the records (page in page organized or row offset in file organized)</li>
+<li>more scalable, but reduced read speeds</li>
+</ul>
+<h3 id="clustered">Clustered</h3>
+<p>Alters the data into a certain distinct order to match the index</p>
+<ul><li>only one clustered index per table, but increases sequential reads (because of hardware burst reads)</li></ul>
+<h3 id="clusters">Clusters</h3>
+<p>Index for join operations, records for the tables that share some cluster key are stored together physically for faster read times (less I/O operations)</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

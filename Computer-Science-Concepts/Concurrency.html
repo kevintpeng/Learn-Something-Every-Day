@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Programming Models</title>
+</head>
+<body>
+
+<h1 id="programming-models">Programming Models</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#synchronous-programming-model">Synchronous Programming Model</a></li>
+<li><a href="#asynchronous-programming-model">Asynchronous Programming Model</a></li>
+</ul>
+</div>
+<h2 id="synchronous-programming-model">Synchronous Programming Model</h2>
+<p>For a list of tasks, thread is assigned a task, completes task, starts new task…</p>
+<p>Single thread completes them like a queue. Multi-threaded, each thread completes task.</p>
+<h2 id="asynchronous-programming-model">Asynchronous Programming Model</h2>
+<p>For tasks, a single thread can hold the state of a task, complete another task and resume original.</p>
+<p><strong>Concurrency</strong> is when multiple requests are being processed at a time.</p>
+<h1 id="multithreading">Multithreading</h1>
+<p>Programs can run multiple threads, carrying out multiple tasks at once. For ruby, its <code>Thread.new do ...</code></p>
+<p>Multithreading can maximize performance of a program by taking advantage of multi-core hardware. It is called <strong>Parallel Computing</strong> and can drastically improve performance, and in extreme examples with distributed systems can complete intensive tasks that would be otherwise unreasonable.</p>
+<p>Multithreading and Asynchronous programming are separate concepts. <strong>Multi-threading can be applied to both synchronous and asynchronous models.</strong> Multiple threads can work on a single queue of tasks, as in the synchronous model. In the asynchronous model, multiple threads can work on entirely independent tasks, like waiting for user input, reading a database, computing a task etc...</p>
+<h1 id="io-concurrency-models">I/O Concurrency Models</h1>
+<p>Concurrency describes the concept of running several tasks at once.</p>
+<h3 id="single-threaded-multi-process">Single-threaded Multi-process</h3>
+<p>Each process handles exactly one request at a time. The web server load balances between processes. Not suitable for long-running blocking I/O workloads (workloads that call HTTP APIs).</p>
+<h3 id="multi-threaded-single-process">Multi-threaded Single-Process</h3>
+<p>Multi-threading allows high I/O concurrency, good for both short-running and long-running blocking I/O workloads. Prone to concurrency bugs.</p>
+<h3 id="evented">Evented</h3>
+<p>Different than previous two, allows very high I/O concurrency. Rails does not support evented code. Javascript uses evented concurrency.</p>
+<h3 id="race-conditionhazard">Race Condition/Hazard</h3>
+<p>Behaviour of systems where the output is dependent on the sequence/timing of events. Originates from circuits.</p>
+<ul>
+<li>affects multi-threaded or multi-process software, that share persistent components</li>
+<li>an operation that is <strong>mutually exclusive</strong> cannot be interrupted while accessing a resource</li>
+<li>for file systems, file locking is common to avoid this<ul><li>software generally requests and reserves all resources it will need before a task</li></ul>
+</li>
+</ul>
+<h3 id="mutual-exclusion">Mutual Exclusion</h3>
+<p>Mutual Exclusion is the requirement of ensuring no two concurrent processes are accessing critical sections at the same time</p>
+<p>Removing two nodes i and i+1 at the same time results in i+1 not being removed:<br>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Mutual_exclusion_example_with_linked_list.png/1024px-Mutual_exclusion_example_with_linked_list.png" alt="example"></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

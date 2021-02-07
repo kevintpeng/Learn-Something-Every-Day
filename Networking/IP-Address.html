@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>IP address</title>
+</head>
+<body>
+
+<h1 id="ip-address">IP address</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#reginal-internet-registry">Reginal Internet Registry</a></li>
+<li><a href="#ipv4">IPv4</a></li>
+<li><a href="#nat">NAT</a></li>
+<li><a href="#default-gateway">Default Gateway</a></li>
+<li><a href="#dynamic-nat">Dynamic NAT</a></li>
+<li><a href="#ip-address-assignment">IP address assignment</a></li>
+<li><a href="#ip-modification">IP Modification</a></li>
+<li><a href="#localhost">localhost</a></li>
+<li><a href="#dhcp">DHCP</a></li>
+</ul>
+</div>
+<p>Numeric label assigned to each device participating in a network</p>
+<ul>
+<li>host or network interface identification</li>
+<li>location addressing, within a node or network</li>
+</ul>
+<h3 id="reginal-internet-registry">Reginal Internet Registry</h3>
+<ul>
+<li>organization that manages the allocation and registration of Internet number resources<ul><li>IP Address is one example of Internet Numbers</li></ul>
+</li>
+<li>Africa, America, Asia-Pacific, Latin America, Europe</li>
+</ul>
+<h3 id="ipv4">IPv4</h3>
+<p>32 bit integers, 4, period delimited 8 bit integers</p>
+<ul>
+<li>in early IP, network admins interpreted IP addresses in two parts, number and host</li>
+<li>revised as classful network architecture<ul>
+<li>broken into classes A, B, C, A has few networks, with many addresses per network</li>
+<li>on most systems, localhost resolves to <code>127.0.0.1</code> which is the IPv4 loopback address</li>
+</ul>
+</li>
+</ul>
+<h3 id="nat">NAT</h3>
+<p>Network Address Translation, is a method of remapping one IP address space into another by modifying network address information. IPv4 doesn't support enough addresses for the world. IPv6 was years away from implementation when IPv4 address exhaustion was coming. NAT helped slow this problem, by allowing a single router to act as an agent between the public network (internet) and a local private network for entire groups of computers.</p>
+<ul>
+<li>used for ease of rerouting traffic in IP networks without renumbering every host</li>
+<li>essential also for conserving global address space allocation, by sharing one internet-routable IP address of a NAT gateway for an entire private network</li>
+<li>Basic NAT provides one-to-one translation of IP addresses</li>
+<li>Most NATs map one publicly exposed IP address to many private hosts (as is the case for routers)<ul>
+<li>a router on a network has a private address in that address space</li>
+<li>many-to-one NAT is so common, it is synonymous to NAT</li>
+</ul>
+</li>
+<li>web browsers in the masqueraded network can access websites outside the network</li>
+<li>browsers outside the network cannot access websites inside the network</li>
+<li>NAT devices today allow network admins to configure static translation table entries for connections from an external network<ul><li>achieved through port forwarding; forwards traffic from a specific external port to an internal host on a specified port</li></ul>
+</li>
+</ul>
+<h3 id="default-gateway">Default Gateway</h3>
+<p>Is the node that is assumed to know how to forward packets on to other networks</p>
+<ul>
+<li>a router is an example of the default gateway for all network devices</li>
+<li>nodes (servers, workstations, devices) each have defined default route settings</li>
+</ul>
+<h3 id="dynamic-nat">Dynamic NAT</h3>
+<p>For complex networks. DNAT doesn't make the mapping to the public IP address static, usually uses groups of available public IP addresses.</p>
+<p>NAT loopback is a feature in many consumer routers: permits the access of a service via the public IP address from inside the local network.</p>
+<h3 id="ip-address-assignment">IP address assignment</h3>
+<ul>
+<li>IP addresses are assigned to a host at the time of booting, or perminantly by fixed hardware/software configuration</li>
+<li>persistent configuration is also known as <strong>static IP addresses</strong>
+</li>
+<li>when a computer's IP address is assigned newly each time, it is a <strong>dynamic IP address</strong>
+</li>
+</ul>
+<h3 id="ip-modification">IP Modification</h3>
+<p>Firewalls perform IP blocking, based on IP addresses of client computers.</p>
+<ul>
+<li>proxy servers act as an intermediary agent on behalf of the customer</li>
+<li>or NATs on IPv4 can act for multiple computers</li>
+</ul>
+<h3 id="localhost">localhost</h3>
+<p>hostname that means <em>this computer</em></p>
+<ul>
+<li>used to access the network services that are running on the host via its loopback network interface</li>
+<li>IPv4 network standards reserve the entire 127.0.0.0/8 address block for loopback purposes</li>
+<li>the resolution of the name <code>localhost</code> into one or more IP addresses is configured by /etc/hosts line <code>127.0.0.1   localhost</code>
+</li>
+</ul>
+<h3 id="dhcp">DHCP</h3>
+<p>Dynamic Host Configuration Protocol dynamically distributed network configurations like IP addresses, controlled by DHCP server</p>
+<ul>
+<li>without DHCP servers, sysadmins or some system must distribute static IPs</li>
+<li>DHCP servers assign local IPs on a private network</li>
+<li>distributes default gateway, name servers, time servers</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

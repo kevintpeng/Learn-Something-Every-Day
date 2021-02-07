@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Identity and Access Management</title>
+</head>
+<body>
+
+<h1 id="identity-and-access-management">Identity and Access Management</h1>          <a href="index.html">Back to AWS</a>
+<p>Services related to permissions for users, as specific as resource-level access management.</p>
+<ul>
+<li>
+<strong>principals</strong> are any IAM entity that can either be given access or denied access to some resource or AWS service</li>
+<li>
+<strong>authentication</strong> is the process of verifying a principal<ul>
+<li>supports user/pass, access key, and access key/session token</li>
+<li>root users, IAM users, roles/temp tokens</li>
+</ul>
+</li>
+<li>
+<strong>authorization</strong> is the process of determining if a principal can perform some action on a resource<ul>
+<li>
+<strong>policies</strong> determine whether an action by some principal is allowed</li>
+<li>fields for a policy are: <strong>Effect</strong> (Allow or Deny), <strong>Service</strong>, and <strong>Resource</strong>
+</li>
+<li>conditionals can describe parameters that must be true for the policy to hold for a given principal</li>
+<li>the three parameters together form an <strong>Amazon Resource Name</strong> (ARN)</li>
+<li>managed policies can apply to multiple users and groups, while user policies grant one-off authorization for some single principal</li>
+</ul>
+</li>
+<li>many services require you to <strong>pass</strong> a role to the service, allowing the service to assume the role's permissions<ul><li>user must have permission to pass a role to the service</li></ul>
+</li>
+<li>
+<strong>MFA</strong> provides an extra layer of security</li>
+<li>IAM allows two access keys per principal, to allow <strong>key rotations</strong>
+</li>
+<li>Policy overlap is resolved by prioritizing denies over allows, and defaulting to deny</li>
+<li>
+<strong>AWS Security Token Service</strong> enables temporary, limited-privilege credentials for IAM users</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

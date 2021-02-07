@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Transaction Processing</title>
+</head>
+<body>
+
+<h1 id="transaction-processing">Transaction Processing</h1>          <a href="index.html">Back to Production-Engineering/Data-Stores</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#serializability----paper">Serializability -- </a><a href="https://github.com/kevintpeng/Learn-Something-Every-Day/blob/master/Research-Papers/1990%20Linearizability.md">paper</a>
+</li>
+<li>
+<a href="#optimistic-concurrency-control----paper">Optimistic concurrency control -- </a><a href="https://github.com/kevintpeng/Learn-Something-Every-Day/blob/master/Research-Papers/1981%20Optimistic%20Methods%20for%20Concurrency%20Control.md">paper</a>
+</li>
+<li><a href="#two-phase-locking">Two-phase Locking</a></li>
+<li><a href="#snapshot-isolation">Snapshot Isolation</a></li>
+</ul>
+</div>
+<h3 id="serializability----paper">Serializability -- <a href="https://github.com/kevintpeng/Learn-Something-Every-Day/blob/master/Research-Papers/1990%20Linearizability.md">paper</a>
+</h3>
+<p>A type of guarantee that transactions have some order, and that final state is deterministically reproducable by replaying transactions serially</p>
+<ul><li>considered the highest level of isolation (AC<strong>I</strong>D) between two transactions</li></ul>
+<h3 id="optimistic-concurrency-control----paper">Optimistic concurrency control -- <a href="https://github.com/kevintpeng/Learn-Something-Every-Day/blob/master/Research-Papers/1981%20Optimistic%20Methods%20for%20Concurrency%20Control.md">paper</a>
+</h3>
+<p>Concurrency control ensures correctness for systems that depend on concurrent operations</p>
+<ul><li>optimisitic concurrency control assumes multiple transactions can usually be completed without interference<ul><li>instead of locking resources, we forget about lock management and instead restart (or fail) a transaction whose underlying data has been changed since the transaction began</li></ul>
+</li></ul>
+<h3 id="two-phase-locking">Two-phase Locking</h3>
+<p>Concurrency control method that guarantees serializability</p>
+<h3 id="snapshot-isolation">Snapshot Isolation</h3>
+<p>A type of guarantee that reads be only made to a snapshot of the database until a transaction is fully completed, and then commit only if no updates conflict with any concurrent updates made since the snapshot</p>
+<ul><li>main purpose is for better performance in comparison to serializability</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

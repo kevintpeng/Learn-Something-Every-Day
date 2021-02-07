@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>ECE 358 Computer Networks</title>
+</head>
+<body>
+
+<h1 id="ece-358-computer-networks"><a href="https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2545984/View">ECE 358 Computer Networks</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#intro"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2545984/View">Intro</a>
+</li>
+<li><a href="#lab">Lab</a></li>
+<li>
+<a href="#link-layer-layer-2"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2561713/View">Link Layer</a>, layer 2</li>
+<li>
+<a href="#network-layer"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2572927/View">Network Layer</a>
+</li>
+<li>
+<a href="#transport-layer"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2583577/View">Transport Layer</a>
+</li>
+</ul>
+</div>
+<h3 id="intro"><a href="https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2545984/View">Intro</a></h3>
+<ul>
+<li>
+<strong>access networks</strong> are provided by telecom operators (residential access, school network, cell tower)</li>
+<li>
+<strong>network core</strong> connects service providers, for routing and forwarding<ul><li>routing algorithm uses a local forwarding table to select next link</li></ul>
+</li>
+<li>
+<strong>packet-switching</strong> is a method of breaking down a message into packets (a router is a switch in this case)</li>
+<li>
+<strong>Store-and-forward</strong> is one method of transmitting packets, where the entire packet must arrive (and checked for integrity) before it can be transmitted to the next link</li>
+<li>
+<strong>stop-and-wait</strong> send packet, wait for acknowledgement before continuing</li>
+<li>
+<strong>message-switching</strong> is store-and-forward at a message level</li>
+<li>if arrival rate exceeds transmission rate for a link, packets will queue and may be dropped</li>
+<li>
+<strong>circuit-switching</strong> is an alternative, each user gets dedicated path (each link has multiple edges, or "circuits")<ul><li>provides strong guarantees of performance, but allows less users on the network</li></ul>
+</li>
+<li>ISPs give access to end users<ul>
+<li>connected by global ISPs</li>
+<li>
+<strong>internet exchange points</strong> might connect global ISPs or <strong>peering links</strong>
+</li>
+</ul>
+</li>
+<li>content provider networks are private to allow companies to go around Tier 1 (global) ISP</li>
+<li>
+<code>traceroute</code> unix utility for measuring delay from source to router</li>
+<li>
+<strong>layering</strong><ul>
+<li>pros: explicit identification of each piece in the system, specify the relationship between different parts, modularize the system</li>
+<li>cons: duplicate jobs done at different layers</li>
+</ul>
+</li>
+<li>5-layer view of the internet protocol stack<ul>
+<li><strong>application</strong></li>
+<li>
+<strong>transport</strong> process-to-process</li>
+<li>
+<strong>network</strong> host-to-host (planning the route via routing protocol)</li>
+<li>
+<strong>link</strong> hop-to-hop</li>
+<li>
+<strong>physical</strong> bit to analog signal</li>
+</ul>
+</li>
+<li>packets are named more specifically at each layer: message, segment, datagram, frame<ul>
+<li>encapsulation: each abstraction wraps around the lower abstraction by adding a header</li>
+<li>pros: modularization, protection</li>
+<li>cons: overhead</li>
+</ul>
+</li>
+</ul>
+<h3 id="lab">Lab</h3>
+<ul><li>
+<strong>Kendall Notation</strong> is used describe a queue: A/S/C/K/D, or arrival/server processing/count of servers/buffer size/discipline (FIFO)<ul><li>markovian arrival process follows a poisson distribution (limit as period approaches zero for binomial)</li></ul>
+</li></ul>
+<h3 id="link-layer-layer-2">
+<a href="https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2561713/View">Link Layer</a>, layer 2</h3>
+<ul>
+<li>layer-2 packet is frame<ul><li>header includes MAC address as source/dest</li></ul>
+</li>
+<li>data-link layer is responsible for transferring datagrams to physically adjacent nodes</li>
+<li>implemented across hardware, software and firmware</li>
+<li>
+<strong>propagation delay</strong> is time to propagate anything (usually distance / near speed of light)</li>
+<li>
+<strong>transmission delay</strong> is time to send all data (usually size / bandwidth)</li>
+</ul>
+<h4 id="error-detection-and-correction-edc">Error detection and correction (EDC)</h4>
+<ul>
+<li>error detection is not 100% reliable, in rare cases</li>
+<li>
+<strong>parity</strong> checking detects single bit errors</li>
+<li>cyclic redundancy check is a checksum algorithm, that can prevent up to r bit errors in any position, by appending a checksum of length r to the message and using some generator G where |G| = r + 1</li>
+</ul>
+<h4 id="multiple-access-protocols">Multiple access protocols</h4>
+<ul>
+<li>
+<strong>collision</strong> when a node receives multiple signals simultaneously</li>
+<li>
+<strong>multiple access protocol</strong> is a distributed algorithm that determines how nodes share a channel (using the channel to communicate about channel sharing)<ul><li>want high utilization and average fairness, with decentralized coordination</li></ul>
+</li>
+</ul>
+<p>Three classes of Media Access Control (MAC) protocols</p>
+<ul>
+<li>
+<strong>channel partitioning</strong> to avoid collisions<ul>
+<li>time-division multi access (TDMA) has fixed slots and each client takes exactly one. Has wasted bandwidth unless all slots are filled</li>
+<li>frequency division multiple access (FDMA), same pros/cons as TDMA</li>
+</ul>
+</li>
+<li>
+<strong>random access</strong> allows collisions and recovers</li>
+<li>
+<strong>taking turns</strong> ensures high utilization with poor fairness</li>
+</ul>
+<p>Random Access Protocols</p>
+<ul>
+<li>
+<strong>Slotted ALOHA</strong>: TDMA with size equal to frame, assuming all frames of same size, all nodes attempt to send and simultaneous shared slots are collisions and are rejected and attempted again, at some specified probability<ul><li>requires clock synchronization, collisions + empties = wasted space, low efficiency for high number of nodes</li></ul>
+</li>
+<li>
+<strong>Pure ALOHA</strong>: no slots, higher chance of collision but no synchronization required</li>
+<li>
+<strong>Carrier Sense Multiple Access</strong>: listen before transmission, but due to propagation delay, collisions still occur</li>
+<li>
+<strong>CSMA/ Collision detection (CSMA/CD)</strong>: detected quickly, aborting transmission early<ul><li>
+<strong>exponential backoff</strong> is increasing the wait time between transmissions by incrementing the max range on random number generation exponentially</li></ul>
+</li>
+<li>
+<strong>CSMA/Collision avoidance (CSMA/CA)</strong>: reduces the probability of collision by checking whether the medium is in use</li>
+</ul>
+<p>Taking turns</p>
+<ul>
+<li>
+<strong>polling</strong> with master inviting nodes to send data: no collision or empty slots, but requires polling, latency, master failure</li>
+<li>
+<strong>token passing</strong>: control token passed in a ring. Token single point of failure</li>
+</ul>
+<h4 id="lan">LAN</h4>
+<ul>
+<li>IP address use for network layer forwarding</li>
+<li>MAC address used locally to get frame from interface-to-interface that are physically connected<ul>
+<li>often MAC address is burning into NIC</li>
+<li>administered by IEEE (sections of address space are purchased)</li>
+</ul>
+</li>
+<li>MAC address is portable between networks, IP address depends on sub-network (since they are not necessarily unique)</li>
+<li>
+<strong>ARP table</strong> is used to map IP address to MAC address</li>
+<li>a node <strong>broadcasts an ARP query</strong> to all nodes on LAN</li>
+<li>
+<strong>Ethernet</strong> encapsulates datagram in an <strong>Ethernet frame</strong><ul>
+<li>
+<strong>preamble</strong>: wakeup, followed by alert, for synchronizing receiver and sender clock rates and mitigate drifts in transmission rate</li>
+<li>source + dest MAC addresses</li>
+<li>type (IP often, but can also be proprietary like AppleTalk)</li>
+<li>CRC check at receiver, as suffix to Ethernet datagram</li>
+</ul>
+</li>
+<li>Ethernet is connectionless (no handshaking) and requires higher level protocol to recover from errors</li>
+<li>
+<strong>Ethernet switch</strong> stores and forwards Ethernet frames<ul>
+<li>each switch has a table, mapping dest MAC address to interface</li>
+<li>switch is link-layer, and has a learned forwarding switch table using <strong>flooding</strong> and MAC addresses</li>
+<li>maps MAC address to interface to reach host (port on machine), with time-to-idle)</li>
+<li>
+<strong>router</strong> is network-layer, and computes forwarding table using routing algorithms and IP addresses</li>
+</ul>
+</li>
+<li>
+<strong>load balancer</strong> is application-layer routing</li>
+</ul>
+<h4 id="wifi-wlan">WiFi (WLAN)</h4>
+<ul>
+<li>
+<strong>Basic service set</strong> is the set of all stations that can communicate with each other at physical layer</li>
+<li>
+<strong>Independent BSS</strong> is an ad hoc network</li>
+<li>
+<strong>Extended service set</strong> (ESS) is like eduroam at UW, a distribute system</li>
+<li>
+<strong>Point Coordination Function (PCF)</strong> uses an access point which decides who transmits when</li>
+<li>
+<strong>Distributed Coordination Function (DCF)</strong> is a mode of operation of MAC<ul>
+<li>handshaking when frame length &gt;= dotRTSThreshold, since we want to reduce the probability of collision</li>
+<li>without-handshake if frame length &lt; dotRTSThreshold</li>
+</ul>
+</li>
+<li>one problem with WiFi is the Hidden Terminal Problem, resolved by CSMA/CA collision avoidance</li>
+<li>second problem is <strong>Exposed Terminal Problem</strong>, where some node does not send in case it collides with a known transmission</li>
+<li>
+<strong>WLAN MAC</strong> has <code>Request To Send</code> and <code>Clear To Send</code> frame types, as control frames for coordinating medium usage.</li>
+<li>
+<strong>Access point</strong> converts WiFi frame to Ethernet frame and sends to router</li>
+<li>Collisions avoided in CSMA/CA using:<ul>
+<li>physical-level carrier sensing in receiver hardware</li>
+<li>virtual carrier sensing (MAC protocol level concept) using <strong>Network Allocation Vector (NAV)</strong> which is a counter used as a heuristic guide to when to transmit</li>
+<li>NAV is the max length of time from an RTS of any other node, and counts down by microseconds</li>
+<li>can transmit when carrier is absent (as per physical level sensing) and NAV = 0 (nobody nearby is transmitting)</li>
+</ul>
+</li>
+</ul>
+<h3 id="network-layer"><a href="https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2572927/View">Network Layer</a></h3>
+<ul>
+<li>transports segment from host to host, by encapsulating segments into datagrams and delivering segment to the receiving tranport layer</li>
+<li>
+<strong>routing</strong> is planning the trip from source to dest</li>
+<li>
+<strong>fowarding</strong> is the process of moving packets from router input to another router's output</li>
+</ul>
+<ol>
+<li>Input port of router:<ol>
+<li>physical layer: line termination, bit level reception</li>
+<li>data link layer: Ethernet</li>
+<li>decentralized switching: given dest, use forwarding table to lookup output port (at line speed)</li>
+</ol>
+</li>
+<li>Switching fabrics: transfer packet from input buffer to output buffer (at <strong>switching rate</strong>, multiple of line rate)</li>
+<li>Output ports: queuing in datagram buffer</li>
+<li>link layer protocol send</li>
+<li>physical layer: line termination</li>
+</ol>
+<ul>
+<li>
+<strong>memory switching fabric</strong> limited by memory bandwidth (2 bus crossings per datagram)</li>
+<li>
+<strong>switching via bus</strong>: shared bus, bus contention (up to 32Gbps bus)</li>
+<li>
+<strong>switching via interconnection network</strong> is advanced, uses <strong>crossbar or banyan networks</strong>
+</li>
+<li>buffering at output can cause packet loss, recommended to buffer at least round-trip-time in terms of link speed (250ms RTT on 10 Gbps link =&gt; 2.5 Gb buffer)<ul><li>another recommendation is to divide the above by sqrt of N, for N flows</li></ul>
+</li>
+</ul>
+<h4 id="ip-datagram-format">IP Datagram format</h4>
+<ul>
+<li>version, header length, datagram length, id, flags, fragmentation offset, TTL, upper layer protocol, header checksum, source, dest, options</li>
+<li>
+<strong>header checksum procedure</strong>: sender sums all 16-bit blocks, add the carry to the one's digit, take the 1's complement.<ul><li>This works because we're picking a value to inject into the header so that the sum of all 16-bit blocks comes out to zero when repeating the calculation on the receiver</li></ul>
+</li>
+<li>Network links are assigned a <strong>Max transfer size</strong> (MTU)<ul>
+<li>IP header size is 20 bytes, which consumes part of the MTU</li>
+<li>fragmentation breaks a datagram into several, only to be reassembled at the destination</li>
+<li>frag flag set for all but the last fragment, and offset in units of 8 bytes</li>
+</ul>
+</li>
+</ul>
+<h4 id="ip-addresses">IP Addresses</h4>
+<ul>
+<li>Layer 2 switches do not have IP addresses, end-devices have one and routers can have multiple (one for each physical interface)</li>
+<li>the first (network ID) and last (broadcast) address in a subnetwork should not be mapped to a physical node</li>
+<li>to allocate a range of addresses for some amount of computers, round up to the nearest power of two or assign multiple address ranges</li>
+<li>a <strong>routing table</strong> maps addresses that match some net + mask to next hop, choosing the entry that matches the longest prefix<ul><li>send an error over ICMP if there is no match</li></ul>
+</li>
+<li>a host is given an IP address by a sysadmin (<code>rc.config</code>) or through <strong>Dynamic Host Configuration Protocol</strong> (DHCP)</li>
+<li>DHCP (IP level protocol): discover, offer, req, ACK<ul><li>used by client to discover its own IP address, the first hop router and the DNS server</li></ul>
+</li>
+<li>
+<strong>Network Address Translation</strong> let's a local network use a single address from the outside world's perspective<ul>
+<li>router makes use of ports to local network addresses over its single public IP address</li>
+<li>NAT is controversial since a router is at network layer 3 but requires use of ports at transport layer 4 to operate</li>
+</ul>
+</li>
+</ul>
+<h4 id="routing-algorithms">Routing Algorithms</h4>
+<ul>
+<li>
+<strong>Distance Vector</strong> algorithm: maintain estimate cost from self to every other node in the system<ul>
+<li>in RIP, maintain a copy of each neighbour's distance vector</li>
+<li>when periodically receiving neighbour's distance vector, update self's distance vector using Bellman-Ford equation (fancy way of saying take the min for each element)</li>
+<li>immediately propagate when a shorter path is found (good new travels fast)</li>
+</ul>
+</li>
+<li>
+<strong>two-node instability problem</strong> arises if a node X goes down, A and B both know they can't route to X anymore, so they forward back and forth to each other forever<ul>
+<li>
+<strong>split horizon</strong> is a solution where if B thinks it found a path to X through A, it doesn't propagate this to A</li>
+<li>
+<strong>poisoned reverse</strong> is when A detects a broken link to X, then when trying to find a path through B, it tells B that (X,A) link is broken</li>
+</ul>
+</li>
+<li>
+<strong>Routing Information Protocol</strong> can be implemented with distance vectors using hops as metric, max 15 hops, DVs advertised every 30s, list up to 25 destination subnets<ul>
+<li>kill link if no advertisement in 180s, invalidate any routes that use that link, immediately advertise change to neighbours and await response</li>
+<li>
+<strong>poison reverse</strong> used to prevent loops (with "infinite distance" as max + 1 so 16)</li>
+</ul>
+</li>
+<li>
+<strong>Open Shortest Path First</strong> (as in open-source)<ul>
+<li>advertisement carries one entry per neighbour, and floods to entire Automated System, directly over IP instead of UDP</li>
+<li>cost is inverse of link speed instead of hops</li>
+<li>each router learns complete topology of network</li>
+<li>Dijsktra's algorithm can be used to calculate distances, where at each iteration of the loop we add the vertex that has minimum cost to the set of known vertices, and recompute cost of all other nodes adjacent to the recently added vertex</li>
+</ul>
+</li>
+<li>
+<strong>Border Gateway Protocol</strong> glues the internet together, connecting Automated Systems together and working to set the external destinations of a forwarding table<ul>
+<li>eBGP obtain subnet reachability from neighbour AS (think external)</li>
+<li>iBGP propagate reachability info internally to the AS</li>
+<li>BGP messages: OPEN, UPDATE, KEEPALIVE, NOTIFICATION</li>
+<li>
+<strong>BGP session</strong> between two peers exchange messages over TCP advertising paths to different destinations through a <strong>path vector</strong>, with attributes <strong>AS-PATH</strong> the AS list through which the advertisment has passed and <strong>NEXT-HOP</strong> the specific internal AS next</li>
+<li>
+<strong>policies</strong> can be set on import and export which accept or decline advertised routes (prefix + attributes), or give preference between two routes</li>
+</ul>
+</li>
+</ul>
+<h3 id="transport-layer"><a href="https://learn.uwaterloo.ca/d2l/le/content/463410/viewContent/2583577/View">Transport Layer</a></h3>
+<ul>
+<li>provides <strong>logical communication</strong> between processes</li>
+<li>port numbers are used to address other programs (like the case for sockets)<ul><li>MAC addr for 1-hop communication, IP addr for multi-hop, ports for app-to-app</li></ul>
+</li>
+<li>2^16 UDP and TCP ports (consumed separately, and on a per-machine basis)</li>
+<li>
+<strong>reserved ports</strong> in the lower 1000s like port 443, and <strong>Free ports</strong> beyond for user-applications</li>
+<li>
+<strong>User Datagram Protocol</strong> is a bare bones transport protocol for high performance, since it is <strong>connectionless</strong><ul>
+<li>no handshaking, each UDP segment is handled independently, and reliability would be acheivable only being added at the application layer</li>
+<li>no congestion control: UDP can be blasted</li>
+</ul>
+</li>
+<li>
+<strong>stop-and-wait</strong> is a naive implementation for UDP data integrity<ul><li>must always ack, even for duplicate packets (because the first ack might have dropped)</li></ul>
+</li>
+<li>
+<strong>go-back-N</strong> is a pipelined protocol, where the sender rolls back to any unack'd packet</li>
+<li>
+<strong>selective repeat</strong> is a pipelined protocol, where the sender resends only unack'd packets and the receiver buffers while waiting for missed packets<ul><li>window size affects performance, and correctness and must be chosen carefully</li></ul>
+</li>
+<li>
+<strong>TCP</strong> is connection oriented, where sender/receiver states are initialized through a handshake<ul><li>full duplex, pipelined, flow controlled, reliable</li></ul>
+</li>
+<li>
+<strong>flow control</strong> allows receiver to control sender, using <code>rwnd</code> (receiver window) to limit the amount of in-flight data that could be buffered</li>
+<li>TCP connections are established through SYN, SYN+ACK, ACK handshake and closed with FIN, ACK, FIN, ACK</li>
+<li>
+<strong>network-assisted congestion control</strong> takes feedback as end system from router</li>
+<li>
+<strong>end-to-end congestion control</strong>, inferred from end-system observed loss or delay<ul>
+<li>sender increases transmission rate until loss occurs, linearly increasing <code>cwnd</code> (congestion window size) by <code>MSS</code> for every ack until loss detected, and multiplicatively decreasing it on failure</li>
+<li>sender takes min(<code>cwnd</code>, <code>rwnd</code>), noting that rwnd is often very very large</li>
+<li>TCP send rate is roughly <code>cwnd/RTT</code> bytes/sec (round trip time)</li>
+</ul>
+</li>
+<li>slow send threshold is when the <code>cwnd</code> stops increasing exponentially and switches to linear</li>
+<li>
+<strong>TCP Tahoe</strong> sets the cwnd to 1 and <code>ssthresh</code> to <code>cwnd/2</code> upon detecting congestion</li>
+<li>
+<strong>TCP Reno</strong> differentiates congestion detection scenarios between loss due to timeout and loss observed by triple ACKs, and sets <code>cwnd = cwnd/2</code> instead of 1 in this case</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

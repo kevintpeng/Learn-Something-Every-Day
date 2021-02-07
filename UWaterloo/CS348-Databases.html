@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+          <title>CS348: Databases</title>
+</head>
+<body>
+
+<h1 id="cs348-databases"><a href="https://cs.uwaterloo.ca/~gweddell/cs348/">CS348: Databases</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#introduction"></a><a href="https://cs.uwaterloo.ca/~gweddell/cs348/lect-INTRODUCTION.pdf">Introduction</a>
+</li>
+<li>
+<a href="#relational-model"></a><a href="http://db.uwaterloo.ca/~gweddell/cs348/lect-RELATIONAL.pdf">Relational Model</a>
+</li>
+<li>
+<a href="#sql"></a><a href="https://cs.uwaterloo.ca/~gweddell/cs348/lect-SQL-handout.pdf">SQL</a>
+</li>
+<li><a href="#data-modeling-and-entity-relationship-model">Data Modeling and Entity-Relationship Model</a></li>
+<li>
+<a href="#normalization-theory"></a><a href="https://cs.uwaterloo.ca/~gweddell/cs348/lect-FD-handout.pdf">Normalization Theory</a>
+</li>
+<li><a href="#query-execution">Query Execution</a></li>
+<li><a href="#transaction-execution">Transaction Execution</a></li>
+</ul>
+</div>
+<h3 id="introduction"><a href="https://cs.uwaterloo.ca/~gweddell/cs348/lect-INTRODUCTION.pdf">Introduction</a></h3>
+<ul>
+<li>DBMS supports an underlying data model, and authorize users<ul><li>offer durability and concurrency control</li></ul>
+</li>
+<li>a schema instance is a collection of data</li>
+</ul>
+<h3 id="relational-model"><a href="http://db.uwaterloo.ca/~gweddell/cs348/lect-RELATIONAL.pdf">Relational Model</a></h3>
+<ul>
+<li>set notation can describe subsets of data, this is a query: <span class="math inline">\(\{ (x_1, x_2, \dots, x_k) | \phi \}\)</span>, find some tuple given a logical equation <span class="math inline">\(\phi\)</span>
+</li>
+<li>
+<strong>answer</strong> to the query above over <strong>DB</strong> is the <strong>relation</strong> <span class="math inline">\(\{ (\theta(x_1), \dots, \theta(x_k)) \ | \ DB, \theta \models\phi \}\)</span><ul><li>so the relation is a set of results that satisfy our logical conditions <span class="math inline">\(\phi\)</span> for tuples being mapped over our valuation <span class="math inline">\(\theta\)</span>
+</li></ul>
+</li>
+<li>example forgets about finite constraint, and models a three column table to compute addition</li>
+<li>
+<span class="math inline">\(\{(x,y) | PLUS(x,y,5)\}\)</span> is a query for all pairs that sum to 5</li>
+<li>apply predicate logic for more expressive queries</li>
+</ul>
+<p><strong>relational model</strong> organizes information in a finite number of relations</p>
+<ul>
+<li>
+<strong>universe</strong> is a set of values D with equality</li>
+<li>
+<strong>relation</strong>, canonically a table<ul>
+<li>has a predicate name R, and arity k of R (number of arguments, in this case number of columns)</li>
+<li>
+<strong>relation instance</strong> is <span class="math inline">\(R \subseteq D^k\)</span>
+</li>
+</ul>
+</li>
+<li>
+<strong>database</strong> has a signature defining a finite set <span class="math inline">\(\rho = (R_1, \dots, R_n)\)</span> of predicate names<ul>
+<li>
+<strong>instance</strong> is a relation <strong>Ri</strong> for each <span class="math inline">\(R_i\)</span>, bold means relation for each predicate name</li>
+<li>notation: <span class="math inline">\(DB = (D, =, R_1, \dots, R_n)\)</span>, for example <span class="math inline">\(DB = (Z, =, PLUS, TIMES)\)</span>
+</li>
+<li>
+<code>AUTHOR</code> might be some <span class="math inline">\(R_i\)</span>, the label, its relation instance <strong>Ri</strong> might have arity of 2, id and name, part of the universe of tuples <span class="math inline">\(Z \times Names\)</span>
+</li>
+</ul>
+</li>
+<li>on truthiness, when a relationship between objects (tuples) is present, it is true, and false if relationship is absent</li>
+<li>a <strong>valuation</strong> is a function <span class="math inline">\(\theta\)</span> that maps variable names to values in the universe D: <span class="math inline">\(\theta : \{x_1, x_2, \dots\} \rightarrow D\)</span><ul><li>
+<span class="math inline">\(\theta[x \mapsto v]\)</span> defines x to map to v in our function</li></ul>
+</li>
+<li>the truth of a formula <span class="math inline">\(\phi\)</span> (truth being existence of a relation) depends of a database instance and valuation</li>
+</ul>
+<p><strong>integrity constraints</strong> are laws, that must be true in every valid database instance</p>
+<ul><li>addition is commutative<ul>
+<li>is a binary function</li>
+<li>is a total function</li>
+<li>is monotone</li>
+</ul>
+</li></ul>
+<p>example:</p>
+<ul><li>every boss manages a unique department: <span class="math inline">\(\forall x_1,y_1, x_2, y_2 ,z.EMP(x_1,y_1,z) \land .EMP(x_2,y_2,z) \rightarrow y_1 = y_2\)</span>
+</li></ul>
+<h3 id="sql"><a href="https://cs.uwaterloo.ca/~gweddell/cs348/lect-SQL-handout.pdf">SQL</a></h3>
+<p>builds on the relational calculus</p>
+<ul>
+<li>SQL is a standard, has many implementations</li>
+<li>has three parts: Data Manipulation, Data Definition, Data Control</li>
+</ul>
+<h4 id="first-order-sql">First Order SQL</h4>
+<p>Summary:</p>
+<ul>
+<li>captures all of relational calculus</li>
+<li>polynomial runtime (PTIME)</li>
+<li>shortcomings: no aggregation (counting) or recursion (path in graph)</li>
+</ul>
+<p>Details:</p>
+<ul>
+<li>simple <span class="math inline">\(\exists, \land\)</span> queries use <code>SELECT, FROM, WHERE</code> to declare</li>
+<li>
+<code>R AS p</code> defines a tuple variable (correlation) p, with <strong>attribute names</strong> <span class="math inline">\(a_1, a_2, \dots a_n\)</span>, similar to relational calculus where we would say <span class="math inline">\(R(p.a_1, p.a_2, \dots, p.a_n)\)</span><ul>
+<li>
+<code>AS</code> keyword is optional: <code>SELECT r.publication FROM wrote r</code>
+</li>
+<li>this is even still equivalent to <code>SELECT publication FROM wrote</code>
+</li>
+</ul>
+</li>
+<li>for <span class="math inline">\(\lnot, \lor\)</span> we need set operators <code>UNION, EXCEPT, INTERSECT</code><ul>
+<li>we can use this to connect queries together, but both queries must return the same signature (be <strong>union-compatible</strong>)</li>
+<li>
+<code>OR</code> in the <code>WHERE</code> clause looks like <code>UNION</code>, but often doesn't cover the empty set case</li>
+<li>of course with <span class="math inline">\(\lnot, \exists\)</span> we can form <span class="math inline">\(\forall\)</span> queries now</li>
+</ul>
+</li>
+<li>for nested queries (something like <span class="math inline">\((A \lor B) \land C\)</span>) can use the keyword <code>WITH</code> to name the results of a child query for use in another query<ul><li>
+<code>WITH</code> can be omitted by inlining queries <code>SELECT book.title FROM (SELECT * FROM books) book</code>
+</li></ul>
+</li>
+<li>
+<code>WHERE</code> subqueries are syntactic sugar that allow you to inline queries that look like predicates, with keywords <code>IN, SOME, ALL, EXISTS, NOT</code><ul><li><code>SELECT title FROM publication WHERE pubid in (SELECT pubid FROM article)</code></li></ul>
+</li>
+<li>
+<strong>parametric subqueries</strong> allow queries to depend on (attributes from) the main query<ul><li>semantically, subqueries let us say "All x in R s.t. part of x doesn't appear in S"</li></ul>
+</li>
+</ul>
+<p>Example: List all authors who always publish with someone else</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> a1.name 
+<span class="kw">FROM</span> author a1, a2 
+<span class="kw">WHERE</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> (
+  <span class="kw">SELECT</span> * <span class="kw">FROM</span> publications p, wrote w 
+  <span class="kw">WHERE</span> p.pubid == w.publication
+    <span class="kw">AND</span> a1.aid = w.author
+    <span class="kw">AND</span> a2.aid <span class="kw">NOT</span> <span class="kw">IN</span> (
+      <span class="kw">SELECT</span> author
+      <span class="kw">FROM</span> wrote
+      <span class="kw">WHERE</span> publication = p.pubid
+        <span class="kw">AND</span> author &lt;&gt; a1.aid
+    )
+)</code></pre></div>
+<h4 id="modifying-database">Modifying Database</h4>
+<p>More SQL syntax for actually modifying state based on first order logic</p>
+<h4 id="aggregation">Aggregation</h4>
+<p>Extension of first order SQL</p>
+<ul><li>finding a number of tuples (counting), min/max, mapping values over a column</li></ul>
+<h3 id="data-modeling-and-entity-relationship-model">Data Modeling and Entity-Relationship Model</h3>
+<h3 id="normalization-theory"><a href="https://cs.uwaterloo.ca/~gweddell/cs348/lect-FD-handout.pdf">Normalization Theory</a></h3>
+<ul>
+<li>anomalies in schema design lead to violations of transactional consistency</li>
+<li>functional dependencies let us reason about ways to perform schema decomposition, thereby avoiding anomalies</li>
+<li>
+<strong>computeX+(X, F)</strong> is an algorithm for determining which columns can be determined from the key + functional dependency set pair (by continuously adding any attributes to the set of X+ that are determined by elements in X+ currently)</li>
+<li>a decomposition is dependency preserving if we get some equivalent F' and none of the functional dependencies are interrelational (requires a join)</li>
+<li>Normalization is the process of decomposing a schema (set of relation schemas), so that it is in some standard form</li>
+<li>BCNF is the most desirable form, followed by 3NF</li>
+<li>multivalued dependencies capture anomalies/redundancies not captured by functional dependencies (when X -&gt;&gt; Y, means a set of values for Y is determined instead of a single unique value)</li>
+<li>a <strong>dependency basis</strong> is a way to partition a relation schema so that we can further decompose schemas with multivalued dependencies, since splitting right-hand sides of dependencies (as in minimal cover) doesn't work for multivalued (because it uniquely defines a large set, the cartesian product of all right-side attributes' values)<ul><li>breaking down the example for Course-Teacher-Hour-Room-Student-Grade relation, "dependency basis for X = C is R-X = [Y1 = T, Y2 = HR, Y3 = SG] s.t. F |= C -&gt;&gt; Z iff Z - C is a union of some of the partitions of R-X"</li></ul>
+</li>
+<li>5NF is even stronger, using join dependencies, but has no axioms</li>
+</ul>
+<h3 id="query-execution">Query Execution</h3>
+<p>We use relational algebra for implementing query execution</p>
+<ul>
+<li>all relational calculus queries are representable in relational algebra</li>
+<li>naive implementations of each operator are intuitive, but slow</li>
+<li>one optimization is to use indexes</li>
+<li>calculating the cost of different physical plans can be done using the simple cost model for I/O, using several parameters to estimate relative cost of operations, based on assumptions of uniformity and independence</li>
+</ul>
+<h3 id="transaction-execution">Transaction Execution</h3>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

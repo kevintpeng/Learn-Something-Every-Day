@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Data Processing Architectures - Lambda and Kappa</title>
+</head>
+<body>
+
+<h1 id="data-processing-architectures---lambda-and-kappa">Data Processing Architectures - Lambda and Kappa</h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#lambda">Lambda</a></li>
+<li><a href="#kappa">Kappa</a></li>
+<li><a href="#implementations">Implementations</a></li>
+</ul>
+</div>
+<p>Lambda and Kappa architectures are popular design solutions for real-time data processing. A good real-time data processing architecture must be fault-tolerant, scalable, supports batch and incremental updates, and is extensible.</p>
+<h2 id="lambda">Lambda</h2>
+<p>Lambda architecture is good for its many use-cases. Lambda is composed of 3 layers; batch, speed and serving:</p>
+<p><img src="http://www.ericsson.com/research-blog/wp-content/uploads/2015/11/LambdaKappa1_1.png" alt="lambda figure"></p>
+<p><a href="Big%20Data%20Processing.md">Batch layer</a> has two major tasks:</p>
+<ul>
+<li>managaing historic data</li>
+<li>recomputing results such as machine learning models</li>
+</ul>
+<p>Speed layer is used to provide results in low-latency. Does <a href="Big%20Data%20Processing.md">real-time data processing</a> by performing incremental updates to the batch layer results (with significantly lower computation cost).</p>
+<p>Serving layer enables various queries of stored results (the data warehouse).</p>
+<h2 id="kappa">Kappa</h2>
+<p>addresses some pitfalls of Lambda, but it is not a replacement for Lambda. Kappa avoids the need to maintain two separate code bases for the batch and speed layers of processing. The key idea is to handle both real-time processing and continuous reprocessing using a single stream. Process stream runs the processing job, to enable real-time data processing.</p>
+<p><img src="http://www.ericsson.com/research-blog/wp-content/uploads/2015/11/LambdaKappa1_2.png" alt="kappa figure"></p>
+<h2 id="implementations">Implementations</h2>
+<p>Both architechures require combining technologies like the following Apache technologies: Kafka, HBase, Hadoop (HDFS, MapReduce), Apache Spark, Apache Drill, Spark Streaming, Apache Storm, and Apache Samza.</p>
+<ul>
+<li>Data ca be ingested into the Lambda and Kappa architectures using a publish-subscribe messaging system like <a href="Kafka.md">Kafka</a>.</li>
+<li>Data and model storage can be implemented using a persistent storage like HDFS (in Hadoop). High latency batch system like <a href="Hadoop.md">Hadoop MapReduce</a> can be used in the batch layer of Lambda to train models from scratch.</li>
+<li>Low-latency systems (Apache Storm, Apache Samza and Spark Streaming) can be used to implement incremental model updates in the speed layer.</li>
+<li>Apache Spark can be used as a common platform to develop the batch and speed layers for Lambda, sharing code between layers.</li>
+<li>Serving layer can be implemented using NoSQL database (like HBase) or SQL query engine (Apache Drill)</li>
+</ul>
+<p><a href="http://www.ericsson.com/research-blog/data-knowledge/data-processing-architectures-lambda-and-kappa/">source</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

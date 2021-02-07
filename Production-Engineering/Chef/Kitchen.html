@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Test Kitchen</title>
+</head>
+<body>
+
+<h1 id="test-kitchen">Test Kitchen</h1>          <a href="index.html">Back to Production-Engineering/Chef</a>
+<p>A test tool to execute configured code is isolation.</p>
+<ul>
+<li>Serverspec, framework for writing server 'audits' describing behaviors of the server, run in docker made by test kitchen</li>
+<li>
+<a href="https://docs.chef.io/config_yml_kitchen.html">kitchen.yml</a> defines what is required to run Kitchen</li>
+<li>implements a series of Rspec expectations, for integration and behaviour-base testing</li>
+<li>serverspec uses a full-blown chef client run and needs a chef server to talk to</li>
+<li>create a new suite in the <code>.kitchen.yml</code> file for the given service</li>
+<li><code>kitchen version</code></li>
+<li>
+<code>kitchen list</code>, choose the right instance to create</li>
+<li>
+<code>kitchen create &lt;suite&gt;-ubuntu-1404</code> to spin up an instance</li>
+<li>
+<code>kitchen converge &lt;instance&gt;</code> will</li>
+<li>
+<code>kitchen login &lt;instance&gt;</code> to "ssh" into the container, for manual verification</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

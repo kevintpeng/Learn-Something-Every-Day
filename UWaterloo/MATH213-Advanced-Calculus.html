@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Math 213: Introduction to Control Systems and Differential Equations</title>
+</head>
+<body>
+
+<h1 id="math-213-introduction-to-control-systems-and-differential-equations">Math 213: Introduction to Control Systems and Differential Equations</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#separable-ode">Separable ODE</a></li>
+<li><a href="#exact-ode">Exact ODE</a></li>
+<li><a href="#first-order-linear-ode-variable-coefficients">First-Order Linear ODE (variable coefficients)</a></li>
+<li><a href="#nth-order-linear-ode-homogeneous">Nth-Order Linear ODE (Homogeneous)</a></li>
+<li><a href="#nth-order-linear-ode-homogeneous-with-constant-coefficients">Nth-Order Linear ODE (Homogeneous with constant coefficients)</a></li>
+<li>
+<a href="#textbook"></a><a href="http://users.math.msu.edu/users/gnagy/teaching/ode.pdf">Textbook</a>
+</li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#lecture-2">Lecture 2</a></li>
+</ul>
+</div>
+<h3 id="summary">Summary</h3>
+<ul>
+<li>differential equations contain derivatives of a dependent variable; the solution is not a value, but rather a function or class of functions. We often need initial conditions to find a specific function solution</li>
+<li>separable differential equations allow us to solve them analytically, where we separate x's and y's to opposite sides of the equations and perform implicit differentiation (recall MATH 119)</li>
+<li>we can model many natural phenomena with differential equations exponential model</li>
+<li>population can be modelled simply with an exponential model, but more effectively as a differential equation. We can say dN/dt = r N (1 - N/K), "Logistic differential equation" where 1 N/K dampens growth at the population limit</li>
+<li>
+<strong>homogeneous equations</strong> can be transformed to separable equations with a substitution</li>
+<li>
+<strong>boundary conditions</strong>? -- TODO</li>
+<li>
+<strong>ordinary differential equations</strong> don't involve partial derivatives (so single independent variable)</li>
+<li>we want analytical solutions, and can avoid numerical solutions if the equation is a linear ordinary differential equation (ODE) with constant coefficients: d<sup>n</sup>/dt<sup>n</sup>y(t) + a<sub>n-1</sub>d<sup>n-1</sup>/dt<sup>n-1</sup>y(t) + ...</li>
+<li>then when solving a differential equation, we want to find some function that satisfies the expression, which can be solved given the initial condition, and by finding a function of the form <code>y(t) = c•e^(mt)</code> (since it has a nice derivative allowing us to find a characteristic equation, often polynomial). Then, using each root and initial conditions, we can find an equation for each unknown constant</li>
+<li>let Q(D) is a polynomial of differentials with coefficients, and when multiplied with some y(t), we get a ODE Q(D)y(t) = P(D)f(t), and in this course, we solve for y(t) with a given P(D)</li>
+<li>Laplast Transform allows us to solve differential equations, by solving an algebraic equation in the Laplast domain</li>
+</ul>
+<h3 id="separable-ode">Separable ODE</h3>
+<p>Goal is to separate functions and derivatives of x and y to either side of the equation, dy/dx(expression of y) = f(x), then take the integral of both sides</p>
+<h3 id="exact-ode">Exact ODE</h3>
+<p>Uncommon, but we want to find a substitution u(x,y) = C</p>
+<h3 id="first-order-linear-ode-variable-coefficients">First-Order Linear ODE (variable coefficients)</h3>
+<h3 id="nth-order-linear-ode-homogeneous">Nth-Order Linear ODE (Homogeneous)</h3>
+<h3 id="nth-order-linear-ode-homogeneous-with-constant-coefficients">Nth-Order Linear ODE (Homogeneous with constant coefficients)</h3>
+<h3 id="textbook"><a href="http://users.math.msu.edu/users/gnagy/teaching/ode.pdf">Textbook</a></h3>
+<p>Ordinary Differential equations are ones where the unknown function depends on a single independent variable t</p>
+<ul>
+<li>order of a differential equation is the highest derivative</li>
+<li>linear differential equations are first order ODE on the unknown y is y'(t) = f)t, y(t)), where f is given and y' = dy/dt (the differential). Then the equation is <strong>linear</strong> iff f(t,y) = a(t)y + b(t). But since we only care about constant coefficients for now, it is y' = ay + b</li>
+<li>now let's look at solving differential equations; integrating on both sides does not work<br>
+ - for y' = 2y + 3, integrating is not enough to find a solution y, we still need to find a <strong>primative</strong> of y<ul><li>we have only rewritten the original equation as an integral equation</li></ul>
+</li>
+<li>the linear differential equation y' = ay + b has infinitely many solutions: y(t) = ce<sup>mt</sup> - b/a, c in REALS</li>
+<li>this infinitely many solutions is called the <strong>general solution</strong> of the differential equation<ul><li>there are infinitely many solutions, one solution fo</li></ul>
+</li>
+</ul>
+<h3 id="introduction">Introduction</h3>
+<p>Studying linear, time-invariant dynamic systems using differential equations</p>
+<ul>
+<li>
+<strong>differential equations</strong> contain derivatives of some dependent variable with respect to an independent variable</li>
+<li>we can use integration (and techniques like partial fraction decomposition) to simplify and solve for values</li>
+<li>for differential equation: dx/dt = ax(t) - bx(t)^2, when we solve for x(t) we get the <strong>Logistic Equation</strong> (recall that this flattens any real values to a range of (0,1))<ul><li>"peak oil" theory assumes that the cumulative production of resources satisfies the logistic equation (in other words, the first derivative is the logistic curve)</li></ul>
+</li>
+<li>
+<strong>boundary value problem</strong> is a differential equation with a sert of additional constraints called boundary conditions</li>
+<li>linear differential equations contain no constant terms (otherwise called affine)<ul>
+<li>only able to perform analytical solutions when coefficients are constant</li>
+<li>principle of superposition greatly simplifies analysis</li>
+</ul>
+</li>
+</ul>
+<h3 id="lecture-2">Lecture 2</h3>
+<p>A general solution for an ODE is an expression for y(t) satisfying the equation and containing n "arbitrary constants/constants of integration"</p>
+<ul>
+<li>a set of n initial conditions determines values of these arbitrary constants</li>
+<li>the goal is to find the general solution of the eq, and plug in the initial conditions to evaluate the arbitrary constants</li>
+<li>start by finding an <strong>auxiliary equation</strong> y<sub>c</sub>(t) = 0, also called the complementary solution</li>
+<li>then, we'll find a particular solution</li>
+<li>y˜(t) = yc(t) + yp(t)</li>
+<li>Q(D)(yc(t) + yp(t)) = Q(D)yc(t) + Q(D)yp(t) = 0 + f(t)</li>
+</ul>
+<h1 id="laplace-transforms">Laplace Transforms</h1>
+<p>Helps us solve differential equations. Transform takes you from one set of functions to another set of functions. f(t) -&gt; F(s), different domains.</p>
+<ul>
+<li>
+<strong>Laplace Transform</strong> is a means of representing a function as a weighted sum of exponentials<ul>
+<li>the transform is applying weights to exponentials</li>
+<li>F(s) := L{f(t)} := indefinite integral of f(t)e^(-st)dt</li>
+<li>since it's an indefinite integral, it will only be defined if the integral converges</li>
+</ul>
+</li>
+<li>If all of our signals were exponentials y=e^st, then differentiation is just multiplication.</li>
+<li>If not, it would be best to express signals as linear combinations of exponentials</li>
+</ul>
+<p>Some known Laplace transforms:</p>
+<ul>
+<li>L{ 1 } = 1/s</li>
+<li>L{e^at} = 1/(a-s) only if it converges</li>
+<li>L{sin at} = a/(s^2+a^2) <em>(by using integration by parts)</em>
+</li>
+<li>L{cos at} = s/(s^2 + a^2) <em>(by the second property of laplace transforms on sin at)</em>
+</li>
+<li>L{ t } = 1/s^2 <em>by derivative property of laplace transforms</em>
+</li>
+<li>L{ t^n } = n!/s^(n+1)</li>
+<li>L{ u<sub>c</sub>(t)f(t-c) } = e^(-sc) L{ f(t) } for the unit step function, where 0 until c, then 1<ul>
+<li><em>this will be useful for describing piecewise functions (think back to when we learned about compositions of unit step functions)</em></li>
+<li>the unit step function can act as an offset, since it zeroes out a function until <code>c</code>
+</li>
+</ul>
+</li>
+</ul>
+<p>Properties of Laplace using notation L{ f(t) } = F(t):</p>
+<ol>
+<li>L{ c1f(t) + c2g(t) } = L{c1f(t)} + L{c2g(t)} by properties of integrals, the Laplace transform is a linear operator</li>
+<li>L{ f(ct) } = 1/c F(s/c) <em>time-scaling</em>
+</li>
+<li>L{ e^(at)f(t) } = F(s-a) <em>translates the transform</em>
+</li>
+<li>L{ μ<sub>c</sub>(t) f(t-c) } = e^(-cs) F(s)</li>
+<li>L{ t f(t) } = - d/ds F(s)</li>
+<li>L{f'(t)} = s • L{f(t)} - f(0) by integration by parts. This turns derivatives into multiplication.<ul>
+<li>L{f''(t)} = s • L{f'(t)} - f'(0) = s^2 L{ f(t) } - s f(0) - f'(0)</li>
+<li>L{f<sup>(k)</sup>(t)} = s^k L{y} - s^(k-1)f(0) - s^(k-2)f'(0) + ... <em>(this is called "shifting transform")</em>
+</li>
+<li>this gives us a powerful tool to solve differential equations: <strong>converting them to algebraic equations</strong>
+</li>
+</ul>
+</li>
+</ol>
+<p>The transform can be inverted by means of the inversion integral: f(t) = 1/(2π • j) integral of F(s) e^st from σ - j∞ to σ + j∞ <em>so somehow, by taking the integral over the imaginary range, we get the inverse laplace transform operator</em></p>
+<ul>
+<li>this is a "contour integral" on the complex plane, the contour of integration, the straight line Re(s) = σ must lie within the Radius of Convergence of F(s)</li>
+<li>given that an integral is just a sum, the inversion formula shows that f(t) is a sum of exponentials e^st, weighted by F(s)</li>
+</ul>
+<h3 id="part-3-laplace-for-differential-equations">Part 3: Laplace for differential equations</h3>
+<p>So the reason that Laplace transforms help us solve differential equations is because we apply a one-to-one transform on both sides of an equation</p>
+<pre><code>y'' + 5y' + 6y = 0, y(0) = 2, y'(0) = 3
+L{y''} + 5L{y'} + 6L{y} = L{0}
+s^2 L{y} - s(2) - 3 + 5(s L{y} - 2) + 6L{y} = 0
+s^2L{y} + 5s L{y} + 6L{y} - 2s - 13 = 0
+L{y}(s^2+5s+6) -2s -13 = 0
+L{y}(s+3)(s+2) = 2s + 13
+L{y} = (2s+13)/((s+3)(s+2))
+y = L^-1{(2s+13)/((s+3)(s+2))}  partial fraction expansion now
+  = L^-1{ A/(s+3) + B/(s+2)</code></pre>
+<h3 id="part-4-1-signals-and-systems">Part 4-1: Signals and Systems</h3>
+<p>Essential some function or transformation. Properties of systems:</p>
+<ol>
+<li>CT, DT, hybrid describe types of in/out functions<ul><li>often represented by difference equations</li></ul>
+</li>
+<li>Memoryless (pure function) vs. Dynamic (depends on state)</li>
+<li>Causality, dependent only on prior values of the input with respect to time</li>
+<li>Multivariable vs. Scalar</li>
+<li>
+<strong>Linearity</strong>, if the input is a linear combination of signals, then the output is a linear combination of their individual responses</li>
+<li>
+<strong>Time Invariance</strong>, doesn't change with time (response can be horizontally shifted without change shape)</li>
+<li>Lumped vs. distributed-parameter systems<ul>
+<li>lumped is one which signals only depend on the var <code>t</code>
+</li>
+<li>distributed is a system which depends on other indep vars</li>
+</ul>
+</li>
+</ol>
+<h3 id="part-4-2-zero-state-and-zero-input">Part 4-2: Zero-state and Zero-input</h3>
+<p>We'll look at linear, time-invariant, lumped-parameter systems</p>
+<ul>
+<li>model by linear ODE with constant coefficents, Q(D)y(t) = P(D)f(t), order n with some initial values</li>
+<li>we care about t≥0</li>
+<li>if system is <strong>dynamic</strong>, then we also have to look at the negative values of t</li>
+<li>let's decompose f into the + and - parts, where f<sub>-</sub>(t) into a sum of functions whose value is zero for all non-negative t</li>
+<li><em>I guess we can find a unique solution (input) to Q(D)y(t) = P(D)F<sub>-</sub>(t) since we have initial conditions</em></li>
+<li>
+<strong>zero-input response</strong> is y<sub>-</sub>(t), because it's the response if f(t) is "turned off" at t=0</li>
+<li>by causality we can form the same equation for inputs, y(t) = y<sub>-</sub>(t) + y<sub>+</sub>(t)</li>
+<li>
+<strong>zero-state response</strong> is y<sub>+</sub>(t)</li>
+<li><em>note, even for t≥0 , the zero-input and zero-state responses are generally not part of the solution y(t)</em></li>
+<li>wikipedia describes zero state response as the result only from external input or driving functions, not from the initial state.</li>
+</ul>
+<p>The big conclusion from this section is that we're studying <strong>zero-input response</strong>. It tells us all we need to know about the system's dynamics</p>
+<h3 id="part-4-3-convolution">Part 4-3: Convolution</h3>
+<p><strong>Convolution</strong> of (f * g)(t) is the integral from 0 to t of f(t-τ)g(τ)dτ</p>
+<ul>
+<li>e.g. f(t) = sint and g(t) = cost and requires integral solution methods</li>
+<li>Theorem states: L{ (f * g)(t) } = F(s)G(s), the products of laplace transforms</li>
+<li>again, (f * g)(t) = L^-1{ F(s)G(s) }</li>
+<li><em>notice that we have the convolution as an integral, dependent on t. The convolution is a function of t, and so τ is just used to sum across 0 to t.</em></li>
+<li>e^st as input to a system gets multiplied by some constant y(0), which turns out to be H(s), our <strong>transfer function</strong> by the convolution integral</li>
+<li><em>we'll look at the poles of the response, because the sort of characterize the transfer function</em></li>
+<li>RC circuit system changes the potential difference after passing through the circuit, and we can express the voltages through a differential equation<ul>
+<li>the transfer function is the transform of the impulse response</li>
+<li>impulse response is a zero-state response so set the initial conditions to zero</li>
+<li><em>I think in general, we'll treat initial values as zero in this course, or at least that seems like a fair assumption if we're stuck</em></li>
+</ul>
+</li>
+<li>
+<strong>first order transfer functions</strong> have one pole</li>
+<li>
+<strong>standard first order system</strong> is H(s) = K/(sΤ + 1), K, τ positive integers</li>
+<li>the steady-state value of the step response is K, the <strong>dc gain</strong> of the transfer function</li>
+<li>
+<strong>transient term</strong> is the part of the ODE that tends to 0 as t-&gt;infinity<ul><li>it turns out that the closer the pole is to zero, the slower the transient decays</li></ul>
+</li>
+<li>tau determines the rate of decay of the transient term e^(-t/τ), called <strong>time constant</strong>
+</li>
+<li>poles are at complex values, and at the pole of a function f(z), f(z) -&gt; ∞ as z-&gt;a, for pole <code>a</code><ul>
+<li>the real part determines the rate of decay of the amplitude of osillation, imaginary part determines the angular frequency of the oscillations</li>
+<li>the modulus of the pole is the hypotenuse of the complex number. As it increases, response speeds up</li>
+<li>as the angle of the complex number decreases, the response is less oscillatory</li>
+<li><em>the further the poles are from the origin, the "faster" the response, and the closer they are to the real axis, the less oscillatory the response</em></li>
+<li>poles to the right of the imaginary axis (positive real part) give rise to growing exponentials (not stable)</li>
+<li><em>we're using complex numbers so that we have a nice "vector" almost of information, holding both the frequency and the amplitude of a sinusoid in one number</em></li>
+<li>
+<strong>stable</strong> rational transfer function if all poles lie strictly to the left of the imaginary axis (negative)</li>
+</ul>
+</li>
+<li>a single input single output (SISO) system is bounded input bounded output (BIBO) stable iff its transfer function is both stable and "proper" (degree of numerator doesn't exceep the denominator)<ul><li>by bounded, we're looking at a function s.t. |f(t)| ≤ some M</li></ul>
+</li>
+</ul>
+<p>The big conclusion of this section is that we get a lot of information about a system's transient (think oscillation part) by looking at its poles on the complex plane</p>
+<h3 id="part-5-1-frequency-responses-of-lti-systems">Part 5-1: Frequency Responses of LTI systems</h3>
+<p>Previously, we transform problems in analysis of LTI systems into Laplace to be solved algebraically</p>
+<ul>
+<li>we can transform problems to the "Frequency domain" by looking at how LTI systems respond to sinusoids<ul><li><em>the frequency domain on the complex plane has a bunch discrete points on it, which each represent some sinusoid. This is cool because the inverse laplace takes us from the frequency domain (complex numbers) to the time domain (real numbers), which is an integral (summation) over a bunch of points in the frequency domain. But really what this physically means is that we're summing a bunch of sinusoids to represent something in the time domain!</em></li></ul>
+</li>
+<li>sometimes we can look at poles and zeroes and understand the system</li>
+<li>we know response to a two-sided exponential input e^st is transfer function H(s)•e^st</li>
+<li>for sinusoids, it is the case where <code>s</code> is purely imanginary by euler's formula, so e^(jωt)</li>
+<li>the <strong>frequency response</strong> of a system is H(jω), s = jω or s is a sinusoid</li>
+<li>if instead the input is of the form e^jwt unitstep(t), then it may provoke transients that are not of the form e^jwt</li>
+<li>if H(s) is stable, then in "steady-state" (neglecting transient terms which decay to 0) the output will be H(jw)e^jwt unitstep(t)</li>
+</ul>
+<p>It seems the frequency response contains just as much information as the impluse or step responses.</p>
+<h3 id="part-5-2-bode-plots">Part 5-2: Bode Plots</h3>
+<p>We know that putting sinusoids as input to a system (the frequency response) restricts what algebraic transformations can occur. This happens to mean that for sinusoids, this is only two things that can change: amplitude and phase. So for a fixed frequency input, the output has the exact same frequency. So a Bode Plot is just some graphical representation of what our system response looks like for all possible inputs (changing the frequency)</p>
+<ul>
+<li>going to call amplitude gain, and do this on a logarithmic scale (and first convert amplitude to power (and power is proportional to amplitude squared)</li>
+<li>going to plot phase in degrees against frequency of the input sinusoid</li>
+</ul>
+<p>We can use transfer functions again let's us find the bode plot of a system</p>
+<ul>
+<li>we only want frequency response, so steady-state response (ignoring transients, or the real part of s is 0) jω</li>
+<li>as before, input is multiplied by transfer function, which gives us a complex number as the result<ul>
+<li>length of the line gives us gain</li>
+<li>angle off the real axis is the phase (arctan)</li>
+</ul>
+</li>
+</ul>
+<p>Graphing Bode Plots by hand from the transfer function, with straight line approximation</p>
+<ul>
+<li>ex: transfer function H(s) = K, then gain = log K dB, and phase = 0 deg for positive K, -180 for negative K<ul>
+<li>poles cause the transfer function to approach ∞</li>
+<li>zeroes cause the transfer function to equal 0</li>
+</ul>
+</li>
+<li>we plot frequency on a log scale too</li>
+<li>poles at the origin for transfer function (1/s) contribute 20 dB/log omega to the gain and -90 deg<ul><li>we can use properties of logarithms to do summations instead of multiplication</li></ul>
+</li>
+<li>zeroes give us the negative gain and phase of a pole</li>
+</ul>
+<p>So transfer functions in LTI systems can be decomposed into a product of four types of components:</p>
+<ol>
+<li>Constants (where the gain is constant, log K and phase is 0 or 180 for ±K)</li>
+<li>Poles/Zeroes at origin (where gain is a linear function (dB vs. decades of ω) slope -20 dB/dec, phase is ±90 deg)</li>
+<li>Real Poles/Zeroes<ul>
+<li>K/(1+τs) is our transfer function with the "Time Constant" (recall the standard first order system transfer function)</li>
+<li>magnitude/gain is 20 log K - 20 log √(1 + (ωτ)^2), phase is -(angle of jw - (-1/τ))</li>
+<li>draw by hand with low and high-frequency asymptotes</li>
+<li>for gain we have two straight lines: look at ω &gt;&gt; 1/τ, ω &lt;&lt; 1/τ, the bend occurs at 1/τ<ul><li>two line estimate is -∞ to 1/τ to ∞ (second part is sloped)</li></ul>
+</li>
+<li>for phase we have three straight lines, (visually, as ω -&gt; ∞, the imaginary part goes to infinity with a fixed real part): angle varies from 0 to -90</li>
+<li>the exact value of the angle for jw - (-1/τ) is Tan<sup>-1</sup> ω/(1/τ))<ul><li>three line estimate is -∞ to 0.1/τ to 10/τ to ∞</li></ul>
+</li>
+<li>zero is drawn as 1/pole</li>
+</ul>
+</li>
+<li>Complex Poles, we have to check a third case for magnitude, where ω = 1/τ, in which case we get a bump in the graph</li>
+</ol>
+<h3 id="part-6-fourier-series">Part 6: Fourier Series</h3>
+<p>Sinusoids are easier to analyze because of the frequency response and the fact that it is only ever changed in amplitude or horizontal translations</p>
+<ul>
+<li>we want to decompose signals into sinusoids</li>
+<li>given a sinusoidal signal, we can often express it as an infinite sum of sinusoids</li>
+<li>
+<strong>fourier series</strong> are infinite sums of sinusoids<ul>
+<li>think of as coefficients tell us how much of each frequency is in our function</li>
+<li>definite integrals of sin and cos from 0 to 2 pi is 0</li>
+<li>definite integral from 0 to 2pi of sintcost = 0</li>
+<li>definite integral from 0 to 2pi of sin(mt) sin(nt) = 0 when m ≠ n</li>
+<li>definite integral from 0 to 2pi of sin^2(mt) = pi, m non zero</li>
+<li>definite integral from 0 to 2pi of cos^2(mt) = pi, m non zero</li>
+</ul>
+</li>
+<li>we can use these facts to evaulate fourier coefficients<ul>
+<li>first term in a fourier series, every term in the infinte series will be zero EXCEPT the a<sub>0</sub> term, the first constant term in the fourier series</li>
+<li>so definite integral of a fourier series is a0 • 2pi, or the average value of a function f over the interval [0, 2pi]</li>
+<li>we can find the nth coefficent <code>an</code> by multiplying both sides by cos(nt)</li>
+<li>nth coefficient <code>bn</code> by multiplying both sides by sin(nt)</li>
+</ul>
+</li>
+<li>it turns out the infinite set of sinusoids constitutes an orthogonal basis of a vector space<ul>
+<li>vector space describes the set of possible vectors, a basis is a set of vectors that can express any vector in the vector space as a linear combination of the basis vectors</li>
+<li>an orthogonal basis just means that all the basis vector are orthogonal to each other</li>
+<li>from above, what we mean by orthogonal basis is that, like in linear algebra, multiplying any of the two sinusoids together (inner product/dot product ish) we get zero, which means that any two sinusoids are orthogonal which is exactly what we showed above for the definite integrals</li>
+<li><em>orthogonality is an important property, it allows us to get a unique representation of some function f(t) as a composition of sinusoids</em></li>
+<li>we can find a formula for the coefficients of each sinusoid, by taking the projection of the function onto each of the sinusoids, that is intuitively, <em>we're just finding coefficients to tell us how much each sinusoid is expressed in f(t). An analogy is to think of sinusoids as independent from each other (since they're orthogonal) and summing across them lets us break f(t) into a sum of small parts, and we use projections to determine how much each sinusoid term should be worth in our summation.</em>
+</li>
+</ul>
+</li>
+<li>each projection is actually a definite integral, which describes part of the subspace that we're projecting onto</li>
+<li>a funciton is <strong>periodic</strong> with period T if for all t, f(t + T) = f(t)<ul><li>try to represent it as a superposition of sinusoidal functions <code>e^(j2pi n t / T)</code>, n is an integer</li></ul>
+</li>
+<li>such functions are "eigenvectors" or rather <em>eigenfunctions</em> of linear systems (scalar multiple after being transformed by the system)</li>
+<li>
+<strong>inner product</strong> is an algebraic operation, just simply multiplying them together on some interval</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

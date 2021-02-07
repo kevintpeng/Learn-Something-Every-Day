@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul><li><a href="#relations-and-functions">Relations and Functions</a></li></ul>
+</div>
+<h2 id="relations-and-functions">Relations and Functions</h2>
+<h4 id="ordered-pairs">Ordered Pairs</h4>
+<p>Sets disregard order of set elements. <em>Ordered pair</em> of two elements x and y,</p>
+<pre><code>(x,y) = (u,v) iff x = u and y = v.</code></pre>
+<p>Can be extended to <em>ordered n-tuple</em> for n elements.</p>
+<p>Given two sets A and B, their <em>cartesian product</em> <code>A x B</code> is the set of all ordered pairs (x,y) s.t. x in A and y in B:</p>
+<pre><code>A x B = {(x,y) : x in A, y in B}
+A^2 = A x A = {(x,y) : x,y in A}
+A^n = {(x1,x2,...,xn) : x1,x2,...,xn in A}</code></pre>
+<p>R^2 and R^n are examples of cartesian planes.</p>
+<h4 id="relations">Relations</h4>
+<p>For set A, <em>a relation on A</em> is some property that is either true or false for any ordered pair (x,y) in A^2. Greater than <code>&gt;</code> is a relation on Integers. For example, <code>&gt;</code> is true for (3,2) but false for (2,2).</p>
+<p>For relation <code>&gt;</code> on the set <code>{1,2,3}</code>:</p>
+<pre><code>&gt; = {(3,2),(3,1),(2,1)}</code></pre>
+<p>weird notation, but a relation can be thought of as the set of possible ordered pairs that satisfy <code>&gt;</code>.</p>
+<h4 id="kinds-of-relations">Kinds of relations</h4>
+<p>A relation R on set A is called</p>
+<ul>
+<li>reflexive if for all a in A, aRa (true for itself)</li>
+<li>anti-reflexive if for all a in A, a/Ra (aRa is false)</li>
+<li>symmetric if for all a,b in A, aRb implies bRa (<code>=</code>)</li>
+<li>antisymmetric if for all a,b in A, aRb and bRa implies a = b (not symmetric unless equal, ≤)</li>
+<li>transitive if for all a,b,c in A, aRb and bRc implies aRc</li>
+<li>
+<strong>Equivalence relations</strong>. A relation that is reflexive, symmetric and transitive.</li>
+</ul>
+<p><strong>Partion</strong> of a set A is a set X ⊆ 2^A \ {ø} s.t.</p>
+<ul>
+<li>Each a in A belongs to some S in X</li>
+<li>If S,T in X, either S = T or S ∩ T = ∅</li>
+</ul>
+<p>So, a partition of a set S is a collection of nonempty subsets A1, A2, ... with <strong>no overlaps</strong> (Ai and Aj are pairwise disjoint for all i ≠ j), and <strong>union of all A is S</strong>&gt;</p>
+<p>Where <a href="Sets.md#set-of-all-subsets">2^A represents the set of all subsets</a>.</p>
+<p>Basically, the partion of set A is a grouping of the set's elements into non-empty subsets, such that every element is included in one and only one of the subsets. Or, A is the union of all members of X, and these members are disjoint.</p>
+<p>Now given an equivalence relations R on A, the <em>equivalence class</em> of <code>a</code> in A is defined as <code>R[a] = {b in A : aRb}</code></p>
+<p><strong>The Fundamental Theorem: Equivalence relations and partitions.</strong> <em>Let R be an equivalence relation on a set A. Then <code>{R[a] : a in A}</code> is a partition of A.</em></p>
+<p>The set of distinct equivalence classes forms a partition of S.</p>
+<p>Given a partition of S into sets A1, A2, ... An, the relation defined by <code>xRy iff x and y belong to the same set A from the partitions</code> is an equivalence relation on S.</p>
+<pre><code>*Proof*. Consider an equivalence relation R on A. Due to reflexivity, every element `a` in A belongs to R[a], which implies the first property of a partition. Now consider two equivalence classes R[a] and R[b]. If aRb, then for any c in R[a], by transitivity and symmetry, bRc and c in R[b]. This shows that R[a] is a subset of R[b]. We can symmetrically argue that R[b] is a subset of R[a], implying that R[a] = R[b].
+Otherwise, if a(¬R)b, then consider some c in R[a]. If c in R[b], then aRc and bRc, which implies aRb, leading to contradiction. So if R[a] ≠ R[b] then R[a] ∩ R[b] = ø. This shows second property of partition and proves the theorem.</code></pre>
+<p><strong>Order Relations:</strong> A relation that is reflexive, antisymmetric and transitive called a <strong>partial order</strong>. <code>≤</code>, <code>≥</code> on Integers, and subset relation on the powerset 2^A, are familiar partial orders.</p>
+<p>A pair of elements can be <em>incomparable</em> with respect to a partial order. Divisibility <code>|</code> is a partial order on Integers, but 2 doesn't divide 3 and 3 doesn't divide 2.</p>
+<p>A set A with a partial order on A is called <strong>partially ordered set</strong> or a <strong>poset</strong>.</p>
+<p>A relation R on A is a <strong>total order</strong> if it is a partial order s.t for all a,b in A, <code>aRb OR bRa</code> is true. The relations ≥, ≤ are total orders on Real Numbers, but <code>|</code> is not a total order on Integers.</p>
+<p>A <strong>strict order</strong> on A is a relation R s.t.</p>
+<ul>
+<li>For all a,b,c in A, aRb and bRc implies aRc. (Transitivity)</li>
+<li>Given a,b in A, exactly one of the following holds: aRb, bRa, a = b.</li>
+<li>
+<code>&lt;</code> and <code>&gt;</code> are relations that are examples of strict orders.</li>
+</ul>
+<h4 id="functions">Functions</h4>
+<p>A special kind of relation.<br>
+<em>Given two sets A and B, a function ƒ : A -&gt; B is a subset of Ax B s.t.</em></p>
+<ul>
+<li>If x in A, there exists y in B s.t. (x,y) in ƒ. (everything in A should map to something in B)</li>
+<li>If (x,y) in ƒ and (x,z) in ƒ, then y = z. (think back to vertical line test, uniqueness)</li>
+</ul>
+<p>A function is a <em>map or mapping</em>. The set A is the domain and B is the codomain of ƒ. This defines functions as the set of all pairs (x, f(x)).</p>
+<p>Set of f(A) = {f(x) : x in A} is the <strong>range</strong> of ƒ. Range is a subset of the codomain. If f(A) = B (function maps to exactly the codomain) then ƒ is <em>surjective</em> or <em>onto</em> if each element of B is of the form f(x) for at least one x in A.</p>
+<p>A function is <em>injective</em> if for all x,y in A, f(x) = f(y) implies x = y.</p>
+<p>A function is <em>bijective</em> if each element of B is of the form f(x) for exactly one x in A.</p>
+<h5 id="first-class-and-higher-order-functions">First-class and higher-order functions</h5>
+<p>Higher-order functions take other functions as arguments or return them as results. In calc, the differential operator <code>d/dx</code> is an example since it takes a function.</p>
+<p>Highly related, a first-class function also take and output functions. Distinction : "higher order" describes a math concept of functions that operate on other functions, "first-class" is a CS term for entities in a programming language that have no restriction on their use.</p>
+<p><strong>One application is currying (partial application)</strong>, a technique where a function is applied to its arguments one at a time and each argument returns a new function that accepts the next argument.</p>
+<h5 id="pure-functions-expressions">Pure functions (expressions)</h5>
+<p>No side effects from state (memory or I/O).</p>
+<ul>
+<li>If the result of a pure function is not used, it can be removed</li>
+<li>A pure function will always return the same value given same inputs (leads to memoization)</li>
+<li>if there is no data dependency, expressions can be reversed or performed in parallel (thread-safe)</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

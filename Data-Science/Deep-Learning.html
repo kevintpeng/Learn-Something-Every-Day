@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Deep Learning</title>
+</head>
+<body>
+
+<h1 id="deep-learning"><a href="https://github.com/HFTrader/DeepLearningBook/blob/master/DeepLearningBook.pdf">Deep Learning</a></h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#optimization-and-training-techniques----source">Optimization and Training techniques -- </a><a href="https://blog.acolyer.org/2017/03/01/optimisation-and-training-techniques-for-deep-learning/">source</a>
+</li>
+<li><a href="#deep-generative-models">Deep Generative Models</a></li>
+<li><a href="#multimodal-learning-learning-with-structured-outputs">Multimodal Learning &amp; Learning with Structured Outputs</a></li>
+</ul>
+</div>
+<p>See <a href="./Foundational%20Math.md">prerequisite math</a> and <a href="Foundations%20of%20Machine%20Learning.md">foundational machine learning</a> and <a href="Neural%20Network.md">neural networks</a></p>
+<p>Deep Learning models that support inferences and are robustly applicable to many problems</p>
+<ul>
+<li>speech</li>
+<li>computer vision</li>
+<li>language understanding</li>
+</ul>
+<p>A model can be seen as a computation graph (DAG), whose nodes represent operations, leaves are the input and root is the output</p>
+<ul>
+<li>the depth of a model is the longest distance in the graph</li>
+<li>the depth of the model can be less than the depth of the problem, meaning the model has a more limited understanding of the problem</li>
+<li>is a kind of <em>representation learning</em> or feature learning</li>
+</ul>
+<h3 id="optimization-and-training-techniques----source">Optimization and Training techniques -- <a href="https://blog.acolyer.org/2017/03/01/optimisation-and-training-techniques-for-deep-learning/">source</a>
+</h3>
+<p>Hyper-parameters are picked constants that largely influence the effectiveness of an algorithm</p>
+<ul>
+<li>tuning hyper-parameters is time consuming because benchmarking effectiveness requires a full trial run</li>
+<li>in 2012, most hyper-parameters were picked from human intuition</li>
+<li>random search turns out to work well, since:<ul>
+<li>the parameter space usually has a low effective dimensionality</li>
+<li>importance of some parameters vary with datasets</li>
+</ul>
+</li>
+<li>grid search might miss information if one axis of the grid is independent to the result (thus we have lots of wasted trials)</li>
+<li>graphing box and whisker plots for expected best trial (in accuracy) for given number of random trials<br>
+<img src="https://adriancolyer.files.wordpress.com/2017/02/random-search-fig-2.jpeg?w=960">
+</li>
+<li>deep networks have LOTS of hyper-parameters (many per layer)</li>
+</ul>
+<p><strong>Improving neural networks by preventing co-adaptation of feature detectors</strong></p>
+<ul>
+<li>simple technique for reducing overfitting: randomly drop (50% change) a hidden unit, called dropout</li>
+<li>co-adaptation in biology is the process by which two or more species undergo adaptation as a pair or group<ul>
+<li>undergoing natural selection together, through evolutionary pressure</li>
+<li>better isolates neurons as feature detectors, more independent contributions</li>
+</ul>
+</li>
+<li>as a mental model, a neural network with n units can be seen as a collection of 2<sup>n</sup> possible thinned networks, with shared weighting and each individual thinned network is tested rarely</li>
+</ul>
+<p><strong>Regularization</strong> in deep learning is used to add an extra term to the cost function (weight decay, L2 regularization)</p>
+<p><strong>max-norm</strong> regularization works well in conjunction with dropout. Bounds the norm of the weight vector at each hidden unit by <code>c</code>, clipping constant.</p>
+<h3 id="deep-generative-models">Deep Generative Models</h3>
+<ul>
+<li>Vision and speech comes down to finding representations of features<ul><li>utilize clustering of supervised learning</li></ul>
+</li>
+<li>Restricted Boltzmann Machines (RBM)<ul>
+<li>generative stochastic artificial neural network, that can learn a probability distribution</li>
+<li>visible variables (pixel intensity)</li>
+<li>hidden variables (features)</li>
+<li>"tell me the features, and it will generate a semantic response"</li>
+<li>images and composed of learned features</li>
+<li>every text document can be represented as a linear combination of topics<ul>
+<li>recommendation system uses collaborative filtering</li>
+<li>in a neueral network:</li>
+<li>multinomial visible: user ratings</li>
+<li>binary hidden: user preference</li>
+</ul>
+</li>
+<li>closed form to compute output of the models very quickly</li>
+</ul>
+</li>
+<li>product of experts:<ul><li>use combination of topics to determine conditional probabilities of semantics</li></ul>
+</li>
+<li>unlabelled -&gt; edges -&gt; combination of edges (higher level)<ul><li>scale models up with higher level features</li></ul>
+</li>
+<li>model formulation<ul>
+<li>bottom up inference</li>
+<li>top down feedback</li>
+</ul>
+</li>
+</ul>
+<h3 id="multimodal-learning-learning-with-structured-outputs">Multimodal Learning &amp; Learning with Structured Outputs</h3>
+<ul>
+<li>Images are dense, text (descriptions) are sparce</li>
+<li>we want to</li>
+<li>heiarchical model (abstract them separately at low level features) and combine the modals at a high level feature</li>
+<li>encoder: convolutional Neural Network</li>
+<li>decoder: neural language model<ul><li>image -&gt; semantic feature space -&gt; description</li></ul>
+</li>
+<li>visual attention models (features as focal points of images)<ul>
+<li>important for caption generation</li>
+<li>looks at the proper spots in the image</li>
+<li>Helmholtz Machines / Variational Autoencoders (heiretical models)</li>
+</ul>
+</li>
+<li>Holistic Scene Understanding -- finding features, with structured prediction<ul><li>important to learn with constraints and priors</li></ul>
+</li>
+<li>unsupervised</li>
+<li>reasoning and natural language understanding<ul><li>semantic relatedness</li></ul>
+</li>
+<li>sequence to sequence learning<ul><li>neural machine translation (language)</li></ul>
+</li>
+</ul>
+<p>Reasoning</p>
+<ul>
+<li>Forward RNN and backwards RNN</li>
+<li>Gated Attention Mechanism with element-wise multiplication</li>
+<li><p>recurrent Neural Network</p></li>
+<li>deep reinforcement<ul><li>policy regression</li></ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

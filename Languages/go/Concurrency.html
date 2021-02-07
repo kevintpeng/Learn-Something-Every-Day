@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Go Concurrency</title>
+</head>
+<body>
+
+<h1 id="go-concurrency">Go Concurrency</h1>          <a href="index.html">Back to Languages/go</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#goroutine-blocking">Goroutine blocking</a></li>
+<li><a href="#fan-in-design-pattern">Fan-in Design Pattern</a></li>
+<li><a href="#workers-fan-out-design-pattern">Workers (fan-out design pattern)</a></li>
+<li><a href="#servers-design-pattern">Servers design pattern</a></li>
+</ul>
+</div>
+<p>Basic info in <a href="./README.md#concurrency">README</a>. Sourced from this <a href="http://divan.github.io/posts/go_concurrency_visualize/">cool Visualization of Go Concurrency</a>.</p>
+<h3 id="goroutine-blocking">Goroutine blocking</h3>
+<ul>
+<li>goroutines block, and wait for a value, when <code>myChannel &lt;- someValue</code> a channel is waiting to receive.</li>
+<li>A FIFO queue is formed when multiple goroutines are waiting to recieve from a single channel</li>
+<li><p>if all goroutines are currently blocked, go will throw an error message <code>fatal error: all goroutines are asleep</code></p></li>
+<li><p>goroutines also block after sending a value, and unblock once it is recieved by a channel receiver</p></li>
+</ul>
+<h3 id="fan-in-design-pattern">Fan-in Design Pattern</h3>
+<p>Fan-in is a function reading from multiple inputs and multiplexing all into a single channel</p>
+<ul><li>(good for a messaging app where order of messages should be consistent across all participants)<ul><li>multiplexing works from a <code>range</code> loop</li></ul>
+</li></ul>
+<p>Here, producers run concurrently while the reader, also concurrent, waits to recieve using a <code>range</code> loop.</p>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> (
+    <span class="st">"fmt"</span>
+    <span class="st">"time"</span>
+)
+
+<span class="kw">func</span> producer(ch <span class="kw">chan</span> <span class="dt">int</span>, d time.Duration) {
+    <span class="kw">var</span> i <span class="dt">int</span>
+    <span class="kw">for</span> {
+        ch &lt;- i
+        i++
+        time.Sleep(d)
+    }
+}
+
+<span class="kw">func</span> reader(out <span class="kw">chan</span> <span class="dt">int</span>) {
+    <span class="kw">for</span> x := <span class="kw">range</span> out {
+        fmt.Println(x)
+    }
+}
+
+<span class="kw">func</span> main() {
+    ch := <span class="bu">make</span>(<span class="kw">chan</span> <span class="dt">int</span>)
+    out := <span class="bu">make</span>(<span class="kw">chan</span> <span class="dt">int</span>)
+    <span class="kw">go</span> producer(ch, <span class="dv">100</span>*time.Millisecond)
+    <span class="kw">go</span> producer(ch, <span class="dv">250</span>*time.Millisecond)
+    <span class="kw">go</span> reader(out)
+    <span class="kw">for</span> i := <span class="kw">range</span> ch { <span class="co">// multiplexing the integers being sent to `ch` channel, sending them to reader</span>
+        out &lt;- i
+    }
+}</code></pre></div>
+<p><img src="http://divan.github.io/demos/gifs/fanin.gif" alt="visualization of code"></p>
+<h3 id="workers-fan-out-design-pattern">Workers (fan-out design pattern)</h3>
+<p>Opposite of fan-in, multiple goroutines read from a single channel, distributing work between CPU cores. The following is an animation of 36 workers, where <code>GOMAXPROCS=4</code> (effectively only 4 goroutines in parallel):<br>
+<img src="http://divan.github.io/demos/gifs/workers.gif" alt="36 go workers"></p>
+<h3 id="servers-design-pattern">Servers design pattern</h3>
+<p>Similar to fan-out, goroutines are spawned for short period of time to complete a task.</p>
+<ul><li>listener runs <code>accept()</code> in a loop and starts goroutine for each accepted connection</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

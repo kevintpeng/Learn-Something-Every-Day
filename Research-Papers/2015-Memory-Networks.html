@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Memory Networks 2015</title>
+</head>
+<body>
+
+<h1 id="memory-networks-2015"><a href="https://arxiv.org/pdf/1410.3916.pdf">Memory Networks 2015</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#memory-networks">Memory Networks</a></li>
+<li><a href="#a-memnn-implementation-for-text">A MemNN Implementation for Text</a></li>
+<li><a href="#lstm">LSTM</a></li>
+<li>
+<a href="#pointer-network"></a><a href="https://arxiv.org/pdf/1506.03134.pdf">Pointer Network</a>
+</li>
+<li>
+<a href="#neural-turing-machine"></a><a href="https://arxiv.org/pdf/1410.5401.pdf">Neural Turing Machine</a>
+</li>
+</ul>
+</div>
+<h1 id="datascience-machinelearning">datascience #machinelearning</h1>
+<p>Facebook AI research. Many machine learning models lack read/write capability to long term memory</p>
+<ul>
+<li>all memory is stored within hidden layers of the model, embedded by hidden states and weights</li>
+<li>RNNs can be used to try to learn for information and produce the next set of words to output after reading a stream of words<ul><li>problem is that the knowledge is embedded within the NN itself and the capacity is relatively small</li></ul>
+</li>
+<li>RNNs work for memorization tasks, but they are not effective</li>
+<li>
+<strong>memory networks</strong> attempt to incorperate a long term memory component, and can be applied to question-answer tasks by building a knowledge base</li>
+</ul>
+<h3 id="memory-networks">Memory Networks</h3>
+<p>Memory Networks have <code>m</code>, an array of objects, and four learned components:</p>
+<ul>
+<li>I: input feature map, maps inputs to internal feature representation</li>
+<li>G: generalization used to update memory m, based on new input</li>
+<li>O: output feature map, produces a new output memory network, given the input and current memory state</li>
+<li>R: response function, converts output into a textual response or other desired output formats</li>
+</ul>
+<p>A memory network takes some input <code>x</code>, <code>x</code> is a word, sentence, audio, image</p>
+<ul><li>the input and output maps are internal representations of features, while input <code>x</code> and response <code>r</code> are more human-usable formats (again, sentences, images, audio)</li></ul>
+<ol>
+<li>convert x to internal representation: I(x)</li>
+<li>update memory with generalization: m'<sub>i</sub> = G(m<sub>i</sub>, I(x), m), forall i</li>
+<li>compute output features <code>o</code> given the new input and memory: o = O(I(x), m')</li>
+<li>decode the output features <code>o</code> to give the response: r=R(o)</li>
+</ol>
+<p>Components of the memory network can be composed of other learning algorithms.</p>
+<p>Memory network applied to a set of problems</p>
+<p>LSTM looks at a sequence, are questions a sequence?</p>
+<ul><li>a theoretically large LSTM could hold</li></ul>
+<h3 id="a-memnn-implementation-for-text">A MemNN Implementation for Text</h3>
+<p>One implementation of a memory network where the components are neural networks</p>
+<ul>
+<li>most of the inference happens in O and R stages</li>
+<li>s<sub>O</sub> is a function that produces a score for the match between a pair of sentences x and m<sub>i</sub>
+</li>
+<li>we use the scoring function to figure out which memories are relevent to the input question <code>x</code>
+</li>
+<li>
+<code>k</code> number of supporting memories can be fetched, by applying s<sub>O</sub> to both <code>x</code>, and the previous <code>k-1</code> memories fetched</li>
+<li>U<sup>T</sup>U is sort of a distance metric (think dot product)</li>
+</ul>
+<h3 id="lstm">LSTM</h3>
+<p>Specific RNN architecture, designed to learn from experience to classify and predict time series</p>
+<ul><li>memory is tied to number of parameters</li></ul>
+<h3 id="pointer-network"><a href="https://arxiv.org/pdf/1506.03134.pdf">Pointer Network</a></h3>
+<h3 id="neural-turing-machine"><a href="https://arxiv.org/pdf/1410.5401.pdf">Neural Turing Machine</a></h3>
+<p>Coupling neural networks with external memory resources</p>
+<ul>
+<li>constructs a system analogous to a Turing Machine or Von Neumann architecture</li>
+<li>motive, separate ability to store memories vs. number of parameters to train</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

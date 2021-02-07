@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>CS462 Formal Languages and Parsing</title>
+</head>
+<body>
+
+<h1 id="cs462-formal-languages-and-parsing"><a href="https://www.student.cs.uwaterloo.ca/~cs462/">CS462 Formal Languages and Parsing</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#combinatorics-on-word-definitions">Combinatorics on Word: Definitions</a></li>
+<li><a href="#finite-automata-and-regular-languages">Finite Automata and Regular Languages</a></li>
+<li><a href="#automata-graphs-and-boolean-matrices">3.8 Automata, graphs and boolean matrices</a></li>
+<li><a href="#myhill-nerode-theorem">3.9 Myhill-Nerode theorem</a></li>
+<li><a href="#minimization-of-finite-automata">3.10 Minimization of finite automata</a></li>
+<li><a href="#state-complexity">3.11 State complexity</a></li>
+<li><a href="#partial-order">3.12 Partial Order</a></li>
+<li>
+<a href="#context-free-grammars">4 Context-free grammars</a><ul>
+<li><a href="#ogdens-lemma">4.3 Ogden's Lemma</a></li>
+<li><a href="#parikhs-theorem">4.2 &amp; 4.6 Parikh's Theorem</a></li>
+<li><a href="#parsing-and-recognition">5 Parsing and recognition</a></li>
+<li><a href="#knuth-nfa">Knuth NFA</a></li>
+</ul>
+</li>
+<li><a href="#turing-machines">Turing Machines</a></li>
+</ul>
+</div>
+<h3 id="combinatorics-on-word-definitions">Combinatorics on Word: Definitions</h3>
+<ul>
+<li>A <strong>primative</strong> <code>x</code> and <strong>power</strong> <code>w</code> form the word <code>w = x^k</code> for integer <code>k</code>
+</li>
+<li>P<sub>2</sub> means the set of all primatives over the alphabet of length 2: {0,1}</li>
+<li>
+<code>x Ш y</code> means shuffle, as in shuffling a deck (interleave)</li>
+<li>lexicographic order is defined for same length strings</li>
+<li>
+<strong>radix order</strong> sorts first by length then lexicographical</li>
+<li>z is <strong>purely periodic</strong> if z = x^omega for some finite x</li>
+<li>z is <strong>ultimately periodic</strong> if the suffix is purely periodic</li>
+<li>x and y are <strong>conjugates</strong> if x is a cyclic shift of y</li>
+<li>x is a <strong>border</strong> of y if x is not empty, x != y, x is prefix and suffix of y "entaglement"</li>
+<li>Lyndon-Schutzenberger 1st theorem, the "alfalfa" theorem</li>
+<li>can not avoid squares over a finite alphabet</li>
+<li>a <strong>morphism</strong> is a map from one alphabet to another, preserving concatenation</li>
+<li>if every subword of an infinite word appears at least twice, then every subword appears infinitely many times</li>
+<li>if every subword appears infinitely many times, the infinite word is <strong>recurrent</strong>
+</li>
+<li>thue-morse sequence is recurrent because any subword is from position i to j, and for the binary representation of <code>j</code>, you can always find the same subword ending at <code>11j</code><ul>
+<li>another way to think about this is the complementary construction. complement of complement gets you the original string back at a later position</li>
+<li><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Morse-Thue_sequence.gif" alt="thue-morse"></li>
+</ul>
+</li>
+</ul>
+<p>Proof tricks:</p>
+<ul><li>pigeon hole principle is useful for showing eventual repetition in infinite strings</li></ul>
+<h3 id="finite-automata-and-regular-languages">Finite Automata and Regular Languages</h3>
+<ul>
+<li>
+<strong>moore vs mealy machines</strong> are representations of a DFA for computation, resulting in some output<ul>
+<li>moore outputs different values at each state. there exists a mealy machine with the same # of states</li>
+<li>mealy outputs values at each transition. there exists a moore machine with |Q| |Δ| states</li>
+</ul>
+</li>
+<li>Quotient operator on languages: <code>L1 / L2</code> is defined as <code>{x in Sigma * where y in L2 and xy in L1 }</code><ul><li>we can define <code>prefix(L) = L / Sigma*</code>
+</li></ul>
+</li>
+<li>Concatenation of languages: <code>L1 L2</code> is <code>{xy where x in L1, y in L2 }</code>
+</li>
+<li>Theorem: for language <code>L</code> and regular language <code>R</code>, then <code>R / L</code> is regular<ul><li>idea: start with a DFA for <code>R</code>, modify its final (accepting) states</li></ul>
+</li>
+<li>example: remove trailing zeroes while preserving regularity. <code>(L / '0'*) n {epsilon u sigma* u sigma - {0}</code>
+</li>
+<li>Δ<sup> * </sup> is the set of all languages</li>
+<li>
+<strong>substitution</strong> maps words to languages. It preserves concatenation.<ul><li>"substitution by regular languages" means regularity is preserved during substitution.</li></ul>
+</li>
+<li>Theorem: substitution preserves regularity. Prove by induction on the regular expression operators.</li>
+<li>
+<strong>inverse morphism</strong> on a language L is, given a morphism, the set of all words that when the morphism is applied to them, they result in a word in L</li>
+<li>
+<strong>transducer</strong> is a generalization of the mealy machine which transforms input to a new output, which has finite states, nondeterministic transitions, and each transition takes some input and produce output of possibly a different alphabet</li>
+</ul>
+<p>Proof tricks:</p>
+<ul>
+<li>for induction, always construct the problem recursively. Then make sure during the induction step, we apply it to pieces recursively.</li>
+<li>start with reprentations of an object (regular language represented by DFA, NFA, etc) and modify it to reach an answer</li>
+</ul>
+<h3 id="automata-graphs-and-boolean-matrices">3.8 Automata, graphs and boolean matrices</h3>
+<p>A transition in a NFA can be represented using an <strong>incidence matrix</strong>: a boolean matrix where for a given input character <code>a in Sigma, Ma[i][j] = 1</code> if there is a transition from state <code>i</code> to state <code>j</code> on character <code>a</code>, or <code>delta(qi, a) = qj</code>. (we use <code>AND</code> instead of multiply, <code>OR</code> instead of addition).</p>
+<p>If you multiply matrices, we end up "following paths" along the NFA. <code>Ma x Mb</code> gives us the incidence matrix for word <code>w = ab</code>.</p>
+<p>We learned from algos cs240 that there are more effective implementations of matrix multiplication than the naive <code>O(n^3)</code>. This gives us a more efficient computation for NFA simulation.</p>
+<p>There are a finite number of possible matrices, even after infinite operations on them since each state can only be 0 or 1.</p>
+<p><strong>Proof trick:</strong> construct a second DFA from the original, using tuples of matrices as the states (this works because there are finitely many possible incidence matrices). Define the final states using a sort of "query" on all states that satisfy some property, enabling traversal from the initial state (row 0) to final states in the original DFA.</p>
+<h3 id="myhill-nerode-theorem">3.9 Myhill-Nerode theorem</h3>
+<p>The following are equivalent:</p>
+<ol>
+<li>
+<code>L</code> is regular</li>
+<li>
+<code>L</code> can be written as the union some of the equivalence classes (indistinguishable) of <code>E</code>, where <code>E</code> is a right-invariant (<code>xRy =&gt; xzRyz</code> <code>x,y in S, forall z in S</code>) equivalence relation with finite index<ul>
+<li>an equivalence relation <code>R</code> partitions a set into disjoint subsets of "equal" things (equivalence class)<ul><li>
+<code>R1</code> is a <strong>refinement</strong> of <code>R2</code> if <code>R1 subset of R2</code>
+</li></ul>
+</li>
+<li>index is the number of classes</li>
+</ul>
+</li>
+<li>
+<code>R</code><sub>L</sub> is of finite index.<ul>
+<li>
+<strong>Myhill-Nerode equivalence relation</strong> is a right-invariant relation <code>R</code><sub>L</sub>, s.t. if <code>xz in</code>language L iff <code>yz in L</code>
+</li>
+<li>if L is the union of any right-invarant equivalence relation E's equivalence classes, then E is a refinement of <code>R</code><sub>L</sub>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="minimization-of-finite-automata">3.10 Minimization of finite automata</h3>
+<p>Myhill-Nerode theorem allows minimal DFAs to be constructed from the Myhill-Nerode equivalence relation</p>
+<p>Naively, enumerate all pairs of states. "Mark" all pairs that are immediately distinguishable (one's a final state, the other isn't). Run for n iterations, marking new pairs along the way. Any unmarked states after n iterations yields the equivalence classes.</p>
+<h3 id="state-complexity">3.11 State complexity</h3>
+<ul>
+<li>
+<code>sc(L)</code> is the minimum number of states in a DFA that accepts regular language <code>L</code>
+</li>
+<li>
+<code>sc(L1 n L2) &lt;= sc(L1) x sc(L2)</code>. This can be seen by forming a DFA whose states are pairs, one state from <code>L1</code> and one from <code>L2</code>. The upper bound case can be formulated using <code>L1</code> = number of 0s in the string <code>= 0 mod n</code>, and <code>L2</code> is number of 1s in the string <code>= 0 mod m</code>
+</li>
+<li>NFAs are harder since the minimal NFA is not unique</li>
+<li>we can find lower bounds if we construct the problem in a way that we can apply known theorems to it<ul>
+<li>if the shortest string accepted by L is of length <code>n</code>, then <code>nsc(L) &gt;= n+1</code>. Prove using pigeon hole principle to show some state is repeated, and pumping lemma idea to remove a cycle to find a shorter string.</li>
+<li>if you can find <code>n</code> words under the following constraints, then you can show that <code>nsc(L) &gt;= n</code>: split each of the <code>n</code> words into a pair--some non-overlapping prefix-suffix pair--then show that for all choices of two of pairs, if you swap the prefixes, then at least one of the words is not in L.</li>
+</ul>
+</li>
+</ul>
+<h3 id="partial-order">3.12 Partial Order</h3>
+<ul>
+<li>subword (contiguous, <code>x S y</code>) is one natural partial ordering on strings, and subsequence (<code>a | b</code>) is another</li>
+<li>if <code>R</code> is a partial ordering, then if <code>a R b</code> or <code>b R a</code>, then <code>a</code> and <code>b</code> are comparable (otherwise incomparable)</li>
+<li>
+<strong>antichain</strong> is a set of pairwise incomparable elements<ul>
+<li>subword can have infinite antichains (for ex. <code>a b^n a</code>)</li>
+<li>subsequence has no infinite antichains<ul><li>proof using contradiction on minimality, using division-free subsequences</li></ul>
+</li>
+</ul>
+</li>
+<li>a <strong>minimal element</strong> has nothing less than or equal to it except itself</li>
+<li>the set of minimal elements is finite (though hard to find in some cases, like powers of 2 in base 10)</li>
+</ul>
+<h2 id="context-free-grammars">4 Context-free grammars</h2>
+<ul>
+<li>recall pushdown-automata. <code>∂(q,a,A)</code> is of the form <code>(p, 𝛾)</code> where A is the current top of stack, and <code>𝛾</code> is a string that replaces <code>A</code>. Input accepted if at final state or stack is empty, where stack starts with some unique Z0.</li>
+<li>CFL closed under union, concat, kleene star, substitution (of symbol for a CFL) and therefore morphisms, inverse morphisms</li>
+<li>recall the pumping lemma for context free languages. If a language is context free, then we can always find some pumping length such that all strings in the language greater than the pumping length must posess structural properties.</li>
+<li>to show that a language is NOT context free, we assume some <code>n</code> exists. Then construct a string in <code>L</code> greater than any choice of pumping length <code>n</code> (so it must depend on <code>n</code>). Then we show that it does not hold the correct structural properties of a CFL.</li>
+</ul>
+<h3 id="ogdens-lemma">4.3 Ogden's Lemma</h3>
+<ul>
+<li>
+<strong>Ogden's Lemma</strong> is a generalization of the pumping lemma for context free grammars. Similarly, we have a pumping length, based on some <code>n = d^{k+1}</code> where <code>d</code> is the max length of an production rule's right side (the max number of possible children for each vertex in the parse tree) and <code>k+1</code> for <code>k</code> variables to satisfy the height requirement to arrive at the pigeon hole principle argument. The difference here is that we can mark symbols in a string.</li>
+<li>
+<strong>proof-trick:</strong> factorial trick <code>n! + n</code> gives us a way to trap any <code>a^n</code> (decomposed as <code>a^{ij} a^k</code>) to be equal to <code>a^{n! + n}</code> for some i, for any choice of j,k.</li>
+</ul>
+<h3 id="parikhs-theorem">4.2 &amp; 4.6 Parikh's Theorem</h3>
+<ul>
+<li>all unary CFLs are regular. We can rewrite any unary CFL as the union of a finite number of regular languages, where the finite number is based on the number of rules and the size of them.</li>
+<li>Parikh's theorem generalizes this to certain CFLs over any alphabet.</li>
+<li>linear and semi-linear are general properties of sets.</li>
+<li>
+<strong>linear</strong> sets of numbers can built using any <code>r</code> coefficients (finite?), and saying that any number in that linear set can be constructed using the some of these <code>r</code> coefficients multiplied by <code>r</code> other integers.<ul><li>this is generalized in this course as a linear set of k-tuples, described by <code>r</code> coefficients (which need be <code>k</code>-tuples)</li></ul>
+</li>
+<li>
+<strong>semi-linear</strong> sets are described as the union over a finite number of linear sets.<ul><li>I thought about whether semi-linear sets can be re-described using the constraints of linear sets. You can't. As as geometric example, if you have <code>r = 1</code> and <code>k = 2</code>, then this plots out some line in 2D space. If you take the union of two lines in 2D space, you get an X shape (or parallel lines). But if you tried to represent this with <code>r = 2</code>, you would end up describing a grid of points.</li></ul>
+</li>
+<li>finally, <strong>Parikh's map</strong> <code>ψ(w)</code> applies these ideas to formal languages. It maps a string to a <code>k-tuple</code> where <code>k = |∑|</code>, counting the occurences of each letter in some string. It maps a language to the set of <code>k-tuples</code> that represent strings in the language.</li>
+<li>if L is a CFL, then ψ(L) is a semilinear set of <code>k-tuples</code>.</li>
+<li>if X is semilinear, than there exists a regular language L so that <code>ψ(L) = X</code><ul><li>any finite set of strings can be mapped to a semilinear set by, for each word in the finite set, setting each to the "y-intercept" and have all 0 coefficients then taking the union of all.</li></ul>
+</li>
+</ul>
+<p><em>so all in all, if L is a CFL, then there exists some regular language R s.t. ψ(L) = ψ(R)</em></p>
+<p><em>so I guess we think about Parikh's theorem as a way to count things. It's kinda just saying if you forget about the order, we're just looking at patterns in the counting of each letter.</em></p>
+<h3 id="parsing-and-recognition">5 Parsing and recognition</h3>
+<p>CYK is a dynamic programming approach to parsing in O(n^3). Practically, large programs require better runtimes, so we use more restricted grammars to achieve these runtimes.</p>
+<ul><li>first convert grammar to CNF, then we construct an <code>n x n</code> DP table for some string <code>w</code> of length <code>n</code> to which we want to find a parse tree for.<ul>
+<li>each entry at <code>CYK[i][j]</code> is the list of nonterminals that derive the substring <code>w[i..j]</code>
+</li>
+<li>each table entry can be computed in <code>O(n)</code> by finding all rules which derrive any of <code>CYK[i][k] x CYK[k][j]</code>
+</li>
+</ul>
+</li></ul>
+<p>Earley's Method has worst case O(n^3), but runs in O(n^2) for unambiguous and O(n) for LR(1)</p>
+<ul>
+<li>again, first convert to Chomsky Normal Form <code>A -&gt; α . β</code>, where we add a dot to mark "everything before this point has been derived, AKA has a parse tree"</li>
+<li>bottom-up parsing algorithm, using a table to store intermediate results</li>
+<li>each table entry <code>M[i][j]</code> is a set of production rules <code>A -&gt; α . β</code> where <code>α</code> is a nonterminal that expands to a derivation of <code>w</code><sub>i,j</sub> (substring from i to j) and also the start symbol <code>S</code> derives <code>w</code><sub>0,i</sub><code>. A</code>
+</li>
+</ul>
+<h3 id="knuth-nfa">Knuth NFA</h3>
+<ul>
+<li>the subword that is derived by the some nonterminal is a <strong>handle</strong>. At each step of the algorithm, a handle is replaced by a nonterminal based on some item (a production rule augmented with a dot . symbol).</li>
+<li>for some grammars, there are multiple handles for a partially parsed word, but LR(0) grammars are defined so that there is only ever one handle. This is how LR(0) grammars are parsable in linear time. From cs444, we think about this as representable as a DFA, so it has linear runtime.</li>
+<li>"What makes LR(0) parsing work is Knuth’s amazing<br>
+observation that the set of items valid for viable prefix γ can<br>
+be computed by a finite automaton."</li>
+<li>the Knuth NFA's language is the set of all viable prefixes, and states are the different items (production rules augmented with the dot . )<ul>
+<li>the Knuth NFA is also used to define the set of valid items for every viable prefix (and a valid item is used to replace some handle with a nonterminal).</li>
+<li>we say an item <code>A -&gt; α . β</code> is valid for a viable prefix if there is a (rightmost) derivation (from the start symbol) <code>S derives δαβw</code> and <code>δα</code> is a viable prefix from the Knuth NFA (where δ,α,β, are terminals or non terminals and w is a subword).</li>
+</ul>
+</li>
+</ul>
+<h2 id="turing-machines">Turing Machines</h2>
+<ul>
+<li>01010101010... is a "simple" string because we can describe a pattern for it</li>
+<li>random digits could be seen as "complex", or without pattern</li>
+<li>complexity and randomness are inherently linked</li>
+<li>Kolmogorov Complexity of a string <code>C(x)</code> is the shortest program <code>P</code> on input <code>i</code> that prints <code>x</code> and halts<ul>
+<li>if <code>C(x)</code> is large, <code>x</code> is hard to describe</li>
+<li>could think of Kolmogorov as encoding or compression (from storage perspective) to recover <code>x</code>
+</li>
+<li>Kolmogorov complexity is upper bounded by <code>O(x)</code> since you can just input <code>x</code> and print it</li>
+</ul>
+</li>
+<li>by pigeon hole principle, there are incompressible or random strings (since for length <code>n</code>, there are <code>2^n</code> strings, but only <code>2^n - 1</code> shorter representations, like counting nodes in a binary tree <code>2^(n-1) + 2^(n-2) + ... 4 + 2+ 1</code>)</li>
+<li>Kolmogorov complexity is uncomputable</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

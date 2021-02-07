@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Greatest Common Divisor</title>
+</head>
+<body>
+
+<h1 id="greatest-common-divisor">Greatest Common Divisor</h1>          <a href="index.html">Back to Math-CS</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#gcd-with-remainder">GCD With Remainder</a></li>
+<li><a href="#gcd-characterization-theorem-gcd-ct">GCD Characterization Theorem (GCD CT)</a></li>
+<li><a href="#extended-euclidean-algorithm-eea">Extended Euclidean Algorithm (EEA)</a></li>
+<li><a href="#primes">Primes</a></li>
+</ul>
+</div>
+<p>Integer d &gt; 0 is the <strong>Greatest common divisor</strong> of a and b, d = gcd(a,b), iff</p>
+<ol>
+<li>
+<code>d|a and d|b</code> (divisor)</li>
+<li>
+<code>for c|a and c|b, then c ≤ d</code> (greatest)</li>
+</ol>
+<h3 id="gcd-with-remainder">GCD With Remainder</h3>
+<p>For a = bq + r, then gcd(a,b) = gcd(b,r)</p>
+<p><em>Very useful for calculating GCDs, and proving values of GCDs. Repeated use becomes Euclidean Algorithm.</em></p>
+<ol>
+<li>show that for d = gcd(a,b), d|b and d|r<ul><li>d|b by definition, r = qb - a. By DIC, d|(qb-a) =&gt; d|r</li></ul>
+</li>
+<li>show that for all c|b, c|r, c ≤ d.<ul>
+<li>by DIC, c | b(q) + r(1), a = bq+r so c|a</li>
+<li>now c|a and c|b, since gcd(a,b)=d, by definition, c ≤ d</li>
+</ul>
+</li>
+</ol>
+<h3 id="gcd-characterization-theorem-gcd-ct">GCD Characterization Theorem (GCD CT)</h3>
+<p>If d is a common divisor of a and b and ax + by = d has an integer solution, then d=gcd(a,b)</p>
+<p><em>This shows that any combination of a and b can only be equal to multiples of the gcd.</em></p>
+<h3 id="extended-euclidean-algorithm-eea">Extended Euclidean Algorithm (EEA)</h3>
+<p>If d = gcd(a,b), then there exist x,y s.t. ax + by = d</p>
+<p><em>Useful for rewriting gcds in equations</em></p>
+<h4 id="coprimeness-and-divisibility-cad">Coprimeness and Divisibility (CAD)</h4>
+<p>a and b are coprime if gcd(a,b)=1. If c|(a•b), then c|a or c|b</p>
+<h4 id="primes-and-divisibility-pad">Primes and Divisibility (PAD)</h4>
+<p>If p is prime, and p|ab, then p|a or p|b</p>
+<h4 id="gcd-of-one">GCD of One</h4>
+<p>gcd(a,b)=1 iff there exists x and y with ax + by = 1</p>
+<p><em>GCD CT for d = 1</em>.</p>
+<h4 id="division-by-gcd">Division by GCD</h4>
+<p>if d = gcd(a,b) then gcd(a/d, b/d) = 1</p>
+<p><em>If this wasn't the case, then there would be a larger common divisor than d</em></p>
+<h3 id="primes">Primes</h3>
+<p>An integer p &gt; 1 is <em>prime</em> iff its only divisors are 1 and p.</p>
+<h4 id="infinitely-many-primes">Infinitely Many Primes</h4>
+<p>By induction, there are infinitely many primes.</p>
+<h4 id="fundamental-theorem-of-arithmetic-uft">Fundamental Theorem of Arithmetic (UFT)</h4>
+<p>Every integer can be uniquely expressed as a product of primes.</p>
+<h4 id="section"></h4>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

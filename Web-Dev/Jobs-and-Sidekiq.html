@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Sidekiq</title>
+</head>
+<body>
+
+<h1 id="sidekiq">Sidekiq</h1>          <a href="index.html">Back to Web-Dev</a>
+<p>Asynchronously handles background tasks with multiple threads with three architectural components:</p>
+<ul>
+<li>Sidekiq client is a ruby process, that receives jobs to be handled, via <code>Sidekiq::Client.push</code><ul><li>return a hash representing the job, which is serialized to JSON and pushed into a queue in Redis</li></ul>
+</li>
+<li>Redis is the persistent store for holding runtime and historical data<ul><li>stores all job and operational data</li></ul>
+</li>
+<li>Sidekiq Servers pull jobs from the queue and process them</li>
+</ul>
+<p>Jobs, should be idempotent and transactional (think databases)</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

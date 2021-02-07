@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Ember</title>
+</head>
+<body>
+
+<h1 id="ember">Ember</h1>          <a href="index.html">Back to Web-Dev/Ember</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#ember-cli">Ember CLI</a></li>
+<li><a href="#prerequisite">Prerequisite</a></li>
+<li><a href="#under-the-hood">Under the Hood</a></li>
+<li><a href="#object-model">Object Model</a></li>
+<li><a href="#routing">Routing</a></li>
+<li><a href="#ui-components-handlebars">UI Components &amp; Handlebars</a></li>
+<li><a href="#components">Components</a></li>
+<li><a href="#templating-hierachy">Templating Hierachy</a></li>
+<li><a href="#store">Store</a></li>
+<li><a href="#action">{{action}}</a></li>
+</ul>
+</div>
+<p>Using ember in the context as a front end for a rails API</p>
+<h3 id="ember-cli">Ember CLI</h3>
+<ul>
+<li>Broccoli compiles the project and serves it with Express.js</li>
+<li>Asynchronous Module Definition (AMD) is a specification of Javascript, can be transpiled to from ES6</li>
+<li>Ember CLI expects ES6 Modules<ul><li>code is transpiled to AMD, then loaded with loader.js</li></ul>
+</li>
+<li>Ember orchestrates all of our files, but we design it in a way that we import Ember from ember, and then export whatever the file represents (a model, route, etc...) as the default export (scopes the export into the importing file)</li>
+<li>Ember's resolver returns whatever is required at each stage (templates, routes, services ...)</li>
+<li>DS.JSONAPIAdapter translates a standard JSON API response into a js object<ul><li>lots of other adapters and serializers to choose from</li></ul>
+</li>
+</ul>
+<h3 id="prerequisite">Prerequisite</h3>
+<p>Promise object (js) is the native way of handling asynchronous calculations, and can return a value that may be available now, later or never</p>
+<ul>
+<li>takes a function parameter that handles the outcome of the Promise (whether it be accepted or rejected)</li>
+<li>acts as a proxy to a value that may not be available yet, but promises for a value at some points</li>
+<li>Promise has 3 states: pending, fulfilled, rejected</li>
+<li>fulfilled transitions to an async action and returned value for the promise</li>
+</ul>
+<h3 id="under-the-hood">Under the Hood</h3>
+<p>Every Ember application is an extension of <code>Ember.Application</code>, configurations and declarations of all objects in the given app</p>
+<ul><li>on boot, <code>Ember.ApplcationInstance</code> object is instantiated</li></ul>
+<h3 id="object-model">Object Model</h3>
+<p>Classes: <code>Ember.Object.extend({})</code></p>
+<ul>
+<li><code>Ember.computed('...')</code></li>
+<li><code>Ember.observed('...')</code></li>
+<li>Bindings <code>Ember.computed.alias('...')</code>
+</li>
+</ul>
+<h3 id="routing">Routing</h3>
+<p><code>router.js</code> forwards the user for a given URL to their respective Route objects (in <code>app/routes/</code>) which access their respective models or controllers</p>
+<ul>
+<li>responsible for everything related to <strong>application setup</strong>
+</li>
+<li>each route can then load models by defining the model() method in a route, then using <code>this.store</code> in controller</li>
+<li>by default renders the template with the same file path as the route, adjusted to <code>templates/</code>
+</li>
+<li>follow the conventional rest-URLs for rails resources</li>
+<li>again, <code>router.js</code> forwards the user request to <code>app/routes/*</code>
+</li>
+</ul>
+<h3 id="ui-components-handlebars">UI Components &amp; Handlebars</h3>
+<p>Modular UI elements, from <code>generate component &lt;name&gt;</code></p>
+<ul>
+<li>also use .hbs (handlebars)</li>
+<li>handlebars expression is denoted by <code>{{}}</code>
+</li>
+<li>not usually but can be precompiled to HTML directly</li>
+<li>think rails partials</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> id=</span><span class="st">"entry-template"</span><span class="ot"> type=</span><span class="st">"text/x-handlebars-template"</span><span class="kw">&gt;</span>
+  <span class="op">&lt;</span>div <span class="kw">class</span><span class="op">=</span><span class="st">"entry"</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span>h1<span class="op">&gt;{{</span>title<span class="op">}}&lt;</span><span class="ss">/h1&gt;</span>
+<span class="ss">    &lt;div class="body"&gt;</span>
+<span class="ss">      {{body}}</span>
+<span class="ss">    &lt;/div</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="ss">/div&gt;</span>
+<span class="ss">&lt;/script</span><span class="op">&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// then compile template</span>
+<span class="kw">var</span> source   <span class="op">=</span> <span class="at">$</span>(<span class="st">"#entry-template"</span>).<span class="at">html</span>()<span class="op">;</span>
+<span class="kw">var</span> template <span class="op">=</span> <span class="va">Handlebars</span>.<span class="at">compile</span>(source)<span class="op">;</span>
+<span class="co">// for pre-compilation</span>
+<span class="kw">var</span> context <span class="op">=</span> <span class="op">{</span><span class="dt">title</span><span class="op">:</span> <span class="st">"My New Post"</span><span class="op">,</span> <span class="dt">body</span><span class="op">:</span> <span class="st">"This is my first post!"</span><span class="op">};</span>
+<span class="kw">var</span> html    <span class="op">=</span> <span class="at">template</span>(context)<span class="op">;</span></code></pre></div>
+<p><strong>Block Expressions</strong> allow us to define helpers <code>{{#list people}}{{firstName}} {{lastName}}{{/list}}</code></p>
+<ul><li>to get this to work, in JS we do <code>Handlebars.registerHelper('list', function(items, options) {...});</code>
+</li></ul>
+<p><strong>Actions</strong> are defined in routes and controllers and act as event handlers from the UI -&gt; Route -&gt; Controller -&gt; Model</p>
+<ul><li>
+<code>{{action "actionName" parameters}}</code> in hbs</li></ul>
+<p><code>{{outlet}}</code> is synonomous to <code>yield</code> in <code>erb</code>, rendering the application template as the main template, and the specific template associated with the route in the {{outlet}} portion</p>
+<p><code>&lt;button {{action "save"}}&gt;</code> triggers action <code>cancel</code> on click</p>
+<ul>
+<li>actions is a list, under Ember.Component.extend</li>
+<li>these actions run in the context of components</li>
+</ul>
+<h3 id="components">Components</h3>
+<p>Component names must have one dash in their name by convention</p>
+<ul>
+<li>components can be hbs files for visuals, or js for action functionality</li>
+<li><code>{{my-component param1=value}}</code></li>
+<li>components are referenced from templates with <code>{{friends/edit-form model=model}}</code>
+</li>
+<li>isolated in scope, unaware of the parent template<ul><li>think of as a rendering function (you can pass some environment to the function</li></ul>
+</li>
+</ul>
+<h3 id="templating-hierachy">Templating Hierachy</h3>
+<p><code>{{outlet}}</code> is used like rails <code>yield</code> in nested views, for hierarchal templating</p>
+<ul><li>[ application.hbs [ friends.hbs [ friends/index.hbs ] ] ]</li></ul>
+<h3 id="store">Store</h3>
+<p><code>Store</code> is an ember data class, manages everything related to our model's data</p>
+<ul>
+<li>it knows about all the records we have loaded into the application<ul><li>has functions for querying them</li></ul>
+</li>
+<li>for duration of a life cycle, there is a unique instance of the Store, injected into every route controller serializer and adapter under the key store<ul>
+<li>why we call <code>.store</code> in Routes, to access this unique object</li>
+<li><code>registry.injection()</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="action">{{action}}</h3>
+<p>Useful helper for binding actions in templates to those in components, routes, and controllers</p>
+<ul>
+<li>an input form is good for a component, if they're the same for new/edit, other than the actions for save and cancel</li>
+<li>actions can be passed as arguments to components, passing down from template's context, much like you'd pass the model</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

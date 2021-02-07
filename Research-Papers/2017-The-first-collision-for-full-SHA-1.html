@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>The first collision for full SHA-1 2017</title>
+</head>
+<body>
+
+<h1 id="the-first-collision-for-full-sha-1-2017"><a href="http://shattered.io/static/shattered.pdf">The first collision for full SHA-1 2017</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<h1 id="encryption-security">encryption #security</h1>
+<p>MD4, MD5, SHA-1, SHA-2 and SHA-256 are all cryptographic hashing algorithms</p>
+<ul>
+<li>a cryptographic hashing function is h: {0,1}<sup><code>*</code></sup> -&gt; {0,1}<sup>n</sup>, <code>*</code> denoting any natural number<ul><li>maps any aribitrarily long bit string to a finite one, deterministically</li></ul>
+</li>
+<li>a collision between x and y is when h(x) = h(y)</li>
+<li>cryptographic hashing relies on the assumption that it is practically impossible to find collisions, through the birthday paradox<ul>
+<li>(π/2)^1/2 • 2^(n/2) expected attempts to brute force a collision, for a n-bit output hash</li>
+<li>SHA-1 is 160-bit, which translates to</li>
+</ul>
+</li>
+<li>SHA-1 has been deprecated since 2011, this is the first construction of a chosen-prefix collision<ul><li>implications of forgery through HTTPS or SHA-1 checksums for documents</li></ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

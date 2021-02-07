@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>rbenv</title>
+</head>
+<body>
+
+<h1 id="rbenv">rbenv</h1>          <a href="index.html">Back to Web-Dev</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#how-it-works">How It Works</a></li>
+<li><a href="#choosing-the-ruby-version">Choosing the Ruby Version</a></li>
+</ul>
+</div>
+<p>One option for Ruby dev environment manager (RVM is the other). rbenv works with Bundler to manage dependency versions and versions for Ruby AND Rails.</p>
+<ul>
+<li>rbenv is lighter than rvm</li>
+<li>does not include mechanisms to install ruby implementations</li>
+<li>manages multiple Ruby environments, allowing quick switches between implementations, locally or system-wide</li>
+</ul>
+<h3 id="how-it-works">How It Works</h3>
+<p>Uses shim executables injected into your <code>PATH</code>, to determine which ruby installation to pass commands to</p>
+<ul>
+<li>
+<code>~/.rbenv/shims</code> is added in front of the <code>PATH</code>
+</li>
+<li>through <strong>rehashing</strong> rbenv maintains shims in that directory to match every Ruby command across every installation of Ruby<ul><li>(commands like <code>irb</code>, <code>gem</code>, <code>rake</code>, <code>rails</code>, <code>ruby</code>)</li></ul>
+</li>
+<li>
+<strong>Shims</strong> are executables that pass commands to rbenv<ul>
+<li>Searches <code>PATH</code> for executable (like <code>rake</code>)</li>
+<li>Finds rbenv shim named <code>rake</code> at the beginning of <code>PATH</code> (in shims directory)</li>
+<li>Run the shim named <code>rake</code> which passes the command along to rbenv</li>
+</ul>
+</li>
+</ul>
+<h3 id="choosing-the-ruby-version">Choosing the Ruby Version</h3>
+<p>After shim is executed, rbenv determines which ruby version to use</p>
+<ol>
+<li>the <code>RBENV_VERSION</code> env variable, if set<ul><li>
+<code>rebenv shell</code> command lets you specify this</li></ul>
+</li>
+<li>the first <code>.ruby-version</code> file found by searching the directory of the script being run</li>
+<li>the first <code>.ruby-version</code> file found by searching the current working directory, then parent directories<ul><li>
+<code>rbenv local</code> to edit this</li></ul>
+</li>
+<li>The global <code>~/.rbenv/version</code>, defaulting to system ruby<ul><li>
+<code>rbenv global</code> to edit</li></ul>
+</li>
+</ol>
+<p>Ruby installations are found under <code>~/.rbenv/versions/1.8.7-p371</code> for example</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

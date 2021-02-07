@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>2014 Quantifying Eventual Consistency with PBS</title>
+</head>
+<body>
+
+<h1 id="quantifying-eventual-consistency-with-pbs"><a href="http://www.bailis.org/papers/pbs-vldbj2014.pdf">2014 Quantifying Eventual Consistency with PBS</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<p>In general, a quorum is the minimal number of people that need be present in order to make the preceeding of a meeting valid. In quorum replication, there are N replicas.</p>
+<ul>
+<li>a write quorum waits for W acknowledgements from replicas</li>
+<li>read quorum, consult R of the replicas and return the most recent value from the read quorum</li>
+<li>a quorum system describes the powerset of replicas</li>
+</ul>
+<p>Dynamo and Cassandra are examples of data stores that depend on quorum systems for consistency</p>
+<ul>
+<li>strong consistency is achieved when a quorum is equal to the majority of replicas</li>
+<li>partial quorums allow sets of replicas that may not overlap, but have eventual consistency</li>
+<li>employ quorum system for each key (for lots of cases, a quorum system for strong consistency would all sets of majority size)</li>
+<li>for N replication factor, different quorum systems can be used depending on how critical the underlying data is<ul>
+<li>Cassandra default is N=3 R=1 W=1</li>
+<li>for mission critical/financial data, Rias default is N=3 R=2 W=2 (majorities achieve strong consistency)</li>
+</ul>
+</li>
+<li>partial quorums are used (controversially) by many, to achieve low latency and high availability</li>
+<li>this paper bounds the behaviour of the system, for the chance of stale reads<ul>
+<li>intuitively chance of overlap is inversely proportional to staleness of data</li>
+<li>use probabilistic bound for staleness (<strong>Probabilistically Bounded Staleness</strong> PBS)</li>
+<li>useful for analyzing effectiveness of eventual consistency</li>
+</ul>
+</li>
+<li>in a probabilistic sense, we look at a quorum system (a set), and look at which sets in the set would result in stale data</li>
+<li>in other words, N-W is the set with stale values, so "choose R from N-W" combinations resulting in a stale read</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

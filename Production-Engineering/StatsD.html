@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>StatsD</title>
+</head>
+<body>
+
+<h1 id="statsd">StatsD</h1>          <a href="index.html">Back to Production-Engineering</a>
+<p>A simple protocol and daemon to aggregate and summarize application metrics</p>
+<ul>
+<li>applications have a client (language specific library) that communicate with the StatsD daemon, which generates metrics and relays them to a monitoring backend</li>
+<li>the StatsD client library sends individual calls to the StatsD server over a UDP datagram (UDP, no acknoledgement, no library blocking when submitting data)<ul><li>doesn't buffer data between calls to the server, so less complexity</li></ul>
+</li>
+<li>the StatsD daemon listens to UDP traffic from all applcation libraries and aggregates data over time, and flushing it to the data backend on defined intervals</li>
+<li>the monitoring backend turns metrics into usable charts and alerts (Datadog)</li>
+<li>StatsD offers more simplicity over other methods, by decoupling the application from its instrumentation (StatsD won't crash your app)</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

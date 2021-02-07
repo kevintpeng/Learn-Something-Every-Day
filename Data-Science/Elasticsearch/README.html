@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Elasticsearch</title>
+</head>
+<body>
+
+<h1 id="elasticsearch">Elasticsearch</h1>          <a href="index.html">Back to Data-Science/Elasticsearch</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#x-pack">X-Pack</a></li>
+<li><a href="#curator">Curator</a></li>
+<li><a href="#elasticsearch-6">Elasticsearch 6</a></li>
+</ul>
+</div>
+<ul>
+<li>Allows near real-time searching on data on large scale and analyze data.</li>
+<li>Elasticsearch is scalable horizontally, with the addition of multiple nodes and let's the cluster automatically take advantage of extra hardware.</li>
+<li>stores data in json</li>
+<li>schema free, index a JSON document and it will detect the data structure and types, create index, and make data searchable</li>
+<li>built on top of Java library, Apache Lucene<ul>
+<li>competing software Apache Solr is also built on Lucene</li>
+<li>elasticsearch is often used for analytical querying, filtering and grouping whereas solr excels at text search</li>
+</ul>
+</li>
+<li>uses shards, the partitioning unit for Lucene indexes<ul><li>elasticsearch benefits from automatic shard-rebalancing which Solr does not have (as of 2016)</li></ul>
+</li>
+<li>elasticsearch is not a primary data store, it is at its core a different data structure that allows efficient lookups for certain queries</li>
+</ul>
+<h3 id="architecture">Architecture</h3>
+<p>An elasticsearch cluster is made up of nodes</p>
+<ul>
+<li>cluster is horizontally scalable</li>
+<li>a master node orchestrates cluster-wide operations like creation/deletion of indexes and tracking nodes in the cluster<ul><li>any node with <code>node.master = true</code> is master-eligible, and in big clusters there are dedicated master-eligible nodes</li></ul>
+</li>
+<li>data node holds the inverted index structure</li>
+<li>client node is set if node.master and node.data is set to false, and acts as a load balancer to serve requests</li>
+<li>ingest nodes can apply transformations before indexing documents</li>
+<li>coordinator node is not a role, but it is a responsibility taken on by any node that faces clients and either serves or re-routes requests (referenced often as being just a single node, functionally the client node)<ul><li>coordinating-only node is the same as client node</li></ul>
+</li>
+</ul>
+<p>Writes first hit the coordinating node, route to the respective shard, where the shard uses a memory buffer and transaction log to do cached writes</p>
+<ul>
+<li>sharding allows elasticsearch to horizontally scale its cluster beyond the hardware limitations of a single node</li>
+<li>shard <strong>relocation</strong>
+</li>
+<li>shard <strong>replication</strong> is for risk mitigation</li>
+</ul>
+<h3 id="x-pack">X-Pack</h3>
+<p>Part of the ELK stack ecosystem, for security, alerting, monitoring, reporting</p>
+<h3 id="curator">Curator</h3>
+<p>Plugin that acts on elasticsearch indices, helping to automate administrative alterations to indices</p>
+<ul>
+<li>helps to solve how to remove data, for example when dealing with time series data with a rolling window</li>
+<li>automates snapshot management</li>
+<li>
+<strong>aliases</strong> allow indices to be referenced in a more predictable manor</li>
+<li>still compatible with ES 6</li>
+</ul>
+<h3 id="elasticsearch-6">Elasticsearch 6</h3>
+<ul>
+<li>Search cross clusters allows "federated search" (simultaneous search over multiple resources), allowing results to be searched from multiple indices</li>
+<li>Sequence IDs have consensus on the sequence of operations between primary and replica shards<ul><li>this allows more intelligent replay of operations in the event of failure, compared to the brute force comparison before</li></ul>
+</li>
+<li>index sorting (preprocessing time vs. query time)<ul>
+<li>allows you to query for leaderboard-style requests easier</li>
+<li>will group similar documents together</li>
+</ul>
+</li>
+<li>better search scalability, less contention between massive queries</li>
+<li>distributed watch execution moves X-Pack watcher watches from master-only to the nodes that hold the shards of the watcher index (more scalability)</li>
+<li>multiple mapping types per index are not supported in 6<ul>
+<li>each index should now represent a single mapping type/document type</li>
+<li>indices are conceptually more like tables than databases</li>
+</ul>
+</li>
+<li>improved security through HTTPS node communication</li>
+<li>ships by default with x-pack</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

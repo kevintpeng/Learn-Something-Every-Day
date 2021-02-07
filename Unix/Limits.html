@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Limits</title>
+</head>
+<body>
+
+<h1 id="limits">Limits</h1>          <a href="index.html">Back to Unix</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#proclimits"><code>/proc/*/limits</code></a></li>
+<li><a href="#ulimit"><code>ulimit</code></a></li>
+<li><a href="#etcsecuritylimits.conf"><code>/etc/security/limits.conf</code></a></li>
+<li><a href="#etcsysctl.conf"><code>/etc/sysctl.conf</code></a></li>
+</ul>
+</div>
+<p>Unix systems put various sensible limits on the use of different resources. Open files, number of processes, locked files, cpu usage, etc can be limited.</p>
+<ul>
+<li>soft limits are the enforced limitation during the session, can be self-configured</li>
+<li>hard limits are the ceiling for the soft limit, set by admin</li>
+<li>processes inherit the limit of their parent process, so daemonized processes will likely inherit from pid 1</li>
+</ul>
+<h3 id="proclimits"><code>/proc/*/limits</code></h3>
+<p>shows the current limits set for a running process. These limits are set based on a number of possible configuration locations.</p>
+<h3 id="ulimit"><code>ulimit</code></h3>
+<p>Utility for setting limits at a user-level for system-wide resource usage, which is useful for shared systems. These are limits for the sum of all processes owned by a user.</p>
+<h3 id="etcsecuritylimits.conf"><code>/etc/security/limits.conf</code></h3>
+<p>Part of linux's <code>pam_limits</code>, the persistent ulimits configuration file. Sets for logged in users, not for system processes</p>
+<ul>
+<li>config file for the <code>pam_module</code>, pluggable authentication module</li>
+<li>acts as adapter for multiple low level auth protocols (facade design pattern?)</li>
+<li>
+<code>/etc/security/limits.d/*</code> are other configurations loaded after <code>limits.conf</code>
+</li>
+</ul>
+<p>pam_limits are enforced when a session is opened. They <strong>do not</strong> affect daemon processes</p>
+<h3 id="etcsysctl.conf"><code>/etc/sysctl.conf</code></h3>
+<p>Contains system-wide configurations, kernel-level configurations</p>
+<ul><li>less graceful to hit limits here</li></ul>
+<p><a href="https://underyx.me/2015/05/18/raising-the-maximum-number-of-file-descriptors">source</a> for file descriptors limit</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

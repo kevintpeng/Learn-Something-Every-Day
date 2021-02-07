@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Complexity Theory</title>
+</head>
+<body>
+
+<h1 id="complexity-theory">Complexity Theory</h1>          <a href="index.html">Back to Math-CS</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#computational-problems">Computational problems</a><ul><li><a href="#decision-problems-as-formal-languages">Decision Problems as Formal Languages</a></li></ul>
+</li>
+<li><a href="#machine-models-and-complexity-measures">Machine models and complexity measures</a></li>
+<li>
+<a href="#complexity-class">Complexity Class</a><ul><li><a href="#reduction">Reduction</a></li></ul>
+</li>
+</ul>
+</div>
+<p>Classifying computational problems according to their inherent difficulty, and relating those classes to each other. A problem is inherently difficult if its solution requires significant resources.</p>
+<h2 id="computational-problems">Computational problems</h2>
+<p>An infinite collection of instances together with a solution for every instance.</p>
+<ul>
+<li>a <em>problem</em> is the abstract question being solved</li>
+<li>input string is the <em>problem instance</em>, describes a specific example of the problem</li>
+</ul>
+<h3 id="decision-problems-as-formal-languages">Decision Problems as Formal Languages</h3>
+<p>A special type of computational problem whose answer is typically yes or no</p>
+<ul>
+<li>decision problems can be viewed as formal languages<ul>
+<li>members of the language are instances whose output is yes</li>
+<li>non-members have output no</li>
+</ul>
+</li>
+<li>objective is to decide whether a given input string is a member of the formal language</li>
+</ul>
+<p>Example: The input is an arbitrary graph. The problem consists in deciding whether the graph is connected or not. The formal language associated with the problem is the set of all connected graphs. In this case, graphs must be encoded in some form of a string.</p>
+<h2 id="machine-models-and-complexity-measures">Machine models and complexity measures</h2>
+<p>A Turing machine is a mathematical model of a general computing machine. It is a theoretical device that manipulates symbols contained on a strip of tape.</p>
+<p>All programming languages can be computed with a Turing machine. Any computer is <strong>Turing complete</strong> if it can compute anything a Turing machine can.</p>
+<p>A <strong>deterministic Turing machine</strong> is the most basic machine. It uses a fixed set of rules to determine its future actions. Being deterministic, it will always evaluate to the same outcome.</p>
+<p>A <strong>non-deterministic Turing machine</strong> is a deterministic Turing machine with <strong>non-determinism</strong>, allowing it to have multiple possible future actions for a state. It can branch into many possible computational paths at each step. Not realistically feasible, but an interesting postulate for complexity classes.</p>
+<h2 id="complexity-class">Complexity Class</h2>
+<p>A set of problems of related resource-based complexity. A class is the set of problems solved by abstract machine M using O(f(n)) of resource R, where n is the size of the input.</p>
+<p>P (Polynomial) is the class of problems with polynomial algorithms.</p>
+<p>The complexity class NP (Non-deterministic Polynomial) is the set of problems with no known efficient algorithm. P is a subset of, and possibly equal to NP.</p>
+<ul>
+<li>NP can be defined as problems solvable in polynomial time with a non-deterministic turing machine.</li>
+<li>NP can also be defined as any problem where the solution can be verified as true in polynomial time.<ul><li><em>non-deterministic turing machines can evaluate all paths at the same time. If the machine can find a solution in polynomial time, then the path was found in polynomial time, so a regular turing machine can verify the solution in polynomial time too.</em></li></ul>
+</li>
+</ul>
+<h3 id="reduction">Reduction</h3>
+<p>A reduction is a transformation of one problem into another problem. Captures the informal notion of a problem being at least as difficult as another problem.</p>
+<p><strong>Hardness</strong> for a complexity class says that form a hard problem X in complexity class C, all problems in C can be reduced to X. The set of problems for NP is called <strong>NP-hard</strong>.</p>
+<p>If a problem X in C is hard for C, then X is said to be <strong>complete</strong> for C. <strong>NP-complete</strong> contains the hardest problems in NP, that are least likely to be in P.</p>
+<p><a href="https://en.wikipedia.org/wiki/Computational_complexity_theory#P_versus_NP_problem">source</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

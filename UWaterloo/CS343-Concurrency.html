@@ -1,0 +1,525 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+          <title>Concurrency</title>
+</head>
+<body>
+
+<h1 id="concurrency"><a href="https://www.student.cs.uwaterloo.ca/~cs343/documents/notes.pdf">Concurrency</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#coroutine">3 Coroutine</a></li>
+<li><a href="#concurrency-1">5 Concurrency</a></li>
+<li><a href="#locks">Locks</a></li>
+<li><a href="#concurrent-errors">7 Concurrent Errors</a></li>
+<li><a href="#indirect-communication">8 Indirect Communication</a></li>
+<li><a href="#direct-communication">9 Direct Communication</a></li>
+<li><a href="#optimization">10 Optimization</a></li>
+</ul>
+</div>
+<h3 id="summary">Summary</h3>
+<ul>
+<li>static multi-level exits are blocks with multiple breaks/gotos</li>
+<li>dynamic memory allocation uses shared memory on the heap instead of stack</li>
+<li>dynamic multi-level exits extend normal call/return semantics, allowing control flow to be transferred in the reverse direction of the function call stack, called <strong>nonlocal transfer</strong>
+</li>
+<li>traditional approaches to nonlocal transfer are register flags and return codes, golang return unions</li>
+<li>exception handling is complex control flow that enables nonlocal transfer</li>
+<li>
+<strong>static/dynamic</strong> characterizes whether a line in code is known at compile time or not<ul>
+<li>static call static return is a sequel, catching an exception</li>
+<li>static call dynamic return is a routine</li>
+<li>dynamic call static return is a termination exception</li>
+<li>dynamic call dynamic return is function pointer, or resumption exception</li>
+</ul>
+</li>
+<li>
+<strong>Coroutines</strong> allow control flow to be suspended, enabling more complex control flow graphs</li>
+<li>
+<strong>Semi-coroutines</strong> enable traversal up and down the call stack</li>
+<li>Nonlocal transfer is allowed between coroutines, but only through resumption (too powerful to allow a coroutine to unwind anothers' stack)</li>
+<li>
+<strong>Full-coroutines</strong> enable cycles</li>
+<li>exceptions have polymorphic types, defining a hierarchy<ul><li>exception truncation can occur, when catching a parent class and down casting from the static type is not possible</li></ul>
+</li>
+<li>
+<code>finally</code> is an example of a <strong>catch-any</strong> mechanism</li>
+<li>an <strong>exception list</strong> can be used to specify throwable/expected exception types</li>
+<li>destructors are not allowed to raise exceptions, since objects being destroyed during exception handling might cause more exceptions which would require postponing (but stack may be unwound) or dropping the original exception</li>
+<li>many languages have zero-cost exceptions, which is performant under the assumption that exceptions are rare<ul><li>performs linear search over possible handlers instead of setting/resetting labels</li></ul>
+</li>
+<li>concurrency can often be used to improve performance</li>
+<li>multiprocessor hardware allows parallelism</li>
+<li>each execution moves between states: executing, ready, blocked</li>
+<li>threading model uses abstraction to allow threading to occur at different layers<ul><li>kernel threads are scheduled by the OS, map to processes, each with their own threads and own scheduling, and the kernel threads could be executing on a virtual machine</li></ul>
+</li>
+<li>three types of concurrent systems/language designs: discovery of parallelization, implicit constructs <em>guided by the programmer</em>, and explicit constructs declared by the programmer</li>
+<li>we can measure speed up by <span class="math inline">\(\frac{T_1}{T_c}\)</span>, c is the number of CPUs, and fall into four categories: super-linear, linear, sub-linear, non-linear (most common)</li>
+<li>Amdahl's law gives a way to calculate max speedup over a program by describing a program's percentage of concurrent code</li>
+<li>concurrency requires <strong>3 mechanisms in a programming language</strong>: creation, synchronization, communication</li>
+<li>divide and conquer algorithms and be parallelized, and brought together by termination synchronization</li>
+<li>any communication requires data transfer, which requires one thread to be ready to accept data, which requires synchronization</li>
+<li>communication mechanisms include shared memory space</li>
+<li>all concurrent exceptions are nonlocal (otherwise local unwinding could disturb other exception handling instances on other processors)<ul><li>made possible by the fact that all tasks/coroutines have their own stack</li></ul>
+</li>
+<li>atomicity is a property for instructions, non atomic instructions may require mutual exclusion</li>
+<li>mutual exclusion is sequential, which affects runtime by Amdahl's law</li>
+<li>solving the mutual exclusion problem can be described with 5 rules:<ul>
+<li>
+<strong>safety:</strong> only one thread can be in the critical section at a time</li>
+<li>threads run at nondeterministic speeds</li>
+<li>a thread must be in the entry or exit code controlling access in order to prevent other threads from entering</li>
+<li>
+<strong>liveliness:</strong> preventing indefinite postponement or livelock (eventual progress is required)</li>
+<li>no <strong>starvation:</strong> a thread must eventually gain access to the critical section</li>
+</ul>
+</li>
+<li>busy waiting often affects liveliness and starvation</li>
+<li>
+<strong>unfairness</strong> occurs when threads don't come FCFS (FIFO)</li>
+<li>threads that don't respect fairness are <strong>barging</strong>
+</li>
+<li>barging avoidance is a solution that handles and acknolwedges barging in a fair way</li>
+<li>barging prevention is characteristic of a solution that doesn't allow threads to barge at all</li>
+<li>looking at software solutions for mutual exclusion:<ul>
+<li>simple lock algorithm violates safety</li>
+<li>alternating algorithm can block itself out which violates rule three since it is blocking itself without being in the entry/exit code</li>
+<li>declaring intent violates liveliness if threads are perfectly in sync</li>
+<li>prioritized retraction (one thread doesn't back down) can starve the low priority thread</li>
+</ul>
+</li>
+<li>
+<strong>Dekker's algorithm</strong> alternates priority to prevent starvation<ul><li>has <strong>unbounded overtaking</strong>, in which one thread could repeatedly reacquire the lock while the other thread sleeps, which is different than starvation because starvation requires the other thread to attempt to acquire the lock</li></ul>
+</li>
+<li>
+<strong>Peterson's Algorithm</strong> has <strong>bounded overtaking</strong>, because the loser doesn't retract their intention (which is allowed because prevention occurs in the entry protocol)</li>
+<li>for N threads, tournament algorithm can convert any valid 2-thread solution by building a binary tree<ul><li>has unbounded overtaking, no synchronization between nodes</li></ul>
+</li>
+<li>extend prioritized entry to a list of priorities, but has same problem of starvation as the 2-thread prioritized algorithm</li>
+<li><strong>N-Thread Bakery (Tickets) Algorithm</strong></li>
+</ul>
+<h3 id="introduction">Introduction</h3>
+<p>Concurrency is advanced code control flow.</p>
+<ul>
+<li>one possible control flow style--<strong>static multi-level exits</strong>--is to use <code>break</code>s instead of flag variables, creating a multi-exit loop<ul><li>no loops on middle exits</li></ul>
+</li>
+<li>static exit points known at compile time</li>
+</ul>
+<h4 id="dynamic-multi-level-exit">Dynamic Multi-Level Exit</h4>
+<ul>
+<li>modularization cannot always work when attempting to break out a function that contains an exit (routine scope)</li>
+<li>
+<strong>dynamic multi-level exit</strong> calls extend call/return semantics to transfer in the <em>reverse</em> direction to normal routine calls<ul>
+<li>control structures can use exceptional transfer to facilitate multiple outcomes</li>
+<li>direct control flow to the specified activation (function) on the stack</li>
+<li>therefore not lexically determined, meaning a flow to a recursive function is ambiguous</li>
+</ul>
+</li>
+<li>
+<strong>nonlocal transfer</strong> is any that isn't a call or return<ul><li>in C, <code>jmp_buf</code>, <code>setjmp</code>, <code>longjmp</code>
+</li></ul>
+</li>
+</ul>
+<p>Traditional approaches</p>
+<ul>
+<li>local fix-up routines</li>
+<li>return union, using <code>variant&lt;type1, type2&gt;</code>, and doing checks with <code>bool holds_alternative&lt;type2&gt;()</code>
+</li>
+</ul>
+<p>a <code>goto L</code> here is the same control flow as exception handling (catching at the label <code>L</code>)</p>
+<ul>
+<li>forwarding is a bad thing to have (dealing with union returns)</li>
+<li>in a chain of function calls, the intermediate functions don't need to be coupled when we avoid forwarding</li>
+</ul>
+<h5 id="longjmp-and-setjmp----src">Longjmp and setjmp -- <a href="http://www.di.unipi.it/~nids/docs/longjump_try_trow_catch.html">src</a>
+</h5>
+<ul>
+<li>required variable of type <code>jmp_buf</code>
+</li>
+<li>
+<code>setjmp</code> takes the variable, returning 0 the first time it is invoked, while filling the <code>jmp_buf</code> with the <strong>calling environment</strong> (state of registers when function is invoked, setjmp in this case) and <strong>signal mask</strong> (?)</li>
+</ul>
+<h5 id="exception-handling">Exception handling</h5>
+<p>so dynamic multi-level exit allows complex forms of transfers among routines, this is often called exception handling</p>
+<ul>
+<li>an <strong>exceptional event</strong> is known, low frequency and triggers an alternative outcome</li>
+<li>exception handling is more complex for some environments, C++ has destructors<ul>
+<li>no matter how a routine is exited, the destructor is ALWAYS run</li>
+<li>stack un-winding has rules to call destructors</li>
+</ul>
+</li>
+<li>when a program doesn't catch an exception, a sequential program will abort</li>
+<li>a concurrent program might ask other <strong>executions</strong> (with their own runtime stacks) to handle</li>
+<li>
+<strong>propagation mechanism</strong> is a rule to locate the handler, often linear search popping off the stack but other algorithms may be used</li>
+<li>
+<strong>handler</strong> catches exceptions by matching one or more exception types</li>
+</ul>
+<h5 id="staticdynamic-callreturn">Static/Dynamic Call/Return</h5>
+<table>
+<thead><tr class="header">
+<th>return</th>
+<th>call</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>static</td>
+<td>dynamic</td>
+</tr>
+<tr class="even">
+<td>static</td>
+<td>sequel</td>
+<td>termination exception</td>
+</tr>
+<tr class="odd">
+<td>dynamic</td>
+<td>routine</td>
+<td>routine pointer, virtual routine, resumption</td>
+</tr>
+</tbody>
+</table>
+<p>static return means that where the control flow is transferred after a function call is known statically (without running)</p>
+<p>dynamic return means the location to return to (the caller) isn't known until code is run. In other words, there are multiple function callers.</p>
+<p>static call means you know what function will be run when calling <code>foo()</code></p>
+<p>dynamic call means we don't know what code block will be run when calling a function.</p>
+<ul><li>sequel is static propagation<ul><li>an example of a sequel is the implementation of the catch body</li></ul>
+</li></ul>
+<h5 id="resumption">Resumption</h5>
+<p>termination is recovery, resumption says there might be a fix without needing to unwind the stack</p>
+<ul>
+<li>in resumption, there is no stack unwinding</li>
+<li>
+<code>catchResume</code> adds another frame on top of the stack using a normal routine call<ul><li>extra cost is simply searching for it</li></ul>
+</li>
+<li>propagation goes down the stack looking for a handler for the type of exception thrown (checking guarded blocks)</li>
+<li>in exceptional example 2.8, C5 is just being a good citizen, cleaning up and forwarding the exception down the stack<ul>
+<li>in C8, we hit a resume, so we don't unwind the stack, it's recovering from exceptional state</li>
+<li>fixup routine is in the catch block--the handler, instead dynamically return to the top of the stack</li>
+<li>might still terminate, in which case we'll do a static return and unwind the stack</li>
+</ul>
+</li>
+</ul>
+<h5 id="micro-c">Micro C++</h5>
+<ul>
+<li>supports two forms of raising: throw and <strong>resume</strong>
+</li>
+<li>supports two kinds of handlers, termination and resumption</li>
+<li>supports propagation of nonlocal and concurrent exceptions</li>
+<li>event is just like a class; <code>_Event</code> is just a keyword replacement for <code>class</code>
+</li>
+<li>automatic inheritence<ul>
+<li>msg, for unhandled exceptions</li>
+<li>
+<code>uBaseCoroutine</code> source tells you who threw the exception</li>
+</ul>
+</li>
+<li>rethrow is just continuing (forwarding) unwinding (probably for cleanup)</li>
+<li>reresume is just forwarding the exception</li>
+</ul>
+<p>why is there no <code>_At</code> for <code>_Throw</code>?</p>
+<ul><li>if you can throw at someone, you can unwind their stack</li></ul>
+<h3 id="coroutine">3 Coroutine</h3>
+<p>Any routine that can be suspended and resumed</p>
+<ul>
+<li>requires execution location, state, status (active, inactive, terminated)</li>
+<li>coroutine does not start from the beginning at each activiation, it activates at last point of suspension</li>
+<li>synchronous execution alongside other coroutines, they each have their own stack but no concurrency here</li>
+</ul>
+<p><img src="img/coroutine.png"></p>
+<p>Let's look at a Fibonacci number generator, <code>nextFibonacci()</code></p>
+<ul>
+<li>first year we wrote a loop, second year we write a class to encapsulate state, saw that it was actually closures storing state</li>
+<li>now we can use coroutines to hold state implicitly</li>
+</ul>
+<h5 id="nonlocal-exceptions">Nonlocal Exceptions</h5>
+<ul>
+<li>raised by a source execution, using <code>_Resume ... _At ...</code>
+</li>
+<li>
+<code>_Enable { ... }</code> allows nonlocal exceptions (resumes)</li>
+<li>for nonlocal resumption, <code>_Resume</code> is a proxy for an actual raise in the faulting coroutine<ul><li>propagation only starts when faulting routine becomes active</li></ul>
+</li>
+<li>UnhandledExceptions are always enabled, it is resumed at the routine that resumed you, when your exception reaches the bottom without being handled<ul>
+<li>
+<code>CatchResume( uaseCoroutine::UnhandledException )</code> let's you run a fixup routine from the resumer, and control flow is returned to the instruction after the thrower</li>
+<li>
+<code>catching</code> it will destroy the throwing coroutine?</li>
+</ul>
+</li>
+</ul>
+<h5 id="full-coroutines">Full Coroutines</h5>
+<p><img src="img/fullcoroutine.png"></p>
+<ul>
+<li>semi coroutines activate the member of routine that activated it (resume, suspend)<ul>
+<li>analogous to call/return semantic, but we're context switching instead of adjusting this on the stack</li>
+<li>this introduces a tree-kind-of control flow</li>
+</ul>
+</li>
+<li>full coroutine has a resume cycle, looks like recursion, but recursion is still linear control flow, just adding things to a stack<ul><li>introduces proper cycles</li></ul>
+</li>
+</ul>
+<p><img src="img/fullcoroutine-timing.png"></p>
+<ul>
+<li>program is progressing through time from left to right</li>
+<li>front side of context switch, coroutine with the thread will become inactive (it's the only thing running)<ul><li><code>uThisCoroutine() -&gt; thread holder</code></li></ul>
+</li>
+<li>coroutine remembers which coroutine to return to (similar to how a function knows who to return to)</li>
+<li>
+<code>suspend()</code> inactivates <code>uThisCoroutine</code> to activate last resumer</li>
+<li>
+<code>resume()</code> also inactivates <code>uThisCoroutine</code> but instead activates the <code>this</code> coroutine</li>
+</ul>
+<p><img src="img/fullcoroutine-stack.png"></p>
+<ul>
+<li>
+<code>Fc.mem()</code> is a function call, from the <code>::main</code> coroutine. So in <code>mem()</code>, <code>this = fc</code> but <code>uThisCoroutine() = ::main</code>
+</li>
+<li>on fc's stack now, we're in <code>Fc::main</code>, make a function call to <code>mem()</code> (right stack)</li>
+<li>here, <code>this = fc</code> and <code>uThisCoroutine()</code> is still <code>fc</code><ul><li>this is now a full coroutine</li></ul>
+</li>
+<li>finally, <code>suspend()</code> is called, but <code>fc</code> was the last resumer, so resuming the last resumer just resumes yourself! This is useless, so <code>resuming</code> yourself does not overwrite <code>last resumer</code>
+</li>
+</ul>
+<h5 id="life-cycle">Life cycle</h5>
+<ol>
+<li>start the cycle<ul><li>starting requires mutually recursive references, but declaration must be before definition</li></ul>
+</li>
+<li>execute the cycle</li>
+<li>stopping the cycle to return to the program <code>::main</code>
+</li>
+</ol>
+<p><img src="img/pingpong.png"></p>
+<ul>
+<li>starter is always stored, and we'll have a tree of these</li>
+<li>in producer-consumer, can eliminate stop function using exceptions, <code>_Enable {}</code> by itself checks if there's an exception hooked onto me</li>
+</ul>
+<h5 id="coroutine-languages">Coroutine Languages</h5>
+<p>two types of coroutine languages: stackless and stackful (powerful)</p>
+<ul><li>stackless cannot call other routines and then suspend<ul><li>python <code>yield</code> and <code>send()</code>
+</li></ul>
+</li></ul>
+<h3 id="concurrency-1">5 Concurrency</h3>
+<ul>
+<li>a thread is a path through a program<ul><li>independent (PC not affected by other threads), sequential (no instructions within the thread are executed in parallel)</li></ul>
+</li>
+<li>a process is a program component, which its own thread</li>
+<li>a task (similar to a process) but lightweight<ul><li>might share common memory with other tasks</li></ul>
+</li>
+<li>parallel execution is when multiple operations occur simultaneously, only on multi-processor systems</li>
+<li>concurrent execution is any situation with multiple threads executing, simultaneously or with context switches</li>
+</ul>
+<h5 id="concurrent-hardware">5.3 Concurrent Hardware</h5>
+<ul>
+<li>task switching can occur at non-deterministic program locations, unlike coroutines<ul><li><em>coroutines control context switches at the program logic level, while tasks are handled below the user-level logic</em></li></ul>
+</li>
+<li>memory is shared between tasks, so heap-allocated data</li>
+<li>concurrent execution of threads is possible with separate memories, in distributed systems</li>
+</ul>
+<h5 id="execution-states">5.4 Execution States</h5>
+<p><img src="img/54states.png"></p>
+<ul><li>non-determinism happens between <code>ready &lt;-&gt; running</code> states</li></ul>
+<h5 id="threading-model">5.5 Threading Model</h5>
+<p><img src="img/threading55.png"></p>
+<ul>
+<li>programmer asks for certain amount of access to CPUs, scheduler assigns this</li>
+<li>a process conceptually may have a single thread, or multiple kernel threads</li>
+<li>a process might define their own scheduler to give it out to its user threads<ul><li>user threads are low cost structuring mechanisms (routines, objects, coroutines)</li></ul>
+</li>
+<li>if we think of kernel threads as cores, then a process has the same model as the operating systems (recursive model!)<ul><li>can add nano threads recursively above this diagram, or virtual machines below OS</li></ul>
+</li>
+<li>practically, this model has 4 layers: Virtual Machine, OS, Processes, Nano Threads</li>
+<li>let's talk about ratio terminology; 1 to 1 and n to m describe ratios between user threads and kernel threads, and finally suffix a third value, the number of cores (which is optional)</li>
+</ul>
+<h5 id="concurrent-systems">5.6 Concurrent Systems</h5>
+<p>three types:</p>
+<ol>
+<li>discovered concurrency, derived from a sequential program (only some programs)</li>
+<li>implicit constructs (compiler decides how many threads to run)</li>
+<li>explicit constructs, the important one to understand</li>
+</ol>
+<p>1 and 2 build on 3.</p>
+<p><em>It turns out there is no single model for having all concurrent capabilities</em></p>
+<ul><li>to solve all concurrency problems, threads need to be explicit</li></ul>
+<p><img src="img/speedup57.png"></p>
+<ul>
+<li>nonlinear is common, you hit a bottleneck and performace degrades<ul><li><em>this is basically the overhead of managing multiple sequential executions</em></li></ul>
+</li>
+<li>
+<strong>Amdahl's law</strong> basically says that sequential components of a program limit its max performance gain</li>
+</ul>
+<p><img src="img/critical57.png"></p>
+<ul>
+<li>
+<strong>Independent execution</strong> is clean: all threads do not interact until the result</li>
+<li>
+<strong>Dependent execution</strong> is messy: there is always some critical path that is the bottleneck</li>
+</ul>
+<h5 id="concurrency-2">5.8 Concurrency</h5>
+<p>Requires 3 mechanisms in a programming language</p>
+<ol>
+<li>creation</li>
+<li>synchronization; timing relationships (A happens before B, etc..)</li>
+<li>communication; data transmission</li>
+</ol>
+<p><img src="img/58threadgraph.png"></p>
+<ul>
+<li>thread graph represents thread creation, <code>COBEGIN/COEND</code> allow us to generate a lattice control flow graph</li>
+<li>recursion can be used with <code>COBEGIN</code> to create dynamic number of threads</li>
+<li>
+<code>START/WAIT</code> allows threads to be explicitly created and waited on for their result</li>
+</ul>
+<h5 id="thread-object">5.9 Thread Object</h5>
+<p>C++ object that represents a thread: <code>_Task</code></p>
+<ul>
+<li>end of a code block calls delete on all object in its lexical scope</li>
+<li>
+<code>delete</code> kills the thread, so block-termination kills the thread</li>
+<li>block termination must wait for al threads to finish executing for semantics to hold</li>
+</ul>
+<h5 id="termination-synchronization">5.10 Termination Synchronization</h5>
+<ul>
+<li>terminates if it finishes normally</li>
+<li>finishes with error</li>
+<li>killed by its parent, or parent terminates (both no is micro c++)</li>
+</ul>
+<h5 id="divide-and-conquer">5.11 Divide and Conquer</h5>
+<ul>
+<li>problem can be partitioned, where each unit of work can be performed independently</li>
+<li>only termination synchronization is required to know when the work is done</li>
+</ul>
+<h5 id="synchronization">5.12 Synchronization</h5>
+<ul><li>necessary for data transmission, busy wait (empty loop) can be used to wait for a flag to be set<ul><li>Prod/Cons problem can be solved with busy wait implementation</li></ul>
+</li></ul>
+<h5 id="communication">5.13 Communication</h5>
+<ul>
+<li>data can be transferred via pointers if tasks have shared memory</li>
+<li>distributed systems may transfer over a network (dictated by some protocol)</li>
+</ul>
+<h5 id="exceptions">5.14 Exceptions</h5>
+<ul>
+<li>nonlocal exceptions can be sequential (as seen with coroutines) or concurrent<ul>
+<li>all concurrent exceptions must be non-local</li>
+<li>nonlocal exceptions between a task and a coroutine are the same as between coroutines</li>
+</ul>
+</li>
+<li>example is two searching tasks, which resume a nonlocal exception at their partner upon finding the element</li>
+</ul>
+<h5 id="critical-section">5.15 Critical Section</h5>
+<ul>
+<li>atomicity is important for data that is being modified<ul>
+<li>achievable through mutual exclusion primatives</li>
+<li>thread can be interrupted, but no other thread can modify any parts of the object while the multi-step operation is occuring</li>
+</ul>
+</li>
+<li>Amdahl's law implies that critical sections of code must be limited to maximize concurreny</li>
+</ul>
+<h5 id="software-solutions-for-mutex">5.19 Software Solutions for Mutex</h5>
+<ul><li>Lock algorithms are hard</li></ul>
+<h3 id="locks">Locks</h3>
+<ul><li>spinning and blocking are the two main categories of locks</li></ul>
+<h5 id="barrier">6.3.3 Barrier</h5>
+<p>coordinates a group of tasks performing a concurrent operation sandwiched between sequential code</p>
+<ul>
+<li>barrier is like a horse race, blocks until all <code>N</code> horses are ready before the race starts (gate opens)<ul>
+<li>more commonly used cyclically</li>
+<li>initialize with <code>N+1</code> to allow for a coordinator</li>
+</ul>
+</li>
+<li>for synchronization not mutual exclusion</li>
+<li>
+<code>uBarrier</code>, given as essentially a template to inherit from</li>
+<li>a thread cannot delete itself, since delete must clean up the task's stack</li>
+</ul>
+<h5 id="semaphore">6.3.4 Semaphore</h5>
+<p>Process graph != precedence graph</p>
+<h3 id="concurrent-errors">7 Concurrent Errors</h3>
+<ul>
+<li>race conditions occur when missing synchronization or mutual exclusion</li>
+<li>livelock (consuming CPU), starvation and deadlock are kinds of no-progress concurrent errors<ul><li>deadlock can be caused by either sync or mutex</li></ul>
+</li>
+<li>synchronization deadlock prevention requires no sync in the program =&gt; no communication</li>
+<li>banker's algorithm, "oracle" process tries all possibilities to determine whether</li>
+</ul>
+<h3 id="indirect-communication">8 Indirect Communication</h3>
+<ul>
+<li>getting help from the compiler to check synchronization correctness</li>
+<li>
+<strong>monitor</strong> is a data type that combines shared data with serialization of its function calls (implicit mutual exclusion)</li>
+<li>
+<strong>scheduling</strong> is how a monitor determines order of running tasks</li>
+<li>
+<strong>external scheduling</strong> tasks outside using <code>_Accept</code> statements, allowing the programmer to specify which routine will be scheduled next<ul>
+<li>barging prevention, since producers don't barge in front of other producers and same with consumers</li>
+<li>if producer is the acceptor, no other producers enter the shared data until the aceepted routine runs</li>
+</ul>
+</li>
+<li>
+<strong>internal scheduling</strong> is inside the monitor, using CVs and signal/wait<ul><li>barging avoidance, daisy chaining programming style ensures FIFO order, even when we use the acceptor "chair" as a stack</li></ul>
+</li>
+<li>general implementation, <span class="math inline">\(O(1)\)</span> accept by having multiple queues, one for each routine</li>
+<li>internal scheduling is harder to use but more powerful: if information is needed from tasks in the entry queue</li>
+<li>reader and writer problem is revisited with monitors</li>
+<li><strong>nested monitor problem</strong></li>
+<li>for monitors, waits always block, signals are lost if there's no one to signal, only one task can exit at a time (serially)</li>
+<li>
+<strong>explicit scheduling</strong> is when we use <code>_Accept</code> (external) or signal (internal)</li>
+<li>
+<strong>implicit scheduling</strong>, selects from calling (C), signalled (W) and singaller (S) queues with various priorities</li>
+<li>
+<strong>implicit signal</strong> <code>waitUntil</code> lets a task to wait until the conditional expression is true (without explicitly defining conditional variables), wakes everyone up to check their predicate</li>
+</ul>
+<h3 id="direct-communication">9 Direct Communication</h3>
+<ul>
+<li>
+<code>_When</code> introduces a long form, allowing for more control flow for accepts</li>
+<li>when a task starts, the thread is already inside the mutual exclusion, which is different from a monitor<ul><li>the thread gets on the chair to open/<code>_Accept</code> the door to allow other threads to enter, and then you wake up and examine any changes</li></ul>
+</li>
+<li>in a task main, never use <code>signal</code>, always <code>signalBlock</code>
+</li>
+<li>
+<strong>server-client</strong> can help us get more concurrency (client ships work off to the server)<ul><li><strong>internal buffer</strong></li></ul>
+</li>
+<li>an <strong>administrator</strong> makes no call to another task, only accepts and returns<ul>
+<li>clients drop off work, administrator delagates work to its fleet of workers</li>
+<li>workers can drop off and pick up in one call, or two step with a bench, but always just a single call</li>
+<li>how do we return values to clients?</li>
+<li>
+<strong>tickets</strong> can be used to indentify pieces of work, client comes back with their ticket to retrieve the result</li>
+<li>
+<strong>call-back routine</strong> is a routine called by the server after the result is ready, and the client must poll the indicator until it is set (allowing the server to drop it off immediately)</li>
+<li>
+<strong>futures</strong> provide asynchrony without an explicit protocol</li>
+</ul>
+</li>
+</ul>
+<h3 id="optimization">10 Optimization</h3>
+<ul>
+<li>compiler is the liason between software engineers and vonn neumann machines</li>
+<li>
+<strong>eliding</strong> is removal of data/LOC</li>
+<li>paging algorithms from CS350 are applicable when talking about memory heirarchy between registers, cache and memory<ul><li><strong>cache line</strong></li></ul>
+</li>
+<li>registers are addressable with few bits, memory requires large bytes<ul>
+<li>
+<strong>cache coherence</strong> is a hardware protocol ensuring update of duplicate data</li>
+<li>eagerly pull information into L1 cache, lazily push them back</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Python Project Architecture</title>
+</head>
+<body>
+
+<h1 id="python-project-architecture">Python Project Architecture</h1>          <a href="index.html">Back to Languages</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#future"><strong>future</strong></a></li>
+<li>
+<a href="#modules----source">Modules -- </a><a href="https://docs.python.org/3/tutorial/modules.html#packages">source</a>
+</li>
+<li><a href="#packages">Packages</a></li>
+<li>
+<a href="#architecture-example-tensorflow">Architecture Example: </a><a href="https://github.com/tensorflow/tensorflow">Tensorflow</a>
+</li>
+</ul>
+</div>
+<h3 id="future"><strong>future</strong></h3>
+<p><code>import from __future__</code> allows you to access new features which are not currently compatable with the current interpreter</p>
+<ul><li>
+<code>import __future__</code> module allows you to see when features were added and became default with <code>__future__.&lt;feature&gt;</code>
+</li></ul>
+<h3 id="modules----source">Modules -- <a href="https://docs.python.org/3/tutorial/modules.html#packages">source</a>
+</h3>
+<p>In python, .py files are <strong>modules</strong> of definitions and statements</p>
+<ul>
+<li>in a module, <code>__name__</code> is the name of the module</li>
+<li>statements in a module are executed during the import statement, used for module initialization</li>
+<li>each module has a private symbol table (sheltered from global variable scope)</li>
+<li>
+<code>from &lt;module&gt; import *</code> will import names from a module into the importing module's symbol table<ul><li>names beginning with <code>_</code> are not imported</li></ul>
+</li>
+<li>
+<code>if __name__ == "__main__"</code> allows you to make a module both a usable script and a module to be imported</li>
+<li>search order for imports: built-in module, <code>.py</code> file in <code>sys.path</code>
+</li>
+<li>
+<code>dir()</code> is used to find out which names a module defines</li>
+</ul>
+<h3 id="packages">Packages</h3>
+<p>Packages provide namespacing for modules, like <code>A.B</code> for package <code>A</code> and submodule <code>B</code></p>
+<ul>
+<li>
+<code>__init__.py</code> initializes a package (in its current directory, based on the directory name)</li>
+<li>packages may be nested, to namespace imports, but every item except the last must be a package in statements like <code>import item.subitem.subsubitem</code>
+</li>
+<li>in <code>__init__.py</code>, a list named <code>__all__</code> is the list of submodules to be imported when <code>from &lt;package&gt; import *</code> is called</li>
+<li>within a package, relative imports can be made with <code>from .. import &lt;submodule&gt;</code>
+</li>
+</ul>
+<h3 id="architecture-example-tensorflow">Architecture Example: <a href="https://github.com/tensorflow/tensorflow">Tensorflow</a>
+</h3>
+<ul><li>
+<code>tensorflow</code> directory defines the package<ul>
+<li>
+<code>__init__.py</code> imports 3.x absolute_import, division and print_function from <code>__future__</code>
+</li>
+<li>
+<code>from tensorflow.python import *</code>, which imports the list defined by <code>__all__</code> in the tensorflow.python package<ul><li>
+<code>python/__init__.py</code> imports from tensorflow.core, tensorflow.framework, and sets default environment variables, and global default config</li></ul>
+</li>
+</ul>
+</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Contributing to Open Source Projects</title>
+</head>
+<body>
+
+<h1 id="contributing-to-open-source-projects">Contributing to Open Source Projects</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#suggested-workflow">Suggested Workflow</a></li>
+<li><a href="#deployment-cycle">Deployment Cycle</a></li>
+<li><a href="#version-control">Version Control</a></li>
+<li><a href="#pull-requests">Pull Requests</a></li>
+<li><a href="#isolated-devtest-environments">Isolated Dev/Test environments</a></li>
+<li><a href="#continuous-integration">Continuous Integration</a></li>
+</ul>
+</div>
+<p>Various open source projects use different tools for managing distributed development, bust most use the same set of concepts:</p>
+<ul>
+<li>Version Control (with central remote repository)</li>
+<li>Pull Requests</li>
+<li>Isolated Dev/Test environment</li>
+<li>Continuous Integration</li>
+</ul>
+<h2 id="suggested-workflow">Suggested Workflow</h2>
+<ol>
+<li>Clone the repository. Run setup.</li>
+<li>Make a feature branch based on latest <code>master</code>.</li>
+<li>Make changes</li>
+<li>Commit changes to local branch</li>
+<li>Push commits to a remote version of your feature branch</li>
+<li>Make Pull Request for your branch</li>
+<li>Make changes and repackage changes into new set of commits. Don't push to the remote feature branch, keep the history.</li>
+<li>Ship it, undeployed commits should not sit in the master branch on GitHub. Critical code is run through a CI anyways.</li>
+</ol>
+<h2 id="deployment-cycle">Deployment Cycle</h2>
+<ol>
+<li>Git Merge</li>
+<li>Build image (Container Build in Docker)</li>
+<li>Automation Testing (fast because of buildkite)<ul><li>for test failing, tests locally</li></ul>
+</li>
+<li>Deploy</li>
+</ol>
+<h2 id="version-control">Version Control</h2>
+<p>Is an integral part of open source projects. Includes <em>git, svn, and mercurial</em>. I use git. Github and Bitbucket host central repositories for developers to contribute to. More on <a href="Git.md">Git</a>.</p>
+<p>The following steps can be followed as an example for contributing to Rails:</p>
+<ul>
+<li>
+<code>git clone https://github.com/rails/rails.git</code> clone repo</li>
+<li>
+<code>git checkout -b my_new_branch</code> create new branch for local changes</li>
+<li>
+<code>bundle install</code> install dependencies and gems</li>
+<li>
+<code>bundle exec rails new ~/my-test-app --dev</code> creates dummy application to test changes. <code>--dev</code> uses your branch</li>
+<li>
+<code>bundle exec rake test</code> in a specific file will run tests for a component</li>
+</ul>
+<h2 id="pull-requests">Pull Requests</h2>
+<p>After making changes to a repository, a <strong>pull request</strong> is made, requesting that code changes are merged to the central repository. After your changes are in a forked repository. It is good practice to <strong>squash commits</strong> into one commit, using <code>git rebase</code>.</p>
+<p>More on <a href="Pull%20Requests.md">Pull Requests</a></p>
+<h2 id="isolated-devtest-environments">Isolated Dev/Test environments</h2>
+<p>Projects often have a standardized developer environment for core development, using a DevOps tool like Docker or Vagrant, for various cases.</p>
+<h2 id="continuous-integration">Continuous Integration</h2>
+<p>Is the practice in software engineering, of merging all developer working copies with a shared main branch. CI often refers to testing every change after being merged. <strong>Travis CI</strong> is a very popular option for continuous integration.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

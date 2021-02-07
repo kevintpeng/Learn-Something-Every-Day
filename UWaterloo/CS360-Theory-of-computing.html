@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Theory of Computing</title>
+</head>
+<body>
+
+<h1 id="theory-of-computing">Theory of Computing</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li>
+<a href="#background">1 </a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/01.pdf">Background</a>
+</li>
+<li>
+<a href="#dfas-and-countability">2 </a><a href="https://cs.uwaterloo.ca/~watrous/CS360.Spring2019/Lectures/02.pdf">DFAs and Countability</a>
+</li>
+<li>
+<a href="#nfa">3 </a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/03.pdf">NFA</a>
+</li>
+<li>
+<a href="#regular-expressions">4 </a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/04.pdf">Regular Expressions</a>
+</li>
+<li>
+<a href="#proving-languages-to-be-nonregular">5 </a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/05.pdf">Proving languages to be nonregular</a>
+</li>
+<li>
+<a href="#more-regular-languages">6 </a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/06.pdf">More regular languages</a>
+</li>
+<li>
+<a href="#context-free-grammars-and-languages"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/07.pdf">7 Context-free grammars and languages</a>
+</li>
+<li>
+<a href="#parse-trees-ambiguity-chomsky-normal-form"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/08.pdf">8 Parse Trees, Ambiguity, Chomsky Normal Form</a>
+</li>
+<li>
+<a href="#closure-properties-for-context-free-languages"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/09.pdf">9 Closure Properties for context-free languages</a>
+</li>
+<li>
+<a href="#proving-non-context-free"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/10.pdf">10 Proving non-context-free</a>
+</li>
+<li>
+<a href="#pushdown-automata"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/11.pdf">11 Pushdown Automata</a>
+</li>
+<li><a href="#stack-machines">12 Stack Machines</a></li>
+<li>
+<a href="#stack-machine-computations-languages-and-functions"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/13.pdf">13 Stack Machine computations, languages and functions</a>
+</li>
+<li>
+<a href="#turing-machines"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/14.pdf">14 Turing Machines</a>
+</li>
+<li>
+<a href="#encodings-and-decidable-languages"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/15.pdf">15 Encodings and decidable languages</a>
+</li>
+<li>
+<a href="#universal-stack-machines-and-non-semidecidable-language"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/16.pdf">16 Universal stack machines and non-semidecidable language</a>
+</li>
+<li>
+<a href="#undecidable-languages"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/17.pdf">17 Undecidable Languages</a>
+</li>
+<li>
+<a href="#closure-properties-in-decidability"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/18.pdf">18 Closure Properties in Decidability</a>
+</li>
+<li>
+<a href="#time-bounded-computations"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/19.pdf">19 Time-bounded Computations</a>
+</li>
+<li>
+<a href="#np-polynomial-time-mapping-reductions"></a><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/20.pdf">20 NP, Polynomial-Time Mapping Reductions</a>
+</li>
+</ul>
+</div>
+<h3 id="summary">Summary</h3>
+<ul>
+<li>
+<strong>Cantor's</strong> theorem: the power set of the natural numbers P(N) is uncountable (since N is an infinite set)</li>
+<li>any single language is countable because you can map the natural numbers to the infinite set of all possible strings (again, there is a bijection that can be defined)</li>
+<li>on Deterministic Finite Automata and Non-deterministic Finite Automata equivalence, a language <code>A</code> is regular iff there exists an NFA that accepts all strings in <code>A</code>
+</li>
+<li>there are uncountably many languages over sigma, but countably many regular languages</li>
+<li>
+<strong>pumping lemma</strong> (for regular languages) tells us that there is always a loop in a DFA for input string whose length is greater or equal to then number of states</li>
+<li>context-free languages always have a pushdown automata and a context free grammar that represent them, which with the addition of a stack makes the behaviour of each state depend on what's on the top of the stack</li>
+<li>
+<strong>pumping lemma for context-free grammars</strong> works on parse trees, and says that after the parse tree has a certain height, then there must be some path from the root to leaf that has more nodes than states, and thus we get a loop</li>
+<li>Deterministic stack machines are an interesting alternative and equivalent computing model to the turing machine, extending pushdown automata with a second stack gives them the ability to perform universal computation<ul><li>we can encode anything as strings including DSMs themselves, so we can describe problems as sets of DSMs that solve those problems under given constraints</li></ul>
+</li>
+<li>
+<strong>semi-decidable</strong> languages are a subset of undecidable languages that have machines that describe them that are guaranteed to terminate when reading a string that must be accepted<ul><li>there are non-semidecidable languages like DIAG, the language of all DSMs that do not accept themselves, which paradoxically cannot accept or reject itself</li></ul>
+</li>
+<li>for languages described by turing machines and deterministic stack machines, there is no fundamental syntactic structure to determine whether the language is infinite or not (whether a loop exists)</li>
+<li>
+<strong>NP</strong> is the set of languages/problems that have a polynomial-time verifier</li>
+<li>
+<strong>NP complete</strong> languages are the hardest in NP, since it is NP hard (anything in NP reduces to it) while still being in NP</li>
+<li>
+<strong>time-hierarchy theorem</strong> gives us that if f(x) = o(g(x)), then DTIME(f) is a proper subset of DTIME(g)<ul><li>
+<strong>DTIME(f)</strong> is the set of languages that have a DSM whose running time satisfies O(f) deterministically (and NTIME for nondeterministically)</li></ul>
+</li>
+</ul>
+<h3 id="background">1 <a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/01.pdf">Background</a>
+</h3>
+<ul>
+<li>Computational problems themselves can be viewed as mathematical objects</li>
+<li>a set <code>A</code> is countable iff there is an injective function from A -&gt; Natural numbers</li>
+<li>if set <code>A</code> is infinite, it is countable if there's a bijection (total)</li>
+<li>recall the power set is the set of all subsets of a set</li>
+<li>one proof pattern is breaking down a set into finite lists of sets for the purpose of enumeration</li>
+<li>
+<strong>Cantor's</strong> theorem: the power set of the natural numbers P(N) is uncountable (since N is an infinite set)</li>
+<li>strings are finite sequences of symbols from an alphabet</li>
+<li>languages are sets of strings</li>
+</ul>
+<h3 id="dfas-and-countability">2 <a href="https://cs.uwaterloo.ca/~watrous/CS360.Spring2019/Lectures/02.pdf">DFAs and Countability</a>
+</h3>
+<ul>
+<li>any single language is countable because you can map the natural numbers to the infinite set of all possible strings (again, there is a bijection that can be defined)</li>
+<li>the set of all languages over any alphabet is uncountable by Cantor's theorem</li>
+<li>recall from CS241 that a DFA is a state diagram representation</li>
+<li>we use the function L as a filter for a language</li>
+<li>a language <code>A</code> is <strong>regular</strong> if there is a DFA, <code>M</code>, s.t. <code>L(M) = A</code>
+</li>
+</ul>
+<h3 id="nfa">3 <a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/03.pdf">NFA</a>
+</h3>
+<ul>
+<li>we can think about non-determinism as verification<ul><li>given a string, NFA determines whether its possibly accepted</li></ul>
+</li>
+<li>there can be multiple possible transitions for each input to the transition function, and epsilon is a possible input</li>
+<li>NFA accepts a string if there exists some</li>
+<li>epsilon-closure is an extension of NFAs over a set of states, e(R) that is the set of states reachable from states in R using just epsilon transitions</li>
+<li>using this, we can delta * for NFAs (taking a string as input)</li>
+<li>a language <code>A</code> is regular iff there exists an NFA that accepts all strings in <code>A</code>
+</li>
+</ul>
+<h3 id="regular-expressions">4 <a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/04.pdf">Regular Expressions</a>
+</h3>
+<p>3 regular operations:</p>
+<ul>
+<li>union of language A and B: w is in either</li>
+<li>concatenation AB: wx is every combination of w in A then x in B</li>
+<li>kleene star A * : {empty} u A u AA u AAA ...</li>
+</ul>
+<p>If A and B are regular languages, any regular operations on them produce regular languages</p>
+<ul>
+<li>prove by defining an NFA that uses DFAs for A and B to accept the resultant language</li>
+<li>proving kleene star acts as a closure does not follow from union and concatenation, because it is an infinite number of operations applied so it needs its own proof</li>
+</ul>
+<h3 id="proving-languages-to-be-nonregular">5 <a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/05.pdf">Proving languages to be nonregular</a>
+</h3>
+<ul><li>
+<strong>pumping lemma</strong> for regular languages allows us to observe the pigeon hole principle for DFAs: that more inputs than states means that some state was visited more than once.<ul>
+<li>also, for any string length greater than or equal to n for n states, there must be a loop</li>
+<li>formally, for a regular language there is always some point at which all strings longer than or equal to <code>n</code> can be written containing a loop in the first n characters</li>
+</ul>
+</li></ul>
+<p>How to use the pumping lemma:</p>
+<ol>
+<li>fix n as any number, we describe the rest of the proof based on any fixed selection of n</li>
+<li>define a string towards contradiction, that satisfies the requirements of the pumping lemma</li>
+<li>determine what form the loop must take</li>
+<li>because the pumping lemma must hold for all number of loops, show that there is a particular number of loops where xy<sup>i</sup>z is not contained in the language which contradicts the third condition of the pumping lemma.</li>
+</ol>
+<ul>
+<li>one example of a nonregular language is closing parentheses</li>
+<li>one where the number of loops affects the state is not truly a loop</li>
+<li>one where certain lengths are accepted, but are not cyclic values (exponential, prime)</li>
+</ul>
+<h3 id="more-regular-languages">6 <a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/06.pdf">More regular languages</a>
+</h3>
+<ul>
+<li>reverse is another closure property of regular languages (proven by constructing a reversed NFA, or by reversing a regular expression)</li>
+<li>symmetric difference of languages is another clousre property<ul><li>if A is regular, B is nonregular, A ▲ B is nonregular</li></ul>
+</li>
+<li>prefix is a closure property, proven by constructing a DFA where the new accepting states are the set of all states q where there's some string v s.t. δ * (q,v) in the original accepting states</li>
+<li>suffix is a closure property, proven by allowing an epsilon transition to any reachable state</li>
+<li>substring is a closure property, because it is a prefix of a suffix</li>
+<li>example proof showing that the language where a single symbol can be skipped can be proven using two copies of the DFA with modifications to the first copy, where there exists epsilon transitions from the first to the second DFA wherever there exists transitions within the first.</li>
+</ul>
+<h3 id="context-free-grammars-and-languages"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/07.pdf">7 Context-free grammars and languages</a></h3>
+<ul>
+<li>CFG <code>G = (V, Σ, R, S)</code>, where V is variables, Σ is the alphabet, R is rules, S is start variable<ul><li>rules are of the form <code>A → w</code>, A in V, w in (V union Σ) * e.g. S -&gt; 0 S 1, S -&gt; epsilon</li></ul>
+</li>
+<li>every CFG generates a language L(G)</li>
+<li>formally, the <strong>yields relation</strong> defined by CFG G is a relation x maps to y, where some variable in V from x is replaced by some new set of symbols, following some rule in R.</li>
+<li>if x in L(G), we can find some <strong>derrivation</strong> of it from the CFG, a sequence of strings where the first is S and the last is x</li>
+</ul>
+<p>Prove that all w in A is generated by CFG G:</p>
+<ol>
+<li>Let w be a string in A, and set n = |w|. Prove that w is in L(G) by strong induction</li>
+<li>base case: n = 0 so w is empty, and show that there is some derivation</li>
+<li>induction step: assume n &gt;= 1, and hypothesize that x in L(G) for every x in A with |x| &lt; n</li>
+<li>use properties of language A and the assumption that any strings less are generated by G to find a derivation of w in terms of other generated strings smaller than w</li>
+</ol>
+<h3 id="parse-trees-ambiguity-chomsky-normal-form"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/08.pdf">8 Parse Trees, Ambiguity, Chomsky Normal Form</a></h3>
+<ul>
+<li>
+<strong>left-most derivation</strong>: the left most variable always gets replaced. All strings generated by a CFG have a left-most derivation because each step can only ever correspond to a single variable, never multi-variable so we choose can choose the left by convention</li>
+<li>ambiguity between parse trees can arise even in left-most derivations, and unambiguous CFGs are a requirement for some applications</li>
+<li>it is not always possible to generate unambiguous CFGs, specifically for <strong>inherently ambiguous languages</strong><ul><li>one such example includes an OR in its definition, and when you satisfy both conditions, it's ambiguous which one can be used to satisfy it</li></ul>
+</li>
+<li>a CFG can always be written in <strong>Chomsky Normal Form</strong>, so that only binary parse trees can be derived (allowing unary branches)<ul><li>this was proven by transforming a CFG into CNF step-by-step and showing that they are eqivalent</li></ul>
+</li>
+</ul>
+<h3 id="closure-properties-for-context-free-languages"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/09.pdf">9 Closure Properties for context-free languages</a></h3>
+<ul>
+<li>context-free languages are closed under regular operations</li>
+<li>regular languages are a subset of context-free</li>
+<li>proving closure properties of context-free languages can be done similarly to regular languages, by constructing a CFG based off other CFGs, by manipulating vars and rules using the fact that all CFGs can be written in CNF.</li>
+</ul>
+<h3 id="proving-non-context-free"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/10.pdf">10 Proving non-context-free</a></h3>
+<ul><li>pumping lemma for context-free languages: CFGs (in CNF for simplicity producing binary parse trees), then there is some height of parse tree (length of string) that ensures that there is a path that has repeating variables. Repeating variables means some sub-tree could repeat an arbitrary number of times</li></ul>
+<h3 id="pushdown-automata"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/11.pdf">11 Pushdown Automata</a></h3>
+<ul>
+<li>another way to express context-free languages</li>
+<li>similar to NFA, with a stack that is shared between states and can be operated on by the PDA</li>
+<li>P = (Q, sigma, Γ, delta, q0, F) six tuple, where delta can take a char from sigma or a tuple from Stack(Γ) = {↓, ↑} × Γ</li>
+<li>formally, a PDA accepts a string w if there is a sequence of states and a sequence of chars + stack ops that move from q0 to some f in F, where the stack ops produce a <strong>valid stack string</strong>
+</li>
+<li>symmetric diff of context-free lang A and finite lang B is context free</li>
+</ul>
+<h3 id="stack-machines">12 Stack Machines</h3>
+<ul>
+<li>equivalent computational model to modern programming languages</li>
+<li>like a PDA with multiple stacks</li>
+<li>it is a 7-tuple with the addition of reject states (necessary for deterministic version later)</li>
+<li>we pass it a populated stack as input, and you simply pop from stack-0</li>
+<li>since the input is a stack, all ops are pushes or pops of a stack</li>
+<li>Deterministic Stack machine (DSM) is a special case of NSM, where every state is either pushing or popping a single stack, and the transitions are based on what symbol is pushed/popped<ul><li>excluded transitions implicitly go to reject state</li></ul>
+</li>
+</ul>
+<h3 id="stack-machine-computations-languages-and-functions"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/13.pdf">13 Stack Machine computations, languages and functions</a></h3>
+<ul>
+<li>
+<strong>semi-decidable</strong> is the class of languages that have a DSM that terminates with acceptance for all strings in their language (but may run forever in the case of rejection)</li>
+<li>
+<strong>decidable languages</strong> that have a DSM that never runs forever</li>
+<li>TODO computable functions</li>
+</ul>
+<h3 id="turing-machines"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/14.pdf">14 Turing Machines</a></h3>
+<ul>
+<li>equivalant to DSMs</li>
+<li>tape can move left or right, is infinite and has slots with symbols on them.</li>
+<li>a DSM can be emulated using a DTM, by building two stacks, one on the left and one on the right of the tape</li>
+<li>a DTM can be emulated using a DSM by having everything left of initial on a stack L, and right on a stack R</li>
+</ul>
+<h3 id="encodings-and-decidable-languages"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/15.pdf">15 Encodings and decidable languages</a></h3>
+<ul>
+<li>discussed encodings with one example using unambiguous encoding</li>
+<li>notation:〈M〉means the encoding of M, where in this case we want to encode the DFA M</li>
+<li>strategy used for encoding is to first represent the thing to be encoded as a mathematical tuple, then encode each component and string them together</li>
+<li>〈M〉= 〈〈n〉,〈F〉,〈δ〉〉= 〈〈 |Γ| 〉,〈 F 〉,〈 〈j〉,〈a〉,〈δ(qj, a)〉 〉〉</li>
+<li>we can use the notion of encodings to "recursively" define languages as sets of DFAs or CFGs, specifically for <strong>decidability of formal languages</strong>
+</li>
+<li>A_DFA = 〈〈D〉,〈w〉〉where D is DFA and w is string in L(D) is decidable</li>
+<li>A_NFA is decidable by converting the NFA to a DFA</li>
+<li>the language of DFAs that express empty languages is decidable</li>
+<li>the language of pairs of CFGs that are equivalent is not decidable</li>
+<li>get comfortable expressing solutions as high level descriptions of DSMs (always reject invalid strings as step 1)</li>
+<li>roughly two classes of decidable languages were presented: ones where we simulate the encoded DFA or equivalent, and ones where we look at the language for the DFA</li>
+</ul>
+<h3 id="universal-stack-machines-and-non-semidecidable-language"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/16.pdf">16 Universal stack machines and non-semidecidable language</a></h3>
+<ul>
+<li>note: mapping multiple stacks to few is one challenge</li>
+<li>universal stack machine U takes an encoding of a DSM</li>
+<li>U semidecides Adsm implies Adsm is a semidecidable language</li>
+<li>DIAG is the language that contains all binary strings 〈M〉 where M is a DSM that rejects the its own encoding 〈M〉<br>
+</li>
+<li>start with DIAG and build up to prove not decidable</li>
+</ul>
+<h3 id="undecidable-languages"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/17.pdf">17 Undecidable Languages</a></h3>
+<p>Some undecidable languages:</p>
+<ul>
+<li>A_DSM is the language of all DSM-string pairs, where the string is in the language of the DSM</li>
+<li>HALT is the language of DSM-string pairs where the DSM halts on the input string<ul><li>we can use contradiction--assume HALT is decidable and show that if it is, then A_DSM must also be</li></ul>
+</li>
+<li>E_DSM is the language of all DSMs that produce an empty language, proven using contradiction and A_DSM</li>
+<li>AM is the language that accepts the empty string</li>
+</ul>
+<p>Two ways to prove undecidability:</p>
+<ol>
+<li>contradiction<ul><li>assume toward contradiction that it is decidable. Then construct a DSM that decides a language that we know already to be undecidable</li></ul>
+</li>
+<li>reduction: A reduces to B lets us show that the decidability of B implies the decidability of A<ul>
+<li>reductions can be used to show decidability, semidecidability, undecidability</li>
+<li>contrapositive result for A reduces to B allows us to phrase it as A undecidable imples B undecidable</li>
+<li>
+<code>A</code> reduces to <code>B</code> iff <code>not A</code> reduces to <code>not B</code>
+</li>
+<li>we first give a piecewise mapping <code>f</code>, argue that it is computable</li>
+<li>then show that it is a reduction (all inputs from the language A mapped through f are in B, and all inputs not in A mapped through f are also not in B). Since it is a reduction, and A is undecidable, then we know B is also undecidable</li>
+</ul>
+</li>
+</ol>
+<h3 id="closure-properties-in-decidability"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/18.pdf">18 Closure Properties in Decidability</a></h3>
+<p>TODO read this lecture more closely</p>
+<ul>
+<li>for decidable languages, union, concatenation, intersection, negation and kleen star are closure properties<ul><li>not closed under prefix</li></ul>
+</li>
+<li>for semidecidable languages, union, concat, intersection, kleen star, prefix, suffix, substring are closure properties<ul><li>not closed under negation</li></ul>
+</li>
+<li>for any infinite semidecidable language, there exists a subset that is an infinite decidable languages</li>
+<li>semidecidable languages are precisely the set of languages which correspond to the range of computable functions</li>
+</ul>
+<h3 id="time-bounded-computations"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/19.pdf">19 Time-bounded Computations</a></h3>
+<ul>
+<li>
+<strong>time constructable</strong> is used to define functions that are--informally--not theoretically malliciously constructed, in other words practically useful</li>
+<li>
+<strong>DTIME(f)</strong> is the set of languages that have a DSM whose running time satisfies f deterministically</li>
+<li>
+<strong>time hierarchy theorem</strong> is useful for showing that some class of problems is a strict subset of another</li>
+<li>P is the class of all problems computable in polynomial time</li>
+<li>EXP is exponential</li>
+<li>CFG-simulation related computations are polynomial time</li>
+</ul>
+<h3 id="np-polynomial-time-mapping-reductions"><a href="https://cs.uwaterloo.ca/~watrous/CS360/Lectures/20.pdf">20 NP, Polynomial-Time Mapping Reductions</a></h3>
+<ul>
+<li>
+<strong>polynomially bounded time-constructable functions</strong> is the fancy way of saying a useful function that has polynomial runtime</li>
+<li>A language is in NP if there is some polynomial time verifier</li>
+<li>another approach is to think of NP as polynomial-time nondeterministic computation, NTIME(f)</li>
+<li>P is a subset of NP subset of EXP<ul><li>if A in P, then A itself is a verifier so it's also in NP</li></ul>
+</li>
+<li>A <strong>polynomial-time reduces</strong> to BB if there is some polynomial-time computable function s.t. <code>w in A iff f(w) in B</code>
+</li>
+<li>B is <strong>NP-hard</strong> if A polynomial-time reduces to B for every language A in NP (harder than or in NP)</li>
+<li>B is <strong>NP-complete</strong> if B is NP-hard and in NP (the hardest NP problems, that are still in NP)</li>
+<li>NP != DTIME(2^n)</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

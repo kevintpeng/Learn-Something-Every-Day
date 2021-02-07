@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Structured Query Language (SQL)</title>
+</head>
+<body>
+
+<h1 id="structured-query-language-sql">Structured Query Language (SQL)</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#selecting-data">Selecting Data</a></li>
+<li><a href="#creating-tables">Creating Tables</a></li>
+<li><a href="#inserting-into-table">Inserting into Table</a></li>
+<li><a href="#updating-records">Updating Records</a></li>
+<li><a href="#deleting-records">Deleting Records</a></li>
+</ul>
+</div>
+<p>A language for communicating with databases. SQL databases organize information in tables, where the rows are the data. SQL is case-insensitive, when displayed in many consoles like the <code>rails console</code>, keywords will be capitalized.</p>
+<h3 id="selecting-data">Selecting Data</h3>
+<p><code>SELECT</code> is used to query the database to retrieve data based on the criteria in the query:</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="ot">"column1"</span>
+  [,<span class="ot">"column2"</span>,etc] 
+  <span class="kw">FROM</span> <span class="ot">"tablename"</span>
+  [<span class="kw">WHERE</span> <span class="ot">"condition"</span>];</code></pre></div>
+<ul>
+<li>The stuff in square brackets is optional.</li>
+<li>
+<code>where</code> introduces a condition, with standard boolean operators and the <code>&lt;&gt;</code> Not equal to operator.</li>
+<li>Strings are single quotes ''</li>
+</ul>
+<p>The <code>LIKE</code> pattern matching operator can be used to match groups of string with wildcard operator <code>%</code>. <code>WHERE column1 LIKE '%s';</code> will match all rows from selected, whose column 1 ends with an 's'.</p>
+<h3 id="creating-tables">Creating Tables</h3>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="ot">"tablename"</span> 
+(<span class="ot">"column1"</span> <span class="ot">"data type"</span>
+         [<span class="kw">constraint</span>],
+ <span class="ot">"column2"</span> <span class="ot">"data type"</span>
+         [<span class="kw">constraint</span>],
+ <span class="ot">"column3"</span> <span class="ot">"data type"</span>
+        [<span class="kw">constraint</span>]);</code></pre></div>
+<h4 id="data-types">Data Types</h4>
+<p>Data types take a size argument.</p>
+<p><code>char()</code> (max 255 bytes), <code>varchar()</code> (no max), <code>number()</code> (size specifies # of digits), <code>date</code>, <code>number(size,d)</code> (d specifies # of decimal points.</p>
+<h4 id="constraints">Constraints</h4>
+<p>A rule associated with a column that the data entered must follow. A <code>UNIQUE</code> constraint specifies that no two records can share a value. <code>NOT NULL</code>, <code>PRIMARY KEY</code> defines unique identifier (like <code>id</code> fields).</p>
+<h3 id="inserting-into-table">Inserting into Table</h3>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">INSERT</span> <span class="kw">INTO</span> employee
+  (<span class="fu">first</span>, <span class="fu">last</span>, age, address, city, state)
+  <span class="kw">VALUES</span> (<span class="st">'Luke'</span>, <span class="st">'Duke'</span>, <span class="dv">45</span>, <span class="st">'2130 Boars Nest'</span>, 
+          <span class="st">'Hazard Co'</span>, <span class="st">'Georgia'</span>);</code></pre></div>
+<h3 id="updating-records">Updating Records</h3>
+<p>Update all records that match a condition.</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">UPDATE</span> <span class="ot">"tablename"</span>
+<span class="kw">SET</span> <span class="ot">"columnname"</span> = 
+    <span class="ot">"newvalue"</span>
+ [,<span class="ot">"nextcolumn"</span> = 
+   <span class="ot">"newvalue2"</span>...]
+<span class="kw">WHERE</span> <span class="ot">"columnname"</span> 
+  <span class="kw">OPERATOR</span> <span class="ot">"value"</span> 
+ [AND|OR <span class="ot">"column"</span> 
+  <span class="kw">OPERATOR</span> <span class="ot">"value"</span>];</code></pre></div>
+<p>[ ] = optional</p>
+<h3 id="deleting-records">Deleting Records</h3>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">DELETE</span> <span class="kw">FROM</span> <span class="ot">"tablename"</span>
+
+<span class="kw">WHERE</span> <span class="ot">"columnname"</span> 
+  <span class="kw">OPERATOR</span> <span class="ot">"value"</span> 
+[and|or <span class="ot">"column"</span> 
+  <span class="kw">OPERATOR</span> <span class="ot">"value"</span>];</code></pre></div>
+<p>[ ] = optional</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="ot">"tablename"</span></code></pre></div>
+<p>deletes all records AND the table.</p>
+<h1 id="advanced-selecting">Advanced Selecting</h1>
+<p>SQL is powerful for selecting groups of records quickly. <code>DISTINCT</code> selects unique records:</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> column1 <span class="kw">FROM</span> tablename</code></pre></div>
+<h3 id="aggregate-functions">Aggregate Functions</h3>
+<p>For numeric columns, <code>MIN</code>, <code>MAX</code>, <code>SUM</code>, <code>AVG</code>, <code>COUNT</code> (returns # of values in column)</p>
+<p>Example: Find highest paid employees in each department:</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="fu">max</span>(salary), dept
+<span class="kw">FROM</span> employee 
+<span class="kw">GROUP</span> <span class="kw">BY</span> dept;</code></pre></div>
+<h3 id="having-clause">HAVING clause</h3>
+<p><code>HAVING</code> follows a <code>GROUP BY</code> clause that specifies a condition to filter out rows after <em>aggregations</em> (not to be confused with <code>WHERE</code> which introduces a condition on <em>individual rows</em>).</p>
+<h3 id="order-by-clause">ORDER BY clause</h3>
+<p><code>ORDER BY</code> is optional clause which allows displayed results of query to be sorted.</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> column1, <span class="fu">SUM</span>(column2) 
+<span class="kw">FROM</span> <span class="ot">"list-of-tables"</span> 
+<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="ot">"column-list"</span> [<span class="kw">ASC</span> | <span class="kw">DESC</span>];</code></pre></div>
+<h3 id="in-between">In &amp; Between</h3>
+<p><code>IN</code> is a conditional operator that is a set membership.</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> employeeid, lastname, salary
+<span class="kw">FROM</span> employee_info
+<span class="kw">WHERE</span> lastname <span class="kw">IN</span> (<span class="st">'Hernandez'</span>, <span class="st">'Jones'</span>, <span class="st">'Roberts'</span>, <span class="st">'Ruiz'</span>);</code></pre></div>
+<p><code>BETWEEN</code> is a conditional operator for a range.</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> employeeid, age, lastname, salary
+<span class="kw">FROM</span> employee_info
+<span class="kw">WHERE</span> age <span class="kw">BETWEEN</span> <span class="dv">30</span> <span class="kw">AND</span> <span class="dv">40</span>;</code></pre></div>
+<h3 id="table-joins">Table Joins</h3>
+<p>A join is selecting from multiple tables: <code>FROM table1, table2</code>. Table joins are an integral part of relational databases. If you have customers making purchases, one table would be wasteful, since customer information would be copied for each purchase.</p>
+<p>For tables <code>customers</code> and <code>purchases</code>, an <em>inner join</em> would look like:</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> customers.first, customers.last, purchases.item
+<span class="kw">FROM</span> customers, purchases
+<span class="kw">WHERE</span> customers.customer_id = purchases.customer_id;</code></pre></div>
+<p>Or the proper/equivalent syntax (add <code>INNER JOIN</code> and replace <code>WHERE</code> with <code>ON</code>:</p>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> customers.first, customers.last, purchases.item
+<span class="kw">FROM</span> customers <span class="kw">INNER</span> <span class="kw">JOIN</span> purchases
+<span class="kw">ON</span> customers.customer_id = purchases.customer_id;</code></pre></div>
+<h3 id="table-union">Table Union</h3>
+<p><code>UNION</code> puts rows from 2 queries after each other. <code>UNION</code> requires both queries to share columns.</p>
+<p><a href="http://www.sqlcourse.com/">source1</a></p>
+<p><a href="http://www.sqlcourse2.com/">source2</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

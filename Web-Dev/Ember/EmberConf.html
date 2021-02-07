@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>EmberConf</title>
+</head>
+<body>
+
+<h1 id="emberconf">EmberConf</h1>          <a href="index.html">Back to Web-Dev/Ember</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#glimmer">Glimmer</a></li>
+<li><a href="#wire-protocolwire-format">Wire Protocol/Wire Format</a></li>
+<li><a href="#progressive-web-applications">Progressive Web Applications</a></li>
+<li><a href="#speed">Speed</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#cardstack">Cardstack</a></li>
+<li><a href="#svg">SVG</a></li>
+<li><a href="#ember-concurrency">Ember-Concurrency</a></li>
+<li><a href="#state-time-and-concurrency">State, Time and Concurrency</a></li>
+<li><a href="#addons">Addons</a></li>
+<li>
+<a href="#yarn----todo">Yarn -- </a><a href="https://medium.com/@sdboyer/so-you-want-to-write-a-package-manager-4ae9c17d9527">todo</a>
+</li>
+<li>
+<a href="#ember-internals----todo">Ember Internals -- </a><a href="https://www.youtube.com/watch?v=BEteW2srG0w">todo</a>
+</li>
+</ul>
+</div>
+<h3 id="glimmer">Glimmer</h3>
+<ul>
+<li>Glimmer, low level rendering pipeline, templating engine for building live DOM from hbs</li>
+<li>design, small kernel + addons<ul><li>ember-engine, ember-fastboot</li></ul>
+</li>
+<li>Real time systems trade between first Interactivity vs Response to interaction on the web<ul><li>fastest performance is with no updates</li></ul>
+</li>
+<li>source &gt;&gt; wire format &gt;&gt; append pass</li>
+</ul>
+<h3 id="wire-protocolwire-format">Wire Protocol/Wire Format</h3>
+<p>Some way of getting data from point to point</p>
+<ul>
+<li>interoperation of multiple applications</li>
+<li>abstraction above the transport layer, describtes the representation of information at the application level</li>
+<li>in JS, we can represent the operations and tags in a <code>hbs</code> file in nested arrays with opcode tuples</li>
+<li>wire protocol may be text based or binary, the underlying implementation below the programmatic API</li>
+</ul>
+<h3 id="progressive-web-applications">Progressive Web Applications</h3>
+<p>Web App manifest; json of configurations for browsers, with metadata when you add to home screen</p>
+<ul>
+<li>native tags for ios, like the app manifest</li>
+<li>no navbar, offline availability, service worker, push notifications</li>
+</ul>
+<p><strong>Service Worker</strong> is a script that browser runs in teh background, separate from a web page</p>
+<ul>
+<li>offline experience, push notifications</li>
+<li>JS worker, doesn't access DOM directly, rather communicates with the pages it controls</li>
+</ul>
+<p><strong>Local Storage</strong> on browser stores strings within the user's web browser</p>
+<ul><li>IndexDB, WebSQL</li></ul>
+<h3 id="speed">Speed</h3>
+<p>Physics &gt; Hardware &gt; Kernel &gt; Userland &gt; Humans</p>
+<p>JS Engines &gt; Libraries &gt; Code</p>
+<ul>
+<li>two perspectives: time budget, or micro vs macro</li>
+<li>User Timing API, CPU profiler, flame graphs</li>
+<li>Hidden classes for JIT compilaiton optimizations<ul><li>
+<code>node --allow)batuves_syntax</code> for native syntax</li></ul>
+</li>
+</ul>
+<p>V8 is a JS engine, doesn't generate any intermediate code, instead compiles to machine code at execution</p>
+<ul>
+<li>JS is dynamically typed, objects can change types during runtime</li>
+<li>V8 introduces hidden classes to track types<ul><li>chain of hidden classes are created as objects are altered in shape</li></ul>
+</li>
+</ul>
+<h3 id="security">Security</h3>
+<ul>
+<li>Same-origin policy states a browser permits scripts in first page to access data from second page iff they have the same origin<ul>
+<li>origin = uri + scheme + hostname + port</li>
+<li>prevents accessing DOM information between separate web pages</li>
+<li>significant since more pages with tight coupling to cookies for authentication and sensitive information storage</li>
+</ul>
+</li>
+<li>HTML Escaping (ember's rendering layer escapes HTML)</li>
+<li>Content Security Policy (CSP) reduces XSS risks -- <a href="https://content-security-policy.com">source</a>
+</li>
+<li>external links should use <code>rel=noopener</code>, prevents cross-origin pages from accessing the source link</li>
+</ul>
+<p><a href="https://balinterdi.com/emberconf/" class="uri">https://balinterdi.com/emberconf/</a></p>
+<h3 id="cardstack">Cardstack</h3>
+<p>Wordpress-like editing in Ember.</p>
+<ul><li>mobiledoc is a platform agnostic post or article format, with no concept of layout<ul><li>has a wrapping object, type definitions for mobiledoc-specific types</li></ul>
+</li></ul>
+<h3 id="svg">SVG</h3>
+<p>XML-encoded, and dynamically rendered by browser</p>
+<ul>
+<li>follow paint order, not z-indexed</li>
+<li>SVG's can be interactive, and embedded directly in html with <code>&lt;svg&gt;</code>
+</li>
+</ul>
+<h3 id="ember-concurrency">Ember-Concurrency</h3>
+<p>Small library, supplements tools and conventions for concurrency and asynchrony</p>
+<ul><li><strong>Structured Concurrency</strong></li></ul>
+<h4 id="arguements-against-callbacks">Arguements against Callbacks</h4>
+<p>Callback is any executable code that is passed as an argument to other code, which is expected to call back the argument a some given time. Callbacks may be synchronous or asynchronous.</p>
+<p>The <strong>call graph</strong> is a control flow graph representing relationships between subroutines. A callback cycle can be created and result in a stack overflow. Lots of esoteric call graphs are derived from callback workflows.</p>
+<h4 id="event-driven-architecture">Event Driven Architecture</h4>
+<p>Events in OOP translates to a message. Messages are implemented as methods, which are classic function calls</p>
+<ul>
+<li>events are sequential, in a queue called the event loop</li>
+<li>events raised in other events are not executed immediately, they are enqueued and wait until the current event is processed:<br>
+<img src="http://250bpm.wdfiles.com/local--files/blog:25/events2.png">
+</li>
+</ul>
+<p>State Machines offer a solution to callbacks too, but can be extremely large when considering every possible state and transition</p>
+<ul>
+<li>green threads are implemented at the language level. Goroutines are one example of green threads, acting as abstracted threads<ul><li>help to eliminate state machines</li></ul>
+</li>
+<li>green threads can model any state machine, but require further checks to prevent thread blocking</li>
+</ul>
+<h4 id="structured-concurrency">Structured Concurrency</h4>
+<p>TCP uses "sessions", implemented as a process or thread. Session management involves mutable state concurrency which may require several locks, mutexes, callbacks</p>
+<ul>
+<li>simplist programming model would spawn a thread for each TCP connection, and green threads make this a lot less expensive<ul><li>processes and pipes in unix, goroutines and channels in go</li></ul>
+</li>
+<li><em>if a language has green threads and a cancellation mechanism, it allows for imperative programming without needomg state machines</em></li>
+<li>structured concurrency restricts the extent of nested green threads cannot exceed the extent of the calling green thread</li>
+<li>call stack in structured programming is synonomous to the call tree in structured concurrency</li>
+<li>cancelling needs to be implemented to handle the case where parent green threads return before children green threads<ul><li>if parent A is waiting for child B to return, but B is an infinite loop, then A is stuck</li></ul>
+</li>
+<li>we only have to care about cancellation when calling functions that can switch to a new green thread (only for blocking functions)</li>
+</ul>
+<p>In javascript, cancelable asynchronous operations are very hard to do with promises, and preventing concurrent execution of two async operations is hard to do with promises</p>
+<ul>
+<li>
+<code>ember-concurrency</code> remedies this</li>
+<li>manages <strong>tasks</strong>, which are cancelable and dependent on a host object</li>
+</ul>
+<h3 id="state-time-and-concurrency">State, Time and Concurrency</h3>
+<ul>
+<li>user is effectively an async operation</li>
+<li>ember-concurrency has tasks; handles canceling, constraining concurrency if needed, and gives derived state</li>
+<li>derived state means you don't need to introduce addition state like <code>isMyTaskRunning</code><ul><li>manual state tracking is an anti-pattern</li></ul>
+</li>
+<li>Task maintains reference to multiple TaskInstances</li>
+<li>essential state vs accidental state, accidental state like <code>user count</code> can be replaced with derived state</li>
+<li>declarative APIs &gt; Imperative APIs</li>
+<li>ember-concurrency thinks about derived state with respect to time</li>
+</ul>
+<h3 id="addons">Addons</h3>
+<ul>
+<li>should solve an interesting/useful problem</li>
+<li>deliberate API design</li>
+<li>reliable/tested</li>
+</ul>
+<p>Addon structure:</p>
+<ul>
+<li>like ember, with <code>addon</code> folder in ember land<ul>
+<li>contains most logic</li>
+<li>export helpers that would be overridden, or anything that should be publicly used (part of API)</li>
+<li>no real concept of private functions though</li>
+</ul>
+</li>
+<li>in node land, addons use hooks</li>
+</ul>
+<h3 id="yarn----todo">Yarn -- <a href="https://medium.com/@sdboyer/so-you-want-to-write-a-package-manager-4ae9c17d9527">todo</a>
+</h3>
+<p>npm is non-deterministic and had performance issues</p>
+<ul>
+<li>dependency resolution<ul>
+<li>build the ideal tree</li>
+<li>generate actions needed to get from current tree to ideal tree (think diffs)</li>
+</ul>
+</li>
+<li>fetching and linking packages, from global cache to node_modules</li>
+</ul>
+<p>npm has non-determinism and depends on install order of dependencies. Dependency graphs can be vastly different between machines when the initial state was different, since any duplicated dependencies with different versions live in multiple places in node modules. -- <a href="https://github.com/npm/npm/issues/10380">todo</a></p>
+<p>yarn uses the npm registry, tries to fix the shortcomings</p>
+<ul>
+<li>create list of packages</li>
+<li>has a Lockfile so that the dependency trees are consistent across development machines</li>
+<li>yarn has built-in parallelism</li>
+</ul>
+<h3 id="ember-internals----todo">Ember Internals -- <a href="https://www.youtube.com/watch?v=BEteW2srG0w">todo</a>
+</h3>
+<p>Classic Action</p>
+<ul><li>two data attributes</li></ul>
+<p>Closure Action uses action helper, has its own action handler</p>
+<p>Initial Render with Glimmer</p>
+<ul>
+<li>hbs -&gt; Wire format (at build time) -&gt; JS payload -&gt; runtime, JIT compiles to op codes from wire format</li>
+<li>Glimmer VM is composed of two VMs: Append VM for initial render and Update VM</li>
+<li>Glimmer has detailed information about static vs dynamic content<ul>
+<li>append vm: <code>constructing</code> and the element stack are kind of like special registers manipulated at runtime of op codes</li>
+<li>each op code maps to a funciton in Glimmer</li>
+</ul>
+</li>
+</ul>
+<p>Stepping through the inital render with the append VM:</p>
+<ol>
+<li>append VM steps through the op codes generated by the JIT compilation</li>
+<li>
+<code>constructing</code> register is set depending on the op code</li>
+<li>VM frames are created to capture the current state of the append VM</li>
+<li>HTML is generated as needed</li>
+<li>DOM tree of elements is generated corresponding to the HTML</li>
+</ol>
+<p>Glimmer has a ticket based system to avoid recomputing references/rerendering to avoid a large amount of repeated work.</p>
+<p>Ember Run Loop defines an order for function actions to be handled. Update VM handles rerenders as needed, for dynamic elements</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

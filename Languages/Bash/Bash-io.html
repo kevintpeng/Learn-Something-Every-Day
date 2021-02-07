@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Input/Output</title>
+</head>
+<body>
+
+<h1 id="inputoutput">Input/Output</h1>          <a href="index.html">Back to Languages/Bash</a>
+<ul>
+<li>
+<code>echo</code> builtin, options <code>-e</code> interprets backslash escaped characters, <code>-n</code> supresses trailing newline (prints on one line)</li>
+<li>
+<code>read [option] [VARNAME1]</code> builtin, reads user input, assigns to variables</li>
+<li>File descriptors are numbers that correspond to i/o streams: 0, 1, 2 are <em>stdin, stdout, stderr</em> respectively.<ul><li>each process has <code>/proc/&lt;process_ID&gt;/fd/&lt;0-2&gt;</code> (not on mac?)</li></ul>
+</li>
+<li>
+<code>M&gt;N</code> M is a file descriptor, N is a filename</li>
+<li>
+<code>M&gt;&amp;N</code> M is a fd, N is also a fd (M defaults to 1, stdout)</li>
+</ul>
+<p>When executing a command, following steps in order are:<br>
+- if stdout of previous command is piped into stdin of current cmd, <code>/proc/&lt;current_process_ID&gt;/fd/0</code> targets same anonymous pipe as <code>/proc/&lt;previous_process_ID&gt;/fd/1</code><br>
+- if stdout of current cmd is piped to another, set ps output to another anonymous pipe</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

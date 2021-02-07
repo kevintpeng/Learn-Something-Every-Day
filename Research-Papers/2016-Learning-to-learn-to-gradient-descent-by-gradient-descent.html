@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Learning to learn to gradient descent by gradient descent 2016</title>
+</head>
+<body>
+
+<h1 id="learning-to-learn-to-gradient-descent-by-gradient-descent-2016"><a href="https://arxiv.org/pdf/1606.04474v2.pdf">Learning to learn to gradient descent by gradient descent 2016</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul><li><a href="#learning-to-learn-with-recurrent-neural-network">Learning to learn with recurrent neural network</a></li></ul>
+</div>
+<h1 id="datascience-machinelearning">datascience #machinelearning</h1>
+<p>Optimization algorithms are still designed by hand. This paper casts optimization problem design as a learning problem</p>
+<ul>
+<li>Hessian Matrix corrects naive gradient descent by accounting for second order information</li>
+<li>convex optimization is a subfield of optimization, minimizing convex functions over convex sets</li>
+<li>deep learning has seen a proliferation of optimization methods for high dimensional, non convex optimization problems</li>
+<li>optimizers are designed by communities addressing localized subproblems and exploiting inherent structure of the problems</li>
+<li>roughly, optimizer g has parameters φ, then the optimizee f is of the form θt+1 = θt + gt(∇f(θt), φ)</li>
+<li>deep learning is good for generalizing a specialized optimization to other new sub-structures</li>
+</ul>
+<h3 id="learning-to-learn-with-recurrent-neural-network">Learning to learn with recurrent neural network</h3>
+<p>By applying meta-learning, we are essentially recursively applying a learning algorithm on itself. This process is a recurrent neural network (RNN), formed by a directed, cyclic graph</p>
+<ul>
+<li>activation function of a node defines the output of that node</li>
+<li>each unit has a time-varying real valued activation</li>
+<li>each edge (connection) has a modifiable weight</li>
+</ul>
+<p>LSTM (Long short-term memory) is a recurrent neural network architecture</p>
+<ul>
+<li>well suited for learning form experience to classify, process and predict time series when there is long lag between important events</li>
+<li>LSTM units are introduced (excels at remembering values for either long or short durations)</li>
+<li>no activation function within its recurrent component, so not iteravely squashed over time and gradient term does not vanish when Backpropagation through time is applied</li>
+</ul>
+<p>In this work, they directly parameterize the optimizer, define a good optimizer as one with low expected loss, given a distribution of functions f</p>
+<p>Challenge: optimizing tens of thousands of parameters; not feasible through a fully connected RNN (huge hidden state)</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

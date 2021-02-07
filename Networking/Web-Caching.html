@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Caching</title>
+</head>
+<body>
+
+<h1 id="caching">Caching</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul><li>
+<a href="#operations">Operations</a><ul>
+<li><a href="#lru">LRU</a></li>
+<li><a href="#most-recently-used-mru">Most Recently Used (MRU)</a></li>
+</ul>
+</li></ul>
+</div>
+<p>A <strong>cache</strong> is a component that stores data so future requests for that data can be served faster.</p>
+<ul>
+<li>caches should be small</li>
+<li>caches are faster if<ul>
+<li>long computation</li>
+<li>slow read speed from original location</li>
+</ul>
+</li>
+</ul>
+<h2 id="operations">Operations</h2>
+<p>Hardware implements cache as a block of memory for temporary storage of data likely to be used again. Uses a heuristic called a <strong>replacement policy</strong>. One replacement policy is the <em>least recently used</em>.</p>
+<h3 id="lru">LRU</h3>
+<p>A class of expensive algorithms, keeps track of last use, through an "age bit".</p>
+<h3 id="most-recently-used-mru">Most Recently Used (MRU)</h3>
+<p>Discards the most recently used items first. Useful for situations where the older an item is, the more likely it is to be accessed.</p>
+<h1 id="web-cache">Web Cache</h1>
+<p>For temporary storage of web documents.</p>
+<ul><li>goal of caching to reduce bandwidth, server load</li></ul>
+<h3 id="systems">Systems</h3>
+<ul>
+<li>
+<strong>Forward position system</strong>, Outside of the web server's network (client computer)</li>
+<li>
+<strong>Reverse position system</strong>, from content provider, reverse cache sits in front of the web servers<ul><li>a CDN can retain copies of web content at various points in the network</li></ul>
+</li>
+</ul>
+<p><a href="https://en.wikipedia.org/wiki/Web_cache">source</a></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

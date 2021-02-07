@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Object Oriented Programming</title>
+</head>
+<body>
+
+<h1 id="object-oriented-programming">Object Oriented Programming</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#oo-terminology">OO Terminology</a></li>
+<li>
+<a href="#inheritance">Inheritance</a><ul>
+<li><a href="#abstract-base-class">Abstract Base Class</a></li>
+<li>
+<a href="#polymorphism"></a><a href="Polymorphism%20and%20Dispatch.md">Polymorphism</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#some-c-object-oriented-programming">Some C++ Object Oriented Programming</a><ul>
+<li><a href="#copy-constrcutor">Copy Constrcutor</a></li>
+<li><a href="#destructor">Destructor</a></li>
+<li><a href="#sharing-objects">Sharing Objects</a></li>
+<li><a href="#template-design-pattern">Template Design Pattern</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Object based programming forces the programmer to think about designing clean API for clients and allows hiding implementation. Adds <strong>inheritance</strong> which is the creation of subclasses who share an API with the superclass.</p>
+<h2 id="oo-terminology">OO Terminology</h2>
+<p><strong>Member Variable field</strong>:</p>
+<ul>
+<li>an instance variable (one per instance of class)</li>
+<li>A class/<code>static</code> variable (one per class)</li>
+</ul>
+<p><strong>Member Method</strong>:</p>
+<ul>
+<li>instance method (operates on <code>this</code> (C++/Java) or <code>self</code> (python, Ruby) object</li>
+<li><p>class/<code>static</code> method (called on the Class, not instance)</p></li>
+<li>Instance variables are created for each instance object</li>
+<li>A <code>static</code> variable or class variable only exists once.</li>
+<li><p><code>static</code> members track meta-data about classes</p></li>
+</ul>
+<h2 id="inheritance">Inheritance</h2>
+<p>A hierarchy of classes that share functionality and API.</p>
+<h3 id="abstract-base-class">Abstract Base Class</h3>
+<p>Cannot be instantiated, contains many virtual methods, so that children (inheritance) have consistent API for polymorphism. An ABC constructor is a recipe to be invoked by children's constructors.</p>
+<p>A Polymorphic container:</p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp">vector&lt;Humanoid*&gt; humanoidList;
+<span class="co">// pointers of a parent class can point to an instance</span>
+Humanoid *p = <span class="kw">new</span> Elf (<span class="st">"Elrond"</span>); 
+Dwarf *d = <span class="kw">new</span> Dwarf(<span class="st">"Gimli"</span>); <span class="co">// static pointer, pointing to its type</span>
+Monster *m = NULL; <span class="co">// dynamic pointer, currently pointing to nullptr</span></code></pre></div>
+<p><code>Protected</code> describes private elements, available to children. ABCs should have constructors in protected, ABCs need ctors for children to be instantiated</p>
+<h3 id="polymorphism"><a href="Polymorphism%20and%20Dispatch.md">Polymorphism</a></h3>
+<p>A benefit of inheritance, the ability to treat all subclasses in similar ways (a unified API), e.g. all <code>Shapes</code> can use <code>.area()</code>. This is an example of subtype polymorphism (see link).</p>
+<p>A rule of thumb: polymorphic methods should have different <em>behaviours</em>, not just different return values. An area function will compute area differently. A get type funciton is a bad polymorphic function, since it can be dealt with using a variable.</p>
+<h2 id="some-c-object-oriented-programming">Some C++ Object Oriented Programming</h2>
+<p>Syntax is well explained using code:</p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp">Balloon b;
+Balloon *pb = <span class="kw">new</span> Balloon;
+<span class="kw">class</span> Balloon : <span class="kw">public</span> ParentClass{     <span class="co">// class declaration, with parent, in .h file</span>
+    <span class="kw">public</span>:
+        Balloon(); <span class="co">// constructor</span>
+        Balloon(string colour); <span class="co">// constructor with parameter</span>
+        <span class="kw">virtual</span> ~Balloon();     <span class="co">// allows for redefinition in derived classes</span>
+        getColour() <span class="at">const</span> ; <span class="co">// constant method, cannot change object</span>
+        <span class="at">static</span> balloon_counter; <span class="co">// class variable</span>
+    <span class="kw">private</span>:
+        string colour;
+};
+<span class="co">// Method definitions, in .cc file</span>
+Balloon::Balloon () {
+    <span class="kw">this</span>-&gt;colour = “clear”;
+}
+Balloon::Balloon (string colour){
+    <span class="kw">this</span>-&gt;colour = colour;
+}
+Balloon::Balloon(string colour) : ParentClass(), colour(colour) {}     <span class="co">// shorthand syntax, stops double instantiation of object parameters, calls parent constructor</span>
+
+Balloon::~Balloon (){}     <span class="co">// destructor</span></code></pre></div>
+<p><strong>Static dispatch</strong> is used for non virtual methods, which is faster and hard-coded at compile time.</p>
+<p><strong>Dynamic dispatch</strong> looks up at run time the implementation of a virtual method.</p>
+<h3 id="copy-constrcutor">Copy Constrcutor</h3>
+<p>Takes a <code>const</code> ref to existing object, creates a new copy of it as a new object:</p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp">Classname::Classname( <span class="at">const</span> Classsname &amp; c);</code></pre></div>
+<p>There is an implicit default copy constructor predefined for every class, it performs a memberwise copy construction, for every subpart of Classname.</p>
+<p><strong>Rule of 3</strong>: if your class needs to override the default implementation of any of the destructorm copy constructor or <code>=</code> operator, then it should be explicitly defined for all three.</p>
+<h3 id="destructor">Destructor</h3>
+<p>Handles freeing memory, and is <em>implicitly</em> called when an objects scope is exited or <code>delete</code> is called on object.</p>
+<ul>
+<li>Says what happens to heap-based sub parts of object.</li>
+<li>good practice to log what happens in dtor</li>
+</ul>
+<h3 id="sharing-objects">Sharing Objects</h3>
+<ol>
+<li>Objects to be shared should be declared on the heap using a ptr.</li>
+<li>Need clear "owner", who is responsible for deletion in dtor.</li>
+<li>"owner" needs protocol for transferring ownership.</li>
+</ol>
+<h3 id="template-design-pattern">Template Design Pattern</h3>
+<p>Design a high-level recipee that is the same for all children, with different details depending on child. Typically, public parent method and private sub-pieces in children.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

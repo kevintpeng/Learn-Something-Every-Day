@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Idris</title>
+</head>
+<body>
+
+<h1 id="idris">Idris</h1>          <a href="index.html">Back to Languages</a>
+<div id="TOC">
+
+<ul><li><a href="#type-driven-development">Type-Driven Development</a></li></ul>
+</div>
+<ul>
+<li>pure functional programming language</li>
+<li>use cases in theorem proving</li>
+</ul>
+<h3 id="type-driven-development">Type-Driven Development</h3>
+<p>type-driven development is a paradigm of programming that uses type as a tool for guiding the construction of the program, instead of its usual role as an error checking mechanism</p>
+<ul>
+<li>types are first class language constructs, can be stored or returned like any other value</li>
+<li>can use this to describe rich types by composing characteristics (a list that is never empty, a pair of lists of equal length, ensure that matrices have the same dimensions)<ul><li>asserted statically</li></ul>
+</li>
+<li>idea is to use types to organize concepts for the programmer, and act as a plan to implement<ul>
+<li>refine your model as you implement the plan</li>
+<li>concurrent programs in Idris can use type-checking to assert and ensure invariants hold throughout synchronization</li>
+</ul>
+</li>
+<li>
+<strong>dependent types</strong> allow more precision in type declarations (dimensions of matrix, size of vector)</li>
+<li>Idris is a pure functional programming language<ul><li>
+<strong>referential transparency</strong> requires that an expression can be replaced with its output without changing program behaviour</li></ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

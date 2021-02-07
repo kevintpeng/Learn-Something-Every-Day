@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>2018 Formal reasoning aout the security of AWS</title>
+</head>
+<body>
+
+<h1 id="formal-reasoning-aout-the-security-of-aws"><a href="http://www0.cs.ucl.ac.uk/staff/b.cook/CAV18_invited.pdf">2018 Formal reasoning aout the security of AWS</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#problem">Problem:</a></li>
+<li><a href="#solution">Solution:</a></li>
+<li><a href="#issues">Issues:</a></li>
+<li><a href="#my-thoughts">My thoughts</a></li>
+</ul>
+</div>
+<ul><li>report on the development and use of formal verification in AWS, for the purpose of security</li></ul>
+<h3 id="problem">Problem:</h3>
+<ul><li>AWS offers cloud-computing services<ul>
+<li>security is important to them and their customers, they run critical infrastructure for software companies worldwide</li>
+<li>they require strict security standards, both for the purpose of customer needs and to satisfy global regulations imposed by various governments</li>
+</ul>
+</li></ul>
+<h3 id="solution">Solution:</h3>
+<ul>
+<li>formal verification is used to ensure that the implementation of AWS adheres to the intended design, and all invariants hold throughout execution (checked by continuously running formal verification)</li>
+<li>use deductive theorem proving and symbolic model checking types of formal reasoning<ul><li>this is through the use of predicate logic and complex theorem proving software</li></ul>
+</li>
+<li>customers are given a suite of security offerings from AWS, to analyze their cloud environment for potential application-level security vulnerabilities<ul><li>again, formal verification is important in heavily regulated industries, or companies dealing with highly sensitive data, and require confidence that their assumptions are not violated</li></ul>
+</li>
+</ul>
+<h3 id="issues">Issues:</h3>
+<p>Implementation challenges are discussed. Some that were interesting to me:</p>
+<ul>
+<li>distributed formal verification tackles the non-functional requirement of scaling the system<ul>
+<li>at AWS scale, there are few other large scale systems performing formal verification</li>
+<li>further development is required in this area, to meet their formal verification needs</li>
+</ul>
+</li>
+<li>continuous formal verification is how this fits into software architecture of a software system, and how to integrate it<ul>
+<li>challenges here are in regards to the non-functional requirement of maintainability, proofs are like code and need to be documented and maintained.</li>
+<li>old/irrelevant proofs might not need to be checked</li>
+<li>some proofs can be unreasonable as invariants and should not be checked</li>
+</ul>
+</li>
+</ul>
+<h3 id="my-thoughts">My thoughts</h3>
+<p>As a service that needs to deal with such sensitive data, it makes a lot of sense to be applying ideas from academia to acheive more quality in their services. Security is a vital consideration for AWS, in order to maintain customer trust. The recent changes with GDPR and other foreign data regulations like MiFID ii are very compelling reasons for companies to be moving towards formal verification of their software. Unfortunately, a lot of companies don't have the resources or time to focus on the formal verification aspect of software analysis. Perhaps as more data regulations unfold, this may become more and more of a requirement for software companies.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

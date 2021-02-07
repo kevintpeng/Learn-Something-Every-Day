@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Machine Learning in Automated Text Categorization 2002</title>
+</head>
+<body>
+
+<h1 id="machine-learning-in-automated-text-categorization-2002"><a href="http://nmis.isti.cnr.it/sebastiani/Publications/ACMCS02.pdf">Machine Learning in Automated Text Categorization 2002</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#single-label-versus-multi-label-tc">Single-label versus multi-label TC</a></li>
+<li><a href="#bayes-rule">Bayes Rule</a></li>
+<li><a href="#naive-baysian-algorithm">Naive Baysian Algorithm</a></li>
+<li><a href="#persistant-data">Persistant Data</a></li>
+</ul>
+</div>
+<h1 id="datascience">datascience</h1>
+<p>Text Categorization is the task of assigning a boolean value to each pair <code>(dj, ci)</code> in <code>D x C</code>, where D is domain of documents and <code>C = {c1, ..., cn}</code>, <code>n = |C|</code>, is a set of predefined categories.</p>
+<p>More formally, the task is to approximate the unknown <em>target function</em> <code>fi: D x C -&gt; {T, F}</code>, where fi is the classifier.</p>
+<ul>
+<li>categories are symbolic labels<ul><li>no exogenous knowledge (data provided from external sources) is available</li></ul>
+</li>
+<li>categories must be classified based on endogenous knowledge (data extracted from the documents)<ul>
+<li>inferred from the semantics of a document, subjective in nature</li>
+<li>because it lacks objectivity, it is non-deterministic</li>
+<li>subject to judgement of one's teaching the algorithm</li>
+</ul>
+</li>
+</ul>
+<h3 id="single-label-versus-multi-label-tc">Single-label versus multi-label TC</h3>
+<p>Different constraints may be enforced on the TC task.</p>
+<ul>
+<li>Perhaps it should map to exactly one category (<strong>single-label</strong> categories)</li>
+<li>if mapped to 0 to |C| categories, it is <strong>multi-label</strong>
+</li>
+</ul>
+<h3 id="bayes-rule">Bayes Rule</h3>
+<p><code>P(a|b) = P(b|a) * P(a) / P(b)</code></p>
+<h3 id="naive-baysian-algorithm">Naive Baysian Algorithm</h3>
+<p>Uses the TC model, and two assumptions, to calculate the category that maximizes <code>P(ci | d)</code> (probability of each category for a given document), expressed as <code>c = argmax( P(ci | d) )</code>.</p>
+<ul>
+<li>Assumption 1: Conditionally Independent, we assume the words in the document have no order.</li>
+<li>Assumption 2: Assume that the probability that document is in a category is equal to the product of each word's probability of being in the category<ul>
+<li>Laplace Smoothening is applied to this assumption to remove the multiply by 0 possibility</li>
+<li>for each <code>P(xi | c)</code>, where <code>xi</code> is some word in <code>d</code>, add 1 to the numerator and <code>V</code> to denominator, <code>V</code> is the total number of words in the vocabulary</li>
+</ul>
+</li>
+<li>Apply Bayes Rule to original expression, <code>c = argmax( P(d | ci) * P(ci) / P(d) )</code>, since <code>P(d)</code> is constant for all ci, it can be ignored</li>
+<li>
+<code>c = argmax( Π( P(xj|ci) ) * P(ci) )</code>, where <code>P(ci)</code> is the percentage of total documents that are in the category <code>ci</code>
+</li>
+</ul>
+<h3 id="persistant-data">Persistant Data</h3>
+<ul>
+<li>total number of docs per class</li>
+<li>total number of docs</li>
+<li>hashmap of word occurrances per class</li>
+<li>total number of word occurances per class</li>
+<li>total number of distinct words per class</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

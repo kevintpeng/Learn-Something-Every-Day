@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Functional Programming</title>
+</head>
+<body>
+
+<h1 id="functional-programming">Functional Programming</h1>          <a href="index.html">Back to Languages</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#lambda-calculus">Lambda Calculus</a></li>
+<li><a href="#first-class-functions-and-pure-functions">First-class functions and pure functions</a></li>
+<li><a href="#strict-vs.-non-strict-evaluation">Strict vs. Non-Strict Evaluation</a></li>
+<li><a href="#comparison-to-imperative-programming">Comparison to Imperative programming</a></li>
+</ul>
+</div>
+<p>It is a declarative programming paradigm (based on expression instead of statements), that treats computation as the evaluation of mathematical functions, while avoiding changing state and mutable data.</p>
+<p>In functional programming, a functions output is dependent only on the parameters (deterministic?). This is one of the key motivations behind functional programming. This leads to benefits of compile-time optimization (memoization) and thread-safe parallel computing.</p>
+<h3 id="lambda-calculus">Lambda Calculus</h3>
+<p>Mathematical abstraction that provides theoretical framework for describing functions and their evaluation.</p>
+<h3 id="first-class-functions-and-pure-functions">First-class functions and pure functions</h3>
+<p>See <a href="../Math-CS/Relations%20and%20Functions.md#First-class%20and%20higher-order%20functions">first-class functions</a> and <a href="../Math-CS/Relations%20and%20Functions.md#Pure%20Functions%20(expressions)">pure functions</a></p>
+<h3 id="strict-vs.-non-strict-evaluation">Strict vs. Non-Strict Evaluation</h3>
+<p>A Categorization (aka eager vs. lazy) based on how function arguments are processed when an expression is evaluated. For strict evaluation, a function fails if sub-functions fail. For Lazy, an argument of a function is not evaluated unless the function is dependent on the argument value.</p>
+<h2 id="comparison-to-imperative-programming">Comparison to Imperative programming</h2>
+<p>Imperative languages often:</p>
+<ul>
+<li>do not use higher-order functions</li>
+<li>they use I/O and states, inducing potential side effects.</li>
+<li>are more efficient in general.</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

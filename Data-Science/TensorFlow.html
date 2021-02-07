@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>TensorFlow</title>
+</head>
+<body>
+
+<h1 id="tensorflow">TensorFlow</h1>          <a href="index.html">Back to Data-Science</a>
+<p>Units of data are called tensors. Tensors are a set of primative values (represented by an array/vector)</p>
+<ul>
+<li>rank is the dimensionality of a tensor (array)</li>
+<li>tensorflow is modelled with a computaitonal graph<ul><li>series of operations represented as a graph</li></ul>
+</li>
+<li>simplist node is a constant, taking zero inputs, and outputting a stored constant</li>
+<li>this function abstractly represents a constant, but isn't one until it runs in a session</li>
+<li>
+<code>tf.Session.run(tensor1)</code> would return the function output of <code>tensor1</code>
+</li>
+<li>
+<code>tf.Variable([...], tf.float32 )</code> constructs a variable with an initial value and type</li>
+<li>variables are not initalized in a tf program until <code>tf.global_variables_initializer()</code>
+</li>
+<li>operations are nodes, <code>tf.add</code>, used to combine tensors</li>
+<li>
+<code>tf.placeholder(tf.float32)</code> are a promises to accept external input values (for user parameterization)</li>
+<li>
+<code>tf.assign(myVar, myVal)</code> can be passed to the tf session to reassign variable values</li>
+</ul>
+<p>MNIST is a computer vision dataset, and a simple task is to use a simple model called softmax regression -- <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/tutorials/mnist/mnist_softmax.py">source</a></p>
+<ul>
+<li>one-hot vectors are 0 in most dimensions, and 1 in a single dimension<ul><li>for MNIST digits, [0,0,0,1,0,0,0,0,0,0] represents the literal number 3</li></ul>
+</li>
+<li>goal is to assign a probability to each possible output (0..9), given an image input</li>
+<li>softmax regression is used to assign probabilities to each output, acting as a simple model itself or a final layer in a more complex system</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

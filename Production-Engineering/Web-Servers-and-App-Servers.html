@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Web Servers</title>
+</head>
+<body>
+
+<h1 id="web-servers">Web Servers</h1>          <a href="index.html">Back to Production-Engineering</a>
+<div id="TOC">
+
+<ul><li>
+<a href="#apache-vs-nginx">Apache vs Nginx</a><ul>
+<li><a href="#apache">Apache</a></li>
+<li><a href="#nginx">Nginx</a></li>
+<li><a href="#mongrel-and-other-production-app-servers-and-webrick">Mongrel and other production app servers and WEBrick</a></li>
+</ul>
+</li></ul>
+</div>
+<p>Serve static files, but with the right modules, can also serve dynamic web apps. <a href="../Web-Technologies/Apache.md">Apache</a> is more popular with more features, <a href="../Web-Technologies/NGINX.md">NGINX</a> is faster with less features. Neither can serve Ruby web apps out-of-the-box and need additional modules.</p>
+<p>Apache and NGINX can also act as reverse proxies meaning they can take incoming HTTP requests and forward it to another server, which also speaks HTTP.</p>
+<p>Web servers are the front-most layer of traffic handling. Setup:</p>
+<ul><li>make you HTTP available from the internet, by configuring your router to send all incoming traffic on port 80 to your server<ul>
+<li>on most cloud platforms, this is handled already</li>
+<li>locally, it would require going to <a href="http://192.168.1.1/" class="uri">http://192.168.1.1/</a>, and allowing traffic to pass through firewall</li>
+<li>choose computer, forward external TCP traffic on port 80 to port 80 (this is port forwarding)</li>
+<li>people can then connect to your local server via your public IP address</li>
+</ul>
+</li></ul>
+<h2 id="apache-vs-nginx">Apache vs Nginx</h2>
+<p>Both solutions are capable of handling diverse workloads. They are different in what they excel at. One big difference is how they handle connections and traffic.</p>
+<h3 id="apache">Apache</h3>
+<p>The Apache HTTP server was created in 1995.</p>
+<ul><li>flexible, powerful, well supported, extensible through a dynamically loadable module system</li></ul>
+<h3 id="nginx">Nginx</h3>
+<p>2004, known for light-weight resource utilization and ability to scale easily on minimal hardware</p>
+<ul>
+<li>excels at serving static content quickly</li>
+<li>designed to pass dynamic request off to other software</li>
+<li>highly responsive under load</li>
+<li>focused on core web server and proxy features</li>
+</ul>
+<p><a href="https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations">source</a></p>
+<h3 id="mongrel-and-other-production-app-servers-and-webrick">Mongrel and other production app servers and WEBrick</h3>
+<p>Mongrel is a Ruby "application server":</p>
+<ol>
+<li>It loads the Ruby app in its own process space</li>
+<li><p>Sets up a TCP socket allowing it to communicate with the internet (Mongrel listens for HTTP requests on this socket and passes the request data to the Ruby web app)</p></li>
+<li><p>Ruby web app returns an object which describes what the HTTP response should look like, Mongrel converts it to an actual HTTP response and sends it back over the socket.</p></li>
+</ol>
+<p>Mongrel is dated, and newer comparable application servers are:</p>
+<ul>
+<li><a href="../Web-Technologies/Unicorn.md">Unicorn</a></li>
+<li>Puma</li>
+<li>Thin</li>
+<li>Phusion Passenger</li>
+</ul>
+<p>WEBrick is the built in Ruby app server, but WEBrick <strong>is not fit for production</strong> (written entirely in ruby so poor performance).</p>
+<h1 id="app-servers">App Servers</h1>
+<p>Some app servers directly have access to the internet via port 80 while most others need to be put behind a <em>reverse proxy web server</em> using Apache or NGINX.</p>
+<ul>
+<li>
+<strong>Mongrel</strong> is bare bones, single-threaded so only useful in clusters.</li>
+<li>
+<strong>Unicorn</strong> is a fork of Mongrel, supports limited process monitoring, automatic restart, single threaded. Allows all processes to listen on a shared socket.</li>
+<li>
+<strong>Thin</strong> uses the event I/O concurrency model, each process uses its own socket.</li>
+<li>
+<strong>Puma</strong> also forked from Mongrel, Puma is designed to be purely multi-threaded, no builtin cluster support.</li>
+</ul>
+<p>More reading at <a href="../Web-Technologies/IO%20Concurrency%20Models.md">I/O Concurrency Models</a></p>
+<p><a href="../Production-Engineering/Capistrano.md">Capistrano</a> is used for automating the "deployment" process.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

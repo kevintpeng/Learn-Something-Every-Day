@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Make and Makefiles</title>
+</head>
+<body>
+
+<h1 id="make-and-makefiles">Make and Makefiles</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#basics">Basics</a></li>
+<li><a href="#macros">Macros</a></li>
+<li><a href="#defining-rules">Defining Rules</a></li>
+</ul>
+</div>
+<p>Automated build tool, for compiling source code. <code>make</code> looks for a file named <code>makefile</code> in your directory and executes it.</p>
+<h3 id="basics">Basics</h3>
+<p>instead of typing <code>gcc -o hellomake hellomake.c hellofunc.c -I.</code> to compile a c++ project, create <code>makefile</code>:</p>
+<pre><code>hellomake: hellomake.c hellofunc.c
+     gcc -o hellomake hellomake.c hellofunc.c -I.</code></pre>
+<p>Finds the respective dependencies and runs a command.</p>
+<p><a href="http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/">source</a></p>
+<h3 id="macros">Macros</h3>
+<pre><code>MACROS  = -me
+PSROFF  = groff -Tps</code></pre>
+<ul>
+<li>
+<code>$@</code>: name of file to be made</li>
+<li>
+<code>$?</code>: names of the changed dependents</li>
+</ul>
+<h3 id="defining-rules">Defining Rules</h3>
+<pre><code>target [target ...] : [dependent...]
+   [command ...]</code></pre>
+<p>defines <code>make mytarget</code> command.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

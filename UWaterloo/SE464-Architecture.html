@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Software Architecture</title>
+</head>
+<body>
+
+<h1 id="software-architecture">Software Architecture</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#architectural-view">4+1 Architectural view</a></li>
+<li><a href="#architectural-styles">Architectural Styles</a></li>
+<li><a href="#architecture-modeling">Architecture Modeling</a></li>
+<li><a href="#uml">UML</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#layered-architectures">Layered Architectures</a></li>
+<li><a href="#dependency-injection">Dependency Injection</a></li>
+<li><a href="#checker-framework">Checker Framework</a></li>
+<li><a href="#hints-for-computer-system-design">Hints for Computer system design</a></li>
+</ul>
+</div>
+<ul>
+<li>architecture is about communication, not developement</li>
+<li>it is the fundamental organization of a system, its components and relationships between them</li>
+<li>functional requirements are what it's supposed to do</li>
+<li>non functional is how it's supposed to be</li>
+<li>
+<strong>conway's law</strong>: the structure of software reflects the structure of the organization that built it</li>
+<li>
+<strong>decomposition</strong> is top down abstraction, breaking down a problem</li>
+<li>
+<strong>architecture model</strong>: artifact documenting design</li>
+<li>
+<strong>architecture visualization</strong>: way of depicting design decisions</li>
+<li>
+<strong>architecture view</strong>: subset of related design decisions</li>
+</ul>
+<h3 id="architectural-view">4+1 Architectural view</h3>
+<p>Describing a system from the point of view of different stakeholders</p>
+<ul>
+<li>development: classes involved, implementation</li>
+<li>logical: functionality</li>
+<li>physical: interacting components</li>
+<li>process: dynamic parts of the system behaviour</li>
+<li>+1, scenarios: explaining how the system works for various user case studies</li>
+</ul>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/4%2B1_Architectural_View_Model.svg/708px-4%2B1_Architectural_View_Model.svg.png"></p>
+<h3 id="architectural-styles">Architectural Styles</h3>
+<ul>
+<li>purpose of architectural patterns is to understand how major parts of the system fit together and how messages and data flow through the system (structural concerns)</li>
+<li>
+<strong>architectural styles</strong> are named collections of design decisions, applicable in a given context for working around constraints</li>
+</ul>
+<h5 id="architectural-patterns">Architectural Patterns</h5>
+<ul>
+<li>MVC</li>
+<li>three-tiered pattern</li>
+<li>Sense-compute-control</li>
+</ul>
+<h5 id="layered">1 Layered</h5>
+<ul>
+<li>
+<strong>connectors</strong> are protocols of layer interaction</li>
+<li>each layer is a client to layers below, and provider to those above</li>
+<li>can have standardized layer interfaces</li>
+<li>can evolve different parts</li>
+<li>disadvantage: not universally applicable, extra performance overhead of communicating between layers</li>
+<li><strong>Client-server</strong></li>
+</ul>
+<h5 id="data-flow">2 Data Flow</h5>
+<p><strong>Batch Sequential</strong> is a data-flow style</p>
+<ul><li>programs are executed in an order, data is passed as an aggregate between them</li></ul>
+<p><strong>Pipe and Filter</strong> style</p>
+<ul>
+<li>components are filters, connectors are pipes</li>
+<li>transforms data streams</li>
+<li>example is the unix philosophy, and composing programs together</li>
+</ul>
+<h5 id="shared-memory">3 Shared Memory</h5>
+<p><strong>blackboard</strong> style</p>
+<ul><li>central data structure, accessed by multiple components</li></ul>
+<p><strong>rule-based style</strong></p>
+<ul>
+<li>parse user input as rule or query<ul><li>rules are added, queries return knowledge</li></ul>
+</li>
+<li>rules modify the behaviour of the data store</li>
+</ul>
+<h5 id="interpreter">4 Interpreter</h5>
+<ul><li>lisp/scheme</li></ul>
+<h5 id="implicit-invocation">5 Implicit Invocation</h5>
+<ul>
+<li>listeners register events and associate methods</li>
+<li><strong>pub-sub</strong></li>
+<li><strong>event-based</strong></li>
+</ul>
+<h5 id="peer-to-peer-style">6 Peer-to-Peer style</h5>
+<ul>
+<li>peers are independent components, own state and control thread</li>
+<li>connectors are network protocols</li>
+<li>data: messages</li>
+</ul>
+<h5 id="recovering-style">Recovering style</h5>
+<ul>
+<li>syntactic clustering (static relationships among code)</li>
+<li>semantic clustering<ul>
+<li>all aspsects of a system's domain knowledge</li>
+<li>may require dynamic execution</li>
+</ul>
+</li>
+</ul>
+<h3 id="architecture-modeling">Architecture Modeling</h3>
+<ul>
+<li>Architectural Elements: components connectors interfaces configurations rationale</li>
+<li>can model constraints on interactions (behavioural, concurrency)</li>
+<li>can model static and dynamic aspects</li>
+<li>model functional vs non-functional</li>
+<li>characteristics: ambiguity, accuracy/precision, views</li>
+<li>model based on viewpoint of a system: logical, physical, deployment, concurrency, behaviour</li>
+</ul>
+<h3 id="uml">UML</h3>
+<ul><li>component diagrams describe at higher level</li></ul>
+<h3 id="security">Security</h3>
+<p>Non functional properites: confidentiality, integrity, availaiblity</p>
+<p>Principles:</p>
+<ul>
+<li><strong>Least Privilege</strong></li>
+<li>
+<strong>Fail-safe Defaults</strong> deny access</li>
+<li><strong>Economy of Mechanism</strong></li>
+<li>
+<strong>Complete Mediation</strong> always check for permission on every access</li>
+<li>
+<strong>open design</strong> (no security through obscurity)</li>
+<li><a href="https://queue.acm.org/detail.cfm?id=1556050">Chrome Security</a></li>
+</ul>
+<h3 id="layered-architectures">Layered Architectures</h3>
+<ul>
+<li>MVC</li>
+<li>MVP takes it further, presenter is more testable than view<ul><li>presenter glues model and view together, replacing the controller</li></ul>
+</li>
+<li><a href="https://cs.uwaterloo.ca/~oadesina/slides/">examples</a></li>
+</ul>
+<h3 id="dependency-injection">Dependency Injection</h3>
+<ul>
+<li>
+<strong>inversion of control</strong>; a generic framework calls custom implemented routines<ul><li>event-driven programming is implemented using IoC: custom code is only concerned with handling events, allowing the event loop to dispatch such events</li></ul>
+</li>
+<li>
+<strong>dependency inversion principle</strong> states that high-level and low-level modules should depend on the same interface<ul><li>want to bbe able to substitute different implementations without recompiling</li></ul>
+</li>
+<li>
+<strong>dependency injection</strong> intends to decouple objects from client code such that the object can be changed to a different one without changing client code<ul>
+<li>injector has control, it calls the client to inject them</li>
+<li>DI is how we acheive dependency inversion; it's some way an object to receive a concrete implementation of a low-level module without coupling the modules whatsoever (constructor or parameter injection)</li>
+<li>so we don't want to couple to concretion but instead abstraction (be wary of <code>new</code>)</li>
+</ul>
+</li>
+</ul>
+<p>Guice (Juice)</p>
+<ul>
+<li>constructor injection</li>
+<li>lets us have compiled jars, connected together dynamically by Guice, allowing us to load different jar file dependencies based on user input at runtime. This means implementation can change without recompilation of the application</li>
+</ul>
+<p>Motivation behind DI</p>
+<ul>
+<li>direct constructor calls in code means we cannot stub with fake objects during testing<ul><li>it is not modular or testable</li></ul>
+</li>
+<li>factories decouple client and implementation classes, allowing proper testability<ul>
+<li>requires a global variable to hold the mock implementation, so no parallelization and test failure could affect other tests</li>
+<li>DI is an alternative, that should reduce boilerplate, and brings visibility to dependencies through a graph</li>
+</ul>
+</li>
+</ul>
+<h3 id="checker-framework">Checker Framework</h3>
+<p>Java static analysis tool. Pluggable type systems all more expressiveness and allows for multiple type systems for differing needs</p>
+<ul><li>can check for execution of user input</li></ul>
+<h3 id="hints-for-computer-system-design">Hints for Computer system design</h3>
+<ul>
+<li>simplicity; working code is better than fast code</li>
+<li>don't hide power</li>
+<li>continuity; keep the API/interface constant</li>
+<li>hide implementation, plan to replace</li>
+<li>handle all cases, keep normal and worst case separate</li>
+<li>for speed, split resources for fairness, and use brute force over questionable invariants</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul><li>
+<a href="#hot-warm-architecture"></a><a href="https://www.elastic.co/blog/hot-warm-architecture-in-elasticsearch-5-x">Hot Warm Architecture</a>
+</li></ul>
+</div>
+<h3 id="hot-warm-architecture"><a href="https://www.elastic.co/blog/hot-warm-architecture-in-elasticsearch-5-x">Hot Warm Architecture</a></h3>
+<p>Hot-warm architecture is a concept of having two types of data nodes conceptually <em>(where the hot nodes would probably have better specs)</em></p>
+<ul>
+<li>
+<code>discovery.zen.minimum_master_nodes = 2</code> stops split-brain<ul><li>from an architecture perspective, master nodes do not handle search or indexing operations so less frequent garbage collection and less required resources</li></ul>
+</li>
+<li>Hot nodes perform all indexing within the cluster<ul>
+<li>hold the most recent indices, assumed to be more frequently queried<br>
+</li>
+<li>indexing is high I/O and CPU, so requires SSD</li>
+</ul>
+</li>
+<li>Warm nodes will be designed to handle large amounts of read-only indices<ul><li>read-only implies less computing, typically we need much larger disks (maybe HDD or some ELB)</li></ul>
+</li>
+<li>this should all be transparent to users of the elasticsearch cluster</li>
+</ul>
+<p>How do we configure indices to route data to the correct node?</p>
+<ul>
+<li>
+<code>node.attr</code> is the interface exposed by ES for doing this</li>
+<li>they suggest the arbitrary attribute <code>box_type</code> or something similar</li>
+<li>then, under the index templates' settings, we can specify <code>index.routing.allocation.require.box_type</code>
+</li>
+</ul>
+<p>How do old indices get shuffled from hot to warm? How expensive is this operation?</p>
+<ul>
+<li>by updating the routing allocation setting for the index template</li>
+<li>elasticsearch handles the implementation of shuffling</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

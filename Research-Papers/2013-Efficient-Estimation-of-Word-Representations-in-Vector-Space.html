@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>2013 Efficient Estimation of Word Representations in Vector Space</title>
+</head>
+<body>
+
+<h1 id="efficient-estimation-of-word-representations-in-vector-space"><a href="https://blog.acolyer.org/2016/04/21/the-amazing-power-of-word-vectors/">2013 Efficient Estimation of Word Representations in Vector Space</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul><li><a href="#calculating-word-vectors">Calculating Word Vectors</a></li></ul>
+</div>
+<p><strong>word vectors</strong> can be simple vectors of weights. Simple encoding includes the one-hot encoding where we have a set of N words and a word is represented by the vector of all zeroes with a single one at the element's position.</p>
+<p>Example:</p>
+<pre><code>[King, Queen, Man, Woman, Child]
+
+we can represent Queen as
+[0,1,0,0,0]</code></pre>
+<p>A cooler representation is a <strong>distributed representation</strong>. Each word can be represented by a vector of weights, where each weight we can assign to be a trait and we can have thousands of traits.</p>
+<p>Example:</p>
+<pre><code>      Royalty Masculinity Femininity
+King  [0.999, 0.965,      0.032, ...
+Queen [0.95,  0.05,       0,98,  ...
+Woman [0.01,  0.01,       0.99,  ...</code></pre>
+<p>In this way, these word vectors represent the meaning of the words through labelled weighted dimensions.</p>
+<ul>
+<li>has use in reasoning relationships between words</li>
+<li><code>vector("car") - vector("cars") ~= vector("family") - vector("families")</code></li>
+<li>
+<code>man -&gt; woman ~= uncle -&gt; aunt</code><ul><li><code>uncle - man + woman = aunt</code></li></ul>
+</li>
+</ul>
+<p>This algebra can be described as vector composition!</p>
+<p><img src="https://adriancolyer.files.wordpress.com/2016/04/word2vec-king-queen-composition.png?w=566&amp;zoom=2" alt="vector composition diagram"></p>
+<p><em>So word vectors are vector representation of words, that allow us to simply encode semantic relationships.</em></p>
+<h3 id="calculating-word-vectors">Calculating Word Vectors</h3>
+<p>Very complex problem in terms of runtime. We could plug it into a <strong>neural network</strong> with a training set, but it is relatively slow.</p>
+<p><strong>Continuous Bag-of-Words model</strong></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Cluster Analysis</title>
+</head>
+<body>
+
+<h1 id="cluster-analysis">Cluster Analysis</h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul><li><a href="#algorithms">Algorithms</a></li></ul>
+</div>
+<p>Set of many algorithms for completing the task of grouping objects with similiar properties</p>
+<ul>
+<li>popular notion of a cluster is a group with a small distance among the members, dense areas of the data space, or particular distributions</li>
+<li>can be phrased as a multi-objective optimization problem</li>
+<li>not an automated task, it's iterative knowledge discovery</li>
+<li>cluster is ambiguous in definition, and thus there are many algorithms for the various models of clustering</li>
+<li>clustering can be classified as hard clustering (all objects belong to a cluster) or soft (may not belong to a cluster)</li>
+</ul>
+<p>Classifications:</p>
+<ul>
+<li>in strict partitioning, each object belongs to exactly one cluster. With outliers, some objects can belong to none</li>
+<li>overlapping clustering, objects may belong to more than one cluster</li>
+<li>hierarchical clustering, objects belong to nested sub-clusters, based on variable distance (often euclidean)</li>
+<li>subspace clustering is a type of overlapping clustering, with strict clustering for a uniquely defined subspace</li>
+</ul>
+<h3 id="algorithms">Algorithms</h3>
+<p>Dependent on the cluster model.</p>
+<h4 id="connectivity-based-clustering-hierarchical">Connectivity-Based Clustering (Hierarchical)</h4>
+<p>Based on the assumption that objects in the set that are near each other in terms of distance are more related than those that are far</p>
+<ul>
+<li>single clusters can be described by the distance between the furthest two points in the set</li>
+<li>provides multiple clusters based on the distance function</li>
+<li>choice of linkage clustering affects how clusters are chosen<ul><li>linkage function describes the distance between clusters</li></ul>
+</li>
+<li>
+<strong>Dendrograms</strong> are used to represent cluster hierarchies<ul><li>shows how clusters form as you adjust distance</li></ul>
+</li>
+</ul>
+<p><img height="500" placeholder="Dendrogram" src="https://upload.wikimedia.org/wikipedia/commons/1/12/Iris_dendrogram.png"></p>
+<ul><li>
+<strong>agglomerative clustering</strong> is a computational process for determining clusters</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

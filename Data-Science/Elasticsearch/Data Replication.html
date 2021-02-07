@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Data Replication</title>
+</head>
+<body>
+
+<h1 id="data-replication">Data Replication</h1>          <a href="index.html">Back to Data-Science/Elasticsearch</a>
+<div id="TOC">
+
+<ul><li><a href="#split-brains">Split Brains</a></li></ul>
+</div>
+<p>Elasticsearch clusters have multiple indices. Each index has multiple shards, and each shard (primary shard) has replicas.</p>
+<ul>
+<li>shards allow horizontal scaling</li>
+<li>shards enable distributed operations, increasing performance/throughput</li>
+</ul>
+<p>Replication provides high availability, and scaling search throughput by allowing operations to run on replicas.</p>
+<p>YELLOW status for an index means that all primary shards are allocated (on the Elasticsearch data nodes) but the replicas have not been allocated yet (as opposed to GREEN where everything is allocated). In other words, replica rules aren't satisfied and there is risk of data loss.</p>
+<p>Elasticsearch can configure many parameters (shards/AZ, rack awareness) that amount to a scheduling heuristic, which ultimately may result in some replicas having no well-suited host.</p>
+<h3 id="split-brains">Split Brains</h3>
+<p>An elasticsearch cluster has possibly multiple data nodes. It is important to consider the possibility of <a href="../Computer-Science-Concepts/CAP%20Theorem.md">network failure through partitioning</a>.</p>
+<p>Split brain is when you have multiple partitions of a distributed system functioning with multiple nodes thinking that they're master. This needs to be avoided.</p>
+<ul>
+<li>in master selection, a quorum consisting of a majority of nodes must be available and agree that the master selected is indeed the master</li>
+<li>2-node and 3-node both require 2 available nodes for master election</li>
+<li>the additional node need not be a full functional node, it could be used for the purpose of tie breaking elections</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

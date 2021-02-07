@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>String Encoding</title>
+</head>
+<body>
+
+<h1 id="string-encoding">String Encoding</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#ascii-american-standard-code-for-informaiton-interchange">ASCII (American Standard Code for Informaiton Interchange)</a></li>
+<li><a href="#unicode">Unicode</a></li>
+<li><a href="#ruby-strings">Ruby Strings</a></li>
+</ul>
+</div>
+<p>Strings have no use without knowing encoding. String encoding has a messy history. 8-bit encoding only provided a sound system for english speakers.</p>
+<h2 id="ascii-american-standard-code-for-informaiton-interchange">ASCII (American Standard Code for Informaiton Interchange)</h2>
+<p>Old standard for string encoding. Maps each character to a bit sequence. Now incorperated into Unicode.</p>
+<h2 id="unicode">Unicode</h2>
+<p>Unicode is a 16-bit code, but it doesn't just map bits to characters. A letter maps to a <strong>code point</strong>. <code>U+0639</code> is a code point, U means unicode plus a hex value. This information needs to be stored in bits still.</p>
+<h4 id="encoding">Encoding</h4>
+<p>This code point could be stored in say two bits. The order of the bits is declared in the <em>unicode byte order mark</em> (<code>FF FF</code> or <code>FF FE</code>).</p>
+<h4 id="utf-8">UTF-8</h4>
+<p>Another system for storing string of Unicode code points in 8-bits. This solves issue of wasted storage for english, and code points are encoded in just two hex values, exactly like <strong>ASCII</strong> and <strong>ANSI</strong>.</p>
+<h2 id="ruby-strings">Ruby Strings</h2>
+<p>Strings use UTF-8</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

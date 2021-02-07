@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>HTTP Accelerator/Reverse Proxy</title>
+</head>
+<body>
+
+<h1 id="http-acceleratorreverse-proxy">HTTP Accelerator/Reverse Proxy</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#varnish">Varnish</a></li>
+<li><a href="#squid">Squid</a></li>
+</ul>
+</div>
+<p>Type of proxy server that retrieves resources on behalf of a client. Resources are returned to the client as if they originated from the proxy server rather than its upstreams.</p>
+<p>Forward proxies act as an intermediary for the client, a Reverse proxy acts as an intermediary for groups of servers.</p>
+<h3 id="varnish">Varnish</h3>
+<p>Designed for content heavy dynamic web sites, focused exclusively on HTTP. Unlike others, varnish was designed as an HTTP accelerator.</p>
+<ul>
+<li>supports load balancing, with <code>Saint mode</code> for handling failing upstream servers by blacklisting them for quarantine periods</li>
+<li>configuration mechanism is <em>Varnish Configuration Language</em>, a DSL used to write hooks that are called when handlign requests</li>
+<li>VCL is compiled to C</li>
+<li>supports Gzip compression</li>
+<li><strong>If the server malfunctions and returns 50x errors, <code>Grace mode</code> will ignore expiry headers and continue to return cached versions</strong></li>
+</ul>
+<p><img src="https://cdn.deliciousbrains.com/content/uploads/2016/02/02100614/dbi-server-architecture.svg" alt="varnish diagram"></p>
+<h3 id="squid">Squid</h3>
+<p>Can be used as a reverse proxy, however the technology is slightly older than Varnish, and it was originally built as a forward proxy. It has builtin ssl which Varnish does not.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

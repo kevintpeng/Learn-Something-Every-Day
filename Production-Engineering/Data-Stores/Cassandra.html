@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Cassandra</title>
+</head>
+<body>
+
+<h1 id="cassandra">Cassandra</h1>          <a href="index.html">Back to Production-Engineering/Data-Stores</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#data-modelling">Data Modelling</a></li>
+<li>
+<a href="#cassandra-and-cap-theorem"></a><a href="https://medium.com/inlocotech/cassandra-cap-theorem-curse-a207ba5657c5">Cassandra and CAP Theorem</a>
+</li>
+</ul>
+</div>
+<p>Distributed row store database, which replicates data across homogeneous nodes using a gossip protocol.</p>
+<ul>
+<li>it uses a write-back cache called a memtable</li>
+<li>SSTables are written on disk</li>
+<li>data is always first written to the <strong>commit log</strong> for durability, and is deleted when data is flushed to SSTables</li>
+<li>conducts repairs to keep nodes consistent with the newest data</li>
+</ul>
+<h3 id="architecture">Architecture</h3>
+<p>No master, all nodes are homogeneous</p>
+<ul>
+<li>whenever a request hits a node, that node acts as the coordinator for that particular operation<ul>
+<li>coordinator is a proxy between client and node holding the data</li>
+<li>coordinator configuration dictates where the data will live</li>
+</ul>
+</li>
+<li>gossip peer-to-peer protocol is used to share information within a cluster</li>
+<li>partitioner is a hash function that determines which node receives the first replica of a piece of data</li>
+<li>replication of data is configured by a factor and placement strategy</li>
+<li>snitch knows the network topology and is used to place replicas and chooses the best replica for reading</li>
+</ul>
+<h3 id="data-modelling">Data Modelling</h3>
+<p>Modelling is different for Cassandra compared to a traditional RDBMS. Since there are no joins, the complexity trade of in Cassandra is knowing about access and query patterns ahead of time. The primary key is a tuple. The first element is the <strong>partition key</strong>. It should be unique, but also is used to determine data locality. The hash of the partition key determines which node and replica the data belongs to. All following elements are clustering columns which specify ordering in the partition.</p>
+<h3 id="cassandra-and-cap-theorem"><a href="https://medium.com/inlocotech/cassandra-cap-theorem-curse-a207ba5657c5">Cassandra and CAP Theorem</a></h3>
+<p>theoretically, Cassandra is classified as available and partition tolerant</p>
+<ul>
+<li>repair system is a requirement for production environments</li>
+<li>anti-entropy is the process of synchronizing replicas to ensure consistency</li>
+<li>hinted handoff and read repair also make up cassandra's repair system</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

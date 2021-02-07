@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Hashing</title>
+</head>
+<body>
+
+<h1 id="hashing">Hashing</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#map-dictionary">Map (Dictionary)</a></li>
+<li><a href="#hash-functions">Hash Functions</a></li>
+<li><a href="#hash-table-structure">Hash Table Structure</a></li>
+<li><a href="#hashing-algorithms">Hashing Algorithms</a></li>
+<li><a href="#cryptographic-hash-function">Cryptographic Hash Function</a></li>
+<li><a href="#evaluating-hash-functions">Evaluating hash functions</a></li>
+</ul>
+</div>
+<p>Converting some given data to a numeric value, using a hash function. Hash functions are deterministic and should be fast. Hashing has several important applicaitons, including the HashTable data structure and for security in communication protocols.</p>
+<h3 id="map-dictionary">Map (Dictionary)</h3>
+<p>The C++ <code>map</code> data type implements the idea of dictionaries.</p>
+<ul>
+<li>ordered (sorted) container</li>
+<li>declaration: <code>map&lt;T1, T2&gt; m;</code> where T1 is the <strong>key</strong> and T2 is the <strong>value</strong>.</li>
+<li>The key must have a strict weak ordering, with <code>&lt;</code> function (strings, numbers, pointers)</li>
+<li>maintains sorted elements using red-black tree (self balancing tree with O(log N) insert, delete, lookup)</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp">map&lt;string, <span class="dt">int</span>&gt; m;
+string token;
+<span class="cf">while</span>(cin &gt;&gt; token) { <span class="co">// count number of times each word appears</span>
+    m[token]++;
+}
+m.erase(<span class="st">"some_key"</span>); <span class="co">// removes key "some_key" from the map</span></code></pre></div>
+<h3 id="hash-functions">Hash Functions</h3>
+<p>Converts some data to an index in the range [0..K-1], K is number of slots.</p>
+<p>Important Characteristics of Hash Functions:</p>
+<ol>
+<li>Deterministic based on key (always get same answer from same input)</li>
+<li>Uniform spread over buckets/slots.</li>
+<li>Cheap to compute.</li>
+<li>Supports a variable range (as K scales)</li>
+</ol>
+<p>Hashing does not require unique keys, however same keys will map to same place causng collision.</p>
+<p>Hashing doesn't work well for ordered operations (like print in alphabetical order) since similar keys should map to wildly different locations.</p>
+<p>Example: Human names have poor distribution (lots of S's, few X's)</p>
+<ul><li>common hash is sum ASCII values mod K. (Still terrible, does not scale with num of buckets K)</li></ul>
+<h3 id="hash-table-structure">Hash Table Structure</h3>
+<p>Consists of vector, hash function, collision strategy.</p>
+<p>Can insert, delete, lookup in amortized O(1) constant time.</p>
+<ul>
+<li>
+<strong>hash table</strong> is a vector of k slots/buckets</li>
+<li>
+<strong>hash function</strong> is a deterministic algorithm for matching a given key to an index [0..k-1]</li>
+<li>a good hashing function reduces chance of collisions.</li>
+</ul>
+<h4 id="closed-hashing">Closed Hashing</h4>
+<p>Also known as open addressing, uses <strong>linear probing</strong> (adding one and trying again):</p>
+<ul>
+<li>initialize the HashTable with N nodes set to <code>EMPTY</code> status</li>
+<li>Allocate all space for the table at the beginning (Vector of nodes, with key, value and statuses: <code>EMPTY</code>, <code>ZOMBIE</code>, <code>ACTIVE</code>)</li>
+<li>insert: hash the key, if index is taken, increment through the allocated vector until an empty (or zombie) bucket is found. Sets node to <code>ACTIVE</code>
+</li>
+<li>lookup: hash key, increment through the vector until key is found (return val) or empty bucket is found (return -1) or all buckets have been checked (return -1).</li>
+<li>remove: lookup key, set status of node to ZOMBIE</li>
+<li>if N &lt;&lt; K this works well (at cost of space)</li>
+</ul>
+<p>Issues:</p>
+<ul>
+<li>As table reaches limit, <code>insert</code> approaches O(N)</li>
+<li>If table has few EMPTY slots, <code>lookup</code> and <code>remove</code> approaches O(N)</li>
+</ul>
+<h4 id="open-hashing">Open Hashing</h4>
+<p>Each slot has a bucket of elements. Hash Table is a list-of-lists, called <strong>open hashing with chaining</strong>.</p>
+<p>With K buckets and N records:</p>
+<ul>
+<li>Best case: no collisions, O(1) lookup</li>
+<li>Worst case: all inputs hash to same index, O(N) lookup</li>
+</ul>
+<h3 id="hashing-algorithms">Hashing Algorithms</h3>
+<p>Perfect hashing is an injective function that maps every input to a distinct output. It is a <em>minimal</em> perfect hashing function if it can map n keys to n distinct hash values.</p>
+<p>With information about the data or its distribution, one can design a huristic function that performs better for the special case of data. For example if the data is mostly sequential, then taking an integer representation of the data and modding it will yield a very good distribution.</p>
+<p>With a <strong>universal hashing</strong> algorithm, the collision chance should be exactly 1/n for n buckets, regardless of key similarity. Will perform worse than a perfect hashing algorithm catered for a specific set of data.</p>
+<h4 id="multiplicative-hashing">Multiplicative Hashing</h4>
+<p>The hash index is computed as the hash value multiplied by some large value. Works well for the same reason linear congruences generate seemingly random numbers.</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">hash = some_prime
+K = <span class="dv">33</span>; <span class="ot">//</span> <span class="kw">or</span> <span class="dv">31</span> <span class="kw">or</span> <span class="dv">27</span>
+word.each <span class="kw">do</span> |character|
+    hash = (hash * K) + character
+<span class="kw">end</span></code></pre></div>
+<h3 id="cryptographic-hash-function">Cryptographic Hash Function</h3>
+<p>Properties of cryptographic hashing functions:</p>
+<ul>
+<li>easy to compute the hash value for any message</li>
+<li>infeasible to generate a message that has a given hash</li>
+<li>infeasible to modify message without changing hash</li>
+<li>infeasible to find two different messages with the same hash</li>
+</ul>
+<p>MD5, SHA0 and SHA1 examples of "broken" algorithms.</p>
+<h3 id="evaluating-hash-functions">Evaluating hash functions</h3>
+<ul>
+<li>for open hashing, good space efficient hash function will minimize unused buckets</li>
+<li>
+<strong>load factor</strong> of a hash table to be N/K (number/buckets)</li>
+<li>
+<strong>average chain length</strong> is avg height of each linked list</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>The Inclusion-Exclusion Principle</title>
+</head>
+<body>
+
+<h1 id="the-inclusion-exclusion-principle">The Inclusion-Exclusion Principle</h1>          <a href="index.html">Back to Math-CS</a>
+<p>The <a href="Counting.md#sum-principle">sum principle</a> holds for disjoint sets. For non disjoint sets, we have the inequality: <code>|U Ai| ≤ ∑|Ai|</code> for i from 1 to n, of n sets A (Union of all sets is less than the sum of cardinalities).</p>
+<p>With more information, for sets A and B, <code>|A ∪ B| = |A|+|B| − |A ∩ B|</code></p>
+<p>So the general form of the Inclusion-Exclusion Principle is:</p>
+<pre><code>|U Ai| = ∑|Ai| - ∑|Ai ∩ Aj| + ∑ |Ai ∩ Aj ∩ Ak| - ... + (-1)^(n-1)|A1 ∩ ... ∩ An|
+
+Also written compactly as:
+|U Ai| = ∑(-1)^(k-1) ∑ |Ai1 ∩ Ai2 ∩ ... Aik| 
+    k from 1 to n    1 &lt; i1 &lt; i2 &lt; .. ik &lt; n</code></pre>
+<p>The following is a visual representation:<br>
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Inclusion-exclusion-3sets.png" alt="venn diagram"></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

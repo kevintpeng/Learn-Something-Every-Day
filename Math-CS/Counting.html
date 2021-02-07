@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul><li><a href="#counting">Counting</a></li></ul>
+</div>
+<h2 id="counting">Counting</h2>
+<p>Counting is <strong>enumerative combinatorics</strong>. For some set A, we wish to calculate the cardinality (size) |A| of A. Sample questions:</p>
+<ul>
+<li>How many ways are there to seat n couples at a round table?</li>
+<li>How many ways are there to express a positive integer n as a sum of positive integers?</li>
+</ul>
+<h4 id="sum-principle">Sum Principle</h4>
+<p>Consider n sets of Ai for 1 ≤ i ≤ n, that are <em>pairwise disjoint</em>, namely the intersection of Ai and Aj = ø for all i ≠ j. Then the union of all sets |U Ai| = ∑ |Ai|, i = 1 to n. (using series notation for both)</p>
+<p>For example, there are n ways to pick an object from the first pile and m ways to pick an object from the second pile, then there are n+m ways to pick an object altogether.</p>
+<h4 id="product-principle">Product Principle</h4>
+<p>For n tasks performed in a sequence, with c1 ways to do task 1, c2 ways to do task 2 and so on, then the number of possible courses of action is ∏ ci for i = 1 to n.</p>
+<p><em>Applies to things like choose 5 times from a set with or without replacement.</em></p>
+<h4 id="bijection-principle">Bijection Principle</h4>
+<p>There exists bijection from A to B iff the size of A equals the size of B.</p>
+<p><em>Then A can be counted by showing there is a bijection between A and B, and then counting B.</em></p>
+<h4 id="basic-counting-problems">Basic counting problems</h4>
+<p><em>Counting can be thought of as finding the number of combinations/permutations of sets. More formally, this is equivalent to finding the number of functions that map from set A to set B with some potential constraint.</em></p>
+<p><strong>Choosing an ordered sequence of distinct objects with repetition.</strong> Applying the product principle, <code>Given set A and B, such that |A| = k and |B| = n, the number of functions ƒ : A -&gt; B is n^k.</code> Prove by induction that this is true for all k.</p>
+<p><strong>Choosing an ordered sequence of distinct objects without repetition.</strong> Applying product principle, there are <code>n!/(n-k)! = n(n-1)...(n-k+1) = ∏ (n-i) from i = 0 to (k-1)</code> (sometimes denoted by (n)k subscripted) <code>Given sets A and B, s.t. |A| = k and |B| = n, the number of one-to-one functions ƒ : A -&gt; B is (n)k.</code></p>
+<p><strong>Permutations.</strong> How many ways are there to arrange n people in a row? <code>(n)k = n!/(n-k)!</code> A bijection from A to itself is called a <em>permutation</em> of A. Same value as choose without repetition.</p>
+<p><strong>Seating a round table.</strong> For n people, there are (n)k possible ways. But n possible orientations around that table that are all equivalent. So (n-1)!.</p>
+<p><strong>Choosing an <em>unordered</em> collection of distinct objects <em>without</em> repetition.</strong> Also known as <em>combinations</em>. For a set of k objects from n objects, every set can be arranged in k! ways. Each set corresponds to k! distinct ordered tuples. Let X be the number of sets of cardinality k. Then <code>X • k!</code> describes all permutations of sets with cardinality k, which is the smae as permutations of cardinality k, <code>n!/(n-k)!</code>. So, <code>X = n!/k!(n-k!)</code> and X is nCk (n choose k, also denoted as (n k)).</p>
+<p><strong>Choosing an <em>unordered</em> collection of distinct object <em>with</em> repetition</strong>. (n+k-1)C(k).</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

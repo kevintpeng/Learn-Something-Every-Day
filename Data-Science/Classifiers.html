@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul><li><a href="#naive-bayes">Naive Bayes</a></li></ul>
+</div>
+<h3 id="naive-bayes">Naive Bayes</h3>
+<p>Supervised learning algorithm that applies bayes' theorem with the naive assumption of independence between every pair of features</p>
+<ul>
+<li>recall that Bayes is: <code>P(y|x1,...,xn) = P(y)P(x1,...,xn|y)/P(x1,...,xn)</code>
+</li>
+<li>the naive independence assumption is that P(xi|y,x1,...x<sub>i-1</sub>,x<sub>i+1</sub>,x<sub>n</sub>) = P(xi|y)</li>
+<li>because of independence, probability of y given the feature vector is equal to the product of the individual conditional probabilities of each individual feature<ul><li>P(x1,...,xn|y) = P(x1|y)•...•P(xn|y)</li></ul>
+</li>
+<li>decoupling class y conditional features means that each distribution can be individually estimated as a one dimensional distribution, so alleviates curse of dimensionality problems</li>
+<li>variants of the Naive Baysian classifier stem from different assumed distributions for each of the individual features<ul><li>
+<code>GaussianNB</code> from sklearn</li></ul>
+</li>
+</ul>
+<p><strong>Maximum a posteriori estimation</strong></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,3 +1,4 @@
-.vagrant
-.DS_Store
-*.html
+*.deb
+vendor
+.bundle
+Gemfile.lock

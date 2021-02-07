@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Distributed Computing</title>
+</head>
+<body>
+
+<h1 id="distributed-computing"><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/Home">Distributed Computing</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#architectures"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2553833/View">Architectures</a>
+</li>
+<li>
+<a href="#processes"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2559781/View">Processes</a>
+</li>
+<li>
+<a href="#communication"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2559782/View">Communication</a>
+</li>
+<li>
+<a href="#apache-thrift"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2565367/View">Apache Thrift</a>
+</li>
+<li><a href="#distributed-file-systems">Distributed File Systems</a></li>
+<li>
+<a href="#hadoop-mapreduce"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2571408/View">Hadoop MapReduce</a>
+</li>
+<li>
+<a href="#apache-spark"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2575474/View">Apache Spark</a>
+</li>
+<li><a href="#graph-processing">Graph processing</a></li>
+<li><a href="#consistency-and-replication">Consistency and Replication</a></li>
+<li>
+<a href="#zookeeper"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2583932/View">Zookeeper</a>
+</li>
+<li>
+<a href="#fault-tolerance"></a><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2586424/View">Fault Tolerance</a>
+</li>
+<li><a href="#raft">Raft</a></li>
+<li><a href="#kafka">Kafka</a></li>
+<li><a href="#clocks">Clocks</a></li>
+<li><a href="#cap-principle">CAP Principle</a></li>
+<li><a href="#exam-review">Exam Review</a></li>
+</ul>
+</div>
+<ul>
+<li>Distributed systems are often organized as middleware<ul><li>offers single-system view</li></ul>
+</li>
+<li>
+<strong>distribution transparency</strong> is a desirable property for middleware, that hides the fact that processes/resources are physically distributed</li>
+<li>openness arises from interoperability, composability, extensibility, and separation of policy from mechanism (through config files)</li>
+</ul>
+<h3 id="architectures"><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2553833/View">Architectures</a></h3>
+<ul>
+<li>typically for layered architectures we count by the max number of layers passed through</li>
+<li>logical layers can map to multiple <strong>physical tiers</strong>. For three layers two tiers, a couple of odd examples:<ul>
+<li>UI split client and server, like terminals</li>
+<li>UI and application client, enterprise software</li>
+</ul>
+</li>
+<li>this is <strong>vertical distribution</strong>, mapping layers to tiers</li>
+<li>
+<strong>horizontal distribution</strong> is sharding</li>
+<li>object-base architectures like LLDB's API</li>
+<li>delegate responsibility of data storage to one layer, allows other layers to scale easily: <strong>data-centered architecture</strong> (ex: web applications)</li>
+<li>
+<strong>event-based architecture</strong> (ex: pub-sub), key difference is that this emphasizes async messaging</li>
+<li>
+<strong>peer-to-peer</strong> systems, organized processes in an overlay network, because it's routing above layer 3 based on data<ul>
+<li>"Chord" solves the problem of finding data</li>
+<li>compact routing tables, bounded by log n, for n possible peers; protects from change, and bounds the number of peer hops to get to the server</li>
+<li>hybrid architecture (bit torrent): client-server serves torrent files, which reference trackers to join a peer-to-peer network</li>
+</ul>
+</li>
+</ul>
+<h3 id="processes"><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2559781/View">Processes</a></h3>
+<p>Java Socket</p>
+<ul><li>
+<code>tcp_nodelay</code> nagle's algorithm coalesces mulitiple</li></ul>
+<h3 id="communication"><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2559782/View">Communication</a></h3>
+<ul>
+<li>RPC library in Java differ from sockets in that the server does not need to manage threads and accept connections explicitly; abstracting into off-the-shelf server implementation<ul>
+<li>client invokes stub, stub sends message through the client os, to be received and unpacked on the server</li>
+<li>used for two-way communication (especially when client expects immediate response)</li>
+</ul>
+</li>
+<li>RPC's have referential coupling, and stronger temporal coupling</li>
+<li>Message queues have weaker referential and temporal coupling (hence scalability)<ul><li>used for one-way communication</li></ul>
+</li>
+<li>
+<code>telnet</code> demo: it is a protocol for bidirectional plain text communication<ul><li>demonstrated high referential and temporal coupling with memcached</li></ul>
+</li>
+</ul>
+<h3 id="apache-thrift"><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2565367/View">Apache Thrift</a></h3>
+<ul>
+<li>analogous to protobuf</li>
+<li>without service discovery, thrift clients violate distribution transparency, as they require the hostname and port</li>
+<li>do not share thrift transports, protocols, and client stubs as they are not thread-safe</li>
+<li>for interface versioning, add optionals with default values</li>
+</ul>
+<h3 id="distributed-file-systems">Distributed File Systems</h3>
+<ul>
+<li>NFS is a system for mounting file system remotely, and is configurable to support either remote access or upload/download models</li>
+<li>different guarantees: unix semantics, session semantics, immutable and transactions</li>
+</ul>
+<h3 id="hadoop-mapreduce"><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2571408/View">Hadoop MapReduce</a></h3>
+<ul><li>achieves fault tolerance through restarting tasks, and ensuring that tasks are side-effect free</li></ul>
+<h3 id="apache-spark"><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2575474/View">Apache Spark</a></h3>
+<h3 id="graph-processing">Graph processing</h3>
+<ul>
+<li>Google Pregel, master/worker model<ul><li>
+<strong>vertex-centric</strong> and stores state per vertex: domain-specific value, list of messages sent to vertex, list of outgoing edges, binary active/inactive state</li></ul>
+</li>
+<li>uses the <strong>Bulk Synchronous Parallel Model (BSP)</strong> where computation is synchronous rounds or iterations called <strong>supersteps</strong><ul>
+<li>workers execute a function on each vertex using messages as input/signal</li>
+<li>execution ends when all workers vote to halt, when they no longer receive any messages</li>
+</ul>
+</li>
+<li>damping adjusts rank at each super step by including its rank from a previous superstep as some weight alpha<ul><li>without, algorithm can oscillate</li></ul>
+</li>
+<li><strong>single source shortest path</strong></li>
+<li>
+<strong>GraphX</strong> is a component of Spark for graphs, adding <strong>property graphs</strong>, a directed multigraph</li>
+</ul>
+<h3 id="consistency-and-replication">Consistency and Replication</h3>
+<ul>
+<li>replicating mutable state requires a consistency model to make sense of concurrent read/writes and reason about guarantees</li>
+<li>
+<strong>sequential consistency</strong> there is one total order of operations over all processes so that the values read are possible</li>
+<li>
+<strong>causal consistency</strong> is weaker, processes each have their own observed order of ops from other processes<ul><li>op1 <strong>causally precedes</strong> op2 if op1 comes before op2 on the same process, or op2 reads a value written by op1</li></ul>
+</li>
+<li>
+<strong>linearizability</strong> uses the notion of start and end times to get a sequential total order of ops, where if op1 finishes before op2, it must happen before (stronger guarantee than sequential)</li>
+<li>Linearizability (strongest) subset of sequential subset of causal</li>
+<li>
+<strong>eventual consistency</strong> is extremely weak, all servers will eventually produce the same reads in the absence of new writes<ul><li>eventual consistency is incomparable to sequential/causal/linearizable, since it pertains to liveness instead of safety</li></ul>
+</li>
+<li>
+<strong>session guarantees</strong>: successive reads on the same value will always return the same or newer values</li>
+<li>TODO <a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2582344/View" class="uri">https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2582344/View</a>
+</li>
+</ul>
+<h3 id="zookeeper"><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2583932/View">Zookeeper</a></h3>
+<ul>
+<li>bounded write throughput, unbounded read throughput</li>
+<li>znodes can be created, deleted, <code>setData, getData(path, watch)</code>, <code>Stat exists(path, watch)</code>, <code>getChildren(path, watch)</code>, sync, setACL and getACL</li>
+<li>data model is hierarchal namespacing like a file system, where data is read/written in its entirety</li>
+</ul>
+<h3 id="fault-tolerance"><a href="https://learn.uwaterloo.ca/d2l/le/content/459381/viewContent/2586424/View">Fault Tolerance</a></h3>
+<h4 id="distributed-commit">Distributed Commit</h4>
+<ul>
+<li>
+<strong>2 phase commit</strong> has two roles, coordinator and participants, where the result is either a global abort or global commit<ul>
+<li>unanimous voting</li>
+<li>naive implementation can get stuck in ready state for participants (when coordinator dies)</li>
+</ul>
+</li>
+<li>we can use timeouts to detect failure (FLP impossibility assumes asynchrony), so consensus here is possible</li>
+<li>if coordinator fails, participants can make progress as long as it received the decision, or can learn from another participant</li>
+</ul>
+<h4 id="distributed-checkpoint">Distributed Checkpoint</h4>
+<ul><li>
+<strong>distributed checkpoints</strong> enable recovery (using a persistent storage of checkpoints)<ul><li>what if the coordinator crashes?</li></ul>
+</li></ul>
+<h3 id="raft">Raft</h3>
+<ul>
+<li>consensus algorithm aimed at understandability</li>
+<li>
+<strong>election safety</strong>: at most one leader can be elected per term</li>
+<li>
+<strong>leader append-only</strong>: leader cannot modify log history</li>
+<li>
+<strong>log matching</strong>: if two logs contain an entry (same index and term) then it is guaranteed by induction that all previous log entries are identical up to it (this is great for state machines)</li>
+<li>
+<strong>leader completeness</strong>: committed log entries can never be lost</li>
+</ul>
+<h3 id="kafka">Kafka</h3>
+<ul>
+<li>pub-sub, real-time stream processing, distributed and replicated storage of messages and streams</li>
+<li>
+<strong>topic</strong> is stream of records, stored as partitioned log</li>
+<li>produces push records to kafka brokers<ul><li>can do idempotent delivery to avoid duplicate commits</li></ul>
+</li>
+<li>consumer pulls records, each has an offset per topic<ul>
+<li>
+<strong>exactly once</strong> semantics achievable by using a consumer to forward records from one topic to another</li>
+<li><strong>auto-commit</strong></li>
+</ul>
+</li>
+<li>
+<strong>windowing</strong> can be applied to a stream for <strong>windowing streams</strong><ul>
+<li>hopping by record</li>
+<li>tumbling by groups</li>
+</ul>
+</li>
+<li>
+<strong>changelog streams</strong> are semantically interchangable with tables</li>
+</ul>
+<h3 id="clocks">Clocks</h3>
+<ul>
+<li>atomic clocks can be out of sync due to laws of physics with respect to relativity</li>
+<li>
+<strong>clock skew</strong> is any difference in the tick rate between two clocks</li>
+<li>
+<strong>offset</strong> is the time difference between two clocks</li>
+<li>NTP: used to sync cheap clocks with atomic clocks over a network<ul>
+<li>theta is the estimated offset based on differences in req vs response time durations</li>
+<li>delta is the average transit time for requests</li>
+</ul>
+</li>
+<li>
+<strong>Lamport Clocks</strong> use lamport's definition of "happens before": per process order is preserved, across process sending means sent event happens before received event<ul>
+<li>logical clocks adjust to preserve the happens before relationship: when receiving an event that happened before, set clock to that + 1</li>
+<li>lamport clocks do not properly capture causality (since processes that have not communicated in a while--might have very different clock values)</li>
+<li>events are concurrent if neither a happens before b nor b happens before a</li>
+</ul>
+</li>
+<li>
+<strong>Vector Clocks</strong> let you detect causality violations<ul>
+<li>they hold the number of events per process, on each process based on what it has learned about the other processes in the system</li>
+<li>always increment your own counter, and pass the whole vector clock whenever sending a message, and take maxes when receiving a message</li>
+<li>so a vector clock represents the state when an event occurs, allowing us to derive a happpens before relationship for two events based on their vector clocks (all clock values must be leq)</li>
+</ul>
+</li>
+</ul>
+<h3 id="cap-principle">CAP Principle</h3>
+<ul>
+<li>PACELC: when network <strong>P</strong>artitioned, choose <strong>A</strong>vailability or <strong>C</strong>onsistency, <strong>E</strong>lse choose <strong>L</strong>atency or <strong>C</strong>onsistency</li>
+<li>Conventional DBs can scale up with memory and storage, and out with read replicas</li>
+<li>transactions can scale out with data partitions, paxos-based replication</li>
+<li>
+<strong>hinted-handoff</strong> is required(?) for AP systems to acheive high availability</li>
+<li><strong>anti-entropy</strong></li>
+<li>
+<strong>read repair</strong> in <strong>Cassandra</strong> when you get, you send get to all replicas (even with small read quorum) using two types of reqs</li>
+<li>
+<strong>direct</strong> fetches the actual data</li>
+<li>
+<strong>digest</strong> gets a hash (quick small) for checking</li>
+<li>third background repair request by coordinator to fix discrepancy, after the get finishes</li>
+</ul>
+<p>How to configure Cassandra for Latency vs. Consistency?</p>
+<h3 id="exam-review">Exam Review</h3>
+<ul>
+<li>types of thrift servers: TSimpleServer, TNonblockingServer...?</li>
+<li>Kafka</li>
+<li>Memcached</li>
+<li>NTP<ul>
+<li>assume there is always 2ms delay between up and back. How do we change the NTP formula to take this into account?</li>
+<li>2c: x must be greater than or equal to 3. The event e2 could have happened on either A or C.</li>
+</ul>
+</li>
+<li><ul><li>Q4: solve hadoop or spark</li></ul></li>
+<li>Q5:</li>
+<li>Q10 very important:<ul>
+<li>one-way given, round-trip used</li>
+<li>Majority includes self</li>
+<li>ALL: parallel so max</li>
+</ul>
+</li>
+<li>RPC performance: client or server could be limiters, take the min and consider both<ul>
+<li>client: throughput/thread x # of threads</li>
+<li>server</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

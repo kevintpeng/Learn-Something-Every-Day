@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Scaling Up deployments through ELB, CloudWatch, Auto Scaling</title>
+</head>
+<body>
+
+<h1 id="scaling-up-deployments-through-elb-cloudwatch-auto-scaling">Scaling Up deployments through ELB, CloudWatch, Auto Scaling</h1>          <a href="index.html">Back to AWS</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#elastic-load-balancer">Elastic Load Balancer</a></li>
+<li><a href="#amazon-cloudwatch">Amazon CloudWatch</a></li>
+<li><a href="#auto-scaling">Auto Scaling</a></li>
+</ul>
+</div>
+<h3 id="elastic-load-balancer">Elastic Load Balancer</h3>
+<p><strong>Elastic Load Balancer</strong> is a managed service that automatically scales based on traffic metrics</p>
+<ul>
+<li>supports routing all HTTP, HTTPS, TCP and SSL traffic</li>
+<li>balances traffic across availability zones, generally for homogeneous instances</li>
+<li>can be used for health checks on a set of instances</li>
+<li>
+<strong>internet facing</strong> load balancers receive dns record</li>
+<li>
+<strong>internal</strong> routes traffic to ec2 instances within a VPC</li>
+<li>
+<strong>HTTPS</strong> load balancer encrypts data between the client and the load balancer, while the load balancers connection to the back end instances need not necessarily be encrypted<ul>
+<li>SNI is not supported by ELB</li>
+<li>Custom <strong>subject alternative names</strong> must be added to the cert if the ELB wants to server multiple applications</li>
+</ul>
+</li>
+<li>ELB has one or more listeners, each configured to accept traffic over some protocol HTTPS/HTTP at OSI layer 7, or TCP/SSL at layer 4</li>
+<li>healthchecks are important for ELB's to be able to monitor the EC2 instances behind them, to determine if it is appropriate to route traffic to the instance</li>
+</ul>
+<p>ELB's are highly configurable</p>
+<ul>
+<li>idle connection timeouts let the ELB kill connections (either to clients or backend instances)</li>
+<li>cross-zone load balancing routes evenly based on zone, allowing you to worry less about rightsizing each zone for distribution</li>
+<li>connection draining allows an ELB to temporarily stop routing new requests to an unhealthy or unresponsive instance while maintaining current connections (in flight requests)</li>
+<li>proxy protocol adds human-readable header fields to the request as it proxies to the backend, containing information about source/dest IP and port number</li>
+<li>sticky sessions enable affinity (similar to caching algorithms) for users to statefully connect to the same backend instance across multiple requests</li>
+<li>health checks are supported by ELB, through pings, connection attempts, or page loads with configurable thresholds for marking instances as unhealthy</li>
+</ul>
+<h3 id="amazon-cloudwatch">Amazon CloudWatch</h3>
+<p>Service for monitoring AWS resources and applications in real time</p>
+<ul><li>provides hypervisor visible metrics about an EC2 instance</li></ul>
+<h3 id="auto-scaling">Auto Scaling</h3>
+<p>Auto scaling in AWS is composed of three components:</p>
+<ul>
+<li>
+<strong>Launch configs</strong> specify a template of EC2 resources to consume when launching an instance, including instance type, AMI, security groups<ul>
+<li>required are name, AMI, and instance type</li>
+<li>can also specify key pair, security groups, block device mapping for EBS/ephemeral</li>
+</ul>
+</li>
+<li>
+<strong>auto scaling groups (ASG)</strong> consume a launch config to provision a managed set of EC2 instances</li>
+<li>
+<strong>auto scaling policy</strong> is an optional component that let's administrators define the criterion for creating and destroying instances in the ASG based on workload metrics<ul><li>four plans are used to maintain the current size of an ASG: maintain current, manual scaling, scheduled scaling, dynamic scaling</li></ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

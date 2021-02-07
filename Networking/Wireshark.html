@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Wireshark</title>
+</head>
+<body>
+
+<h1 id="wireshark">Wireshark</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#download-for-mac----docs-source"></a><a href="https://1.na.dl.wireshark.org/osx/Wireshark%202.0.4%20Intel%2064.dmg">download for Mac</a> -- <a href="https://www.wireshark.org/docs/wsug_html_chunked/index.html">docs source</a>
+</li>
+<li>
+<a href="#capturing-live-network-data">Capturing Live Network Data</a><ul>
+<li><a href="#set-up-a-capture-on-http-requests">Set Up a Capture on HTTP requests</a></li>
+<li>
+<a href="#lets-do-this-again-with-https----source">Let's do this again with HTTPS -- </a><a href="https://en.wikiversity.org/wiki/Wireshark/HTTPS">source</a>
+</li>
+<li><a href="#further-processing-of-captures">Further Processing of Captures</a></li>
+<li><a href="#decryption-using-wireshark">Decryption using Wireshark</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="download-for-mac----docs-source">
+<a href="https://1.na.dl.wireshark.org/osx/Wireshark%202.0.4%20Intel%2064.dmg">download for Mac</a> -- <a href="https://www.wireshark.org/docs/wsug_html_chunked/index.html">docs source</a>
+</h3>
+<p><a href="https://en.wikiversity.org/wiki/Wireshark">Note: here's great list of step by step walkthroughs for doing things with wireshark</a>. Also Wireshark is the coolest, complex piece of software, very useful for learning about TCP/IP.</p>
+<p>Wireshark is a network packet analyzer (aka packet sniffer, protocol analyzer), capturing packets and displays in detail. Basically a measurement device (think voltmeter)</p>
+<ul>
+<li>offers live capture from several network media, capturing traffic from many media types</li>
+<li>does not manipulate things on the network, only measures things</li>
+</ul>
+<h2 id="capturing-live-network-data">Capturing Live Network Data</h2>
+<ul>
+<li>Captures from different kinds of network hardware (ethernet, 802.11)</li>
+<li>control flow for capturing (stop after elapsed time, number of packets, amount of data)</li>
+<li>show decoded packets while capturing</li>
+<li>filter packets, reducing the amount of data captured<ul><li>multiple filters can be applied by delimiting the filters with the <code>and</code>/<code>or</code> ekeywords</li></ul>
+</li>
+</ul>
+<h3 id="set-up-a-capture-on-http-requests">Set Up a Capture on HTTP requests</h3>
+<p>As an overview, TCP is the protocol used to connect the client and server, while HTTP is the protocol for transferring media files from the server to the client.</p>
+<p>My steps for setting up a local traffic capture:</p>
+<ul>
+<li>requires root, os that supports packet capturing (OSX does), computer time zones should be correct</li>
+<li>
+<code>sudo wireshark</code> to start</li>
+<li>choose the right interface to capture from<ul><li>optionally, <code>Wireshark &gt; Preferences &gt; Capture</code> set default interface to Display Ethernet: en15. If this isn't available on your computer, try finding something like <code>Wi-Fi:en0</code>
+</li></ul>
+</li>
+<li>on the window with "Welcome to Wireshark", clicking on one of the network interfaces on the left will bring up a table of packets. This table is a mess without fliters<ul>
+<li>
+<code>go</code> menu lets you navigate packets</li>
+<li>
+<code>capture</code> menu controls the current capture</li>
+<li><code>analyze</code></li>
+</ul>
+</li>
+<li>start the capture.</li>
+<li>open <a href="http://kevintpeng.github.io" class="uri">http://kevintpeng.github.io</a> or some non-https site</li>
+<li>stop the capture.</li>
+</ul>
+<h4 id="to-select-destination-traffic----source">To select destination traffic: -- <a href="https://en.wikiversity.org/wiki/Wireshark/HTTP">source</a>
+</h4>
+<ul>
+<li>Observe the traffic captured in the top Wireshark packet list pane. To view only HTTP traffic, type <code>http</code> (lower case) in the Filter box and press Enter.</li>
+<li>Select the first HTTP packet labeled <code>GET /</code>.</li>
+<li>Observe the destination IP address.</li>
+<li>To view all related traffic for this connection, change the filter to <code>ip.addr == &lt;destination&gt;</code>, where <destination> is the destination address of the HTTP packet.</destination>
+</li>
+</ul>
+<h4 id="analyze-tcp-connection-traffic">Analyze TCP Connection Traffic</h4>
+<ul>
+<li>First three TCP packets should be labelled <code>[SYN]</code>, <code>[SYN, ACK]</code>, <code>[ACK]</code>. This is the TCP handshake sequence.</li>
+<li>Select the first packet. Observe the packet details in the middle Wireshark packet details pane. Notice that it is an Ethernet II / Internet Protocol Version 4 / Transmission Control Protocol frame.</li>
+<li>Expand Ethernet II to view Ethernet details. Observe the Destination and Source fields. The destination should be your default gateway's MAC address and the source should be your MAC address. You can use ipconfig /all and arp -a to confirm.</li>
+<li>Expand Internet Protocol Version 4 to view IP details. Observe the Source address. Notice that the source address is your IP address.</li>
+<li>Observe the Destination address. Notice that the destination address is the IP address of the HTTP server.</li>
+<li>Expand Transmission Control Protocol to view TCP details. Observe the Source port. Notice that <strong>it is a dynamic port selected for this HTTP connection. This port is temporarily opened to receive the response packets on your machine.</strong>
+</li>
+<li><em>Note that all of the packets for this connection will have matching MAC addresses, IP addresses, and port numbers.</em></li>
+</ul>
+<h4 id="analyze-http-request-traffic">Analyze HTTP Request Traffic</h4>
+<ul>
+<li>select the first packet with <code>HTTP</code> as the protocol</li>
+<li>Observe the packet details in the middle Wireshark packet details pane. Notice that it is an Ethernet II / Internet Protocol Version 4 / Transmission Control Protocol / Hypertext Transfer Protocol frame. Also notice that the Ethernet II, Internet Protocol Version 4, and Transmission Control Protocol values are consistent with the TCP connection analyzed</li>
+<li>Expand Hypertext Transfer Protocol to view HTTP details.</li>
+<li>Observe the traffic captured in the top Wireshark packet list pane. Select the fifth packet, labeled <code>TCP ACK</code>. This is the server TCP acknowledgement of receiving the <code>GET</code> request.</li>
+</ul>
+<h3 id="lets-do-this-again-with-https----source">Let's do this again with HTTPS -- <a href="https://en.wikiversity.org/wiki/Wireshark/HTTPS">source</a>
+</h3>
+<ul>
+<li>Filter by <code>ssl</code> and hit enter. Select the first packet labelled <code>Client Hello</code>. Then filter by <code>ip.addr == &lt;destination&gt;</code>
+</li>
+<li>similar to the <code>http</code> request but now with <code>TLS</code> protocol for encryption</li>
+<li>First three are TCP handshake</li>
+<li>select packet with TLS protocol labelled <em>Client Hello</em>, with Secure Sockets Layer information in the packet (Cipher suites like RSA, compression, extentions).</li>
+<li>Select the next packet, labeled TCP ACK. This is the server TCP acknowledgement of receiving the Client Hello request.</li>
+<li>Another TLS packet labelled <em>Server Hello</em> should follow, also with SSL information in the packet</li>
+<li>the next TLS packet receives the ssl cert to verfiy the server is who we think it is</li>
+<li>then we send it our public key to encrypt the information</li>
+<li>now Application Data TLS packets are recieved with the encrypted data for our private key to decrypt</li>
+</ul>
+<h3 id="further-processing-of-captures">Further Processing of Captures</h3>
+<p><code>ip.addr == 74.125.22.156 and ssl</code> can be used as the filter to ignore underlying TCP communication packets, and for the IP of rubygems.org.</p>
+<h4 id="comparing-two-capture-files"><a href="https://www.wireshark.org/docs/wsug_html_chunked/ChStatCompareCaptureFiles.html">Comparing two capture files</a></h4>
+<h3 id="decryption-using-wireshark">Decryption using Wireshark</h3>
+<p>Wireshark can decrypt SSL/TLS communications, if it has access to the Master Key used in encrypting the data</p>
+<ul>
+<li>first wireshark checks whether any cached session matches the session ID or ticket from the Server Hello message. If so, it uses the cached Master Key to decrypt</li>
+<li>alternatively, you can provide a key log file containing a list of Master Keys</li>
+</ul>
+<h4 id="decrypting-ssl-traffic-from-browsers"><a href="https://jimshaver.net/2015/02/11/decrypting-tls-browser-traffic-with-wireshark-the-easy-way/">decrypting ssl traffic from browsers</a></h4>
+<p>add this to <code>.bashrc</code>:<br>
+<code>alias wireshark="SSLKEYLOGFILE=/Users/kevintpeng/sslkeylogs/output.log open -a firefox; sudo wireshark"</code></p>
+<p>This logs your browser's SSL keys, as it generates random pub/priv key pairings on the fly for each request. This alias opens a browser that logs these keys to a file accessible by wireshark.</p>
+<p>Wireshark &gt; Preferences &gt; Protocols &gt; SSL &gt; set path to (Pre)-Master-Secret log filename to <code>/Users/kevintpeng/sslkeylogs/output.log</code></p>
+<h4 id="decrypting-ssl-for-ruby"><a href="https://www.trustwave.com/Resources/SpiderLabs-Blog/How-To-Decrypt-Ruby-SSL-Communications-with-Wireshark/">decrypting ssl for ruby</a></h4>
+<ul><li>ruby uses openssl for SSL/TLS</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Access Path Selection</title>
+</head>
+<body>
+
+<h1 id="access-path-selection"><a href="http://www.inf.ed.ac.uk/teaching/courses/adbs/AccessPath.pdf">Access Path Selection</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#intro-to-parsing">Intro to Parsing</a></li>
+<li><a href="#intro-to-optimization">Intro to Optimization</a></li>
+<li><a href="#the-research-storage-system">The Research Storage System</a></li>
+<li><a href="#costs-for-single-relation-access-paths">Costs for single relation access paths</a></li>
+</ul>
+</div>
+<p>Introduces the idea of <strong>query optimizers</strong>, which reminds me a lot of C vs assembly. It introduces how <em>declarative</em> queries (SQL) can be easier to write and more efficient than procedural data retrieval.</p>
+<p><strong>System R</strong> is a very influential Relational Database Management System built in 1975. There are four phases of SQL statement processing in system R:</p>
+<ol>
+<li>Parsing</li>
+<li>Optimization</li>
+<li>Code Generation</li>
+<li>Execution</li>
+</ol>
+<p>This is why it looks a lot like a C compiler to me. Very similar process of converting code to executables, with optimizations along the way that could beat many manually written assembly subroutines at a higher level of abstraction.</p>
+<p>This paper was on optimization. <strong>Access path selection</strong> is a step during the optimization phase. An <strong>access path</strong> is a way of accessing some relation (table) in the database, which is a set of tuples (row of data), and the path itself is the lookup operation which is O(n) by performing a full data scan of the database, but can be faster with indexing (some hash map structure probably or binary tree). The cost of taking each of these paths is estimated by the optimizer using statistics tracked by the database system. Different suppliementary data strucutures provide more options for possible access paths an optimizer can select, and more complex queries can further leverage optimizations.</p>
+<h3 id="intro-to-parsing">Intro to Parsing</h3>
+<p>A <strong>query block</strong> is a basic unit of SQL that operates on tables or the results of other queries (join, group,...)</p>
+<ul>
+<li>a query block has clauses, which are semantically processed in the order, FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY</li>
+<li>notice that the FROM clause is semantically ordered first, to look up the relevant relation/table</li>
+<li>most relevant to this paper are query blocks of the structure <code>SELECT list FROM relation WHERE some boolean predicate</code>
+</li>
+<li>the result of a query block is a <strong>derived table</strong>, some subset of rows of a table or tables whose columns might be different, as is the case in joins</li>
+<li><em>so I guess in more complex statements, there are multiple query blocks (i.e. multiple statements in one) and the optimizer chooses which order to execute these in</em></li>
+<li>predicates (the WHERE clause) can contain many query blocks because an operand in a boolean predicate can take as input the result of a query block</li>
+</ul>
+<h3 id="intro-to-optimization">Intro to Optimization</h3>
+<p>if no errors in parsing, then optimzer accumulates the names of tables and columns referenced in the query, looks them up in System R for statistics about the referenced tables, and the available access paths. <em>Why are there multiple possible access paths?</em></p>
+<p>Next, the optimizer rescans the select-list (columns) and where-tree (predicate with possibly nested query blocks) and does a sort of type-checking for semantic errors in the query.</p>
+<p>Finally, optimizer performs access path selection. Again, this is like finding the fastest lookup path for each table in the FROM clause. It creates an execution plan in the intermediate language called Access Specification Language (ASL). I think of this as assembly.</p>
+<h3 id="the-research-storage-system">The Research Storage System</h3>
+<p>Basic model for storage used by System R. Think of it as the component that handles atomicity, consistency, idempotence and durability for the actual storage of data. It uses paging, covered in OS class. What they call segments are logical groupings of pages such that entire tables are in a segment. <strong>Scan</strong> is the operation to access a single row in the table and is used repeatedly to linearly look through a table's rows. Indexes are implemented on a B tree (we learned about this data structure in class, it's purpose is basically to perform optimized binary search, trying to reduce the number of pages loaded into memory). <strong>Index scan</strong> is a second kind of scan operation, basically looking up in the index, presumably with less pages loaded, to find the necessary information about rows that the boolean predicate needs. What's important here is that we can either do a linear search through all table rows, or can sometimes scan the index for less page table loads. Some indexes don't need to scan the entire table because they might be able to take arguments for their lookup. <em>I'm imagining since it's a BTree that an example might be indexing a numeric column and essentially doing range search or binary search to satisfy arguments which could be <code>=X</code> or <code>&gt;X</code> or <code>&lt;X</code></em></p>
+<h3 id="costs-for-single-relation-access-paths">Costs for single relation access paths</h3>
+<p>Single relation being single table. <code>COST = (PAGE FETCHES) + W * (STORAGE API CALLS)</code>. This cost describes the cost of the I/O operation to fetch the table, and is an estimation based on statics we've kept track of. We're looking for rows that satisfy the boolean predicate. An index can <strong>match</strong> a boolean factor (clause) in the predicate if the index can take arguements and if we can use the boolean factor as those arguments. <em>if salary is a column, we might use SALARY=200000 as a boolean factor, and the columns index matches this argument if it is a binary tree and we can plugin 200000 to it as an argument to perform O(log n) search instead of O(n)</em>.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Polymorphism</title>
+</head>
+<body>
+
+<h1 id="polymorphism">Polymorphism</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#ad-hoc-polymorphism">Ad Hoc Polymorphism</a></li>
+<li><a href="#parametric-polymorphism">Parametric Polymorphism</a></li>
+<li><a href="#subtyping">Subtyping</a></li>
+</ul>
+</div>
+<p>The act of providing a single interface to entities of different data types (objects for example). A <strong>polymorphic type</strong> is a data type whose operations can also be applied to values of some other type.</p>
+<h3 id="ad-hoc-polymorphism">Ad Hoc Polymorphism</h3>
+<p>Where polymorphic functions can be applied to arguments of different types (often through function overloading). <code>+</code> can be used like <code>1 + 3.7 = 4.7</code> or <code>int + float = float</code>. It also overloaded in some languages to do <code>"bab" + "oon" = "baboon"</code>.</p>
+<h3 id="parametric-polymorphism">Parametric Polymorphism</h3>
+<p>Non type specific code, called <em>generics</em>.</p>
+<h3 id="subtyping">Subtyping</h3>
+<p>When a name denotes instances of many different subclasses of a superclass (polymorphism in OOP).</p>
+<h1 id="dynamic-dispatch">Dynamic Dispatch</h1>
+<p>A feature of The process of selecting which implementation of a polymorphic operation to call at run time. A prime characteristic of object oriented programming languages. It is desirable to name multiple methods with the same name, whose functionality is similar, but operate on multiple types.</p>
+<p><em>Static dispatch</em>, the implementation of a polymorphic operation is selected at compile-time. Dynamic dispatch provides support for cases where the appropriate implementation cannot be determined at compile time, because it depends on the runtime type.</p>
+<h3 id="single-and-multiple-dispatch">Single and Multiple Dispatch</h3>
+<p>The decision of which version of a method to called can be based on a single object or many objects. <strong>Single dispatch</strong> is supported by OOP languages like smalltalk, C++, ruby, where the object itself. Multiple dispatch is a generalized form of single dispatch, where functions are dispatched based on multiple objects.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

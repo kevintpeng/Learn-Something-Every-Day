@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Container Networking</title>
+</head>
+<body>
+
+<h1 id="container-networking">Container Networking</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#docker-model">Docker Model</a></li>
+<li><a href="#kubernetes-model">Kubernetes Model</a></li>
+</ul>
+</div>
+<h3 id="docker-model">Docker Model</h3>
+<p>Uses host-private networking, using bridges to connect private network segments.</p>
+<ul>
+<li>virtual bridge <code>docker0</code><ul><li>subnet allocation from the private address block for that bridge</li></ul>
+</li>
+<li>
+<code>vethXXX</code> device for each container is created and attached to the bridge</li>
+<li>using linux namespaces, <code>vethXXX</code> from the host is mapped to look like <code>eth0</code> from within the container<ul>
+<li>linux namespaces are a kernel feature that isolated (and virtualizes) system resources</li>
+<li>limits what you can see (and therefore use)</li>
+<li>bunch of different types of namespaces for different linux resources, that boil down in practice to mapping idomatic uses (pid 1, uid 0 etc...) to other resource ranges on the host (like UID 10000-11000 on host maps to 0-1000 on container)</li>
+</ul>
+</li>
+<li>docker containers can only talk to other containers on the same host (the same virtual bridge)</li>
+<li>inter-node communication can only be achieved through port forwarding, which implies that ports need to be coordinated as a resource</li>
+</ul>
+<h3 id="kubernetes-model">Kubernetes Model</h3>
+<p>For container orchestration to work, 4 problems need to be solved:</p>
+<ol>
+<li>highly coupled container to container communication (pods with localhost)</li>
+<li>pod to pod communication</li>
+<li>pod to service</li>
+<li>external to service</li>
+</ol>
+<p><em>Notice that service is used to cover more dynamic cases of networking where endpoints may need to be discovered or externally exposed.</em></p>
+<p>Pods are an abstraction layer which help to simplify networking from the end user's perspective. Each pod has its own IP address (effectively like a host) and has multiple containers (much like local processes) which can easily connect to one another</p>
+<ul><li>notice that this simplifies things like port allocation, service discovery, load balancing, configuration</li></ul>
+<h4 id="flannel">Flannel</h4>
+<p>Simple way to configure layer 3 (IP, ICMP) handling how traffic is transported between hosts</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

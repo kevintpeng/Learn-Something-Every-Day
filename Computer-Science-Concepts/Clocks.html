@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#network-time-protocol">Network Time Protocol</a></li>
+<li><a href="#hybrid-logical-clock-and-consistent-snapshots">Hybrid Logical Clock and Consistent Snapshots</a></li>
+</ul>
+</div>
+<h3 id="network-time-protocol">Network Time Protocol</h3>
+<ul>
+<li>NTP is a protocol for clock synchronization over packet switched, variable latency data networks</li>
+<li>syncs within miliseconds of each other using UTC</li>
+<li>uses Marzullo's algorithm, to estimate correct time from noisy sources<ul>
+<li>produces an optimal value from a set of estimates with <strong>confidence intervals</strong>
+</li>
+<li>the best estimate is taken to be the smallest interval consistent with the largest number of sources</li>
+</ul>
+</li>
+<li>NTP can maintain time within tens of miliseconds, passing timestamps through UDP</li>
+</ul>
+<h3 id="hybrid-logical-clock-and-consistent-snapshots">Hybrid Logical Clock and Consistent Snapshots</h3>
+<ul>
+<li>aims to provide tighter synchronization than using physical/NTP clocks</li>
+<li>enables consistent snapshots of distributed systems</li>
+<li>history; logical clocks pass information instead of physical time<ul><li>impractical because cannot query based on physical time, and is not tolerent</li></ul>
+</li>
+<li>vector clocks were proposed to maintain a vector at each node which tracks the logical clocks of other nodes<ul><li>while LC finds one consistent snapshot from nodes, VC finds all possible snapshots</li></ul>
+</li>
+<li>
+<strong>Physical Time</strong> uses physical clocks, with uncertainty intervals<ul>
+<li>overlapping intervals cannot determine order</li>
+<li>poor network conditions can result in async</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

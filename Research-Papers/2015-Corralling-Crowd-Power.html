@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Corralling Crowd Power</title>
+</head>
+<body>
+
+<h1 id="corralling-crowd-power"><a href="https://hci.stanford.edu/publications/2015/soylent-cacm/p85-bernstein.pdf">Corralling Crowd Power</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul><li>
+<a href="#verifying-crowdsourced-training-data-using-mturk"></a><a href="https://blog.mturk.com/tutorial-how-to-verify-crowdsourced-training-data-using-a-known-answer-review-policy-85596fb55ed">Verifying crowdsourced training data using MTurk</a>
+</li></ul>
+</div>
+<ul>
+<li>on crowd sourcing for complex tasks, in this case a word processor</li>
+<li>crowd workers are operating in an open-ended manor, of which roughly 30% of open-ended task samples are poor<ul>
+<li>the 30% must be mitigated as it is obviously not acceptable from a data-integrity stand point</li>
+<li>
+<strong>high variance of effort</strong> is a root cause. Often workers will be doing minimal work to get paid and some sort of incentive might be necessary to mitigate this</li>
+</ul>
+</li>
+<li>proposes a multi-step flow Find-Fix-Verify using Mechanical Turk workers<ul>
+<li>Find-Fix-Verify pattern addresses the 30% issue by separating <strong>open-ended tasks</strong> into three stages</li>
+<li>workers are used in three stages (likely not the same people) first to identify paragraphs to shorten, next to suggest fixes and finally to verify</li>
+<li>for simpler tasks that are closed, I suspect a Fix-Verify flow would be beneficial</li>
+</ul>
+</li>
+<li>average paragraph cost $1.41 to shorten, in two minutes of work time</li>
+</ul>
+<h3 id="verifying-crowdsourced-training-data-using-mturk"><a href="https://blog.mturk.com/tutorial-how-to-verify-crowdsourced-training-data-using-a-known-answer-review-policy-85596fb55ed">Verifying crowdsourced training data using MTurk</a></h3>
+<ul>
+<li>"golden answers" are used to track quality when building ML training datasets</li>
+<li>review policies API on MTurk allows you to vet workers and reject their assignment based on "golden answer" results weaved into their assignment</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

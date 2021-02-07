@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>The Part-Time Parliament and Paxos</title>
+</head>
+<body>
+
+<h1 id="the-part-time-parliament-and-paxos">
+<a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/The-Part-Time-Parliament.pdf">The Part-Time Parliament</a> and <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/paxos-simple-Copy.pdf">Paxos</a>
+</h1>          <a href="index.html">Back to Research-Papers</a>
+<div id="TOC">
+
+<ul><li><a href="#distributed-state-machines-with-paxos">Distributed State Machines with Paxos</a></li></ul>
+</div>
+<p>Paxos is a consensus algorithm where any process can propose values and the group can choose a single value</p>
+<ul>
+<li>if the majority <code>M</code> of some set <code>S</code> of processes selects some value <code>v : V</code>, then it is impossible for <code>S - M</code> to have a majority of any value other than <code>v</code>
+</li>
+<li>furthermore, for a new value from <code>V</code> to be selected, at least one of the previous processes from <code>M</code> must also select the new value to make a majority<ul>
+<li>this is really important and is the basis of paxos; before a proposal is selected, the majority that is formed must ensure that the proposal is newer than the last selected one (in other words the proposer isn't outdated) and this only works because for some new majority M', <code>M' n M</code> is not empty</li>
+<li>we use an ordered proposal number to know which proposals are outdated</li>
+</ul>
+</li>
+<li>formally, our consensus algorithm must select from only proposed values, select only one value, and a process may never learn that a value is selected until it actually has been</li>
+<li>we use 2 phase commits to select proposed values, because we cannot select a value until we know that a majority has promised to not select any older proposals than it<ul>
+<li>a process can only promise proposals newer than its latests selected proposal</li>
+<li>a process can only accept a proposal</li>
+</ul>
+</li>
+</ul>
+<h3 id="distributed-state-machines-with-paxos">Distributed State Machines with Paxos</h3>
+<p>If state that we're agreeing on is a sequence of values (more specifically a function of a sequence), then the state can model a state machine</p>
+<ul>
+<li>if order and the sequence itself is agreed, then we can achieve consistency among a set of processes</li>
+<li>this is <strong>multi-paxos</strong>
+</li>
+<li>each item in the sequence represents a separate instance of paxos</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

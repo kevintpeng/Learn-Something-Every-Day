@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Librarian-chef</title>
+</head>
+<body>
+
+<h1 id="librarian-chef">Librarian-chef</h1>          <a href="index.html">Back to Production-Engineering/Chef</a>
+<p>A bundler for chef-repo, helping to manage and vendor upstream cookbooks.</p>
+<ul><li>
+<p>Librarian creates a <code>Cheffile</code>, where you specifiy which third-party cookbooks you depend on:<br>
+```ruby</p>
+<h1 id="default-source">default source</h1>
+<p>site "<a href="https://supermarket.getchef.com/api/v1" class="uri">https://supermarket.getchef.com/api/v1</a>"</p>
+</li></ul>
+<p>cookbook "ntp" # newest version, from default source<br>
+cookbook "timezone", "0.0.1"</p>
+<p>cookbook "rvm",<br>
+:git =&gt; "<a href="https://github.com/fnichol/chef-rvm" class="uri">https://github.com/fnichol/chef-rvm</a>", # specific git repo<br>
+:ref =&gt; "v0.7.1" # branch, unspecified will be master</p>
+<p>cookbook "cloudera",<br>
+:path =&gt; "vendor/cookbooks/cloudera-cookbook"<br>
+# any git source can use :path to find the cookbook subdirectory in the source repo<br>
+```</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

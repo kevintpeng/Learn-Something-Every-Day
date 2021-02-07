@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Load Balancing</title>
+</head>
+<body>
+
+<h1 id="load-balancing">Load Balancing</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul><li>
+<a href="#terminology">Terminology</a><ul>
+<li><a href="#haproxy">HAProxy</a></li>
+<li><a href="#types-of-load-balancing">Types of Load Balancing</a></li>
+<li><a href="#other-solutions">Other Solutions</a></li>
+</ul>
+</li></ul>
+</div>
+<p>In distributed systems, load balancing aims to optimize resource use</p>
+<h2 id="terminology">Terminology</h2>
+<ul>
+<li>
+<strong>High Availability Proxy (HAProxy)</strong> is a TCP/HTTP Load Balancer and proxying solution. Open source software.</li>
+<li>
+<strong>Access Control Lists (ACL)</strong> are used to test conditions and perform actions based on conditions.</li>
+<li>
+<strong>Backend</strong> is a set of servers that recieves forwarded requests. Contains list of servers and load balancing algorithm.</li>
+<li>
+<strong>Frontend</strong> defines how requests should be forwarded to backends.</li>
+</ul>
+<h3 id="haproxy">HAProxy</h3>
+<p>High Availability load balancer and proxy server for TCP/HTTP</p>
+<ul><li>High availability describes reliability (using multithreading, multiple instances, failiure detection)</li></ul>
+<h3 id="types-of-load-balancing">Types of Load Balancing</h3>
+<ul>
+<li>
+<strong>No load balancing</strong>, user -&gt; internet -&gt; web server (yourdomain.com) -&gt; Database</li>
+<li>
+<strong>Layer 4 Load Balancing</strong>, user -&gt; internet -&gt; load balancer (yourdomain.com) -&gt; multiple web servers -&gt; database<ul>
+<li>works towards High Availability setup</li>
+<li>HAProxy uses health checks to determine if a backup server is available to process request<br>
+<img src="https://assets.digitalocean.com/articles/HAProxy/layer_4_load_balancing.png" alt="layer4"><br>
+<img src="https://assets.digitalocean.com/articles/high_availability/ha-diagram-animated.gif" alt="HA setup">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="other-solutions">Other Solutions</h3>
+<ul>
+<li>Linux Virtual Server (LVS), simple layer 4 Load Balancer</li>
+<li>Nginx, fast and reliable web server, can be used for proxy or load balancing<ul><li>often used in conjunction with HAProxy for caching and compression capabilities</li></ul>
+</li>
+<li><a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts">source</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-as-a-layer-4-load-balancer-for-wordpress-application-servers-on-ubuntu-14-04">setup</a></li>
+</ul>
+<h1 id="nginx-load-balancing"><a href="../Production-Engineering/NGINX/Load%20Balancing.md">NGINX Load Balancing</a></h1>
+<p>TODO, what are:</p>
+<ul>
+<li>BGP</li>
+<li>ECMP</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

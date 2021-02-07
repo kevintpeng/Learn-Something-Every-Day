@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Dependency Injection</title>
+</head>
+<body>
+
+<h1 id="dependency-injection">Dependency Injection</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#inversion-of-control">Inversion of Control</a></li>
+<li><a href="#the-injector">The injector</a></li>
+</ul>
+</div>
+<p>In OOP, an injection is the passing of a dependency to the dependent object (client) as opposed constructing it in the client. It is one form of Inversion of Control; the client cannot call the injector code, it is the injecting code that constructs the dependency and calls the client (library).</p>
+<h3 id="inversion-of-control">Inversion of Control</h3>
+<p>Design principle used to increase modularity by decoupling execution from implementation and focusing modules for a specific task.</p>
+<p>Dependency Injection implements inversion control through composition over inheritance. This means that the actual implementation of an interface in the code base can change without changing the client. It also allows mocks to be passed into dependent objects for easier testing.</p>
+<h3 id="the-injector">The injector</h3>
+<p>Constructs dependencies and often constructs the client itself too. In Java, Spring and Guice are dependency injection frameworks that act as the injector.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

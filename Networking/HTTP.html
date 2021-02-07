@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>HTTP</title>
+</head>
+<body>
+
+<h1 id="http">HTTP</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#request">Request</a></li>
+<li><a href="#header">Header</a></li>
+<li><a href="#etags-entity-tag">ETags (Entity tag)</a></li>
+<li><a href="#statuses">Statuses</a></li>
+<li><a href="#http2">HTTP/2</a></li>
+</ul>
+</div>
+<h3 id="request">Request</h3>
+<p>HTTP messages consist of requests from client to server and responses from server.</p>
+<ul>
+<li>CRLF (Carriage Return/move to start, Line Feed/newline)</li>
+<li>the request message includes method applied to the resource, identifier of the resource, and protocol version</li>
+<li>request-line begins with method token, followed by Request-URI, protocol version, ends with CRLF<ul>
+<li>Methods include <code>OPTIONS GET HEAD POST PUT DELETE TRACE CONNECT</code><ul><li>405 (Method Not Allowed) known and disallowed, 501 (Not Implemented) unknown or not implemented by server</li></ul>
+</li>
+<li>The Request-URI is a uniform resource identifier (which resource)<ul>
+<li><code>Request-URI    = "*" | absoluteURI | abs_path | authority</code></li>
+<li>the <code>absoluteURI</code> form is required when the request is made to a proxy, <code>GET http://www.w3.org/pub/WWW/TheProject.html HTTP/1.1</code>
+</li>
+<li>
+<code>authority</code> form is only used by the <code>CONNECT</code> method</li>
+<li>common request-URI is used to identify a resource on an origin server or gateway<ul>
+<li>absolute path of the URI is transmitted as the Request-URI</li>
+<li>Network location of the URI (authority) must be transmitted in a Host header field</li>
+<li>
+<p>transparent proxies must not rewrite the <code>abs_path</code> part of the received Request-URI when forwarding</p>
+<pre><code> GET /pub/WWW/TheProject.html HTTP/1.1
+ Host: www.w3.org</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="header">Header</h3>
+<p>Part of requests and responses, contains fields defining the operating parameters of an HTTP transaction</p>
+<ul>
+<li><code>Accept: text/plain</code></li>
+<li><code>Accept-Charset: utf-8</code></li>
+<li>
+<code>Host: en.wikipedia.org</code> domain name</li>
+<li>
+<code>User-Agent:</code> string</li>
+<li>
+<code>Cache-Control:</code> comma delimited list of response directives:<ul>
+<li>
+<code>private || public</code>, whether or not it should be cached</li>
+<li>
+<code>no-cache</code>, cache should revalidate this resource every time</li>
+</ul>
+</li>
+<li><code>expires</code></li>
+<li>
+<code>etag</code>, response header, critical for caching and used for conditional requests (invoking 304s)</li>
+<li><code>vary</code></li>
+<li><code>pragma: no-cache</code></li>
+<li>
+<code>Location</code> header is returned to ask a web browser to load a different web page (URL redirection) or sent with HTTP status codes <code>3xx</code>
+</li>
+</ul>
+<h3 id="etags-entity-tag">ETags (Entity tag)</h3>
+<h3 id="statuses">Statuses</h3>
+<h4 id="xx-informational">1xx Informational</h4>
+<h4 id="xx-success">2xx Success</h4>
+<ul><li>200 OK</li></ul>
+<h4 id="xx-redirection">3xx Redirection</h4>
+<ul>
+<li>
+<code>301</code> is a permanent redirect, when content is moved forever, browser should always request the new URL instead</li>
+<li>
+<code>302</code> is a temporary redirect, tell the browser that the content is temporarily located at a different location, but they should continue to attempt the original URL on later requests</li>
+<li>
+<code>304 not modified</code>, the conditional GET request would have received <code>200 OK</code>, but the condition was false.<ul><li>
+<p>minimize the amount of information transfer to the client</p>
+<h4 id="xx-client-error">4xx Client error</h4>
+</li></ul>
+</li>
+<li>
+<code>416</code> request range not satisfiable</li>
+</ul>
+<h4 id="xx-server-error">5xx Server Error</h4>
+<ul>
+<li>500, internal server error</li>
+<li>501, not implemented</li>
+<li>502, bad gateway</li>
+<li>503, Service Unavailable</li>
+<li>504, Gateway Timeout</li>
+</ul>
+<p><a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">source</a></p>
+<h2 id="http2">HTTP/2</h2>
+<p>2015 revision of the protocol, provided improvements to network efficiency and enabled real-time communication through long-lived connections</p>
+<ul><li>streams enable multiple concurrent conversations over a single connection</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

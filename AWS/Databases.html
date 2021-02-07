@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Databases through RDS and Redshift</title>
+</head>
+<body>
+
+<h1 id="databases-through-rds-and-redshift">Databases through RDS and Redshift</h1>          <a href="index.html">Back to AWS</a>
+<p>Data stores can be deployed on EC2, but may require extensive configuration to meet availability or performance needs</p>
+<ul>
+<li>
+<strong>Amazon RDS</strong> wraps over 6 different RDBMS engines<ul>
+<li>MySQL, PostgreSQL, MariaDB, and others</li>
+<li>recall that relational databases can be categorized as OLTP (transaction) and OLAP (analytical)</li>
+<li>handles vertical and horizontal scaling, possibly over multiple availability zones</li>
+<li>handles backups, restoration, patching, security through IAM</li>
+</ul>
+</li>
+<li>
+<strong>Amazon Redshift</strong> is a fully managed relational database for OLAP scenarios for data warehousing<ul><li>based on PostgreSQL</li></ul>
+</li>
+<li>Redshift is a cluster, containing possibly many databases</li>
+<li>
+<strong>Amazon DynamoDB</strong> is a fully managed NoSQL database<ul>
+<li>designed for high scalability</li>
+<li>tables require a primary key, but no schema required</li>
+<li>Data types are categorized as either scalar, set or document</li>
+<li>scaler: string, number, binary, bool, null</li>
+<li>set: string set, number set, binary set</li>
+<li>document: list, map</li>
+<li>notice this design pulls from lots of other NoSQL DB designs</li>
+<li>
+<strong>DynamoDB Streams</strong> expose data for the purpose of tracking changes for processing and monitoring</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

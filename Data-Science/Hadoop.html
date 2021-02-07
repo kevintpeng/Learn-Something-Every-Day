@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Hadoop</title>
+</head>
+<body>
+
+<h1 id="hadoop">Hadoop</h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#big-data-analysis-approaches">Big Data Analysis Approaches</a></li>
+<li><a href="#introduction-to-hadoop">Introduction to Hadoop</a></li>
+</ul>
+</div>
+<p>A framework for storing and processing big data. Mainly for batch processing. Useful for creating and managing distributed systems, over a network of computers. Provides many useful layers, like a file system (HDFS) and the MapReduce algorithm. Written in java. The logo is a baby elephant.</p>
+<p><img src="https://hadoop.apache.org/docs/r1.0.4/images/hadoop-logo-2.gif" title="Hadoop Logo" alt="Cute Baby Elephant"></p>
+<h2 id="big-data-analysis-approaches">Big Data Analysis Approaches</h2>
+<h4 id="simple">Simple</h4>
+<p>A single computer stores all data, in some sort of relational database for example, and users connect to the server to access the information. This is limits the volume of data, or increases costs.</p>
+<h4 id="distributed-system">Distributed System</h4>
+<p>Google was the first to implement a MapReduce algorithm. It divides the data into small parts and assigns it to many computers in a network, all unified by a centralised system. This is what Hadoop originates from. By using MapReduce, Hadoop uses parallel computing to process data, running "clusters" of computers that perform complex tasks on large volumes of data.</p>
+<h2 id="introduction-to-hadoop">Introduction to Hadoop</h2>
+<p>There are four core modules in Hadoop:</p>
+<ul>
+<li>
+<strong>Hadoop Common:</strong> Provides filesystem and OS level abstractions. Needed to start Hadoop.</li>
+<li>
+<strong>Hadoop YARN:</strong> framework for job scheduling and cluster resource management.</li>
+<li>
+<strong>Hadoop Distributed File System:</strong> a file system that provides access to application data.</li>
+<li>
+<strong>Hadoop MapReduce:</strong> system for parallel processing of large sets of data.</li>
+</ul>
+<p>These provide the main components of Hadoop: <strong>MapReduce</strong> (Distributed Computation), <strong>HDFS</strong> (Distributed Storage), <strong>YARN Framework</strong>, and <strong>Common Utilities.</strong></p>
+<h4 id="more-on-the-mapreduce-algorithm">More on the MapReduce Algorithm</h4>
+<p>A MapReduce program is composed of a Map() method, that reformats data into a key-value pairs (tuples), and a Reduce() method that combines tuples into smaller sets of tuples. MapReduce framework has a single master <strong>JobTracker</strong> and slave <strong>TaskTracker</strong> per cluster-node.</p>
+<p>Map applies a function onto each element in a list. Reduce applies a fold on the list, applying a binary function onto all elements.</p>
+<h4 id="hadoop-distributed-file-system">Hadoop Distributed File System</h4>
+<p>Provides a system for file management over a distributed system of hundreds of computers.</p>
+<h4 id="how-hadoop-works">How Hadoop Works</h4>
+<p><strong>Stage 1</strong>: Specify a job, with the location of input and output files, the map reduce functions, and the configurations.</p>
+<p><strong>Stage 2:</strong> The Hadoop job client submits the job (.exe) and configurations to JobTracker which distributes the job to the slaves, while monitoring their status.</p>
+<p><strong>Stage 3:</strong> The TaskTracker on different nodes executes the MapReduce function and stores the output data.</p>
+<h4 id="advantages-of-hadoop">Advantages of Hadoop</h4>
+<ul>
+<li>Hadoop framework provides quick writing and testing of distributed systems.</li>
+<li>Servers can be added/removed from clusters dynamically without interupting the system.</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Vagrant</title>
+</head>
+<body>
+
+<h1 id="vagrant">Vagrant</h1>          <a href="index.html">Back to Production-Engineering</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#benefits-of-vagrant">Benefits of Vagrant</a></li>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#vagrant-boxes">Vagrant Boxes</a></li>
+<li><a href="#up-and-ssh">Up and SSH</a></li>
+<li><a href="#synced-folders">Synced Folders</a></li>
+</ul>
+</div>
+<p>Command line utility for building and managing virtual machines. Used in conjunction with shell scripts to automatically build consistent and iscol development environments.</p>
+<h2 id="benefits-of-vagrant">Benefits of Vagrant</h2>
+<ul>
+<li>Can launch many things, VirtualBox, VMware, AWS, OpenStack ...</li>
+<li>Vagrant is consistent across platforms because it is entirely iscolated.</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<pre><code>$ vagrant init hashicorp/precise64
+$ vagrant up</code></pre>
+<p><code>vagrant init</code> creates <code>Vagrantfile</code> in current directory. Can take one parameter, the <code>box</code>.<br>
+<code>vagrant up</code> launches machine and installs/updates dependencies, based on box template.</p>
+<h2 id="vagrant-boxes">Vagrant Boxes</h2>
+<p>Vagrant uses base images, called "boxes", to clone instead of building virtual machines from scratch everytime. <a href="https://atlas.hashicorp.com/boxes/search">Hashicorp's Box Catelog</a> has many boxes.</p>
+<h2 id="up-and-ssh">Up and SSH</h2>
+<p>After <code>vagrant up</code>, virtual machine will be running. Run <code>vagrant ssh</code> to SSH into the machine. <code>vagrant suspend</code> closes the machine. <code>vagrant destroy</code> delete the vm.</p>
+<h2 id="synced-folders">Synced Folders</h2>
+<p>The synced folder on the virtual machine is found in <code>/vagrant</code> in root. This is synced to the hosting machine's folder where the <code>Vagrantfile</code> is on the host machine. Clone the project to the folder with <code>Vagrantfile</code> on host.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Railties</title>
+</head>
+<body>
+
+<h1 id="railties">Railties</h1>          <a href="index.html">Back to Web-Dev</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#design">Design</a></li>
+<li><a href="#command-line-basics">Command Line Basics</a></li>
+</ul>
+</div>
+<p>Railties is responsible for gluing all frameworks together. Handles bootstrapping of application and provides <code>rails</code> command line interface.</p>
+<ul>
+<li>provides several hooks to extend Rails, or modify initialization process</li>
+<li>every major component of rails (action mailer, action controller, active record) implements a railtie<ul><li>each responsible for their own initialization, so rails is absent of any component hooks</li></ul>
+</li>
+<li>railties are only needed if an extension interacts with Rails during or after boot<ul>
+<li>creating initializers</li>
+<li>configuring rails, generators, adding a config key</li>
+<li>adding a rake task</li>
+</ul>
+</li>
+</ul>
+<h3 id="design">Design</h3>
+<p>Railties is abstract, cannot be instantiated and is meant to be inherited.</p>
+<ul>
+<li>defines a base api for other classes to use</li>
+<li>has four main methods, <code>rake_tasks</code>, <code>console</code>, <code>runner</code> and <code>generators</code>
+</li>
+<li>railties provides a way to configure anything which subclasses <code>Rails::Railtie</code>
+</li>
+</ul>
+<p><strong>Class Based Design</strong></p>
+<h2 id="command-line-basics">Command Line Basics</h2>
+<p><code>rails console</code>, <code>rails server</code>, <code>rails generate</code>, <code>rails new</code></p>
+<p><code>rails dbconsole</code> opens the respective database console</p>
+<p><code>rails runner "Model.method</code> runs ruby code in the context of Rails.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

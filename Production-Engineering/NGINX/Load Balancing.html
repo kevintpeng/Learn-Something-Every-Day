@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>nginx HTTP load balancer</title>
+</head>
+<body>
+
+<h1 id="nginx-http-load-balancer">nginx HTTP load balancer</h1>          <a href="index.html">Back to Production-Engineering/NGINX</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#methods">Methods</a></li>
+<li><a href="#default-config">Default Config</a></li>
+<li><a href="#health-checks">Health checks</a></li>
+</ul>
+</div>
+<p>Load balancing across multiple application instances optimizes resource utilization</p>
+<h3 id="methods">Methods</h3>
+<ul>
+<li>round-robin: requests are distributed in a round-robin fashion, assigning sequentially (default)</li>
+<li>least-connected: next request is assigned to the server with the least number of active users</li>
+<li>ip-hash: a hash function is used to determin what server should be selected (based on IP)<ul><li>good for "sticky" configurations, of sending clients to the same app server</li></ul>
+</li>
+</ul>
+<h3 id="default-config">Default Config</h3>
+<pre class="conf"><code>http {
+    upstream myapp1 {
+        server srv1.example.com;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://myapp1;
+        }
+    }
+}</code></pre>
+<ul>
+<li>round-robin by default, or define <code>least_conn</code> directive at the top of the <code>upstream</code> block</li>
+<li>
+<code>ip_hash</code> directive in the upstream group configuration applies the ip hash algorithm</li>
+<li>
+<code>weight=</code> is a directive (optional parameter of the <code>server</code> directive), increases likelihood of matching in load balancing (default weight=1)</li>
+</ul>
+<h3 id="health-checks">Health checks</h3>
+<p>Reverse proxy implementation in nginx includes <em>in-band</em> server health checks</p>
+<ul><li>if response from a particular server fails with an error, load balancer will avoid selecting this server for subsequent requests<ul><li>
+<code>max_fail</code> directive (for <code>server</code>) sets number of consecutive unsuccessful attempts during <code>fail_timeout</code> (default 1)</li></ul>
+</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

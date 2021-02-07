@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Combinatorics</title>
+</head>
+<body>
+
+<h1 id="combinatorics">Combinatorics</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li>
+<a href="#chapter-2">Chapter 2</a><ul><li><a href="#binary-strings">Binary strings</a></li></ul>
+</li>
+<li><a href="#chapter-3">Chapter 3</a></li>
+<li>
+<a href="#chapter-4">Chapter 4</a><ul>
+<li><a href="#graph-colouring-and-bipartite-graphs">Graph colouring and Bipartite graphs</a></li>
+<li><a href="#trees">Trees</a></li>
+<li><a href="#planarity">Planarity</a></li>
+<li><a href="#matching">Matching</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="summary">Summary</h3>
+<ul>
+<li>fibbonacci numbers come from the number of <strong>compositions</strong> from the set {1,2}</li>
+<li>the set of binary strings can be represented through a <strong>cartesian power</strong>: {0,1}<sup>n</sup>
+</li>
+<li>
+<strong>binomial theorem</strong> is intuitively, the number of ways to get each final term, written as combinations of (1+x) terms, choosing either 1 or x<ul><li>binary strings produce similar results, when applying a generating series</li></ul>
+</li>
+<li>two conjectures that lead to pascal's triangle are: 1. nCk = nC(n-k) and 2. nCk = (n-1)C(k-1) + (n-1)Ck</li>
+<li>generating series for a finite set use a weight function <code>w</code> to map each element to a natural number<ul>
+<li>model a lot of counting problems using generating series; simply find a weight function and count the number elements of a given weight</li>
+<li>they act as a simple numerical function that represents a physical counting problem, where Φ(1) = |S|, and Φ'(1) is the sum of the weights of all elements (since the power represents the weight and coefficient is the count)</li>
+</ul>
+</li>
+<li>a <strong>formal power series</strong> is <sup>∞</sup>∑<sub>i=0</sub> a<sub>i</sub>x<sup>i</sup>, of only rational coefficients (note that lots of functions are considered FPS, with lot's of 0 coefficients, so it's not necessarily infinite)<ul><li>like a power series (think taylor series) but differs in that we allow n to be infinity, and don't consider that x is a number thus ignoring the idea of convergence</li></ul>
+</li>
+<li>k <strong>partitions</strong> of S are A1, A2... Ak s.t S = A1 u A2 ... u Ak and Ai n Aj = ø</li>
+<li>Sum Lemma allows us to partition generating series</li>
+<li>Product Lemma allows us to combine and break down generating series with cartesian products</li>
+<li>if sets A,B of binary strings, then AB is unambiguous iff there is a bijection between AB and A x B</li>
+</ul>
+<h3 id="introduction">Introduction</h3>
+<p>Study of finite or countable discrete structures</p>
+<ul>
+<li>discrete mathematics involves structures and processes that can often be enumerated by integers</li>
+<li>includes counting the structures of a given kind/size</li>
+<li>deciding when certain criteria is met</li>
+<li>four colour theorem: any separation of plane into contiguous regions can bel coloured with no more than four colours so that no two adjacent regions have the same colour</li>
+<li>Fibbonacci from permutations of {S,L}, where S is length 1, L length 2, n = total length<ul><li>compute # of permutations of a set of length n, happens to equal the nth Fibbonacci #</li></ul>
+</li>
+</ul>
+<p>A <strong>composition</strong> of a non negative integer <code>n</code> is a sequence where m1,..mr are positive integers and n = ∑m1...mr</p>
+<ul>
+<li>Fibbonacci is the number of compositions of an integer, where the elements are 1 or 2</li>
+<li>in example, SSSS -&gt; (1,1,1,1), and SLS -&gt; (1,2,1)</li>
+</ul>
+<p><strong>Binary Strings</strong> have some length <code>n</code>, and are a sequence of 0s and 1s, with 2<sup>n</sup> possibilities</p>
+<ul>
+<li>Cartesian product of sets A and B are all ordered pairs of their elements; |A x B| = |A| • |B|</li>
+<li>Cartesian power A<sup>n</sup> is the set of ordered n-tuples of elements from A; |A<sup>n</sup>| = |A|<sup>n</sup>
+</li>
+<li>set of binary strings with length <code>n</code> can be expressed as the cartesian power: {0,1}<sup>3</sup> = {000,001...111}</li>
+</ul>
+<p><strong>Binomial Coefficients</strong> help us tackle "enumeration problems", like <em>how many k-element subsets are there of an n-element set</em>, which we recognize to be the nCk (combinations)</p>
+<ul>
+<li>
+<code>[n] = {1,2,...n}</code>, then a permutation of [n] is a rearrangement of its elements, with <code>n!</code> total permutations written as k-tuples</li>
+<li>combinations are different ways to choose k things from n things</li>
+<li>Pascal's triangle shows the number of combinations for a given column and row</li>
+</ul>
+<p><strong>Combinatorial Proof</strong> is any proof involving some kind of counting argument</p>
+<ul><li>example is the binomial theorem</li></ul>
+<p><strong>Binomial Theorem</strong>: (1+x)<sup>n</sup> = ∑ (nCk)x<sup>k</sup></p>
+<ul>
+<li>intuition: we have n <code>(1+x)</code> terms. When multiplying these terms, we either choose the 1 or the x<ul>
+<li>when multiplying we end with n+1 terms x<sup>0</sup> + ... + x<sup>n</sup>
+</li>
+<li>to get the coefficients of these terms, we want to look at how many combinations we get for choosing x:</li>
+<li>we get nC0 x<sup>0</sup> + ... + nCn•x<sup>n</sup>
+</li>
+<li>we are <strong>counting</strong> the number of ways each x<sup>k</sup> term occurs during multiplicative expansion</li>
+</ul>
+</li>
+<li>we call each (nCk) a binomial coefficient</li>
+<li>Proving conjecture 1: nCk = nC(n-k) algebraically is simple<ul>
+<li>but we need to do combinatorial proofs, and get a more intuitive sense for the statement</li>
+<li>intuitively, it is suggesting that we're counting the complement</li>
+</ul>
+</li>
+</ul>
+<p>Show nCk = nC(n-k) with a <strong>combinatorial proof</strong></p>
+<ul>
+<li><em>look at both sides, and what they're counting, then understand why they're are equal and formailze</em></li>
+<li>let S be the set of k-subsets of [n]</li>
+<li>let T be the set of (n-k)-subsets of [n]</li>
+<li><em>to formailize counting, we will form a bijection from S to T</em></li>
+<li>forall members A in S, f(A) [n]\A; <em>set subtraction, so notice f is mapping an element to its complement</em>
+</li>
+<li>f<sup>-1</sup>: T -&gt; S</li>
+<li>f<sup>-1</sup>(B) = [n]\B forall B in T</li>
+<li>since we have a bijection between S and T, then |S| = |T|</li>
+</ul>
+<p>Show the second conjecture is true</p>
+<ul>
+<li>S is the set of all k-subsets of [n]</li>
+<li>idea: partition S into two disjoint sets S1 and S2</li>
+<li>S1 is the set of all k-subsets of [n] that contain n</li>
+<li>S2 is the set of all k-subsets of [n] that do NOT contain n</li>
+<li>we can see they are disjoint, and so |S| = |S1| + |S2|</li>
+<li>then we can see |S1| = (n-1)C(k-1)</li>
+</ul>
+<p>Prove (n+k)Cn = k∑i=0 (n+i-1)C(n-1)</p>
+<ul><li>intuitively, say we have 5C3, if we partition based on the last number (5), then we have 4C2 possible subsets, also with 4 fixed, we have 3C2 possible subsets, and fixing 3, we have 2C2 subsets</li></ul>
+<p>Proof:</p>
+<ul>
+<li>Let S be the family (means set) of n-subsets of [n+k] |S| = (n+k)Cn</li>
+<li>forall sets A in S, the largest element of A is in {n,n+1,...,n+k}</li>
+<li>partition S into smaller families based on the largest element</li>
+<li>Let S<sub>i</sub> be the family of n-subsets of [n+k] whose largest element is n+i where i in {0,1,...,k}<ul>
+<li>notice, Si n Sj = ø forall distinct i,j</li>
+<li>also S = So u S1 u S2 u ... u Sk</li>
+</ul>
+</li>
+</ul>
+<h4 id="generating-series">Generating Series</h4>
+<p>Helps us with a very general enumeration problem</p>
+<p>Let S be a set of objects, N = {0,1,2...}</p>
+<ul>
+<li>a <strong>weight function</strong> of S is a function w:S -&gt; N which assigns to each σ in S a non-negative integer w(σ) called the weight of σ</li>
+<li>Example: S = binary strings of length 4. For σ in S, weight of σ, w(σ), is the number of 1s in σ</li>
+<li>this gives us a General Problem: How many elements of S are there of weight k?</li>
+</ul>
+<p>So the <strong>generating series</strong> for S with respect to the weight functon w is:<br>
+Φ<sub>S</sub>(x) = ∑(σ in S)x<sup>w(σ)</sup></p>
+<ul>
+<li>brute forcing binary strings of length four, and applying the weight function<ul>
+<li>Φ<sub>S</sub>(x) = x<sup>0</sup> + 4x<sup>0</sup> + 6x<sup>1</sup> + 4x<sup>2</sup> + x<sup>3</sup>
+</li>
+<li>Φ<sub>S</sub>(x) = (1+x)^4</li>
+</ul>
+</li>
+<li>observe that the coefficient of x<sup>k</sup> is the # of elements of weight k in S</li>
+</ul>
+<p>Theorem 1.6.3<br>
+Let Φ<sub>S</sub>(x) be the generating series for a finite set and weight function w. Then</p>
+<ol>
+<li>Φ<sub>S</sub>(1) = |S| (follows intuitively by the fact that at 1, it is defined to be the sum of all coefficients)</li>
+<li>Φ<sub>S</sub>'(1) = sum of all weights</li>
+<li>Φ<sub>S</sub>'(x)/Φ<sub>S</sub>(x) = average weight of an element in S</li>
+</ol>
+<p>Example:</p>
+<p>S is the set of all binary strings. Then we have 2^k possible strings</p>
+<ul><li>now se have</li></ul>
+<h4 id="formal-power-series">Formal Power Series</h4>
+<ul>
+<li>FPS is a power series of the form A(x) = infinity ∑0 a<sub>n</sub>x<sup>n</sup> = a<sub>0</sub>x<sup>0</sup> + a<sub>2</sub>x<sup>2</sup> + ...</li>
+<li>we can encode all these numbers as (1+x)^n, not really as a function but think of it as encoding/short form</li>
+</ul>
+<p>Let A(x) and B(x) be two FPS</p>
+<ul>
+<li>it is natural that equality of two power series implies equal coefficients</li>
+<li>operation: additions, add the coefficients for each term</li>
+<li>we can multiply by a constant, where each coefficient is multiplied by the coefficient</li>
+<li>multiply two FPS, just think back to foil/binomial expansion; there's no fancy/fast form<ul><li>thinking about the table of coefficients, this form looks like: (infinity)∑n=0( n∑j=0 a<sub>j</sub>b<sub>n-j</sub>)x<sup>n</sup>
+</li></ul>
+</li>
+<li>division, if A(x)B(x)=1, then B is the inverse of A. But the inverse may or may not exist, but when it does exist, <em>it is unique</em><ul>
+<li>let's look at what it means for FPS to have an inverse</li>
+<li>we want A(x)B(x) = 1 = 1x<sup>0</sup> + 0x<sup>1</sup> + ...</li>
+<li>a0b0 = 1, and since a0 is given, it <em>must not be 0</em> and b0 = 1/a0. Now that we know what b0, we can then solve for b1 for the x<sup>1</sup> term</li>
+</ul>
+</li>
+</ul>
+<p>Examples applying operations:</p>
+<ul>
+<li>does x+x^2 have an inverse? No, since the coefficient of x^0 = 0</li>
+<li>does 1-x have an inverse? Yes; (1-x)^-1 = 1 + x + x<sup>2</sup> + x<sup>3</sup> + ... notice this is a geometric series, but we want to avoid the concept of limits, don't think of them as functions, but rather an encoding of numbers for the purpose of counting combinatorial objects</li>
+</ul>
+<p>Substitution (composition)</p>
+<ul>
+<li>Let A(x) = inf-sum a<sub>n</sub>x^n and B(x) = inf-sum a_n•x^n (both FPS)</li>
+<li>substitution/composition is A(B(x))</li>
+<li>substitution should result in another FPS, so when is it allowed/when is A(B(x)) a FPS?<ul><li>well, when B(x) has a constant or coefficient for x<sup>0</sup>, then the result is not an FPS because the constant will result as infinity (constant is not finite)</li></ul>
+</li>
+<li>formally, if A(x) and B(x) are FPS, if the constant term of B(x) = 0, then the substitution of B(x) into A(x) is also a FPS</li>
+</ul>
+<h4 id="more-generating-series-tools">More Generating Series Tools</h4>
+<ul>
+<li>
+<strong>Sum Lemma</strong> (1.8.1): let S be a set with weight function w, and let (A,B) be a partiton of S. (S = A u B and A n B = ø). Then &amp;Fi;<sub>S</sub>(x) = &amp;Fi;<sub>A</sub>(x) + &amp;Fi;<sub>B</sub>(x)<ul>
+<li>is intuitive, written at ∑ + ∑</li>
+<li>if the intersection of A and B is not empty, add a subtraction term - &amp;Fi;<sub>A n B</sub>(x)</li>
+<li>it follows that we can take the summation of weight functions applied to any amount of partitions</li>
+</ul>
+</li>
+<li>suppose we want to find the number of ways to make $n for l loonies and t toonies. Then we can make a generating series Φ<sub>L x T</sub>(x) and compute coefficient [x<sup>9</sup>]</li>
+<li>
+<strong>Product Lemma</strong> (1.8.2): Let A and B be sets with weight functions w<sub>A</sub>, w<sub>B</sub>. Let w be the weight function for the set A x B, defined as w<sub>A</sub>(a) + w<sub>B</sub>(b) for (a,b) in A x B. Then Φ<sub>A x B</sub>(x) = Φ<sub>A</sub>(x) + Φ<sub>B</sub>(x)</li>
+<li>remark: can be generalized to any number k of separate generating series for a k-tuple</li>
+</ul>
+<h2 id="chapter-2">Chapter 2</h2>
+<p>Compositions of a number are basically tuples, whose elements add to to the number (natural numbers), and we say it has k parts for a k-tuple</p>
+<ul><li>a counting problem is how many compositions of n are there with k parts?<ul>
+<li>rewritten/generalized, given a set S and a weight function w: s -&gt; P0,1,2,...} how many elements of S are there of any given weight n?</li>
+<li>[x<sup>m</sup>] Φ<sub>S</sub>(x) is the generating series for S with respect to w</li>
+<li>
+<em>compositions can be written as caresian products, and thus be described by generating series</em>: k parts is N<sup>k</sup>
+</li>
+<li>all compositions with 1 part</li>
+<li>recall we can use the product lemma, and use a weight function for natural numbers</li>
+</ul>
+</li></ul>
+<h3 id="binary-strings">Binary strings</h3>
+<p>The weight function for the string is the length of the string</p>
+<ul><li>Φ<sub>A U B</sub>(x) = Φ<sub>A</sub>(x) + Φ<sub>B</sub>(x); Sum lemma, iff A U is unambiguous</li></ul>
+<p><strong>Star Lemma</strong> states that if A is a set of binary strings and A * is unambiguous, then the generating series for A * is 1 / (1 - Φ<sub>A</sub>(x)) with respect to the weight function equal to the length. Note, the geometric series shape</p>
+<ul>
+<li>proof, start with the sum lemma to break down the fact that A * is A0, A1, A2, A3, A4 ... and their weight functions are the same</li>
+<li>since it is unambiguous, it behaves like a cartesian product and thus we can apply the product lemma</li>
+<li>by applying the product lemma, the sum of the same term raised to the k allows us to apply the geometric series formula</li>
+<li>notice we can only perform substitution because the constant term is 0<ul><li>if B(x) is a FPS with [x<sup>0</sup>]B(x) = 0, then we can substitute. [x<sup>0</sup>] B(x) means no elements of weight 0. empty string not in A means no strings of length 0. <em>since it was unambiguous, the empty string cannot be in A</em>
+</li></ul>
+</li>
+</ul>
+<p>b is a <strong>substring</strong> of s if s = abc</p>
+<p>Block decomposition is breaking a string into blocks of consecutive 1's or 0's: <code>{1}*({0}{0}*{1}{1}*)*{0}*</code></p>
+<ul><li>1-decomposition is breaking a string into blocks with exactly a single 1 (0-decomposition defined similarily)</li></ul>
+<h2 id="chapter-3">Chapter 3</h2>
+<p>We have rational function results, and often want to find [x^n] f(x)/g(x)</p>
+<ul><li>we can use partial fraciton expansion, which works well because we get a sum of terms of the form i/(j-kx), which we can use the geometric series to simplify<ul>
+<li>recall with partial fraction expansion, we use long division to get the factors of the denominators</li>
+<li>numerator must be less than denominator, so we can divide it out so that we can an integer plus a rational</li>
+<li>repeated roots, like (x-1)^2 must be written as A/(x-1) + B(x-1)^2</li>
+</ul>
+</li></ul>
+<p>We now use <strong>recurrences</strong> to get the coefficients (example: fibonacci sequence, where the nth term is described in terms of previous terms like n-1 and n-2)</p>
+<ul>
+<li>we did an example by brute forcing and noticing a pattern</li>
+<li>
+<strong>homogeneous linear recurrence</strong> if for n ≥ k, an = q<sub>1</sub>a<sub>n-1</sub> ... q<sub>k</sub>a<sub>n-k</sub>, with given initial coditions from 0 to k-1<ul>
+<li>linear because all <code>a</code> are in separate terms to the first power</li>
+<li>homogeneous since the total degree of each term is the same</li>
+</ul>
+</li>
+<li>the <strong>characteristic polynomial</strong> of this recurrence is C(y) = y^k + q1y^(k-1) + ... + qk</li>
+</ul>
+<p>Important takeaway: for a rational function f/g, where deg(f) &lt; deg(g), we can use partial fraction decomposition to break the rational into terms of the form c/(1-ax) or some variant.</p>
+<ul><li>If each denominator is written as <code>1-ax</code>, then we can simply compute the x^n term of f/g by summing <code>ac</code> for each term</li></ul>
+<p>We can also find recurrence relations for <code>An</code> from the generating series by taking the denominator polynomial and converting any <code>x^i</code> term to <code>A_{n-i}</code>, then solving for <code>An</code>.</p>
+<h2 id="chapter-4">Chapter 4</h2>
+<p>Graphs are a set of verticies and edges. Isomorphism is a relation between to graphs that describes two sets the are effectively the same.</p>
+<p>We can represent graphs using either the <strong>adjacency matrix</strong> or the <strong>incidence matrix</strong>. Adjacency between two vertices occurs when they are joined by an edge. A vertex is incident to edges that join it to another vertex.</p>
+<p>The adjacency matrix is defined as a p x p matrix A = [a<sub>ij</sub>] where a<sub>ij</sub> = 1 if vi and vj are adjacent and 0 otherwise. Notice that this is symmetric since (1,2) and (2,1) would both be marked 1 as a result of an edge.</p>
+<p>A <strong>walk</strong> is an alternating sequence of edges and vertices. A <strong>trail</strong> has no repeated edges while a <strong>path</strong> has no repeated vertices.</p>
+<ul><li>a graph is connected iff for all vertices there exists a path between them</li></ul>
+<h3 id="graph-colouring-and-bipartite-graphs">Graph colouring and Bipartite graphs</h3>
+<p>Colouring is useful for register allocation.</p>
+<ul>
+<li>if G is a bipartite graph, then every subgraph of G is also bipartite<br>
+</li>
+<li>every odd cycle is nonbipartite</li>
+<li>G contains an odd cycle iff the graph is nonbipartite</li>
+</ul>
+<p>Proof: let C<sub>2k+1</sub> be a cycle. Assume that it is bipartite and Let (A,B) be a bipartition. Adjust notation so that v1 in A and thus v2 in B, v3 in A, ... In fact, vi in A iff i is odd. Now v<sub>2k+1</sub> in A. But v1 and v<sub>2k+1</sub> are edges, and both in A. This is a contradiction.</p>
+<p>And there's some intuition that we can use (but not prove yet), that if a graph is not bipartite, then it contains some odd cycle as a subgraph. This is why 2-colourable graphs are very easy to solve, while 3-colorable or more is very difficult (there doesn't exist any proof that let's us take a shortcut).</p>
+<p>For n ≥ 1, the <strong>n-cube</strong> is the graph whose vertices are the binary strings of length n, and two strings are adacent &lt;=&gt; they differ in one bit:</p>
+<p><img src="http://mathworld.wolfram.com/images/eps-gif/HypercubeGraphs_1000.gif" alt="n-cubes from 2 to 6"></p>
+<p>Since each vertex is adjacent to anything differing by 1 bit, then each n bit can differ, so it is incident to n edges. We also have 2^n. Finally, by the handshaking lemma, we have 2^n•n/2 number of edges.</p>
+<p>The <strong>cut</strong> induced by a set of verticies denoted by δ(X) is the set of all edges that have one end in X and the other in X'.</p>
+<ul>
+<li>δ(X) is symmetric to δ(X') and is the set of edges that result from a partition (X, X')</li>
+<li>a graph is not connected iff exists a non-empty subset of X of V(G) s.t. δ(X) = 0</li>
+</ul>
+<p><strong>Hamiltonian Cycles</strong> go through all verticies of a graph.</p>
+<p><strong>Eulerian Circuit</strong> is a closed trail which every edge is used.</p>
+<p>A 4-regular graph cannot have a bridge</p>
+<ul><li>an edge e is a bridge of G iff G has no cycles containing e</li></ul>
+<h3 id="trees">Trees</h3>
+<p>All edges are bridges. Exactly p vertcies and p-1 edges.</p>
+<ul>
+<li>T is a spanning tree of G &lt;=&gt; T is a maximal subgraph without cycles &lt;=&gt; T is a minimal subgraph that is connected</li>
+<li>BFS can be used to find a spanning tree of a graph</li>
+<li>
+<strong>level</strong> of a vertex in T is the # of times we must follow parent to get to the root</li>
+<li>for T a BFS tree of G, every non-tree edge e joins vertices that are at most one level apart</li>
+</ul>
+<h3 id="planarity">Planarity</h3>
+<p><strong>planar embedding</strong> is a drawing of G on a plane such that no edges cross</p>
+<ul>
+<li>a graph has no planar embedding iff it can be drawn on a sphere</li>
+<li>planar embedding breaks surface into <strong>faces</strong>
+</li>
+<li>
+<strong>boundary</strong> of a face F is all edges and vertices that are incident with F</li>
+<li>
+<strong>degree</strong> of a face is length of the closed boundary walk</li>
+<li>any tree is planar with exactly one face <em>since no cycles</em>
+</li>
+<li>
+<strong>dual handshaking lemma</strong> for a planar embedding of a connected graph G, <code>sum of all degrees of faces is 2 x |E(G)|</code>
+</li>
+<li>
+<strong>Euler's formula</strong> for all planar embedding of a connected graph G, <code>v+f = e+2</code>
+</li>
+<li><em>for induction proofs with graphs, remove instead of add</em></li>
+<li>Euler's Formula can be used to prove that graphs are nonplanar<ul>
+<li>7.5.3 gives <code>q ≤ 3p - 6</code>, a linear bound for the number of edges in a planar graph</li>
+<li>7.5.6 gives q ≤ 2p - 4, another linear bound for triangle free planar graphs</li>
+<li>only useful for disproving planarity</li>
+</ul>
+</li>
+<li>
+<strong>subdivision</strong> of a graph J is any graph H that can be obtained from J by replacing every edge by a path of length ≥ 1</li>
+<li>
+<strong>kuratowski theorem</strong> says that a graph G is nonplanar &lt;=&gt; G has a subdivision of K5 or K3,3 as a subgraph</li>
+<li>K<sub>r</sub> r≥1 requires <code>r</code> colors and is in fact r-colorable</li>
+<li>4 color theroem: every planar graph is 4-colorable.</li>
+<li>6 color theroem, easier to prove: we do it by induction on p=|V(G)|. The key thing here is that we show there is always a vertex of at most degree 5 (for planar graphs) and the IH is assuming that for some number of vertices less than p, we have a 6-colorable graph</li>
+</ul>
+<h3 id="matching">Matching</h3>
+<p>Some subset of edges such that every vertex is of degree 1 or 0</p>
+<ul><li>a matching is <strong>perfect</strong> if it contains every vertex</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

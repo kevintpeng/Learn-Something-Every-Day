@@ -1,0 +1,769 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>CS247: Software Engineering Principles</title>
+</head>
+<body>
+
+<h1 id="cs247-software-engineering-principles"><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/general.shtml">CS247: Software Engineering Principles</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#c">C++</a></li>
+<li>
+<a href="#adt-design"></a><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/02ADTDesign-1up.pdf">ADT Design</a>
+</li>
+<li><a href="#value-vs.-entity-objects-information-hiding">Value vs. Entity Objects, Information Hiding</a></li>
+<li><a href="#tutorial">Tutorial</a></li>
+<li>
+<a href="#special-member-functions">Special Member Functions</a><ul>
+<li><a href="#comipler-generated-default-constructors-destructors">Comipler-Generated Default Constructors + Destructors</a></li>
+<li><a href="#program-decomposition">Program decomposition</a></li>
+<li><a href="#namespaces">Namespaces</a></li>
+<li>
+<a href="#week-3-interface-specification">Week 3: </a><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/06InterfaceSpecification-1up.pdf">Interface Specification</a>
+</li>
+<li><a href="#week-4-defensive-programming">Week 4: Defensive Programming</a></li>
+<li>
+<a href="#week-5-reprsentation-invariant-abstraction-function">Week 5: </a><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/08RepInvariant-1up.pdf">Reprsentation Invariant, Abstraction Function</a>
+</li>
+<li><a href="#uml">UML</a></li>
+<li><a href="#design-patterns-3">Design Patterns 3</a></li>
+<li><a href="#design-patterns-4-iterators">Design Patterns 4: Iterators</a></li>
+<li>
+<a href="#design-patterns-5-decorator-and-factory"></a><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/16DesignPatterns-1up.pdf">Design Patterns 5: Decorator and Factory</a>
+</li>
+<li>
+<a href="#stl-containers"></a><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/17STLContainers-1up.pdf">STL Containers</a>
+</li>
+<li>
+<a href="#generic-algorithms"></a><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/18STLAlgorithms-1up.pdf">Generic Algorithms</a>
+</li>
+<li>
+<a href="#c-lambdas-bind-mem_fn"></a><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/19Lambdas-1up.pdf">C++ Lambdas, bind, mem_fn</a>
+</li>
+<li><a href="#c-templates">C++ Templates</a></li>
+<li><a href="#exam-review">Exam Review</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/readings.html#EckelV1Ch7">Readings</a></p>
+<p>Software Engineering is a collection of practices and priciples, tools, techniques, etc. that aims to:</p>
+<ul>
+<li>imporve software quality</li>
+<li>improve developer productivity</li>
+<li><code>g++ -5 -std=14 -Wall</code></li>
+<li>overloading vs overriding</li>
+<li>modular design and separate compilation streamlines the build process, and allows for parallel engineering and code reuse</li>
+<li>dependency graphs can contain cycles, and this can be avoided using forward declarations</li>
+<li>Makefiles can be used to derive header dependencies</li>
+</ul>
+<h3 id="c">C++</h3>
+<ul>
+<li>Inheritance <code>class Base{}; class Derived : public Base {};</code>
+</li>
+<li>Polymorphism is when we can use base class pointers to point to objects of any derived type <code>class Bear : public Animal {}</code>
+</li>
+<li>Static Binding functions occurs at compile time</li>
+<li>References act like pointers: <code>Node&amp;</code>
+</li>
+</ul>
+<p>Initialization lists; setting values in body of constructor vs initialization list is slightly different <code>B() : a(3) {}</code></p>
+<ul>
+<li>references and const members cannot be set outside of the initialization list</li>
+<li>any object not initialized in the initialization list will have its default constructor called (extra computation + side effects)<ul><li>one issue: values set in the initialization list are not constructed in the order of the list, but rather the order of definitions</li></ul>
+</li>
+</ul>
+<p>We cannot leave const variables uninitialized</p>
+<ul>
+<li><code>const int* x</code></li>
+<li>const references should be passed and returned from functions as const referneces<ul>
+<li>more efficient (no copying), promise to compiler that original object will not be changed</li>
+<li>gives ability to pass literals &amp; temp values, which means we won't change anything and thus won't need the literal to be assigned an address (think print function)</li>
+</ul>
+</li>
+</ul>
+<h3 id="adt-design"><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/02ADTDesign-1up.pdf">ADT Design</a></h3>
+<ul>
+<li>user defined type, bundles together the range of possible values stored, and operations that can manipulate the varible</li>
+<li>provides compiler ways to perform type assertions at compile time</li>
+<li>allows implementations to be swapped out without affecting code</li>
+</ul>
+<h4 id="operator-overloading">Operator Overloading</h4>
+<p>C++ 11 introduced "move" semantics</p>
+<ul>
+<li>compilers have return value optimization, saving the cost of a copy, when returning a temporary object, holding a function return value<ul><li>copies can be expensive for large objects (omiting storage of temp object)</li></ul>
+</li>
+<li>move constructor subroutine</li>
+</ul>
+<h4 id="non-member">Non-member</h4>
+<p>A Non-member function is a critical function of the ADT that is declared outside of the class</p>
+<ul>
+<li>reduces the number of functions with direct access to private data members</li>
+<li>streaming operators <code>&lt;&lt;</code> and <code>&gt;&gt;</code> act on the stream object, returning a modified stream so that operations are chained<br>
+```cpp<br>
+// this friend function is a problem! If the implementation changes, this needs to as well!<br>
+ostream&amp; operator&lt;&lt; (ostream &amp;os, const Rational &amp;r) {<br>
+const char slash = '/';<br>
+os &lt;&lt; r.numerator_ &lt;&lt; slash &lt;&lt; r.denominator_;<br>
+return os;<br>
+}</li>
+</ul>
+<p>istream&amp; operator&gt;&gt; (istream &amp;is, RationalNumber &amp;r) {<br>
+int num, den; char slash;<br>
+is &gt;&gt; num &gt;&gt; slash &gt;&gt; den;<br>
+if (is.fail()) return is;<br>
+r = RationalNumber(num, den);<br>
+return is;<br>
+}</p>
+<pre><code>
+What has to be a member?
+- accessors + mutators, constructors, destructor, copy/move
+- assignment, [] 
+- virtual methods
+
+What cannot be a member?
+- I/O operations, or operations that don't want first argunment to be the class type 
+  - think stream operations and type conversions
+  
+We always prefer non-member and non-friend
+- less code affected when implementations change
+- more secure since they are forced to use accessors &amp; mutators
+
+#### Type Coversions
+Type conversions will lose private data
+
+How does a compiler find a conversion function?
+
+1. with exact matches
+2. lossless conversion via "promotion" (bool to int, char to int, float to double)
+3. standard converson (double to int)
+4. user-defined conversions
+
+We have defined some level of precedence, but if there are two or more matches at the same level, the compiler will throw an error because the choice is ambiguous
+- if one function is better for at least one argument, and same for the rest, then it will win
+
+Implicit Type Conversions:</code></pre>
+<p>class X { public: X(int); X(string) };<br>
+class Y { public: Y(int) };<br>
+class Z { public: Z(X); };<br>
+X f(X);<br>
+Y f(Y);<br>
+Z g(Z);<br>
+X operator+ (X,X);</p>
+<p>// now for resolution:<br>
+strings { "MACK" };<br>
+f(X(1)); // X(1) give X; f recieves X and outputs X; OK<br>
+f(1); // ERROR: f is looking for X type, not int<br>
+g(X(s)) // OK<br>
+g(Z(s)) // OK<br>
+```</p>
+<p>Header file is effectively global</p>
+<ul>
+<li>.cc has a namespace. If you leave it blank <code>namespace { //functions }</code> then it's anonymous</li>
+<li>we can hide helper methods best in here</li>
+<li>should not pollute the global namespace</li>
+</ul>
+<p>Apply the <code>override</code> keyword as a sanity check, so that the compiler can catch it</p>
+<p><code>final</code> says you cannot override in a derived class</p>
+<h4 id="attribute-based-adts"><strong>Attribute-based ADTs</strong></h4>
+<p>are primarily composed of "virtual data members", accessors and mutators (focused on the information in it)</p>
+<ul>
+<li>all other functions are non-members</li>
+<li>easier to write the contract for the ADT</li>
+<li>virtual data members might not have actual storage, since it could be a computed attribute</li>
+<li>attributed based ADT design overall provides safety through enforcing legal value ranges</li>
+<li>compiler reports type incompatibilities</li>
+<li>efficiency; only areas we need to check for legal values are: constructors and mutators (both member and nonmember)</li>
+</ul>
+<h3 id="value-vs.-entity-objects-information-hiding">Value vs. Entity Objects, Information Hiding</h3>
+<p><strong>Entity</strong> has a unique identity (but may have same data), and thus objects are not equal, even with same attribute values</p>
+<ul><li>has a lifespan/continuity, changes over time</li></ul>
+<p><strong>Value</strong> object represents a value of an ADT, managing data and immutability</p>
+<ul><li>faked in C++ by returning a new object by value<ul><li>over-write/std::move content instead of modifying "this"</li></ul>
+</li></ul>
+<h4 id="design-of-entity-adts">Design of Entity ADTs</h4>
+<p>An operation on an enitity object should reflect a real-world event</p>
+<ul>
+<li>copying &amp; converting an entity is not meaningful</li>
+<li>equality</li>
+<li>computation on entities are not meaningful; overloading operators should be avoided</li>
+</ul>
+<p>Example: Card game</p>
+<ul>
+<li>Score is a value</li>
+<li>Hand is entity</li>
+<li>Player is entity</li>
+<li>Deck is entity</li>
+<li>Card is value (or could be an entity if you want it to exist in a certain deck and location, if we consider repeatability)</li>
+</ul>
+<p>Mutable Value-based ADTs like Dates can be problematic if they can be referenced from two variables</p>
+<ul>
+<li>references/pointers to the object should never be returned, so make a deep copy when returning</li>
+<li>we could remove all mutators to make an object immutable</li>
+<li>we could make all data members private</li>
+<li>could ensure class cannot be derived from "final" or make methods final</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="co">// fake deep copy + over writing original object data via operator "="</span>
+
+<span class="kw">class</span> X {
+  <span class="kw">public</span>:
+  X(<span class="at">const</span> X&amp;) = <span class="kw">delete</span>;
+  X&amp; <span class="kw">operator</span>=(<span class="at">const</span> X&amp;) = <span class="kw">delete</span>;
+} <span class="co">// how to disable C++11 and up</span></code></pre></div>
+<ul>
+<li>
+<strong>Singleton Design Pattern</strong> ensures that exactly one object of our ADT exists</li>
+<li>
+<strong>PImpl Idiom</strong> encapsulates the data representation in a nested private structure (which can be in a separate file)</li>
+</ul>
+<pre><code>class Rational::Impl {
+  int numerator_, denominator_; // private data fields
+  public:
+    Impl(int n, int d): numerator_ {n}, denominator_ {d} {} // ...
+}
+
+Rational::Rational(int n, int d): // start initializer list
+  rat_ {new Rational::Impl {n,d} {
+  if(d==0) throw "Panic, denominator=0";
+  }</code></pre>
+<h3 id="tutorial">Tutorial</h3>
+<p>Copy and swap idiom is a way of avoiding code duplication &amp; errors</p>
+<ul><li>during assignment, create a temp object, using the copy constructor, then swap the old value of the assignee with the newly created object</li></ul>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">using</span> <span class="kw">namespace</span> std;
+  <span class="bu">std::</span>swap
+  
+<span class="dt">int</span> a = <span class="dv">1</span>; <span class="dt">int</span> b = <span class="dv">2</span>;
+swap(a,b);
+<span class="co">// a=2; b=1;</span>
+
+<span class="co">// copy and swap</span>
+<span class="dt">void</span> Node::swap(Node &amp; other) { <span class="co">// reference</span>
+  <span class="kw">using</span> <span class="bu">std::</span>swap;
+  swap(data, other.data);
+  swap(next,  other.next);
+}
+
+Node &amp; Node::<span class="kw">operator</span>=(<span class="at">const</span> Node &amp; other) { <span class="co">// returns Node reference</span>
+  Node tmp{other};
+  swap(tmp);
+  <span class="cf">return</span> *<span class="kw">this</span>;
+}</code></pre></div>
+<ul>
+<li>Rule of three: if a class requires at least one of a user-defined destructor, copy constructor or copy assignment operator exist, then it should have all three</li>
+<li>Rule of five: for user defined destructors, copy constructors or copy assignment, the move ctor and move assignment cannot be defined implicitly, and thus all five should be explicitly user defined</li>
+<li>
+</ul>
+<p>TODO Big three five zero</p>
+<h2 id="special-member-functions">Special Member Functions</h2>
+<p>Member functions are provided by default by the compiler</p>
+<ul>
+<li>move assignment, we don't return things by reference</li>
+<li>Rvalue references are a new category of reference variables</li>
+<li>usaully overwriting something completely</li>
+<li>since we're stealing things, the thing we're getting information from is not a constant</li>
+</ul>
+<p>Virtual data member example: class cube stores length, width + height, but also returns surface area and volume</p>
+<p>Design example: License plates have 2-8 chars, and are unique</p>
+<pre><code>class Point {
+    double coeffs[2];
+  public:
+    Point(): coeffs{} {}; // first sets coeffs to {0,0}, second is body of ctor
+    //...</code></pre>
+<h3 id="comipler-generated-default-constructors-destructors">Comipler-Generated Default Constructors + Destructors</h3>
+<p>when no ctor is explicited declared, compiler will generate a default one based on memberwise initialization</p>
+<ul>
+<li>simple data memebers, pointers are uninitialized</li>
+<li>member objects (accesible through all methods of object) and inherited members use default constructors</li>
+</ul>
+<p>need a destructor if object acquires resources, or maybe log, or inheritance hierarchy -&gt; virtual destructor</p>
+<ul>
+<li><code>virtual ~MyClass() = default; // default is a keyword, sort of opposite of delete</code></li>
+<li>destructor is also compiler generated based on memberwise destruction</li>
+</ul>
+<p>Copy constructors make new objects whose value is equal to existing obj, used by compiler to copy objects of the ADT</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">Money n{m}; <span class="co">//calls copy constructor</span>
+Mony p = m; <span class="co">//same as above</span></code></pre></div>
+<p>Copying with pointers</p>
+<ul>
+<li>
+<strong>shallow copies</strong> reference the same object from pointers (default)</li>
+<li>
+<strong>deep copies</strong> also make distinct new members (no sharing)</li>
+</ul>
+<p><a href="http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom">TODO</a><br>
+<strong>Copy Swap idiom</strong>; using move semantics -- goal is to provide safe copy</p>
+<ul><li>we want to create a deep copy of the parameter, and if the heap overflows, we don't want to change the original object<ol>
+<li>make a deep copy of RHS in temp local object</li>
+<li>swap info between LHS (this) and temp</li>
+<li>temps destruction cleans up original data</li>
+</ol>
+</li></ul>
+<p><strong>Move Constructor</strong> makes new object whose value is equal to existing obj, but does not preserve the value of existing obj</p>
+<ul>
+<li>rvalue is a feature of C++, solving the 1) implementation of move semantics and 2) perfect forwarding<ul>
+<li>lvalues may appear on either LHS or RHS of assignments, while rvalues can only appear on RHS</li>
+<li>in the special case that the RHS of assignment is an rvalue, we want the copy assignment to swap pointers rather than perform cloning then destruction; this is called <strong>move semantics</strong>
+</li>
+<li>
+<code>void foo(X&amp;&amp; x);</code> declares an <strong>rvalue reference overload</strong> (X&amp; is an ordinary/lvalue reference)</li>
+</ul>
+</li>
+<li>without std::move(m) ...</li>
+<li>compiler generated is memberwise move (shallow)</li>
+</ul>
+<p><strong>Move assignment</strong></p>
+<h3 id="program-decomposition">Program decomposition</h3>
+<p>Why do we decompose? So work can be done independently, faster recompilation, easier resue of components and allows for code evolution</p>
+<p>Prefer declarations (forward declarations) over definitions where you can</p>
+<ul>
+<li>declaration tells the compiler of a name (type or constant)</li>
+<li>definition tells compiler amount of space to allocate, what ADT methods exist, and their signatures<ul><li>only one, otherwise compiler will complain</li></ul>
+</li>
+</ul>
+<p>Global constants declared, possibly in multiple header files, but defined in one location</p>
+<ul>
+<li>if defined in multiple places</li>
+<li>we put what we need to know in header files so refactoring is easier</li>
+</ul>
+<p>Cyclical dependencies is a compiler problem</p>
+<ul>
+<li>have to put <strong>include guards</strong>
+</li>
+<li>use "preprocessor macro" to make sure we never include a header more than once<ul><li>accidentially reuse of name is a common mistake</li></ul>
+</li>
+</ul>
+<pre><code>ADT1.cc
+#include "ADT1.h"
+
+ADT1.h
+#include "ADT2.h"
+
+ADT2.h
+#include "ADT1.h"</code></pre>
+<p>When must you include? When a compiler must know how much space to allocate (like with inheritance or inline code). We can't fix inheritance but we can turn an object into a pointer/reference and move inlined code to a implmentaiton file</p>
+<p><strong>Forward declarations</strong> notify compiler that data or function will be declared in the future</p>
+<ul><li>used to break circular header dependencies</li></ul>
+<h4 id="build-process">Build Process</h4>
+<ol>
+<li>cpp preprocessor; then sends preprocessed source code</li>
+<li>cc1plus compiler; then sends assembly code</li>
+<li>as assembler; then sends object code</li>
+<li>ld linker; takes libraries and other object files, outputs executable</li>
+</ol>
+<p>Extract dependency relationships, as specified by include statements. Then we can determine what needs to be recompiled based on file changes.</p>
+<ul>
+<li>the gola is a fully automated build that incorporates all updated source files, is incremental and rebuilds only what changed, and automatically derives dependencies</li>
+<li>
+<strong>Makefiles</strong> help to specify build instructions and file dependencies<ul>
+<li>implicit rules exist to omit specific compile commands, and will choose the environment's default <code>.o</code> file creation</li>
+<li>
+<code>g++</code> flag <code>-MMD</code> generates a dependency graph for user source files</li>
+</ul>
+</li>
+</ul>
+<h3 id="namespaces">Namespaces</h3>
+<p>Lookup rules:</p>
+<ol>
+<li>local</li>
+<li>innermost scope, moving outwards</li>
+<li>namespace of all function arguments</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">namespace</span> X {
+  <span class="dt">int</span> i, j ,k;
+}
+
+<span class="dt">int</span> k;
+<span class="dt">void</span> f1() {
+  <span class="dt">int</span> i = <span class="dv">0</span>; <span class="co">// local</span>
+  <span class="kw">using</span> <span class="kw">namespace</span> X;
+  i++; <span class="co">// local i, since namespace is superseded by local declarations</span>
+  j++; <span class="co">// X::j</span>
+  k += <span class="dv">1</span>; <span class="co">// compiler error, ambiguous</span>
+  ::k += <span class="dv">1</span>; <span class="co">// global k</span>
+  X::k += <span class="dv">1</span>; <span class="co">// X::k</span>
+}
+
+<span class="dt">void</span> f2() {
+  <span class="dt">int</span> i = <span class="dv">0</span>;
+  <span class="kw">using</span> X::i; 
+  <span class="kw">using</span> X::j;
+  <span class="kw">using</span> X::k;<span class="st">'</span>
+  i += <span class="dv">1</span>; <span class="co">// using keyword overrides local</span>
+  j += <span class="dv">1</span>; <span class="co">// X::j</span>
+  k += <span class="dv">1</span>; <span class="co">// X::k overrides global, obviously</span>
+}
+
+<span class="co">// not relevant on midterm: header order matters</span>
+<span class="co">// header1.h</span>
+<span class="kw">namespace</span> A {
+  <span class="dt">int</span> f(<span class="dt">double</span>);
+}
+
+<span class="co">// header2.h</span>
+<span class="kw">namespace</span> B {
+  <span class="kw">using</span> A::f;
+  <span class="dt">void</span> g();
+}
+
+<span class="co">// herader3.h</span>
+<span class="kw">namespace</span> A {
+  <span class="dt">int</span> f(<span class="dt">int</span>);
+}
+
+<span class="co">// main, different include orders:</span>
+<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span> =&gt; f(<span class="dt">double</span>) <span class="co">// notice first definition, since 2 doesn't have f(int) signature</span>
+<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span> =&gt; none
+<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span> =&gt; both visible, better match is picked
+<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span> =&gt; f(<span class="dt">int</span>)</code></pre></div>
+<h3 id="week-3-interface-specification">Week 3: <a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/06InterfaceSpecification-1up.pdf">Interface Specification</a>
+</h3>
+<h3 id="week-4-defensive-programming">Week 4: Defensive Programming</h3>
+<p>Possible Failures</p>
+<ul>
+<li>Errors: bugs invariant violation, exposure of data representation</li>
+<li>Misuse of your code: client code violations of your preconditions</li>
+<li>External problems: wrong input, hardware limitations (overflow, OOM)</li>
+</ul>
+<p>Assertions, use them to document and check assumptions</p>
+<ul>
+<li>preconditions and postconditions</li>
+<li>check represnetation invariants</li>
+<li>goal is obiviously to abort with as close to the error as possible<ul><li>pass information from where the error happens to where we can handle it</li></ul>
+</li>
+<li>traditionally we use <code>cerr</code>
+</li>
+</ul>
+<p>Exceptions, objects thrown to represent the ocurrene of an error</p>
+<ul>
+<li>standard exception hierarchy</li>
+<li>Exceptions are not programming errors, assertions check state<ul><li>exceptions handle invalid input or cases of ambiguity</li></ul>
+</li>
+</ul>
+<p>Type of guarantees: Basic, strong, no throw</p>
+<ul>
+<li>to meet a specific safety guarantee, for basic and strong, must keep it in "valid state" =&gt; maintain class invariant</li>
+<li>no leaks (either memory or other resources)</li>
+<li>destructors must not raise exceptions</li>
+<li>strong =&gt; need to restore to valid state before function</li>
+<li>no throw =&gt; all of the above, + ensure no exceptions propagate</li>
+<li>your operator= and swap can't have leaks</li>
+</ul>
+<p>Smart Pointers that handle certain classes of problems using more type safety than C pointers and they should be able to do the correct and obvious thing during object deletion</p>
+<ul>
+<li>unique_ptr, transfers ownership on assignment, so cannot pass by reference<ul>
+<li>if an exception is raised, the smart pointer's destructor is invoked, in tern deleteing any heap allocated object it points to</li>
+<li>only move semantics, no copy</li>
+<li>"deleter routine" function pointer counts as part of the object type, so two unique pointers that point to the same type of object but have different deleters are treated as being different types</li>
+<li>deleter bound to a <em>local variable</em> does nothing, while one bound to a pointer invokes <code>delete</code> which is the default action</li>
+</ul>
+</li>
+<li><code>unique_ptr&lt;MyClass&gt;</code></li>
+<li>not designed to be shared, so cannot replace normal pointers<ul>
+<li><em>choose to make it shared, but then we can't take it back</em></li>
+<li><em>only move semantics, so we can't do pass by value without transferring ownership</em></li>
+</ul>
+</li>
+</ul>
+<p><strong>Sink and source idiom</strong> for complicated (think factory thats responsible for creating something because it's so complicated). Source creates it, sink absorbs it and takes ownership</p>
+<ul>
+<li>idiom is just a guideline, lower level than a pattern</li>
+<li>Sink takes a unique_ptr, <code>pt.reset()</code> passed by copy == transfer of ownership</li>
+</ul>
+<p>Shared pointer, <code>shared_ptr</code> supports <strong>shared ownership</strong> of a referent</p>
+<ul>
+<li>referent maintains a count of pointers referring to it</li>
+<li>when count reaches 0, the object can be destroyed, mimicking garbage collection</li>
+<li>can always make unique_ptr a shared_ptr but <em>reverse is not true</em>
+</li>
+</ul>
+<p><code>weak_ptr</code> works with a <code>shared_ptr</code> and shares ownership, but does not contribute to the reference count</p>
+<ul><li>this handles cycles properly for something like a graph implementation, where internal counter would never otherwise reach 0</li></ul>
+<p>The <strong>RAII Programming Idiom</strong>, Resource Acquisition is Initialization: equates resource management with the lifetime of an object</p>
+<ul>
+<li>since its clean-up code is in destructor of a local object, then no matter how we exit its destructor is called ensuring that we properly clean things up</li>
+<li>for more than heap allocated objects</li>
+<li>(existed before smart pointers)</li>
+<li>Resource is allocated inside an object's constructor</li>
+<li>Resource is deallocated inside an object's destructor</li>
+</ul>
+<p><code>noexcept</code> is a funciton declaration that they will not throw exceptions</p>
+<ul><li>doesn't have to delete in reverse order of declaration (just small compiler optimizations)</li></ul>
+<h3 id="week-5-reprsentation-invariant-abstraction-function">Week 5: <a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/08RepInvariant-1up.pdf">Reprsentation Invariant, Abstraction Function</a>
+</h3>
+<p>Interface specification is a contract betweeen a modules provider and the client programmer, documenting each other's expectations</p>
+<ul>
+<li>
+<strong>representation invariant</strong> defines the set of valid concrete values of ADT's implementation</li>
+<li>
+<strong>abstraction function</strong> lets us interpret legal concrete values as ADT's abstract values (think list converts to set)</li>
+</ul>
+<p>Example: Set representation as an array, where size of the set is tracked, while the array is of fixed allocation</p>
+<ol>
+<li>No duplicate elements: forall i,j : O to <code>size</code> - 1 | i ≠ j =&gt; elements[i] ≠ elements[j]</li>
+<li>only nullptr above index <code>size</code>: forall i &gt; <code>size</code>-1 | elements[i] == nullptr</li>
+</ol>
+<p>Representation invariants for linked list</p>
+<ul>
+<li>header's data field is a null ptr (header is a special node)</li>
+<li>head of list is never nullptr since it points to heaer node<br>
+-<code>n1.next.prev == n1</code>
+</li>
+</ul>
+<p>Linked list implementation note: We can change the representation invariant, affecting what edge cases we need to deal with.</p>
+<ul>
+<li>What if we strengthen our invariant by requiring all element fields are not nullptr? Then we can dispense with using size to count nodes when traversing list.</li>
+<li>What if we weaken our invariant on initial values of header's prev &amp; next, allowing nullptr? Then we need to reintroduce code for special cases.</li>
+<li>
+<strong>Structural invariants</strong> describe relationships with other data elements.</li>
+<li>
+<strong>Value invaraints</strong> describe restrictions on data values (like sets can't have duplicates)</li>
+</ul>
+<p>Inductive reasoning: ensure that constructors hold invariance.</p>
+<ul>
+<li>recall invariant is a property that is true for the entire program, or effectively the lifespan of the object</li>
+<li>structural induction: the invariant is true of all instances of the ADT only if the invariant is:<ul>
+<li>established by constructor</li>
+<li>preserved by mutators</li>
+<li>no representation exposure occurs (no access private data)</li>
+</ul>
+</li>
+</ul>
+<p>Designing an abstraction function is important to know</p>
+<ul>
+<li>say we have a deck of cards, implemented as a vector of length 52</li>
+<li>abstraction functions:<ul>
+<li>suit = (Suit)(index/13)</li>
+<li>rank = (Rank)(index%13)</li>
+</ul>
+</li>
+</ul>
+<h3 id="uml">UML</h3>
+<p>Software Model, using UML</p>
+<ul>
+<li>class diagram, + public, - private, # protected, underlined = static, <em>pure virtual</em>
+</li>
+<li>associations between two classes indicate some link between objects</li>
+<li>multiplicity annotations constrain the number of allowable links in an association</li>
+<li>graph nodes are an example of a self association</li>
+<li>a <strong>class association</strong> represents link attributes (one's that don't belong to either object but are important in describing the association)</li>
+<li>
+<strong>aggregation</strong> is a "part-of" relation between an aggregate (the collection) and its members, members can have mny aggregations</li>
+<li>a <strong>composition</strong> is a strong "part of" relation, as the composite does not exist without its components</li>
+<li>
+<strong>generalization</strong> is the relation between a base class and its derived classes</li>
+</ul>
+<h3 id="design-patterns-3">Design Patterns 3</h3>
+<p>Composite design pattern gives the client access to all member types through a compund object via a <strong>uniform interface</strong></p>
+<ul>
+<li>exists to simplify client code and decouple it from data structure changes</li>
+<li>uniformity/composite design vs safety/liskov substitutability<ul><li>preserving the illusion that component objects are treated the same vs avoiding cases where the client attempts to do something meaningless</li></ul>
+</li>
+</ul>
+<h3 id="design-patterns-4-iterators">Design Patterns 4: Iterators</h3>
+<p>Iterator is any object that has the ability to iterate through elements using ++ and dereference</p>
+<ul>
+<li>pointer is a form of an iterator</li>
+<li>InputIterator reads forward (istream), can be dereferenced as an rvalue and supports equality and inequality</li>
+<li>OutputIterator can be dereferenced as an lvalue (so we can mutate)</li>
+<li>ForwardIterator same as input and output, with the ability to have multi-passes while still being dereferenceable</li>
+</ul>
+<h3 id="design-patterns-5-decorator-and-factory"><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/16DesignPatterns-1up.pdf">Design Patterns 5: Decorator and Factory</a></h3>
+<h3 id="stl-containers"><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/17STLContainers-1up.pdf">STL Containers</a></h3>
+<ul>
+<li>Generic containers take an element as a parameter, and use <strong>iterators</strong> to navigate<ul><li>should know almost nothing about the underlying data</li></ul>
+</li>
+<li>generic algorithms should also know little to nothing about the element type</li>
+<li>Alexander Stepanov thinks OOP is wrong, and generic programming is better at supporting polymorphism<ul><li>templates are more flexible, and not virtual to improve efficiency</li></ul>
+</li>
+</ul>
+<p>Three main data containers:</p>
+<ol>
+<li>emplace</li>
+<li>sequence containers: vector deque list forward_list std::array</li>
+<li>Container adapters: stack queue priority_queue</li>
+<li>ordered associative containers: set map multiset multimap</li>
+<li>unordered associative containers: unordered_set unordered_map unordered_multiset</li>
+<li>non-member cbegin/cend/rbegin/rend/crbegin/crend</li>
+</ol>
+<p>encouraged to define adapter classes that wrap around STL container classes for special needs</p>
+<h3 id="generic-algorithms"><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/18STLAlgorithms-1up.pdf">Generic Algorithms</a></h3>
+<p>STL algorithms usually process a sequence of data elements</p>
+<ul>
+<li>traversal bounded by two iterators</li>
+<li>templates use duck typing<ul><li>type compatible if it supplies all method signatures used in the template</li></ul>
+</li>
+<li>an algorithm accepting a basic type of iterator like input iterator can accept fancier ones (because of inheritance)</li>
+<li>algorithms like <code>equal</code> operate over two sequences</li>
+</ul>
+<h3 id="c-lambdas-bind-mem_fn"><a href="https://www.student.cs.uwaterloo.ca/~cs247/current/Lectures/19Lambdas-1up.pdf">C++ Lambdas, bind, mem_fn</a></h3>
+<ul>
+<li>Lambdas are nice ways to write temporary functions and functors<ul>
+<li>can be treated as a function pointer/object or a functor</li>
+<li>captured reference is only valid if the referred-to variables still exist</li>
+<li>lambdas by default cannot change values, use <code>mutable</code> keyword</li>
+<li>capture list is for local variable, member variables must be passed in as <code>this</code>
+</li>
+</ul>
+</li>
+<li>
+<code>bind</code> is a functor adapter that replaces older adapters (from <code>#include &lt;functional&gt;</code>)<ul>
+<li>bound parameters are copied into a function object, unless the <code>ref(myvar)</code> keyword is used</li>
+<li>call arguments (not bound) that are references are modifiable</li>
+<li>compiler error if unbound rvalue argument tries to be modified</li>
+<li>useful when used with placeholds to set some of the arguments</li>
+<li>when binding member functions, must provide a pointer to the member function: <code>&amp;X::func</code> as the first argument to bind</li>
+<li>useful as an argument to STL algorithms that call the <code>()</code> operation on an object</li>
+</ul>
+</li>
+<li>
+<code>mem_fn</code> is an adapter that's cleaner if there's no arguments to bind</li>
+</ul>
+<h3 id="c-templates">C++ Templates</h3>
+<h3 id="exam-review">Exam Review</h3>
+<ul>
+<li>
+<strong>5 special member</strong> functions (ctor, dtor, copy ctor, move ctor, equality)<ul>
+<li>no compiler generated equality</li>
+<li>shallow copy by default</li>
+<li>rule of five</li>
+</ul>
+</li>
+<li>
+<strong>entity vs. value</strong><ul><li>values support equality, type conversion, copying, and immutability. Entites are opposite</li></ul>
+</li>
+<li>namespace<ul>
+<li>global is implicit, scoped to the program and accessed by <code>::x</code> or <code>x</code>
+</li>
+<li>unnamed is explicit, scoped to file, accessed by <code>x</code><ul><li>compiler will complain that x's are ambiguous if we have global and unnamed namespace definitions for <code>x</code>
+</li></ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>exceptions</strong><ul>
+<li>catch by reference, only one catch block will ever be accepted</li>
+<li>stack unwinding</li>
+<li>exception vs. assertion</li>
+</ul>
+</li>
+<li>
+<strong>RAII</strong>, resources are allocated in ctor, deallocation in dtor</li>
+<li>smart pointers<ul>
+<li>cannot dereference weak pointers</li>
+<li>reference counts for shared/weak</li>
+</ul>
+</li>
+<li><strong>require, modifies, ensures, throws, returns</strong></li>
+<li>
+<strong>representation invariant</strong><ul>
+<li>set comprehension</li>
+<li>recursion</li>
+<li>by projection</li>
+<li>by example</li>
+</ul>
+</li>
+</ul>
+<p>Documentation Example for a set:</p>
+<ul>
+<li>Representation Invariant: vector invariants (size, capacity), only integers, forall i&lt;j, set uniqueness: this.elm[i] != this.elm[j]</li>
+<li>Abstraction Function: { this.elm[i] | forall i, 0 ≤ i &lt; this.size }</li>
+<li>Constructor: ensures(initializes this), modifies(this)</li>
+<li>Destructor: modifies(this), ensures(this no longer exists)</li>
+<li>Insert: modifies(this), ensures(<a href="mailto:this@pre">this@pre</a> with element inserted, else do nothing)</li>
+<li>Remove: modifies(this), ensures(<a href="mailto:this=this@pre">this=this@pre</a> with x removed)</li>
+<li>IsIn: returns(</li>
+<li><p>size: throws(out of range), returns(element at index x)</p></li>
+<li><strong>Open Closed Principle</strong></li>
+<li><strong>inheritance vs. composition</strong></li>
+<li><strong>single responsibility principle</strong></li>
+<li><strong>liskov substitutability</strong></li>
+<li><strong>law of demeter</strong></li>
+<li>
+<strong>Refactors</strong><ul>
+<li>duplication in the same class, make helper</li>
+<li>two related, push to parent class</li>
+<li>two unrelated, inheritance or composition</li>
+<li>large classes violate single responsibility principle</li>
+</ul>
+</li>
+<li>
+<strong>Singleton</strong>, construction is private, disallow copy, declare static method for instantiation</li>
+<li>
+<strong>Template Method</strong> creates a general structure for a function with "holes"/primative operations, which are defined as virtual to be defined by a concrete class</li>
+<li><strong>Adapter Pattern</strong></li>
+<li><strong>Facade Pattern</strong></li>
+<li><strong>Strategy Pattern</strong></li>
+<li>
+<strong>Iterator</strong><ul><li>composite iterator</li></ul>
+</li>
+<li>
+<strong>observer</strong> push and pull UMLs (push doesn't need an association from view to model)</li>
+<li>
+<strong>Factory Method</strong> pattern defines an interface for creating objects<ul><li>
+<strong>abstract factory pattern</strong> extends by making an object responsible for creating families of related objects</li></ul>
+</li>
+<li>decorator vs composite: the intents are different</li>
+<li>STL containers: arrays vs deque vs vector</li>
+<li>iterator hiearchy<ul><li>random access iterator is the most powerful, can access any element in constant time</li></ul>
+</li>
+<li>second container should be big enough if using two iterator</li>
+<li>functors<ul>
+<li>mem_fn_ref converts an objects member function into a functor</li>
+<li>mem_fn converts</li>
+<li>std ref and bind</li>
+</ul>
+</li>
+<li><p>lambda</p></li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

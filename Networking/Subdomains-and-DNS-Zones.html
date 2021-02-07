@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Subdomains</title>
+</head>
+<body>
+
+<h1 id="subdomains">Subdomains</h1>          <a href="index.html">Back to Networking</a>
+<p>In DNS hierarchy a subdomain is a domain that is part of the main domain</p>
+<ul>
+<li>west.example.com and east.example.com are subdomains of example.com, which is a subdomain of <code>com</code> top-level domain (TLD)</li>
+<li>subdomains are defined by editing the <a href="https://github.com/kevintpeng/Learn-Something-Everyday/blob/master/Networking/DNS%20Resource%20Records.md">DNS zone file</a> pertaining to the parent domain</li>
+</ul>
+<h1 id="dns-zones">DNS Zones</h1>
+<p>A DNS zone is a portion of the DNS namespace that is delegating control of portions of the namespace. A zone can contain multiple domains. A server can contain multiple zones. It is important for resolving the ip address of subdomains.</p>
+<p>The zone itself is analogous to a database of subdomain resolutions, which can point to other more specific databases for more specific subdomains.</p>
+<ul>
+<li>Server A can host the zone for a domain kevintpeng.me, and could for example resolve all subdomains except for testing.kevintpeng.me which can be delegated as a separate DNS zone on a new server, Server B</li>
+<li>Server A holds no fine details about the subdomains within testing.kevintpeng.me.</li>
+</ul>
+<p><img src="http://www.think-like-a-computer.com/files/2011/06/dns_zone_2.png" alt="zone diagram"></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

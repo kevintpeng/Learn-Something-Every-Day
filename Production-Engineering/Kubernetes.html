@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Kubernetes</title>
+</head>
+<body>
+
+<h1 id="kubernetes">Kubernetes</h1>          <a href="index.html">Back to Production-Engineering</a>
+<div id="TOC">
+
+<ul><li><a href="#summary">Summary</a></li></ul>
+</div>
+<h3 id="summary">Summary</h3>
+<p>Kubernetes is made up of different objects, providing abstractions and represent the state of the cluster</p>
+<ul>
+<li>composed of the spec and status fields<ul>
+<li>spec: describes desired state for the object</li>
+<li>status: actual state of the object</li>
+</ul>
+</li>
+<li>use kubectl with a <code>.yaml</code> file as the argument</li>
+</ul>
+<p>Architecture</p>
+<ul>
+<li>borgmaster is replaced with apiserver, controller-manager and scheduler</li>
+<li>apiserver receives all requests from the cluster</li>
+<li>the apiserver sends to the kublet on each node</li>
+<li>nodes are worker machines, composed of a kublet and kublet-proxy, each can contain multiple pods<ul><li>kublet is an important controller, needed for container execution layer</li></ul>
+</li>
+</ul>
+<p><strong>Cluster Networking</strong></p>
+<ul>
+<li>pods solve the problem of high coupling between containers, communicating through localhost</li>
+<li>kubernetes assumes all pods can talk to one another</li>
+<li>every pod has its own ip address, so they can effectively be treated as VMs</li>
+<li>in Docker's network model, containers cannot talk to each other across machines without being allocated a port on the host machine and ports need to be coordinated</li>
+<li>in Kubernetes, all containers can talk to all nodes and other containers witout the need for network address translation (mappings between IP spaces)</li>
+</ul>
+<p><strong>Pods</strong> are the simplest unit of deployment</p>
+<ul>
+<li>represents a running process in your cluster</li>
+<li>encapsulates application container, IP address, storage<ul><li>generally uses docker as the container runtime</li></ul>
+</li>
+<li>pods generally act as an interface to the container, with meta-data</li>
+<li>pods can also encapsulate multiple containers that are tightly coupled</li>
+<li>
+<strong>Controller</strong> is the high level abstraction that handles the work of disposing pods</li>
+<li>pods are the basic unit of deployment, encapsulating container(s), storage and IP address. Created by a controller using a pod template, and maintains properties of an object, which are spec and status</li>
+</ul>
+<p><strong>Services</strong> are a logical set of Pods, which allow them to be accessed by other Pods</p>
+<ul>
+<li>provides an abstraction so that frontends do not need to track possible backends<ul><li>implemented as Endpoints API (updated when changes occur) or as proxy (virtual IP based bridge)</li></ul>
+</li>
+<li>service is needed to expose the cluster to traffic<ul><li>different configurations for the service determine what can access each pod (NodePort vs ClusterIP, default)</li></ul>
+</li>
+<li>services provides benefits like naming and load balancing, tracking connections with pods that match the label selector</li>
+<li>userspace proxy: services can have virtual IPs through the kube-proxy (mapping a port to load balance to some backend pod)</li>
+<li>iptables proxy: for each service, an iptables rules is installed, capturing traffic to the service's virtual clusterIP (which again proxies to one pod in the cluster)</li>
+<li>it is advantageous to use virtual IPs for services rather than a simple round-robin, since it eliminates erroneous behaviour due to caching (or incorrect handling of DNS TTLs). In other words, the service has it's own IP which the DNS resolves to, and abstracts away the final IP of the pod, allow load balancing to be controlled by the service and avoiding imbalances due to caching</li>
+<li>
+<strong>service discovery</strong> is done through environment variables (must be specified before a pod is created) and DNS</li>
+<li>iptables is packet processing logic in linux that kubernetes leverages to create virtual IPs<ul><li>iptables is a program that's part of the linux kernel firewall</li></ul>
+</li>
+</ul>
+<p><strong>Labels</strong> allow pods to be grouped together, tagging pods by some attributes that are useful for updating multiple pods at once (flexible update semantics for things like versions or the processes running on them)</p>
+<p><strong>Namespaces</strong> let you use kubernetes at scale (multiple teams)</p>
+<p><strong>Volumes</strong> are a storage abstraction for pods, allowing files to persist longer than the lifespan of a container, and is accessible by multiple containers in a pod</p>
+<ul>
+<li>volumes are just directories mounted at a specific path within the docker image</li>
+<li>
+<strong>persistent volumes</strong> are pieces of storage in the cluster (resources), consumed as resources and whose lifespan is independent of the pod holding it<ul><li>can be mounted on a host, supported by the resource provider</li></ul>
+</li>
+<li>
+<strong>PersistentVolumeClaim</strong>s are requests for storage from the user<ul><li>analogous to pods, in that they consume resources</li></ul>
+</li>
+<li>StorageClass resources provide admins to describe the classes of storage</li>
+</ul>
+<p><strong>Deployment</strong> is a wrapper around the ReplicaController, which can act as a set of deployed pods, maintaining a certain replica factor.</p>
+<p><strong>Controllers</strong> in kubernetes are control loops that regulate state</p>
+<ul><li>watches shared state through the APIserver, each trying to bring the cluster to the desired state</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Docker</title>
+</head>
+<body>
+
+<h1 id="docker">Docker</h1>          <a href="index.html">Back to Production-Engineering</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#images">Images</a></li>
+<li><a href="#building-an-image">Building an image</a></li>
+<li><a href="#using-docker-for-testing">Using Docker for testing</a></li>
+</ul>
+</div>
+<p>Docker packages an application with its dependencies to create standard development environments. Wraps the application in a complete filesystem (called containers), so code will run EXACTLY the same regardless of environment.</p>
+<ul>
+<li>lighter weight runtimes than VMs</li>
+<li><p>cloud portability, using multiple cloud providers without locking into specific architecture</p></li>
+<li>provides a layer of abstraction and automation of OS level virtualization</li>
+<li>uses resource isolation features of linux kernel like cgroups (control groups) and kernel namespaces</li>
+<li>offers state management through images</li>
+<li><p><code>docker run hello-world</code> creates and runs a given image</p></li>
+</ul>
+<h3 id="images">Images</h3>
+<p>In Docker, an image is a snapshot of the filesystem. It stores</p>
+<ul>
+<li>a linux distribution</li>
+<li>application's source code</li>
+<li>applictaion's system library dependencies (third party code, imagemagick)</li>
+<li>application's library dependencies (gems, npm packages)</li>
+</ul>
+<h3 id="building-an-image">Building an image</h3>
+<p>Write a <code>Dockerfile</code>, based on the whalesay image:</p>
+<pre><code>FROM docker/whalesay:latest
+RUN apt-get -y update &amp;&amp; apt-get install -y fortunes</code></pre>
+<ul>
+<li>
+<code>RUN</code> install software onto the image</li>
+<li>
+<code>CMD</code> instructs software to run when image is loaded</li>
+<li>
+<code>docker build -t &lt;image-name&gt;</code> takes the <code>Dockerfile</code> in the current directory and builds an image</li>
+</ul>
+<h3 id="using-docker-for-testing">Using Docker for testing</h3>
+<ol>
+<li>Install docker for mac.</li>
+<li><code>docker run -p 26389:80 --name testing nginx</code></li>
+<li><code>docker exec -i -t &lt;container-id&gt; /bin/bash</code></li>
+</ol>
+<h4 id="difference-from-virtual-machines">Difference from Virtual Machines</h4>
+<p>Containers serve similar purpose of resource isolation but with different architecture, aimed at portability and efficiency.</p>
+<p>Virtual Machines include the application, dependencies and entire guest OS, which could be tens of GBs.</p>
+<p>Containers include application and dependencies, but share kernal with other containers. They are not tied to any OS infrastructure.</p>
+<h4 id="comparison-to-vagrant">Comparison to Vagrant</h4>
+<p>Docker is more specific, less flexible than Vagrant. Vagrant is catered to managing independent machines, while Docker is for building and running application environments.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

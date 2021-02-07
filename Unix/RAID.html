@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Redundant Array of Independent Drives</title>
+</head>
+<body>
+
+<h1 id="redundant-array-of-independent-drives">Redundant Array of Independent Drives</h1>          <a href="index.html">Back to Unix</a>
+<p>I'll be focusing on RAID 0, which is a configuration for high performance using multiple drives.</p>
+<p>RAID is a configuration on a system which can abstractly allows a collection of drives to be treated logically as a single drive. The purpose of this is either to achieve redundancy for hardening a system and/or achieving performance.</p>
+<ul>
+<li>RAID 0 = striping, no fault tolerence but efficient performance<ul><li>when writing with two physical drives backing a RAID 0 drive, effectively half of the data is written to one and half to the other</li></ul>
+</li>
+<li>note the raid controller is the interface that handles how RAID is implemented, and can be software or hardware level</li>
+<li>
+<code>/dev</code> in linux is a collection of files representing devices that our system has access to<ul>
+<li>see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html">aws documentation</a> on device naming schemes on ec2</li>
+<li>
+<code>sda1</code> is for root, <code>sd[b-z]</code>, <code>hd[a-z]</code>, <code>xvd[a-z]</code> are possible names for aws mounted drives</li>
+</ul>
+</li>
+<li>
+<code>mdadm</code> is a linux utility that allow us to monitor and manage software RAID devices<ul>
+<li>
+<code>cat /proc/mdstat</code> shows status of all raids</li>
+<li>this is the primary entry point for verifying if a raid volume is configured</li>
+<li>"Personalities" tells you raid level</li>
+<li>md_123 can be pronounced "multiple devices #123"<ul>
+<li>
+<code>active</code> tells us it's working, <code>started</code> is still configuring, <code>inactive</code> means broken</li>
+<li>the next space delimited list is the devices used</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<code>LVM (Logical Volume Manager)</code> is a thin software layer atop hard disks which creates an abstraction for partitioning, managing, replacing and backing up hard drives<ul>
+<li>logical volumes can be created to include RAID functionality, where a LV's parts can be striped across multiple physical as in RAID 0</li>
+<li>on the flip side, many logical volumes can map to a single physical volume, where different paths in a unix filesystem are the multiple logical volumes sitting atop a single physical volume</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

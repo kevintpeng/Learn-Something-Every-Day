@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>SSH</title>
+</head>
+<body>
+
+<h1 id="ssh">SSH</h1>          <a href="index.html">Back to Networking</a>
+<div id="TOC">
+
+<ul><li>
+<a href="#generating-ssh-key">Generating SSH key</a><ul>
+<li><a href="#adding">Adding</a></li>
+<li><a href="#add-to-github">Add to GitHub</a></li>
+<li><a href="#checking-existing-ssh-keys">Checking existing SSH keys</a></li>
+</ul>
+</li></ul>
+</div>
+<p>Secure Shell (SSH) is a protocol that allows for remote login to operate securely over unsecure networks. SSH uses public key cryptography for authentication.</p>
+<h2 id="generating-ssh-key">Generating SSH key</h2>
+<p>SSH keys are a way to identify trusted machines without involving passwords. SSH key can be generated and added to GitHub account for example.</p>
+<p><code>ssh-keygen -t rsa -b 4096 -C "ktpeng@uwaterloo.ca"</code> Creates a new ssh key using email as a label. Follow prompts.</p>
+<h3 id="adding">Adding</h3>
+<ul>
+<li>
+<code>eval "$(ssh-agent -s)"</code> ensures ssh-agent is enabled.</li>
+<li><code>ssh-add ~/.ssh/filename</code></li>
+</ul>
+<h3 id="add-to-github">Add to GitHub</h3>
+<ul>
+<li>Navigate to Settings/ssh keys</li>
+<li>open ~/.ssh/id_rsa, copy</li>
+</ul>
+<p>To copy to clipboard:</p>
+<pre><code>$ sudo apt-get install xclip
+# Downloads and installs xclip. If you don't have `apt-get`, you might need to use another installer (like `yum`)
+
+$ xclip -sel clip &lt; ~/.ssh/id_rsa.pub
+# Copies the contents of the id_rsa.pub file to your clipboard</code></pre>
+<h3 id="checking-existing-ssh-keys">Checking existing SSH keys</h3>
+<p><code>ls -al ~/.ssh</code> checks for existing SSH keys.</p>
+<p>By default, filename should be one of the following:</p>
+<ul>
+<li><code>id_dsa.pub</code></li>
+<li><code>id_ecdsa.pub</code></li>
+<li><code>id_ed25519.pub</code></li>
+<li><code>id_rsa.pub</code></li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

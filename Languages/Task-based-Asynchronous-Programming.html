@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Task-based asynchronous programming (C#)</title>
+</head>
+<body>
+
+<h1 id="task-based-asynchronous-programming-c"><a href="https://docs.microsoft.com/en-us/dotnet/csharp/async">Task-based asynchronous programming (C#)</a></h1>          <a href="index.html">Back to Languages</a>
+<p>Programming paradigm, using <code>Task&lt;T&gt;</code> objects</p>
+<ul>
+<li>similar to futures/promises</li>
+<li>
+<code>async</code> keyword is used to declare an asynchronous function, which runs alongside the caller<ul>
+<li>can return a <code>Task</code>, <code>Task&lt;T&gt;</code> or <code>void</code> (async event handler, I guess background work where you don't need a response)</li>
+<li>useful for possibly blocking routines (like something that must wait for a response over a network)</li>
+<li>an async function runs until it has no more work to do (<code>await</code>ing some data to return back)</li>
+<li>as soon as the <code>await</code>ed data is ready, resume the async function and compute/set the result in its Task, marking it completed</li>
+</ul>
+</li>
+<li>
+<code>await</code> unwraps a <code>Task&lt;T&gt;</code> object, while giving control back to the caller</li>
+<li>for I/O bound code, <code>await</code> an <code>async</code> operation that returns a <code>Task&lt;T&gt;</code>
+</li>
+<li>for CPU-bound code, <code>await</code> an operation which was started on a background thread with <code>Task.Run</code>
+</li>
+<li>
+<code>Task.Run</code> takes a <code>Func&lt;Task&gt;</code><ul>
+<li>
+<code>Func&lt;TResult&gt;</code> is just a lambda (in this case it can be used as a closure)</li>
+<li>
+<code>delegate</code> keyword can be used to declare a type (class?) which can point to a function</li>
+<li>
+<code>Func&lt;bool&gt; methodCall = a.mymethod;</code> is an example of defining a delegate without the <code>delegate</code> keyword</li>
+</ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

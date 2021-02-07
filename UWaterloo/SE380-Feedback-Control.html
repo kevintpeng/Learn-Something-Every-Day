@@ -1,0 +1,1429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+          <title>SE380: Introduction to Feedback Control Systems</title>
+</head>
+<body>
+
+<h1 id="se380-introduction-to-feedback-control-systems"><a href="https://uwflow.com/course/se380">SE380: Introduction to Feedback Control Systems</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li>
+<a href="#introduction"></a><a href="http://davepagurek.github.io/SE-Notes/se380/01%20intro.html">Introduction</a>
+</li>
+<li>
+<a href="#modelling"></a><a href="http://davepagurek.github.io/SE-Notes/se380/02%20modelling.html">Modelling</a>
+</li>
+<li>
+<a href="#generalizing">Generalizing</a><ul>
+<li><a href="#e.g.-more-carts">e.g. more carts</a></li>
+<li><a href="#e.g.-drones">e.g. drones</a></li>
+<li><a href="#determining-state">Determining state</a></li>
+<li><a href="#e.g.-cart-with-no-forces">e.g. cart with no forces</a></li>
+<li><a href="#e.g.-2.5.2-pendulum">e.g. 2.5.2: Pendulum</a></li>
+<li><a href="#e.g.-2.4.5-circuit">e.g. 2.4.5 Circuit</a></li>
+<li><a href="#overview">Overview</a></li>
+</ul>
+</li>
+<li>
+<a href="#linearization">Linearization</a><ul>
+<li><a href="#e.g.-2.5.2">e.g. 2.5.2</a></li>
+<li><a href="#e.g.-2.5.3">e.g. 2.5.3</a></li>
+</ul>
+</li>
+<li>
+<a href="#multivariable-taylor-series">Multivariable Taylor series</a><ul>
+<li><a href="#e.g.-find-all-the-equilirium-configurations-at-which-the-pendulum-is-upright">2.5.4 e.g. Find all the equilirium configurations at which the pendulum is upright</a></li>
+<li><a href="#summary-1">Summary</a></li>
+<li><a href="#e.g.-2.5.5-pendulum">e.g. 2.5.5 (Pendulum)</a></li>
+<li><a href="#transfer-functions">2.8 Transfer Functions</a></li>
+<li><a href="#block-diagrams">Block Diagrams</a></li>
+<li><a href="#obtaining-a-tf-from-a-state-model">2.8.1 Obtaining a TF from a state model</a></li>
+<li><a href="#linearized-pendulum">2.8.6 Linearized pendulum</a></li>
+<li><a href="#block-diagram-manipulations">2.9 Block diagram manipulations</a></li>
+</ul>
+</li>
+<li><a href="#systematic-method-of-finding-transfer-functions">Systematic method of finding transfer functions</a></li>
+</ul>
+</div>
+<p><a href="https://learn.uwaterloo.ca/d2l/le/content/402630/fullscreen/2241439/View">notes on learn</a></p>
+<p>Course is about classical control; most prevalent, assumes linear and time invariant plant</p>
+<ul>
+<li>it requires that we have a transfer function</li>
+<li>when you use feedback, you need to consider the possibility of a system not converging</li>
+</ul>
+<h3 id="summary">Summary</h3>
+<h5 id="chapter-1-review">Chapter 1 review</h5>
+<ul><li>Complex Numbers<ul>
+<li>Euler's Identity: <span class="math inline">\(e^{j\theta} = \cos(\theta) + j\sin(\theta)\)</span> gives us a way to think about complex numbers in terms of angles</li>
+<li>Polar form makes it easy to multiply/divide: <span class="math inline">\(|z| = ℝ\)</span> and <span class="math inline">\(arg(z) = \theta\)</span><ul><li>arg is the principle argument (angle when in polar form)</li></ul>
+</li>
+<li>Complex conjugate, <span class="math inline">\(\bar{z}\)</span> of the denominator for turning division into multiplication<ul><li><span class="math inline">\(z\bar{z} = |z|^2\)</span></li></ul>
+</li>
+</ul>
+</li></ul>
+<p>Block Diagrams are the basis of control engineering. Each block represents a function (not like free body diagrams)</p>
+<p>Review of Equations:</p>
+<ul>
+<li>Newton's equations are useful for mechanical/physical systems<ul>
+<li>translation and rotation</li>
+<li>rotational inertia formula: <span class="math inline">\(\tau = I a\)</span>, I = moment of inertia</li>
+</ul>
+</li>
+<li>Hooke's Law says restoring force from stretch is linearly proportional to the amount stretched</li>
+<li>for circuit systems, there KVL and KCL<ul>
+<li>
+<span class="math inline">\(v = L \frac{di}{dt}\)</span> for inductors</li>
+<li>
+<span class="math inline">\(i = C \frac{dv}{dt}\)</span> for capacitors</li>
+</ul>
+</li>
+<li>eigenvectors are vectors whose directions do not change after having a matrix (as a linear mapping) applied to them</li>
+</ul>
+<h5 id="chapter-2-modelling">Chapter 2 Modelling</h5>
+<p><strong>State-space models</strong> are mathematical expressions of systems</p>
+<ul>
+<li>state variables (a vector called <code>x</code>) are the full set of variables that dictate change in a system</li>
+<li>we have a vector of inputs <code>u</code>
+</li>
+<li>composed of state equation + output equation<ul>
+<li>
+<span class="math inline">\(\dot{x} = f(x, u) = Ax + Bu\)</span><ul><li>another equivalent way to write this is as a vector of functions</li></ul>
+</li>
+<li><span class="math inline">\(y = h(x) = Cx + Du\)</span></li>
+</ul>
+</li>
+</ul>
+<p>One key property of linearity is the <strong>superposition principle</strong>: the net responses caused by multiple stimuli is the sum of the responses caused by each stimuli individually</p>
+<p><strong>Linearization</strong> is approximating a nonlinear system, by looking at the system's behaviour near an equilibrium configuration (physical state is at rest). We then calculate the four jacobians, A, B, C and D.</p>
+<p><strong>Transfer functions</strong> exist only for LTI systems, and are expressed in the frequency domain. They tell us how the system responds at different frequencies (which is only possible because we assume time invarance and so the response does not depend on the current time)</p>
+<ul>
+<li>to find the TF from state space, <span class="math inline">\(\frac{Y(s)}{U(s)} = C(sI - A)Y{-1}B + D\)</span>
+</li>
+<li>we only look at one sided laplace transforms here (Re(s) &gt; 0)</li>
+<li>the region of convergence is always in the open right half plane</li>
+</ul>
+<h5 id="chapter-3-linear-system-theory">Chapter 3 Linear System Theory</h5>
+<ul>
+<li>matrix exponential describes how we can raise scalars to the the exponent of a matrix, generalizing the taylor series expansion of <span class="math inline">\(e^t\)</span><ul><li>it is a requirement in order for a time domain response calculation to work out</li></ul>
+</li>
+<li>there are tricks to finding eigenvalues by inspection, which may prove useful in the exam</li>
+<li>
+<span class="math inline">\(\dot{x} = Ax, x(0)=x_0\)</span> has the unique solution <span class="math inline">\(x(t) = e^{At}x_0\)</span><ul><li>we also get that <span class="math inline">\(e^{At} = L^{-1}\{(sI - A)^{-1}\}\)</span>
+</li></ul>
+</li>
+<li>we are given a full solution in the time domain for a state equation and an initial value (equation 3.5), but are only used through simulation</li>
+</ul>
+<p><strong>Stability</strong></p>
+<ul>
+<li>
+<strong>asymptotic stability</strong> is when state x goes to zero as t approaches infinity forall initial conditions x(0), or the matrix exponential <span class="math inline">\(e^{At} \rightarrow 0\)</span> as <span class="math inline">\(t \rightarrow \inf\)</span><ul><li>it actually only depends on eigenvalues: if all eigenvalues of A have a negative real part</li></ul>
+</li>
+<li>
+<strong>bounded input</strong> is when <span class="math inline">\(u(t) \leq b\)</span> forall t, b is finite</li>
+<li>
+<strong>BIBO stable</strong> if BI =&gt; BO<ul>
+<li>for strictly proper rational transfer functions, BIBO stable iff every pole has negative real value iff the integral of the impulse response is finite, iff the integral of the impulse response over 0 to infinity is finite</li>
+<li>if G(s) is improper, G(s) is not BIBO stable</li>
+<li>recall that in the time domain, we can use convolution to calculate response in time domain of applying a transfer function to some input</li>
+<li>a sinusoidal input to a BIBO function produces a sinusoidal output</li>
+</ul>
+</li>
+<li>
+<strong>final value theorem</strong> gives us that <strong>stead-state gain</strong> ratio is reached when a non-varying input is given, and further says that the magnitude of the input does not affect the ratio<ul>
+<li>4 cases</li>
+<li>all poles Re &lt; 0 implies f(t) -&gt; 0</li>
+<li>one pole at 0 =&gt; <span class="math inline">\(\lim_{t \rightarrow \inf} f(t) = \lim_{s \rightarrow 0} sF(s)\)</span>, r</li>
+<li>multiple poles at 0 =&gt; diverges</li>
+<li>any poles with Re &gt; 0 =&gt; diverges</li>
+</ul>
+</li>
+<li>the <strong>steady-state gain</strong> is G(0)</li>
+<li>the <strong>frequency response</strong> is <span class="math inline">\(G(j\omega)\)</span>, used for determining the steady state output given a sinusoidal input (see Theorem 3.7.1)</li>
+</ul>
+<p>For sketching bode plots, the magnitude plot is on a scale of dB, so <span class="math inline">\(20 \log|G(s)|\)</span> for transfer function G(s). The phase plot is on a scale of degrees. The x axis is on a logarithmic scale. The sketch is called an asymptotic bode plot. We use straight line approximations to draw the plot.</p>
+<ul>
+<li>for magnitude, taking the log of a fractional expression allows us to rewrite it as a sum of logs (with negatives for denominator terms)</li>
+<li>use zeroes and poles to determine where the plot changes, and its coefficient is the slope of the linear approximation</li>
+<li>bandwidth of the transfer function can be determined by calculating at what frequency (x-axis) the dB drops by 3 from it's initial value<ul><li>
+<span class="math inline">\(20 log|G(s)| = K-3\)</span>, for some gain of <span class="math inline">\(K\)</span> <em>(K might be the wrong variable to use here)</em>
+</li></ul>
+</li>
+</ul>
+<h5 id="chapter-4-prototypes">Chapter 4 Prototypes</h5>
+<p><strong>Prototype first order system</strong> equation lets us compare transfer functions to a parametric form, allowing us to easily derive properties: everything depends on time constant <span class="math inline">\(\tau\)</span></p>
+<ul>
+<li><span class="math inline">\(G(s) = \frac{K}{\tau s + 1}\)</span></li>
+<li>pole at <span class="math inline">\(s = -\tau\)</span>, bandwidth = <span class="math inline">\(\frac{1}{\tau}\)</span>, non oscillatory, gain of K, settling time of <span class="math inline">\(4\tau\)</span>
+</li>
+</ul>
+<p>Prototype second order system is <span class="math inline">\(G(s) = \frac{K \omega_n}{s^2 + 2 \zeta \omega_n s + \omega_n^2}\)</span></p>
+<ul><li>introduces concept of damping ratio, which dictates its response graph and whether it is oscillatory or not</li></ul>
+<h5 id="chapter-5-feedback-control-theory">Chapter 5 Feedback control theory</h5>
+<p>analyzing existing controllers</p>
+<p>In lab 2, we looked at a second order circuit system.</p>
+<ul>
+<li>we can have second order LTI systems, it just means that the output signal depends on the input y(t) and both the first and second derivative of y(t)</li>
+<li>feeding the output back as input (closing the loop) decreases steady state gain of the system and damping ratio, and increases the bandwidth frequency and natural frequency</li>
+<li>closed-loop systems can handle disturbance signals while open-loop cannot</li>
+</ul>
+<p>Pole-zero cancellation is if some pole in either the controller C or plant P gets cancelled by the numerator</p>
+<ul>
+<li>unstable if Re(<span class="math inline">\(\lambda \geq 0\)</span>), implying that the feedback system isn't I.O. stable (root always shows up in the characteristic polynomial since <span class="math inline">\(\pi(\lambda) = N_pN_c + D_pD_c = 0 + 0 = 0\)</span>)<ul>
+<li>by contrapositive, we know that unstable pole-zero cancellation implies no internally stable</li>
+<li><strong>it's the naive thing to do, it doesn't work</strong></li>
+</ul>
+</li>
+<li>roots of <span class="math inline">\(\pi(s) \subseteq\)</span> eigenvalues of <span class="math inline">\(A_{closed}\)</span><ul><li>
+<strong>internal stability</strong> is achieved when the state model for <span class="math inline">\(\dot{x}_{cl} = A_{cl}x_{cl}\)</span> is asymptotically stable<br>
+<img height="50" src="img/52Acl.png">
+</li></ul>
+</li>
+<li>
+<strong>IO Stable</strong> if all combinations of transfer functions are BIBO stable<ul><li>if some coefficient of the char poly is non-positive, it is not hurwitz =&gt; not IO stable</li></ul>
+</li>
+<li>internal stability =&gt; I.O. stability</li>
+<li>
+<span class="math inline">\(\pi(s)\)</span> is <strong>Hurwitz</strong> if all roots have Re(s) &lt; 0<ul>
+<li>Routh-Hurwitz criterion is an algebraic test for the characteristic polynomial to be Hurwitz, for the purpose of checking stability without finding its roots</li>
+<li>if all real roots have negative real value, then all coefficients of the polynomial must be positive</li>
+<li>for complex conjugate roots, expanding (and intuitively) we know that each multiplied together will be a quadratic with all positive coefficients</li>
+</ul>
+</li>
+<li>hurwitz huristic tells us quickly whether its not hurwitz (check all coefficients for positivity)</li>
+<li>routh-hurwitz is stronger, follow table algorithm with a figure-8 pattern drawing and terminate if any first column value is zero<ul><li>the array is the leftmost column, we know the number of roots in the right-half plane by the number of sign switches</li></ul>
+</li>
+<li>characteristic polynomial is hurwitz iff all elements in 1st column have same sign<ul><li>if no zeroes in first column, # of sign changes = # of bad roots</li></ul>
+</li>
+</ul>
+<h5 id="chapter-6-root-locus">Chapter 6 Root-Locus</h5>
+<p>Want to look at how the poles move in the complex plane as parameters vary (in this case K, the gain of the controller)</p>
+<ul>
+<li>root-locus shows us grpahically how the closed loop poles move around the s-plane</li>
+<li>poles determine properties of a system, and so root-locus is a graphical representation for aiding controller design</li>
+<li>want the <code>Im(s) != 0</code> for poles for good step response</li>
+<li>as <span class="math inline">\(K \rightarrow \inf\)</span>, the step response has more overshoot and its frequency of oscillation increases</li>
+</ul>
+<p><code>m</code> poles tend towards the zeroes, but <code>n- m</code> branches tend towards asymptotes (to infinity since they're poles) that form the following patterns:</p>
+<p><img src="img/6rl.png"></p>
+<ul><li>the asymptotes branch from the <strong>centroid</strong>
+</li></ul>
+<h5 id="chapter-7-pid-control">Chapter 7 PID control</h5>
+<p>PID controllers are popular for their simplicity. Two classical PID controllers: error feedback and two degrees-of-freedom</p>
+<ul>
+<li>PID controller has three parts: proportional term, integral term, derivative term</li>
+<li>error feedback has improper transfer function<ul>
+<li>first refinement is to replace the derivative term (amplifies high frequency) with a low pass filtered version</li>
+<li>second refinement is to use the two-degree-of-freedom version (r and y separately)</li>
+</ul>
+</li>
+<li>controllers have the form <span class="math inline">\(\frac{g_2 s^2 + g_1 s + g_0}{s^2 + f_1 s}\)</span>
+</li>
+<li>
+<span class="math inline">\(b_0\)</span> in the numerator of the plant cannot be zero, otherwise we have unstable pole-zero cancellation</li>
+<li>desired characteristic polynomial has a unique solution iff numerator and denominator of the plant are coprime</li>
+<li><p>following is a formula for designing a controller, based on desired poles<br>
+<img src="img/714charpoly.png" height="78/"></p></li>
+<li>another common model for which PID is effective is 1st order + time delay<ul><li>Pade approximation of time delay <span class="math inline">\(e^{-sT}\)</span>, and we get a second order plant</li></ul>
+</li>
+<li><p>if you can adequately model your plant as a second order system, PID is effective</p></li>
+</ul>
+<h5 id="chapter-8-frequency">Chapter 8 Frequency</h5>
+<p><strong>Cauchy's Principle of the argument</strong>: we take some contour <span class="math inline">\(\Gamma_s\)</span> and apply some mapping (rational function). As s travels around our contour, the complex numbers G(s) can be visualized <span class="math inline">\(\Gamma_g\)</span>. by taking the angle relative to the zeroes of G, we can plot the change of phase using just <span class="math inline">\(\Gamma_g\)</span>.</p>
+<ul>
+<li>the number of times <span class="math inline">\(\Gamma_g\)</span> encircles the origin counter-clockwise is proportional to the number of poles and zeroes inside <span class="math inline">\(\Gamma_s\)</span>: poles - zeroes</li>
+<li>
+<strong>Nyquist Contour</strong> is <span class="math inline">\(\Gamma_s\)</span> whose radius goes to infinity, so the entire right half plane, where we indent around any poles on the contour to exclude them</li>
+<li>
+<strong>Nyquist Plot</strong> of G is <span class="math inline">\(\Gamma_G\)</span> for the nyquist contour<ul><li>G will have no poles on <span class="math inline">\(\Gamma_s\)</span> iff G has no poles on imag axis and G is proper</li></ul>
+</li>
+<li><em>we don't care about zeroes, we're not counting encirclements</em></li>
+<li>
+<strong>Nyquist stability criterion</strong>: assume P, C are proper, PC strictly proper, no unstable pole zero cancellation, <code>K != 0</code>, then if the feedback system is I.O. stable (every transfer function is BIBO stable) then the transfer</li>
+<li>phase margin is how much rotation a nyquist plot can handle before changing the number of encirclements of -1/K</li>
+<li>gain margin what value K can be increased to until the number of encirclements of -1/K changes</li>
+<li><p><strong>stability margin</strong> is the minimum distance from -1/K to the Nyquist Plot</p></li>
+<li>
+<strong>margins</strong> tell us how much uncertainty in our approximated model can tolerate, which we use <strong>Nyqust</strong> plots to understand<ul>
+<li>
+<strong>gain margin</strong> is determined from <span class="math inline">\(P(s) \times \delta P(s)\)</span>, with frequency response, and observing that the magnitude of our uncertainty <span class="math inline">\(\delta P\)</span> multiplies gain of the plant</li>
+<li>
+<strong>phase margin</strong> <em>seems to work out as addition, so some angle offset based on delta P</em>
+</li>
+<li><span class="math inline">\(K_{gm} := max (\{\bar{k} &gt; 1 : \text{ closed-loop stability for } K^1 \in [1, \bar{K}\})\)</span></li>
+</ul>
+</li>
+<li>
+<strong>gain crossover</strong> is when gain moves from positive to negative; it's the frequency we use to measure <span class="math inline">\(\phi_{pm}\)</span><ul><li>phase margin is amount of phase change required to reach the stability limit (phase as omega -&gt; infinity), measured at the gain crossover frequency</li></ul>
+</li>
+<li>gain margin is the amount that the loop gain can change before going unstable, at phase crossover frequency (angle when <span class="math inline">\(L(j\omega) = 180\)</span>)</li>
+<li><p>a system with big margins has good transient performance, small is close to being unstable meaning its oscillatory and has slow dynamics</p></li>
+</ul>
+<p>How to read <span class="math inline">\(K_{gm}\)</span> and <span class="math inline">\(\phi_{pm}\)</span> from a bode plot</p>
+<p><img src="img/84gain.png"></p>
+<p>Nyqust criterion is based on the priciple of the arguments: a curve in the complex plane and a complex valued function of a complex variable</p>
+<p><img src="img/IMG_6599.png"><br>
+<img src="img/IMG_8874.png"></p>
+<h5 id="chapter-9-control-design-in-the-frequency-domain">Chapter 9 Control design in the frequency domain</h5>
+<ul>
+<li>both lead and lag controllers can be used to meet robustness specifications, but we know that bandwidth is tied to gain crossover frequency</li>
+<li>Lead controller gives a higher <span class="math inline">\(\omega_{gc}\)</span> which is approximately equal to the closed loop bandwidth, so the closed-loop system response will be faster, but if you look at the control effort (like voltage) that you're applying to the controller, it's going to be much higher than a lag controller</li>
+<li>possible specifications: <span class="math inline">\(\phi_{pm}^{des}\)</span> or steady-state tracking or closed-loop bandwidth given in <span class="math inline">\(\omega_{gc}\)</span>
+</li>
+</ul>
+<p>design specs in the frequency domain, sometimes by converting time domain specs</p>
+<ul>
+<li>
+<strong>margins</strong> let us quantify how robust a controller is (tolerent to error)</li>
+<li>given time spec, convert to frequency, then bandwidth, then gain crossover spec<ul>
+<li>given settling time or bandwidth specification</li>
+<li>bandwidth corresponds to the poles closest to the imaginary axis</li>
+</ul>
+</li>
+<li>looking at the system whose closed loop controller + plant transfer function is the prototype second order equation, we get that the phase margin is a non linear function of damping ratio which we approximate with a linear function <span class="math inline">\(\phi \dot{=} 100 \zeta, \zeta &lt; 0.7\)</span><ul><li>OS% -&gt; <span class="math inline">\(\zeta_{min} \rightarrow \phi_{phasemargin}^{min}\)</span>
+</li></ul>
+</li>
+<li>rule of thumb is that <span class="math inline">\(\omega_{BW} = \omega_{gc}\)</span>
+</li>
+<li>we have a design method for "nice plants", which are 1 open-loop stable or at worst one pole at s=0 (FVT not divergent), 2 only one set of crossover frequencies (wgc, wpc)</li>
+<li>
+<strong>lag controller</strong> are useful for:<ul>
+<li>increasing phase margin, by lowering the high frequency gain</li>
+<li>boost low frequency gain to improve steady-state tracking and disturbance rejection, without affecting the gain margin, phase margin nor frequency behaviour</li>
+<li>reduces gain at higher frequencies without reducing it at lower frequencies</li>
+</ul>
+</li>
+<li>Lag =&gt; PI, Lead =&gt; PD, Lead-Lag =&gt; PID</li>
+</ul>
+<p>Procedure for lag controller design, either given steady state specs (tracking or disturbance rejection) or asked to increase phase margin to bbe greater than or equal to <span class="math inline">\(\phi_{pm}\)</span> desired (from damping ratio/robustness requirements)</p>
+<ol>
+<li>FVT, choose K (as a part of the controller) to meet tracking spec.</li>
+<li>Draw frequency response bode plot (KP(jw))</li>
+<li>If we don't meet robustness spec, find desired gain crossover frequency</li>
+<li>Shift gain so that the gain crossover happens at the desired frequency</li>
+<li>Put the zero far away from gc frequency, <span class="math inline">\(\frac{10}{\alpha T} \leq \omega_{gc}^{des}\)</span>
+</li>
+</ol>
+<p>Lead compensation has the same controller block diagram, with <span class="math inline">\(\alpha &gt; 1\)</span></p>
+<ul>
+<li>increase phase margin by adding phase, while meeting steady-state requirements</li>
+<li>increase phase while increasing close-loop bandwidth (faster system response)</li>
+<li>Trick: express lead controller as <span class="math inline">\(C(s) = K \frac{\alpha T s + 1}{ T s + 1} =: \frac{\hat{K}}{\sqrt{\alpha}} \frac{\alpha T s + 1}{ T s + 1}\)</span>
+</li>
+</ul>
+<ol>
+<li>ss spec to pick <span class="math inline">\(\hat{K}\)</span>, and boost <span class="math inline">\(\hat{K}\)</span> by some guess (like 10dB) to account for magnitude distortion</li>
+<li>Draw bode plot of frequency response <span class="math inline">\(\hat{K} P(j \omega)\)</span>
+</li>
+<li>If we don't meet robustness specs, find how much you need to increase the phase margin by, which determines <span class="math inline">\(\alpha\)</span>
+</li>
+<li>Use given design equations to find <span class="math inline">\(\alpha\)</span>
+</li>
+</ol>
+<h3 id="introduction"><a href="http://davepagurek.github.io/SE-Notes/se380/01%20intro.html">Introduction</a></h3>
+<ul>
+<li>u(t) is convention for control systems (control signal), effectively our algorithm</li>
+<li>r(t) is also convention, for reference signal</li>
+<li>open loop solution is missing feedback from y(t), so the algorithm cannot effectively make r(t) and y(t) converge</li>
+<li>simple closed loop algorithm:</li>
+</ul>
+<pre><code>// positive if too close, neg if too far
+distance_adjustment = r(t) - y(t)
+u(t) = -Kp * distance_adjustment</code></pre>
+<p>Better algorithm, we can add another term with an integral that effectively keeps a history of choices to better influence the velocity.</p>
+<p><img src="img/webserver.png"></p>
+<ul><li>Signals are functions of time, systems apply transformations on these functions</li></ul>
+<h4 id="design-cycle">Design Cycle</h4>
+<ol>
+<li>Study the system to be controlled, decide on sensors and actuators. Sensors change what information is at your disposal, and actuators represent choices you can make in response to the inputs.</li>
+<li>Model the resulting system<ul>
+<li>mathematical model</li>
+<li>often one or more differential equations, obtained through analysis or experimental data</li>
+</ul>
+</li>
+<li>Simplify model if necessary<ul>
+<li>classical control (this course) deals with linear, time-invariant systems. It requires that we have a <strong>transfer function</strong> of the plant.</li>
+<li>e.g. <span class="math inline">\(\mathcal{L}\left\{\frac{dx_f}{dt}\right\} = \mathcal{L}\{u\} \Rightarrow sX_f(s) = U(s)\)</span>. Transfer function is <span class="math inline">\(\frac{X_f(s)}{U(s)} = \frac{1}{s}\)</span>.</li>
+<li>A system has a transfer function iff it is linear and time-invariant.</li>
+</ul>
+</li>
+<li>Analyze the resulting system</li>
+<li>Determine specifications: stability, good steady-state behaviour, robustness, good transient performance</li>
+<li>Decide on type of controller</li>
+<li>Design the controller<ul>
+<li>In this course, the controller itself that we design will be a transfer function</li>
+<li>This transfer function corresponds to a differential equation relating the inputs and outputs of the controller</li>
+</ul>
+</li>
+<li>Simulate (usually using Matlab)</li>
+<li>Return to step 1 if neecessary</li>
+<li>Implement controller<ul><li>Realistically, the Ordinary Differential Equation (ODE) from step 7 is discretized and approximated as a difference equation and implemented in software</li></ul>
+</li>
+</ol>
+<p>e.g. follower is <span class="math inline">\(u(t) = -K_p (r(kT)-y(kT)), \quad kT \le t \lt (k+1)T\)</span></p>
+<h3 id="modelling"><a href="http://davepagurek.github.io/SE-Notes/se380/02%20modelling.html">Modelling</a></h3>
+<ul>
+<li>for control design, we need a good mathematical model of a plant; simple but accurate</li>
+<li>design is simple but simulation we can use more complex</li>
+</ul>
+<p><img src="img/dynamicsystem.png"></p>
+<ol>
+<li>Apply known laws to get a system of differential equations</li>
+<li>Linearize the model at an operating point to get a system of linear equations</li>
+<li>Take the Laplace transform with zero initial conditions to get a system of linear algebraic equations</li>
+<li>Isolate input and output to get a transfer function</li>
+<li>Experimentally determine parameter values for the transfer function (e.g. weight of your robot)</li>
+</ol>
+<h4 id="applying-known-laws-to-get-equations">Applying known laws to get equations</h4>
+<h5 id="e.g.-spring">e.g. Spring</h5>
+<p><img src="img/spring.png"></p>
+<p><span class="math inline">\(q \in \mathbb{R}\)</span> is the position of the mass M</p>
+<p><span class="math inline">\(\dot{q} := \frac{dq}{dt}, \quad \ddot{q} := \frac{d^2q}{dt^2}\)</span></p>
+<p>Assume that <span class="math inline">\(q=0\)</span> corresponds to the mass location at which the spring is neither stretched nor compressed.</p>
+<p>Newton's 2nd law: <span class="math inline">\(F = ma\)</span> or <span class="math inline">\(M\ddot{q} = \sum{ \text{forces acting on } M}\)</span></p>
+<p>Force due to spring: <span class="math inline">\(F_K(q) = Kq\)</span>, assumed to be linear</p>
+<p>Force due to damper, possibly nonlinear: <span class="math inline">\(C(\dot{q})\)</span></p>
+<p>Altogether, we get a second order nonlinear ODE:<br>
+<span class="math display">\[M\ddot{q} = -Kq - C(\dot{q}) + u\]</span></p>
+<p>Note: if the damper is linear (<span class="math inline">\(C(\dot{q})=bq\)</span>), then the overall system is linear</p>
+<h5 id="e.g.-resistor">e.g. Resistor</h5>
+<p><img src="img/resistor.png"></p>
+<p>Non linear resistor just means it's a function that's non linear with respect to the current</p>
+<p><span class="math inline">\(V_R(t) = h(i(t)), \quad h : \mathbb{R} \rightarrow \mathbb{R}\)</span> is possibly nonlinear</p>
+<p><span class="math inline">\(u(t)\)</span>: applied voltage; <span class="math inline">\(y(t)\)</span>: voltage across capacitor</p>
+<p>Apply Kirchoff's Voltage Law, recall that it states that conservation of energy holds for voltage in a circuit:<br>
+<span class="math display">\[\begin{align}
+-u(t) + V_R + y &amp;= 0\\
+\\
+i(t) &amp;= C\frac{dy}{dt} \quad \text{(capacitor equation)}\\
+V_R &amp;= h(i(t)) = h(C\dot(y))\\
+\\
+-u(t) + h(C\dot{y}) + y &amp;= 0\\
+\end{align}\]</span></p>
+<p>Note: if the resister were linear (<span class="math inline">\(h(i) = Ri\)</span>), the whole system would be linear (see 2.3.4 in notes)</p>
+<p><strong>Observe that, no matter what you're trying to model, there are governing laws that define modelling in that domain</strong></p>
+<ul><li>if you need more examples, 2.3 in the notes has many examples</li></ul>
+<h4 id="state-models">State models</h4>
+<ul>
+<li>State-space models are a way of expressing mathematical models in a standard form<ul><li>the state-space's axes are the state variables</li></ul>
+</li>
+<li>the benefit is that the state variables are expressed as vectors, abstracted away from input, output and states<ul><li>allow us to use linear algebra to solve</li></ul>
+</li>
+</ul>
+<h5 id="e.g.-cart">e.g. Cart</h5>
+<p><img src="img/carairresistance.png"></p>
+<p>Newton's second law: <span class="math inline">\(M\ddot{y} = u - D(\dot{y})\)</span></p>
+<ul><li>u is the vector of control inputs</li></ul>
+<p>We put this model into a standard form by defining two <strong>state variables</strong>:<br>
+<span class="math display">\[x_1 := y \text{ (position)}, \quad x_2 := \dot{y} \text{ (velocity)}\]</span></p>
+<p>Together, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> make up the <strong>state</strong> of the system. We do some rewriting to have a systematic way to do linearization:</p>
+<p><span class="math display">\[\begin{align}
+\dot{x_1} &amp;= x_2 &amp; \text{(state equation)}\\
+\dot{x_2} &amp;= \frac{1}{M}u - \frac{1}{M}D(x_2) &amp; \text{(state equation)}\\
+y &amp;= x_1 &amp; \text{(output equation)}\\
+\end{align}\]</span></p>
+<p>Together, these equations make up the <strong>state-space model.</strong> These equations have the general form:</p>
+<p><span class="math display">\[\dot{x} = f(x,u) \text{ where } y = h(x)\]</span></p>
+<p>In this example:</p>
+<p><span class="math display">\[\begin{align}
+X &amp;= (x_1, x_2) \in \mathbb{R}^2\\
+f(x,u) &amp;= \begin{bmatrix}
+x_2 \\
+\frac{1}{M}u - \frac{1}{M}D(x_2)
+\end{bmatrix}\\
+\end{align}\]</span></p>
+<ul><li>X maps a scalar value to a two-tuple</li></ul>
+<p>When they're non-linear we can't say much, but in the special case where air resistance is a linear function of <span class="math inline">\(x_2\)</span> (<span class="math inline">\(D(x_2)=d x_2\)</span>), then <span class="math inline">\(f(x,u)\)</span> becomes a linear function of <span class="math inline">\(x\)</span> and <span class="math inline">\(u\)</span>:</p>
+<p><span class="math display">\[f(x,u) = \begin{bmatrix}
+0 &amp; 1 \\
+0 &amp; \frac{-d}{M}
+\end{bmatrix} \begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix} + \begin{bmatrix}
+0 \\
+\frac{1}{M}
+\end{bmatrix} u
+\]</span></p>
+<p>Define <span class="math inline">\(C = \begin{bmatrix}1 &amp; 0\end{bmatrix}\)</span>. In the linear case, we get:<br>
+<span class="math display">\[\begin{align}
+\dot{x} &amp;= Ax + Bu\\
+y &amp;= Cx\\
+\end{align}\]</span></p>
+<p>This is a linear, time-invariant (LTI) model.</p>
+<p><strong>Expect at least one question like this on the midterm</strong></p>
+<h2 id="generalizing">Generalizing</h2>
+<p>Generalizing, an important class of systems have models of the form:</p>
+<p><span class="math display">\[\begin{align}
+\dot{x} &amp;= f(x, u), &amp; f: \mathbb{R}^n \times \mathbb{R}^m \rightarrow \mathbb{R}^n\\
+y &amp;= h(x, u), &amp; h: \mathbb{R}^n \times \mathbb{R}^m \rightarrow \mathbb{R}^p\\
+\end{align}\]</span></p>
+<ul>
+<li>This model is nonlinear</li>
+<li>there are <span class="math inline">\(m\)</span> control inputs <span class="math inline">\(u=(u_1, ..., u_m)\)</span>
+</li>
+<li>there are <span class="math inline">\(p\)</span> outputs <span class="math inline">\(y=(y_1,...,y_p)\)</span>
+</li>
+<li>the state vector <span class="math inline">\(x\)</span> has dimensions <span class="math inline">\(n\)</span>: <span class="math inline">\(x=(x_1, ..., x_n)\)</span>
+</li>
+</ul>
+<p>The linear special case is:<br>
+<span class="math display">\[\begin{align}
+\dot{x} &amp;= Ax + Bu, &amp; A \in \mathbb{R}^{n \times m}\\
+y &amp;= Cx + Du, &amp; C \in \mathbb{R}^{p \times m}\\
+\end{align}\]</span></p>
+<p>In this course, we look at single-input, single-output systems: <span class="math inline">\(m=p=1\)</span>.</p>
+<h3 id="e.g.-more-carts">e.g. more carts</h3>
+<p><img src="img/carts.png"></p>
+<p><span class="math display">\[\begin{align}
+m&amp;=2, &amp; u &amp;= (u_1, u_2)\\
+p&amp;=2, &amp; y &amp;= (y_1, y_2)\\
+m&amp;=4, &amp; x &amp;= (x_1, x_2, x_3, x_4) := (y_1, \dot{y_1}, y_2, \dot{y_2})\\
+\end{align}\]</span></p>
+<h3 id="e.g.-drones">e.g. drones</h3>
+<p><img src="img/drones.png"><br>
+<span class="math display">\[\begin{align}
+u &amp;= (y_1, u_2, u_3, u_4)= (f_1, f_2, f_3, f_4)\\
+p&amp;=3\\
+y&amp;=(y_1, y_2, y_3)\\
+x &amp;\in \mathbb{R}^{12} = (\text{position}, \text{orientation}, \text{velocity}, \text{angular velocity})\\
+\end{align}\]</span></p>
+<h3 id="determining-state">Determining state</h3>
+<p>What is the state of a system?</p>
+<p>The state vector <span class="math inline">\(x(t_0)\)</span> encapsulates all of the system's dynamics up to time <span class="math inline">\(t_0\)</span>.</p>
+<p>More formally: For any two times <span class="math inline">\(t_0 \lt t\)</span>, knowing <span class="math inline">\(x(t_0)\)</span> and knowing <span class="math inline">\(\{u(t) : t_0 \le t \lt t_1\}\)</span>, we can compute <span class="math inline">\(x(t_1)\)</span> and <span class="math inline">\(y(t_1)\)</span>.</p>
+<h3 id="e.g.-cart-with-no-forces">e.g. cart with no forces</h3>
+<p><img src="img/cart-no-forces.png"></p>
+<p>We know <span class="math inline">\(M\ddot{y} = 0\)</span> from Newton's laws.</p>
+<p>If we try a 1-dimensional state, say <span class="math inline">\(x := y\)</span>, then knowing <span class="math inline">\(x(t_0)\)</span> without knowing <span class="math inline">\(\dot{y}\)</span> is not enough information to find the position in the future, <span class="math inline">\(x(t)\)</span> for <span class="math inline">\(t \gt t_0\)</span>. We have the same problem if we define <span class="math inline">\(x = \dot{y}\)</span>.</p>
+<p>Since the governing equation is second order, we need two initial conditions. So, <span class="math inline">\(x=(y, \dot{y}) \in \mathbb{r}^2\)</span> is a good choice.</p>
+<p>In general, it is a good idea to use:</p>
+<ul>
+<li>position and velocity for a physical system<ul><li>captures potential energy and kinetic energy respectively</li></ul>
+</li>
+<li>Capacitor voltage and inductor current for a circuit</li>
+</ul>
+<h3 id="e.g.-2.5.2-pendulum">e.g. 2.5.2: Pendulum</h3>
+<p><img src="img/pendulum.png"></p>
+<p>Model: <span class="math inline">\(\ddot{\theta} = \frac{3}{Ml^2} u - 3\frac{g}{l} \sin(\theta)\)</span></p>
+<p>In state space form:<br>
+<span class="math display">\[\begin{align}
+x &amp;= (\theta, \dot{\theta})\\
+y &amp;= \text{angular position} = \theta\\
+\\
+\dot{x}&amp;=f(x,u) \quad &amp; &amp; \dot{x_1}=x_2\\
+\dot{y}&amp;=h(x,u) \quad &amp; &amp; \dot{x_2}=\frac{3}{Ml^2}u - 3\frac{s}{l} \sin(x_1)\\
+&amp; &amp; &amp; y = x_1
+\end{align}\]</span></p>
+<ul><li><em>written in terms of state (x's) and control input (u's)</em></li></ul>
+<p>This is nonlinear due to the sine term.</p>
+<h3 id="e.g.-2.4.5-circuit">e.g. 2.4.5 Circuit</h3>
+<p><img src="img/circuit.png"></p>
+<p><span class="math display">\[\begin{align}
+x_1 &amp;:= \text{voltage across capacitor} = \frac{1}{C} \int_{0}^{t}{y(\tau)d\tau}\\
+x_2 &amp;:= \text{current through inductor} = y\\
+\\
+-u + V_R + V_C + V_L &amp;= 0\\
+\Rightarrow -u + Rx_2  + x_1 + L\dot{x_2} &amp;= 0,
+\\
+\\
+\dot{x_1} &amp;= \frac{1}{C}x_2(t)\\
+\dot{x_2} &amp;= \frac{-1}{L}x_1 - \frac{R}{L}x_2 + \frac{1}{L}u\\
+y &amp;= x_2\\
+\\
+\dot{x} &amp;= \begin{bmatrix}
+0 &amp; \frac{1}{C}\\
+\frac{-1}{2} &amp; \frac{-R}{L}\end{bmatrix} \begin{bmatrix}x_1\\
+x_2\end{bmatrix} + \begin{bmatrix}0 \\ \frac{1}{L}\end{bmatrix} u\\
+\dot{x} &amp;= \begin{bmatrix}
+0 &amp; \frac{1}{C}\\
+\frac{-1}{2} &amp; \frac{-R}{L}\end{bmatrix} \begin{bmatrix}x_1\\
+x_2\end{bmatrix} + \begin{bmatrix}0 \\ \frac{1}{L}\end{bmatrix} u\\
+y &amp;= \begin{bmatrix}0 &amp; 1\end{bmatrix}\\
+\end{align}\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(y(t)\)</span> is our output in amps, <span class="math inline">\(u(t)\)</span> is input, in volts</li>
+<li>
+<em>intuition said to choose capacitor and inductor for state variables (since they both depend on time, state)</em><ul><li>if there were not any capacitors or inductors, the system could not store state and would not be dynamic</li></ul>
+</li>
+</ul>
+<p>recall that capacitors hold charge, that converges over time:</p>
+<p><img src="http://hyperphysics.phy-astr.gsu.edu/hbase/electric/imgele/capchg.png"></p>
+<p>recall that inductors impede/release current over time:</p>
+<p><img src="https://qph.fs.quoracdn.net/main-qimg-e07b00787a47a6aa85b77902790cacae"></p>
+<h3 id="overview">Overview</h3>
+<ul>
+<li>examples should give you an idea of how to choose state variables</li>
+<li>these methods shown are to give us ways to solve dynamic questions, systems that hold state (energy)</li>
+</ul>
+<h2 id="linearization">Linearization</h2>
+<p>This is the process of aproximating a nonlinear state-space model with a linear model.</p>
+<ul><li><em>when we linearize, we always need to pick a point that we're estimating at, can't make a linear estimate that's generally good</em></li></ul>
+<h3 id="e.g.-2.5.2">e.g. 2.5.2</h3>
+<p>Linearize <span class="math inline">\(y=x^3\)</span> at the point <span class="math inline">\(\bar{x}=1\)</span>.</p>
+<p><img src="img/linearize.png"></p>
+<p>Let <span class="math inline">\(\bar{y} := f(\bar{x}) = 1^3 = 1\)</span></p>
+<p>Taylor series at <span class="math inline">\(x=\bar{x}\)</span> is:<br>
+<span class="math display">\[y=\sum_{n=0}^\infty c_n (x-\bar{x})^n, \quad c_n = \frac{1}{n!} \frac{d^n f(x)}{dx^n} \biggr|_{x=\bar{x}}\]</span></p>
+<ul>
+<li><em>the constant depends on derivatives</em></li>
+<li><em>next, let's write this out explicitly</em></li>
+</ul>
+<p><span class="math display">\[\begin{align}
+f(x) &amp;= f(\bar{x}) + \frac{df(x)}{dx}\biggr|_{x-\bar{x}} (x-\bar{x}) + \text{higher order terms}\\
+\text{Keep only the terms $n=0$ and $n=1$:}\\
+f(x) &amp;\approx f(\bar{x}) + \frac{df(x)}{dx}\biggr|_{x-\bar{x}} (x-\bar{x})\\
+y - \bar{y} &amp;\approx + \frac{df(x)}{dx}\biggr|_{x-\bar{x}} (x-\bar{x})\\
+\end{align}\]</span></p>
+<ul><li><em>this looks like a linear equation!</em></li></ul>
+<p>If we define the derivations <span class="math inline">\(\partial y := y - \bar{y}, \partial x := x - \bar{x}\)</span>, then <span class="math inline">\(\partial y = \frac{df}{dx} \bigg|_{x=\bar{x}} \partial x\)</span>, i.e. <span class="math inline">\(\partial y = 3 \partial x\)</span></p>
+<ul><li><em>evaluated at 1, for <span class="math inline">\(x^3\)</span></em></li></ul>
+<h3 id="e.g.-2.5.3">e.g. 2.5.3</h3>
+<p><span class="math display">\[y = \begin{bmatrix}y_1 \\ y_2\end{bmatrix} = f(x) = \begin{bmatrix}x_1 x_2 - 1 \\ x_3^2 - 2x_1 x_3\end{bmatrix} =: \begin{bmatrix}f_1(x) \\ f_2(x)\end{bmatrix}\]</span></p>
+<p>Linearize at <span class="math inline">\(\bar{x}=(1, -1, 2)\)</span>.</p>
+<p><span class="math inline">\(\bar{y}=f(\bar{x})=\begin{bmatrix}-2\\0\end{bmatrix}\)</span></p>
+<h2 id="multivariable-taylor-series">Multivariable Taylor series</h2>
+<p><span class="math display">\[d(x)=f(\bar{x})+\frac{\partial f}{\partial x} \biggr|_{x=\bar{x}} (x-\bar{x}) \text{ + higher order terms}\]</span></p>
+<p>The Jacobian of <span class="math inline">\(f\)</span> at <span class="math inline">\(\bar{x}\)</span> is:<br>
+<span class="math display">\[\begin{align}
+\frac{\partial f}{\partial x} \biggr|_{x = \bar{x}}
+&amp;= \begin{bmatrix}
+  \frac{\partial f_1}{\partial x_1} &amp; \frac{\partial f_1}{\partial x_2} &amp; \frac{\partial f_1}{\partial x_3} \\
+  \frac{\partial f_2}{\partial x_1} &amp; \frac{\partial f_2}{\partial x_2} &amp; \frac{\partial f_2}{\partial x_3} \\
+  \frac{\partial f_3}{\partial x_1} &amp; \frac{\partial f_3}{\partial x_2} &amp; \frac{\partial f_3}{\partial x_3} \\
+\end{bmatrix}\\
+&amp;= \begin{bmatrix}
+  x_2 &amp; x_1 &amp; 0 \\
+  -2x_3 &amp; 0 &amp; 2x_3-2x_1 \\
+\end{bmatrix}_{x=(1, -1, 2)}\\
+&amp;= \begin{bmatrix}
+  -1 &amp; 1 &amp; 0\\
+  -4 &amp; 0 &amp; 2
+\end{bmatrix}\\
+&amp;= A
+\end{align}\]</span></p>
+<p>i.e. <span class="math inline">\(y-\bar{y} \approx A(x-\bar{x})\)</span></p>
+<ul><li><em>notice multivariate has the same benefits as single, we just get a linear mapping instead</em></li></ul>
+<p>By extension, near <span class="math inline">\((x,u)=(\bar{x}, \bar{u})\)</span>:<br>
+<span class="math display">\[f(x, u) \approx f(\bar{x}, \bar{u})+ \frac{\partial f}{\partial x} \biggr|_{(x,u)=(\bar{x}, \bar{u})} (x-\bar{x}) + \frac{\partial f}{\partial u} \biggr|_{(x,u)=(\bar{x}, \bar{u})} (u-\bar{u})\]</span></p>
+<p>Let's apply this to <span class="math inline">\(\dot{x}=f(x,u), y=h(x,u)\)</span>, <em>a dynamic system; non-linear state space model</em></p>
+<p><strong>Definition:</strong> A constant pair <span class="math inline">\((\bar{x}, \bar{u}) \in \mathbb{R}^n \times \mathbb{R}^m\)</span> is an <strong>equilibrium configuration</strong> of the system <span class="math inline">\(\dot{x}=f(x,u), y=h(x,u)\)</span> if <span class="math inline">\(f(\bar{x}, \bar{u})=(0,...,0)\)</span>. The constant <span class="math inline">\(\bar{x}\)</span> is the <strong>equilibrium point.</strong></p>
+<ul><li><em>system is at rest at <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(\bar{u}\)</span>, we'll always do linearization at an equalibrium configuration</em></li></ul>
+<h3 id="e.g.-find-all-the-equilirium-configurations-at-which-the-pendulum-is-upright">2.5.4 e.g. Find all the equilirium configurations at which the pendulum is upright</h3>
+<p><img src="img/pendulum.png"></p>
+<p><span class="math display">\[\begin{align}
+\dot{x} &amp;= f(x,u)\\
+y &amp;= h(x,u)\\
+x_1 &amp;= \theta\\
+x_2 &amp;= \dot{\theta}\\
+f(x,u) &amp;= \begin{bmatrix}x_2\\ \frac{3}{Ml}u-\frac{3g}{l}\sin(x_1)\end{bmatrix}\\
+h(x) &amp;= x_1
+\end{align}\]</span></p>
+<p>If <span class="math inline">\(y=\pi\)</span> (upright), then <span class="math inline">\(\bar{x_1}=\pi\)</span>. So we have to solve:<br>
+<span class="math display">\[
+\begin{bmatrix}0\\0\end{bmatrix} = \begin{bmatrix}
+  \bar{x_2}\\
+  \frac{3\bar{u}}{Ml} - \frac{3g}{l}\sin(\bar{x_1})
+\end{bmatrix} \Rightarrow \bar{x_2}=0, \quad \bar{u}=0
+\]</span></p>
+<ul>
+<li><em>(0,0,0...) the derrivatives vanish, so we solve for that</em></li>
+<li><em>if we start pendulum at upright, zero velocity, zero torque, our model says it won't move; it's at rest, and won't physically move based on our model</em></li>
+<li><em>same idea as before, but now x and u are a function of t, making it a dynamical system</em></li>
+</ul>
+<p>Therefore the equilibria are:<br>
+<span class="math display">\[
+\begin{bmatrix}\bar{x_1}\\\bar{x_2}\end{bmatrix} = \begin{bmatrix}\pi + 2\pi k \\ 0\end{bmatrix}, \quad \bar{u}=0
+\]</span></p>
+<p>Assume that <span class="math inline">\(\dot{x}=f(x,u)\)</span> (the nonlinear state-space model) has an equilibrium configuration at <span class="math inline">\((x,u)=(\bar{x}, \bar{u})\)</span>. <em>Forgetting about the higher order terms due to linearization,</em></p>
+<p><span class="math display">\[
+f(x,u) \approx \underbrace{f(\bar{x}, \bar{u})}_{=0} + \underbrace{\frac{\partial f}{\partial x} \biggr|_{(x,u)=(\bar{x}, \bar{u})} (x - \bar{x})}_{=: A} + \underbrace{\frac{\partial f}{\partial u} \biggr|_{(x,u)=(\bar{x}, \bar{u})} (u - \bar{u})}_{=:B}\]</span></p>
+<p>Consider deviations from <span class="math inline">\((\bar{x}, \bar{u})\)</span>, where <span class="math inline">\(||\partial x||, ||\partial u||\)</span> are assumed to be small:<br>
+<span class="math display">\[\begin{align}
+\partial x(t) &amp;:= x(t) - \bar{x}\\
+\partial u(t) &amp;:= u(t) - \bar{u}\\
+\end{align}\]</span></p>
+<ul>
+<li>this is the linearized model</li>
+<li>A and B are the linear approximations, that hold well when <span class="math inline">\(\delta x\)</span> and <span class="math inline">\(\delta y\)</span> are small</li>
+</ul>
+<p>Then we get linearized state equations:<br>
+<span class="math display">\[\dot{\partial x} = \dot{x} - 0 = f(x,u) \approx A\partial x + B \partial u\\
+\dot{\partial x} = A\partial x + B\partial u\]</span></p>
+<p>Linearized output equation:</p>
+<p><span class="math display">\[\partial y = \underbrace{\frac{\partial h}{\partial x} \biggr|_{(x,u)=(\bar{x},\bar{u})} \partial x}_{=:C} + \underbrace{\frac{\partial h}{\partial u} \biggr|_{(x,u)=(\bar{x},\bar{u})} \partial u}_{=:D}\\
+\partial y := y-\bar{y}=y-h(\bar{x},\bar{u})\]</span></p>
+<ul><li><em>together, A, B, C, D, characterize our linear state-space model</em></li></ul>
+<h3 id="summary-1">Summary</h3>
+<p>Linearizing <span class="math inline">\(\dot{x}=f(x,u)\)</span> and <span class="math inline">\(y=h(x,u)\)</span>:</p>
+<ol>
+<li>Select an equilibrium configuration <span class="math inline">\((\bar{x}, \bar{u}) \in \mathbb{R}^n \times \mathbb{R}^m\)</span>: <span class="math inline">\(\bar{y}=h(\bar{x},\bar{u}), f(\bar{x},\bar{u})=0\)</span>, where all derivatives vanish</li>
+<li>Compute Jacobians of <span class="math inline">\(f,h\)</span> to get <span class="math inline">\(A,B,C,D\)</span>, <em>matrices have to be constants, no x's or u's</em>
+</li>
+<li>Linearization: <span class="math inline">\(\dot{\partial x} = A \partial + B \partial u, \partial y = C \partial x + D \partial u\)</span>
+</li>
+</ol>
+<p>We do this to simplify our mathematical model, by finding a good linear approximation at some point, allowing us to solve things about non-linear systems</p>
+<ul>
+<li>now that our models are linear, we can apply lapace transforms</li>
+<li>to show that a system is non-linear, show that one of the properites of linearity is not true for the system (in the assignment we show that superposition doesn't hold)</li>
+</ul>
+<h3 id="e.g.-2.5.5-pendulum">e.g. 2.5.5 (Pendulum)</h3>
+<ol>
+<li>equalibrium config is <span class="math inline">\(\bar{x} = (\pi, 0), \bar{u} = 0\)</span>
+</li>
+<li>$ A = \frac{\delta f}{\delta x}, B = (0, \frac{3}{M l^2}), C = (1, 0), D = 0$</li>
+<li>Linearize model. <span class="math inline">\(\dot{\delta x}\)</span>
+</li>
+</ol>
+<p><em>Note that in practice, our system is still non-linear, so we need to bring it close to equilibrium configuration for our controller to be effective</em></p>
+<h3 id="transfer-functions">2.8 Transfer Functions</h3>
+<p>u(t) -&gt; |LTI system| -&gt; y(t)</p>
+<p>Transfer function of the system is the ratio <span class="math inline">\(\frac{Y(s)}{U(s)}\)</span> where all Laplace transforms are taken with zero initial conditions</p>
+<p>example: Recall the mass spring damper</p>
+<p><span class="math inline">\(M\ddot{q} = u - kq - c(\dot{q})\)</span></p>
+<p>If the damper is nonlinear, then this system doesn't have a transfer function. If <span class="math inline">\(C \dot{q} = b \dot{q}\)</span>, b is a constant, then taking the Laplace transform of the differential equation:</p>
+<p><span class="math inline">\(\begin{align} s^2 M Q(s) &amp;= U(s) - K Q(s) - s b Q(s) \\ \frac{Q(s)}{U(s)} &amp;= \frac{1}{s^2 M + b s + K} \end{align}\)</span></p>
+<h3 id="block-diagrams">Block Diagrams</h3>
+<p><img src="img/blocks.png"></p>
+<p>full table:</p>
+<p><img src="img/table22.png"></p>
+<p><img src="img/defn285.png"></p>
+<p>Let <span class="math inline">\(\mathbb{R}(s)\)</span> be the set of all real rational transfer functions.</p>
+<ul>
+<li>
+<span class="math inline">\(G(s) \in \mathbb{R}(s)\)</span> is <strong>proper</strong> if the degree of the denominator is greater than or equal to the numerator</li>
+<li>Is is <strong>strictly proper</strong> if it is strictly greater</li>
+</ul>
+<p>A complex number <span class="math inline">\(x \in \mathbb{C}\)</span> is a <strong>zero</strong> of <span class="math inline">\(G(s)\)</span> if <span class="math inline">\(\lim_{s \rightarrow x} |G(s)| = 0\)</span>.</p>
+<ul>
+<li>Poles of <span class="math inline">\(G\)</span> are roots of the denominator</li>
+<li><p>Zeroes are roots of the numerator</p></li>
+<li><p>The transfer function obtained from a state space model is always rational and always proper</p></li>
+</ul>
+<h3 id="obtaining-a-tf-from-a-state-model">2.8.1 Obtaining a TF from a state model</h3>
+<p><img src="img/transfer281.png"></p>
+<ul>
+<li>the transfer funciton obtained from a state space model is always rational and proper</li>
+<li>state space model can be converted to a unique rational proper transfer function</li>
+<li>transfer function model only goes to state space model if the transfer funciton is rational and proper, never unique</li>
+</ul>
+<h3 id="linearized-pendulum">2.8.6 Linearized pendulum</h3>
+<p><span class="math display">\[\begin{align}
+\bar{x} &amp;= \begin{bmatrix}\pi\\0\end{bmatrix}, \quad \bar{u}=0\\
+\\
+\partial \dot{x} &amp;= \begin{bmatrix} 0 &amp; 1 \\ \frac{3g}{l} &amp; 0 \end{bmatrix} \partial x + \begin{bmatrix}0 \\ \frac{3}{Ml^2}\end{bmatrix} \partial u\\
+\partial y &amp;= \begin{bmatrix}1 &amp; 0\end{bmatrix} \partial x\\
+\\
+G(s) &amp;= C(sI-A)^{-1}B + D, \quad (sI-A)^{-1} = \frac{\text{adj}(sI-A) \text{   &lt;-- n x n}}{\det(sI-A) \text{   &lt;--- polynomial}}\\
+&amp;= \begin{bmatrix}1 &amp; 0\end{bmatrix}\begin{bmatrix}s &amp; -1 \\ \frac{-3g}{l} &amp; s\end{bmatrix}^{-1}\begin{bmatrix}0 \\ \frac{3}{Ml^2}\end{bmatrix}\\
+&amp;= \begin{bmatrix}1 &amp; 0\end{bmatrix}\begin{bmatrix}s &amp; \frac{-3g}{l} \\ 1 &amp; s\end{bmatrix}^T\begin{bmatrix}0 \\ \frac{3}{Ml^2}\end{bmatrix}\\
+&amp;= \frac{\frac{s}{Ml^2}}{s^2 - \frac{3g}{l}}\\
+\end{align}\]</span></p>
+<ul><li>adj, swap diagonals, switch signs on anti-diagonals</li></ul>
+<h3 id="block-diagram-manipulations">2.9 Block diagram manipulations</h3>
+<p><img src="img/block236.png"></p>
+<ul><li>transfer functions in series can be multiplied together and written as a single block</li></ul>
+<p><img src="img/block237.png"></p>
+<ul><li>by linearization, transfer functions in parallel are added</li></ul>
+<pre><code>          +------+
+  U(s) --&gt;| G(s) |--&gt; Y(s)      Y(s) = G(s)U(s)
+          +------+
+
+           +------+
+        +-&gt;| G(s) |--+
+        |  +------+  |
+  U(s) -+            +--&gt; Y(s)   Y(s) = (G(s) + H(s))U(s)
+        |  +------+  |
+        +-&gt;| H(s) |--+
+           +------+
+
+                                        D(s)
+                                         |
+                                         v
+                                      +-----+
+                  D(s)                | 1/G |
+                    |                 +-----+   
+          +------+  v                     |   +------+
+  U(s) --&gt;| G(s) |--o--&gt; Y(s)   =  U(s) --o--&gt;| G(s) |   Y(s) = D(s) + G(s)U(s)
+          +------+                            +------+
+
+
+             +------+
+  U(s) --o--&gt;| G(s) |--+--&gt; Y(s)      Y(s) = G(s)U(s)/(1 + G(s)H(s))
+         ^-  +------+  |
+         |             |
+         |   +------+  |
+         +---| H(s) |--+
+             +------+
+</code></pre>
+<p>We have the tools to simplify block diagrams now, simplifying series/parallel blocks and rearranging them relative to summing junctions. So some strategies we can use:</p>
+<ol>
+<li>mathematically; write equation for Y(s) and rearrange using our laws</li>
+<li>re-arrange blocks to reveal common configurations listed above</li>
+<li>systematic method below, for complicated diagrams</li>
+</ol>
+<h2 id="systematic-method-of-finding-transfer-functions">Systematic method of finding transfer functions</h2>
+<ol>
+<li>Introduce new variables <span class="math inline">\(\{v_1, v_2, ... \}\)</span> at the output of every summer</li>
+<li>Write expressions for inputs of summers in terms of <span class="math inline">\(\{u, y, v_1, v_2, ...\}\)</span>
+</li>
+<li>Write equations for each summer and <span class="math inline">\(y\)</span>
+</li>
+<li>Eliminate <span class="math inline">\(\{v_1, v_2, ...\}\)</span> from equations</li>
+</ol>
+<p>e.g.<br>
+<img src="img/blockdiagramtf.png"></p>
+<p><span class="math display">\[\begin{align}
+y&amp;=G_3G_2v_2\\
+v_2 &amp;= H_2y+G_1v_1-H_2G_2v_1\\
+v_1&amp;=u-H_1G_2v_2\\
+\\
+\begin{bmatrix}1 &amp; H_1 G_2 &amp; 0 \\ -G_1 &amp; 1+H_2G_2 &amp; -H_3 \\ 0 &amp; -G_3G_2 &amp; 1\end{bmatrix}
+  \begin{bmatrix}v_1 \\ v_2 \\ y\end{bmatrix} &amp;= \begin{bmatrix}u \\ 0 \\ 0\end{bmatrix}\\
+\\
+\text{since # of equations = # of variables, we can apply}&amp;\text{ cramer's rule } Ax = b, x_i = \frac{det(A_i)}{det(A)}\\
+\text{where }A_i \text{ is the matrix formed by replacing the}&amp;\text{ i-th column of A by the column vector b}\\
+\text{By cramer's rule:}\\
+Y(s) - \frac{
+\det\begin{bmatrix}1 &amp; H_1G_2 &amp; u \\ -G_1 &amp; 1+H_2G_2 &amp; 0 \\ 0 &amp; -G_2G_3 &amp; 0\end{bmatrix}
+}{
+\det\begin{bmatrix}1 &amp; H_1G_2 &amp; 0 \\ -G_1 &amp; 1+H_2G_2 &amp; -H_3 \\ 0 &amp; -G_3G_2 &amp; 1\end{bmatrix}
+}
+&amp;= \frac{G_1 G_2 G_3}{1 + H_1 H_2 G_2 - H_3 G_3 G_2 + G_1 H_1 G_2} U(s)\\
+\end{align}\]</span></p>
+<h1 id="chapter-4-first-and-second-order-systems">Chapter 4: First and Second Order Systems</h1>
+<p>The order of a dynamic system is the order of the highest derivative of its governing differential equation.</p>
+<ul>
+<li>understand relationship between pole locations and time domain behaviour; how do pole locations affect the response of the system?</li>
+<li>use feedback to change the pole location of a closed loop system</li>
+</ul>
+<h2 id="first-order">First order</h2>
+<p><span class="math display">\[\tau \dot{y} = ku\]</span><br>
+or<br>
+<span class="math display">\[\frac{Y(s)}{U(s)} = \frac{K}{\tau s + 1}\]</span><br>
+or<br>
+<span class="math display">\[\begin{align}
+\dot{x}&amp;=\frac{-x}{\tau} + \frac{K}{\tau} u\\
+y &amp;= x
+\end{align}\]</span></p>
+<p>Observations:</p>
+<ul>
+<li>Pole at <span class="math inline">\(s=\frac{-1}{\tau}\)</span>
+</li>
+<li>No zeroes</li>
+<li>BIBO stable if and only if <span class="math inline">\(\tau \gt 0\)</span>
+</li>
+<li>steady-state gain: <span class="math inline">\(K\)</span>
+</li>
+<li>bandwidth: <span class="math inline">\(\frac{1}{\tau}\)</span> rad/s</li>
+<li>Impulse response: <span class="math inline">\(g(t)=\frac{K}{\tau} e^{-1/\tau} 1(t)\)</span><ul>
+<li><span class="math inline">\(g(0)=\frac{K}{\tau}\)</span></li>
+<li><span class="math inline">\(g(\tau)=g(0)e^{-1} \approx 0.37g(0)\)</span></li>
+<li><span class="math inline">\(g(2\tau)=g(0)e^{-2} \approx 0.14g(0)\)</span></li>
+</ul>
+</li>
+<li>Higher bandwidth implies faster impulse response, and vice versa</li>
+</ul>
+<p>Step response:<br>
+<span class="math display">\[y(t) = \mathcal{L}^{-1}\{G(s)U(s)\} = \mathcal{L}^{-1}\left\{\frac{K}{\tau s + 1} \frac{1}{s}\right\} = \mathcal{L}^{-1}\left\{\frac{K}{s} - \frac{K}{s + \frac{1}{\tau}}\right\}\]</span><br>
+<span class="math display">\[K(1-e^{\frac{-t}{\tau}}), \quad t \ge 0\]</span></p>
+<p><img src="img/firstordertime.png"></p>
+<p>Observations:</p>
+<ol>
+<li>After <span class="math inline">\(4\tau\)</span> seconds, <span class="math inline">\(y(t)\)</span> is within 2% of its steady-state value</li>
+<li>For all <span class="math inline">\(t \gt 0\)</span>, <span class="math inline">\(y(t) \lt y_{ss}\)</span> (no overshoot)</li>
+<li>
+<span class="math inline">\(y(t)\)</span> increases monotonically (no oscillations)</li>
+<li>Decrease in <span class="math inline">\(\tau \Leftrightarrow\)</span> step response gets faster <span class="math inline">\(\Leftrightarrow\)</span> bandwidth goes up <span class="math inline">\(\Leftrightarrow\)</span> poles move to the left</li>
+</ol>
+<h2 id="second-order">Second order</h2>
+<p><span class="math display">\[\ddot{y}+2\zeta\omega_n \dot{y} + \omega_n^2 y = K\omega_n^2 u\]</span><br>
+or<br>
+<span class="math display">\[ \frac{Y(s)}{U(s)} = \frac{K\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}\]</span><br>
+or<br>
+<span class="math display">\[\begin{align}
+\dot{x} &amp;= \begin{bmatrix}0&amp;1\\-\omega_n^2&amp;-2\zeta\omega_n\end{bmatrix}x + \begin{bmatrix}0\\K\omega_n^2\end{bmatrix}u\\
+y &amp;= \begin{bmatrix} 1 &amp; 0\end{bmatrix}x\\
+\end{align}\]</span></p>
+<h3 id="e.g.">e.g.</h3>
+<p><img src="img/secondorderspring.png"></p>
+<p><span class="math display">\[\begin{align}
+M \ddot{q} &amp;= u - K_{spring} q - b\dot{q}\\
+\frac{Y(s)}{U(s)} &amp;= \frac{\frac{1}{M}}{s^2 + \frac{b}{M}s + \frac{K_{spring}}{M}}\\
+\\
+\omega_n &amp;= \sqrt{\frac{K_{spring}}{M}}\\
+\zeta &amp;= \frac{b}{2 \sqrt{K_{spring}M}}\\
+K &amp;= \frac{1}{K_{spring}}
+\end{align}\]</span></p>
+<h3 id="pole-locations">Pole locations</h3>
+<ul>
+<li>there's more to do since there's two poles since it's a second order equation</li>
+<li>poles will be an expression of <span class="math inline">\(\zeta\)</span> and <span class="math inline">\(\omega_n\)</span>, for <span class="math inline">\(s\)</span>
+</li>
+</ul>
+<p>From the quadratic formula, find the zeroes of the denominator:<br>
+<span class="math display">\[s = -\zeta \omega_n \pm \omega_n \sqrt{\zeta^2 - 1} = \omega_n\left(-\zeta \pm \sqrt{\zeta^2 - 1}\right)\]</span></p>
+<p><img src="img/secondorderpolelocations.png"></p>
+<p>Pole locations are used to categorize the system:</p>
+<ul>
+<li>Undamped <span class="math inline">\(\zeta = 0\)</span>
+</li>
+<li>Underdamped <span class="math inline">\(0 \lt \zeta \lt 1\)</span>
+</li>
+<li>Critically damped <span class="math inline">\(\zeta = 1\)</span>
+</li>
+<li>Overdamped <span class="math inline">\(\zeta \gt 1\)</span>
+</li>
+</ul>
+<p>Steady-state gain: <span class="math inline">\(K\)</span><br>
+Zeroes: none</p>
+<p><img src="img/secondordergian.png"></p>
+<h3 id="step-response">Step response</h3>
+<p><img src="img/secondorderstepresponse.png"></p>
+<h2 id="underdamped-systems">Underdamped Systems</h2>
+<ul><li>Poles are complex conjugate: <span class="math inline">\(s = -\zeta \omega_n \pm j\omega_n \sqrt{1 - \zeta^2} = \omega_n e^{\pm j (\pi - \theta)}, \theta = \arccos(\zeta)\)</span>
+</li></ul>
+<p><img src="img/underdampedpolar.png"></p>
+<h4 id="impulse-response">Impulse response</h4>
+<p><span class="math display">\[g(t) = K\frac{\omega_n}{\sqrt{1-\zeta^2}} \underbrace{e^{-\zeta \omega_n t}}_\text{decay rate} \sin\underbrace{\left(\omega_n \sqrt{1-\zeta^2} t\right)}_\text{oscillation rate}, \quad t \ge 0\]</span></p>
+<p>Observe: If we fix <span class="math inline">\(\zeta \in (0,1)\)</span>, then larger bandwidth <span class="math inline">\(\Leftrightarrow\)</span> faster decay</p>
+<h4 id="step-response-1">Step response</h4>
+<p><span class="math display">\[\begin{align}
+u(t) &amp;= 1(t)\\
+\Rightarrow U(s) &amp;= \frac{1}{s}\\
+\\
+Y(s) &amp;= G(s)U(s)\\
+\Rightarrow y(t) &amp;= \mathcal{L}^{-1}{G \dot U}\\
+&amp;= K\left(1 - \frac{1}{\sqrt{1 - \zeta^2}} e^{-\zeta \omega_n t} \sin\left(\omega_n \sqrt{1 - \zeta^2}t + \theta\right)\right), \quad \theta = \arccos \zeta\\
+\end{align}\]</span></p>
+<h3 id="summary-2">Summary</h3>
+<ul>
+<li>As <span class="math inline">\(\zeta \rightarrow 1\)</span>, response is less oscilatory, less overshoot, imaginary part of poles approaches zero</li>
+<li>As <span class="math inline">\(\zeta \rightarrow 0\)</span>, response is more oscillatory, more overshoot, real part of poles approaches 0</li>
+<li>
+<span class="math inline">\(\omega_{BW} \approx \omega_n\)</span>. As <span class="math inline">\(\omega_n \rightarrow \infty\)</span>, response is faster, poles have larger magnitude.</li>
+<li>Frequency of oscillation depends on imaginary part of the poles; rate of decay depends on the real part</li>
+</ul>
+<h2 id="general-characteristics-of-step-response">General characteristics of step response</h2>
+<ul>
+<li>Look at common metrics to quantify the quality</li>
+<li>metrics apply to <strong>any</strong> system</li>
+<li>we use <span class="math inline">\(G(s) = \frac{K \omega_n^2}{s^2 + 2\zeta \omega_n s + \omega_n^2}\)</span> to get equations for the metrics in therms of <span class="math inline">\(K, \omega_n, \zeta\)</span>
+</li>
+</ul>
+<p><img src="img/stepcharacteristics.png"></p>
+<h3 id="overshoot">Overshoot</h3>
+<ul>
+<li>only undamped second order systems have it:<br>
+<span class="math display">\[\%OS = \frac{||y||_\infty - |G(0)|}{|G(0)|}\]</span>
+</li>
+<li>only depends on dampting ratio:<br>
+<span class="math display">\[\%OS = \exp\left(\frac{-\zeta \pi}{\sqrt{1 - \zeta^2}}\right), \quad 0 \lt \zeta \lt 1\]</span>
+</li>
+<li>More damping (larger <span class="math inline">\(\zeta\)</span>) <span class="math inline">\(\Leftrightarrow\)</span> less overshoot</li>
+</ul>
+<h4 id="e.g.-mass-spring-damper">e.g. mass-spring damper</h4>
+<p><span class="math display">\[\frac{Y(s)}{U(s)} = \frac{\frac{1}{M}}{s^2 + \frac{b}{M}s + \frac{K_{spring}}{M}}\]</span></p>
+<ul><li>Find conditions on <span class="math inline">\(M,b,K_{spring}\)</span> so that <span class="math inline">\(\%OS \le \%OS_{max} = 0.05\)</span>
+</li></ul>
+<p><span class="math display">\[\begin{align}
+\zeta &amp;= \frac{b}{2\sqrt{MK_{spring}}}\\
+\zeta &amp;\ge \frac{-\ln(\%OS_{max})}{\sqrt{\pi^2 + (\ln\%OS_{max})^2}} =:\zeta_{min}\\
+\\
+\text{To meet specs:}\\
+\frac{b}{2\sqrt{MK_{spring}}} \ge 0.6901\\
+\end{align}\]</span></p>
+<p>The angle the poles make is <span class="math inline">\(\pm(\pi - \arccos \zeta)\)</span>.<br>
+<span class="math display">\[ \zeta \ge \zeta_{min} \Leftrightarrow \theta \le \arccos(\zeta_{min})\]</span><br>
+In this example, <span class="math inline">\(\theta \le 46^{\circ}\)</span><br>
+<img src="img/overshootangle.png"><br>
+Therefore the overshoot spec is not met if there are poles in the shaded region.</p>
+<h3 id="settling-time">Settling time</h3>
+<ul>
+<li>The smallest time <span class="math inline">\(T_s\)</span> such that <span class="math inline">\(\forall t \ge T_s,\quad \frac{|G(0)-y(t)|}{|y(t)|} \le 0.02\)</span>.</li>
+<li>An estimate is obtained by looking at the decay rate <span class="math inline">\(e^{-\zeta \omega_n t}\)</span>:<br>
+<span class="math display">\[e^{-\zeta \omega_n t} \le 0.02 \Rightarrow t \ge \frac{4}{\zeta \omega_n} \text{ (approx)}\]</span><br>
+i.e. <span class="math inline">\(T_s = \frac{4}{\zeta \omega_n}\)</span>
+</li>
+</ul>
+<h4 id="e.g.-mass-spring-damper-1">e.g. Mass-spring damper</h4>
+<p>Find the condition so that <span class="math inline">\(T_s \le T_s^{max} = 3\)</span></p>
+<p><span class="math display">\[\begin{align}
+G(s) &amp;= \frac{\frac{1}{M}}{s^2 + \frac{b}{M}s + \frac{K_{spring}}{M}}\\
+\frac{4}{\zeta \omega_n} &amp;\le 3 = T_s^{max}\\
+\Leftrightarrow \zeta\omega_n &amp;\ge \frac{4}{T_s^{max}}\\
+\Leftrightarrow \frac{b}{2M} &amp;\ge \frac{4}{3}\\
+\end{align}\]</span></p>
+<p><img src="img/massspringpoles.png"></p>
+<h3 id="time-to-peak">Time-to-peak</h3>
+<ul>
+<li>Smallest <span class="math inline">\(T_p \gt 0\)</span> such that <span class="math inline">\(||y||_\infty = y(T_p)\)</span>
+</li>
+<li>Derived similar to overshoot: <span class="math inline">\(T_p = \frac{\pi}{\omega_n \sqrt{1 - \zeta^2}}, \quad 0 \lt \zeta \lt 1\)</span>
+</li>
+<li>So <span class="math inline">\(T_p\)</span> only depends on the imaginary part of the poles</li>
+</ul>
+<h4 id="e.g.-mass-spring-damper-again">e.g. mass-spring damper again</h4>
+<p>Spec: <span class="math inline">\(T_p \le T_p^{max} = 3 \text{ seconds }\)</span></p>
+<p><span class="math display">\[\begin{align}
+\omega_n\sqrt{1-\zeta^2} &amp;\le \frac{\pi}{T_p^{max}}\\
+\Leftrightarrow \sqrt{\frac{K_{spring}}{M} - \frac{b^2}{4M^2}} &amp;\le \frac{\pi}{3}\\
+\end{align}\]</span></p>
+<p><img src="img/massspringpoles2.png"></p>
+<h4 id="changes-to-poles">Changes to poles</h4>
+<p><img src="img/polechanges.png"></p>
+<table style="width:14%;">
+<colgroup>
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+</colgroup>
+<thead><tr class="header">
+<th></th>
+<th>decrease real part</th>
+<th>increase imaginary part</th>
+<th>angle of poles to <span class="math inline">\(\pm \pi\)</span>
+</th>
+<th>increase magnitude</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\omega_n\)</span></td>
+<td>+</td>
+<td>+</td>
+<td>no change</td>
+<td>+</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\zeta\)</span></td>
+<td>+</td>
+<td>-</td>
+<td>+</td>
+<td>no change</td>
+</tr>
+<tr class="odd">
+<td>%OS</td>
+<td>-</td>
+<td>+</td>
+<td>-</td>
+<td>no change</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(T_s\)</span></td>
+<td>-</td>
+<td>no change</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(T_p\)</span></td>
+<td>no change</td>
+<td>-</td>
+<td>+</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h1 id="state-response">4 State Response</h1>
+<p><span class="math display">\[\begin{align}
+\dot{x}&amp;=Ax\\
+x &amp;\in \mathbb{R}^n\\
+A &amp;\in \mathbb{R}^{n \times n}\\
+x(0) &amp;= x_0 \in \mathbb{R}^n \text{ (initial condition) }\\
+\end{align}\]</span></p>
+<p>Recall:</p>
+<ol>
+<li>When <span class="math inline">\(n=1\)</span> (A is scalar), the solution is <span class="math inline">\(x(t)=e^{tA}x_0\)</span>
+</li>
+<li>Taylor series expansion of <span class="math inline">\(e^{At}=1 + At + \frac{(At)^2}{2!} + ...\)</span>
+</li>
+</ol>
+<p>Motivated by 1 and 2, define the <strong>matrix exponential</strong>:<br>
+<span class="math display">\[e^A := I + A + \frac{A^2}{2!} + ...\]</span></p>
+<h3 id="e.g.-3.1.1">e.g. 3.1.1</h3>
+<p><span class="math display">\[\begin{align}
+A &amp;= \begin{bmatrix}0 &amp; 0 \\ 0 &amp; 0\end{bmatrix}\\
+\Rightarrow e^A &amp;= I + 0 + 0 + ...\\
+&amp;= \begin{bmatrix}1 &amp; 0 \\ 0 &amp; 1\end{bmatrix}\\
+\end{align}\]</span></p>
+<h3 id="e.g.-3.1.2">e.g. 3.1.2</h3>
+<p><span class="math display">\[\begin{align}
+A &amp;= \begin{bmatrix}1 &amp; 0 \\ 0 &amp; 2\end{bmatrix}\\
+\text{For a diagonal matrix:}\\
+A^k &amp;= \begin{bmatrix}1^k &amp; 0 \\ 0 &amp; 2^k\end{bmatrix}\\
+\Rightarrow e^A &amp;= I + \begin{bmatrix}1 &amp; 0 \\ 0 &amp; 2\end{bmatrix} + \begin{bmatrix}1^2 &amp; 0 \\ 0 &amp; 2^2\end{bmatrix} + ...\\
+&amp;= \begin{bmatrix}e^1 &amp; 0 \\ 0 &amp; e^2\end{bmatrix}\\
+\end{align}\]</span></p>
+<h3 id="e.g.-3.1.3">e.g. 3.1.3</h3>
+<p><span class="math display">\[
+A = \begin{bmatrix}0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0\end{bmatrix}\\
+\]</span><br>
+Check that <span class="math inline">\(A^3=0\)</span> (i.e. <span class="math inline">\(A\)</span> is nilpotent).<br>
+<span class="math display">\[
+e^A = I + A + \frac{A^2}{2} = \begin{bmatrix}1 &amp; 1 &amp; \frac{1}{2} \\ 0 &amp; 1 &amp; 1 \\ 0 &amp; 0 &amp; 1\end{bmatrix}\\
+\]</span></p>
+<p>Replace <span class="math inline">\(A\)</span> with <span class="math inline">\(tA\)</span> to get a function of time:<br>
+<span class="math display">\[e^{At} = I + tA + \frac{t^2A^2}{2!} + ...\]</span></p>
+<p><strong>Theorem:</strong> The unique solution to <span class="math inline">\(\dot{x}=Ax, \quad x(0)=x_0\)</span> is <span class="math inline">\(x(t)=e^{tA}x_0\)</span>.</p>
+<h2 id="using-laplace">Using Laplace</h2>
+<p>Take the Laplace transform of <span class="math inline">\(\dot{x}=Ax\)</span> without assuming <span class="math inline">\(x(0)=0\)</span>:<br>
+<span class="math display">\[\begin{align}
+sX(s) - x(0) &amp;= AX(s)\\
+X(s) &amp;= (sI-A)^{-1} x(0)\\
+\end{align}\]</span></p>
+<p><strong>Conclusion</strong>: <span class="math inline">\(e^{At}\)</span> and <span class="math inline">\((sI-A)^{-1}\)</span> are Laplace transform pairs.</p>
+<h3 id="e.g.-1">e.g.</h3>
+<p><span class="math display">\[\begin{align}
+A &amp;= \begin{bmatrix}0&amp;1&amp;0\\0&amp;0&amp;1\\0&amp;0&amp;0\end{bmatrix}\\
+sI-A &amp;= \begin{bmatrix}s&amp;-1&amp;0\\0&amp;s&amp;-1\\0&amp;0&amp;s\end{bmatrix}\\
+(sI-A)^{-1} &amp;= \frac{\text{adj}(sI-A)}{\det(sI-A)}\\
+&amp;= \frac{1}{s^3} \begin{bmatrix}s^2&amp;s&amp;1\\0&amp;s^2&amp;s\\0&amp;0&amp;s^2\end{bmatrix}\\
+e^{tA} &amp;= \mathcal{L}^{-1} \left\{ (sI-A)^{-1} \right\}\\
+&amp;= \begin{bmatrix}1&amp;t&amp;\frac{t^2}{2}\\0&amp;1&amp;t\\0&amp;0&amp;1\end{bmatrix}, \quad t \ge 0\\
+\end{align}\]</span></p>
+<h2 id="total-response">Total Response</h2>
+<p>The solution of <span class="math inline">\(\dot{x}=Ax+Bu\)</span>, <span class="math inline">\(y=Cx+Du\)</span>, <span class="math inline">\(x(0)=x_0\)</span> is:<br>
+<span class="math display">\[x(t) = \underbrace{e^{At}x_0}_\text{initial state response} + \underbrace{\int_0^t e^{A(t-\tau)} Bu(\tau)d\tau}_\text{forced response}\]</span><br>
+<span class="math display">\[Y(t)=Cx(t)+Du(t)\]</span></p>
+<p>In SISO (single-input-single-output) special case where <span class="math inline">\(x(0)=0\)</span>, we get the familiar result:<br>
+<span class="math display">\[\begin{align}
+y(t)&amp;=(g * u)(t) = \int_0^t g(t-\tau)u(\tau)d\tau\\
+g(t)&amp;=Ce^{At}B 1(t) + D\delta(t)
+\end{align}\]</span><br>
+Where <span class="math inline">\(1(t)\)</span> is the unit step function and <span class="math inline">\(\delta(t)\)</span> is the unit impulse.</p>
+<h2 id="stability-of-state-space-models">Stability of state-space models</h2>
+<p>The system <span class="math inline">\(\dot{x}=Ax\)</span> is <strong>asymptotically stable</strong> if <span class="math inline">\(x(t) \rightarrow 0\)</span> for any initial condition.</p>
+<p><span class="math inline">\(e^{At} \rightarrow 0\)</span> if and only if all the eigenvalues of <span class="math inline">\(A\)</span> have a negative real part.</p>
+<h3 id="e.g.-3.4.2">e.g. 3.4.2</h3>
+<p><span class="math display">\[\begin{align}
+M\ddot{q}&amp;=u-Kq \quad \text{(mass-spring)}\\
+x &amp;= \begin{bmatrix}x_1\\x_2\end{bmatrix} := \begin{bmatrix}q\\\dot{q}\end{bmatrix}\\
+\dot{x} &amp;= \begin{bmatrix}0&amp;1\\\frac{-k}{M}&amp;0\end{bmatrix}x + \begin{bmatrix}0\\\frac{1}{M}\end{bmatrix}u\\
+\\
+\text{Using } M=1, k=4:\\
+e^{At} &amp;= \begin{bmatrix}\cos 2t&amp;\frac{1}{2}\sin 2t\\-2\sin 2t &amp; \cos 2t\end{bmatrix}\\
+\end{align}\]</span></p>
+<p>Since <span class="math inline">\(e^{At}\)</span> does not approach 0 as <span class="math inline">\(t\)</span> grows large, the system is not asymptotically stable.</p>
+<p>Let's double-check this using the eigenvalues. Solve for <span class="math inline">\(s\)</span> such that <span class="math inline">\(\det(sI-A)=0\)</span>.<br>
+<span class="math display">\[\begin{align}
+A &amp;= \begin{bmatrix}0 &amp; 1 \\ -4 &amp; 0 \end{bmatrix}\\
+\det \begin{bmatrix}s &amp; -1 \\ 4 &amp; s\end{bmatrix} &amp;= 0\\
+s^2 + 4 &amp;= 0\\
+s &amp;= \pm 2j
+\end{align}\]</span><br>
+The system is therefore not asymptotically stable since it has at least one eigenvalue (in this case, it has two) with a non-negative real part.</p>
+<p>If we introduce friction:<br>
+<span class="math display">\[\begin{align}
+\ddot{q} &amp;= u-4q-\dot{q}
+\end{align}\]</span></p>
+<p>Check that it is asymptotically stable (it should be)</p>
+<h2 id="bounded-input-bounded-output-stability">Bounded input, bounded output stability</h2>
+<p><span class="math display">\[
+Y(s)=G(s)U(s) \quad \text{or} \quad y(t)=(g*u)(t), g(t)=\mathcal{L}^{-1}\left\{G(s)\right\}\\
+\]</span></p>
+<p>A signal <span class="math inline">\(u(t)\)</span> is <strong>bounded</strong> if there exists a constant <span class="math inline">\(b\)</span> such that, for all <span class="math inline">\(t \ge 0\)</span>, <span class="math inline">\(|u(t)| \le b\)</span>.</p>
+<p>For example, <span class="math inline">\(\sin t\)</span> is bounded by <span class="math inline">\(b=1\)</span>.</p>
+<p>If <span class="math inline">\(u\)</span> is bounded, <span class="math inline">\(||u||_\infty\)</span> denotes the <strong>least upper bound</strong>. For example, for <span class="math inline">\(\sin t\)</span>, then <span class="math inline">\(|u(t)| \le 10\)</span> and <span class="math inline">\(u\)</span> is bounded.</p>
+<p>A linear, time-independent system is <strong>BIBO stable</strong> if every bounded input produces a bounded output. <span class="math inline">\(||u||_\infty\)</span> is finite <span class="math inline">\(\Rightarrow ||y||_\infty\)</span> is finite.</p>
+<h3 id="e.g.-3.5.1">e.g. 3.5.1</h3>
+<p><span class="math inline">\(G(s)=\frac{1}{s+2}\)</span>. The impulse response is <span class="math inline">\(g(t)=\mathcal{L}^{-1}\{G(s)\} = e^{-2t}\)</span>. Then:</p>
+<p><span class="math display">\[\begin{align}
+y(t) &amp;=(g * u)(t)\\
+&amp;= \int_0^t e^{-2\tau} u(t-\tau) d\tau\\
+\forall t \ge 0:\\
+|y(t)|&amp;=\left|\int_0^t e^{-2\tau} u(t-\tau) d\tau\right|\\
+&amp;\le \int_0^t \left|e^{-2\tau} u(t-\tau) \right| d\tau\\
+&amp;\le \int_0^t e^{-2\tau} d\tau ||u||_\infty\\
+&amp;\le \int_0^\infty e^{-2\tau} d\tau ||u||_\infty\\
+&amp;= \frac{1}{2} ||u||_\infty\\
+\\
+||y||_\infty &amp;\le \frac{1}{2} ||u||_\infty\\
+\therefore \text{ system is BIBO stable. }
+\end{align}\]</span></p>
+<h2 id="bibo-and-poles">BIBO and poles</h2>
+<p><strong>Theorem 3.5.4:</strong> Assume that <span class="math inline">\(G(s)\)</span> is rational and strictly proper. Then the following are equivalent:</p>
+<ol>
+<li>
+<span class="math inline">\(G\)</span> is BIBO stable.</li>
+<li>the impulse response <span class="math inline">\(g(t)=\mathcal{L}^{-1}\{G(s)\}\)</span> is absolutely integrable: <span class="math inline">\(\int_0^\infty |g(\tau)| d\tau \lt \infty\)</span>
+</li>
+<li>Every pole of <span class="math inline">\(G\)</span> has a negative real part</li>
+</ol>
+<p>For example, <span class="math inline">\(\frac{1}{s+1}, \frac{1}{(s+3)^2}, \frac{s-1}{s^2+5s+6}\)</span> are all BIBO stable because their poles have a negative real part.</p>
+<p>On the other hand, take <span class="math inline">\(\frac{1}{s}, \frac{1}{s-1}\)</span>. These are all BIBO unstable because they have poles which do not have a negative real part. The function <span class="math inline">\(\frac{1}{s}\)</span> is an integrator, so when you give it a constant function as an input, the output will be a ramp, which is unbounded.</p>
+<p><strong>Theorem 3.5.5:</strong> If <span class="math inline">\(G(s)\)</span> is rational and improper (the degree of the numerator is greater than the degree of the denominator), then <span class="math inline">\(G\)</span> is not BIBO stable.</p>
+<h2 id="stability-of-state-space-models-and-bibo-stability">Stability of state-space models and BIBO stability</h2>
+<p><span class="math display">\[\begin{align}
+\dot{x} &amp;= Ax+Bu\\
+y *= Cx+Du\\
+\Rightarrow Y(s) &amp;= \left(C(SI-A)^{-1}B + D\right)U(s)\\
+&amp;= \left(C\frac{\text{adj}(sI-A)}{\det(sI-A)}B + D\right)U(s)\\
+\end{align}\]</span><br>
+This is BIBO stable if all poles in <span class="math inline">\(\Re(s) \lt 0\)</span><br>
+This is asymptotically stable if all eigenvalues of <span class="math inline">\(A \in \Re(s) \lt 0\)</span><br>
+Eigenvalues of <span class="math inline">\(A\)</span> = roots of <span class="math inline">\(\det(sI-A) \supseteq\)</span> poles of <span class="math inline">\(G(s)=C(sI-A)^{-1}B+D\)</span></p>
+<h3 id="e.g.-3.5.5-mass-spring">e.g. 3.5.5: mass-spring</h3>
+<p><span class="math display">\[\begin{align}
+\dot{x} &amp;= \begin{bmatrix}0&amp;1\\-4&amp;0\end{bmatrix}x + \begin{bmatrix}0\\1\end{bmatrix}u\\
+y &amp;= \begin{bmatrix}1 &amp; 0\end{bmatrix} x
+\end{align}\]</span></p>
+<p>Eigenvalues of <span class="math inline">\(A\)</span> are <span class="math inline">\(\pm 2j \Rightarrow\)</span> the system is not asymptotically stable.</p>
+<p><span class="math display">\[\begin{align}
+\frac{Y(s)}{U(s)} &amp;= \begin{bmatrix}1&amp;0\end{bmatrix}\begin{bmatrix}s&amp;1\\4&amp;s\end{bmatrix}^{-1}\begin{bmatrix}0\\1\end{bmatrix}\\
+&amp;=\frac{1}{s^2+4}\\
+&amp;=G(s)
+\end{align}\]</span><br>
+The system is not BIBO stable based on its poles.</p>
+<p>In this example, <span class="math inline">\(C\text{adj}(sI-A)B=1\)</span> and <span class="math inline">\(\det(sI-A)=s^2+4\)</span> are coprime, so eigenvalues of <span class="math inline">\(A\)</span> are the poles of <span class="math inline">\(G\)</span>.</p>
+<h2 id="steady-state-gain">Steady-state gain</h2>
+<p>Apply a constant <span class="math inline">\(b\)</span> as input to a system. When we observe the output, the <strong>steady-state gain</strong> of a transfer function <span class="math inline">\(G(s)\)</span> is <span class="math inline">\(\frac{Y_{ss}}{b}\)</span>.</p>
+<p><strong>Final Value Theorem (3.6.1)</strong>: Given <span class="math inline">\(F(s)=\mathcal{L}\{f(t)\}\)</span>, where <span class="math inline">\(F(s)\)</span> is rational:</p>
+<ol>
+<li>If <span class="math inline">\(F(s)\)</span> has all of its poles in <span class="math inline">\(\Re(s) \lt 0\)</span>, then <span class="math inline">\(\lim_{t \rightarrow \infty} f(t) = 0\)</span>.</li>
+<li>If <span class="math inline">\(sF(s)\)</span> has all poles in <span class="math inline">\(\Re(s) \lt 0\)</span>, then <span class="math inline">\(\lim_{t \rightarrow \infty} f(t) = \lim_{s \rightarrow 0} sF(s)\)</span>
+</li>
+<li>If <span class="math inline">\(sF(s)\)</span> has even one pole with <span class="math inline">\(\Re(s) \ge 0\)</span>, then <span class="math inline">\(f(t)\)</span> does not converge.</li>
+</ol>
+<p>For example: <span class="math inline">\(F(s) = \frac{1}{s^2}, sF(s) = \frac{1}{s}\)</span>. <span class="math inline">\(f(t)=t\)</span>, which does not converge.</p>
+<p>e.g.:</p>
+<table style="width:14%;">
+<colgroup>
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+</colgroup>
+<thead><tr class="header">
+<th><span class="math inline">\(f(t)\)</span></th>
+<th><span class="math inline">\(\lim_{t \Rightarrow \infty} f(t)\)</span></th>
+<th><span class="math inline">\(F(s)\)</span></th>
+<th><span class="math inline">\(\lim_{s \rightarrow 0} sF(s)\)</span></th>
+<th>FVT case</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(e^{-t}\)</span></td>
+<td>0</td>
+<td><span class="math inline">\(\frac{1}{s+1}\)</span></td>
+<td>0</td>
+<td>1 or 2</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(1(t)\)</span></td>
+<td>1</td>
+<td><span class="math inline">\(\frac{1}{s}\)</span></td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(t\)</span></td>
+<td><span class="math inline">\(\infty\)</span></td>
+<td><span class="math inline">\(\frac{1}{s^2}\)</span></td>
+<td><span class="math inline">\(\infty\)</span></td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(te^{-t}\)</span></td>
+<td>0</td>
+<td><span class="math inline">\(\frac{1}{(s+1)^2}\)</span></td>
+<td>0</td>
+<td>1 or 2</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(e^t\)</span></td>
+<td><span class="math inline">\(\infty\)</span></td>
+<td><span class="math inline">\(\frac{1}{s-1}\)</span></td>
+<td>0</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\cos{\omega t}\)</span></td>
+<td>N/A</td>
+<td><span class="math inline">\(\frac{s}{s^2 + \omega^2}\)</span></td>
+<td>0</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theorem 3.6.2</strong>: If <span class="math inline">\(G(s)\)</span> is BIBO stable and we input <span class="math inline">\(u(t)=b1(t)\)</span>, then the steady state gain <span class="math inline">\(y_{ss}=bG(0)\)</span>. This can be proven using the final value theorem.</p>
+<p>This is sto say, steady-state gain is <em>always</em> <span class="math inline">\(\frac{y_{ss}}{b}=G(0)\)</span> for any <span class="math inline">\(b\)</span>.</p>
+<h3 id="e.g.-set-point-control">e.g. Set-point control</h3>
+<p><span class="math inline">\(\dot{x}=-2x+u\)</span>, <span class="math inline">\(y=x\)</span>. This gives the transfer function <span class="math inline">\(Y(s)=\frac{1}{d+2}U(s)\)</span>. Given a constant reference <span class="math inline">\(r(t)=r_o 1(t)\)</span> where <span class="math inline">\(r_0\)</span> constant, find a control signal <span class="math inline">\(u\)</span> to make <span class="math inline">\(y\)</span> go to <span class="math inline">\(r\)</span>.</p>
+<p>We want <span class="math inline">\(\lim_{t \rightarrow \infty} y(t) = r_0\)</span>.</p>
+<p>Try open loop:<br>
+<img src="img/setpointcontrol.png"></p>
+<p><span class="math display">\[\begin{align}
+y_{ss} &amp;= \lim_{t \rightarrow \infty} y(t)\\
+&amp;=^? \lim_{s\rightarrow 0} sC(s)R(s) \\
+&amp;= \lim_{s\rightarrow 0} C(s) \frac{1}{s+2} r_0\\
+\end{align}\]</span></p>
+<p>If <span class="math inline">\(C(s)\)</span> is BIBO stable, then <span class="math inline">\(y_{ss} = \lim_{s \rightarrow 0} C_s \frac{r_0}{s+2} = C(0) \frac{1}{2} r_0\)</span>. So, <span class="math inline">\(y_{ss} = r_0 \Leftrightarrow C(0) = 2 = \frac{1}{P(0)}\)</span>.</p>
+<p>The simplest choice is <span class="math inline">\(C(s) = \frac{1}{P(0)} = 2\)</span>, a proportional controller.</p>
+<h2 id="frequency-response">Frequency response</h2>
+<p><span class="math inline">\(Y(s)=G(s)U(s)\)</span> or <span class="math inline">\(y(t)=(g*u)(t)\)</span>. Assume <span class="math inline">\(G\)</span> is BIBO stable, and the input signal <span class="math inline">\(u\)</span> is a sinusoid: <span class="math inline">\(u(t) = \cos(\omega t)\)</span>. The period is <span class="math inline">\(\frac{2\pi}{\omega}\)</span>.</p>
+<p><strong>Theorem 3.7.1</strong>: Assuming <span class="math inline">\(G\)</span> is rational and BIBO stable, then if <span class="math inline">\(u(t)=\cos(\omega t)\)</span>, then the steady-state output is <span class="math inline">\(y(t) = A\cos(\omega t + \phi)\)</span>. <span class="math inline">\(A=|G(j\omega)|\)</span>, and <span class="math inline">\(\phi = \angle G(j\omega)\)</span></p>
+<h3 id="e.g.-2">e.g.</h3>
+<p><span class="math inline">\(\dot{x}=-10x+u\)</span>, <span class="math inline">\(y=x\)</span>. Then <span class="math inline">\(Y(s) = \frac{1}{s+10}U(s) =: G(s)U(s)\)</span>. If <span class="math inline">\(u(t)=2\cos(3t+ \frac{\pi}{6})\)</span>, what is the steady-state output?</p>
+<ul>
+<li>
+<span class="math inline">\(A=-10\)</span>, so <span class="math inline">\(\det(sI-A)=s+10\)</span>. The eigenvalue of <span class="math inline">\(A\)</span> is -10, so the system is asymptotically stable.</li>
+<li>Because the system is asymptotically stable, which implies it is BIBO stable, which means Theorem 3.7.1 applies.</li>
+<li>From Theorem 3.7.1, the steady state output is <span class="math inline">\(y(t)=2A\cos(3t + \frac{\pi}{6} + \phi)\)</span>.</li>
+</ul>
+<p><span class="math inline">\(A=|G(3j)|=\left|\frac{1}{3j+10}\right|\approx 0.1\)</span><br>
+<span class="math inline">\(\phi = \angle G(3j) = \angle \frac{1}{3j+10} = \angle1 - \angle(3j+10) \approx 0.2915\)</span></p>
+<p>Therefore <span class="math inline">\(y(t)=0.2\cos(3t+\frac{\pi}{6}-0.2915)\)</span>.</p>
+<p><strong>Definition 3.7.2.</strong> If <span class="math inline">\(G(s) \in \mathbb{R}(s)\)</span> and is BIBO stable, then:</p>
+<ol>
+<li>The function <span class="math inline">\(\mathbb{R} \rightarrow \mathbb{C}, \quad \omega \mapsto G(j\omega)\)</span> is the <strong>frequency response</strong>
+</li>
+<li>The function <span class="math inline">\(\mathbb{R} \rightarrow \mathbb{R}, \quad \omega \mapsto |G(j\omega)|\)</span> is the <strong>magnitude response</strong>
+</li>
+<li>The function <span class="math inline">\(\mathbb{R} \rightarrow (-\pi, \pi], \quad \omega \mapsto \angle G(j\omega)\)</span> is the <strong>phase response</strong>
+</li>
+</ol>
+<h2 id="graphical-representations-of-frequency-response">Graphical representations of frequency response</h2>
+<ul><li>When we graph <span class="math inline">\(G(j\omega)\)</span>, we only consider <span class="math inline">\(\omega \ge 0\)</span>, so there is no loss of info when <span class="math inline">\(G\)</span> is rational: <span class="math inline">\(|G(j\omega)|=|G(j\omega)|\)</span>, and <span class="math inline">\(\angle G(j\omega) = -\angle G(-j\omega)\)</span>
+</li></ul>
+<h3 id="bode-plots">Bode plots</h3>
+<ol>
+<li>Magnitude plot: <span class="math inline">\(20\log|G(j\omega)|\)</span> vs <span class="math inline">\(\log(\omega)\)</span>
+</li>
+<li>Phase plot: <span class="math inline">\(\angle G(j \omega)\)</span> vs <span class="math inline">\(\log(\omega)\)</span>
+</li>
+</ol>
+<p>To sketch the Bode plot of any rational transfer function, we only need to know how to sketch four terms:</p>
+<ol>
+<li>Pure gain: <span class="math inline">\(G(s)=K\)</span>
+</li>
+<li>First-order terms: <span class="math inline">\(G(s) = \tau s \pm 1, \quad \tau \gt 0\)</span>
+</li>
+<li>Zeroes at <span class="math inline">\(s=0\)</span>: <span class="math inline">\(G(s)=s^n\)</span>
+</li>
+<li>Complex conjugate roots: <span class="math inline">\(G(s)=s^2 + 2\zeta \omega_n s + \omega_n^2 = \omega_n^2\left(\frac{s^2}{\omega_n^2} + \frac{2\zeta s}{\omega_n} + 1\right)\)</span>
+</li>
+</ol>
+<p>Given a transfer function, we can decompose it into these terms.</p>
+<h3 id="polar-plots">Polar plots</h3>
+<p><span class="math inline">\(\Re(G(j\omega))\)</span> vs <span class="math inline">\(\Im(G(j\omega))\)</span></p>
+<h3 id="e.g.-3.8.5">e.g. 3.8.5</h3>
+<p><span class="math display">\[\begin{align}
+G(s) &amp;= \frac{40s^2(s-2)}{(s+5)(s^2 + 4s+100)}\\
+&amp;= \frac{40s^2(2)\left(\frac{s}{2}-1\right)}{5(100)\left(\frac{3}{5}+1\right)\left(\frac{s^2}{10^2}+\frac{4s}{10}+j\right)}\\
+&amp;= \frac{40(2)}{5(100)} \cdot \frac{s^2(\frac{s}{2}-1)}{(\frac{s}{5}+1)(\frac{s^2}{10^2}+\frac{4s}{10^2}+1)}\\
+\end{align}\]</span></p>
+<h3 id="e.g.-3.8.6">e.g. 3.8.6</h3>
+<p>To plot the Bode plot, we need:<br>
+<span class="math display">\[\begin{align}
+20\log|G(j\omega)|&amp;=20\log\left|\frac{80}{500}\right| + 20\log|(j\omega)^2| + 30\log\left|\frac{j\omega}{2}-1\right|\\
+&amp;=-20\log\left|\frac{j\omega}{5}+1\right| - 20\log\left|\frac{(j\omega)^2}{10^2} + \frac{4}{10^2}j\omega + 1\right|\\
+\\
+\angle G(j\omega)&amp;=\angle\frac{800}{500}+\angle(j\omega)^2 + \angle\frac{j\omega}{2}+1-\angle\frac{j\omega}{5}+1-\angle\left(\frac{(j\omega)^2}{10^2}+\frac{4}{10^2}j\omega + 1\right)\\
+\end{align}\]</span></p>
+<h3 id="e.g.-plot">e.g. plot</h3>
+<p>For <span class="math inline">\(G(j\omega)=K\)</span>:</p>
+<p>Polar:<br>
+<img src="img/constpolar.png"></p>
+<p>Bode:<br>
+<img src="img/constbode.png"></p>
+<p>For <span class="math inline">\(G(j\omega)=j\tau \omega + 1\)</span> (the transfer function with a zero at <span class="math inline">\(s=\frac{-1}{\tau}\)</span>)</p>
+<p>Polar:<br>
+<img src="img/firstorderpolar.png"></p>
+<p>Bode:</p>
+<p>Approximations for sketching:</p>
+<ol>
+<li>For <span class="math inline">\(\omega \lt \frac{1}{\tau}\)</span>, <span class="math inline">\(\Im(G(j\omega)) \approx 0 \Rightarrow \forall \omega \lt \frac{1}{\tau}, \quad 20\log|G(j\omega)| \approx 20\log|1|=0\)</span>
+</li>
+<li>For <span class="math inline">\(\omega \ge \frac{1}{\tau}\)</span>, <span class="math inline">\(\Re(G) \gt \gt \Im(G) \Rightarrow \omega \ge \frac{1}{\tau}, \quad 20\log|G(j\omega)| \approx 20\log|j \tau \omega|\)</span>
+</li>
+<li>For <span class="math inline">\(\omega \lt\lt \frac{1}{\tau}\)</span>, <span class="math inline">\(\angle G(j\omega)\approx \angle 0j+1 = 0\)</span> (<span class="math inline">\(\omega \lt\lt \frac{1}{\tau}\)</span> means <span class="math inline">\(\omega \le \frac{0.1}{\tau}\)</span>)</li>
+<li>For <span class="math inline">\(\omega \gt\gt \frac{1}{\tau}\)</span>, <span class="math inline">\(\angle G(j\omega)\approx \angle j\omega\tau = \frac{\pi}{2}\)</span> (<span class="math inline">\(\omega \gt\gt \frac{1}{\tau}\)</span> means <span class="math inline">\(\omega \ge \frac{10}{\tau}\)</span>)</li>
+<li>Linear interpolation between <span class="math inline">\(\frac{0.1}{\tau}\)</span> and <span class="math inline">\(\frac{10}{\tau}\)</span>
+</li>
+</ol>
+<p><img src="img/firstorderbode.png"></p>
+<p>Sub-case: <span class="math inline">\(G(s) = \tau s - 1\)</span> (zero at <span class="math inline">\(s=\frac{1}{\tau}\)</span>)</p>
+<p>Polar plot:<br>
+<img src="img/firstorderpolarsubcase.png"></p>
+<ul>
+<li>From the polar plot, the magnitude Bode plot is unchanged</li>
+<li>for the phase plot, start at <span class="math inline">\(\pi\)</span> for small <span class="math inline">\(\omega\)</span> and goes to <span class="math inline">\(\frac{\pi}{2}\)</span> as <span class="math inline">\(\omega \rightarrow \infty\)</span>
+</li>
+</ul>
+<p><img src="img/firstordersubcasebode.png"></p>
+<p>e.g. <span class="math inline">\(G(s) = \frac{100}{s+10} = \frac{100}{10} \cdot \frac{1}{\frac{s}{10}+1} = 10 \frac{1}{\frac{s}{10}+1}\)</span></p>
+<p>Frequency response: <span class="math inline">\(G(j\omega)=10\frac{1}{\frac{j\omega}{10}+1}\)</span><br>
+Magnitude: <span class="math inline">\(20\log|G(j\omega)|=\underbrace{20\log10}_{A}-\underbrace{20\log\left|\frac{j\omega}{10}+1\right|}_B\)</span><br>
+Phase: <span class="math inline">\(\angle G(j\omega) = \underbrace{\angle 10}_A - \underbrace{\angle \frac{j\omega}{10}+1}_B\)</span></p>
+<p><img src="img/bodeplotex.png"></p>
+<p>The <strong>bandwidth</strong> of the above system is the smallest frequency <span class="math inline">\(\omega_{BW}\)</span> such that:<br>
+<span class="math display">\[|G(j\omega_{BW})|=\frac{1}{\sqrt{2}}|G(0)|\]</span><br>
+In dB: <span class="math inline">\(20\log|G(0)|-20\log|G(j\omega)|=3dB\)</span></p>
+<p>From the Bode plot, <span class="math inline">\(\omega_{BW}=1.0 \text{ rad/s}\)</span></p>
+<p>e.g. <span class="math inline">\(G(s)=s^n\)</span></p>
+<ul>
+<li>When <span class="math inline">\(n=1\)</span>: <span class="math inline">\(G(j\omega)=j\omega\)</span>
+</li>
+<li>When <span class="math inline">\(n=2\)</span>: <span class="math inline">\(G(j\omega)=-\omega^2\)</span>
+</li>
+<li>When <span class="math inline">\(n=3\)</span>: <span class="math inline">\(G(j\omega)=-j\omega^3\)</span>
+</li>
+<li>When <span class="math inline">\(n=4\)</span>: <span class="math inline">\(G(j\omega)=\omega^4\)</span>
+</li>
+</ul>
+<p><img src="img/spowerofnpolar.png"><br>
+<img src="img/spowerofnbode.png"></p>
+<h3 id="e.g.-complex-conjugate-zeroes">e.g. Complex conjugate zeroes</h3>
+<p><span class="math display">\[G(s) = \frac{s^2}{\omega_n^2}+\frac{2\zeta}{\omega_n}s + 1, \quad \zeta \in [0,1), \quad \omega_n \ne 0\]</span><br>
+<span class="math display">\[G(j\omega)=\left(1-\frac{\omega^2}{\omega_n^2}\right) + j\cdot 2\zeta \frac{\omega}{\omega_n}\]</span></p>
+<p><img src="img/complexconjugatezeroes.png"></p>
+<p>Observations:</p>
+<ul>
+<li>If <span class="math inline">\(\omega \lt\lt |\omega_n|\)</span>, <span class="math inline">\(|G(j\omega)| \approx 1\)</span>, <span class="math inline">\(\angle G(j\omega) \approx 0\)</span>
+</li>
+<li>If <span class="math inline">\(\omega \gt\gt |\omega_n|\)</span>, <span class="math inline">\(|G(j\omega)| \approx \frac{\omega^2}{\omega_n^2}\)</span>, <span class="math inline">\(\angle G(j\omega) \approx 180^{\circ}\)</span>
+</li>
+</ul>
+<p>For asymptotic Bode plots of complex conjugate roots, approximate <span class="math inline">\(G(s)\)</span> as two first order terms with roots at <span class="math inline">\(-\omega_n\)</span>. i.e., set <span class="math inline">\(\zeta=1\)</span>:<br>
+<span class="math display">\[\begin{align}
+G(s)&amp;=\frac{s^2}{\omega_n^2}+\frac{2\zeta s}{\omega_n} + 1\\
+&amp;\approx \frac{s^2}{\omega_n^2}+\frac{2s}{\omega_n}+1\\
+&amp;=\left(\frac{s}{\omega_n}+1\right)^2\\
+&amp;= (\tau s + 1)^2, \quad \tau = \frac{1}{\omega_n}\\
+\end{align}\]</span></p>
+<p><img src="img/complexconjugatezeroesbode.png"></p>
+<h2 id="summary-3">Summary</h2>
+<ul>
+<li>definition of asymptotic stability and how to test</li>
+<li>definition of BIBO stability and how to test</li>
+<li>relationship between asymptotic stability and BIBO stabilities</li>
+<li>final value theorem, steady-state gain <span class="math inline">\(G(0)\)</span>
+</li>
+<li>frequency response physical meaning and how to draw Bode plots</li>
+</ul>
+<h3 id="domains">Domains</h3>
+<p><img src="img/formats.png"></p>
+<h3 id="state-space-models">State-space models</h3>
+<p><span class="math display">\[g(t) = Ce^{At} 1(t) + D \delta(t)\]</span><br>
+<span class="math display">\[G(s) = C(sI-A)^{-1}B+D\]</span></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Digital Computers</title>
+</head>
+<body>
+
+<h1 id="digital-computers">Digital Computers</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#part-3-isa-addressing-modes">Part 3: ISA &amp; Addressing Modes</a></li>
+<li><a href="#part-4-arm">Part 4: ARM</a></li>
+<li><a href="#part-5-basic-io">Part 5: Basic IO</a></li>
+<li><a href="#part-6-io-organization">Part 6: IO Organization</a></li>
+<li><a href="#part-7-memory-systems">Part 7: Memory Systems</a></li>
+<li><a href="#part-8-basic-processing">Part 8: Basic Processing</a></li>
+<li><a href="#part-9-pipelining">Part 9: Pipelining</a></li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<h4 id="assembly-and-data">Assembly and Data</h4>
+<ul>
+<li>We learned ARM, and general RISC and CISC programming</li>
+<li>Big endian describes a way to order bytes of a word, where the the word reads left to right, and is the correct value of the 32-bit integer representation</li>
+<li>Little endian reverses the byte order, but bits in each byte remain the same</li>
+<li>there are many addressing modes describing ways to manipulate instruction operands<ul><li>immediate, absolute, register, indirect, index, base with index, pc-relative, pre-index, pre-index with writeback, post-index</li></ul>
+</li>
+</ul>
+<h4 id="inputoutput">Input/Output</h4>
+<ul>
+<li>memory mapped I/O maps inputs and outputs to addresses</li>
+<li>I/O devices on a bus each have an interface, with status bits like KIN, DOUT for signaling readiness</li>
+<li>for interupt during instruction <code>i</code>, finish <code>i</code>, set IE bit to 0 in Processor Status, PC &lt;- start of ISR, run ISR, PC &lt;- i + 4, set IE = 1, resume program</li>
+<li>Vectored interrupts allow for fine-grained control of device interrupt priority by have Interrupt Enable and Interrupt Request (IRQ) signal for each device</li>
+<li>A bus can have multiple lines, system bus is an inter-connection network connecting I/O devices, processor and memory</li>
+<li>for data lines on a bus, you need to allow for setup and hold time of signals on the line</li>
+<li>address decoder for I/O devices define an address range for each device using ECE124 logic</li>
+<li>busses obey a protocol defined by the system, to support bus transfers with precision</li>
+<li>system bus has control lines, address line and data lines for placing requests or placing responses for interactions between I/O and processor</li>
+<li>bus skew is the time required to account for varying bus propagation delay between lines (needed in order to ensure all lines hold correct values when, for example, a master-ready signal reaches a slave)</li>
+<li>Synchronous Bus Read is a read protocol so that the system has checks for correctness<ul>
+<li>processor drives bus, places address and read command on lines, and asserts master ready after skew delay, slaves decode address</li>
+<li>cycle 1: requested slave is done decoding, and fetches requested data (this can take multiple clock cycles, n), master waits for slave-ready signal</li>
+<li>cycle 2 + n: When the data is fetched, data is placed on data line (incurs setup time), and held as slave-ready signal is sent</li>
+<li>cycle 3 + n: master receives slave ready, reads the data and then de-asserts master-ready.</li>
+<li>cycle 4 + n: slave deasserts slave-ready and clears data line</li>
+</ul>
+</li>
+<li>Asynchronous Bus Read follows same protocol as synchronous but without the clock</li>
+<li>writes are opposite, master places data on data line, master-ready signal indicates valid data and address values</li>
+<li>there is serial transmission of data (1 bit at a time) or parallel transmission</li>
+<li>PCI bus (Peripheral Component Interconnection) allows for plug-and-play connectivity, the PCI bridge is the interface for processor, memory to the PCI bus</li>
+<li>a bridge interconnects two systems of different architecture (think different clock speeds, voltages, data-width 32vs64-bit)</li>
+<li>USB (Universal Serial Bus) supports different transfer-rates, designed for plug-and-play, and can form a tree of hubs connected to the computer via the root hub, where the leaves of the trees are the I/O devices</li>
+<li>by eliminating the need to arbitrate between USB devices, using only polling, USB hubs can be easily manufactured and chained</li>
+<li>the PCI bus has SATA, Ethernet, USB hub</li>
+</ul>
+<h4 id="memory-system">Memory System</h4>
+<ul>
+<li>memory is stored in arrays of cells that hold an on off value (1 bit, stored in a transistor or capacitor)</li>
+<li>asynchronous DRAM chip uses row and column addresses to access bytes, asserted by the RAS/CAS signals from the external memory controller</li>
+<li>fast page mode enables quick sequential burst reads (removes address stablization overhead)</li>
+<li>synchronous DRAM chips use clock, and includes a refresh signal for refreshing capacitors</li>
+<li>buffers allow next steps to occur while the data is being transferred to/from output registers</li>
+<li>synchronous is good for burst reads since clock cycles dictate sequential reads, where async requires reasserting CAS signals</li>
+<li>both chips use RAS and CAS signals to enable latches for holding column/row addresses</li>
+<li>complex SDRAMs need an interface, which converts regular bus lines to the necessary signals (RAS, CAS, Chip Select)</li>
+<li>Chip select signal is important for selecting specific DRAM chips within a larger array of DRAM chips</li>
+</ul>
+<h4 id="caches">Caches</h4>
+<ul>
+<li>caches sit in front of main memory and only take one clock cycle to respond with data</li>
+<li>addresses are broken down, word is rightmost always and determines what byte from a block of memory it refers to<ul>
+<li>the block portion (not used in fully associative) decides which block to fill</li>
+<li>tag bits need to exist so information is not lost about the uniqueness of each address</li>
+</ul>
+</li>
+<li>direct mapping maps addresses deterministically using modulos; address: [Tag, Block (portion used for modulos) = log2(number of blocks), Word = log2(block size in bytes)]</li>
+<li>fully associative cache can map any memory block anywhere in the cache, so no <code>Block</code> bits; address: [Tag, Word = log2(block size in bytes)]</li>
+<li>set associative cache maps memory blocks to sets which are fully associative (tag consumes the extra address bits compared to direct mapping); address: [Tag, Block (portion used to determine set) = log2(number of sets), Word]</li>
+<li>replacement algorithms decide what to evict when the cache is full, or when the set is full for set associative</li>
+<li>LRU, Random, Ordered</li>
+<li>valid bit is added to each block to denote that is holds a value that is relevant to the current executing program</li>
+<li>dirty bit is added to each cache block to denote that a write back must occur upon eviction<ul><li>it is added so that we do not have to write-through to memory for each write</li></ul>
+</li>
+<li>write allocate (rather than no write allocate) says that we write-through to memory without caching the value</li>
+</ul>
+<h4 id="virtual-memory">Virtual Memory</h4>
+<ul>
+<li>Virtual memory is an abstraction for a 32 bit address space, where we don't have enough physical memory to fill the address space</li>
+<li>think of main memory (implemented by RAM) as a cache in front of disk drives</li>
+<li>The Memory Management Unit (MMU) holds information for handling the conversion of virtual addresses to physical ones</li>
+<li>The Direct Memory Access (DMU) is a component that handles frequent/sequential I/O operations so the processor doesn't have to</li>
+<li>Pages are fixed-length units of data, (around 4K bytes)</li>
+<li>Page table converts virtual addresses to physical addresses, by finding the page offset (assuming the page is in main memory)</li>
+<li>like in caches, we parse the address, upper portion for page number and lower for offset (the specific division depends on the total number pages we have, and log2(n) bits to represent their number)</li>
+<li>page table translation replaces the upper bits of the virtual address with the actual frame bits in main memory, maintaining the lower bits of the address for specific address within the page</li>
+<li>Virtual memory read takes two main memory reads (one for table and one for actual page access)</li>
+<li>Translation Lookaside Buffer (TLB) acts as a cache in front of the page table to reduce the number of page table reads, and uses LRU for cache algorithm</li>
+</ul>
+<h4 id="processors">Processors</h4>
+<ul>
+<li>we use a 5 step processor: fetch, decode, execute, memory, writeback</li>
+<li>the hardware depends on 6 components: register file, ALU, processor-memory interface, instruction address generator (with PC), Instruction Register, Control Circuitry</li>
+<li>processor-memory interface uses MFC (memory finished) to signal to the processor that the memory operation is complete</li>
+<li>pipelining allows multiple instructions to be processed at once, utilizing all components of the processor for different instructions, while maintaining instruction ordering as needed</li>
+<li>data hazards exist between instructions, like if there is a read after write (RAW), in which case old values can be used</li>
+<li>memory stalls (freezing subsequent instructions in the pipeline) occur when accessing memory and the cache misses (so the operation takes more than one clock cycle)</li>
+<li>branching causes a change in PC, which is different than the assumed [PC] + 4</li>
+<li>branching computes the new PC in the execute stage by default, which causes two wasted cycles and requires the processor to squash the subsequent incorrect instructions</li>
+<li>branch penalty is delayed by adding an adder in the decode stage so that the ALU need not compute the new address given the offset, meaning there is only 1 cycle for branch penalty</li>
+<li>for conditional branching, the branch penalty is only incurred when the condition is met and we need to branch to the newly computed PC</li>
+<li>the place where the instruction after the branch instruction is placed is called the branch delay slot</li>
+<li>if we load something useful into the branch delay slot, then there is no branch penalty</li>
+<li>this can be done by reordering instructions assuming no data dependencies</li>
+<li>sometimes this can't occur, in which case a NoOPeration instruction is loaded</li>
+<li>branch prediction allows us to optimize further by guessing what instruction to place in the branch delay slot</li>
+<li>static branch prediction chooses to always take or always reject a branch</li>
+<li>dynamic branch prediction uses previous decision to influence its guess, whose history is stored in a finite state machine</li>
+<li>branch predition still requires the new PC address, if it wants to predict that the branch is followed, and does not have the newly computed address until after the decode hardware and computed it</li>
+<li>we can a Branch Target Buffer (BTB) that acts as a cache for final address calculations so that branch prediction can occur before the decode stage is complete, meaning there is no branch delay</li>
+<li>superscaler architecture allows for multiple instructions to be processed at each stage</li>
+<li>interleaving allows for 2 instructions/cycle throughput, assuming no branches and no data dependencies</li>
+<li>you have to avoid deadlock where two instructions depend on each other</li>
+<li>for the ALU, multiplication is computed using series of addition operations</li>
+<li>booth encoding can reduce the number of addition operations, especially for numbers with lots of sequential 1s (small numbers in signed encoding)</li>
+<li>conversion uses the following table: at each position <code>i</code> in a binary number, 00 = 0, 01 = +1, 10 = -1, 11 = 0</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<h2 id="part-3-isa-addressing-modes">Part 3: ISA &amp; Addressing Modes</h2>
+<h4 id="intro-to-addressing">Intro to Addressing</h4>
+<ul>
+<li>binary prefixes, 2^10 kibi, 2^20 mebi, 2^30 gibi ...</li>
+<li>memory systems do not address single bits, they have an address space, range of addresses</li>
+<li>byte addressable systems refer to bytes or a word for instructions</li>
+<li>word addressable memory systems are rare, instructions don't have access to individual bytes, only words</li>
+<li>commonly, word length is 32 bits can be encoded for types of information (integers, ASCII or Unicode)</li>
+<li>byte ordering defines how addresses are assigned to bytes of a word<ul>
+<li>
+<strong>big-endian</strong> byte ordering assigns the lower byte address to more significant bytes within a word (more sequential)</li>
+<li>
+<strong>little-endian</strong> is opposite (like how numbers are read)</li>
+</ul>
+</li>
+<li>word alignment structures words 4 addresses apart</li>
+</ul>
+<h4 id="instruction-sets">Instruction Sets</h4>
+<ul>
+<li>computer must have instructions capable of performing data transfers, arithmetic, sequence control, I/O</li>
+<li>an Instruction-set architecture (ISA) defines set of opcodes and native commands by a processor (ARM, x86, MIPS, SPARC, RISC-V)</li>
+<li>RISC ISA, each instruction fits in a word and memory operands are accessed only using load and store instructions<ul><li>all operands for arithmetic and logical operations must be in processor registers</li></ul>
+</li>
+<li>CISC ISA has variable length for instructions, many instructions can access memory direction using memory addresses</li>
+</ul>
+<h4 id="representative-notations">Representative Notations</h4>
+<ul>
+<li>
+<strong>Register Transfer Notation</strong> is a way of expressing semantics of instructions as data transfers<ul>
+<li>memory locations are symbolic names like <code>LOC1</code>
+</li>
+<li>Registers are identified by register names <code>R0</code>
+</li>
+<li>contents of memory locations are denoted by placing square brackets <code>[LOC1]</code>
+</li>
+<li>control signals are symbolic names <code>T1</code>
+</li>
+<li>assignment statements transfer/manipulate data <code>R1 &lt;- [LOC1]</code>
+</li>
+</ul>
+</li>
+<li>
+<strong>Assembly Language Notation</strong> represents machine instructions and programs, to express operations, source and destination operands<ul>
+<li>
+<code>Load R1, LOC1</code> <em>load into R1 from LOC1</em>
+</li>
+<li>
+<code>Add R2, R3, R4</code> <em>add R3 and R4 and save into R2</em>
+</li>
+<li>
+<code>Store R1, LOC1</code> is <strong>BACKWARDS</strong>, <em>store contents of R1 into LOC1</em>
+</li>
+<li>
+<code>Subtract R2, R2, #1</code> = <code>R2 &lt;- [R2]-1</code>
+</li>
+<li>
+<code>Branch_if_[R2]&gt;0 LOOP</code> = <code>If(T1&gt;0) where T &lt;- [R2] then PC&lt;-LOOP</code> used for looping until conditional</li>
+<li>
+<code>Clear</code> = <code>R2 &lt;- 0</code>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="addressing-modes">Addressing Modes</h4>
+<ul>
+<li>addressing modes are different ways to specify the location of instruction's operand</li>
+<li>
+<em>effective address</em> is the location of an operand, which differs based on the addressing mode</li>
+<li>Immediate <code>#Value</code>, Operand = Value</li>
+<li>Register <code>Ri</code>, EA = Ri where i is any integer and R is a keyword</li>
+<li>Absolute/Memory Addressing <code>LOC</code>, EA = <code>LOC</code> is exact address</li>
+<li>Register Indirect Addressing <code>(Ri)</code>, EA = <code>[Ri]</code> evaluates the value in the register (or mem location)</li>
+<li>Index addressing <code>X(Ri)</code>, EA = <code>[Ri] + X</code> is used when the operand address is a known constant offest from a known mem location, useful for arrays</li>
+<li>Base with index addressing <code>(Ri, Rj)</code>, EA = <code>[Ri] + [Rj]</code>, useful when index offset is non constant<ul><li>PC-relative addressing is a special case of index addressing, where Ri = PC, useful for branching</li></ul>
+</li>
+<li>Auto increment addressing simplifies successive address loading: <code>(Ri)+</code>, EA = <code>[Ri]</code>; <code>increment Ri</code><ul>
+<li>increment is dependent on addressing system (byte vs word), and post-increments</li>
+<li>
+<code>Load R2, (R3)+</code> = <code>R2 &lt;- [R3]; R3 &lt;- [R3] + #4</code>
+</li>
+<li>decrementing is similar, but it decrements prior to the register being read</li>
+<li>both are useful for dealing with stacks a queues</li>
+</ul>
+</li>
+</ul>
+<h4 id="stacks">Stacks</h4>
+<ul>
+<li>resides in main memory, top of stack is the lowest memory address, pointed to by the special CPU register called the stack pointer</li>
+<li>Push is <code>Subtract SP, SP, #4; Store R2, (SP)</code>, Pop is <code>Load R1, (SP); Add SP, SP, #4;</code>
+</li>
+<li>Subroutines are blocks of instructions that are executed repeatedly for modularization<ul>
+<li>invoked by executing a <code>Call</code> instruction, executes, returns to the main program by <code>Return</code> instruction</li>
+<li>implemented by <strong>subroutine linkage method</strong>, stored on the stack or in a special register called the <em>link register</em>
+</li>
+<li>a call is a special branch instruction that invokes a subroutine by storing contents of PC to the link register and branching to the new target address, then returns the PC to the value in the link register</li>
+</ul>
+</li>
+<li>subroutines can be nested, so we need a way to store multiple link registers, which is done so on the stack (raises issues with stack overflows if full or errors if the stack is not properly maintained)</li>
+<li>subroutines can take parameters, passed through registers (by value), memory locations (by reference) or passed on the stack (global namespace)</li>
+<li>locations at the top of the processor stack is the <em>stack frame</em>, private namespace by subroutines<ul>
+<li>
+<em>frame pointer (FP) register</em> enables access ot private work space</li>
+<li>stack frame consists of all items pushed onto the stack before or during the subroutine, including parameters and return address before and frame pointer, local variables and register values modified during the subroutine</li>
+<li>the frame pointer indicates start of new stack frame where parameters are stored at <code>n(FP)</code> and local vars at <code>-n(FP)</code>, where n is a multiple of 4</li>
+</ul>
+</li>
+</ul>
+<h2 id="part-4-arm">Part 4: ARM</h2>
+<h4 id="arm-isa-characteristics">ARM ISA Characteristics</h4>
+<ul>
+<li>Advanced RISC Machine is most common</li>
+<li>RISC has fixed length instructions, load and store instructions access memory, arithmetic/logic instructions operate only on registers<ul><li>requires less transistors than CISC processors in personal computers</li></ul>
+</li>
+<li>has 16 registers, 15 general purpose and 1 program counter at R15</li>
+<li>CPSR (Current program status register) holds N-Negative, Z-Zero, C-Carry, V-Overflow, (conditional codes, all are set when event occurs else cleared) interupt disable, 5 status registers</li>
+</ul>
+<h5 id="addressing-modes-1">Addressing Modes</h5>
+<ul><li>all addressing modes are derivatives of indexing addressing mode, where effective address is the sum of [Rn, #offset]<ul>
+<li>PC-relative: <code>LDR Rd, Item</code> is semantically <code>Rd &lt;- [[PC] + Item]</code><ul><li>for ARM, processors are pipelined, by the time the load is executed, the next instruction has already been fetched so <code>[PC] = PC+8</code> pointing two instructions ahead of load</li></ul>
+</li>
+<li>Pre-index: <code>LDR Rd, [Rn, #offset]</code> is semantically <code>Rd &lt;- [[Rn] + #offset]</code>
+</li>
+<li>Pre-indexing with writeback: <code>LDR Rd, [Rn, #offset]!</code> is semantically <code>Rd &lt;- [[Rn] + #offset]; Rn &lt;- [Rn] + #offset</code><ul><li>can be used for easier iteration through sequential memory</li></ul>
+</li>
+<li>post-index: <code>LDR Rd, [Rn], #offset</code> is semantically <code>Rd &lt;- [[Rn]]; Rn &lt;- [Rn] + offset</code>; increments index after loading</li>
+</ul>
+</li></ul>
+<h5 id="memory-operations">Memory Operations</h5>
+<ul>
+<li>when loading with fewer than 32 bits, zero extensions are used to fill the rest of the word with 0s, signed extension fills with the most significant bit loaded into remaining bits</li>
+<li>Regular: LDR/STR for words, H suffix (LDRH) for half words (zero extended), B suffix for bytes (zero), SB/SH for sign extended versions</li>
+<li>Multiple word load/store: <code>LDMIA R10!, {R0, R1, R6, R7)</code>, IA is opcode for increment after, R10 holds the memory location to start loading from, and loads words sequentially into specified registers. IA makes R10 hold [R10] + 4*n for n registers</li>
+</ul>
+<h5 id="instructions">Instructions</h5>
+<p>All instructions can take registers or literals</p>
+<ul>
+<li>
+<code>ADD R0, R2, R4</code>: R0 &lt;- [R2] + [R4]</li>
+<li>
+<code>SUB R0, R3, #17</code>: R0 &lt;- [R3] - 17</li>
+<li>shifts and rotates can be done on registers: (logical) LSL, LSR, (arithmetic) ASR, (rotate) ROR<ul>
+<li>arithmetic shifts preserve sign, logical shifts clear vacated bits</li>
+<li>
+<code>ADD R0, R1, R2, LSL #4</code>: R0 &lt;- [R1] + 2^4*[R2]</li>
+</ul>
+</li>
+<li>
+<code>MOV R0, R1</code>: R0 &lt;- [R1]</li>
+<li>
+<code>TST R0, R1</code>: bitwise AND of [R0] and [R1] and sets condition code Z, good for checking status bits</li>
+<li>
+<code>TEQ R0, R1</code>: Z = [R0] == [R1] ? 1 : 0</li>
+<li>
+<code>CMP R0, R1</code>: [R0] - [R1] and update condition code accordingly</li>
+<li>
+<code>B{Condition Suffix} LOC</code> for branching; see list of condition suffixes<ul>
+<li>conditional suffixes can be attached to other instructions too, executing based on CPSR flags (N,Z,V,C)</li>
+<li>
+<code>CMP R0, R1; MOVLT R0, R1</code>: R0 &lt;- R1 if R0 &lt; R1</li>
+</ul>
+</li>
+</ul>
+<h5 id="assembler">Assembler</h5>
+<p>Assembler converts source program to an object program in machine language</p>
+<ul>
+<li><code>label operation operand(s) comment</code></li>
+<li>operations can either be mnemonics, labels and names are in a symbol table</li>
+<li>assembler directives does stuff during translation:<ol>
+<li>define constants</li>
+<li>reserve storage locations for data values</li>
+<li>initialize data values stored in memory</li>
+<li>indicate where in memory a program should be located</li>
+</ol>
+</li>
+<li>assembler directives depend on the specific assembler<ul>
+<li>AREA specifies start of CODE/DATA</li>
+<li>ENTRY specifies start of program execution</li>
+<li>DCD label and initialize data operands</li>
+<li>EQU declares symbolic names for constants</li>
+<li>RN assign COUNTER RN 3</li>
+</ul>
+</li>
+<li>pseudo-instructions are accepted by assembler and are synthesized to actual instructions<ul><li>
+<code>LDR R0, =ADDRESS</code>: LDR R0, #0x127, for ADDRESS=0x127</li></ul>
+</li>
+<li>example: push/pop for stacks<ul><li>LDMIA =&gt; POP, STMDB =&gt; PUSH</li></ul>
+</li>
+<li>Subroutine Linkage with branch-and-link: <code>BL TARGET</code><ul>
+<li>value of PC is store in R14, which is the link register (LR) for returning after a subroutine</li>
+<li>branch to TARGET</li>
+</ul>
+</li>
+<li>multiple passes are necessary for assembly because of forward references</li>
+<li>two-pass assembly first generates symbol table, then substitute values in labels</li>
+<li>linkers and loaders allow multiple modules to assemble into one binary<ul>
+<li>each module is assembled relative to location 0, then linker adds appropriate offset once code location is determined for each module</li>
+<li>relative addressing and some instructions are position independent, while referencing external labels are position dependent</li>
+</ul>
+</li>
+</ul>
+<h4 id="conditional">Conditional</h4>
+<p>ARM - conditionals</p>
+<ul>
+<li>ROR ROL by four</li>
+<li>must use STR and LDR for memory</li>
+<li>LDMIA SP! or STMDB SP! for stacks<ul><li>LDMFD, STMFD</li></ul>
+</li>
+<li>15 PC, 14 LR, 13 SP</li>
+<li>assemble each module as if starts from 0</li>
+<li>linker adds appropriate offsets in memory</li>
+</ul>
+<h2 id="part-5-basic-io">Part 5: Basic IO</h2>
+<p>A system bus is an example of an interconnection network, joining I/O devices, memory devices and CPU</p>
+<ul>
+<li>memory mapped I/O treats I/O devices as part of the address space<ul><li>allows us to apply memory instructions for I/O</li></ul>
+</li>
+<li>I/O device interface is a circuit between a device and the interconnection network<ul><li>provides means for data transfer (DATA register) and status (STATUS REGISTER) and control (CONTROL register) information</li></ul>
+</li>
+<li>program controlled I/O and interrupt-driven I/O use memory mapped I/O</li>
+</ul>
+<h4 id="program-controlled-io">Program Controlled I/O</h4>
+<ul>
+<li>program-controlled I/O, I/O interaction is realized by a program, through an interface listening for input</li>
+<li>signal protocol is needed for proper timing of inputs<ul>
+<li>input device, Keyboard, sends 'ready' signal, processor Loads from DATA register, output Display, signals 'ready' to receive, processor Stores to Display's DATA register</li>
+<li>'ready' signal is a status flag (bit) in the status register</li>
+</ul>
+</li>
+<li>program-controlled I/O polls status flags, wait looping to see if it should load/store for DATA register</li>
+<li>polling is taxing on processor, and locks without using interrupts</li>
+<li>instead let I/O alert the processor when it's ready, from hardware</li>
+<li>interrupts cause processor to deviate from the normal sequence of program instructions to allow the processor to respond to high priority events</li>
+</ul>
+<h4 id="interrupt-service-routine">Interrupt Service Routine</h4>
+<pre><code>- special subroutine, called interrupt service routine (ISR) is responsible for handling services requested by the interrupt and ensuring consistent state after the ISR
+ - difference between this and subroutine is that the ISR has to copy many registers to the stack to preserve their values</code></pre>
+<ul>
+<li>interrupt request signals from devices call the ISR, which responds with an acknowledgement<ol>
+<li>processor finishes current instruction</li>
+<li>state of processor is saved</li>
+<li>ISR is called, and services the device</li>
+<li>state is restored and next instruction resumes</li>
+</ol>
+</li>
+<li><strong>the processor only restores the state of registers, not memory</strong></li>
+<li>saving state can introduce delay prior to servicing a device, called the <em>interupt latency</em>
+</li>
+<li>if a code fragment requires atomicicity, the <em>Interrupt Enable (IE)</em> bit in the processor status register is set to 0</li>
+<li>multiple device interrupts can be supported; IRQ bit in I/O device's status register indicates that it raised an interrupt<ul>
+<li>one approach is to poll all I/O devices, servicing the first deice to have IRQ set<ul>
+<li>a shared interrupt request /IRQ signal is created using one bus driver (where each device is connected with an open switch by default)</li>
+<li>value of /IRQ becomes 0 if any device connected to the signal wishes to interrupt the processor</li>
+<li>instead of polling all devices, the device requesting service uses another set of signals to inform the processor that it is the one requesting service</li>
+<li>the INTA signal is daisy chained through all devices, stopping at the one requesting service</li>
+</ul>
+</li>
+<li>alternatively, <em>vectored interrupts</em> allow for reduced interrupt latency, without the need for polling</li>
+</ul>
+</li>
+<li>interrupt vector table holds addresses to Interrupt Service Routines (also called the interrupt vector)<ol>
+<li>I/O device provides interrupt code through the interconnected network, and asserts the interrupt request signal</li>
+<li>saves state of processor, interrupt enable bit disabled</li>
+<li>interrupt code is used as a pointer into the interrupt vector table for the right ISR</li>
+<li>PC loaded with address of ISR</li>
+<li>ISR executes</li>
+<li>restore state of processors, IE enabled again</li>
+<li>PC returns to the interrupted program</li>
+</ol>
+</li>
+<li>multiple I/O devices may use shared interrupt request signals for all devices or dedicated interrupt request signals, with lower latency and allowing the ISR to be immediately called by processor<ul><li>requires more wires (1 request signal and 1 acknowledge signal per device), and the processor can only support a fixed number of devices</li></ul>
+</li>
+</ul>
+<h4 id="interrupt-nesting">Interrupt Nesting</h4>
+<p>Sometimes ISRs take large latencies for servicing higher priority devices</p>
+<ul>
+<li>disabling all interrupts during an ISR may result in unintended behaviour (order of execution)</li>
+<li>instead, allow higher priority interrupts to be enabled during ISR execution</li>
+<li>interrupt nesting is similar to subroutine nesting</li>
+<li>for simultaneous interrupt requests, arbitration or priority resolution is required<ul>
+<li>for polling, service order is same as polling order</li>
+<li>for vectored interrupts, hardware must select only one device to identify itself</li>
+</ul>
+</li>
+<li>disabling IE bit prevents all I/O devices from interrupting, doesn't give very fine control over disabling I/O</li>
+<li>for more fine control of behaviour, keep IE bit for each I/O device in I/O register (Keyboard IE and Display IE)</li>
+</ul>
+<h4 id="processor-control-registers">Processor Control Registers</h4>
+<p>in addition to processor status (PS) register, other control registers are present</p>
+<ul>
+<li>IPS register, where PS is automatically saved when an interrupt request is recognized</li>
+<li>IENABLE has one bit per device to control if request from source is recognized</li>
+<li>IPENDING has one bit per device to indicated if interrupt request has not been serviced<ul><li>
+<code>MoveControl R2, PS</code> is a special instruction used to update the processor control register (knows about keywords IPS, IENABLE, IPENDING, PS and is for moving values)</li></ul>
+</li>
+<li>
+<strong>example:</strong> read a line of characters from keyboard<ul>
+<li>use Keyboard ISR, with polling within ISR to display</li>
+<li>unfortunately only one interrupt occurs</li>
+</ul>
+</li>
+<li>assumptions: ILOC points to the memory location with the first instruction for ISR<ul>
+<li>LINE is the starting address of where to store the line in memory</li>
+<li>PNTR points to a memory location for the characters from the ISR</li>
+<li>EOL indicates that the line has been read</li>
+</ul>
+</li>
+</ul>
+<pre><code>
+mov r2, ps</code></pre>
+<h2 id="part-6-io-organization">Part 6: IO Organization</h2>
+<h4 id="basic-hardware">Basic Hardware</h4>
+<ul>
+<li>hardware propagation delay: when a state change occurs at the input, the delay encountered before the corresponding change in the output waveform is the propagation delay<ul>
+<li>sampling during the transition time can lead to incorrect data</li>
+<li>important to assert over a small time period</li>
+</ul>
+</li>
+<li>setup (prior) and hold (following) time are necessary for correct sampling of data</li>
+<li>interconnection network is the circuit that transfers info between components (ex: system bus connecting address, data, control)</li>
+</ul>
+<h4 id="io-interface">I/O Interface</h4>
+<ul>
+<li>bus contains signals, one for each component of the I/O interface</li>
+<li>
+<strong>address decoder</strong> deterines when a device should respond to a request from a processor<ul>
+<li>produces a device enable signal for input addresses belonging to the device range</li>
+<li>given a memory map, you can determine which address signals identify a particular device<ul>
+<li>each has a boolean expression that represents address ranges</li>
+<li>also use memory map to determine the address signals used by the device after its enabled</li>
+<li>also determines number of unique addresses supported by each device</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="bus-operation">Bus Operation</h4>
+<ul>
+<li>a bus protocol is set of rules governing how the bus is used<ul><li>bus control lines specify whether read or write, the size of the operation, timing info</li></ul>
+</li>
+<li>broadly, timing data transfers over bus synchronously with a global clock or asynchronously</li>
+<li>master is device that initiates data transfer</li>
+<li>slave is device addressed by master</li>
+<li>X places Y on bus (X asserts signals amount to value Y) on the bus signals<ul><li>bus signals could be address, command, or data</li></ul>
+</li>
+<li>Skew occurs when two signals transmitted simultaneously from one source arrive at dest at different times<ul><li>happens because different lines have different propagation speeds</li></ul>
+</li>
+</ul>
+<h2 id="part-7-memory-systems">Part 7: Memory Systems</h2>
+<p>Array of simple memory cells, each storing a single bit of information</p>
+<ul>
+<li>size is the unique addressable memory locations</li>
+<li>for k address bits, 2^k words of memory are addressable<ul>
+<li>address decoder drives <strong>word line</strong> (bus), selecting a row of cells</li>
+<li>sense/write circuit connected to two bit lines, during read, read current bit values. during write, take input and store in cells</li>
+<li>control line for read and write specifies which operation</li>
+<li>CS is chip select, choses given chip</li>
+</ul>
+</li>
+<li>1Kib x 1 means 1Ki bits of memory with 1 bit of input/output<ul>
+<li>implemented with 32x32 cells, with a 5 bit decoder (2^5 = 32 addresses) for column and row</li>
+<li>read/write one cell at a time</li>
+</ul>
+</li>
+<li>Static RAM stored in latches, expensive<ul>
+<li>two inverters form a latch, where X=1, Y=0 represents 1</li>
+<li>on read, the word lines are activated, by closing switches connecting the inverter to the circuit</li>
+<li>on write, place values on b and b' and connect the word lines via latches</li>
+</ul>
+</li>
+<li>Dynamic Ram store temporarily using capacitors, requires refreshes to recharge capacitor, but cheaper<ul>
+<li>capacitor holds charge, when the charge is above a threshold, it holds 1</li>
+<li>during reads, assert word line and switch T is closed, connecting bit line to capacitor for reading</li>
+<li>during write, assert word line, close swithc T and drive bit line to alter amount of charge</li>
+</ul>
+</li>
+<li>Organization of Asynchronous 32Mib x 8 DRAM chip:<ul>
+<li>16Kib x 16Kib, 16Ki rows of 16Kib cells, each row has 16Kib/8 = 2048 bytes</li>
+<li>log2(16Ki) = 14 bits to address row</li>
+<li>log2(2048) = 11 bits to address specific byte in row</li>
+<li>row and column are multiplexed on 14 pins</li>
+<li>row address first placed then assert RAS</li>
+</ul>
+</li>
+</ul>
+<h5 id="dram">DRAM</h5>
+<ul>
+<li>1Kib x 1 means 1Ki bits of memory with 1 bit of input/output<ul><li>implemented as 5 x 5 decoders to access specific memory cells at a row and column (2^5 = 32)</li></ul>
+</li>
+<li>asynchronous chip uses 14 x 11 decoder to access a row of cells from addresses of 16mib x (16mib/8)<ul><li>this architecture is good for <strong>fast page mode</strong>, once the row is chosen, you can iterate through columns for sequential r/w</li></ul>
+</li>
+<li><p>synchronous chip is driven by clock, similar design with a buffered I/O byte, one for reads and one for writes so that they can happen simultaneously while the other operation is finishing up</p></li>
+<li>
+<strong>memory latency</strong> is the time before tranfer of memory is complete</li>
+<li>
+<strong>bandwidth</strong> is the amount of data transfered per unit time</li>
+<li><p>Double Data Rate SDRAM switches between two banks of data for one r/w on every clock edge</p></li>
+<li>memory controller is the interface for connecting chips to the system bus</li>
+<li><p>chips can be combined into large arrays of chips, with a bunch of decoders</p></li>
+</ul>
+<h5 id="dma">DMA</h5>
+<p>Direct Memory Access is a hardware unit that handles memory access operations for the processor. Program controlled I/O is taxing on the processor with lots of overhead to access just one byte. Processor delagates to the DMA, which responds with an ISR when finished</p>
+<ul><li>DMAs sit in front of things like DISK drives and Ethernet access, separate from main memory</li></ul>
+<h4 id="caches-memory-hierarchy">Caches &amp; Memory Hierarchy</h4>
+<p>Hierarchy of memory components goes from fastests to slowest, with speed cost trade off</p>
+<ul>
+<li>CPU -&gt; M1 -&gt; M2 -&gt; M3 -&gt; M4</li>
+<li>automatically move data up and down the hiearchy (frequent at the top) to optimize memory access time</li>
+<li>locality of memory references is an intrinsic property of real programs</li>
+<li>temporal locality is data that you recently used and are likely to use soon (local vars)</li>
+<li>spatial locality is data near the recently used data that are likely to be used again soon (elements in an array)</li>
+<li>caches assist with locality of memory references<ul>
+<li>cache block is size that indicates multiple words of data/instructions transferred between cache and main memory</li>
+<li>cache hit if memory block is found</li>
+<li>cahce miss if not</li>
+<li>cache eviction removing block of data/instructions from the cache</li>
+<li>cache dirty bit used to identify when contents of a cache block change</li>
+</ul>
+</li>
+<li>processor connects to the cache</li>
+<li>cache connects to the main memory</li>
+</ul>
+<p>Caches are faster than memory because of their hardware implementation. The cache is on the CPU, with transistors and it doesn't have to go through the external bus. Additionally, the cache is smaller so less to check.</p>
+<p>Cache Writing Protocol for Store R2, (R3):</p>
+<ul>
+<li>if cache hit 2 approaches:<ul>
+<li>write-through protocol updates the cache block and the main memory simultaniously</li>
+<li>write-back protocol updates the cache block and simply flags that the cache block has been modified by setting a dirty bit<br>
+if cache miss, 2 approaches:</li>
+<li>write-through protocol updates main memory directly and cache</li>
+<li>write-back protocol fetches the main memory block into the appropriate cache block, updates the cache block and sets the dirty bit</li>
+</ul>
+</li>
+<li>then dirty bit is used to decide whether to write-back data on eviction or replacement</li>
+<li>if cache miss, <strong>write-allocate</strong> says fill cache with line and perform write, while <strong>no-write-allocate</strong> ignores filling cache and writes directly to main memory</li>
+<li><em>Writeback caches delay the writeback to memory, using the dirty bit. We only write to memory after the cache block is evicted. This is more efficient when you update values in the cache before they're evicted</em></li>
+</ul>
+<p>Mapping Functions determine the location in the cache for each memory address</p>
+<ul>
+<li>for any cache, the size of the block must be the same as the number of addressable bits for the main memory<ul>
+<li><em>otherwise we don't have enough information to trace back to the original memory block</em></li>
+<li>each cache mapping just dictates how we choose to format this information</li>
+</ul>
+</li>
+<li>
+<strong>direct mapping</strong> uses a fixed mapping mem block j =&gt; cache block (j mod 128)<ul>
+<li>address is 3 parts; word (offset) selects specific word in a block</li>
+<li>block (index) determines location in cache</li>
+<li>tag ensure block found is correct</li>
+</ul>
+</li>
+<li>
+<strong>fully-associative</strong> allows a block from main memory to map to any location in the cache<ul>
+<li>block field is empty, and consumed by the tag field</li>
+<li>when accessing, each block tag is checked, which corresponds to a block of memory in the main memory</li>
+<li>then the word bits in the cache block decode to the respective word within the main memory block</li>
+</ul>
+</li>
+<li>
+<strong>set associative mapping</strong> uses direct mapping to map memory blocks to a set of cache blocks, think combination of direct and fully associative mapping</li>
+</ul>
+<h5 id="cache-structure">Cache Structure</h5>
+<ul>
+<li>to fetch data from the cache, we use indexing based on the main memory address that the cache intercepts.<ul>
+<li>The first 5 bits of the address will be interpreted as the word bits (n bits to choose from the 2^n words in the block),</li>
+<li>next 10 bits will be the block bits (b bits for 2^b blocks of cache capacity).</li>
+<li>The remaining bits are called tag bits, used to determine correctness of cache hits (for direct caches, multiple memory blocks map to the same cache block)</li>
+</ul>
+</li>
+<li><em>each cache block holds data, along with <strong>tag bits</strong> and a <strong>valid bit</strong>, tag bits for comparison to the tag in the address, while the valid bit state whether the data stored in the cache is valid data (V = 1)</em></li>
+</ul>
+<h5 id="replacement-algorithms">Replacement Algorithms</h5>
+<p>For set-associative and fully-associative caches, a cache miss needs to evict some undetermined block, of which is determined using a replacement algorithm.</p>
+<ul>
+<li>LRU leverages temporal locality by tracking age of cache components, using log2(n) bits for each block (for caches with sets of size n)<ul><li>age is defined as the number of elements who have been accessed more recently than it</li></ul>
+</li>
+<li>FIFO acts as a sort of round robin system</li>
+<li>Random</li>
+</ul>
+<h5 id="cache-performance">Cache performance</h5>
+<p>For <code>C</code> time required to access a block in cache, <code>M</code> time when accessing memory (including miss penalty) and <code>h</code> hit percentage, cache performance is intuitively <code>tavg = (hC + (1-h)M)</code>.</p>
+<p>If we're given M' instead, being the latency for accessing Memory, then the time is <code>tavg = C + (1-h)M'</code> since the time for a miss is equal to the time for a hit, then no matter what, we incur the time taken to access a block from cache, and add extra latency if it's a miss.</p>
+<p>For two caches, intuitively <code>tavg =  h1•C1 + (1-h1)(h2•C2 + (1-h2)M)</code></p>
+<h5 id="solving-cache-problems">Solving Cache Problems</h5>
+<p>Given <code>a</code>-bit addresses, <code>2^a</code> (bytes or words; depending on addressing system) main memory, <code>c</code> byte/word cache size, <code>b</code> bytes/words per cache block. Cache block capacity = <code>c/b</code>. Word bits are first <code>log2(b)</code> bits (rightmost), block bits are next <code>log2(c/b)</code> bits, tag bits are remaining.</p>
+<p><em>For final cache content questions, do the timeline table method, visually updated each cache block with respect to a timeline. Then you can figure out quickly which block is the least recently used</em>.</p>
+<h5 id="virtual-memory-1">Virtual Memory</h5>
+<p>Programs are written using the full address space 2^32, but physical memory capacity is often less than this (2GB for example). Virtual memory populates the rest, storing it on disk</p>
+<h4 id="lab4-isr">Lab4: ISR</h4>
+<ol>
+<li>generate Random delay 5-25s in R6</li>
+<li>display on LED</li>
+<li>Delay of 1s then decrement your ## in R6m then display</li>
+<li>if R4 ≤ 0, fkasg LEDs on and off for 1 sec each until you press the button (ISR)</li>
+</ol>
+<h2 id="part-8-basic-processing">Part 8: Basic Processing</h2>
+<p>CPU has control unit, ALU and registers. Fundamentally, there are 5 steps:</p>
+<ul>
+<li><strong>fetch</strong></li>
+<li><strong>decode</strong></li>
+<li>read <strong>memory</strong>
+</li>
+<li>
+<strong>execute</strong>: perform operation</li>
+<li>store data by <strong>write back</strong>
+</li>
+</ul>
+<p>Processor has hardware to implement every instruction in the ISA.</p>
+<p>The <strong>datapath</strong> of a processor hold a bunch of components that implement the ISA.</p>
+<ul>
+<li>Register file is a set of registers</li>
+<li>ALU</li>
+<li>processor-memory interface for memory and write-back operations</li>
+<li>instruction address generator updates PC</li>
+<li>instruction register</li>
+<li>control circuitry, decides what happens with mux selectors, and regulates flow of data</li>
+</ul>
+<p>Design of Register file:</p>
+<ul><li>you want to be able to select two registers for a clock cycle, and write to at most one register. So we need two corresponding output data. The width of i/o is 32 bits (same as register width) and addresses are log<sub>2</sub>(32) = 5</li></ul>
+<ol>
+<li>Fetch gets whatevers at PC address.</li>
+<li>Decode<ul><li>in ADD R1, R2, R3, Rsrc1 = R2, Rsrc2 = R3</li></ul>
+</li>
+<li>Execute</li>
+</ol>
+<h2 id="part-9-pipelining">Part 9: Pipelining</h2>
+<p>Pipelining allows for concurrent instructions per cycle, with different parts (stages) of the processor</p>
+<ul>
+<li>with 5 stage datapath, only one stage is active in any cycle</li>
+<li>pipeline diagram shows at each clock cycle what stage finished for each instruction is being run</li>
+<li>to implement this we need <strong>interstage buffers</strong> to carry forward information for EACH instruction<ul><li>RA, RB, RM, RY, RZ, IR, PC</li></ul>
+</li>
+<li>also pipelining the control signals</li>
+<li>this allows a new instruction to enter and exit the pipeline every cycle</li>
+</ul>
+<h4 id="issues">Issues</h4>
+<ul>
+<li>Data hazard is a result of a data dependency. Two successive instructions, <code>ADD R1, R2; ADD R3, R1</code>, the second one will decode the wrong value of R1, since the first hasn't writtenback to R1 yet. This can be resolved by stalling the pipeline</li>
+<li>using interstage buffers, check IR for source registers of a new command (before decoding) and check whether there is an older instruction who has the same destination as a source in the current instruction</li>
+<li><em>somethings wrong if there are two of the same stage in the same column (clock cycle) of the pipeline diagram</em></li>
+</ul>
+<p><em>For pipelining problems, be aware of how the register files are being updated. Forwarding is important to understand. Forwarding can be done by adding a mux with the output of one stage, linked to an input of a previous stage to share values. An intermediate register may have a wrong value in it. By adding a mux, we can select the actual correct value from the output of a previous command. In general, we don't want to add a mux in the decode stage since the mux is expensive with time. Adding it to other stages is negligable since they involve memory operations.</em></p>
+<p>A change made by some stage at a given clock cycle is not noticed until the next cycle.</p>
+<pre><code>instr PC R4 RA RM RZ RY
+1F 37c00 1000 - - - - 
+2D 37C04 " 
+3X
+4M
+5W</code></pre>
+<p>Memory Stalls</p>
+<p>Branches alter sequential execution, whose effect is unknown until the execution stage. The pipeline needs to squas the instructions fetched down the wrong path. The time taken is the <strong>penalty</strong></p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

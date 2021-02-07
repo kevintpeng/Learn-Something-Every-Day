@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>choose pivot</title>
+</head>
+<body>
+
+<h2 id="cs-137">CS 137</h2>
+<p>Operator Table</p>
+<table>
+<thead><tr class="header">
+<th>precedence</th>
+<th>operator</th>
+<th>associativity</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>++,-- (post)</td>
+<td>left</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>++,-- (pre)</td>
+<td>left</td>
+</tr>
+<tr class="odd">
+<td>+,- (unary)</td>
+<td>right</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>*,/,%</td>
+<td>left</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>+,- (binary)</td>
+<td>left</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>=,+=,-=,*=,/=</td>
+<td>right</td>
+</tr>
+</tbody>
+</table>
+<p>Left Associativity</p>
+<ul>
+<li>i-j-k ⇔ (i-j)-k</li>
+<li>i<em>j/k ⇔ (i</em>j)/k</li>
+</ul>
+<p>Right Associativity</p>
+<ul>
+<li>a=b=c ⇔ a=(b=c)</li>
+<li>ex: 3+b- ++c ⇔ (3*b) -(++c)</li>
+<li>a+=b+=c ⇔ a+=(b+=c)</li>
+</ul>
+<p>Logical Expressions<br>
+in C: false = 0, true = non-zero</p>
+<ul>
+<li>relational operators: &lt;,&gt;,&gt;=,&lt;=</li>
+<li>equality operators: ==, !=</li>
+<li>logical operators: !, &amp;&amp;, ||</li>
+<li>&amp;&amp; and || use short-circuited evaluation, evaluate the left operand and only evaluates the right operand if needed</li>
+</ul>
+<table>
+<thead><tr class="header">
+<th>operator</th>
+<th>precedence</th>
+<th>associativity</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>!</td>
+<td>same as unary</td>
+<td>right</td>
+</tr>
+<tr class="even">
+<td>relational</td>
+<td>lower than arithmetic</td>
+<td>left</td>
+</tr>
+<tr class="odd">
+<td>equality</td>
+<td>lower than relational</td>
+<td>left</td>
+</tr>
+<tr class="even">
+<td>&amp;&amp;, \</td>
+<td>\</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="assertions">Assertions</h2>
+<p>An assertion is assumed to be true at any given point in a program.</p>
+<pre><code>#include &lt;assert.h&gt;
+
+bool leap(int year){
+    assert(year&gt;1573); //if true, continues. if false, terminates program
+                 //with a message stating file name, line #, function 
+ //name and expression. Mostly for debugging.
+    if(year % 400 ==0)
+}</code></pre>
+<h2 id="separate-compilation">Separate Compilation</h2>
+<p>e.g. power.c</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span> square(<span class="dt">int</span> num) {<span class="cf">return</span> num*num;}
+
+main.c
+<span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span>
+<span class="dt">int</span> square(<span class="dt">int</span> num); <span class="co">//function declaration, with no definition</span>
+
+<span class="dt">void</span> testSquare(<span class="dt">int</span> num){
+    printf(“%d^<span class="dv">4</span> = %d\n”, num, square(num));
+}
+<span class="dt">int</span> main(){
+    testSquare(<span class="dv">4</span>);
+}</code></pre></div>
+<p><code>$ gcc -o powers main.c power.c</code></p>
+<p>order doesn’t matter. Links files together.</p>
+<h3 id="header-files">Header Files</h3>
+<ul>
+<li>declare functions</li>
+<li>
+<p>contains include guards<br>
+e.g. powers.h</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">  <span class="pp">#ifndef POWERS_H </span><span class="co">//if not defined    </span>
+              <span class="co">//That prevent double declaration of any identifiers </span>
+such as types, enums and <span class="dt">static</span> variables
+  <span class="pp">#define POWERS_H</span>
+  <span class="dt">int</span> square(<span class="dt">int</span> num);
+  <span class="pp">#endif</span>
+
+  main.c
+  <span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span>
+  <span class="pp">#include “power.h” </span><span class="co">// convention for non-standard libraries</span></code></pre></div>
+</li>
+</ul>
+<h2 id="sieve-of-erotosthenes">Sieve of Erotosthenes</h2>
+<ul>
+<li>calculate all primes up to n (upper bound)</li>
+<li>
+<p>create a table from 2 to n</p>
+<pre><code>while i &lt;= sqrt(n)
+i is the first number not removed
+remove all multiples of number</code></pre>
+</li>
+</ul>
+<h2 id="sorting">SORTING!</h2>
+<h4 id="insertion-sort">Insertion Sort</h4>
+<pre><code>  for 2..n 
+    move element left into sorted section until the the left is smaller</code></pre>
+<ul><li>Good when almost sorted</li></ul>
+<h4 id="selection-sort">Selection Sort</h4>
+<pre><code>  for 1..n
+    iterate through all remaining elements for smallest and swap with current</code></pre>
+<p>Always quadratic, but minimizes swaps</p>
+<h4 id="bubblesort">Bubblesort</h4>
+<pre><code>  for i=1..n
+    for j=n..(i+1)
+      if a[j] &lt; a[j-1] swap
+    if no swaps, finished</code></pre>
+<p>Best case O(n) linear</p>
+<h4 id="naive-quicksort">Naive Quicksort</h4>
+<ul>
+<li>choose random pivot, swap with start</li>
+<li>partition array, [<p p>p]</p>
+</li>
+<li>
+<p>recurse until sorted<br>
+```</p>
+<h1 id="choose-pivot">choose pivot</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul><li><a href="#header-files">Header Files</a></li></ul>
+</div>
+<p>swap a[1,rand(1,n)]</p>
+</li>
+</ul>
+<h1 id="way-partition">2-way partition</h1>
+<p>k = 1<br>
+for i = 2:n, if a[i] &lt; a[1], swap a[++k,i]<br>
+swap a[1,k]<br>
+→ invariant: a[1..k-1] &lt; a[k] &lt;= a[k+1..n]</p>
+<h1 id="recursive-sorts">recursive sorts</h1>
+<p>sort a[1..k-1]<br>
+sort a[k+1,n]<br>
+```</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

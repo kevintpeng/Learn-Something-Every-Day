@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Security</title>
+</head>
+<body>
+
+<h1 id="security">Security</h1>          <a href="index.html">Back to Web-Dev</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#input-validation">Input Validation</a></li>
+<li><a href="#sql-injection">SQL injection</a></li>
+</ul>
+</div>
+<h3 id="input-validation">Input Validation</h3>
+<ul>
+<li>format checking, limit allowed characters, string lengths, min/max values</li>
+<li>use whitelists, not blacklists</li>
+<li>use Active Record validation</li>
+</ul>
+<h3 id="sql-injection">SQL injection</h3>
+<ul>
+<li>if you parse arbitary input into your SQL query, an attacker can run anything</li>
+<li>avoid this by using parameterized: <code>Project.where("name = ?", params[:name])</code><ul><li>instead of string interpolation</li></ul>
+</li>
+<li>
+<strong>SQLMap</strong> is a tool for checking SQL injections or attacks</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

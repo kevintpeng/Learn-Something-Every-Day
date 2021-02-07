@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>SQS</title>
+</head>
+<body>
+
+<h1 id="sqs">SQS</h1>          <a href="index.html">Back to AWS</a>
+<p><strong>Simple Queue Service</strong> is a message queue system that stores messages as they move between servers</p>
+<ul>
+<li>does not guarantee preservation of order of messages</li>
+<li>acts as a buffer (default 4 days, up to 14), allowing either server to have downtime without loss of messages</li>
+<li>useful especially if processing servers cannot fully handle spiky load, allowing messages to be queued up in high traffic spikes</li>
+<li>
+<strong>visibility timeouts</strong> are configurable periods of time for how much message processing time is allowed before passing the message to a different component for processing</li>
+<li>
+<strong>delay queues</strong> are similar in that they configure a period of time in which a message is unavailable, but different in that the message is invisible in a delay queue</li>
+<li>
+<strong>long polling</strong> is a configuration that can drastically reduce CPU-cycle cost and load by adding a wait period between polls (1 to 20 seconds)</li>
+<li>provides a layer of access control, more fine-grained than IAM (like what content is viewable from a certain account in an SQS queue)</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+          <title>5 Feedback control theory</title>
+</head>
+<body>
+
+<h1 id="feedback-control-theory">5 Feedback control theory</h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul><li><a href="#stability-of-feedback-systems">Stability of feedback systems</a></li></ul>
+</div>
+<ul>
+<li>analyzing existing controlers, in the frequency domain</li>
+<li>noise is all frequencies</li>
+<li>unstable pole-zero cancellation</li>
+</ul>
+<h3 id="stability-of-feedback-systems">Stability of feedback systems</h3>
+<p><img src="img/52circuit.png"></p>
+<ul><li>system has 6 transfer funcitons from <span class="math inline">\((r,d) \times (e, u, y)\)</span>
+</li></ul>
+<p><strong>Definition:</strong> The feedback system is input-output stable if e,u, y are bounding signals whenever exogenous inputs are bounded (all transfer functions are BIBO stable)</p>
+<ul>
+<li>notice in ex 5.2.5 since there are poles, D to E is not stable, so not I/O stable</li>
+<li>when connecting our plant to the controller, P can cancel poles to achieve stability</li>
+</ul>
+<p>We could try to find every possible transfer function in a system, but we want a way to test stability without</p>
+<p><strong>Definition</strong>: the characteristic polynomial of the feedback system is <span class="math inline">\(\pi(s) := N_p N_c + D_p D_c\)</span> is the denominator of the four transfer functions from (r,d) to (e,u)</p>
+<ul><li>if we want to check IO stability, we just need to look at this polynomial!</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

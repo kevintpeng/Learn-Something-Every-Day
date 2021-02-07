@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Graph Theory</title>
+</head>
+<body>
+
+<h1 id="graph-theory">Graph Theory</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#properties-of-graphs">Properties of Graphs</a></li>
+<li><a href="#depth-first-traversals">Depth First Traversals</a></li>
+<li>
+<a href="#self-balancing-binary-search-trees">Self Balancing Binary Search Trees</a><ul><li><a href="#red-black-trees">Red-Black Trees</a></li></ul>
+</li>
+<li><a href="#binary-expression-tree">Binary Expression Tree</a></li>
+</ul>
+</div>
+<p>The study of mathematic structures called graphs. Part of discrete mathematics (study of fundamentally discrete structures, non continuous). Graphs represent a set of objects, where some objects are connected by links. Objects are verticies and links are edges.</p>
+<p>Edges may be directed or undirected (graph of people who met vs. graph of people who know of other people).</p>
+<p>Definition: graph G = (V,E), a set of V vertices or nodes, with a set of E edges, where any given edge is an unordered 2-element subset of V (or a pair of verticies).</p>
+<h2 id="properties-of-graphs">Properties of Graphs</h2>
+<p><strong>Adjancency</strong>: Two eges of a graph are adjacent if they share a common vertex.</p>
+<h2 id="depth-first-traversals">Depth First Traversals</h2>
+<ul>
+<li>
+<strong>in-order</strong> follows the recursive strategy (left, node, right).</li>
+<li>
+<strong>post-order</strong> follows (left subtree, right subtree, then node).</li>
+</ul>
+<h2 id="self-balancing-binary-search-trees">Self Balancing Binary Search Trees</h2>
+<p>Node based BST that automatically keeps its height small, on insert/delete. Desirable since trees take operation time proportional to their height (optimally log(n)).</p>
+<h3 id="red-black-trees">Red-Black Trees</h3>
+<p>Self-balancing binary search tree. Balance is preserved by "painting" each node red or black (extra bit for each node). These nodes must satisfy properties that collectively constrain how unbalanced a tree can become in worst case.<br>
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Red-black_tree_example.svg" alt="Red-black tree"></p>
+<ol>
+<li>A node is either red or black.</li>
+<li>The root is always black. (property for consistency)</li>
+<li>All leaves (NIL) are black. (consistency)</li>
+<li>If a node is red, both children are black. (constraining property)</li>
+<li>Any path from any node to any of its descendant NIL nodes must contain the same number of black nodes. (this is the property that constrains the tree from being unbalanced)<ul>
+<li>the number of black nodes from the root to a node is the node's <strong>black depth</strong><br>
+</li>
+<li>the uniform number of black nodes in all paths from the root to the leaves is the <strong>black height</strong>
+</li>
+</ul>
+</li>
+</ol>
+<p>These imply an important property: <strong>The path from the root to the farthest leaf is no more than twice as long as the path from the root to the nearest leaf.</strong></p>
+<h2 id="binary-expression-tree">Binary Expression Tree</h2>
+<p>Learned this in an interview at startup Drop Loyalty! Specific application of a binary tree used to represent mathematical expressions. The nodes are all binary or unary operations except for the leaves which are values that are operated on. The whole tree represents and expression, or a result if there are no variable values in the expression tree.<br>
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Exp-tree-ex-11.svg" alt="binary expression tree"></p>
+<p>Scheme like representation of the expression tree: (+ (* (+ a b) c) 7) using in-order traversal.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

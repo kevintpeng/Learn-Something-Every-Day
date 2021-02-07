@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem</title>
+</head>
+<body>
+
+<h1 id="cap-theoremhttpsen.wikipedia.orgwikicap_theorem">CAP Theorem](<a href="https://en.wikipedia.org/wiki/CAP_theorem" class="uri">https://en.wikipedia.org/wiki/CAP_theorem</a>
+</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#cap-theorem-in-action">CAP theorem in action</a></li>
+<li>
+<a href="#proof"></a><a href="https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf">Proof</a>
+</li>
+</ul>
+</div>
+<p>)<br>
+States that among the following three properties of systems, it is impossible for a distributed data store to simultaneously provide more than two guarantees;</p>
+<ol>
+<li>
+<strong>Consistency</strong>, every read responds with either the most recent write or an error</li>
+<li>
+<strong>Availability</strong>, every read responds with a non-error, without guaranteeing that it is the most recent write</li>
+<li>
+<strong>Partition tolerance</strong>, the system can continue to operate despite an arbitrary number of messages being dropped or delayed BETWEEN nodes</li>
+</ol>
+<p><a href="https://github.com/aphyr/partitions-post">No distributed systems are safe</a> from network failures, thus CAP theorem implies that a store <a href="https://codahale.com/you-cant-sacrifice-partition-tolerance/">must choose</a> between consistency and availability</p>
+<ul>
+<li>probability of any failure is very high for large systems; it's the (inverse of no failure)^(number of nodes)</li>
+<li>say <code>{A,B,C}</code> is partitioned: <code>{A,B}</code> and <code>{C}</code>. <code>C</code> gets a read request, it must either accept (but A + B could have gotten a more recent write, availability) or refuse (knowing that A and B could have a newer write so you can't guarantee it, consistency)</li>
+<li><em>so the takeaway here is that CAP guarantees apply to the ENTIRE system, in other words both partitions (in the event of network partitioning) need to be able to make these guarantees for them to hold in general</em></li>
+</ul>
+<p>In the absence of network failure, a system can guarantee BOTH consistency and availability</p>
+<h3 id="cap-theorem-in-action">CAP theorem in action</h3>
+<p>ACID chooses consistency over availability</p>
+<p>NoSQL chooses availability over consistency</p>
+<h3 id="proof"><a href="https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf">Proof</a></h3>
+<ul>
+<li>in the asynchronous model (no clocks), it is impossible</li>
+<li>in synchronous, it may be possible</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

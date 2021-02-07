@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Route 53</title>
+</head>
+<body>
+
+<h1 id="route-53">Route 53</h1>          <a href="index.html">Back to AWS</a>
+<div id="TOC">
+
+<ul><li><a href="#alias-records">Alias records</a></li></ul>
+</div>
+<p>See <a href="../Networking/DNS.md">DNS Overview notes</a> first.</p>
+<ul>
+<li>provides domain name registration</li>
+<li>provides hosted name servers, with configurable routing</li>
+<li>health checking automatically to ensure that your application is reachable<ul><li>not triggered by requests, instead run periodically by AWS</li></ul>
+</li>
+<li>
+<strong>hosted zones</strong> are sets of resources kept by route 53<ul>
+<li>private allows records to route internal traffic within a VPC</li>
+<li>public allows records to route internet traffic</li>
+</ul>
+</li>
+<li>
+<strong>routing policies</strong> determine how Amazon Route 53 responds to queries<ul>
+<li>simple is for a single resource</li>
+<li>weighted associates multiple resources with a single DNS name, each receiving a proportional amount of traffic to its relative weight</li>
+<li>latency-based</li>
+<li>failover</li>
+<li>geolocation</li>
+</ul>
+</li>
+</ul>
+<h3 id="alias-records">Alias records</h3>
+<p>These are cool, they function similar to CNAME in that they can be used to point from FQDN to another. Typically, this adds one extra resolution step for the client, but for Alias records, any FQDN within AWS can point to another in AWS, and the resolution steps will be taken server-side, reducing the number of resolution steps needed.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

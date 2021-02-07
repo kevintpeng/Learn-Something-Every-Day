@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Compression -- source</title>
+</head>
+<body>
+
+<h1 id="compression----source">Compression -- <a href="https://en.wikipedia.org/wiki/Data_compression">source</a>
+</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#lossless">Lossless</a><ul><li><a href="#huffman-coding">Huffman Coding</a></li></ul>
+</li>
+<li>
+<a href="#lossy">Lossy</a><ul><li><a href="#video-interframe-vs.-intraframe">Video: Interframe vs. Intraframe</a></li></ul>
+</li>
+</ul>
+</div>
+<p>Encoding information using fewer bits than the original representation.</p>
+<h2 id="lossless">Lossless</h2>
+<ul><li>
+<strong>lossless</strong> compression reduces bits by identifying and reducing statistical redundancy<ul>
+<li>redundancy measures the fractional difference. It is reduced by compression, or increased for checksums</li>
+<li>lossless is revertable</li>
+<li>
+<em>run length encoding</em> takes advantages of consecutive data elements</li>
+<li>LZ77 &amp; LZ78 -- <a href="https://www.cs.duke.edu/courses/spring03/cps296.5/papers/ziv_lempel_1977_universal_algorithm.pdf">TODO</a>
+</li>
+</ul>
+</li></ul>
+<h3 id="huffman-coding">Huffman Coding</h3>
+<p><strong>Prefix Code</strong> is a system which posesses the <em>prefix property</em>, stating that no whole code word in the system is a prefix of any other code word in the system.</p>
+<ul>
+<li>
+<code>{9, 55}</code> and <code>{5, 95}</code> both satisfy, <code>{5, 59}</code> does not</li>
+<li>prefix codes can be used to send messages without needing markers to delimit words, since the prefix property allows unambiguous decoding</li>
+</ul>
+<h2 id="lossy">Lossy</h2>
+<ul><li>
+<strong>lossy</strong> compression reduces bits by removing unnecessary information</li></ul>
+<h3 id="video-interframe-vs.-intraframe">Video: Interframe vs. Intraframe</h3>
+<ul>
+<li>interframe tracks differences between frames<ul><li>high computation, lots of space optimization</li></ul>
+</li>
+<li>intraframe compression works on each frame<ul><li>fast to compute final result, more space needed</li></ul>
+</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

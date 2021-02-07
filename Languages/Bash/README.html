@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Bash</title>
+</head>
+<body>
+
+<h1 id="bash">Bash</h1>          <a href="index.html">Back to Languages/Bash</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#types-of-commands">Types of Commands</a></li>
+<li><a href="#shell-scripting">Shell Scripting</a></li>
+<li><a href="#special-characters">Special Characters</a></li>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#quoting">Quoting</a></li>
+<li><a href="#patterns">Patterns</a></li>
+<li>
+<a href="#tests-and-conditionals">Tests and Conditionals</a><ul>
+<li><a href="#exit-status">Exit Status</a></li>
+<li><a href="#control-operators-and">Control Operators &amp;&amp; and ||</a></li>
+<li><a href="#grouping-statements">Grouping Statements</a></li>
+<li><a href="#conditional-blocks-if-test-and">Conditional Blocks <code>if</code> <code>test</code> and <code>[[</code></a></li>
+<li><a href="#looping">Looping</a></li>
+</ul>
+</li>
+<li>
+<a href="#arrays"></a><a href="http://mywiki.wooledge.org/BashGuide/Arrays">Arrays</a>
+</li>
+<li><a href="#redirection-of-std-io-pipes">Redirection of std I/O + Pipes</a></li>
+<li><a href="#shift">Shift</a></li>
+<li><a href="#signals">Signals</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#structuring-logic">Structuring Logic</a></li>
+<li><a href="#cron-using-crontab">Cron (using crontab)</a></li>
+</ul>
+</div>
+<p>Shells are command interpreters. They are applications that provide users with the ability to give commands or execute batches of commands quickly.</p>
+<p>Almost everything in bash is a <strong>string</strong>. Command names, variable names, contents of variables, filename ...</p>
+<h3 id="types-of-commands">Types of Commands</h3>
+<h4 id="aliases">Aliases</h4>
+<p>Shortened command (only in interactive shells, not in scripts). An alias is a <em>word</em> mapped to a <em>string</em>. <code>alias nmapp="nmap -Pn -A --osscan-limit"</code> then allows you to write:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="fu">nmap</span> -Pn -A --osscan-limit 192.168.0.1
+$ <span class="ex">nmapp</span> 192.168.0.1 <span class="co"># is entirely equivalent</span></code></pre></div>
+<h4 id="functions">Functions</h4>
+<p>More powerful aliases. Unlike aliases, they can be used in scripts. Function contains shell commands and can take arguments and create local variables.</p>
+<ul>
+<li>
+<code>function</code> is a builtin that defines functions, can be omitted in definitions.</li>
+<li><code>FUNCTION () { COMMANDS; }</code></li>
+</ul>
+<h4 id="builtins">Builtins</h4>
+<p>Bash's basic commands like <code>cd</code>, <code>echo</code> ...</p>
+<h4 id="keywords">Keywords</h4>
+<p>Like builtins, with special parsing rules. For example, <code>[</code> is a bash builtin, while <code>[[</code> is a bash keyword. They both test expressions. <code>[ a &lt; b ]</code> evaluates as a redirect of <code>b</code> into <code>[ a ]</code>. <code>[[ a &lt; b ]]</code> tests <code>a &lt; b</code> as a boolean function, <code>&lt;</code> doesn't have its typical meaning when it's used with the extended test <code>[[</code> keyword.</p>
+<h4 id="executables">Executables</h4>
+<p>aka <em>External commands</em> or <em>applications</em>. Often invoked by typing its file path or its name if its location is in the <code>PATH</code> variable (write file paths as <code>/opt/somedir/myprog</code> or <code>./myprog</code> for relative path). <code>PATH</code> is a list of directories. Bash searches through <code>PATH</code> if the name isn't used as a keyword, builtin, or function.</p>
+<h3 id="shell-scripting">Shell Scripting</h3>
+<p>Shell scripts are sequences of shell commands.</p>
+<ol>
+<li>Write script, begin with <code>#!/bin/bash</code><br>
+- this header is called an <strong>interpreter directive</strong> (the <code>#!</code> is a shebang), specifying which shell to use as the interpreter.</li>
+<li>Execute <code>chmod permission script-name</code> setting execution permissions, (permission is 3-digit octal value)</li>
+<li>Execute using <code>sh</code>, <code>bash</code>, <code>./</code>
+</li>
+</ol>
+<pre><code>myvar=5
+echo $myvar
+echo “hello \c”; whoami    # prints the output of cmd
+expr 1 + 3     # evaluates arithmetic
+` execute cmd, ' express literal string, " allows escape 
+read varname     # takes user input, stores in varname
+ls a*.c     # all c files start with letter a
+ls fo?     # all 3 letter files starting with fo</code></pre>
+<h3 id="special-characters">Special Characters</h3>
+<ul>
+<li>
+<code>" "</code> whitespace delimits arguments</li>
+<li>
+<code>$</code> expansion, introduces various types of expansion (it substitutes an expression with its return value)</li>
+<li>
+<code>''</code> single quotes, literal strings with no special characters, no split strings by spaces</li>
+<li>
+<code>""</code> double quotes, preserves spaces, keeps as one string, <strong>allows special characters</strong>.</li>
+<li>
+<code>[[ ]]</code> Test, an evaluation of a conditional expression</li>
+<li>
+<code>!</code> Negate</li>
+<li>
+<code>&gt;&lt;</code> Redirection</li>
+<li>
+<code>|</code> Pipe, output of initial cmd as input to second cmd</li>
+<li>
+<code>;</code> newline, command separator</li>
+<li>
+<code>{}</code> inline group, commands inside braces are treated as if they were one command. (convenient oneline functions)</li>
+<li>
+<code>()</code> subshell group, acts like inline group, but creates a sandbox (executes in a subshell), cannot mutate any data in current shell</li>
+<li>
+<code>(( ))</code> arithmetic epxression, characters such as <code>+</code>,<code>-</code>,<code>*</code>,<code>/</code> are treated as math operators for calculations.</li>
+<li>
+<code>$(( ))</code> arithmetic expansion, similar to arithmetic expression, but the epxression is replaced with the result of the evaluation.</li>
+<li>
+<code>~</code> home directory</li>
+</ul>
+<h3 id="parameters">Parameters</h3>
+<p>A short named space in memory for data retrieval and storage. There three types of parameters, Strings, Integers and Arrays.</p>
+<ul>
+<li>
+<strong>special parameters</strong> are read-only pre-set by BASH. All special parameters need to be <strong>expanded</strong> with <code>$</code>:<br>
+- <code>0</code>, contains the name or path of script<br>
+- <code>1</code> is a <strong>Positional Parameter</strong>, contains first argument passed to script (continues 2,3...)<br>
+- <code>*</code>, expands to all words of all positional parameters. In double quotes, expands to a single string.<br>
+- <code>@</code>, expands to all words of all positional parameters. In double quotes, expands to a list of them as individual words.<br>
+- <code>#</code>, expands to number of parameters<br>
+- <code>?</code>, expands to exit code of most recently completed command<br>
+- <code>$</code> expands to the PID (process ID) of the current shell.<br>
+- <code>!</code> expands to most recent command executed in background<br>
+- <code>_</code> expands to the last argument of the last command executed</li>
+<li>
+<strong>variables</strong> can be assigned a value with <code>varname=value</code>. Some given variables:<br>
+- <code>BASH_VERSION</code>, <code>HOSTNAME</code>, <code>PPID</code> (parent process of this shell), <code>PWD</code>, <code>RANDOM</code> (between 0 and 32767 for every expansion), <code>UID</code>, <code>HOME</code>, <code>PATH</code> (colon separated list of paths for finding commands)<br>
+- <code>local</code> defines a variable only accesible in the scope of definition (within a function)</li>
+</ul>
+<h4 id="variable-types">Variable Types</h4>
+<p>Strings are most common, default type for most things</p>
+<ul>
+<li>Integers can be assigned</li>
+<li>Arrays are indexed list of strings<br>
+- <code>names=([0]="Bob" [1]="Paul")</code> defines array. Notice it maps integers to strings<br>
+- array expansion: <code>cp "${myfiles[@]}" /backups/</code> as list of elements<br>
+- An IFS (Internal Field Separator) can be used to specify character delimeter<br>
+- <code>( IFS=,; echo "Today's contestants are: ${names[*]}" )</code><br>
+- in subshell so default IFS isn't overwritten</li>
+</ul>
+<p><code>declare</code> builtin can be used to limit type of variables being assigned</p>
+<ul><li>
+<code>declare -i VARIABLE=12</code> will declare as a numeric</li></ul>
+<h3 id="quoting">Quoting</h3>
+<p>Quoting removes special meaning of characters and words.</p>
+<ul>
+<li>
+<code>\</code> escapes a single character</li>
+<li>
+<code>''</code> single quotes preserve literal value of each char enclosed</li>
+<li>
+<code>""</code> double quotes preserve literal values except <code>$</code>, <code>\</code> and `` backticks</li>
+</ul>
+<h3 id="patterns">Patterns</h3>
+<p>Patterns are important for selecting filenames. Three kinds of pattern matching. <a href="../Glob%20Patterns.md">Glob Patterns</a> is good for file matching. Regex are used for specific pattern matching, not file matching. <code>=~</code> operator inside <code>[[</code> keyword lets you compare <code>[[ string =~ regex ]]</code> that returns <code>0</code> if true, <code>1</code> if false, <code>2</code> if pattern is invalid.</p>
+<h2 id="tests-and-conditionals">Tests and Conditionals</h2>
+<h3 id="exit-status">Exit Status</h3>
+<p>Every command has an exit code whenever it terminates. Exit code is used by whatever application started it to evaluate whether everything is OK. It's like a return value for every function (int between 0-255). <strong>0 is success</strong> and anything else is some sort of failure (hints at what went wrong). Should always return an exit code using <code>exit</code> builtin.</p>
+<h3 id="control-operators-and">Control Operators &amp;&amp; and ||</h3>
+<p>easiest way of performing actions depending on success is using cointroler operators <code>&amp;&amp;</code> and <code>||</code>. <strong>Conditional execution</strong> is using the <code>AND</code> and <code>OR</code> operators to determine whether the second command should be run. Works as you'd expect, second cmd runs if</p>
+<ul>
+<li>
+<code>&amp;&amp;</code>, first is successful</li>
+<li>
+<code>||</code>, first is not successful</li>
+</ul>
+<p><em>cleaner and more idomatic running code with simple control flow</em>.</p>
+<h3 id="grouping-statements">Grouping Statements</h3>
+<p>Important for complex condition execution statements. <code>{}</code> are used to group statements. <code>grep &amp;&amp; grep &amp;&amp; {rm || {echo error 2&gt;&amp;1; exit 1}}</code> will only print error for rm errors and not grep errors, groups the whole error handling together too.</p>
+<h3 id="conditional-blocks-if-test-and">Conditional Blocks <code>if</code> <code>test</code> and <code>[[</code>
+</h3>
+<p><code>if; then; fi</code> structure for if statements. <code>test</code> or <code>[</code> is used to test things and return exit statuses. <code>[</code> is the same as <code>test</code>, which is a normal command that reads its arguments and evaluates it as a boolean expression. <code>[</code> expands variables like <code>n="my name"</code> to multiple arguments, <code>[ $n = "my name" ]</code> has too many arguemnts since it expands to <code>[ my name = "my name" ]</code>. Correct way is <code>[ "$n" = "my name" ]</code>.</p>
+<p>More advanced version is <code>[[</code>, which includes pattern patching: <code>[[ $filename = *.png ]] &amp;&amp; echo "$filename looks like a PNG file"</code>. <code>[[</code> is not a normal command, it's a <strong>shell keyword</strong> with magical powers.</p>
+<p>Subtlety with <code>=</code> operator; right hand is always evaluated as a pattern unless quoted:</p>
+<pre><code>$ foo=[a-z]* name=lhunath
+$ [[ $name = $foo   ]] &amp;&amp; echo "Name $name matches pattern $foo"
+Name lhunath matches pattern [a-z]*
+$ [[ $name = "$foo" ]] || echo "Name $name is not equal to the string $foo"
+Name lhunath is not equal to the string [a-z]*</code></pre>
+<h3 id="looping">Looping</h3>
+<pre><code>for file in $(ls *.jpg)
+do echo $file
+done</code></pre>
+<p>This parses the results of the command space delimited, so files with spaces will be parsed as separate arguments.</p>
+<p>To fix, use quotations around the subshell to properly delimit arguments:</p>
+<pre><code>for file in "$(ls *.jpg)"
+do echo $file
+done</code></pre>
+<h2 id="arrays"><a href="http://mywiki.wooledge.org/BashGuide/Arrays">Arrays</a></h2>
+<h2 id="redirection-of-std-io-pipes">Redirection of std I/O + Pipes</h2>
+<pre><code>ls &gt; filename     # outputs to filename
+date &gt;&gt; myfile     # outputs to the end of myfile
+cat &lt; myfile     # cat displays myfile
+sort &lt; sname &gt; sorted_names # first sorts sname, then outputs to sorted_names
+ls | less         # output of ls displays in less
+order of operations: reads left to right, cmd take &lt; input before running
+Filter: If cmd accepts input from standard input and produces standard output</code></pre>
+<h2 id="shift">Shift</h2>
+<p><code>shift</code> is a bash builtin, common in scripting</p>
+<ul>
+<li>positional parameters of an argument are repositioned by some number (default 1)</li>
+<li>
+<code>shift</code> will set <code>$1</code> to the value of <code>$2</code> and discard the original value of <code>$1</code>
+</li>
+</ul>
+<h2 id="signals">Signals</h2>
+<p>Signals can end processes, and other things</p>
+<ul>
+<li>
+<code>SIGHUP</code> exits a shell, interactive shells will send this to all child processes (Hangup)</li>
+<li>
+<code>Ctrl+C</code> is an interupt signal, sends <code>SIGINT</code> to the foreground job</li>
+<li>
+<code>SIGKILL</code> kills ps, cannot be caught, blocked, or ignored</li>
+<li>
+<code>SIGTERM</code> terminates</li>
+<li>
+<code>SIGSTOP</code> stops</li>
+</ul>
+<p><code>trap</code> command catches signals, and executes commands</p>
+<ul><li><code>trap [COMMANDS] [SIGNALS]</code></li></ul>
+<h2 id="commands">Commands</h2>
+<pre><code>tail        displays end of file, -20, -25 display -x number of lines
+head        displays start of file
+ps        show processes, `ps aux` shows all</code></pre>
+<h2 id="structuring-logic">Structuring Logic</h2>
+<pre><code>`bc` opens bash cmd line
+if condition
+then
+    cmd # indentation not required
+else
+    cmd
+fi
+conditions: [ bool expression ]
+# expressions [ $i -le 10 ] less, [ $i -eq 5] equal
+-eq equal, -ne not equal, -lt less than, le less-equal, -gt, -ge
+
+for i in 1 2 3 4 5 6 7     # loop from 1-7
+for((i=1;i&lt;=7;i++)) 
+do    # equivalent syntax
+
+# Exit if no args
+if [ $# -eq 0 ]
+then
+echo "Error - Number missing form command line argument"
+echo "Syntax : $0 number"
+echo "Use to print multiplication table for given number"
+exit 1
+fi</code></pre>
+<h4 id="case">Case</h4>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">case</span> word<span class="kw"> in</span>
+  pattern1<span class="kw">)</span>
+     <span class="ex">Statement</span>(s) <span class="ex">to</span> be executed if pattern1 matches
+     <span class="kw">;;</span>
+  pattern2<span class="kw">)</span>
+     <span class="ex">Statement</span>(s) <span class="ex">to</span> be executed if pattern2 matches
+     <span class="kw">;;</span>
+  pattern3<span class="kw">)</span>
+     <span class="ex">Statement</span>(s) <span class="ex">to</span> be executed if pattern3 matches
+     <span class="kw">;;</span>
+<span class="kw">esac</span></code></pre></div>
+<h2 id="cron-using-crontab">Cron (using crontab)</h2>
+<pre><code>min hour day-of-month month d-o-week cmd
+59 12 * * *     # at 12:59 in afternoon, run cmd</code></pre>
+<ul>
+<li><a href="http://www.tldp.org/LDP/Bash-Beginners-Guide/html/index.html">main source</a></li>
+<li><a href="http://mywiki.wooledge.org/">source</a></li>
+<li><a href="https://google.github.io/styleguide/shell.xml">Style Guide</a></li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

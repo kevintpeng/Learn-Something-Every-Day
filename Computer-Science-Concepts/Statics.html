@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Statics -- source</title>
+</head>
+<body>
+
+<h1 id="statics----source">Statics -- <a href="http://misko.hevery.com/2008/12/15/static-methods-are-death-to-testability/">source</a>
+</h1>          <a href="index.html">Back to Computer-Science-Concepts</a>
+<p>Static methods are procedural code. In object-orient programming, mixing in procedural code can make it difficult to test</p>
+<ul>
+<li>dependencies are other objects that are passed in to an object, which makes calls on its dependencies</li>
+<li>in unit testing, dependencies can be mocked so that parts of appications can be instantiated without needing to always test full integration with all its dependencies</li>
+<li>calls to static methods cannot be mocked because they are not instance methods so there is no underlying object to mock<ul><li>once a <code>new</code> operator is called directly, that object cannot be mocked in testing</li></ul>
+</li>
+<li>the <strong>factory method design pattern</strong> is one common way to avoid this, when instantiating objects in code<ul><li>to be clear, this is where a factory is an object, with an instance method <code>Create</code>. Not a static method that acts as a factory</li></ul>
+</li>
+<li>
+<a href="./Dependency-Injection.md"><strong>dependency injection</strong></a> is the pattern used to break static dependencies in objects</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

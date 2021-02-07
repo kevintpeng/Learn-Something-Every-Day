@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Dynamo: Amazon's Highly Available Key-value Store</title>
+</head>
+<body>
+
+<h1 id="dynamo-amazons-highly-available-key-value-store"><a href="http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf">Dynamo: Amazon's Highly Available Key-value Store</a></h1>          <a href="index.html">Back to Research-Papers</a>
+<h1 id="distributedsystems">distributedsystems</h1>
+<p>Distributed data store, used to optimize for some sets of data, where relational patterns would not scale</p>
+<ul>
+<li>simple user preferences, session management, product lists...</li>
+<li>partitioned and replicated data using consistent hashing and object versioning</li>
+</ul>
+<p>The setup is designed to be masterless, and is done through hashing part of the key, the partition key.</p>
+<ul><li>hash value is 128 bits, and all possible hash values form a ring where each node is responsible for a range of these values in the ring<ul><li>this is the token ring</li></ul>
+</li></ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>EBS</title>
+</head>
+<body>
+
+<h1 id="ebs">EBS</h1>          <a href="index.html">Back to AWS</a>
+<p>Block storage, mountable and persistent.</p>
+<ul>
+<li>Network attached to EC2 instances.</li>
+<li>EC2 instance can be EBS-optimized, by having dedicated network throughput for volumes.</li>
+</ul>
+<p>Can snapshot volume state.</p>
+<ul>
+<li>snapshots work iteratively, saving any blocks on the disk that have changed since the last snapshot</li>
+<li>S3 is usually the backend storage service for storing snapshots</li>
+<li>data transfer across regions has cost associated with the one-time operation</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

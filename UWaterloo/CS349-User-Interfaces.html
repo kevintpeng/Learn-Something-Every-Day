@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>User Interfaces</title>
+</head>
+<body>
+
+<h1 id="user-interfaces"><a href="https://www.student.cs.uwaterloo.ca/~cs349/w18/">User Interfaces</a></h1>          <a href="index.html">Back to UWaterloo</a>
+<div id="TOC">
+
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li>
+<a href="#history"></a><a href="https://www.student.cs.uwaterloo.ca/~cs349/w18/lectures/1.2%20History.pdf">History</a>
+</li>
+<li>
+<a href="#windowing-system"></a><a href="https://www.student.cs.uwaterloo.ca/~cs349/w18/lectures/1.3%20Windowing%20Systems.pdf">Windowing system</a>
+</li>
+<li>
+<a href="#drawing"></a><a href="https://www.student.cs.uwaterloo.ca/~cs349/w18/lectures/1.4%20Drawing.pdf">Drawing</a>
+</li>
+<li>
+<a href="#mvc"></a><a href="https://www.student.cs.uwaterloo.ca/~cs349/w18/lectures/3.0%20Model-View-Controller.pdf">MVC</a>
+</li>
+</ul>
+</div>
+<h3 id="summary">Summary</h3>
+<ul><li>batch, conversational, graphical are interface types</li></ul>
+<h3 id="history"><a href="https://www.student.cs.uwaterloo.ca/~cs349/w18/lectures/1.2%20History.pdf">History</a></h3>
+<p>Express intention ot controller, translates to change model, view presents to person to perceive</p>
+<ul>
+<li>
+<strong>interface</strong> is what's presented to the user</li>
+<li>
+<strong>interactions</strong> are the sequence of actions a person expresses</li>
+<li>batch interfaces are like punch cards</li>
+<li>conversational interfaces get feedback during execution, CLI</li>
+<li>GUI</li>
+<li>Recognition over Recall enables discovery of new options</li>
+</ul>
+<h3 id="windowing-system"><a href="https://www.student.cs.uwaterloo.ca/~cs349/w18/lectures/1.3%20Windowing%20Systems.pdf">Windowing system</a></h3>
+<p>Handles I/O, where output is drawing graphically. Provides "low level" input, output and window management capabilities to the OS</p>
+<ul>
+<li>
+<strong>X Windows</strong> is the standard system for <code>*nix</code>
+</li>
+<li>essentially a protocol</li>
+</ul>
+<p>Design Criteria</p>
+<ul>
+<li>display independent</li>
+<li>device independent</li>
+<li>network transparent</li>
+<li>support multiple displays</li>
+<li>overlapping, resizable windows</li>
+<li>extensible</li>
+</ul>
+<p>X Client-server architecture</p>
+<ul>
+<li>separate the UI from the application</li>
+<li>typiclaly runs on an event loop</li>
+</ul>
+<h3 id="drawing"><a href="https://www.student.cs.uwaterloo.ca/~cs349/w18/lectures/1.4%20Drawing.pdf">Drawing</a></h3>
+<p>0,0 is top left</p>
+<p>3 Drawing primatives: pixel, stroke and ergion</p>
+<p><strong>Graphics Context(GC)</strong> holds all options in a structure and is passed to the draw routine</p>
+<ul>
+<li>in X, GC is on the X Server</li>
+<li>fast to switch between contexts since reduced network request size between client and server</li>
+<li>modern systems (OpenGL) have GC, called attribute state</li>
+<li>
+<code>XGCValues</code> in Xlib</li>
+</ul>
+<p><strong>Painter's Algorithm</strong> is a really primitve algorithm to draw more complex shapes (combine, layers)</p>
+<ul>
+<li>to paint, a program needs low level primatives, or high level things like game sprites, buttons, etc..</li>
+<li>bunch of <code>Displayable</code> base class objects, where derived classes are for things you wnat to paiunt</li>
+<li>ordered display list for layers</li>
+<li>other displayables are polylines, text, shapes, clipRectangle</li>
+</ul>
+<h3 id="mvc"><a href="https://www.student.cs.uwaterloo.ca/~cs349/w18/lectures/3.0%20Model-View-Controller.pdf">MVC</a></h3>
+<p>Makes it easier to maintain code by allowing the interface (view or controller) to be easily changed. Makes for better unit testing.</p>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>

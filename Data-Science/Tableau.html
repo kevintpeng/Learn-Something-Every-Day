@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+          <title>Tableau</title>
+</head>
+<body>
+
+<h1 id="tableau">Tableau</h1>          <a href="index.html">Back to Data-Science</a>
+<div id="TOC">
+
+<ul>
+<li>
+<a href="#column-oriented-database-systems"></a><a href="http://nms.csail.mit.edu/~stavros/pubs/tutorial2009-column_stores.pdf">Column-Oriented Database Systems</a>
+</li>
+<li><a href="#tableau-extracts">Tableau Extracts</a></li>
+<li><a href="#optimization">Optimization</a></li>
+</ul>
+</div>
+<h3 id="column-oriented-database-systems"><a href="http://nms.csail.mit.edu/~stavros/pubs/tutorial2009-column_stores.pdf">Column-Oriented Database Systems</a></h3>
+<ul>
+<li>Row-store have all associated data in a tuple, making it easy to add/modify records</li>
+<li>Column-stores have all data points as separate entries, storing them individually meaning we won't make unecessary reads</li>
+<li>provides heavy optimization for complex queries on wide databases<ul>
+<li>less reads since we might only read a few columns instead of hundreds</li>
+<li>column-stores can optimize for compression (more consistent formatting so less entropy)</li>
+<li>sorted columns compress better, range queries are faster (since the data can be stored sequentially)</li>
+<li>performance benefits from clustered indexing</li>
+</ul>
+</li>
+</ul>
+<h3 id="tableau-extracts">Tableau Extracts</h3>
+<p>Tableau Data Extracts are a compressed set of files that represent a data table from our data source, for the purpose of visualization in Tableau.</p>
+<ul>
+<li>TDE's are heavily optimized to work with large datasets using low RAM and reduced Disk</li>
+<li>TDE's have a file for each column (file of data elements) + metadata file(s)</li>
+<li>TDE is a single file that contains many individual <a href="https://en.wikipedia.org/wiki/Memory-mapped_file">memory-mapped files</a>, composed of column and metadata files</li>
+<li>compression is not general file compression, it's run length encoding and dictionary compression so no need for decompression when loading into memory</li>
+</ul>
+<p>Compressed snapshot of data stored on disk - saved subsets of data sources for performance optimization</p>
+<ul>
+<li>can add functionality to data filtering</li>
+<li>extracts can perform full refreshes or incremental refreshes that add rows that are new since the previous refresh</li>
+<li>when a data extract is created, the structure for the extract is first defined, with a searate file for each column in the underling source</li>
+<li>TDE compression is separate from file compression, no decompression to load into memory<ul><li>uses dictionar compression and run length encoding</li></ul>
+</li>
+</ul>
+<h3 id="optimization">Optimization</h3>
+<ul>
+<li>network speeds between machines are a bottleneck</li>
+<li>server hosted extracts will be faster</li>
+<li>Individual row pull speed may still be an issue, depending on the query setup (Subqueries in the SELECT items, for example). Try landing the data to a table temporarily (or permanently, reloaded with an sproc) to see the speed difference.</li>
+<li>Bringing down the number of columns, <strong>especially text columns</strong> will definitely speed up the query significantly.</li>
+</ul>
+    <div id="footer">
+      Notes by <a href="https://github.com/kevintpeng">Kevin Peng</a>, Google intern.<br>
+      Formerly Riot Games, Bloomberg, Apple &amp; Shopify.<br>
+      Connect with me on <a href="https://www.linkedin.com/in/kevintpeng/">LinkedIn</a>.
+    </div>
+</body>
+</html>
