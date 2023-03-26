@@ -22,3 +22,11 @@ https://medium.com/programming-lite/android-core-jvm-dvm-art-jit-aot-855039a9a8f
 - JVM is stack-based, DVM is register based (designed for low mem)
 - JVMs are usually shared across apps. DVMs are created one-to-one with apps.
 - JVMs run JAR files. DVMs run APKs.
+
+### Hareware Abstraction Layer
+- https://source.android.com/docs/core/architecture/hal
+  - where Android framework ends and vendor code begins
+  - interface written in HIDL provided to vendors to implement for their specific hardware.
+- https://source.android.com/docs/core/architecture/hal/framework-testing
+  - HIDL HALs guarantee Android core system is backward compatible. Vendor Test Suite VTS ensures that all vendor's HALs work as expected
+
