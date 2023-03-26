@@ -30,3 +30,11 @@ https://medium.com/programming-lite/android-core-jvm-dvm-art-jit-aot-855039a9a8f
 - https://source.android.com/docs/core/architecture/hal/framework-testing
   - HIDL HALs guarantee Android core system is backward compatible. Vendor Test Suite VTS ensures that all vendor's HALs work as expected
 
+### Android libraries
+
+https://developer.android.com/studio/projects/android-library
+- similar to app modules: instead of compiling to .apk, it is compiled to .aar. 
+- both contain src code, resource files (layouts, drawables), manifest.
+- .aar can be included as a dependency for an Android app module.
+- .aars can contain c/C++ libs, for app modules.
+- compared to .jars, .jars cannot have resource files.
